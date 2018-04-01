@@ -1,7 +1,7 @@
 import datetime as dt
 
 from decouple import config
-from sqlalchemy import create_engine, Column, Boolean, Date, DateTime, Integer, JSON, String, Text, UniqueConstraint
+from sqlalchemy import create_engine, Column, Boolean, Date, DateTime, Integer, String, Text, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 
 DeclarativeBase = declarative_base()
