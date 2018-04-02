@@ -23,7 +23,6 @@ class SpCampinas(scrapy.Spider):
                 if year == today.year and month > today.month:
                     continue
                 url = self.selector_url.format(month, year)
-                print(year, month, url)
                 yield scrapy.Request(url, self.parse_month_page)
 
 
@@ -36,7 +35,7 @@ class SpCampinas(scrapy.Spider):
             dia = diario.css('::text').extract_first()
             date = parse(f'{dia} {mesAno}', languages=['pt']).date()
             url = f'{self.sp_campinas_url}{link}'
-            
+            # campinas does not have neither extra edition nor explicit power division (one pdf handles both)
             is_extra_edition = False
             power = 'executive'
             items.append(
@@ -46,31 +45,7 @@ class SpCampinas(scrapy.Spider):
                     is_extra_edition=is_extra_edition,
                     municipality_id=self.MUNICIPALITY_ID,
                     scraped_at=dt.datetime.utcnow(),
-                    power=power,
+                    power=power
                 )
             )
         return items
-
-        #links = response.css('#conteudo a')
-        #for link in links:
-        #    url = link.css('::attr(href)').extract_first()
-        #    if url[-4:] != '.pdf':
-        #        continue
-        #    
-        #    url = response.urljoin(url)
-        #    power = 'executive' if 'executivo' in url.lower() else 'legislature'
-        #    date = link.css('::text').extract_first()
-        #    is_extra_edition = 'extra' in date.lower()
-        #    date = parse(date.split('-')[0], languages=['pt']).date()
-        #    items.append(
-        #        Gazette(
-        #            date=date,
-        #            file_urls=[url],
-        #            is_extra_edition=is_extra_edition,
-        #            municipality_id=self.MUNICIPALITY_ID,
-        #            scraped_at=dt.datetime.utcnow(),
-        #            power=power,
-        #        )
-        #    )
-        #print(items)
-        return []
