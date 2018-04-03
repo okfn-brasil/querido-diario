@@ -21,7 +21,7 @@ class SpCampinas(scrapy.Spider):
         for year in range(2015, next_year):
             for month in range(1, 13):
                 if year == today.year and month > today.month:
-                    continue
+                    return
                 url = self.selector_url.format(month, year)
                 yield scrapy.Request(url, self.parse_month_page)
 
