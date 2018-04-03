@@ -18,7 +18,7 @@ class SpCampinas(scrapy.Spider):
     def parse(self, response):
         today = dt.date.today()
         next_year = today.year + 1
-        for year in range(2018, next_year):
+        for year in range(2015, next_year):
             for month in range(1, 13):
                 if year == today.year and month > today.month:
                     continue
@@ -28,15 +28,15 @@ class SpCampinas(scrapy.Spider):
 
     def parse_month_page(self, response):
         items = []
-        mesAno = response.css(".tabelaDiario:first-child tr th:nth-child(2)::text").extract_first()
-        diarios = response.css(".tabelaDiario:first-child tr td a")
-        for diario in diarios:
-            link = diario.css('::attr(href)').extract_first().replace('../', '')
-            dia = diario.css('::text').extract_first()
-            date = parse(f'{dia} {mesAno}', languages=['pt']).date()
-            url = f'{self.sp_campinas_url}{link}'
-            # campinas does not have neither extra edition nor explicit power division (one pdf handles both)
-            is_extra_edition = False
+        month_year = response.css(".tabelaDiario:first-child tr th:nth-child(2)::text").extract_first() # "janeiro 2018"
+        links = response.css(".tabelaDiario:first-child tr td a")
+        for link in links:
+            url = link.css('::attr(href)').extract_first().replace('../', '')
+            day = link.css('::text').extract_first()
+            date = parse(f'{day} {month_year}', languages=['pt']).date()
+            url = f'{self.sp_campinas_url}{url}'
+
+            is_extra_edition = False # campinas does not have extra edition nor explicit power division (one pdf handles both)
             power = 'executive'
             items.append(
                 Gazette(
