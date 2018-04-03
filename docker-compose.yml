@@ -16,3 +16,8 @@ services:
     volumes:
       - ./data:/mnt/data
       - ./data_collection:/mnt/code
+
+  processing:
+    build: processing
+    volumes:
+      - ./processing:/mnt/code
