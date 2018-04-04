@@ -21,5 +21,8 @@ services:
 
   processing:
     build: processing
+    depends_on:
+      - postgres
     volumes:
+      - ./database:/mnt/lib/database
       - ./processing:/mnt/code
