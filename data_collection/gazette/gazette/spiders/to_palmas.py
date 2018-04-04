@@ -9,9 +9,6 @@ last_page_number_xpath = '//div[@class="paginacao"]/ul[@class="pagination"]/li[l
 
 
 class ToPalmasSpider(scrapy.Spider):
-    # pode ser obtido na coluna 'Codmundv'
-    # do arquivo
-    # ftp://geoftp.ibge.gov.br/organizacao_do_territorio/redes_e_fluxos_geograficos/gestao_do_territorio/bases_de_dados/ods/Base_de_dados_dos_municipios.ods
     MUNICIPALITY_ID = '1721000'
     name = 'to_palmas'
     allowed_domains = ['diariooficial.palmas.to.gov.br',
