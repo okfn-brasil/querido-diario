@@ -7,7 +7,7 @@ import scrapy
 from gazette.items import Gazette
 
 
-class SpCampinas(scrapy.Spider):
+class SpCampinasSpider(scrapy.Spider):
     MUNICIPALITY_ID = '3509502'
     name = 'sp_campinas'
     allowed_domains = ['campinas.sp.gov.br']
