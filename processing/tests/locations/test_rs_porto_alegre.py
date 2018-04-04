@@ -1,9 +1,9 @@
-import unittest
+from unittest import TestCase
 
-from locations.rs_porto_alegre import RsPortoAlegre
+from gazette.locations.rs_porto_alegre import RsPortoAlegre
 
 
-class TestRsPortoAlegre(unittest.TestCase):
+class TestRsPortoAlegre(TestCase):
 
     def setUp(self):
         path = 'tests/fixtures/rs_porto_alegre.txt'

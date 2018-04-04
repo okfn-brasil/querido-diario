@@ -1,0 +1,4 @@
+ipdb==0.11
+psycopg2-binary==2.7.4
+python-decouple==3.1
+SQLAlchemy==1.2.5
