@@ -1,10 +1,10 @@
 import os
 import subprocess
 
+from database.models import Gazette, db_connect, create_gazettes_table
 from sqlalchemy.orm import sessionmaker
 
 from gazette.settings import FILES_STORE
-from gazette.models import Gazette, db_connect, create_gazettes_table
 
 
 class PdfParsingPipeline:

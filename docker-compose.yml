@@ -1,11 +1,5 @@
 version: "3"
 services:
-  postgres:
-    env_file:
-      - .env
-    image: postgres:alpine
-    ports:
-      - 5432:5432
 
   data_collection:
     build: data_collection
@@ -16,6 +10,14 @@ services:
     volumes:
       - ./data:/mnt/data
       - ./data_collection:/mnt/code
+      - ./database:/mnt/lib/database
+
+  postgres:
+    env_file:
+      - .env
+    image: postgres:alpine
+    ports:
+      - 5432:5432
 
   processing:
     build: processing
