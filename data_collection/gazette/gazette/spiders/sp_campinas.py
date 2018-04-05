@@ -36,8 +36,8 @@ class SpCampinasSpider(scrapy.Spider):
             date = parse(f'{day} {month_year}', languages=['pt']).date()
             url = f'{self.sp_campinas_url}{url}'
 
-            is_extra_edition = False # campinas does not have extra edition nor explicit power division (one pdf handles both)
-            power = 'executive'
+            is_extra_edition = False
+            power = 'executive_legislature'
             items.append(
                 Gazette(
                     date=date,
