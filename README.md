@@ -18,6 +18,16 @@ $ docker-compose run data_collection \
     scrapy crawl rs_porto_alegre
 ```
 
+The following snippet will extract bidding exemptions from the city of Porto Alegre (RS):
+
+```python
+from gazette.data.gazette_update import GazetteUpdate
+from gazette.data.section_parsing import SectionParsing
+
+gazette_update = GazetteUpdate()
+gazette_update(SectionParsing)
+```
+
 ## Running the test suite
 
 ```
