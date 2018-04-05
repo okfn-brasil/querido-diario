@@ -23,6 +23,8 @@ services:
     build: processing
     depends_on:
       - postgres
+    env_file:
+      - .env
     volumes:
       - ./database:/mnt/lib/database
       - ./processing:/mnt/code

@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from database.models import Gazette, db_connect, create_gazettes_table
+from database.models import Gazette, db_connect, create_tables
 from sqlalchemy.orm import sessionmaker
 
 from gazette.settings import FILES_STORE
@@ -30,7 +30,7 @@ class PostgreSQLPipeline(object):
 
     def __init__(self):
         engine = db_connect()
-        create_gazettes_table(engine)
+        create_tables(engine)
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):

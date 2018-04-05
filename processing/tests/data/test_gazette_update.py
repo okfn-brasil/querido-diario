@@ -7,7 +7,7 @@ from gazette.data.gazette_update import GazetteUpdate
 class TestGazetteUpdate(TestCase):
 
     def setUp(self):
-        self.subject = GazetteUpdate('4314902')
+        self.subject = GazetteUpdate()
 
     @patch.object(GazetteUpdate, 'filtered_rows')
     @patch.object(GazetteUpdate, 'session')
@@ -16,7 +16,7 @@ class TestGazetteUpdate(TestCase):
         self.subject(executor)
         executor.return_value.update.assert_called_with(filtered_rows())
 
-    @patch('gazette.data.gazette_update.create_gazettes_table')
+    @patch('gazette.data.gazette_update.create_tables')
     @patch('gazette.data.gazette_update.db_connect')
     @patch('gazette.data.gazette_update.sessionmaker')
     @patch('gazette.data.gazette_update.text')
@@ -25,13 +25,13 @@ class TestGazetteUpdate(TestCase):
         self.subject(executor)
         sessionmaker.return_value.return_value.commit.assert_called_with()
 
-    @patch('gazette.data.gazette_update.create_gazettes_table')
+    @patch('gazette.data.gazette_update.create_tables')
     @patch('gazette.data.gazette_update.db_connect')
     @patch('gazette.data.gazette_update.sessionmaker')
     @patch('gazette.data.gazette_update.text')
-    def test_session_creates_table(self, _text, _maker, _db, create_gazettes_table):
+    def test_session_creates_tables(self, _text, _maker, _db, create_tables):
         self.subject.session()
-        create_gazettes_table.assert_called()
+        create_tables.assert_called()
 
     @patch('gazette.data.gazette_update.text')
     @patch.object(GazetteUpdate, 'session')

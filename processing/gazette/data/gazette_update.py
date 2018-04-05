@@ -1,6 +1,6 @@
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
-from database.models import Gazette, db_connect, create_gazettes_table
+from database.models import Gazette, db_connect, create_tables
 
 
 class GazetteUpdate:
@@ -12,19 +12,18 @@ class GazetteUpdate:
     by an Executor class, injected when calling the `__call__` method.
     """
 
-    def __init__(self, location):
-        self.location = location
+    def __init__(self):
         self._session = None
 
     def session(self):
         if not self._session:
             engine = db_connect()
-            create_gazettes_table(engine)
+            create_tables(engine)
             self._session = sessionmaker(bind=engine)()
         return self._session
 
     def __call__(self, executor_cls):
-        executor = executor_cls(self.location)
+        executor = executor_cls(self.session())
         rows = self.filtered_rows(executor.condition())
         executor.update(rows)
         self.session().commit()
