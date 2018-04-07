@@ -13,6 +13,7 @@ class ToPalmasSpider(scrapy.Spider):
     name = 'to_palmas'
     allowed_domains = ['diariooficial.palmas.to.gov.br',
                        'legislativo.palmas.to.gov.br']
+    to_palmas_url = 'http://diariooficial.palmas.to.gov.br/todos-diarios/?page={page_number}'
     start_urls = ['http://diariooficial.palmas.to.gov.br/todos-diarios/']
 
     def parse(self, response):
@@ -22,14 +23,13 @@ class ToPalmasSpider(scrapy.Spider):
         last_page_number = int(last_page_number_str)
 
         for page_number in range(1, last_page_number + 1):
-            url = 'http://diariooficial.palmas.to.gov.br/todos-diarios/?page={page_number}'.format(
+            url = self.to_palmas_url.format(
                 page_number=page_number)
 
             yield scrapy.Request(url=url, callback=self.parse_page)
 
     def parse_page(self, response):
 
-        items = []
         li_list = response.css('div.diario-content-todos > ul > li')
         for li in li_list:
             edicao, data = li.xpath(
@@ -47,7 +47,6 @@ class ToPalmasSpider(scrapy.Spider):
                 file_url=pdf_url,
                 is_extra_edition=False
             )
-            items.append(gazette_object)
             xpath_suplementos = li.xpath('.//*[@id="btn_baixar_titulo"]')
             for xpath_suplemento in xpath_suplementos:
                 suplemento_url = xpath_suplemento.xpath(
@@ -60,13 +59,14 @@ class ToPalmasSpider(scrapy.Spider):
                 # suplemento_nome = xpath_suplemento.xpath(
                 #     './text()'
                 # ).extract_first()
-                gazette_object = self.create_gazette_object(
+
+                gazette_object_extra = self.create_gazette_object(
                     date=data_publicacao,
                     file_url=suplemento_pdf_url,
                     is_extra_edition=True
                 )
-                items.append(gazette_object)
-        return items
+                yield gazette_object_extra
+            yield gazette_object
 
     def create_gazette_object(self, date, file_url, is_extra_edition=False, scraped_at=None, power='executive'):
         if not scraped_at:
