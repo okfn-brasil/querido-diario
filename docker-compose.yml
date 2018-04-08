@@ -28,3 +28,10 @@ services:
     volumes:
       - ./database:/mnt/lib/database
       - ./processing:/mnt/code
+    
+  web:
+    build: web
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web:/mnt/code
