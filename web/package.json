@@ -5,7 +5,7 @@
   "author": "Irio Musskopf",
   "private": true,
   "scripts": {
-    "dev": "nuxt -H 0.0.0.0",
+    "dev": "nuxt -H 0.0.0.0 -p 8080",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

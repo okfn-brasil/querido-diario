@@ -13,7 +13,7 @@ The goal of this same project is to upgrade **Diário Oficial** to the year when
 ## Setup
 
 ```
-$ cp .env.sample .env
+$ cp .env.example .env
 $ docker-compose run data_collection \
     scrapy crawl rs_porto_alegre
 ```
