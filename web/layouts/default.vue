@@ -1,52 +1,57 @@
 <template>
   <div>
+    <navbar/>
+
+    <section class="hero is-medium is-gapless hero-main-section">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-5">
+              <img src="/hero_logo.png" alt="Operação Serenata de Amor" class="hero-logo">
+            </div>
+          </div>
+          <h1 class="title">Diários Oficiais</h1>
+        </div>
+      </div>
+    </section>
+
     <nuxt/>
   </div>
 </template>
 
 <style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+body {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 28px;
 }
 
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
+h1,
+h2 {
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+p {
+  margin-bottom: 30px;
 }
 
-.button--green:hover {
+.hero-main-section {
+  background-image: url(/static/bg.gif);
+  background-size: cover;
+}
+
+.hero .title {
   color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+  font-size: 4rem;
 }
 </style>
+
+<script>
+import Navbar from '~/components/Navbar.vue'
+
+export default {
+  components: {
+    Navbar,
+  }
+}
+</script>
