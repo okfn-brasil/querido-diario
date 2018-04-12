@@ -22,28 +22,30 @@
 
     <div class="section">
       <div class="container">
-        <h2>Todas dispensas de licitação desde 2015</h2>
+        <h2 id="bidding-exemptions">Todas dispensas de licitação desde 2015</h2>
 
-        <table class="table is-fullwidth">
+        <table class="table is-fullwidth is-striped is-hoverable">
           <thead>
             <tr>
               <th><abbr title="Data de publicação oficial">Data</abbr></th>
               <th><abbr title="Órgão responsável pela compra">Órgão</abbr></th>
+              <th></th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th><abbr title="Data de publicação oficial">Data</abbr></th>
               <th><abbr title="Órgão responsável pela compra">Órgão</abbr></th>
+              <th></th>
             </tr>
           </tfoot>
           <tbody>
             <tr v-for="item in biddingExemptions" :key="item.id">
-              <td>{{ item.gazette.date }}</td>
+              <td>{{ new Date(item.gazette.date).toLocaleDateString('pt-BR') }}</td>
               <td v-if="item.gazette.power == 'executive'">Prefeitura de Porto Alegre</td>
               <td v-else-if="item.gazette.power == 'legislature'">Câmara Municipal de Porto Alegre</td>
               <td>
-                <button type="button" class="button is-info">
+                <button type="button" class="button is-info" @click="openModal(item)">
                   Mais informações
                 </button>
               </td>
@@ -52,33 +54,38 @@
         </table>
       </div>
     </div>
-
-    <!-- <div class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio aliquam similique obcaecati ipsam soluta iusto commodi veniam delectus explicabo rerum fugiat, iste beatae exercitationem mollitia, non eaque sit minima temporibus.
-        </p>
-      </div>
-      <button class="modal-close is-large" aria-label="close"></button>
-    </div> -->
   </div>
 </template>
 
 <style>
+.button.is-info {
+  background-color: #43007f;
+}
 
+.button.is-info:hover {
+  background-color: #E6E6E6;
+  color: #43007f;
+}
 </style>
 
 <script>
 import axios from 'axios'
 import { mapState } from 'vuex'
 
+const BIDDING_EXEMPTIONS_API_URL = process.env.API_URL +
+  '/bidding_exemptions?select=*,gazette{date,file_url,is_extra_edition,power}'
+
 export default {
   computed: {
     ...mapState(['biddingExemptions']),
   },
+  methods: {
+    openModal: function(biddingExemption) {
+      this.$store.commit('openModal', biddingExemption)
+    }
+  },
   async fetch ({ store, params }) {
-    let results = await axios.get('http://api:3000/bidding_exemptions?select=*,gazette{date,is_extra_edition,file_url}')
+    let results = await axios.get(BIDDING_EXEMPTIONS_API_URL)
     store.commit('updateBiddingExemptions', results)
   }
 }

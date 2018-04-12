@@ -4,7 +4,7 @@
       <div class="container">
         <div class="navbar-brand">
           <nuxt-link to="/" class="navbar-item">
-            <img src="/logo.png" alt="Operação Serenata de Amor" class="navbar-logo">
+            <img src="~/assets/logo.png" alt="Operação Serenata de Amor" class="navbar-logo">
           </nuxt-link>
 
           <a role="button" class="navbar-burger" v-bind:class="{ 'is-active': isActive }" aria-label="menu" aria-expanded="false" @click="togglMenu">
@@ -15,8 +15,8 @@
         </div>
         <div class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
           <div class="navbar-end">
-            <a class="navbar-item">
-              GitHub
+            <a class="navbar-item" href="#bidding-exemptions">
+              Dispensas de licitação
             </a>
           </div>
         </div>
@@ -32,6 +32,10 @@
 <style>
 .notification {
   text-transform: uppercase;
+}
+
+.notification a:not(.button):hover {
+  color: #E6E6E6;
 }
 
 .navbar-logo {

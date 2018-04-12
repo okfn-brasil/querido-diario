@@ -3,12 +3,21 @@ import Vuex from 'vuex'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-        biddingExemptions: []
+      biddingExemption: {},
+      biddingExemptions: [],
+      isModalActive: false,
     },
     mutations: {
-        updateBiddingExemptions (state, { data }) {
-            state.biddingExemptions = data
-      }
+      closeModal (state) {
+        state.isModalActive = false
+      },
+      openModal (state, biddingExemption) {
+        state.biddingExemption = biddingExemption
+        state.isModalActive = true
+      },
+      updateBiddingExemptions (state, { data }) {
+        state.biddingExemptions = data
+      },
     }
   })
 }
