@@ -43,6 +43,7 @@ services:
     
   web:
     build: web
+    command: ["npm", "run", "dev"]
     depends_on:
       - api
     env_file:
