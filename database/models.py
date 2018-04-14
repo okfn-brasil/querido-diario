@@ -22,6 +22,7 @@ class BiddingExemption(DeclarativeBase):
     id = Column(Integer, primary_key=True)
     data = Column('data', JSONB)
     source_text = Column('source_text', Text)
+    date = Column('date', Date)
     created_at = Column('created_at', DateTime, default=dt.datetime.utcnow)
     gazette = relationship('Gazette', back_populates='bidding_exemptions')
     gazette_id = Column(Integer, ForeignKey('gazettes.id'))

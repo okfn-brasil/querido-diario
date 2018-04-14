@@ -21,10 +21,11 @@ class SectionParsing:
             gazette.is_parsed = True
 
     def update_bidding_exemptions(self, gazette, parser):
-        parsed_exceptions = parser.bidding_exemptions()
-        if parsed_exceptions:
+        parsed_exemptions = parser.bidding_exemptions()
+        if parsed_exemptions:
             for record in gazette.bidding_exemptions:
                 self.session.delete(record)
-            for attributes in parsed_exceptions:
+            for attributes in parsed_exemptions:
                 record = BiddingExemption(**attributes)
+                record.date = gazette.date
                 gazette.bidding_exemptions.append(record)

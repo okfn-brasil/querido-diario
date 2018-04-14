@@ -29,21 +29,27 @@
             <tr>
               <th><abbr title="Data de publicação oficial">Data</abbr></th>
               <th><abbr title="Órgão responsável pela compra">Órgão</abbr></th>
+              <th>Município</th>
+              <th>Descrição</th>
               <th></th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-              <th><abbr title="Data de publicação oficial">Data</abbr></th>
               <th><abbr title="Órgão responsável pela compra">Órgão</abbr></th>
+              <th><abbr title="Data de publicação oficial">Data</abbr></th>
+              <th>Município</th>
+              <th>Descrição</th>
               <th></th>
             </tr>
           </tfoot>
           <tbody>
             <tr v-for="item in biddingExemptions" :key="item.id">
-              <td>{{ new Date(item.gazette.date).toLocaleDateString('pt-BR') }}</td>
-              <td v-if="item.gazette.power == 'executive'">Prefeitura de Porto Alegre</td>
-              <td v-else-if="item.gazette.power == 'legislature'">Câmara Municipal de Porto Alegre</td>
+              <td>{{ new Date(item.date).toLocaleDateString('pt-BR') }}</td>
+              <td v-if="item.gazette.power == 'executive'">Prefeitura</td>
+              <td v-else-if="item.gazette.power == 'legislature'">Câmara Municipal</td>
+              <td>Porto Alegre</td>
+              <td>Fornecimento e Instalação de Toldo na sede do PCA Leste no bicicletário localizado na sede da Rua João Neves da Fontoura.</td>
               <td>
                 <button type="button" class="button is-info" @click="openModal(item)">
                   Mais informações
@@ -73,7 +79,9 @@ import axios from 'axios'
 import { mapState } from 'vuex'
 
 const BIDDING_EXEMPTIONS_API_URL = process.env.API_URL +
-  '/bidding_exemptions?select=*,gazette{date,file_url,is_extra_edition,power}'
+  '/bidding_exemptions' +
+  '?select=*,gazette{file_url,is_extra_edition,power}' +
+  '&order=date.desc'
 
 export default {
   computed: {
