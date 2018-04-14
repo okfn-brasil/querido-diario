@@ -28,8 +28,6 @@ services:
     image: postgres:alpine
     ports:
       - 5432:5432
-    volumes:
-      - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
 
   processing:
     build: processing
