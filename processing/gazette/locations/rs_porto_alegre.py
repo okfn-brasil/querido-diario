@@ -12,7 +12,7 @@ class RsPortoAlegre:
         return self.text.split(self.END_OF_PAGE_MARKER)[:-1]
 
     def text_sections(self):
-        return re.split(r'\n{3,}', self._contents())
+        return re.split(r'\n{3,}', self._source_text())
 
     def bidding_exemption_sections(self):
         return [
@@ -48,8 +48,8 @@ class RsPortoAlegre:
             lines[index] = re.sub(r'\s{2,}', ' ', line.strip())
         return dict(zip(lines[0::2], lines[1::2]))
 
-    def _contents(self):
-        contents = ''
+    def _source_text(self):
+        source_text = ''
         for page in self.pages():
-            contents += '\n'.join(page.split('\n')[3:-2])
-        return contents
+            source_text += '\n'.join(page.split('\n')[3:-2])
+        return source_text

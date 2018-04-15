@@ -10,14 +10,14 @@ from gazette.settings import FILES_STORE
 class PdfParsingPipeline:
 
     def process_item(self, item, spider):
-        item['contents'] = self.pdf_contents(item)
+        item['source_text'] = self.pdf_source_text(item)
         for key, value in item['files'][0].items():
             item[f'file_{key}'] = value
         item.pop('files')
         item.pop('file_urls')
         return item
 
-    def pdf_contents(self, item):
+    def pdf_source_text(self, item):
         pdf_path = os.path.join(FILES_STORE, item['files'][0]['path'])
         command = f'pdftotext -layout {pdf_path}'
         subprocess.run(command, shell=True, check=True)

@@ -16,7 +16,7 @@ class SectionParsing:
             municipality = MUNICIPALITIES.get(gazette.municipality_id)
             if municipality:
                 parsing_cls = getattr(locations, municipality)
-                parser = parsing_cls(gazette.contents)
+                parser = parsing_cls(gazette.source_text)
                 self.update_bidding_exemptions(gazette, parser)
             gazette.is_parsed = True
 

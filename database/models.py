@@ -31,7 +31,7 @@ class BiddingExemption(DeclarativeBase):
 class Gazette(DeclarativeBase):
     __tablename__ = 'gazettes'
     id = Column(Integer, primary_key=True)
-    contents = Column('contents', Text)
+    source_text = Column('source_text', Text)
     date = Column('date', Date)
     is_extra_edition = Column('is_extra_edition', Boolean)
     is_parsed = Column('is_parsed', Boolean, default=False)
