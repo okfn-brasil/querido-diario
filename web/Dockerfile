@@ -1,11 +1,17 @@
-FROM node:slim
+FROM node:9.11.1-slim
 
-RUN npm install --quiet --global vue-cli
+ENV HOME=/mnt/code
+ENV HOST 0.0.0.0
+ENV PORT 8080
 
-WORKDIR /mnt/code
-RUN npm install -g nuxt
-COPY package*.json /mnt/code/
+RUN npm install --quiet --global nuxt vue-cli
+
+COPY package*.json $HOME/
+
+WORKDIR $HOME
 RUN npm install
-COPY . /mnt/code
-RUN npm build
-CMD ["npm", "start"]
+
+COPY . $HOME
+
+RUN npm run build
+CMD ["npm", "run", "dev"]

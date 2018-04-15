@@ -38,10 +38,9 @@ services:
     volumes:
       - ./database:/mnt/lib/database
       - ./processing:/mnt/code
-    
+
   web:
     build: web
-    command: ["npm", "run", "dev"]
     depends_on:
       - api
     env_file:
@@ -50,3 +49,4 @@ services:
       - 8080:8080
     volumes:
       - ./web:/mnt/code
+      - /mnt/code/node_modules
