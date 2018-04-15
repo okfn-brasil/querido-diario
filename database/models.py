@@ -1,7 +1,7 @@
 import datetime as dt
 
 from decouple import config
-from sqlalchemy import create_engine, Column, Boolean, Date, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import create_engine, Column, Boolean, Date, DateTime, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -23,6 +23,8 @@ class BiddingExemption(DeclarativeBase):
     data = Column('data', JSONB)
     source_text = Column('source_text', Text)
     date = Column('date', Date)
+    contracted = Column('contracted', String)
+    value = Column('value', Numeric)
     is_parsed = Column('is_parsed', Boolean, default=False)
     object = Column('object', String)
     created_at = Column('created_at', DateTime, default=dt.datetime.utcnow)
