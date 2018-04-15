@@ -37,9 +37,7 @@ class ToPalmasSpider(scrapy.Spider):
             url_edicao = li.xpath(
                 './/*[@id="detalhes"]/a/@href').extract_first()
             abs_url = response.urljoin(url_edicao)
-            # eh necessario uma requisicao extra, sincrona, para obter a url real do arquivo.
-            # para caso se deseje guardar no banco a url real do arquivo
-            pdf_url = requests.get(abs_url, allow_redirects=True).url
+            pdf_url = requests.head(abs_url, allow_redirects=True).url
 
             data_publicacao = parse(data, languages=['pt']).date()
             gazette_object = self.create_gazette_object(
