@@ -28,7 +28,6 @@
           <thead>
             <tr>
               <th><abbr title="Data de publicação oficial">Data</abbr></th>
-              <th><abbr title="Órgão responsável pela compra">Órgão</abbr></th>
               <th>Município</th>
               <th>Descrição</th>
               <th></th>
@@ -36,7 +35,6 @@
           </thead>
           <tfoot>
             <tr>
-              <th><abbr title="Órgão responsável pela compra">Órgão</abbr></th>
               <th><abbr title="Data de publicação oficial">Data</abbr></th>
               <th>Município</th>
               <th>Descrição</th>
@@ -46,10 +44,9 @@
           <tbody>
             <tr v-for="item in biddingExemptions" :key="item.id">
               <td>{{ new Date(item.date).toLocaleDateString('pt-BR') }}</td>
-              <td v-if="item.gazette.power == 'executive'">Prefeitura</td>
-              <td v-else-if="item.gazette.power == 'legislature'">Câmara Municipal</td>
               <td>Porto Alegre</td>
-              <td>Fornecimento e Instalação de Toldo na sede do PCA Leste no bicicletário localizado na sede da Rua João Neves da Fontoura.</td>
+              <td v-if="item.object && item.object.length > 200" :title="item.object">{{ truncate(item.object, 200) }}</td>
+              <td v-else>{{ item.object }}</td>
               <td>
                 <button type="button" class="button is-info" @click="openModal(item)">
                   Mais informações
@@ -90,6 +87,12 @@ export default {
   methods: {
     openModal: function(biddingExemption) {
       this.$store.commit('openModal', biddingExemption)
+    },
+    truncate (string, length) {
+       if (string && string.length > length)
+          return string.substring(0, length) + '…'
+       else
+          return string
     }
   },
   async fetch ({ store, params }) {

@@ -21,11 +21,15 @@ $ docker-compose run data_collection \
 The following snippet will extract bidding exemptions from the city of Porto Alegre (RS):
 
 ```python
-from gazette.data.gazette_update import GazetteUpdate
+from database.models import BiddingExemption, Gazette
+from gazette.data.row_update import RowUpdate
 from gazette.data.section_parsing import SectionParsing
+from gazette.data.bidding_exemption_parsing import BiddingExemptionParsing
 
-gazette_update = GazetteUpdate()
-gazette_update(SectionParsing)
+row_update = RowUpdate(Gazette)
+row_update(SectionParsing)
+row_update = RowUpdate(BiddingExemption)
+row_update(BiddingExemptionParsing)
 ```
 
 ## Running the test suite
