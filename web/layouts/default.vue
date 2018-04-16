@@ -10,7 +10,7 @@
               <img src="~/assets/hero_logo.png" alt="Operação Serenata de Amor" class="hero-logo">
             </div>
           </div>
-          <h1 class="title">Diários Oficiais</h1>
+          <h1 class="title">Diário Oficial</h1>
         </div>
       </div>
     </section>
