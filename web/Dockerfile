@@ -13,6 +13,5 @@ RUN npm install
 
 COPY . $HOME
 
-RUN npm run build
 EXPOSE $PORT
-CMD ["npm", "run", "dev"]
+CMD npm run build && npm run start
