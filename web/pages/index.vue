@@ -3,7 +3,7 @@
     <div class="section">
       <div class="container">
         <p><strong>Para evitar que a administração pública pague preços acima do valor</strong> de mercado, todo órgão público deve seguir a Lei de Licitações. Nela, é previsto a abertura de concorrência de preços: o órgão diz o que precisa e empresas competem pelo preço mais barato.</p>
-        <p>Mas a mesma lei também prevê excessões: <strong>compras inferiores a R$ 8 mil</strong>, por exemplo, dispensam esse processo de concorrência pelo menor preço. Essa dispensa de licitação deve ser divulgada na publicação oficial do órgão: o Diário Oficial.</p>
+        <p>Mas a mesma lei também prevê exceções: <strong>compras inferiores a R$ 8 mil</strong>, por exemplo, dispensam esse processo de concorrência pelo menor preço. Essa dispensa de licitação deve ser divulgada na publicação oficial do órgão: o Diário Oficial.</p>
         <p>Hoje, Diários são publicados oficialmente em PDF, <strong>um formato pouco convidativo para ser auditado</strong>.</p>
         <p><strong>Queremos mudar isso.</strong></p>
       </div>
