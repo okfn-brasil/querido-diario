@@ -40,7 +40,7 @@ class BiddingExemptionParsing:
         keywords = ['CONTRATAD', 'EMPRESA', 'FORNECEDOR', 'LOCADOR']
         record.contracted = self._value_for_partial_key(record.data, keywords)
 
-    def _value_for_partial_key(dictionary, keywords):
+    def _value_for_partial_key(self, dictionary, keywords):
         for key, value in dictionary.items():
             for partial_key in keywords:
                 if partial_key in key:
