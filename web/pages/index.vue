@@ -12,11 +12,9 @@
     <div class="section">
       <div class="container">
         <h2>Municípios atendidos</h2>
-        <p>
-          <ul>
-            <li>RS - Porto Alegre</li>
-          </ul>
-        </p>
+        <ul>
+          <li>RS - Porto Alegre</li>
+        </ul>
       </div>
     </div>
 
@@ -44,7 +42,7 @@
             </tr>
           </tfoot>
           <tbody>
-            <tr v-for="item in biddingExemptions" :key="item.id">
+            <tr v-once v-for="item in biddingExemptions" :key="item.id">
               <td>{{ new Date(item.date).toLocaleDateString('pt-BR') }}</td>
               <td>Porto Alegre</td>
               <td v-if="item.value">{{ formatCurrency(item.value) }}</td>
