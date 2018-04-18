@@ -1,6 +1,6 @@
 from dateparser import parse
 import datetime as dt
-import pandas as pd
+from dateutil.rrule import rrule, MONTHLY
 
 import scrapy
 
@@ -8,22 +8,19 @@ from gazette.items import Gazette
 
 
 class SpGuarulhosSpider(scrapy.Spider):
-    MUNICIPALITY_ID = ' 3518800'
+    MUNICIPALITY_ID = '3518800'
     name = 'sp_guarulhos'
     allowed_domains = ['guarulhos.sp.gov.br']
 
     urls = []
 
-    start_date = '2015-01-01'
-    today = dt.date.today()
+    starting_date = dt.date(2015, 1, 1)
+    ending_date = dt.date.today()
 
-    dates = pd.date_range(start_date, today, freq='MS')
+    for date in rrule(MONTHLY, dtstart=starting_date, until=ending_date):
+        url = "http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes={}&ano={}".format(date.month, date.year)
 
-    for date in dates:
-            url = "http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes={}&ano={}".format(date.month, date.year)
-
-            urls.append(url)
-
+        urls.append(url)
 
     start_urls = urls
 
