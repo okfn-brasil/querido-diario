@@ -12,13 +12,20 @@ The goal of this same project is to upgrade **Diário Oficial** to the year when
 
 ## Setup
 
-```
-$ cp .env.example .env
-$ docker-compose run data_collection \
-    scrapy crawl rs_porto_alegre
+```console
+$ make setup
 ```
 
-The following snippet will extract bidding exemptions from the city of Porto Alegre (RS):
+To extract data from Porto Alegre, do the following:
+
+```console
+$ docker-compose run --rm processing sh
+
+# cd data_collection
+# scrapy crawl rs_porto_alegre
+```
+
+And later this following snippet, in `docker-compose run --rm processing ipython`, will extract bidding exemptions from the city:
 
 ```python
 from database.models import BiddingExemption, Gazette
@@ -35,6 +42,5 @@ row_update(BiddingExemptionParsing)
 ## Running the test suite
 
 ```
-$ docker-compose run --rm processing \
-    python -m unittest discover
+$ make test
 ```

@@ -11,17 +11,6 @@ services:
     ports:
       - 3000:3000
 
-  data_collection:
-    build: data_collection
-    depends_on:
-      - postgres
-    env_file:
-      - .env
-    volumes:
-      - ./data:/mnt/data
-      - ./data_collection:/mnt/code
-      - ./database:/mnt/lib/database
-
   postgres:
     env_file:
       - .env
@@ -36,7 +25,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./database:/mnt/lib/database
+      - ./data:/mnt/data
       - ./processing:/mnt/code
 
   web:
