@@ -31,7 +31,7 @@ class GoGoianiaSpider(scrapy.Spider):
             url = response.urljoin(url)
 
             #Apparently, Goiânia doesn't have a separate gazette for executive and legislative
-            power = 'executive'
+            power = 'executive_legislature'
 
             link_text = link.css('::text').extract_first()
             if link_text is None:
