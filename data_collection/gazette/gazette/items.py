@@ -2,7 +2,7 @@ import scrapy
 
 
 class Gazette(scrapy.Item):
-    contents = scrapy.Field()
+    source_text = scrapy.Field()
     date = scrapy.Field()
     file_checksum = scrapy.Field()
     file_path = scrapy.Field()

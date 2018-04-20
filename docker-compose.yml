@@ -1,5 +1,15 @@
 version: "3"
 services:
+  api:
+    image: postgrest/postgrest
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - PGRST_DB_URI=${DATABASE_URL}
+    ports:
+      - 3000:3000
 
   data_collection:
     build: data_collection
@@ -23,6 +33,21 @@ services:
     build: processing
     depends_on:
       - postgres
+    env_file:
+      - .env
     volumes:
       - ./database:/mnt/lib/database
       - ./processing:/mnt/code
+
+  web:
+    build: web
+    command: ["npm", "run", "dev"]
+    depends_on:
+      - api
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    volumes:
+      - ./web:/mnt/code
+      - /mnt/code/node_modules
