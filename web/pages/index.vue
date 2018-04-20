@@ -12,9 +12,26 @@
     <div class="section">
       <div class="container">
         <h2>Municípios atendidos</h2>
-        <ul>
+
+        <p>
+          Nossa meta é começar pelos <strong>100 maiores municípios</strong> do Brasil. De acordo com o <abbr title="Instituto Brasileiro de Geografia e Estatística">IBGE</abbr>, eles representam mais de <strong>40% da população</strong> brasileira.
+        </p>
+        <p>
+          Neste momento, temos 1 município e 6 outros em fase de finalização.
+        </p>
+
+        <ul class="municipalities-list">
           <li>RS - Porto Alegre</li>
         </ul>
+
+        <div class="has-text-centered">
+          <img src="~/assets/gem.gif" alt="" title="RS - Porto Alegre" class="municipality-icon municipality-active" />
+          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 6" :key="y" />
+          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 3" :key="y" />
+        </div>
+        <div v-for="x in 9" :key="x" class="has-text-centered">
+          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 10" :key="y" />
+        </div>
       </div>
     </div>
 
@@ -70,6 +87,33 @@
 .button.is-info:hover {
   background-color: #E6E6E6;
   color: #43007f;
+}
+
+.municipality-icon {
+  filter: grayscale(1) contrast(50%);
+  height: 45px;
+  margin: -3px 10px;
+  width: 45px;
+}
+
+.municipality-wip {
+  filter: contrast(50%);
+}
+
+.municipality-active {
+  filter: grayscale(0) contrast(100%);
+}
+
+.municipality-icon:first-child {
+  margin-left: 0;
+}
+
+.municipality-icon:last-child {
+  margin-right: 0;
+}
+
+.municipalities-list {
+  margin-bottom: 30px;
 }
 </style>
 
