@@ -18,7 +18,7 @@ class SpFrancaSpider(scrapy.Spider):
     def parse(self, response):
         dates = set(json.loads(response.body_as_unicode()))
 
-        start_date = dt.date(2018, 4, 1) # date(2015, 1, 1)
+        start_date = dt.date(2015, 1, 1)
         delta = dt.timedelta(days=1)
         while start_date <= dt.date.today():
             if '{d.month}-{d.day}-{d.year}'.format(d=start_date) in dates:
