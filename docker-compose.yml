@@ -46,6 +46,8 @@ services:
       - api
     env_file:
       - .env
+    environment:
+      - VIRTUAL_HOST=diario.serenata.ai
     ports:
       - 8080:8080
     volumes:
