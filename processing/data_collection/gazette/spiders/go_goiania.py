@@ -6,6 +6,7 @@ import scrapy
 
 from gazette.items import Gazette
 
+
 class GoGoianiaSpider(scrapy.Spider):
     MUNICIPALITY_ID = '5208707'
     name = 'go_goiania'
@@ -29,7 +30,7 @@ class GoGoianiaSpider(scrapy.Spider):
         @returns items 75
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
-        #The page with the list of gazettes is simply a table with links
+        # The page with the list of gazettes is simply a table with links
         links = response.css('a')
         items = []
         for link in links:
@@ -38,19 +39,15 @@ class GoGoianiaSpider(scrapy.Spider):
                 continue
 
             url = response.urljoin(url)
-
-            #Apparently, Goiânia doesn't have a separate gazette for executive and legislative
+            # Apparently, Goiânia doesn't have a separate gazette for executive and legislative
             power = 'executive_legislature'
-
             link_text = link.css('::text').extract_first()
             if link_text is None:
                 continue
 
             date = re.match('.*(\d{2} .* de \d{4})', link_text)[1]
-
-            #Extra editions are marked either with 'suplemento' or 'comunicado'
+            # Extra editions are marked either with 'suplemento' or 'comunicado'
             is_extra_edition = 'suplemento' in link_text.lower() or 'comunicado' in link_text.lower()
-
             date = parse(date.split('-')[0], languages=['pt']).date()
             items.append(
                 Gazette(

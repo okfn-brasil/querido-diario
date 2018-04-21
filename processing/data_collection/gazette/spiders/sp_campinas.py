@@ -26,9 +26,9 @@ class SpCampinasSpider(scrapy.Spider):
             for month in range(1, 13):
                 if year == today.year and month > today.month:
                     return
+
                 url = self.selector_url.format(month, year)
                 yield scrapy.Request(url, self.parse_month_page)
-
 
     def parse_month_page(self, response):
         """
@@ -37,14 +37,15 @@ class SpCampinasSpider(scrapy.Spider):
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
         items = []
-        month_year = response.css(".tabelaDiario:first-child tr th:nth-child(2)::text").extract_first() # "janeiro 2018"
+        month_year = response.css(
+            ".tabelaDiario:first-child tr th:nth-child(2)::text"
+        ).extract_first()  # "janeiro 2018"
         links = response.css(".tabelaDiario:first-child tr td a")
         for link in links:
             url = link.css('::attr(href)').extract_first().replace('../', '')
             day = link.css('::text').extract_first()
             date = parse(f'{day} {month_year}', languages=['pt']).date()
             url = f'{self.sp_campinas_url}{url}'
-
             is_extra_edition = False
             power = 'executive_legislature'
             items.append(
