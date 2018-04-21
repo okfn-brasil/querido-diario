@@ -25,6 +25,11 @@ class SpGuarulhosSpider(scrapy.Spider):
     start_urls = urls
 
     def parse(self, response):
+        """
+        @url http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
+        @returns items 16 16
+        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        """
         diarios = response.xpath('//div[contains(@id, "diario")]')
         items = []
 
@@ -42,14 +47,13 @@ class SpGuarulhosSpider(scrapy.Spider):
             power = 'executive'
             
             items.append(
-                    Gazette(
-                        date=date,
-                        file_urls=url,
-                        is_extra_edition=is_extra_edition,
-                        municipality_id=self.MUNICIPALITY_ID,
-                        scraped_at=dt.datetime.utcnow(),
-                        power=power,
-                    )
+                Gazette(
+                    date=date,
+                    file_urls=url,
+                    is_extra_edition=is_extra_edition,
+                    municipality_id=self.MUNICIPALITY_ID,
+                    power=power,
+                    scraped_at=dt.datetime.utcnow(),
                 )
-        
+            )
         return items

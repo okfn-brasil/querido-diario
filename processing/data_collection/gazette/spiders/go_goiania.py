@@ -14,12 +14,21 @@ class GoGoianiaSpider(scrapy.Spider):
     gazettes_list_url = 'http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={}'
 
     def parse(self, response):
+        """
+        @url http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075
+        @returns requests 4
+        """
         next_year = dt.date.today().year + 1
         for year in range(2015, next_year):
             url = self.gazettes_list_url.format(year)
             yield scrapy.Request(url, self.parse_year)
 
     def parse_year(self, response):
+        """
+        @url http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano=2018
+        @returns items 75
+        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        """
         #The page with the list of gazettes is simply a table with links
         links = response.css('a')
         items = []
@@ -38,7 +47,6 @@ class GoGoianiaSpider(scrapy.Spider):
                 continue
 
             date = re.match('.*(\d{2} .* de \d{4})', link_text)[1]
-            print(date.upper())
 
             #Extra editions are marked either with 'suplemento' or 'comunicado'
             is_extra_edition = 'suplemento' in link_text.lower() or 'comunicado' in link_text.lower()
@@ -50,8 +58,8 @@ class GoGoianiaSpider(scrapy.Spider):
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
                     municipality_id=self.MUNICIPALITY_ID,
-                    scraped_at=dt.datetime.utcnow(),
                     power=power,
+                    scraped_at=dt.datetime.utcnow(),
                 )
             )
         return items

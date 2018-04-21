@@ -1,5 +1,6 @@
 test:
 	docker-compose run --rm processing python -m unittest discover
+	scrapy check
 
 setup: configure
 	docker-compose pull

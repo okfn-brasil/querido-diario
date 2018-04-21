@@ -17,6 +17,10 @@ class ToPalmasSpider(scrapy.Spider):
     start_urls = ['http://diariooficial.palmas.to.gov.br/todos-diarios/']
 
     def parse(self, response):
+        """
+        @url http://diariooficial.palmas.to.gov.br/todos-diarios/
+        @returns requests 142
+        """
 
         last_page_number_str = response.xpath(
             last_page_number_xpath).extract_first()
@@ -29,6 +33,10 @@ class ToPalmasSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse_page)
 
     def parse_page(self, response):
+        """
+        @url http://diariooficial.palmas.to.gov.br/todos-diarios/?page=1
+        @returns items 14 14
+        """
 
         li_list = response.css('div.diario-content-todos > ul > li')
         for li in li_list:

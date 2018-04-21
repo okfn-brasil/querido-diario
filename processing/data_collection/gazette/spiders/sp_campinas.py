@@ -16,6 +16,10 @@ class SpCampinasSpider(scrapy.Spider):
     selector_url = 'http://www.campinas.sp.gov.br/diario-oficial/index.php?mes={}&ano={}'
 
     def parse(self, response):
+        """
+        @url http://www.campinas.sp.gov.br/diario-oficial/index.php
+        @returns requests 4
+        """
         today = dt.date.today()
         next_year = today.year + 1
         for year in range(2015, next_year):
@@ -27,6 +31,11 @@ class SpCampinasSpider(scrapy.Spider):
 
 
     def parse_month_page(self, response):
+        """
+        @url http://www.campinas.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
+        @returns items 22 22
+        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        """
         items = []
         month_year = response.css(".tabelaDiario:first-child tr th:nth-child(2)::text").extract_first() # "janeiro 2018"
         links = response.css(".tabelaDiario:first-child tr td a")
@@ -44,8 +53,8 @@ class SpCampinasSpider(scrapy.Spider):
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
                     municipality_id=self.MUNICIPALITY_ID,
+                    power=power,
                     scraped_at=dt.datetime.utcnow(),
-                    power=power
                 )
             )
         return items
