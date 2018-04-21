@@ -1,0 +1,15 @@
+language: python
+python: 3.6
+env:
+  global:
+    - PARSING_FREQUENCY_IN_SECONDS=1
+    - RABBITMQ_URL=pyamqp://guest:guest@localhost:5672
+    - REDIS_URL=redis://localhost:6379
+services:
+  - rabbitmq
+  - redis-server
+install:
+  - cd processing
+  - pip install -r requirements.txt
+script:
+  - python -m unittest discover
