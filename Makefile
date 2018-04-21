@@ -1,6 +1,6 @@
 test:
 	docker-compose run --rm processing python -m unittest discover
-	scrapy check
+	docker-compose run --rm processing bash -c "cd data_collection && scrapy check"
 
 setup: configure
 	docker-compose pull
