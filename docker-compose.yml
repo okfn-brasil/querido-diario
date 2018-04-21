@@ -15,8 +15,6 @@ services:
     env_file:
       - .env
     image: postgres:10-alpine
-    ports:
-      - 5432:5432
 
   processing:
     build: processing
