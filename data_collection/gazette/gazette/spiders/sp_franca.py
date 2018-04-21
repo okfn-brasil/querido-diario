@@ -34,7 +34,7 @@ class SpFrancaSpider(scrapy.Spider):
         date = dt.date.fromtimestamp(document['data'] / 1000)
         url = self.documents_url.format(document['nome'])
         is_extra_edition = False
-        power = 'executive'
+        power = 'executive_legislature'
 
         items.append(
             Gazette(
