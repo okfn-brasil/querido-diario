@@ -21,10 +21,14 @@ class ToAraguainaSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        rows = response.xpath('//table[@id="ContentPlaceHolder1_gvResultado"]/tbody/tr')
+        rows = response.xpath(
+            '//table[@id="ContentPlaceHolder1_gvResultado"]/tbody/tr'
+        )
         for row in rows:
             is_extra_edition = False
-            edition_number = row.xpath('.//td[1]/text()').extract_first().lower()
+            edition_number = row.xpath(
+                './/td[1]/text()'
+            ).extract_first().lower()
             edition_number = edition_number.strip()
             if 'suplemento' in edition_number:
                 edition_number = edition_number.split()[0]
@@ -33,9 +37,13 @@ class ToAraguainaSpider(scrapy.Spider):
             number_of_pages = row.xpath('.//td[3]/text()').extract_first()
 
             publication_date_str = row.xpath('.//td[2]/text()').extract_first()
-            publication_date = parse(publication_date_str, languages=['pt']).date()
+            publication_date = parse(
+                publication_date_str, languages=['pt']
+            ).date()
 
-            pdf_url = response.urljoin(row.xpath('.//td[6]/a/@href').extract_first())
+            pdf_url = response.urljoin(
+                row.xpath('.//td[6]/a/@href').extract_first()
+            )
             pdf_url = requests.head(pdf_url, allow_redirects=True).url
             gazette_object = self.create_gazette_object(
                 date=publication_date,
