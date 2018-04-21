@@ -6,7 +6,7 @@ from gazette.locations.rs_porto_alegre import RsPortoAlegre
 class TestRsPortoAlegre(TestCase):
 
     def setUp(self):
-        path = 'tests/fixtures/rs_porto_alegre.txt'
+        path = 'tests/gazette/fixtures/rs_porto_alegre.txt'
         with open(path) as file:
             self.text = file.read()
         self.subject = RsPortoAlegre(self.text)

@@ -25,20 +25,6 @@ $ docker-compose run --rm processing sh
 # scrapy crawl rs_porto_alegre
 ```
 
-And later this following snippet, in `docker-compose run --rm processing ipython`, will extract bidding exemptions from the city:
-
-```python
-from database.models import BiddingExemption, Gazette
-from gazette.data.row_update import RowUpdate
-from gazette.data.section_parsing import SectionParsing
-from gazette.data.bidding_exemption_parsing import BiddingExemptionParsing
-
-row_update = RowUpdate(Gazette)
-row_update(SectionParsing)
-row_update = RowUpdate(BiddingExemption)
-row_update(BiddingExemptionParsing)
-```
-
 ## Running the test suite
 
 ```

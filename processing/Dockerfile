@@ -1,7 +1,5 @@
 FROM python:3
 
-# app
-
 WORKDIR /mnt/code
 
 RUN apt-get update \
@@ -9,3 +7,4 @@ RUN apt-get update \
 
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+CMD ["celery", "-A", "tasks", "worker", "-B", "--loglevel=INFO"]

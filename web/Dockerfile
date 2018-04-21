@@ -1,6 +1,6 @@
 FROM node:9.11.1-slim
 
-ENV HOME=/mnt/code
+ENV HOME /mnt/code
 ENV HOST 0.0.0.0
 ENV PORT 8080
 

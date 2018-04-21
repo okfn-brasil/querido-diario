@@ -20,11 +20,19 @@ services:
     build: processing
     depends_on:
       - postgres
+      - rabbitmq
+      - redis
     env_file:
       - .env
     volumes:
       - ./data:/mnt/data
       - ./processing:/mnt/code
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+
+  redis:
+    image: redis:3-alpine
 
   web:
     build: web
