@@ -17,7 +17,7 @@
           Nossa meta é começar pelos <strong>100 maiores municípios</strong> do Brasil. De acordo com o <abbr title="Instituto Brasileiro de Geografia e Estatística">IBGE</abbr>, eles representam mais de <strong>40% da população</strong> brasileira.
         </p>
         <p>
-          Neste momento, temos 1 município e 6 outros em fase de finalização.
+          Neste momento, temos 1 município e 7 outros em fase de finalização.
         </p>
 
         <ul class="municipalities-list">
