@@ -26,8 +26,8 @@
 
         <div class="has-text-centered">
           <img src="~/assets/gem.gif" alt="" title="RS - Porto Alegre" class="municipality-icon municipality-active" />
-          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 6" :key="y" />
-          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 3" :key="y" />
+          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 7" :key="y" />
+          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 2" :key="y" />
         </div>
         <div v-for="x in 9" :key="x" class="has-text-centered">
           <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 10" :key="y" />
