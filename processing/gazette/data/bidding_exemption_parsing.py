@@ -25,7 +25,6 @@ class BiddingExemptionParsing:
     def update_value(self, record):
         keywords = ['VALOR', 'ORÇAMENTO', 'PREÇO']
         value_str = self._value_for_partial_key(record.data, keywords)
-
         if value_str:
             if value_str.startswith('R$ 660,00,00'):
                 value_str = 'R$ 660,00'

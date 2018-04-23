@@ -101,11 +101,18 @@ a.navbar-link.is-active {
 <script>
 import Modal from "~/components/Modal.vue"
 import Navbar from "~/components/Navbar.vue"
+import openGraphImage from '~/assets/open_graph.png'
 
 export default {
   components: {
     Modal,
     Navbar,
-  }
+  },
+  head: {
+    title: 'Diário Oficial | Operação Serenata de Amor',
+    meta: [
+      { property: 'og:image', content: 'https://' + process.env.VIRTUAL_HOST + openGraphImage },
+    ],
+  },
 };
 </script>

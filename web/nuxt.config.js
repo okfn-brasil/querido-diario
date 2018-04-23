@@ -7,7 +7,11 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Operação Serenata de Amor' }
+      { hid: 'description', name: 'description', content: 'Diários Oficiais acessíveis a todos.' },
+      { property: 'og:url', content: 'https://diario.serenata.ai/' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:title', content: 'Diário Oficial | Operação Serenata de Amor' },
+      { property: 'og:description', content: 'https://diario.serenata.ai/' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -38,5 +42,5 @@ module.exports = {
   },
   css: [
     'bulma',
-  ]
+  ],
 }

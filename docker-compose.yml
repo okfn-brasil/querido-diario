@@ -1,43 +1,38 @@
 version: "3"
 services:
   api:
-    image: postgrest/postgrest
     depends_on:
       - postgres
     env_file:
       - .env
     environment:
       - PGRST_DB_URI=${DATABASE_URL}
+    image: postgrest/postgrest
     ports:
       - 3000:3000
-
-  data_collection:
-    build: data_collection
-    depends_on:
-      - postgres
-    env_file:
-      - .env
-    volumes:
-      - ./data:/mnt/data
-      - ./data_collection:/mnt/code
-      - ./database:/mnt/lib/database
 
   postgres:
     env_file:
       - .env
-    image: postgres:alpine
-    ports:
-      - 5432:5432
+    image: postgres:10-alpine
 
   processing:
     build: processing
     depends_on:
       - postgres
+      - rabbitmq
+      - redis
     env_file:
       - .env
     volumes:
-      - ./database:/mnt/lib/database
+      - ./data:/mnt/data
       - ./processing:/mnt/code
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+
+  redis:
+    image: redis:3-alpine
 
   web:
     build: web
@@ -46,6 +41,8 @@ services:
       - api
     env_file:
       - .env
+    environment:
+      - VIRTUAL_HOST=diario.serenata.ai
     ports:
       - 8080:8080
     volumes:
