@@ -50,7 +50,7 @@ class SpFrancaSpider(scrapy.Spider):
                 is_extra_edition=False,
                 municipality_id=self.MUNICIPALITY_ID,
                 scraped_at=dt.datetime.utcnow(),
-                power='executive_legislature'
+                power='executive'
             )
         )
 
