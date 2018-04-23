@@ -33,17 +33,15 @@ class SpFrancaSpider(scrapy.Spider):
         document = json.loads(response.body_as_unicode())[0]
         date = dt.date.fromtimestamp(document['data'] / 1000)
         url = self.documents_url.format(document['nome'])
-        is_extra_edition = False
-        power = 'executive_legislature'
 
         items.append(
             Gazette(
                 date=date,
                 file_urls=[url],
-                is_extra_edition=is_extra_edition,
+                is_extra_edition=False,
                 municipality_id=self.MUNICIPALITY_ID,
                 scraped_at=dt.datetime.utcnow(),
-                power=power
+                power='executive_legislature'
             )
         )
 
