@@ -63,15 +63,9 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
             #print("================> " + no_gazettes)
             return
 
+        # nenhuma url chegou aqui para o ano de 2018. analisar demais anos
         print("================> CASO NAO IDENTIFICADO!!! url = " + response.url)
         import ipdb; ipdb.set_trace()
-        # casos não identificados
-        # http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca=18/04/2018
-        # http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca=11/04/2018
-        # http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca=12/04/2018
-        # http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca=20/04/2018
-        # http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca=17/04/2018
-        # http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca=19/04/2018
 
         """
         is_extra_edition = False
