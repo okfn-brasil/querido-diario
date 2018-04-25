@@ -18,11 +18,11 @@ class MGGovernadorValadares(scrapy.Spider):
     page_size=10
 
     def start_requests(self):
-        for u in self.start_urls:
+        for u in self.urls:
             yield self.make_request(u, self.current_page)
 
     def make_request(self, url, page):
-        return scrapy.Request(url, callback=self.parse_httpbin,
+        return scrapy.Request(url, callback=self.parse,
                                     method="POST",
                                     headers={
                                         "Content-Type": 'text/plain', 
@@ -35,14 +35,14 @@ class MGGovernadorValadares(scrapy.Spider):
                                     errback=self.errback_httpbin,
                                     dont_filter=True)
 
-    def parse_httpbin(self, response):
-
+    def parse(self, response):
+        
         body = response.body
         #encerra o crawler quando não vem resultados
         if body == 'null;/*'.encode():
             self.logger.info("@@@@@@ FIM! Salve Rose @@@@@@@")
             return
-            
+
         #remove 'new Ajax.Web.DataTable(' .... ');/*' do body
         body = body[23:-4]
         #bytes para str
@@ -50,7 +50,13 @@ class MGGovernadorValadares(scrapy.Spider):
         #remove o new Date para convertar a data em um tupla 
         body = body.replace("new Date", "")
         #transforma a resposta em uma lista
-        rows = ast.literal_eval(body)
+        rows = None
+        try:
+            rows = ast.literal_eval(body)
+        except:
+            self.logger.error('Error parsing body variable > %s', body)
+            return
+            
 
         for row in rows[1]:
             d = row[4]
