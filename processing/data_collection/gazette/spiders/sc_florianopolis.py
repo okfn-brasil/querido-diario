@@ -18,7 +18,10 @@ class ScFlorianopolisSpider(Spider):
         """The City Hall website publish the gazettes in a page with a form
         that allow users to browse through different years and months. This
         form sends requests via POST, so this method emulates a series of these
-        POSTs."""
+        POSTs.
+        @url http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial
+        @returns requests 1
+        """
         target = date.today()
         while target >= self.AVAILABLE_FROM:
             year, month = str(target.year), str(target.month)
@@ -27,7 +30,11 @@ class ScFlorianopolisSpider(Spider):
             target = target + relativedelta(months=1)
 
     def parse(self, response):
-        """Parse each page. Eahc list all gazettes for a given month."""
+        """Parse each page. Eahc list all gazettes for a given month.
+        @url http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial
+        @returns items 1
+        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        """
         for link in response.css('ul.listagem li a'):
             url = self.get_pdf_url(response, link)
             if not url:
@@ -63,4 +70,4 @@ class ScFlorianopolisSpider(Spider):
     @staticmethod
     def is_extra(link):
         text = ' '.join(link.css('::text').extract())
-        return 'extra' in (text.lower().split())
+        return 'extra' in text.lower()
