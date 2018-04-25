@@ -58,4 +58,4 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
             municipality_id=self.MUNICIPALITY_ID,
             power='executive',
             scraped_at=dt.datetime.utcnow(),
-        )        
+        )
