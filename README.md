@@ -25,3 +25,47 @@ Once the download and building processes are finished, the processing tasks shou
 ## Contributing
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Running the Project Without Docker
+
+Even if your environment is working with the setup described above - and it should be, because you'll probably want to test your work inside docker before sending PR's - sometimes you'd like to run the project without docker for some reason, for example to have an easier time debugging python code. In this section we will explain one way to do this. Note that you'll need the database container for this to work, i.e. be sure to follow through the normal docker setup before following the steps below.
+
+In the project directory, run:
+
+```console
+$ python -m venv venv
+```
+
+This command creates a virtual environment for the project. To activate it, do this:
+
+```console
+$ source venv/bin/activate
+```
+
+Now that your virtual environment is active you need to install the `data_collection` dependencies:
+
+```console
+$ pip install -r processing/requirements.txt
+```
+
+Then update Scrapy's settings (found in the `processing/data_collection/gazette/` directory). You need to set `FILES_STORE` to a valid directory in your computer.
+
+You'll also need to know the database container's (postgres) IP:
+
+```console
+$ docker ps -a # to help you find the diariooficial_postgres_????
+$ docker inspect <container_name> | grep '"IPAddress"'
+```
+
+Finally, you can run the scrapper for Porto Alegre using this command:
+
+```
+$ cd processing/data_collection
+$ DATABASE_URL=<DATABASE_URL> PYTHON_PATH="$PYTHONPATH:../" python -m scrapy crawl rs_porto_alegre
+```
+
+Where `<DATABASE_URL>` is equal to the value present in your `.env` file, replacing the host (currently `postgres`) with the IP you've found above.
+
+The `PYTHON_PATH` override is necessary to correctly expose the database module.
+
+Happy debugging!
