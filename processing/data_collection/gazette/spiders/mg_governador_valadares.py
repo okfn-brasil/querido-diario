@@ -18,7 +18,7 @@ class MGGovernadorValadares(scrapy.Spider):
     page_size=10
 
     def start_requests(self):
-        for u in self.urls:
+        for u in self.start_urls:
             yield self.make_request(u, self.current_page)
 
     def make_request(self, url, page):
