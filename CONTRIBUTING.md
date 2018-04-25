@@ -6,7 +6,7 @@ Since Diário Oficial seeks to become a trustful source of official governmental
 
 ## Automated Testing
 
-The project is backed with a test suite, which can be run with a single command.
+The project is backed by a test suite, which can be run with a single command.
 
 ```console
 $ make test
