@@ -8,6 +8,6 @@ Since Diário Oficial seeks to become a trustful source of official governmental
 
 The project is backed with a test suite, which can be run with a single command.
 
-```
+```console
 $ make test
 ```

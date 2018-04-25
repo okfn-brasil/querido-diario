@@ -15,8 +15,8 @@ The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose]
 After you cloned the repository, you may want to run the following from the source folder:
 
 ```console
-make setup
-docker-compose up
+$ make setup
+$ docker-compose up
 ```
 
 Once the download and building processes are finished, the processing tasks should start running in background and the webserver should be available at http://localhost:8080/.
