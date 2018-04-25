@@ -6,27 +6,22 @@ Even with recurrent efforts of enforcing the [Freedom of Information legislation
 
 The goal of this same project is to upgrade **Diário Oficial** to the year when it gets published, making accessible information that is currently only available.
 
-**At the current state, there isn't much to see or download. Come back in a few weeks. :)**
+## Build and Run
 
-*Unless you are a software developer and want to contribute even in this chaotic starting moment. In this case, make yourself at home and start downloading [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/).*
+If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
 
-## Setup
+The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies.
 
-```console
-$ make setup
-```
-
-To extract data from Porto Alegre, do the following:
+After you cloned the repository, you may want to run the following from the source folder:
 
 ```console
-$ docker-compose run --rm processing sh
-
-# cd data_collection
-# scrapy crawl rs_porto_alegre
+make setup
+docker-compose up
 ```
 
-## Running the test suite
+Once the download and building processes are finished, the processing tasks should start running in background and the webserver should be available at http://localhost:8080/.
 
-```
-$ make test
-```
+
+## Contributing
+
+If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).
