@@ -12,7 +12,7 @@ class ScFlorianopolisSpider(Spider):
     name = 'sc_florianopolis'
     URL = 'http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial'
     MUNICIPALITY_ID = '4205407'
-    AVAILABLE_FROM = date(2009, 6, 1)
+    AVAILABLE_FROM = date(2015, 1, 1)  # actually from June/2009
 
     def start_requests(self):
         """The City Hall website publish the gazettes in a page with a form
