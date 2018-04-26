@@ -45,7 +45,7 @@ class ScFlorianopolisSpider(Spider):
                 file_urls=(url,),
                 is_extra_edition=self.is_extra(link),
                 municipality_id=self.MUNICIPALITY_ID,
-                power='all',
+                power='executive_legislature',
                 scraped_at=datetime.utcnow(),
             )
 
