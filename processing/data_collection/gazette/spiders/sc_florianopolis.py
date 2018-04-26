@@ -30,7 +30,7 @@ class ScFlorianopolisSpider(Spider):
             target = target + relativedelta(months=1)
 
     def parse(self, response):
-        """Parse each page. Eahc list all gazettes for a given month.
+        """Parse each page. Each list all gazettes for a given month.
         @url http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial
         @returns items 1
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
