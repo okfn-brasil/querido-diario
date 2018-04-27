@@ -23,17 +23,17 @@ class SpSantosSpider(scrapy.Spider):
         dates = response.css('#datas.hidden::text').extract_first()
 
         start_date = dt.date(2015, 1, 1)
-        delta = dt.timedelta(days=1)
-        while start_date <= dt.date.today():
-            if str(start_date) in dates:
-                url = self.download_url.format(start_date)
+        parsing_date = dt.date.today()
+        while parsing_date >= start_date:
+            if str(parsing_date) in dates:
+                url = self.download_url.format(parsing_date)
                 yield Gazette(
-                    date=start_date,
+                    date=parsing_date,
                     file_urls=[url],
                     is_extra_edition=False,
                     municipality_id=self.MUNICIPALITY_ID,
-                    scraped_at=dt.datetime.utcnow(),
-                    power='executive_legislature'
+                    power='executive_legislature',
+                    scraped_at=dt.datetime.utcnow()
                 )
 
-            start_date += delta
+            parsing_date = parsing_date - dt.timedelta(days=1)
