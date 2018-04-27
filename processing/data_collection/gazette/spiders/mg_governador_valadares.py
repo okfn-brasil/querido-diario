@@ -7,14 +7,12 @@ import scrapy
 
 from gazette.items import Gazette
 
-class MGGovernadorValadares(scrapy.Spider):
+class MgGovernadorValadares(scrapy.Spider):
     MUNICIPALITY_ID = '3127701'
     name = 'mg_governador_valadares'
     allowed_domains = ['valadares.mg.gov.br']
     start_urls = ['http://www.valadares.mg.gov.br/ajaxpro/diel_diel_lis,App_Web_diel_diel_lis.aspx.cdcab7d2.tw0oogts.ashx']
-    #armazena a página atual para o fetch
     current_page=0
-    #número de itens exibidos por requisção
     page_size=10
 
     def start_requests(self):
@@ -38,16 +36,14 @@ class MGGovernadorValadares(scrapy.Spider):
     def parse(self, response):
         
         body = response.body
-        #encerra o crawler quando não vem resultados
-        if body == 'null;/*'.encode():
-            self.logger.info("@@@@@@ FIM! Salve Rose @@@@@@@")
+        has_no_results = body == 'null;/*'.encode()
+        if has_no_results:
             return
-
         #remove 'new Ajax.Web.DataTable(' .... ');/*' do body
         body = body[23:-4]
         #bytes para str
         body = body.decode("utf-8")
-        #remove o new Date para convertar a data em um tupla 
+        #remove o new Date para converter a data em uma tupla 
         body = body.replace("new Date", "")
         #transforma a resposta em uma lista
         rows = None
@@ -56,7 +52,6 @@ class MGGovernadorValadares(scrapy.Spider):
         except:
             self.logger.error('Error parsing body variable > %s', body)
             return
-            
 
         for row in rows[1]:
             d = row[4]
@@ -76,10 +71,8 @@ class MGGovernadorValadares(scrapy.Spider):
         yield self.make_request(self.start_urls[0], self.current_page)
 
     def errback_httpbin(self, failure):
-        # loga todos os erros
-        self.logger.error(repr(failure))
 
-        # caso precisar pegar alguma coisa em especial
+        self.logger.error(repr(failure))
 
         if failure.check(HttpError):
             # exceptions vindas de HttpError spider middleware
