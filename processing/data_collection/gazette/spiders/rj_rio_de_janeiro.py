@@ -2,15 +2,14 @@ import datetime as dt
 import re
 import scrapy
 from gazette.items import Gazette
-import logging
 
 class RjRioDeJaneiroSpider(scrapy.Spider):
     MUNICIPALITY_ID = '3304557'
     name = 'rj_rio_de_janeiro'
     allowed_domains = ['doweb.rio.rj.gov.br']
     start_urls = ['http://doweb.rio.rj.gov.br']
-    search_gazette_url = 'http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca={}' # '20%2F04%2F2018' => 20/04/2018
-    download_gazette_url = 'http://doweb.rio.rj.gov.br/ler_pdf.php?download=ok&edi_id={}'
+    search_gazette_url = 'http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca={}' # format 20/04/2018
+    download_gazette_url = 'http://doweb.rio.rj.gov.br/ler_pdf.php?download=ok&edi_id={}' # 20/04/2018 has edi_id = 3734
 
     def parse(self, response):
         parsing_date = dt.date.today()
@@ -26,7 +25,6 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
 
         no_gazettes = response.css('#dialog-message').extract_first()
         if no_gazettes and 'Não existe publicação para esta data' in no_gazettes:
-            logging.info('{} - nada encontrado'.format(gazette_date))
             return
 
         items = []
@@ -47,7 +45,6 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
                     is_extra_edition = 'suplemento' in ed.lower()
                     items.append(self.create_gazette(gazette_date, url, is_extra_edition))
         
-        logging.info('{} - {}'.format(gazette_date, len(items)))
         return items
 
     def create_gazette(self, date, url, is_extra_edition = False):
