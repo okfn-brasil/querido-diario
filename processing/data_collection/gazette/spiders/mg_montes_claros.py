@@ -55,7 +55,7 @@ class MgMontesClarosSpider(scrapy.Spider):
             next_page_url = next(self.available_pages)
             yield response.follow(next_page_url)
         except:
-            self.logger.info("@@@@@@ FIM > Socuerro El Justiciera, ajuda-me por favor @@@@@@@")
+           return
         
     @staticmethod
     def get_date(title):
