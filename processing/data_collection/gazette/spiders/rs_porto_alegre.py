@@ -22,8 +22,8 @@ class RsPortoAlegreSpider(scrapy.Spider):
             '/descendant::*[contains(text(), "Diário Oficial {}")]'
             '/parent::*/descendant::li/a'
         )
-        next_year = dt.date.today().year + 1
-        for year in range(2015, next_year):
+        current_year = dt.date.today().year
+        for year in range(current_year, 2014, -1):
             urls = response.xpath(selector.format(year) + '/attribute::href').extract()
             urls = [response.urljoin(url) for url in urls]
             for url in urls:
