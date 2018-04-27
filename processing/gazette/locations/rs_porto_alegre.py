@@ -1,12 +1,11 @@
 import re
 
+from gazette.locations.base_parser import BaseParser
 
-class RsPortoAlegre:
+
+class RsPortoAlegre(BaseParser):
     END_OF_PAGE_MARKER = '\n\n\nhttp://www.portoalegre.rs.gov.br/dopa'
     EXEMPTIONS_ATTR_REGEX = r'^( +[A-ZÀ-Ÿ \-]+:)'
-
-    def __init__(self, text):
-        self.text = text
 
     def pages(self):
         return self.text.split(self.END_OF_PAGE_MARKER)[:-1]
