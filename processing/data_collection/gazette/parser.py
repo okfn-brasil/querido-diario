@@ -1,7 +1,7 @@
-from scrapy.pipelines.files import FilesPipeline
-from scrapy.utils.python import to_bytes
 import os
 import hashlib
+from scrapy.pipelines.files import FilesPipeline
+from scrapy.utils.python import to_bytes
 from six.moves.urllib.parse import urlparse
 
 class GazetteFilesPipeline(FilesPipeline):
@@ -12,5 +12,4 @@ class GazetteFilesPipeline(FilesPipeline):
         if not media_ext.isalnum():
             # scrapy bug. for more details see issue #15
             media_ext = os.path.splitext(urlparse(url).path)[1]
-        import ipdb; ipdb.set_trace()
         return 'full/%s%s' % (media_guid, media_ext)
