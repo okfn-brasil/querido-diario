@@ -10,16 +10,16 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
     allowed_domains = ['doweb.rio.rj.gov.br']
     start_urls = ['http://doweb.rio.rj.gov.br']
     search_gazette_url = 'http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca={}' # '20%2F04%2F2018' => 20/04/2018
-    gazette_download_url = 'http://doweb.rio.rj.gov.br/ler_pdf.php?download=ok&edi_id={}'
+    download_gazette_url = 'http://doweb.rio.rj.gov.br/ler_pdf.php?download=ok&edi_id={}'
 
     def parse(self, response):
-        start_date = dt.date(2018, 1, 1) #2015, 1, 1)
-        delta = dt.timedelta(days=1)
-        while start_date <= dt.date.today():
-            url = self.search_gazette_url.format(start_date.strftime('%d/%m/%Y'))
-            yield scrapy.Request(url, self.parse_search_by_date, meta={'gazette_date': start_date})
+        parsing_date = dt.date.today()
+        end_date = dt.date(2015, 1, 1)
+        while parsing_date >= end_date:
+            url = self.search_gazette_url.format(parsing_date.strftime('%d/%m/%Y'))
+            yield scrapy.Request(url, self.parse_search_by_date, meta={'gazette_date': parsing_date})
             
-            start_date += delta
+            parsing_date = parsing_date - dt.timedelta(days=1)
 
     def parse_search_by_date(self, response):
         gazette_date = response.meta.get('gazette_date')
@@ -34,7 +34,7 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
         if one_gazette:
             match = re.search('.*edi_id=([0-9]+).*', one_gazette)
             if match:
-                url = self.gazette_download_url.format(match.group(1))
+                url = self.download_gazette_url.format(match.group(1))
                 items.append(self.create_gazette(gazette_date, url))
 
         multiple_gazettes = response.css('#dialog-message').extract_first()
@@ -43,7 +43,7 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
             for ed in editions:
                 match = re.search('.*edi_id=([0-9]+).*', ed)
                 if match:
-                    url = self.gazette_download_url.format(match.group(1))
+                    url = self.download_gazette_url.format(match.group(1))
                     is_extra_edition = 'suplemento' in ed.lower()
                     items.append(self.create_gazette(gazette_date, url, is_extra_edition))
         
