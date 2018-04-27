@@ -47,7 +47,7 @@ class MgMontesClarosSpider(scrapy.Spider):
                 file_urls=[ gazette_node.xpath('@href').extract_first() ],
                 is_extra_edition=True if 'EDIÇÃO EXTRA' in title.upper() else False,
                 municipality_id=self.MUNICIPALITY_ID,
-                power='executive',
+                power='executive_legislature',
                 scraped_at=dt.datetime.utcnow(),
             )
         
