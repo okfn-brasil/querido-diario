@@ -1,4 +1,4 @@
-from database import MUNICIPALITIES
+from database import PARSABLE_MUNICIPALITIES
 from database.models import BiddingExemption
 from gazette import locations
 
@@ -13,7 +13,7 @@ class SectionParsing:
 
     def update(self, gazettes):
         for gazette in gazettes:
-            municipality = MUNICIPALITIES.get(gazette.municipality_id)
+            municipality = PARSABLE_MUNICIPALITIES.get(gazette.municipality_id)
             if municipality:
                 parsing_cls = getattr(locations, municipality)
                 parser = parsing_cls(gazette.source_text)
