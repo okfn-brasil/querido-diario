@@ -29,7 +29,7 @@ class ToPalmasSpider(scrapy.Spider):
     def parse_page(self, response):
         """
         @url http://diariooficial.palmas.to.gov.br/todos-diarios/?page=1
-        @returns items 14 14
+        @returns items 14
         """
         li_list = response.css('div.diario-content-todos > ul > li')
         for li in li_list:
