@@ -14,6 +14,8 @@ class PrCuritibaSpider(scrapy.Spider):
 
     def parse(self, response):
         """
+        The Curitiba website is a statefull page, so we can't just build the
+        request from zero, we have to resend the viewstate with every request.
         @url http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx
         @returns requests 1
         """
@@ -47,15 +49,17 @@ class PrCuritibaSpider(scrapy.Spider):
 
     def parse_month(self, response):
         #Count how many pages and iterate
-        yield scrapy.FormRequest.from_response(
-            response,
-            formdata={
-                '__EVENTARGUMENT' : 'Page$4',
-                '__EVENTTARGET' : 'ctl00$cphMasterPrincipal$gdvGrid2'
-            },
-            callback=self.parse_page,
-        )
-        
+        page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
+        for page_number in range(1,page_count + 1):
+            yield scrapy.FormRequest.from_response(
+                response,
+                formdata={
+                    '__EVENTARGUMENT' : 'Page${}'.format(page_number),
+                    '__EVENTTARGET' : 'ctl00$cphMasterPrincipal$gdvGrid2'
+                },
+                callback=self.parse_page,
+            )
+
     def parse_page(self, response):
         #for each link
         current_year = response.css(".caixa_formulario option:checked ::attr(value)").extract_first()
