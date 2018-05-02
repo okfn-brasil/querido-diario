@@ -62,18 +62,33 @@ class PrCuritibaSpider(scrapy.Spider):
 
     def parse_page(self, response):
         #for each link
-        current_year = response.css(".caixa_formulario option:checked ::attr(value)").extract_first()
-        current_month = response.css(".ajax__tab_active a span ::text").extract()
-        current_page = response.css(".grid_Pager span ::text").extract_first()
-        pdf_date = response.css("td:nth-child(2) span").extract_first()
 
-        print('For year {0} - Month {1} - {2}th page - date is {3}'.format(current_year, current_month, current_page, pdf_date))
-        dummy_gazette = Gazette(
-            date = dt.date.today(),
-            file_urls=["www.example.com"],
-            is_extra_edition= False,
-            municipality_id=self.MUNICIPALITY_ID,
-            power='executive_legislature',
-            scraped_at=dt.datetime.utcnow()
-        )
-        return []
+        #current_year = response.css(".caixa_formulario option:checked ::attr(value)").extract_first()
+        #current_month = response.css(".ajax__tab_active a span ::text").extract()
+        #current_page = response.css(".grid_Pager span ::text").extract_first()
+        #print('For year {0} - Month {1} - {2}th page - date is {3}'.format(current_year, current_month, current_page, pdf_date))
+
+        gazettes = []
+
+
+        numbers = response.css(".grid_Row td:nth-child(1) span ::text").extract()
+        pdf_dates = response.css(".grid_Row td:nth-child(2) span ::text").extract()
+        ids = response.css(".grid_Row td:nth-child(3) a ::attr(data-teste)").extract()
+        print("Lengths {0} {1} {2}".format(len(numbers), len(pdf_dates), len(ids)))
+        for i in range(len(numbers)):
+            number = numbers[i]
+            pdf_date = pdf_dates[i]
+            id = ids[i]
+            parsed_date = parse(f'{pdf_date}', languages=['pt']).date()
+            print("Number is {0} date is {1} is is {2}".format(number, parsed_date, id))
+            if id != '0':
+                gazettes.append(Gazette(
+                    date = parsed_date,
+                    file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={}".format(id)],
+                    is_extra_edition= True,
+                    municipality_id=self.MUNICIPALITY_ID,
+                    power='executive_legislature',
+                    scraped_at=dt.datetime.utcnow()
+                ))
+
+        return gazettes
