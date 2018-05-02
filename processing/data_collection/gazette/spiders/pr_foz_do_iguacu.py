@@ -11,6 +11,7 @@ class PrFozDoIguacuSpider(scrapy.Spider):
     name = 'pr_foz_do_iguacu'
     allowed_domains = ['pmfi.pr.gov.br']
     start_urls = ['http://www.pmfi.pr.gov.br/utilidades/diario/index.xhtml']
+    AVAILABLE_FROM = dt.date(2015, 1, 1)  # actually September/2007
 
     def parse(self, response):
         """
@@ -49,14 +50,15 @@ class PrFozDoIguacuSpider(scrapy.Spider):
             date = dt.datetime.strptime(
                 publication_date.xpath('text()').extract_first(), '%d/%m/%Y'
             ).date()
-            items.append(
-                Gazette(
-                    date=date,
-                    file_urls=[base_url.format(url)],
-                    is_extra_edition=is_extra_edition,
-                    municipality_id=self.MUNICIPALITY_ID,
-                    power='executive_legislature',
-                    scraped_at=dt.datetime.utcnow(),
+            if date >= self.AVAILABLE_FROM:
+                items.append(
+                    Gazette(
+                        date=date,
+                        file_urls=[base_url.format(url)],
+                        is_extra_edition=is_extra_edition,
+                        municipality_id=self.MUNICIPALITY_ID,
+                        power='executive_legislature',
+                        scraped_at=dt.datetime.utcnow(),
+                    )
                 )
-            )
         return items
