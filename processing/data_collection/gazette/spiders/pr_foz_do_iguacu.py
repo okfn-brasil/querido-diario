@@ -18,16 +18,16 @@ class PrFozDoIguacuSpider(scrapy.Spider):
         @returns requests 1 1
         """
         selector = '(//span[@class="ui-paginator-current"])[1]/text()'
-        paginator_text, *_ = response.xpath(selector).extract()
-        # + 1 because paginator is 0-based
-        quantity_of_documents = int(paginator_text[1:-1].split(" ")[-1]) + 1
+        paginator_text = response.xpath(selector).extract_first()
+        quantity_of_documents = int(paginator_text[1:-1].split()[-1]) + 1
+
         data = {
             'formDiarioOficialView': 'formDiarioOficialView',
             'formDiarioOficialView:dtdiario': 'formDiarioOficialView:dtdiario',
             'formDiarioOficialView:dtdiario_encodeFeature': 'true',
             'formDiarioOficialView:dtdiario_first': '0',
             'formDiarioOficialView:dtdiario_pagination': 'false',
-            'formDiarioOficialView:dtdiario_rows': str(quantity_of_documents)
+            'formDiarioOficialView:dtdiario_rows': str(quantity_of_documents),
         }
 
         return FormRequest(response.url, formdata=data, callback=self.parse_items)
