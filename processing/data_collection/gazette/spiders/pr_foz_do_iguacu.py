@@ -30,7 +30,6 @@ class PrFozDoIguacuSpider(scrapy.Spider):
             'formDiarioOficialView:dtdiario_pagination': 'false',
             'formDiarioOficialView:dtdiario_rows': str(quantity_of_documents),
         }
-
         return FormRequest(response.url, formdata=data, callback=self.parse_items)
 
     def parse_items(self, response):
@@ -42,14 +41,8 @@ class PrFozDoIguacuSpider(scrapy.Spider):
         lines = response.xpath('//tr[@role="row"]')
         items = []
         for line in lines:
-            _, content, *_, publication_date, link = line.xpath('td')
-            content = content.xpath('text()').extract_first()
+            date, url, is_extra_edition = self.get_gazette_data(line)
 
-            is_extra_edition = 'EDIÇÃO EXTRAORDINÁRIA' in content
-            url = link.css('a::attr(href)').extract_first()
-            date = dt.datetime.strptime(
-                publication_date.xpath('text()').extract_first(), '%d/%m/%Y'
-            ).date()
             if date >= self.AVAILABLE_FROM:
                 items.append(
                     Gazette(
@@ -62,3 +55,17 @@ class PrFozDoIguacuSpider(scrapy.Spider):
                     )
                 )
         return items
+
+    @staticmethod
+    def get_gazette_data(line):
+        _, content_column, *_, date_column, download_column = line.xpath('td')
+
+        content = content_column.xpath('text()').extract_first()
+
+        is_extra_edition = 'EDIÇÃO EXTRAORDINÁRIA' in content
+        date = dt.datetime.strptime(
+            date_column.xpath('text()').extract_first(), '%d/%m/%Y'
+        ).date()
+        url = download_column.css('a::attr(href)').extract_first()
+
+        return date, url, is_extra_edition
