@@ -25,7 +25,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data:/mnt/data
+      - ${DATA_FOLDER}:/mnt/data
       - ./processing:/mnt/code
 
   rabbitmq:
