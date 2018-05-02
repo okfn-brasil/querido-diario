@@ -19,8 +19,8 @@ class GoGoianiaSpider(scrapy.Spider):
         @url http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075
         @returns requests 4
         """
-        next_year = dt.date.today().year + 1
-        for year in range(2015, next_year):
+        current_year = dt.date.today().year
+        for year in range(current_year, 2014, -1):
             url = self.gazettes_list_url.format(year)
             yield scrapy.Request(url, self.parse_year)
 

@@ -33,7 +33,7 @@ class SpCampinasSpider(scrapy.Spider):
     def parse_month_page(self, response):
         """
         @url http://www.campinas.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
-        @returns items 23 23
+        @returns items 22 22
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
         items = []
