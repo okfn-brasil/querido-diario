@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from dateparser import parse
+from gazette.items import Gazette
 import datetime as dt
 import json
 import scrapy
-
-from gazette.items import Gazette
 
 class SpSantosSpider(scrapy.Spider):
     MUNICIPALITY_ID = '3548500'
