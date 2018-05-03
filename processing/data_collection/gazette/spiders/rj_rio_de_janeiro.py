@@ -1,7 +1,7 @@
+from gazette.items import Gazette
 import datetime as dt
 import re
 import scrapy
-from gazette.items import Gazette
 
 class RjRioDeJaneiroSpider(scrapy.Spider):
     MUNICIPALITY_ID = '3304557'
