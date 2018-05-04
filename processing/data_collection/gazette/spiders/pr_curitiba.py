@@ -91,17 +91,20 @@ class PrCuritibaSpider(scrapy.Spider):
         return []#gazettes
 
     def scrap_not_extra_edition(self, response, index):
-        print("dsfgsdgfsddsgfsdgdgsa")
+        #window.open('DiarioConsultaExterna_Download.aspx?Id=2508'
+        print('ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(index+3)))
         print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ==== {num:02d}".format(num=(index+3)))
         yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
                     '__EVENTTARGET' : 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(index+3)),
-                    'ctl00$smrAjax' : 'ctl00$cphMasterPrincipal$upPesquisaExternaDO|ctl{num:02d}$cphMasterPrincipal$gdvGrid2$ctl05$lnkVisualizar'.format(num=(index+3))
+                    'ctl00$smrAjax' : 'ctl00$cphMasterPrincipal$upPesquisaExternaDO|ctl{num:02d}$cphMasterPrincipal$gdvGrid2$ctl05$lnkVisualizar'.format(num=(index+3)),
+                    '__ASYNCPOST': 'true',
+                    '__VIEWSTATEGENERATOR':	'B3FCDD96'
                 },
             callback=self.parse_gazette_popup,
             )
 
     def parse_gazette_popup(self, response):
         print("SDFFFFFFFFFFFFFFAFDEHJAERDJREJAJHGEARJ")
-        print(response)
+        print(response.text)
