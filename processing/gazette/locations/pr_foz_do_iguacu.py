@@ -4,6 +4,9 @@ import re
 class PrFozDoIguacu:
     HEADER_REGEX = r'Ano[\s\w]+Diário Oficial Nº [\w\s.]+Página \d+ de \d+'
     END_OF_PAGE_REGEX = r'\n{3,}\s+www.pmfi.pr.gov.br\n'
+    BIDDING_EXEMPTIONS_PATTERNS = [
+        r'PROCESSO([\w\W]+?)fundamento no (?P<law>.+), para(?P<object>[\w\W]+?)da seguinte empresa e valor:\n\s+CONTRATANTE: (?P<contractor>[\w\W]+?)CONTRATADA: (?P<contracted>[\w\W]+?)CNPJ([\w\W]+?)Valor: R\$ (?P<value>[\d\.,]+)([\w\W]+?)'r'Data: (?P<date>\d{2}/\d{2}/\d{4})',
+    ]
 
     def __init__(self, text):
         self.text = text
@@ -19,10 +22,11 @@ class PrFozDoIguacu:
 
     def bidding_exemption_sections(self):
         # TODO Aplly patterns to separate multiple bidding_exemptions in a section
+        patterns = [re.compile(pattern) for pattern in self.BIDDING_EXEMPTIONS_PATTERNS]
         return [
-            section
-            for section in self.text_sections()
-            if 'dispensa de licitação' in section.lower()
+            binding
+            for pattern in patterns
+            for binding in pattern.findall(self._source_text())
         ]
 
     def _source_text(self):

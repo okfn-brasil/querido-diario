@@ -15,3 +15,7 @@ class TestPrFozDoIguacu(TestCase):
         pages = self.subject.pages()
         self.assertEqual(96, len(pages))
         self.assertEqual(self.text[-3056:-75], pages[-1].strip())
+
+    def test_bidding_exemption_sections(self):
+        exemptions = self.subject.bidding_exemption_sections()
+        self.assertEqual(len(exemptions), 2)
