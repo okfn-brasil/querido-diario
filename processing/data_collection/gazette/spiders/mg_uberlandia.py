@@ -18,8 +18,6 @@ class MgUberlandiaSpider(scrapy.Spider):
     def parse(self, response):
 
         for url in self.urls:
-            print('--------')
-            print(url)
             yield scrapy.Request(url, self.parse_ano)
 
     
@@ -38,7 +36,7 @@ class MgUberlandiaSpider(scrapy.Spider):
             power = 'executive_legislature'
             items.append(
                 Gazette(
-                    date=dt.date(2018, 5, 5),
+                    date=dt.date(2018, 5, 5), # temporário
                     file_urls=[url_edicao],
                     is_extra_edition=False,
                     municipality_id=self.MUNICIPALITY_ID,

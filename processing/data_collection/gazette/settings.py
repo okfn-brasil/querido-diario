@@ -4,8 +4,7 @@ NEWSPIDER_MODULE = 'gazette.spiders'
 ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     'scrapy.pipelines.files.FilesPipeline': 1,
-    #'gazette.pipelines.PdfParsingPipeline': 2,
-    #'gazette.pipelines.PostgreSQLPipeline': 3,
+    'gazette.pipelines.PdfParsingPipeline': 2,
+    'gazette.pipelines.PostgreSQLPipeline': 3,
 }
-#FILES_STORE = '/mnt/data/'
-FILES_STORE = '/home/junior/projetos/scrapy/diario-oficial/data'
+FILES_STORE = '/mnt/data/'
