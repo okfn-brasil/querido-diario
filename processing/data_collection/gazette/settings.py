@@ -7,4 +7,4 @@ ITEM_PIPELINES = {
     'gazette.pipelines.PdfParsingPipeline': 2,
     'gazette.pipelines.PostgreSQLPipeline': 3,
 }
-FILES_STORE = '/home/junior/projetos/scrapy/diario-oficial/data'
+FILES_STORE = '/mnt/data/'

@@ -23,14 +23,14 @@ class MgBelohorizonteSpider(scrapy.Spider):
 
     def parse_pagelink(self,response):        
         url = response.xpath('//p[contains(@class,"dom-chamadas")]/a/@href').extract_first()
-        if url is not None:
+        if url:
             url = response.urljoin(url)
             yield scrapy.Request(url, self.parse_details)
             
     def parse_details(self, response):
         file_url = response.xpath('//a[contains(@alt, "link_anexo")]/@href').extract_first()        
         items = []
-        if file_url is not None:
+        if file_url:
             power = 'executive_legislature'
             items.append(
                 Gazette(
