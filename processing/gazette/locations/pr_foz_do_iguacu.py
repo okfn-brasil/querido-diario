@@ -5,7 +5,12 @@ class PrFozDoIguacu:
     HEADER_REGEX = r'Ano[\s\w]+Diário Oficial Nº [\w\s.]+Página \d+ de \d+'
     END_OF_PAGE_REGEX = r'\n{3,}\s+www.pmfi.pr.gov.br\n'
     BIDDING_EXEMPTIONS_PATTERNS = [
-        r'PROCESSO([\w\W]+?)fundamento no (?P<law>.+), para(?P<object>[\w\W]+?)da seguinte empresa e valor:\n\s+CONTRATANTE: (?P<contractor>[\w\W]+?)CONTRATADA: (?P<contracted>[\w\W]+?)CNPJ([\w\W]+?)Valor: R\$ (?P<value>[\d\.,]+)([\w\W]+?)'r'Data: (?P<date>\d{2}/\d{2}/\d{4})',
+        'PROCESSO([\w\W]+?)fundamento\s+no\s+(?P<law>.+),\s+'
+        'para(?P<object>[\w\W]+?)da\s+seguinte\s+empresa\s+e\s+valor:\n'
+        '\s+CONTRATANTE:\s+(?P<contractor>[\w\W]+?)'
+        'CONTRATADA:\s+(?P<contracted>[\w\W]+?)'
+        'CNPJ([\w\W]+?)Valor:\s+R\$ (?P<value>[\d\.,]+)'
+        '([\w\W]+?)Data:\s+(?P<date>\d{2}/\d{2}/\d{4})',
     ]
 
     def __init__(self, text):
