@@ -11,6 +11,11 @@ class PrFozDoIguacu:
         'CONTRATADA:\s+(?P<contracted>[\w\W]+?)'
         'CNPJ([\w\W]+?)Valor:\s+R\$ (?P<value>[\d\.,]+)'
         '([\w\W]+?)Data:\s+(?P<date>\d{2}/\d{2}/\d{4})',
+
+        'Ratifico o processo de Dispensa de Licitação nº([\w\W]+?)'
+        'conforme\s+disposto\s+no(?P<law>[\w\W]+?),\s+referente'
+        '\s+\w+\s+(?P<object>[\w\W]+?)\s+Em favor de:(?P<contacted>[\w\W]+?)'
+        '\s+CNPJ.+\s+Valor([\w\W]+?)R\$\s+(?P<value>[\w.,]+)\s+([\w\W]+?)Prefeit'
     ]
 
     def __init__(self, text):

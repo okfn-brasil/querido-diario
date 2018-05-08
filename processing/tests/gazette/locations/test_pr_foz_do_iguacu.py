@@ -7,9 +7,17 @@ class TestPrFozDoIguacu(TestCase):
 
     def setUp(self):
         path = 'tests/gazette/fixtures/pr_foz_do_iguacu.txt'
-        with open(path) as file:
-            self.text = file.read()
+        self.text = self._get_text_from_file(path)
         self.subject = PrFozDoIguacu(self.text)
+
+        multiple_patterns = 'tests/gazette/fixtures/pr_foz_do_iguacu_multiple_patterns.txt'
+        self.patterns_subject = PrFozDoIguacu(self._get_text_from_file(multiple_patterns))
+
+    @staticmethod
+    def _get_text_from_file(path):
+        with open(path) as file:
+            text = file.read()
+        return text
 
     def test_pages(self):
         pages = self.subject.pages()
@@ -19,3 +27,7 @@ class TestPrFozDoIguacu(TestCase):
     def test_bidding_exemption_sections(self):
         exemptions = self.subject.bidding_exemption_sections()
         self.assertEqual(len(exemptions), 2)
+
+    def test_patterns(self):
+        exemptions = self.patterns_subject.bidding_exemption_sections()
+        self.assertEqual(len(exemptions), 5)
