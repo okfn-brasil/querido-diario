@@ -1,7 +1,9 @@
 from dateparser import parse
 import datetime as dt
+import re
 
 import scrapy
+
 
 from gazette.items import Gazette
 
@@ -73,10 +75,21 @@ class PrCuritibaSpider(scrapy.Spider):
             id = ids[i]
             parsed_date = parse(f'{pdf_date}', languages=['pt']).date()
             if id == '0':
-                print("Nao suplemento")
-                print("Number is {0} date is {1} is is {2}".format(number, parsed_date, id))
-                self.scrap_not_extra_edition(response, i)
-                gazettes.append(self.scrap_not_extra_edition(response, i))
+                yield scrapy.FormRequest.from_response(response,
+                                                       headers = {
+                                                           'user-agent': 'Mozilla/5.0',
+                                                       },
+				                                       formdata = {
+					                                       '__LASTFOCUS': '',
+				                                           '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(i+3)),
+					                                       '__EVENTARGUMENT': '',
+                                                           '__ASYNCPOST': 'true'
+				                                       },
+                                                       callback=self.scrap_not_extra_edition,
+                                                       meta={"gazettes": gazettes, "parsed_date": parsed_date}
+                )
+
+                #gazettes.append(yield self.scrap_not_extra_edition(response, i))
             else:
                 gazettes.append(Gazette(
                     date = parsed_date,
@@ -86,25 +99,18 @@ class PrCuritibaSpider(scrapy.Spider):
                     power='executive_legislature',
                     scraped_at=dt.datetime.utcnow()
                 ))
-            
 
         return []#gazettes
 
-    def scrap_not_extra_edition(self, response, index):
-        #window.open('DiarioConsultaExterna_Download.aspx?Id=2508'
-        print('ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(index+3)))
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ==== {num:02d}".format(num=(index+3)))
-        yield scrapy.FormRequest.from_response(
-                response,
-                formdata={
-                    '__EVENTTARGET' : 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(index+3)),
-                    'ctl00$smrAjax' : 'ctl00$cphMasterPrincipal$upPesquisaExternaDO|ctl{num:02d}$cphMasterPrincipal$gdvGrid2$ctl05$lnkVisualizar'.format(num=(index+3)),
-                    '__ASYNCPOST': 'true',
-                    '__VIEWSTATEGENERATOR':	'B3FCDD96'
-                },
-            callback=self.parse_gazette_popup,
-            )
-
-    def parse_gazette_popup(self, response):
-        print("SDFFFFFFFFFFFFFFAFDEHJAERDJREJAJHGEARJ")
-        print(response.text)
+    def scrap_not_extra_edition(self, response):
+        gazettes = response.meta['gazettes']
+        parsed_date = response.meta['parsed_date']
+        id = re.findall(r'Id=(\d+)', response.text )
+        gazettes.append(Gazette(
+            date = parsed_date,
+            file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={}".format(id)],
+            is_extra_edition= False,
+            municipality_id=self.MUNICIPALITY_ID,
+            power='executive_legislature',
+            scraped_at=dt.datetime.utcnow()
+        ))
