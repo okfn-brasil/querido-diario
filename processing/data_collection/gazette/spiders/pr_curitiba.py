@@ -4,7 +4,6 @@ import re
 
 import scrapy
 
-
 from gazette.items import Gazette
 
 class PrCuritibaSpider(scrapy.Spider):
@@ -37,14 +36,16 @@ class PrCuritibaSpider(scrapy.Spider):
 
 
     def parse_year(self, response):
-        for i in range(12):
+        for i in range(1):
             yield self.scrap_month(response, i)
 
     def scrap_month(self, response, month):
         return scrapy.FormRequest.from_response(
             response,
             formdata={
-                'ctl00_cphMasterPrincipal_TabContainer1_ClientState' : '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month)
+                '__EVENTTARGET': 'ctl00$cphMasterPrincipal$TabContainer1',
+                '__EVENTARGUMENT': 'activeTabChanged:{}'.format(month),
+                'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState' : '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month)
             },
             callback=self.parse_month,
         )
@@ -52,7 +53,9 @@ class PrCuritibaSpider(scrapy.Spider):
     def parse_month(self, response):
         #Count how many pages and iterate
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
+        print("DEBBUG PAGES TOTAL: {}".format(page_count))
         for page_number in range(1,page_count + 1):
+            print("DEBBUG CURRENT PAGE {}".format(page_number))
             yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
@@ -63,14 +66,13 @@ class PrCuritibaSpider(scrapy.Spider):
             )
 
     def parse_page(self, response):
-        gazettes = []
-
         numbers = response.css(".grid_Row td:nth-child(1) span ::text").extract()
         pdf_dates = response.css(".grid_Row td:nth-child(2) span ::text").extract()
         ids = response.css(".grid_Row td:nth-child(3) a ::attr(data-teste)").extract()
-        print("Lengths {0} {1} {2}".format(len(numbers), len(pdf_dates), len(ids)))
         for i in range(len(numbers)):
+            print("DEBBUG Number {}".format(i))
             number = numbers[i]
+            print("DEBBUG Name {}".format(number))
             pdf_date = pdf_dates[i]
             id = ids[i]
             parsed_date = parse(f'{pdf_date}', languages=['pt']).date()
@@ -86,31 +88,26 @@ class PrCuritibaSpider(scrapy.Spider):
                                                            '__ASYNCPOST': 'true'
 				                                       },
                                                        callback=self.scrap_not_extra_edition,
-                                                       meta={"gazettes": gazettes, "parsed_date": parsed_date}
+                                                       meta={"parsed_date": parsed_date}
                 )
-
-                #gazettes.append(yield self.scrap_not_extra_edition(response, i))
             else:
-                gazettes.append(Gazette(
+                yield Gazette(
                     date = parsed_date,
                     file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={}".format(id)],
                     is_extra_edition= True,
                     municipality_id=self.MUNICIPALITY_ID,
                     power='executive_legislature',
                     scraped_at=dt.datetime.utcnow()
-                ))
-
-        return []#gazettes
+                )
 
     def scrap_not_extra_edition(self, response):
-        gazettes = response.meta['gazettes']
         parsed_date = response.meta['parsed_date']
-        id = re.findall(r'Id=(\d+)', response.text )
-        gazettes.append(Gazette(
+        id = re.findall(r'Id=(\d+)', response.text )[0]
+        return Gazette(
             date = parsed_date,
             file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={}".format(id)],
             is_extra_edition= False,
             municipality_id=self.MUNICIPALITY_ID,
             power='executive_legislature',
             scraped_at=dt.datetime.utcnow()
-        ))
+        )
