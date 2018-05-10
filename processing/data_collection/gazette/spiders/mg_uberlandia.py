@@ -66,17 +66,16 @@ class MgUberlandiaSpider(scrapy.Spider):
         return urls
 
     def list_dates(self, response):
-        dt1 = response.xpath('//p/span/text()').extract()
-        dt2 = response.xpath('//p/text()').extract()
+        variants = ['//p/span/text()',
+                    '//p/span/span/text()',
+                    '//p/text()'
+                    ]
         dates = []
-        for dt in dt1:
-            d = re.findall('\d{2}/\d{2}/\d{4}', dt)
-            if len(d) == 1:
-                dates.append(d[0])
-
-        for dt in dt2:
-            d = re.findall('\d{2}/\d{2}/\d{4}', dt)
-            if len(d) == 1:
-                dates.append(d[0])
-
+        for v in variants:
+            resp = response.xpath(v).extract()
+            for r in resp:
+                d = re.findall('\d{2}/\d{2}/\d{4}', r)
+                if len(d) == 1:
+                    dates.append(d[0])        
+        
         return sorted(dates, reverse=True)
