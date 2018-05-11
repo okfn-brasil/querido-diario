@@ -36,7 +36,7 @@ class PrCuritibaSpider(scrapy.Spider):
 
 
     def parse_year(self, response):
-        for i in range(1):
+        for i in range(12):
             yield self.scrap_month(response, i)
 
     def scrap_month(self, response, month):
@@ -47,13 +47,24 @@ class PrCuritibaSpider(scrapy.Spider):
                 '__EVENTARGUMENT': 'activeTabChanged:{}'.format(month),
                 'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState' : '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month)
             },
-            callback=self.parse_month,
+            meta={ "month" : month },
+            callback=self.parse_month
         )
 
     def parse_month(self, response):
         #Count how many pages and iterate
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
         print("DEBBUG PAGES TOTAL: {}".format(page_count))
+        month = response.meta["month"]
+        yield scrapy.FormRequest.from_response(
+            response,
+            formdata={
+                '__EVENTTARGET': 'ctl00$cphMasterPrincipal$TabContainer1',
+                'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState' : '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month),
+                '__EVENTARGUMENT': 'activeTabChanged:{}'.format(month),
+            },
+            callback=self.parse_page,
+        )
         for page_number in range(1,page_count + 1):
             print("DEBBUG CURRENT PAGE {}".format(page_number))
             yield scrapy.FormRequest.from_response(
@@ -64,7 +75,6 @@ class PrCuritibaSpider(scrapy.Spider):
                 },
                 callback=self.parse_page,
             )
-
     def parse_page(self, response):
         numbers = response.css(".grid_Row td:nth-child(1) span ::text").extract()
         pdf_dates = response.css(".grid_Row td:nth-child(2) span ::text").extract()
