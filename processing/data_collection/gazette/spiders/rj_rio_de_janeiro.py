@@ -47,7 +47,7 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
         
         return items
 
-    def create_gazette(self, date, url, is_extra_edition = False):
+    def create_gazette(self, date, url, is_extra_edition=False):
         return Gazette(
             date=date,
             file_urls=[url],
