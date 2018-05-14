@@ -22,8 +22,8 @@ class PrCuritibaSpider(scrapy.Spider):
         """
         todays_date = dt.date.today()
         current_year = todays_date.year
-        current_month = todays_date.month
-        yield self.scrap_year(response, 2015)
+        for year in reversed(range(2015, current_year)):
+            yield self.scrap_year(response, year)
 
     def scrap_year(self, response, year):
         return scrapy.FormRequest.from_response(
@@ -54,7 +54,6 @@ class PrCuritibaSpider(scrapy.Spider):
     def parse_month(self, response):
         #Count how many pages and iterate
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
-        print("DEBBUG PAGES TOTAL: {}".format(page_count))
         month = response.meta["month"]
         yield scrapy.FormRequest.from_response(
             response,
@@ -65,8 +64,7 @@ class PrCuritibaSpider(scrapy.Spider):
             },
             callback=self.parse_page,
         )
-        for page_number in range(1,page_count + 1):
-            print("DEBBUG CURRENT PAGE {}".format(page_number))
+        for page_number in range(2,page_count + 1):
             yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
@@ -80,9 +78,7 @@ class PrCuritibaSpider(scrapy.Spider):
         pdf_dates = response.css(".grid_Row td:nth-child(2) span ::text").extract()
         ids = response.css(".grid_Row td:nth-child(3) a ::attr(data-teste)").extract()
         for i in range(len(numbers)):
-            print("DEBBUG Number {}".format(i))
             number = numbers[i]
-            print("DEBBUG Name {}".format(number))
             pdf_date = pdf_dates[i]
             id = ids[i]
             parsed_date = parse(f'{pdf_date}', languages=['pt']).date()
