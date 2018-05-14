@@ -55,6 +55,7 @@ class PrCuritibaSpider(scrapy.Spider):
         #Count how many pages and iterate
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
         month = response.meta["month"]
+        #The first page of pagination cannot be accessed by page number
         yield scrapy.FormRequest.from_response(
             response,
             formdata={
@@ -84,18 +85,16 @@ class PrCuritibaSpider(scrapy.Spider):
             id = ids[i]
             parsed_date = parse(f'{pdf_date}', languages=['pt']).date()
             if id == '0':
-                yield scrapy.FormRequest.from_response(response,
-                                                       headers = {
-                                                           'user-agent': 'Mozilla/5.0',
-                                                       },
-				                                       formdata = {
-					                                       '__LASTFOCUS': '',
-				                                           '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(i+3)),
-					                                       '__EVENTARGUMENT': '',
-                                                           '__ASYNCPOST': 'true'
-				                                       },
-                                                       callback=self.scrap_not_extra_edition,
-                                                       meta={"parsed_date": parsed_date}
+                yield scrapy.FormRequest.from_response(
+                    response,
+                    formdata = {
+                        '__LASTFOCUS': '',
+                        '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(i+3)),
+                        '__EVENTARGUMENT': '',
+                        '__ASYNCPOST': 'true'
+                    },
+                    callback=self.scrap_not_extra_edition,
+                    meta={"parsed_date": parsed_date}
                 )
             else:
                 yield Gazette(
