@@ -74,9 +74,10 @@ class PrCuritibaSpider(scrapy.Spider):
                 callback=self.parse_page,
             )
     def parse_page(self, response):
-        numbers = response.css(".grid_Row td:nth-child(1) span ::text").extract()
-        pdf_dates = response.css(".grid_Row td:nth-child(2) span ::text").extract()
-        ids = response.css(".grid_Row td:nth-child(3) a ::attr(data-teste)").extract()
+        row = response.css(".grid_Row")
+        numbers = row.css("td:nth-child(1) span ::text").extract()
+        pdf_dates = row.css("td:nth-child(2) span ::text").extract()
+        ids = row.css("td:nth-child(3) a ::attr(data-teste)").extract()
         for i in range(len(numbers)):
             number = numbers[i]
             pdf_date = pdf_dates[i]
