@@ -22,7 +22,7 @@ class PrCuritibaSpider(scrapy.Spider):
         """
         todays_date = dt.date.today()
         current_year = todays_date.year
-        for year in reversed(range(2015, current_year)):
+        for year in reversed(range(2015, current_year + 1)):
             yield self.scrap_year(response, year)
 
     def scrap_year(self, response, year):
@@ -87,6 +87,7 @@ class PrCuritibaSpider(scrapy.Spider):
             if id == '0':
                 yield scrapy.FormRequest.from_response(
                     response,
+                    headers = {'user-agent': 'Mozilla/5.0'},
                     formdata = {
                         '__LASTFOCUS': '',
                         '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(i+3)),
