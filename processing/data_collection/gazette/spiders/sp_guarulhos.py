@@ -13,11 +13,11 @@ class SpGuarulhosSpider(scrapy.Spider):
     allowed_domains = ['guarulhos.sp.gov.br']
 
     def start_requests(self):
-        base_url = 'http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes={}&ano={}'
         starting_date = dt.date(2015, 1, 1)
         ending_date = dt.date.today()
         for date in rrule(MONTHLY, dtstart=starting_date, until=ending_date):
-            yield scrapy.Request(base_url.format(date.month, date.year))
+            yield scrapy.Request(
+                f'http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes={date.month}&ano={date.year}')
 
     def parse(self, response):
         """
