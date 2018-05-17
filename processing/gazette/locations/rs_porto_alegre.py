@@ -1,6 +1,6 @@
 import re
 
-from gazette.locations.base_parser import BaseParser
+from .base_parser import BaseParser
 
 
 class RsPortoAlegre(BaseParser):
