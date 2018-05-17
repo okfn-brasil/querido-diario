@@ -20,7 +20,7 @@ class BiddingExemptionParsing:
                 record.object = record.data.get('OBJETO')
                 self.update_value(record)
                 self.update_contracted(record)
-            record.is_parsed = True
+                record.is_parsed = True
 
     def update_value(self, record):
         keywords = ['VALOR', 'ORÇAMENTO', 'PREÇO']
