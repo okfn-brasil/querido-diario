@@ -5,9 +5,10 @@ from dateutil.rrule import rrule, MONTHLY
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class SpGuarulhosSpider(scrapy.Spider):
+class SpGuarulhosSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3518800'
     name = 'sp_guarulhos'
     allowed_domains = ['guarulhos.sp.gov.br']
