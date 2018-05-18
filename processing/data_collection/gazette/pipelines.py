@@ -19,7 +19,7 @@ class PdfParsingPipeline:
 
     def pdf_source_text(self, item):
         pdf_path = os.path.join(FILES_STORE, item['files'][0]['path'])
-        command = f'pdftotext -layout {pdf_path}'
+        command = f'pdftotext -layout "{pdf_path}"'
         subprocess.run(command, shell=True, check=True)
         if '.pdf' in pdf_path:
             text_path = pdf_path.replace('.pdf', '.txt')
