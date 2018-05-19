@@ -31,8 +31,9 @@ class GazetteElement:
             scraped_at=datetime.utcnow(),
         )
 
+
 class ScJoinvilleSpider(Spider):
-    ELEMENT_CSS = 'ul.jornal li'
+    GAZETTE_ELEMENT_CSS = 'ul.jornal li'
     NEXT_PAGE_CSS = 'ul.pagination li.next a::attr(href)'
 
     allowed_domains = ['joinville.sc.gov.br']
@@ -46,13 +47,10 @@ class ScJoinvilleSpider(Spider):
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
 
-        for element in self.get_gazettes_elements(response):
+        for element in response.css(self.GAZETTE_ELEMENT_CSS):
             yield GazetteElement(element).to_gazette()
 
-        yield Request(self.next_page_url(response), callback=self.parse)
+        for url in response.css(self.NEXT_PAGE_CSS).extract():
+            yield Request(url)
 
-    def get_gazettes_elements(self, response):
-        return response.css(self.ELEMENT_CSS)
 
-    def next_page_url(self, response):
-        return response.css(self.NEXT_PAGE_CSS).extract_first()
