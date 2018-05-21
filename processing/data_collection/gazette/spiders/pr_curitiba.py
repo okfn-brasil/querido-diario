@@ -22,7 +22,7 @@ class PrCuritibaSpider(scrapy.Spider):
         """
         todays_date = dt.date.today()
         current_year = todays_date.year
-        for year in reversed(range(2015, current_year + 1)):
+        for year in range(current_year, 2014, -1):
             yield self.scrap_year(response, year)
 
     def scrap_year(self, response, year):
@@ -52,7 +52,6 @@ class PrCuritibaSpider(scrapy.Spider):
         )
 
     def parse_month(self, response):
-        #Count how many pages and iterate
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
         month = response.meta["month"]
         #The first page of pagination cannot be accessed by page number
@@ -65,7 +64,7 @@ class PrCuritibaSpider(scrapy.Spider):
             },
             callback=self.parse_page,
         )
-        for page_number in range(2,page_count + 1):
+        for page_number in range(2, page_count + 1):
             yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
