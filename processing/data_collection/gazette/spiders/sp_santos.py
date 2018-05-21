@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from dateparser import parse
-from gazette.items import Gazette
 import datetime as dt
-import json
-import scrapy
 
-class SpSantosSpider(scrapy.Spider):
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
+
+
+class SpSantosSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3548500'
     name = 'sp_santos'
     allowed_domains = ['santos.sp.gov.br']

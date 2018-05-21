@@ -5,9 +5,10 @@ import scrapy
 from scrapy.http import Request
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class BaFeiraDeSantanaSpider(scrapy.Spider):
+class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '2910800'
     name = 'ba_feira_de_santana'
     allowed_domains = ['diariooficial.feiradesantana.ba.gov.br']

@@ -5,9 +5,10 @@ import json
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class SpFrancaSpider(scrapy.Spider):
+class SpFrancaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3516200'
     name = 'sp_franca'
     allowed_domains = ['franca.sp.gov.br']

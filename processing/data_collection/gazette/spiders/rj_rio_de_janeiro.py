@@ -2,8 +2,10 @@ from gazette.items import Gazette
 import datetime as dt
 import re
 import scrapy
+from gazette.spiders.base import BaseGazetteSpider
 
-class RjRioDeJaneiroSpider(scrapy.Spider):
+
+class RjRioDeJaneiroSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3304557'
     name = 'rj_rio_de_janeiro'
     allowed_domains = ['doweb.rio.rj.gov.br']
@@ -17,7 +19,7 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
         while parsing_date >= end_date:
             url = self.search_gazette_url.format(parsing_date.strftime('%d/%m/%Y'))
             yield scrapy.Request(url, self.parse_search_by_date, meta={'gazette_date': parsing_date})
-            
+
             parsing_date = parsing_date - dt.timedelta(days=1)
 
     def parse_search_by_date(self, response):
@@ -44,7 +46,7 @@ class RjRioDeJaneiroSpider(scrapy.Spider):
                     url = self.download_gazette_url.format(match.group(1))
                     is_extra_edition = 'suplemento' in ed.lower()
                     items.append(self.create_gazette(gazette_date, url, is_extra_edition))
-        
+
         return items
 
     def create_gazette(self, date, url, is_extra_edition=False):
