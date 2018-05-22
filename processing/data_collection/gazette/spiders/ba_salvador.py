@@ -33,29 +33,33 @@ class BaSalvadorSpider(BaseGazetteSpider):
         yield scrapy.Request(first_page_url)
 
     def parse(self, response):
-        months = [
-            'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho',
-            'agosto', 'setembro', 'outubro', 'novembro', 'dezembro',
-        ]
         for gazette in response.css('.dmarticlesfilter_results_title'):
-            gazette_id = gazette.re_first('DOM-([\d]+)')
             gazette_date = gazette.css(
                 '#dmarticlesfilter_results_date::text').extract_first('')
+            gazette_url = gazette.css('a::attr(href)').extract_first()
 
-            parsed_date = dateparser.parse(gazette_date, settings={'DATE_ORDER': 'YMD'})
-            month = months[parsed_date.month - 1]
-            full_date = parsed_date.strftime('%d-%m-%Y')
-
-            pdf_url = f'http://www.dom.salvador.ba.gov.br/' \
-                f'images/stories/pdf/{parsed_date.year}/{month}/dom-{gazette_id}-{full_date}.pdf'
-
-            yield Gazette(
-                date=parsed_date.date(),
-                file_urls=[pdf_url, ],
-                municipality_id=self.MUNICIPALITY_ID,
-                power=self.power,
-                scraped_at=datetime.datetime.utcnow(),
+            yield scrapy.Request(
+                response.urljoin(gazette_url),
+                meta={
+                    'gazette_date': gazette_date
+                },
+                callback=self.parse_gazette
             )
 
         for href in response.css('.paginacao a::attr(href)'):
             yield response.follow(href, callback=self.parse)
+
+    def parse_gazette(self, response):
+        parsed_date = dateparser.parse(
+            response.meta.get('gazette_date'), settings={'DATE_ORDER': 'YMD'})
+        pdf_url = response.css('#PDFId embed::attr(src)').extract_first()
+        if not pdf_url:
+            import ipdb; ipdb.set_trace()
+
+        yield Gazette(
+            date=parsed_date.date(),
+            file_urls=[pdf_url, ],
+            municipality_id=self.MUNICIPALITY_ID,
+            power=self.power,
+            scraped_at=datetime.datetime.utcnow(),
+        )
