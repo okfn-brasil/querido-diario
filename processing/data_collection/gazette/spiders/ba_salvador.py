@@ -17,12 +17,11 @@ class BaSalvadorSpider(BaseGazetteSpider):
     allowed_domains = ['salvador.ba.gov.br']
     power = 'executive'
 
-    custom_settings = {
-        'ITEM_PIPELINES': {
-            **ITEM_PIPELINES,
-            'gazette.spiders.ba_salvador.BaSalvadorExtraEditionItemPipeline': 1000,
-        }
-    }
+    @classmethod
+    def update_settings(cls, settings):
+        pipelines = settings['ITEM_PIPELINES']
+        pipelines['gazette.spiders.ba_salvador.BaSalvadorExtraEditionItemPipeline'] = 1000
+        super().update_settings(settings)
 
     def start_requests(self):
         # According to their website, they have gazettes available from 2001-01-01
