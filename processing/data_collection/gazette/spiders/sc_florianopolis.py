@@ -3,12 +3,13 @@ from datetime import date, datetime
 
 from dateparser import parse
 from dateutil.relativedelta import relativedelta
-from scrapy import FormRequest, Spider
+from scrapy import FormRequest
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class ScFlorianopolisSpider(Spider):
+class ScFlorianopolisSpider(BaseGazetteSpider):
     name = 'sc_florianopolis'
     URL = 'http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial'
     MUNICIPALITY_ID = '4205407'
