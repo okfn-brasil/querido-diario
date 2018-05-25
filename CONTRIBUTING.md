@@ -23,7 +23,7 @@ $ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl
 Use the [Scrapy shell](https://doc.scrapy.org/en/latest/intro/tutorial.html#extracting-data) to test queries on the web pages to extract data. It opens an interactive shell so you can easilly test queries to extract data:
 
 ```sh
-scrapy shell 'https://www.joinville.sc.gov.br/jornal/index/page/1'
+docker-compose run --rm processing scrapy shell 'https://www.joinville.sc.gov.br/jornal/index/page/1'
 ```
 
 ## Automated Testing
