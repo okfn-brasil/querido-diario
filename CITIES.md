@@ -13,7 +13,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 4 | Salvador | | | | https://github.com/okfn-brasil/diario-oficial/pull/47 |
 | 5 | Fortaleza | | | | |
 | 6 | Belo Horizonte | | | | https://github.com/okfn-brasil/diario-oficial/pull/33 |
-| 7 | Manaus | | | | |
+| 7 | Manaus | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/51 |
 | 8 | Curitiba | | | | https://github.com/okfn-brasil/diario-oficial/pull/42 |
 | 9 | Recife | | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
