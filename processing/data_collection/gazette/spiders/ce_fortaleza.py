@@ -39,7 +39,6 @@ class CeFortalezaSpider(Spider):
             url = self.extract_url(element)
             date = self.extract_date(element)
             extra_edition = self.extract_extra_edition(element)
-            print(extra_edition)
 
             yield Gazette(
                 date=date,
@@ -50,13 +49,12 @@ class CeFortalezaSpider(Spider):
                 scraped_at=datetime.utcnow(),
             )
 
-        next_link = response.css(self.NEXT_PAGE_CSS)
+        next_link = self.extract_next_link(response)
 
         if next_link:
-            page_number = next_link[-1].css(self.NEXT_PAGE_LINK_CSS).extract_first().split('#')[1]
-            url = response.url.split('&current')[0] + '&current=' + str(page_number)
-            yield Request(url)
+            yield Request(next_link)
 
+    # Extra edition is maked with a "s" on description. Example: Diário Oficial Nº 15923s
     def extract_extra_edition(self, element):
         return element.css(self.EXTRA_CSS).extract_first()[-1] == 's'
 
@@ -67,3 +65,12 @@ class CeFortalezaSpider(Spider):
     def extract_date(self, element):
         date_str = element.css(self.DATE_CSS).extract_first()
         return dateparser.parse(date_str, languages=['pt']).date()
+
+    def extract_next_link(self, response):
+        next_link = response.css(self.NEXT_PAGE_CSS)
+        if next_link:
+            next_link_element = next_link[-1].css(self.NEXT_PAGE_LINK_CSS)
+            page_number = next_link_element.extract_first().split('#')[1]
+            return response.url.split('&current')[0] + '&current=' + str(page_number)
+
+        return false
