@@ -15,8 +15,9 @@ def generate_urls_by_year():
     return urls
 
 class CeFortalezaSpider(Spider):
-    DATE_CSS = 'td:nth-child(2)::text'
     GAZETTE_ELEMENT_CSS = '.diarios-oficiais .table-responsive tbody tr'
+    DATE_CSS = 'td:nth-child(2)::text'
+    EXTRA_CSS = 'td:nth-child(1)::text'
     NEXT_PAGE_CSS = 'ul.pagination .page-link'
     NEXT_PAGE_LINK_CSS = '.page-link::attr(href)'
 
@@ -37,11 +38,13 @@ class CeFortalezaSpider(Spider):
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
             url = self.extract_url(element)
             date = self.extract_date(element)
+            extra_edition = self.extract_extra_edition(element)
+            print(extra_edition)
 
             yield Gazette(
                 date=date,
                 file_urls=[url],
-                is_extra_edition=False,
+                is_extra_edition=extra_edition,
                 municipality_id=self.MUNICIPALITY_ID,
                 power='executive',
                 scraped_at=datetime.utcnow(),
@@ -53,6 +56,9 @@ class CeFortalezaSpider(Spider):
             page_number = next_link[-1].css(self.NEXT_PAGE_LINK_CSS).extract_first().split('#')[1]
             url = response.url.split('&current')[0] + '&current=' + str(page_number)
             yield Request(url)
+
+    def extract_extra_edition(self, element):
+        return element.css(self.EXTRA_CSS).extract_first()[-1] == 's'
 
     def extract_url(self, element):
         path = element.css('a::attr(href)').extract_first()
