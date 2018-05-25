@@ -7,7 +7,7 @@ from gazette.items import Gazette
 
 PDF_URL = 'http://apps.fortaleza.ce.gov.br/diariooficial/{}'
 
-def generate_year_urls():
+def generate_urls_by_year():
     urls = []
     for year in range(2015, datetime.now().year):
         urls.append(PDF_URL.format('?num-diario=&content-diario=&ano-diario=' + str(year) + '&mes-diario=todos&current=1'))
@@ -25,7 +25,7 @@ class CeFortalezaSpider(Spider):
     allowed_domains = ['apps.fortaleza.ce.gov.br']
     name = 'ce_fortaleza'
 
-    start_urls = generate_year_urls()
+    start_urls = generate_urls_by_year()
 
     def parse(self, response):
         """
@@ -43,7 +43,7 @@ class CeFortalezaSpider(Spider):
                 file_urls=[url],
                 is_extra_edition=False,
                 municipality_id=self.MUNICIPALITY_ID,
-                power='executive_legislature',
+                power='executive',
                 scraped_at=datetime.utcnow(),
             )
 
