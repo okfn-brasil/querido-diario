@@ -11,9 +11,9 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 2 | Rio de Janeiro | :soon: | | https://github.com/okfn-brasil/diario-oficial/issues/15 | https://github.com/okfn-brasil/diario-oficial/pull/29 |
 | 3 | Brasília | | | | |
 | 4 | Salvador | | | | https://github.com/okfn-brasil/diario-oficial/pull/47 |
-| 5 | Fortaleza | | | | |
+| 5 | Fortaleza | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/52 |
 | 6 | Belo Horizonte | | | | https://github.com/okfn-brasil/diario-oficial/pull/33 |
-| 7 | Manaus | :white_check_mark:  | | | https://github.com/okfn-brasil/diario-oficial/pull/51 |
+| 7 | Manaus | :soon:  | | | https://github.com/okfn-brasil/diario-oficial/pull/51 |
 | 8 | Curitiba | | | | https://github.com/okfn-brasil/diario-oficial/pull/42 |
 | 9 | Recife | :soon: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
@@ -27,7 +27,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 18 | Duque de Caxias | | | | |
 | 19 | Natal | | | | |
 | 20 | Campo Grande | | | | https://github.com/okfn-brasil/diario-oficial/pull/35 |
-| 21 | Teresina | | | | |
+| 21 | Teresina | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/53 |
 | 22 | São Bernardo do Campo | | | | |
 | 23 | João Pessoa | | | | |
 | 24 | Nova Iguaçu | | | | |
