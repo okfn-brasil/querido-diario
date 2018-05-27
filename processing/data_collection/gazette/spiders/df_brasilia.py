@@ -50,11 +50,16 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
     def parse(self, response):
         """
-        @url http://dodf.df.gov.br/listar?dir={YEAR}/{MONTH}/{DAY}
+        @url http://dodf.df.gov.br/listar?dir=2018/05_Maio/DODF%20097%2022-05-2018%20SUPLEMENTO
         @returns items 1
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
+
         json_response = json.loads(response.body_as_unicode())
+
+        if not json_response:
+            return
+
         json_dir = json_response['dir']
         json_data = json_response['data']
 
