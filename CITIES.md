@@ -40,7 +40,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 31 | Sorocaba | | | | |
 | 32 | Contagem | | | | |
 | 33 | Aracaju | | | | |
-| 34 | Feira de Santana | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/25 |
+| 34 | Feira de Santana | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/25 |
 | 35 | Cuiabá | | | | |
 | 36 | Joinville | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/30 |
 | 37 | Juiz de Fora | :soon: | | https://github.com/okfn-brasil/diario-oficial/issues/12 | https://github.com/okfn-brasil/diario-oficial/pull/13 |
