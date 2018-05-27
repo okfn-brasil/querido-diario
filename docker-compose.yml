@@ -7,7 +7,7 @@ services:
       - .env
     environment:
       - PGRST_DB_URI=${DATABASE_URL}
-    image: postgrest/postgrest
+    image: postgrest/postgrest:v0.4.4.0
     ports:
       - 3000:3000
 
