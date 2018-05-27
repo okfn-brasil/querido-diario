@@ -24,6 +24,7 @@ class BiddingExemption(DeclarativeBase):
     source_text = Column('source_text', Text)
     date = Column('date', Date)
     contracted = Column('contracted', String)
+    contracted_code = Column('contracted_code', String)
     value = Column('value', Numeric)
     is_parsed = Column('is_parsed', Boolean, default=False)
     object = Column('object', String)
