@@ -1,18 +1,41 @@
 # -*- coding: utf-8 -*-
 # from dateparser import parse
 import datetime as dt
-# import json
 import scrapy
+from scrapy_splash import SplashRequest
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class MaSaoLuisSpider(scrapy.Spider):
+class MaSaoLuisSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '2111300'
     name = 'ma_sao_luis'
     allowed_domains = ['www.semad.saoluis.ma.gov.br']
     start_urls = ['http://www.semad.saoluis.ma.gov.br:8090/easysearch/']
-    download_url = 'https://gov.br/'
+
+    def start_requests(self):
+        lua_script = """
+function main(splash, args)
+    splash:go(args.url)
+    getElementByXPath = splash:jsfunc([[
+        function (path) {
+            return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        }
+    ]])
+    splash:wait(4)
+    tamanho_pagina = getElementByXPath("//tbody/tr/td/div[@class='GPFMNGWKN' and text()='20']")
+    tamanho_pagina:mouse_click()
+    tamanho_1 = getElementByXPath("//div[1]/div/span[@class='GPFMNGWKGC']")
+    tamanho_1:mouse_click()
+    splash:wait(2)
+    return splash:html()
+end
+"""
+        for url in self.start_urls:
+            yield SplashRequest(
+                url=url, callback=self.parse, endpoint='execute',
+                args={'lua_source': lua_script})
 
     def parse(self, response):
         """
