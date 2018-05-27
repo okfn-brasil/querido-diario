@@ -14,7 +14,7 @@ If you have never contributed to any open source project, there are tasks just f
 
 Sometimes the community organizes events for solving multiple issues in a short amount of time. Especially in these cases, an issue or pull request may be considered abandoned when is waiting for the contributor but doesn't receive updates for a couple of weeks. Just let us know you need more time, so we don't end up closing it by mistake.
 
-### Option 1 - writing crawlers for new cities
+### Option 1 - writing crawlers for new municipalities
 
 For collecting the gazettes from the official websites, we use a crawling framework called [Scrapy](https://docs.scrapy.org). You may find its [official tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) helpful to get started with the architecture. Our project can be found in the [`processing/data_collection`](processing/data_collection) folder.
 
@@ -32,7 +32,7 @@ For running an existing spider, the command receives its name (in this case, `rs
 $ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl rs_porto_alegre"
 ```
 
-### Option 2 - writing parsers for new cities
+### Option 2 - writing new parsers for municipalities
 
 Since the goal is to have a hundred municipalities into the system, it is reasonable to imagine a smart parser, backed by Artificial Intelligence. But before heading to a more definitive solution, at the time of this writing, we're trying to process the gazette contents using simple techniques such as regular expressions.
 
