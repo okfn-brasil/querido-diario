@@ -8,7 +8,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class PiTeresinaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '2211001'
-    GAZETTE_URL = 'http://www.dom.teresina.pi.gov.br'
 
     ATTACHMENT_CSS = 'td:last-child a::attr(href)'
     DATE_CSS = 'td:nth-child(2)::text'
@@ -18,7 +17,7 @@ class PiTeresinaSpider(BaseGazetteSpider):
 
     allowed_domains = ['www.dom.teresina.pi.gov.br']
     name = 'pi_teresina'
-    start_urls = [f'{GAZETTE_URL}/lista_diario.php']
+    start_urls = ['http://www.dom.teresina.pi.gov.br/lista_diario.php']
 
     def parse(self, response):
         """
@@ -45,5 +44,5 @@ class PiTeresinaSpider(BaseGazetteSpider):
                 scraped_at=datetime.utcnow(),
             )
 
-        next_page_path = response.css(self.NEXT_PAGE_CSS).extract_first()
-        yield Request(f"{self.GAZETTE_URL}/{next_page_path}")
+        next_page_url = response.css(self.NEXT_PAGE_CSS).extract_first()
+        yield Request(response.urljoin(next_page_url))
