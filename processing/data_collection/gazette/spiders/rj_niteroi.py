@@ -19,7 +19,7 @@ class RjNiteroiSpider(BaseGazetteSpider):
         @returns items 1
         @scrapes date file_urls municipality_id power scraped_at
         """
-        start_date = dt.date(2015, 1, 1)
+        start_date = dt.date(2003, 7, 1)
         parsing_date = dt.date.today()
         while parsing_date >= start_date:
             month = self.month_names[parsing_date.month - 1]
