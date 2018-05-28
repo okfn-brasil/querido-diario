@@ -1,9 +1,10 @@
-from gazette.items import Gazette
 import datetime as dt
-import scrapy
+
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class RjNiteroiSpider(scrapy.Spider):
+class RjNiteroiSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3303302'
     name = 'rj_niteroi'
     allowed_domains = ['niteroi.rj.gov.br']
@@ -21,7 +22,7 @@ class RjNiteroiSpider(scrapy.Spider):
         start_date = dt.date(2015, 1, 1)
         parsing_date = dt.date.today()
         while parsing_date >= start_date:
-            month = self.month_names[parsing_date.month-1]
+            month = self.month_names[parsing_date.month - 1]
             url = self.download_url.format(
                 parsing_date.year, month, parsing_date.day)
             yield Gazette(
