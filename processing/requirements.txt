@@ -1,4 +1,4 @@
-celery==4.1.0
+celery==4.1.1
 dateparser==0.7.0
 ipdb==0.11
 psycopg2-binary==2.7.4
