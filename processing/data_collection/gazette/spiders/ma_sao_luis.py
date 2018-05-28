@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import dateparser
-import datetime as dt
+from datetime import datetime
 from scrapy_splash import SplashRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from scrapy.shell import inspect_response
 
 
 class MaSaoLuisSpider(BaseGazetteSpider):
@@ -16,25 +17,27 @@ class MaSaoLuisSpider(BaseGazetteSpider):
     def start_requests(self):
         lua_script = """
 function main(splash, args)
+    splash:init_cookies(splash.args.cookies)
     splash:go(args.url)
     getElementByXPath = splash:jsfunc([[
         function (path) {
             return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         }
     ]])
-    splash:wait(6)
+    splash:wait(12)
     tamanho_pagina = getElementByXPath("//tbody/tr/td/div[@class='GPFMNGWKN' and text()='20']")
     tamanho_pagina:mouse_click()
+    splash:wait(3)
     tamanho_1 = getElementByXPath("//div[1]/div/span[@class='GPFMNGWKGC']")
     tamanho_1:mouse_click()
-    splash:wait(2)
-    return splash:html()
+    splash:wait(4)
+    return {html = splash:html(), cookies = splash:get_cookies()}
 end
 """
         for url in self.start_urls:
             yield SplashRequest(
                 url=url, callback=self.parse, endpoint='execute',
-                args={'lua_source': lua_script})
+                args={'lua_source': lua_script, 'timeout': 90})
 
     def parse(self, response):
         """
@@ -50,6 +53,7 @@ end
         date = date.extract_first()
         date = dateparser.parse(date)
         if date.year < 2015:
+            print('ano de 2015, parando. data: {}'.format(date))
             raise StopIteration
 
         url = response.xpath(("//tbody/tr[4]/td[1]/a"
@@ -61,23 +65,35 @@ end
             file_urls=[url],
             is_extra_edition=False,
             municipality_id=self.MUNICIPALITY_ID,
-            scraped_at=dt.datetime.utcnow(),
+            scraped_at=datetime.utcnow(),
             power='executive'
         )
         lua_script = """
 function main(splash, args)
+    splash:init_cookies(splash.args.cookies)
+    splash:go(args.url)
     getElementByXPath = splash:jsfunc([[
         function (path) {
             return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         }
     ]])
-    link_next = getElementByXPath("//img[@style='width:16px;height:16px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42uWRMQpDIRAFva1X8AYWgoLYWFopdhYiHkGsrD3MCyukzzdNIANbzvBExn6S1hq+CtRakVK6j5RSsPe+j+ScT2DOCa3180iMEWst9N7PPY6EEDDGOLK1FlJKCCE+j3jvQT/xljnnzxY450ArrmTCGHPefSUTSql7maDp7H94AVSkZqN2tVRLAAAAAElFTkSuQmCC) no-repeat 0px 0px;']")
-    link_next:mouse_click()
+    splash:wait(18)
+    tamanho_pagina = getElementByXPath("//tbody/tr/td/div[@class='GPFMNGWKN' and text()='20']")
+    tamanho_pagina:mouse_click()
     splash:wait(3)
-    return splash.html()
+    tamanho_1 = getElementByXPath("//div[1]/div/span[@class='GPFMNGWKGC']")
+    tamanho_1:mouse_click()
+    splash:wait(6)
+    page_box = getElementByXPath("//div[@class='GPFMNGWNP']/input[@class='gwt-TextBox GPFMNGWOJ GPFMNGWIK']")
+    page_box:send_keys("<Delete>")
+    page_box:send_text(args.page_number)
+    page_box:send_keys("<Return>")
+    splash:wait(6)
+    return {html = splash.html(), cookies = splash:get_cookies()}
 end
 """
-        print('===================== clicked next')
-        yield SplashRequest(
-            url=response.url, callback=self.parse, endpoint='execute',
-            args={'lua_source': lua_script})
+        for page_number in range(2, 7000):
+            yield SplashRequest(
+                url=response.url, callback=self.parse, endpoint='execute',
+                args={'lua_source': lua_script, 'timeout': 90,
+                      'page_number': str(page_number)})
