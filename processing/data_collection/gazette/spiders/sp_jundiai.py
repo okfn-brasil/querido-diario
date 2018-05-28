@@ -15,11 +15,6 @@ class SpJundiaiSpider(BaseGazetteSpider):
     start_urls = ['https://imprensaoficial.jundiai.sp.gov.br/']
 
     def parse(self, response):
-        """
-        @url https://imprensaoficial.jundiai.sp.gov.br/
-        @returns items 12 12
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
-        """
         gazettes = response.css('#lista-edicoes li.edicao-atual')
         for gazette in gazettes:
             gazette_url = gazette.css('a::attr(href)').extract_first()
@@ -30,11 +25,16 @@ class SpJundiaiSpider(BaseGazetteSpider):
             yield response.follow(next_page_url, callback=self.parse)
 
     def parse_gazette(self, response):
+        """
+        @url https://imprensaoficial.jundiai.sp.gov.br/edicao-4403
+        @returns items 1 1
+        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        """
         gazette_date = parse(
             response.css('.edicao-data::text').extract_first(''),
             languages=['pt']).date()
         file_urls = response.css('div.edicao-download a::attr(href)').extract()
-        is_extra_edition = 'extra' in response.css('div.edicao-titulo::').extract_first('').lower()
+        is_extra_edition = 'extra' in response.css('div.edicao-titulo::text').extract_first('').lower()
         power = 'executive'
 
         yield Gazette(
