@@ -35,9 +35,8 @@ class CeFortalezaSpider(Spider):
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
 
-
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
-            url = urlparse.urljoin(response.url, element.css('a::attr(href)').extract_first())
+            url = response.urljoin(element.css('a::attr(href)').extract_first())
             date = dateparser.parse(element.css(self.DATE_CSS).extract_first(''), languages=['pt']).date()
             # Extra edition is maked with a "s" on description. Example: Diário Oficial Nº 15923s
             extra_edition = element.css(self.EXTRA_CSS).extract_first('').endswith('s')
