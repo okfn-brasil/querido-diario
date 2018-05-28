@@ -64,7 +64,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 55 | Betim | | | | |
 | 56 | Diadema | | | | |
 | 57 | Campina Grande | | | | |
-| 58 | Jundiaí | | | | |
+| 58 | Jundiaí | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/49 |
 | 59 | Maringá | | | | |
 | 60 | Montes Claros | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/26 |
 | 61 | Piracicaba | | | | |
