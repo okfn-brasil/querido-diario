@@ -22,7 +22,7 @@ function main(splash, args)
             return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         }
     ]])
-    splash:wait(4)
+    splash:wait(6)
     tamanho_pagina = getElementByXPath("//tbody/tr/td/div[@class='GPFMNGWKN' and text()='20']")
     tamanho_pagina:mouse_click()
     tamanho_1 = getElementByXPath("//div[1]/div/span[@class='GPFMNGWKGC']")
@@ -55,6 +55,7 @@ end
         url = response.xpath(("//tbody/tr[4]/td[1]/a"
                               "[@class='campoResultadoDownload']"
                               "/@href")).extract_first()
+        url = response.url[:39] + url
         yield Gazette(
             date=date,
             file_urls=[url],
@@ -70,12 +71,13 @@ function main(splash, args)
             return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         }
     ]])
-    next = getElementByXPath("//img[@style='width:16px;height:16px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42uWRMQpDIRAFva1X8AYWgoLYWFopdhYiHkGsrD3MCyukzzdNIANbzvBExn6S1hq+CtRakVK6j5RSsPe+j+ScT2DOCa3180iMEWst9N7PPY6EEDDGOLK1FlJKCCE+j3jvQT/xljnnzxY450ArrmTCGHPefSUTSql7maDp7H94AVSkZqN2tVRLAAAAAElFTkSuQmCC) no-repeat 0px 0px;']")
-    next:mouse_click()
+    link_next = getElementByXPath("//img[@style='width:16px;height:16px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42uWRMQpDIRAFva1X8AYWgoLYWFopdhYiHkGsrD3MCyukzzdNIANbzvBExn6S1hq+CtRakVK6j5RSsPe+j+ScT2DOCa3180iMEWst9N7PPY6EEDDGOLK1FlJKCCE+j3jvQT/xljnnzxY450ArrmTCGHPefSUTSql7maDp7H94AVSkZqN2tVRLAAAAAElFTkSuQmCC) no-repeat 0px 0px;']")
+    link_next:mouse_click()
     splash:wait(3)
     return splash.html()
 end
 """
+        print('===================== clicked next')
         yield SplashRequest(
             url=response.url, callback=self.parse, endpoint='execute',
             args={'lua_source': lua_script})
