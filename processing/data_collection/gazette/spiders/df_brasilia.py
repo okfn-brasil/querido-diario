@@ -2,10 +2,9 @@ import re
 import json
 import itertools
 import dateparser
-import requests
 
 from datetime import datetime
-from scrapy import Request, Spider
+from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -14,24 +13,24 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '5300108'
     GAZETTE_URL = 'http://dodf.df.gov.br/listar'
 
-    MONTHS = [
-        '12_Dezembro',
-        '11_Novembro',
-        '10_Outubro',
-        '09_Setembro',
-        '08_Agosto',
-        '07_Julho',
-        '06_Junho',
-        '05_Maio',
-        '04_Abril',
-        '03_Março',
-        '02_Fevereiro',
-        '01_Janeiro'
-    ]
+    MONTHS = {
+        '12': '12_Dezembro',
+        '11': '11_Novembro',
+        '10': '10_Outubro',
+        '09': '09_Setembro',
+        '08': '08_Agosto',
+        '07': '07_Julho',
+        '06': '06_Junho',
+        '05': '05_Maio',
+        '04': '04_Abril',
+        '03': '03_Março',
+        '02': '02_Fevereiro',
+        '01': '01_Janeiro'
+    }
     YEARS = ['2018', '2017', '2016', '2015']
-    MONTHS_YEARS = itertools.product(MONTHS, YEARS)
+    MONTHS_YEARS = itertools.product(MONTHS.values(), YEARS)
 
-    DATE_REGEX = r'.+\/DODF [0-9]+ ([0-9]{2}-[0-9]{2}-[0-9]{4})(.*)$'
+    DATE_REGEX = r'DODF [0-9]+ ([0-9]{2}-[0-9]{2}-[0-9]{4})(.*)$'
     EXTRA_EDITION_TEXT = "EDICAO EXTR"
     PDF_URL = 'http://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}'
 
@@ -40,13 +39,19 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
     def start_requests(self):
         for month, year in self.MONTHS_YEARS:
-            response = requests.get(f'{self.GAZETTE_URL}?dir={year}/{month}')
-            days = response.json()['data']
-            if not days:
-                continue
+            yield Request(f'{self.GAZETTE_URL}?dir={year}/{month}', self.parse_month)
 
-            for day in days.values():
-                yield Request(f'{self.GAZETTE_URL}?dir={year}/{month}/{day}')
+    def parse_month(self, response):
+        json_response = json.loads(response.body_as_unicode())
+        dates = json_response['data']
+
+        if not dates:
+            return
+
+        for gazette_name in dates.values():
+            date = re.search(self.DATE_REGEX, gazette_name).group(1)
+            day, month, year = date.split('-')
+            yield Request(f'{self.GAZETTE_URL}?dir={year}/{self.MONTHS[month]}/{gazette_name}')
 
     def parse(self, response):
         """
@@ -63,8 +68,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         json_dir = json_response['dir']
         json_data = json_response['data']
 
-        date = re.search(self.DATE_REGEX, json_dir).group(1)
-        date = dateparser.parse(date)
+        date = dateparser.parse(json_dir)
         is_extra_edition = self.EXTRA_EDITION_TEXT in json_dir
 
         path = json_dir.replace('/', '|')
