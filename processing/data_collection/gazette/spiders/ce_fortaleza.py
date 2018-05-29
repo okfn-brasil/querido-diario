@@ -22,7 +22,7 @@ class CeFortalezaSpider(BaseGazetteSpider):
     def start_requests(self):
         base_url = 'http://apps.fortaleza.ce.gov.br/diariooficial/?mes-diario=todos'
 
-        for year in range(2000, datetime.now().year + 1):
+        for year in range(1952, datetime.now().year + 1):
             year_url = w3lib.url.add_or_replace_parameter(base_url, 'ano-diario', year)
             yield Request(year_url)
 
