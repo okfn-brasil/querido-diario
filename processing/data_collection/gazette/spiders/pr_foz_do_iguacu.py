@@ -18,8 +18,8 @@ class PrFozDoIguacuSpider(BaseGazetteSpider):
         @returns requests 1 1
         """
         selector = '(//span[@class="ui-paginator-current"])[1]/text()'
-        paginator_text = response.xpath(selector).extract_first()
-        quantity_of_documents = int(paginator_text[1:-1].split()[-1]) + 1
+        paginator_text = response.xpath(selector)
+        quantity_of_documents = int(paginator_text.re_first('\([\d]+ de ([\d]+)\)')) + 1
 
         data = {
             'formDiarioOficialView': 'formDiarioOficialView',
