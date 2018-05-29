@@ -15,7 +15,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 6 | Belo Horizonte | | | | https://github.com/okfn-brasil/diario-oficial/pull/33 |
 | 7 | Manaus | :soon:  | | | https://github.com/okfn-brasil/diario-oficial/pull/51 |
 | 8 | Curitiba | | | | https://github.com/okfn-brasil/diario-oficial/pull/42 |
-| 9 | Recife | :soon: | | | |
+| 9 | Recife | :white_check_mark: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
 | 11 | Goiânia | :white_check_mark: | :white_check_mark: | | |
 | 12 | Belém | | | | |
@@ -25,7 +25,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 16 | São Gonçalo | | | | |
 | 17 | Maceió | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/32 |
 | 18 | Duque de Caxias | | | | |
-| 19 | Natal | | | | |
+| 19 | Natal | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/60 |
 | 20 | Campo Grande | | | | https://github.com/okfn-brasil/diario-oficial/pull/35 |
 | 21 | Teresina | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/53 |
 | 22 | São Bernardo do Campo | | | | |
