@@ -20,9 +20,8 @@ class RnNatalSpider(BaseGazetteSpider):
 
         for year in range(2003, datetime.now().year + 1):
             for month in range(1, 13):
-                print([year, month])
                 data = dict(ano=str(year), mes=str(month), list='Listar')
-                yield FormRequest(url=base_url, formdata=data, callback=self.parse)
+                yield FormRequest(url=base_url, formdata=data)
 
     def parse(self, response):
         """
@@ -35,7 +34,7 @@ class RnNatalSpider(BaseGazetteSpider):
             url = response.urljoin(element.css('::attr(href)').extract_first())
             link_text = element.css('::text').extract_first()
             date = dateparser.parse(link_text.split(' - ')[-1], languages=['pt']).date()
-            extra_edition = ("Extra" in link_text)
+            extra_edition = "Extra" in link_text
 
             yield Gazette(
                 date=date,
