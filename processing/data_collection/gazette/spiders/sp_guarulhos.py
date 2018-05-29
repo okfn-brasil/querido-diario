@@ -5,26 +5,25 @@ from dateutil.rrule import rrule, MONTHLY
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class SpGuarulhosSpider(scrapy.Spider):
+class SpGuarulhosSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3518800'
     name = 'sp_guarulhos'
     allowed_domains = ['guarulhos.sp.gov.br']
-    urls = []
-    starting_date = dt.date(2015, 1, 1)
-    ending_date = dt.date.today()
-    for date in rrule(MONTHLY, dtstart=starting_date, until=ending_date):
-        url = "http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes={}&ano={}".format(
-            date.month, date.year
-        )
-        urls.append(url)
-    start_urls = urls
+
+    def start_requests(self):
+        starting_date = dt.date(2015, 1, 1)
+        ending_date = dt.date.today()
+        for date in rrule(MONTHLY, dtstart=starting_date, until=ending_date):
+            yield scrapy.Request(
+                f'http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes={date.month}&ano={date.year}')
 
     def parse(self, response):
         """
         @url http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
-        @returns items 16 16
+        @returns items 17 17
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
         diarios = response.xpath('//div[contains(@id, "diario")]')

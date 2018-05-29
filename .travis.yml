@@ -12,5 +12,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 install:
   - make setup
+before_script:
+  - sudo /etc/init.d/postgresql stop
 script:
   - make test

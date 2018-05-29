@@ -5,9 +5,10 @@ import datetime as dt
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class SpCampinasSpider(scrapy.Spider):
+class SpCampinasSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3509502'
     name = 'sp_campinas'
     allowed_domains = ['campinas.sp.gov.br']
@@ -33,7 +34,7 @@ class SpCampinasSpider(scrapy.Spider):
     def parse_month_page(self, response):
         """
         @url http://www.campinas.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
-        @returns items 22 22
+        @returns items 23 23
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
         items = []

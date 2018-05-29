@@ -6,6 +6,7 @@ Even with recurrent efforts of enforcing the [Freedom of Information legislation
 
 The goal of this same project is to upgrade **Diário Oficial** to the year when it gets published, making accessible information that is currently only available.
 
+
 ## Build and Run
 
 If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
@@ -19,7 +20,7 @@ $ make setup
 $ docker-compose up
 ```
 
-Once the download and building processes are finished, the processing tasks should start running in background and the webserver should be available at http://localhost:8080/.
+Once the download and building processes are finished, the processing tasks should start running in background, and the web server should be available at http://localhost:8080/.
 
 
 ## Contributing

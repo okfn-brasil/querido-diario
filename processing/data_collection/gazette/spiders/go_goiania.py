@@ -5,9 +5,10 @@ import re
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class GoGoianiaSpider(scrapy.Spider):
+class GoGoianiaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '5208707'
     name = 'go_goiania'
     allowed_domains = ['goiania.go.gov.br']

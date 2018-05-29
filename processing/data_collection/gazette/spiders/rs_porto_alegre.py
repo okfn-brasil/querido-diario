@@ -4,9 +4,10 @@ import datetime as dt
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class RsPortoAlegreSpider(scrapy.Spider):
+class RsPortoAlegreSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '4314902'
     name = 'rs_porto_alegre'
     allowed_domains = ['portoalegre.rs.gov.br']

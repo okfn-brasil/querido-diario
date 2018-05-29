@@ -2,7 +2,9 @@ import os
 import subprocess
 
 from database.models import Gazette, db_connect, create_tables
+from scrapy.exceptions import DropItem
 from sqlalchemy.orm import sessionmaker
+
 
 from gazette.settings import FILES_STORE
 
@@ -48,4 +50,14 @@ class PostgreSQLPipeline(object):
 
         finally:
             session.close()
+        return item
+
+
+class GazetteDateFilteringPipeline(object):
+
+    def process_item(self, item, spider):
+        if hasattr(spider, 'start_date'):
+            if spider.start_date > item.get('date'):
+                raise DropItem(
+                    'Droping all items before {}'.format(spider.start_date))
         return item

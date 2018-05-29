@@ -5,9 +5,10 @@ import scrapy
 from scrapy.http import Request
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class RsCaxiasDoSulSpider(scrapy.Spider):
+class RsCaxiasDoSulSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '4305108'
     name = 'rs_caxias_do_sul'
     allowed_domains = ['caxias.rs.gov.br']

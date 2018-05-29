@@ -3,8 +3,10 @@ SPIDER_MODULES = ['gazette.spiders']
 NEWSPIDER_MODULE = 'gazette.spiders'
 ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
-    'scrapy.pipelines.files.FilesPipeline': 1,
-    'gazette.pipelines.PdfParsingPipeline': 2,
-    'gazette.pipelines.PostgreSQLPipeline': 3,
+    'gazette.pipelines.GazetteDateFilteringPipeline': 50,
+    'gazette.parser.GazetteFilesPipeline': 60,
+    'scrapy.pipelines.files.FilesPipeline': 100,
+    'gazette.pipelines.PdfParsingPipeline': 200,
+    'gazette.pipelines.PostgreSQLPipeline': 300,
 }
 FILES_STORE = '/mnt/data/'
