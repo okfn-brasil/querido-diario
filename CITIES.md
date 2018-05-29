@@ -94,7 +94,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 85 | Guarujá | | | | |
 | 86 | Praia Grande | | | | |
 | 87 | Taubaté | | | | |
-| 88 | São José dos Pinhais | | | | |
+| 88 | São José dos Pinhais | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/59 |
 | 89 | Limeira | | | | |
 | 90 | Petrópolis | | | | |
 | 91 | Camaçari | | | | |
