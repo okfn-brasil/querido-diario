@@ -38,22 +38,17 @@ class PrFozDoIguacuSpider(BaseGazetteSpider):
         """
         base_url = 'http://www.pmfi.pr.gov.br{}'
         lines = response.xpath('//tr[@role="row"]')
-        items = []
         for line in lines:
             date, url, is_extra_edition = self.get_gazette_data(line)
 
-            if date >= self.AVAILABLE_FROM:
-                items.append(
-                    Gazette(
-                        date=date,
-                        file_urls=[base_url.format(url)],
-                        is_extra_edition=is_extra_edition,
-                        municipality_id=self.MUNICIPALITY_ID,
-                        power='executive_legislature',
-                        scraped_at=dt.datetime.utcnow(),
-                    )
-                )
-        return items
+            yield Gazette(
+                date=date,
+                file_urls=[base_url.format(url)],
+                is_extra_edition=is_extra_edition,
+                municipality_id=self.MUNICIPALITY_ID,
+                power='executive_legislature',
+                scraped_at=dt.datetime.utcnow(),
+            )
 
     @staticmethod
     def get_gazette_data(line):
