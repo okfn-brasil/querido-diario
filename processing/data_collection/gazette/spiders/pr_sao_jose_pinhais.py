@@ -3,11 +3,11 @@ import dateparser
 import w3lib.url
 
 from datetime import datetime
-from scrapy import Request, Spider
+from scrapy import Request
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
-
-class PrSaoJosePinhaisSpider(Spider):
+class PrSaoJosePinhaisSpider(BaseGazetteSpider):
     GAZETTE_ELEMENT_CSS = '.container-publicacao .item-publicacao'
     DATE_CSS = '.item-info::text'
     NEXT_PAGE_CSS = '.item-paginacao a:last-child::attr(href)'
