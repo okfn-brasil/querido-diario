@@ -1,17 +1,16 @@
 import datetime as dt
 
-import scrapy
 from scrapy.http import FormRequest
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class PrFozDoIguacuSpider(scrapy.Spider):
+class PrFozDoIguacuSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '4108304'
     name = 'pr_foz_do_iguacu'
     allowed_domains = ['pmfi.pr.gov.br']
     start_urls = ['http://www.pmfi.pr.gov.br/utilidades/diario/index.xhtml']
-    AVAILABLE_FROM = dt.date(2015, 1, 1)  # actually September/2007
 
     def parse(self, response):
         """
