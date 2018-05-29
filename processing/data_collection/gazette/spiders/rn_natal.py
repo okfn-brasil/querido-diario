@@ -3,11 +3,12 @@ import dateparser
 import w3lib.url
 
 from datetime import datetime
-from scrapy import Request, Spider, FormRequest
+from scrapy import Request, FormRequest
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class RnNatalSpider(Spider):
+class RnNatalSpider(BaseGazetteSpider):
     GAZETTE_ELEMENT_CSS = '#texto a'
     MUNICIPALITY_ID = '2408102'
 
@@ -17,7 +18,7 @@ class RnNatalSpider(Spider):
     def start_requests(self):
         base_url = 'http://www.natal.rn.gov.br/dom/'
 
-        for year in range(2015, datetime.now().year + 1):
+        for year in range(2003, datetime.now().year + 1):
             for month in range(1, 13):
                 print([year, month])
                 data = dict(ano=str(year), mes=str(month), list='Listar')
