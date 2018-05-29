@@ -3,11 +3,12 @@ import dateparser
 import w3lib.url
 
 from datetime import datetime
-from scrapy import Request, Spider
+from scrapy import Request
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class CeFortalezaSpider(Spider):
+class CeFortalezaSpider(BaseGazetteSpider):
     GAZETTE_ELEMENT_CSS = '.diarios-oficiais .table-responsive tbody tr'
     DATE_CSS = 'td:nth-child(2)::text'
     EXTRA_CSS = 'td:nth-child(1)::text'
@@ -21,7 +22,7 @@ class CeFortalezaSpider(Spider):
     def start_requests(self):
         base_url = 'http://apps.fortaleza.ce.gov.br/diariooficial/?mes-diario=todos'
 
-        for year in range(2015, datetime.now().year + 1):
+        for year in range(2000, datetime.now().year + 1):
             year_url = w3lib.url.add_or_replace_parameter(base_url, 'ano-diario', year)
             yield Request(year_url)
 
