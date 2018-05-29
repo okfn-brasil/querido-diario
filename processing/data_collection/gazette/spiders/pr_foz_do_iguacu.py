@@ -8,9 +8,10 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class PrFozDoIguacuSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '4108304'
+    BASE_URL = 'http://www.pmfi.pr.gov.br'
     name = 'pr_foz_do_iguacu'
     allowed_domains = ['pmfi.pr.gov.br']
-    start_urls = ['http://www.pmfi.pr.gov.br/utilidades/diario/index.xhtml']
+    start_urls = [f'{BASE_URL}/utilidades/diario/index.xhtml']
 
     def parse(self, response):
         """
@@ -36,14 +37,13 @@ class PrFozDoIguacuSpider(BaseGazetteSpider):
         @url http://www.pmfi.pr.gov.br/utilidades/diario/index.xhtml
         @returns items 10 10
         """
-        base_url = 'http://www.pmfi.pr.gov.br{}'
         lines = response.xpath('//tr[@role="row"]')
         for line in lines:
             date, url, is_extra_edition = self.get_gazette_data(line)
 
             yield Gazette(
                 date=date,
-                file_urls=[base_url.format(url)],
+                file_urls=[f'{self.BASE_URL}{url}'],
                 is_extra_edition=is_extra_edition,
                 municipality_id=self.MUNICIPALITY_ID,
                 power='executive_legislature',
