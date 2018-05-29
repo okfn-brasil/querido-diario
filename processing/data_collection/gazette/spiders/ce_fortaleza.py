@@ -17,16 +17,13 @@ class CeFortalezaSpider(Spider):
 
     allowed_domains = ['apps.fortaleza.ce.gov.br']
     name = 'ce_fortaleza'
-    start_urls = ['http://apps.fortaleza.ce.gov.br/diariooficial/?mes-diario=todos']
 
     def start_requests(self):
-        requests = []
+        base_url = 'http://apps.fortaleza.ce.gov.br/diariooficial/?mes-diario=todos'
 
         for year in range(2015, datetime.now().year + 1):
-            year_url = w3lib.url.add_or_replace_parameter( self.start_urls[0], 'ano-diario', year)
-            requests.append(Request(year_url))
-
-        return requests
+            year_url = w3lib.url.add_or_replace_parameter(base_url, 'ano-diario', year)
+            yield Request(year_url)
 
     def parse(self, response):
         """
