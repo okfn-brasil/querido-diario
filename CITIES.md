@@ -107,5 +107,5 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 98 | Santa Maria | | | | |
 | 99 | Gravataí | | | | |
 | 100 | Várzea Grande | | | | |
-| XXX | Foz do Iguaçu | | | | https://github.com/okfn-brasil/diario-oficial/pull/34 https://github.com/okfn-brasil/diario-oficial/pull/27 |
+| XXX | Foz do Iguaçu | :white_check_mark: | :soon: | | https://github.com/okfn-brasil/diario-oficial/pull/34 https://github.com/okfn-brasil/diario-oficial/pull/27 |
 | XXX | Araguaina | | | | https://github.com/okfn-brasil/diario-oficial/pull/3 |
