@@ -59,7 +59,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 50 | Mauá | | | | |
 | 51 | São João de Meriti | | | | |
 | 52 | São José do Rio Preto | | | | |
-| 53 | Santos | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/14 |
+| 53 | Santos | :done: | | | https://github.com/okfn-brasil/diario-oficial/pull/14 |
 | 54 | Mogi das Cruzes | | | | |
 | 55 | Betim | | | | |
 | 56 | Diadema | | | | |
