@@ -4,11 +4,12 @@ import requests
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 last_page_number_xpath = '//div[@class="paginacao"]/ul[@class="pagination"]/li[last()-1]/a[last()]/text()'
 
 
-class ToPalmasSpider(scrapy.Spider):
+class ToPalmasSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '1721000'
     name = 'to_palmas'
     allowed_domains = ['diariooficial.palmas.to.gov.br', 'legislativo.palmas.to.gov.br']

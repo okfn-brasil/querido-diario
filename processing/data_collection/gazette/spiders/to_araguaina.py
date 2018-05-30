@@ -5,11 +5,12 @@ import datetime as dt
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 only_number_regex = re.compile(r'\D*')
 
 
-class ToAraguainaSpider(scrapy.Spider):
+class ToAraguainaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '1702109'
     name = 'to_araguaina'
     allowed_domains = [
