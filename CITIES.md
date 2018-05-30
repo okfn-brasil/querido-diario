@@ -49,7 +49,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 40 | Porto Velho | | | | |
 | 41 | Ananindeua | | | | |
 | 42 | Serra | :white_check_mark: | | | |
-| 43 | Niterói | | | | |
+| 43 | Niterói | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/55 |
 | 44 | Belford Roxo | | | | |
 | 45 | Campos dos Goytacazes Campos dos Goytacazes | | | | |
 | 46 | Vila Velha | :white_check_mark: | | | |
