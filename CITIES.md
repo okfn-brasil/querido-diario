@@ -8,7 +8,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | # | Cidade | Crawler | Parser | Issue | PR |
 |:-:|--------|:-------:|:------:|:------:|:------:|
 | 1 | São Paulo | | | https://github.com/okfn-brasil/diario-oficial/issues/7 | |
-| 2 | Rio de Janeiro | :soon: | | https://github.com/okfn-brasil/diario-oficial/issues/15 | https://github.com/okfn-brasil/diario-oficial/pull/29 |
+| 2 | Rio de Janeiro | :white_check_mark: | | https://github.com/okfn-brasil/diario-oficial/issues/15 | https://github.com/okfn-brasil/diario-oficial/pull/29 |
 | 3 | Brasília | | | | |
 | 4 | Salvador | | | | https://github.com/okfn-brasil/diario-oficial/pull/47 |
 | 5 | Fortaleza | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/52 |
