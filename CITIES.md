@@ -17,7 +17,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 8 | Curitiba | | | | https://github.com/okfn-brasil/diario-oficial/pull/42 |
 | 9 | Recife | :soon: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
-| 11 | Goiânia | :white_check_mark: | :white_check_mark: | | |
+| 11 | Goiânia | :white_check_mark: | :white_check_mark: | | https://github.com/okfn-brasil/diario-oficial/pull/6 |
 | 12 | Belém | | | | |
 | 13 | Guarulhos | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/4 |
 | 14 | Campinas | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/2 |
