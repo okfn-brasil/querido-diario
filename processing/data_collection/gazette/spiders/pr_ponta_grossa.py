@@ -1,5 +1,5 @@
 from dateparser import parse
-import datetime as dt
+from datetime import date, datetime
 import re
 
 import scrapy
@@ -12,45 +12,46 @@ class PrPontaGrossaSpider(scrapy.Spider):
     name = 'pr_ponta_grossa'
     allowed_domains = ['pontagrossa.pr.gov.br']
     start_urls = ['http://www.pontagrossa.pr.gov.br/diario-oficial/']
-    ano_minimo = 2015
+    starting_year = 2015
 
     def parse(self, response):
         """
         @url http://www.pontagrossa.pr.gov.br/diario-oficial/
         @returns requests 1
         """
-        return self.scrape_page(response)
+        links = response.css('.view-content .field a')
+        smallest_year =  min((p['date'].year for p in self.pdf_infos(links, self.starting_year)), default=0)
+        if smallest_year >= self.starting_year:
+            next_page_url = response.urljoin(response.css('.pager-next a::attr(href)').extract_first())
+            yield scrapy.Request(next_page_url)
+            for pdf_info in self.pdf_infos(links, self.starting_year):
+                gazette_date = pdf_info['date'].strftime('%Y-%m-%d')
+                yield Gazette(
+                        date = gazette_date,
+                        file_urls=[pdf_info['url']],
+                        is_extra_edition=pdf_info['is_extra_edition'],
+                        municipality_id=self.MUNICIPALITY_ID,
+                        power='executive_legislature',
+                        scraped_at=datetime.utcnow()
+                )
 
-    def scrape_page(self, response):
-        pdf_links = response.css(".view-content .field a")
-
-        pdf_infos = []
-        for pdf_link in pdf_links:
-            pdf_file_name = pdf_link.css("::attr(href)").extract_first()
-            pdf_link_text = pdf_link.css("::text").extract_first()
-            if "sem_atos" in pdf_file_name:
+    @staticmethod
+    def pdf_infos(links, starting_year):
+        link_pattern = '.*/diario-oficial/_?(\d{4})-(\d{2})-(\d{2}).*.pdf'
+        for link in links:
+            file_name = link.css('::attr(href)').extract_first()
+            link_text = link.css('::text').extract_first()
+            if 'sem_atos' in file_name:
                 continue
-            pdf_link_info = re.search('.*/diario-oficial/_?(\d{4})-(\d{2})-(\d{2}).*.pdf', pdf_file_name)
-            ano = int(pdf_link_info.group(1))
-            if ano < self.ano_minimo:
+            info = re.search(link_pattern, file_name)
+            year = int(info.group(1))
+            if year < starting_year:
                 continue
-            mes = pdf_link_info.group(2)
-            dia = pdf_link_info.group(3)
-            is_extra = "complementar" in pdf_link_text
-            pdf_infos.append({ "ano" : ano, "mes" : mes, "dia":dia, "url": pdf_file_name, "is_extra_edition": is_extra })
+            
+            month, day = int(info.group(2)), int(info.group(3))
+            yield {
+                'date': date(year, month, day),
+                'is_extra_edition': 'complementar' in link_text,
+                'url': file_name
+            }
 
-        if pdf_infos:
-            menor_ano_da_pagina =  min(map(lambda p: p["ano"], pdf_infos))
-            if menor_ano_da_pagina >= self.ano_minimo:
-                next_page_url = "{0}{1}".format("http://www.pontagrossa.pr.gov.br", response.css(".pager-next a::attr(href)").extract_first())
-                yield scrapy.Request(next_page_url, self.scrape_page)
-                for pdf_info in pdf_infos:
-                    date = "{0}-{1}-{2}".format(pdf_info["ano"], pdf_info["mes"], pdf_info["dia"])
-                    yield Gazette(
-                            date = date,
-                            file_urls=[pdf_info["url"]],
-                            is_extra_edition=pdf_info["is_extra_edition"],
-                            municipality_id=self.MUNICIPALITY_ID,
-                            power="executive_legislature",
-                            scraped_at=dt.datetime.utcnow()
-                        )
