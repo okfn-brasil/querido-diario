@@ -15,7 +15,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 5 | Fortaleza | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
 | 6 | Belo Horizonte | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/33) |
 | 7 | Manaus | :soon:  | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/51) |
-| 8 | Curitiba | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/42) |
+| 8 | Curitiba | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/42) |
 | 9 | Recife | :soon: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
 | 11 | Goiânia | :white_check_mark: | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/6) |
