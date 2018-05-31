@@ -53,7 +53,7 @@ class Gazette(DeclarativeBase):
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     territory = relationship('Territory', back_populates='gazettes')
-    territory_id = Column(Integer, ForeignKey('territories.id'))
+    territory_id = Column(String, ForeignKey('territories.id'))
     bidding_exemptions = relationship(
         'BiddingExemption', order_by=BiddingExemption.id, back_populates='gazette'
     )
