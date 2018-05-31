@@ -13,3 +13,6 @@ class Gazette(scrapy.Item):
     scraped_at = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
+    # TEMP: Can be removed once this attribute stop being used.
+    #       Check PostgreSQLPipeline for more info.
+    municipality_id = scrapy.Field()
