@@ -14,7 +14,7 @@ class TestBiddingExemptionParsing(TestCase):
     @patch.object(BiddingExemptionParsing, 'update_value')
     @patch.object(BiddingExemptionParsing, 'update_contracted_code')
     def test_update_calls_update_object(self, _code, _value, update):
-        gazette = MagicMock(municipality_id='4314902')
+        gazette = MagicMock(territory_id='4314902')
         exemptions = [MagicMock(gazette=gazette), MagicMock(gazette=gazette)]
         self.subject.update(exemptions)
         update.assert_called()
@@ -22,7 +22,7 @@ class TestBiddingExemptionParsing(TestCase):
     @patch.object(BiddingExemptionParsing, 'update_value')
     @patch.object(BiddingExemptionParsing, 'update_contracted_code')
     def test_update_calls_update_value(self, _code, update):
-        gazette = MagicMock(municipality_id='4314902')
+        gazette = MagicMock(territory_id='4314902')
         exemptions = [MagicMock(gazette=gazette), MagicMock(gazette=gazette)]
         self.subject.update(exemptions)
         update.assert_called()
@@ -31,7 +31,7 @@ class TestBiddingExemptionParsing(TestCase):
     @patch.object(BiddingExemptionParsing, 'update_contracted')
     @patch.object(BiddingExemptionParsing, 'update_contracted_code')
     def test_update_calls_update_contracted(self, _value, _code, update):
-        gazette = MagicMock(municipality_id='4314902')
+        gazette = MagicMock(territory_id='4314902')
         exemptions = [MagicMock(gazette=gazette), MagicMock(gazette=gazette)]
         self.subject.update(exemptions)
         update.assert_called()
@@ -39,24 +39,24 @@ class TestBiddingExemptionParsing(TestCase):
     @patch.object(BiddingExemptionParsing, 'update_value')
     @patch.object(BiddingExemptionParsing, 'update_contracted_code')
     def test_update_calls_update_contracted_code(self, _value, update):
-        gazette = MagicMock(municipality_id='4314902')
+        gazette = MagicMock(territory_id='4314902')
         exemptions = [MagicMock(gazette=gazette), MagicMock(gazette=gazette)]
         self.subject.update(exemptions)
         update.assert_called()
 
     def test_update_changes_is_parsed_to_true(self):
-        gazette = MagicMock(municipality_id='4314902')
+        gazette = MagicMock(territory_id='4314902')
         exemptions = [
             MagicMock(
                 gazette=gazette,
                 is_parsed=False,
-                municipality_id='4314902',
+                territory_id='4314902',
                 source_text='',
             ),
             MagicMock(
                 gazette=gazette,
                 is_parsed=False,
-                municipality_id='4314902',
+                territory_id='4314902',
                 source_text='',
             ),
         ]

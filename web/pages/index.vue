@@ -123,7 +123,7 @@ import { mapState } from 'vuex'
 
 const BIDDING_EXEMPTIONS_API_URL = process.env.API_URL +
   '/bidding_exemptions' +
-  '?select=*,gazette{file_url,is_extra_edition,municipality_id,power}' +
+  '?select=*,gazette{file_url,is_extra_edition,territory_id,power}' +
   '&order=date.desc'
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {

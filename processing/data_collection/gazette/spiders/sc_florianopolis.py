@@ -12,7 +12,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class ScFlorianopolisSpider(BaseGazetteSpider):
     name = 'sc_florianopolis'
     URL = 'http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial'
-    MUNICIPALITY_ID = '4205407'
+    TERRITORY_ID = '4205407'
     AVAILABLE_FROM = date(2015, 1, 1)  # actually from June/2009
 
     def start_requests(self):
@@ -34,7 +34,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
         """Parse each page. Each list all gazettes for a given month.
         @url http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial
         @returns items 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         for link in response.css('ul.listagem li a'):
             url = self.get_pdf_url(response, link)
@@ -45,7 +45,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
                 date=self.get_date(link),
                 file_urls=(url,),
                 is_extra_edition=self.is_extra(link),
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive_legislature',
                 scraped_at=datetime.utcnow(),
             )

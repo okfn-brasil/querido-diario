@@ -42,18 +42,30 @@ class BiddingExemption(DeclarativeBase):
 class Gazette(DeclarativeBase):
     __tablename__ = 'gazettes'
     id = Column(Integer, primary_key=True)
-    source_text = Column('source_text', Text)
-    date = Column('date', Date)
-    is_extra_edition = Column('is_extra_edition', Boolean)
-    is_parsed = Column('is_parsed', Boolean, default=False)
-    municipality_id = Column('municipality_id', String)
-    power = Column('power', String)
-    file_checksum = Column('file_checksum', String)
-    file_path = Column('file_path', String)
-    file_url = Column('file_url', String)
-    scraped_at = Column('scraped_at', DateTime)
-    created_at = Column('created_at', DateTime, default=dt.datetime.utcnow)
+    source_text = Column(Text)
+    date = Column(Date)
+    is_extra_edition = Column(Boolean)
+    is_parsed = Column(Boolean, default=False)
+    power = Column(String)
+    file_checksum = Column(String)
+    file_path = Column(String)
+    file_url = Column(String)
+    scraped_at = Column(DateTime)
+    created_at = Column(DateTime, default=dt.datetime.utcnow)
+    territory = relationship('Territory', back_populates='gazettes')
+    territory_id = Column(Integer, ForeignKey('territories.id'))
     bidding_exemptions = relationship(
         'BiddingExemption', order_by=BiddingExemption.id, back_populates='gazette'
     )
-    __table_args__ = (UniqueConstraint('municipality_id', 'date', 'file_checksum'),)
+    __table_args__ = (UniqueConstraint('territory_id', 'date', 'file_checksum'),)
+
+
+class Territory(DeclarativeBase):
+    __tablename__ = 'territories'
+    id = Column(String, primary_key=True)
+    name = Column(String)
+    state_code = Column(String)
+    state = Column(String)
+    gazettes = relationship(
+        'Gazette', order_by=Gazette.id, back_populates='territory'
+    )
