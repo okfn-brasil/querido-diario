@@ -10,38 +10,53 @@ now = datetime.now()
 class SpBauruSpider(BaseGazetteSpider):
 
     MUNICIPALITY_ID = '3506003'
-    PAGES_URL = 'http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}m={}'
     PDF_URL = 'http://www.bauru.sp.gov.br{}'
-    MONTHS = [str(x).zfill(2) for x in range(1,13)]
-    YEARS = range(2015,now.year+1)
 
-    DATE_CSS = 'main div.container ul ul ul li b::text'
-    PDF_HREF_CSS = 'main div.container ul ul ul li a::attr(href)'
+    BASE_URL, PAGE_URL = 'http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}m={}', []
+    MONTHS = [str(x).zfill(2) for x in range(1,13)]
+
+    # creating url for every month of every year
+    for YEAR in range(2015,now.year+1):
+        for ATUAL in range(12):
+            if(ATUAL+1 > now.month and YEAR == now.year): break
+            PAGE_URL.append(BASE_URL.format(YEAR,MONTHS[ATUAL]))
+
+
+    DATE_CSS = 'b::text'
+    PDF_HREF_CSS = 'a::attr(href)'
+    GAZETTE_CSS = 'main div.container ul ul ul li'
 
     allowed_domains = ['bauru.sp.gov.br']
     name = 'sp_bauru'
-    start_urls = ['http://www.bauru.sp.gov.br/juridico/diariooficial.aspx']
+    start_urls = [PAGE_URL[0]]
 
-    def date_parse(dates):
-        for date in dates:
-            dates[date] = dateparser.parse(dates[date][0:10],languages=['pt']).date()
-        return dates
+    def parse(self, response):
+        """
+        @url http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a=2015m=01
+        @returns requests 1
+        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        """
 
-    def pdf_link(links):
-        for link in links:
-            links[link] = PDF_URL.format(links[link])
-        return links
+        for element in response.css(self.GAZETTE_CSS):
+            url = self.extract_url(element)
+            date = self.extract_date(element)
 
-    for year in range(len(YEARS)):
-        url = pdf_link(response.css(PDF_HREF_CSS).extract())
-        date = date_parse(response.css(DATE_CSS).extract())
-
-        for month in range(len(date)):
             yield Gazette(
-                date=date[month],
-                file_urls=[url][month],
+                date=date,
+                file_urls=[url],
                 is_extra_edition=False,
                 municipality_id=self.MUNICIPALITY_ID,
                 power='executive_legislature',
                 scraped_at=datetime.utcnow(),
             )
+
+        for url in range(1,len(PAGE_URL))):
+            yield Request(PAGE_URL[url])
+
+    def extract_date(self, element):
+        date = response.css(DATE_CSS).extract_first().split()
+        return dateparser.parse(date[0]).date()
+
+    def extract_url(self,element):
+        href = element.css(self.PDF_HREF_CSS).extract_first()
+        return self.PDF_URL.format(href)
