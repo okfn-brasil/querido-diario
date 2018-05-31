@@ -11,7 +11,7 @@ only_number_regex = re.compile(r'\D*')
 
 
 class ToAraguainaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '1702109'
+    TERRITORY_ID = '1702109'
     name = 'to_araguaina'
     allowed_domains = [
         'diariooficial.araguaina.to.gov.br',
@@ -64,7 +64,7 @@ class ToAraguainaSpider(BaseGazetteSpider):
             date=date,
             file_urls=file_urls,
             is_extra_edition=is_extra_edition,
-            municipality_id=self.MUNICIPALITY_ID,
+            territory_id=self.TERRITORY_ID,
             scraped_at=scraped_at,
             power=power,
         )
