@@ -1,20 +1,21 @@
 import dateparser
+import itertools
 
+from itertools import product
 from datetime import datetime
 from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-
 class SpBauruSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '3506003'
-    BASE_URL = 'http://www.bauru.sp.gov.br'
-    PAGE_URL = 'http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}m={}'
 
     MONTHS = [str(x).zfill(2) for x in range(1, 13)]
     YEARS = ['2015', '2016', '2017', '2018']
     MONTHS_YEARS = itertools.product(MONTHS, YEARS)
 
+    BASE_URL = 'http://www.bauru.sp.gov.br{}'
+    PAGE_URL = 'http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}&m={}'
     DATE_CSS = 'b::text'
     PDF_HREF_CSS = 'a::attr(href)'
     GAZETTE_CSS = 'main div.container ul ul ul li'
@@ -24,9 +25,11 @@ class SpBauruSpider(BaseGazetteSpider):
 
     def start_requests(self):
         for month, year in self.MONTHS_YEARS:
-            yield Request(PAGE_URL.format(year, month))
+            yield Request(self.PAGE_URL.format(year, month))
 
     def parse(self, response):
+
+
         """
         @url http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a=2015m=01
         @returns requests 1
@@ -47,9 +50,9 @@ class SpBauruSpider(BaseGazetteSpider):
             )
 
     def extract_date(self, element):
-        date = response.css(DATE_CSS).extract_first().split()
+        date = element.css(self.DATE_CSS).extract_first().split()
         return dateparser.parse(date[0]).date()
 
     def extract_url(self,element):
         href = element.css(self.PDF_HREF_CSS).extract_first()
-        return f'{self.BASE_URL}{href}'
+        return self.BASE_URL.format(href)
