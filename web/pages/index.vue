@@ -61,11 +61,12 @@
           <tbody>
             <tr v-once v-for="item in biddingExemptions" :key="item.id">
               <td>{{ new Date(item.date).toLocaleDateString('pt-BR') }}</td>
-              <td>Porto Alegre</td>
+              <td>{{ item.gazette.territory.name }} ({{ item.gazette.territory.state_code }})</td>
               <td v-if="item.value">{{ formatCurrency(item.value) }}</td>
-              <td v-else></td>
+              <td v-else><span class="tag is-warning">Não identificado automaticamente</span></td>
               <td v-if="item.object && item.object.length > 200" :title="item.object">{{ truncate(item.object, 200) }}</td>
-              <td v-else>{{ item.object }}</td>
+              <td v-else-if="item.object">{{ item.object }}</td>
+              <td v-else><span class="tag is-warning">Não identificado automaticamente</span></td>
               <td>
                 <button type="button" class="button is-info" @click="openModal(item)">
                   Detalhes
@@ -123,7 +124,7 @@ import { mapState } from 'vuex'
 
 const BIDDING_EXEMPTIONS_API_URL = process.env.API_URL +
   '/bidding_exemptions' +
-  '?select=*,gazette{file_url,is_extra_edition,territory_id,power}' +
+  '?select=*,gazette{file_url,is_extra_edition,territory_id,power,territory{name,state_code}}' +
   '&order=date.desc'
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
