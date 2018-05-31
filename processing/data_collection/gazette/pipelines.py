@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from database.models import Gazette, db_connect, create_tables
+from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
 from sqlalchemy.orm import sessionmaker
 

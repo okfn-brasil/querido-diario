@@ -17,6 +17,12 @@ def create_tables(engine):
     DeclarativeBase.metadata.create_all(engine)
 
 
+def initialize_database():
+    engine = db_connect()
+    create_tables(engine)
+    return engine
+
+
 class BiddingExemption(DeclarativeBase):
     __tablename__ = 'bidding_exemptions'
     id = Column(Integer, primary_key=True)
