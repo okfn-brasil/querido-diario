@@ -1,5 +1,9 @@
-test:
+test: unit_test integration_test
+
+unit_test:
 	docker-compose run --rm processing python -m unittest discover
+
+integration_test:
 	docker-compose run --rm processing bash -c "cd data_collection && scrapy check"
 
 setup:

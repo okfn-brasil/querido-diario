@@ -14,4 +14,4 @@ before_install:
 install:
   - make setup
 script:
-  - make test
+  - make unit_test
