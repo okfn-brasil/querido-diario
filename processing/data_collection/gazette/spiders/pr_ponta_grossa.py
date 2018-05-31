@@ -5,6 +5,7 @@ import re
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
 class PrPontaGrossaSpider(BaseGazetteSpider):
