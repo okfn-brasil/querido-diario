@@ -5,22 +5,15 @@ from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-now = datetime.now()
 
 class SpBauruSpider(BaseGazetteSpider):
-
     MUNICIPALITY_ID = '3506003'
-    PDF_URL = 'http://www.bauru.sp.gov.br{}'
+    BASE_URL = 'http://www.bauru.sp.gov.br'
+    PAGE_URL = 'http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}m={}'
 
-    BASE_URL, PAGE_URL = 'http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}m={}', []
-    MONTHS = [str(x).zfill(2) for x in range(1,13)]
-
-    # creating url for every month of every year
-    for YEAR in range(2015,now.year+1):
-        for ATUAL in range(12):
-            if(ATUAL+1 > now.month and YEAR == now.year): break
-            PAGE_URL.append(BASE_URL.format(YEAR,MONTHS[ATUAL]))
-
+    MONTHS = [str(x).zfill(2) for x in range(1, 13)]
+    YEARS = ['2015', '2016', '2017', '2018']
+    MONTHS_YEARS = itertools.product(MONTHS, YEARS)
 
     DATE_CSS = 'b::text'
     PDF_HREF_CSS = 'a::attr(href)'
@@ -28,7 +21,10 @@ class SpBauruSpider(BaseGazetteSpider):
 
     allowed_domains = ['bauru.sp.gov.br']
     name = 'sp_bauru'
-    start_urls = [PAGE_URL[0]]
+
+    def start_requests(self):
+        for month, year in self.MONTHS_YEARS:
+            yield Request(PAGE_URL.format(year, month))
 
     def parse(self, response):
         """
@@ -50,13 +46,10 @@ class SpBauruSpider(BaseGazetteSpider):
                 scraped_at=datetime.utcnow(),
             )
 
-        for url in range(1,len(PAGE_URL))):
-            yield Request(PAGE_URL[url])
-
     def extract_date(self, element):
         date = response.css(DATE_CSS).extract_first().split()
         return dateparser.parse(date[0]).date()
 
     def extract_url(self,element):
         href = element.css(self.PDF_HREF_CSS).extract_first()
-        return self.PDF_URL.format(href)
+        return f'{self.BASE_URL}{href}'
