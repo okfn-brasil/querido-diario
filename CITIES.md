@@ -27,7 +27,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 18 | Duque de Caxias | | | | |
 | 19 | Natal | | | | |
 | 20 | Campo Grande | | | | https://github.com/okfn-brasil/diario-oficial/pull/35 |
-| 21 | Teresina | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/53 |
+| 21 | Teresina | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/53 |
 | 22 | São Bernardo do Campo | | | | |
 | 23 | João Pessoa | | | | |
 | 24 | Nova Iguaçu | | | | |
