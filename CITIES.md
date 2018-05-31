@@ -8,7 +8,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | # | Cidade | Crawler | Parser | Issue | PR |
 |:-:|--------|:-------:|:------:|:------:|:------:|
 | 1 | São Paulo | | | https://github.com/okfn-brasil/diario-oficial/issues/7 | |
-| 2 | Rio de Janeiro | :soon: | | https://github.com/okfn-brasil/diario-oficial/issues/15 | https://github.com/okfn-brasil/diario-oficial/pull/29 |
+| 2 | Rio de Janeiro | :white_check_mark: | | https://github.com/okfn-brasil/diario-oficial/issues/15 | https://github.com/okfn-brasil/diario-oficial/pull/29 |
 | 3 | Brasília | | | | |
 | 4 | Salvador | | | | https://github.com/okfn-brasil/diario-oficial/pull/47 |
 | 5 | Fortaleza | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/52 |
@@ -17,7 +17,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 8 | Curitiba | | | | https://github.com/okfn-brasil/diario-oficial/pull/42 |
 | 9 | Recife | :soon: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
-| 11 | Goiânia | :white_check_mark: | :white_check_mark: | | |
+| 11 | Goiânia | :white_check_mark: | :white_check_mark: | | https://github.com/okfn-brasil/diario-oficial/pull/6 |
 | 12 | Belém | | | | |
 | 13 | Guarulhos | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/4 |
 | 14 | Campinas | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/2 |
@@ -54,12 +54,12 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 45 | Campos dos Goytacazes Campos dos Goytacazes | | | | |
 | 46 | Vila Velha | :white_check_mark: | | | |
 | 47 | Florianópolis | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/17 |
-| 48 | Caxias do Sul | | | | |
+| 48 | Caxias do Sul | :white_check_mark: | | | |
 | 49 | Macapá | | | | |
 | 50 | Mauá | | | | |
 | 51 | São João de Meriti | | | | |
 | 52 | São José do Rio Preto | | | | |
-| 53 | Santos | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/14 |
+| 53 | Santos | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/14 |
 | 54 | Mogi das Cruzes | | | | |
 | 55 | Betim | | | | |
 | 56 | Diadema | | | | |
@@ -108,4 +108,4 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 99 | Gravataí | | | | |
 | 100 | Várzea Grande | | | | |
 | XXX | Foz do Iguaçu | :white_check_mark: | :soon: | | https://github.com/okfn-brasil/diario-oficial/pull/34 https://github.com/okfn-brasil/diario-oficial/pull/27 |
-| XXX | Araguaina | | | | https://github.com/okfn-brasil/diario-oficial/pull/3 |
+| XXX | Araguaina | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/3 |
