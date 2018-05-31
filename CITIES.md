@@ -83,7 +83,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 74 | Blumenau | | | | |
 | 75 | Franca | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/5 |
 | 76 | Pelotas | | | | |
-| 77 | Ponta Grossa | | | | https://github.com/okfn-brasil/diario-oficial/pull/45 |
+| 77 | Ponta Grossa | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/45 |
 | 78 | Canoas | | | https://github.com/okfn-brasil/diario-oficial/issues/10 | |
 | 79 | Petrolina | | | | |
 | 80 | Boa Vista | | | | |
