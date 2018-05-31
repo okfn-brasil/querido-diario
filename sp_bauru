@@ -1,0 +1,40 @@
+import dateparser
+
+from datetime import datetime
+from scrapy import Request
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
+
+now = datetime.now()
+
+class SpBauruSpider(BaseGazetteSpider):
+
+    MUNICIPALITY_ID = '3506003'
+
+    base_link = "http://www.bauru.sp.gov.br/juridico/diariooficial.aspx?a={}m={}"
+    PDF_URL = "http://www.bauru.sp.gov.br{}"
+    months = [str(x).zfill(2) for x in range(1,13)]
+    years = range(2015,now.year+1)
+
+    def create_links():
+        links = []
+        for year in range(len(years)):
+            for month in range(len(months)):
+                links.append(base_link.format(years[year],months[month]))
+        return links
+
+    def date_parse(date):
+        for i in date:
+            date[i] = dateparser.parse(date[i][3:13]).date()
+        return date
+
+    def pdf_link_parse(pdf):
+        for i in pdf:
+            pdf[i] = base_pdf.pdf[i]
+        return pdf
+
+    pdf_link = pdf_link_parse(response.css('main div.container ul ul ul li a::attr(href)').extract())
+    pdf_date = date_parse(response.css('main div.container ul ul ul li b').extract())
+
+    pprint(pdf_link)
+    pprint(pdf_date)
