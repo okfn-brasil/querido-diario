@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpFrancaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '3516200'
+    TERRITORY_ID = '3516200'
     name = 'sp_franca'
     allowed_domains = ['franca.sp.gov.br']
     start_urls = ['http://www.franca.sp.gov.br/pmf-diario/rest/diario/init']
@@ -36,7 +36,7 @@ class SpFrancaSpider(BaseGazetteSpider):
         """
         @url http://www.franca.sp.gov.br/pmf-diario/rest/diario/buscaPorArquivo/03-01-2018
         @returns items 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         items = []
 
@@ -49,7 +49,7 @@ class SpFrancaSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 scraped_at=dt.datetime.utcnow(),
                 power='executive'
             )

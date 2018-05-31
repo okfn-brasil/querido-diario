@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class EsAssociacaoMunicipiosSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '3200000'
+    TERRITORY_ID = '3200000'
     name = 'es_associacao_municipios'
     allowed_domains = ['diariomunicipales.org.br']
     start_urls = ['https://diariomunicipales.org.br/?r=site/edicoes&Edicao_page=1']
@@ -18,7 +18,7 @@ class EsAssociacaoMunicipiosSpider(BaseGazetteSpider):
         @url https://diariomunicipales.org.br/?r=site/edicoes&Edicao_page=1
         @returns items 15 15
         @returns requests 1 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         for gazette_node in response.css('.items tbody tr'):
             url = gazette_node.css('[download]::attr(href)').extract_first()
@@ -28,7 +28,7 @@ class EsAssociacaoMunicipiosSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive',
                 scraped_at=dt.datetime.utcnow(),
             )

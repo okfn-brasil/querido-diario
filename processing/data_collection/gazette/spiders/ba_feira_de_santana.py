@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaFeiraDeSantanaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '2910800'
+    TERRITORY_ID = '2910800'
     name = 'ba_feira_de_santana'
     allowed_domains = ['diariooficial.feiradesantana.ba.gov.br']
     start_urls = ['http://www.diariooficial.feiradesantana.ba.gov.br']
@@ -33,7 +33,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
             gazette = Gazette(
                 date=parse(date, languages=['pt']).date(),
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power=power,
                 scraped_at=dt.datetime.utcnow(),
             )
