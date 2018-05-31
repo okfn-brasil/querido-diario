@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class GoGoianiaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '5208707'
+    TERRITORY_ID = '5208707'
     name = 'go_goiania'
     allowed_domains = ['goiania.go.gov.br']
     start_urls = ['http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075']
@@ -29,7 +29,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
         """
         @url http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano=2018
         @returns items 75
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         # The page with the list of gazettes is simply a table with links
         links = response.css('a')
@@ -55,7 +55,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
                     date=date,
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
-                    municipality_id=self.MUNICIPALITY_ID,
+                    territory_id=self.TERRITORY_ID,
                     power=power,
                     scraped_at=dt.datetime.utcnow(),
                 )
