@@ -44,7 +44,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 35 | Cuiabá | | | | |
 | 36 | Joinville | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/30 |
 | 37 | Juiz de Fora | :soon: | | https://github.com/okfn-brasil/diario-oficial/issues/12 | https://github.com/okfn-brasil/diario-oficial/pull/13 |
-| 38 | Londrina | | | | |
+| 38 | Londrina | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/62 |
 | 39 | Aparecida de Goiânia | | | | |
 | 40 | Porto Velho | | | | |
 | 41 | Ananindeua | | | | |
