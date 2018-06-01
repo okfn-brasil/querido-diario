@@ -51,7 +51,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 42 | Serra | :white_check_mark: | | | |
 | 43 | Niterói | | | | |
 | 44 | Belford Roxo | | | | |
-| 45 | Campos dos Goytacazes Campos dos Goytacazes | | | | |
+| 45 | Campos dos Goytacazes | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/70 |
 | 46 | Vila Velha | :white_check_mark: | | | |
 | 47 | Florianópolis | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/17 |
 | 48 | Caxias do Sul | | | | |
