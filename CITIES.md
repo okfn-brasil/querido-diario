@@ -73,7 +73,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 64 | Cariacica | :white_check_mark: | | | |
 | 65 | Rio Branco | | | | |
 | 66 | Anápolis | | | | |
-| 67 | Bauru | | | | |
+| 67 | Bauru | | | | https://github.com/okfn-brasil/diario-oficial/pull/68 |
 | 68 | Vitória | :white_check_mark: | | | |
 | 69 | Caucaia | | | | |
 | 70 | Itaquaquecetuba | | | | |
