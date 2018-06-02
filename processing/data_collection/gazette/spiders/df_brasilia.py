@@ -10,7 +10,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class DfBrasiliaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '5300108'
+    TERRITORY_ID = '5300108'
     GAZETTE_URL = 'http://dodf.df.gov.br/listar'
 
     MONTHS = {
@@ -57,7 +57,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         """
         @url http://dodf.df.gov.br/listar?dir=2018/05_Maio/DODF%20097%2022-05-2018%20SUPLEMENTO
         @returns items 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         json_response = json.loads(response.body_as_unicode())
@@ -78,7 +78,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
             date=date,
             file_urls=file_urls,
             is_extra_edition=is_extra_edition,
-            municipality_id=self.MUNICIPALITY_ID,
+            territory_id=self.TERRITORY_ID,
             scraped_at=datetime.utcnow(),
             power='executive_legislative'
         )
