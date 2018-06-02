@@ -32,7 +32,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 23 | João Pessoa | | | | |
 | 24 | Nova Iguaçu | | | | |
 | 25 | Santo André | | | | |
-| 26 | São José dos Campos | | | | |
+| 26 | São José dos Campos | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
 | 27 | Osasco | | | | |
 | 28 | Jaboatão dos Guararapes | | | | |
 | 29 | Ribeirão Preto | | | https://github.com/okfn-brasil/diario-oficial/issues/31 | |
