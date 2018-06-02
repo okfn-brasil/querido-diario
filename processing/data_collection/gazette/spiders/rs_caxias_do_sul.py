@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RsCaxiasDoSulSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '4305108'
+    TERRITORY_ID = '4305108'
     name = 'rs_caxias_do_sul'
     allowed_domains = ['caxias.rs.gov.br']
     start_urls = [
@@ -54,7 +54,7 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
         return Gazette(
             date=date,
             is_extra_edition=is_extra_edition,
-            municipality_id=self.MUNICIPALITY_ID,
+            territory_id=self.TERRITORY_ID,
             power='executive_legislature',
             scraped_at=dt.datetime.utcnow(),
         )

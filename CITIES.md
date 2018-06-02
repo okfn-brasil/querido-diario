@@ -65,7 +65,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 55 | Betim | | | | |
 | 56 | Diadema | | | | |
 | 57 | Campina Grande | | | | |
-| 58 | Jundiaí | | | | |
+| 58 | Jundiaí | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/49 |
 | 59 | Maringá | | | | |
 | 60 | Montes Claros | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
 | 61 | Piracicaba | | | | |
@@ -74,7 +74,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 64 | Cariacica | :white_check_mark: | | | |
 | 65 | Rio Branco | | | | |
 | 66 | Anápolis | | | | |
-| 67 | Bauru | | | | |
+| 67 | Bauru | | | | https://github.com/okfn-brasil/diario-oficial/pull/68 |
 | 68 | Vitória | :white_check_mark: | | | |
 | 69 | Caucaia | | | | |
 | 70 | Itaquaquecetuba | | | | |
@@ -84,7 +84,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 74 | Blumenau | | | | |
 | 75 | Franca | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/5) |
 | 76 | Pelotas | | | | |
-| 77 | Ponta Grossa | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
+| 77 | Ponta Grossa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
 | 78 | Canoas | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | |
 | 79 | Petrolina | | | | |
 | 80 | Boa Vista | | | | |
@@ -108,5 +108,5 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 98 | Santa Maria | | | | |
 | 99 | Gravataí | | | | |
 | 100 | Várzea Grande | | | | |
-| XXX | Foz do Iguaçu | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/34) [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
+| XXX | Foz do Iguaçu | :white_check_mark: | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/34) [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
