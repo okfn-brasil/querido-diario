@@ -44,7 +44,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
 
     def extract_date(self, element):
         date = element.css(self.DATE_CSS).re(self.DATE_REGEX)
-        date = '/'.join(date)
+        date = "/".join(date)
         return dateparser.parse(date, languages=["pt"]).date()
 
     def extract_url(self, element):
