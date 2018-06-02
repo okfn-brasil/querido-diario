@@ -5,6 +5,7 @@ unit_test:
 
 integration_test:
 	docker-compose run --rm processing bash -c "cd data_collection && scrapy check"
+	docker-compose run --rm processing black . --check
 
 setup:
 	cp .env.example .env
