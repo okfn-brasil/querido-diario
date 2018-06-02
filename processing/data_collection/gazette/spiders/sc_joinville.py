@@ -3,10 +3,11 @@ import dateparser
 from datetime import datetime
 from scrapy import Request, Spider
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class ScJoinvilleSpider(Spider):
-    MUNICIPALITY_ID = "4209102"
+class ScJoinvilleSpider(BaseGazetteSpider):
+    TERRITORY_ID = "4209102"
     PDF_URL = "https://www.joinville.sc.gov.br{}"
 
     GAZETTE_ELEMENT_CSS = "ul.jornal li"
@@ -22,7 +23,7 @@ class ScJoinvilleSpider(Spider):
         """
         @url http://www.joinville.sc.gov.br/jornal/index/page/1
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
@@ -33,7 +34,7 @@ class ScJoinvilleSpider(Spider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
                 scraped_at=datetime.utcnow(),
             )
