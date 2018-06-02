@@ -29,7 +29,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 20 | Campo Grande | | | | https://github.com/okfn-brasil/diario-oficial/pull/35 |
 | 21 | Teresina | :soon: | | | https://github.com/okfn-brasil/diario-oficial/pull/53 |
 | 22 | São Bernardo do Campo | | | | |
-| 23 | João Pessoa | | | | |
+| 23 | João Pessoa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/72) |
 | 24 | Nova Iguaçu | | | | |
 | 25 | Santo André | | | | |
 | 26 | São José dos Campos | | | | |
