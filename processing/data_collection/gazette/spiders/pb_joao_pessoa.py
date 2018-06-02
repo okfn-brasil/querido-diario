@@ -3,9 +3,10 @@ import dateparser
 from datetime import datetime
 from scrapy import Request, Spider
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class PbJoaoPessoaSpider(Spider):
+class PbJoaoPessoaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '2507507'
 
     EXTRA_EDITION_CSS = 'td:first-child'
