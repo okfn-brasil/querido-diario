@@ -1,13 +1,13 @@
 import dateparser
 
 from datetime import datetime
-from scrapy import Request, Spider
+from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class AmManausSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '1302603'
+    TERRITORY_ID = '1302603'
     GAZETTE_URL = 'http://dom.manaus.am.gov.br/diario-oficial-de-manaus'
     PAGE_URL = GAZETTE_URL + '/atct_topic_view?b_start:int={}&-C='
 
@@ -29,7 +29,7 @@ class AmManausSpider(BaseGazetteSpider):
         """
         @url http://dom.manaus.am.gov.br/diario-oficial-de-manaus
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ROW_CSS):
@@ -45,7 +45,7 @@ class AmManausSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive',
                 scraped_at=datetime.utcnow(),
             )
