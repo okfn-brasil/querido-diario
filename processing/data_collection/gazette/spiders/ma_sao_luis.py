@@ -78,17 +78,20 @@ end
                     "//table[contains(@class, 'tabelaResultado')]"):
                 date = gazzete_table.xpath(
                         ".//tbody/tr[1]/td[2]/div/text()").extract_first()
-                date = dateparser.parse(date)
+                date = dateparser.parse(date, settings={'DATE_ORDER': 'DMY'})
                 if date.year < 2015:
                     print('ano de 2015, parando. data: {}'.format(date))
                     raise StopIteration
-                url = gazzete_table.xpath((".//tbody/tr[4]/td[1]/a"
-                                           "[@class='campoResultadoDownload']"
+                url = gazzete_table.xpath((".//tbody/tr/td/a"
+                                           "[contains(text(), 'Download')]"
                                            "/@href")).extract_first()
                 url = response.url[:39] + url
+                extra_edition = (gazzete_table.xpath(
+                    ".//div[contains(text(), 'Suplemento')]").extract_first()
+                    is not None)
                 yield Gazette(
                     date=date, file_urls=[url],
-                    is_extra_edition=False,
+                    is_extra_edition=extra_edition,
                     municipality_id=self.MUNICIPALITY_ID,
                     scraped_at=datetime.utcnow(), power='executive'
                 )
