@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpCampinasSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '3509502'
+    TERRITORY_ID = '3509502'
     name = 'sp_campinas'
     allowed_domains = ['campinas.sp.gov.br']
     start_urls = ['http://www.campinas.sp.gov.br/diario-oficial/index.php']
@@ -35,7 +35,7 @@ class SpCampinasSpider(BaseGazetteSpider):
         """
         @url http://www.campinas.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
         @returns items 23 23
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         items = []
         month_year = response.css(
@@ -54,7 +54,7 @@ class SpCampinasSpider(BaseGazetteSpider):
                     date=date,
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
-                    municipality_id=self.MUNICIPALITY_ID,
+                    territory_id=self.TERRITORY_ID,
                     power=power,
                     scraped_at=dt.datetime.utcnow(),
                 )

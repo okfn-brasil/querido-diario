@@ -6,7 +6,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RjRioDeJaneiroSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '3304557'
+    TERRITORY_ID = '3304557'
     name = 'rj_rio_de_janeiro'
     allowed_domains = ['doweb.rio.rj.gov.br']
     start_urls = ['http://doweb.rio.rj.gov.br']
@@ -54,7 +54,7 @@ class RjRioDeJaneiroSpider(BaseGazetteSpider):
             date=date,
             file_urls=[url],
             is_extra_edition=is_extra_edition,
-            municipality_id=self.MUNICIPALITY_ID,
+            territory_id=self.TERRITORY_ID,
             power='executive',
             scraped_at=dt.datetime.utcnow(),
         )
