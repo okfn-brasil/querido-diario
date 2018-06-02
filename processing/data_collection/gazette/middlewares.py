@@ -47,7 +47,7 @@ class GazetteSpiderMiddleware(object):
             yield r
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        spider.logger.info("Spider opened: %s" % spider.name)
 
 
 class GazetteDownloaderMiddleware(object):
@@ -91,4 +91,4 @@ class GazetteDownloaderMiddleware(object):
         pass
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        spider.logger.info("Spider opened: %s" % spider.name)

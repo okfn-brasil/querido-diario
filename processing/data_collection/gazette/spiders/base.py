@@ -4,7 +4,6 @@ import scrapy
 
 
 class BaseGazetteSpider(scrapy.Spider):
-
     def __init__(self, start_date=None, *args, **kwargs):
         super(BaseGazetteSpider, self).__init__(*args, **kwargs)
 

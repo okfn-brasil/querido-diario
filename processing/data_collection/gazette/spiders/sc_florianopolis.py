@@ -10,9 +10,9 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class ScFlorianopolisSpider(BaseGazetteSpider):
-    name = 'sc_florianopolis'
-    URL = 'http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial'
-    TERRITORY_ID = '4205407'
+    name = "sc_florianopolis"
+    URL = "http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial"
+    TERRITORY_ID = "4205407"
     AVAILABLE_FROM = date(2015, 1, 1)  # actually from June/2009
 
     def start_requests(self):
@@ -26,7 +26,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
         target = date.today()
         while target >= self.AVAILABLE_FROM:
             year, month = str(target.year), str(target.month)
-            data = dict(ano=year, mes=month, passo='1', enviar='')
+            data = dict(ano=year, mes=month, passo="1", enviar="")
             yield FormRequest(url=self.URL, formdata=data, callback=self.parse)
             target = target + relativedelta(months=1)
 
@@ -36,7 +36,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
         @returns items 1
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
-        for link in response.css('ul.listagem li a'):
+        for link in response.css("ul.listagem li a"):
             url = self.get_pdf_url(response, link)
             if not url:
                 continue
@@ -46,29 +46,29 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
                 file_urls=(url,),
                 is_extra_edition=self.is_extra(link),
                 territory_id=self.TERRITORY_ID,
-                power='executive_legislature',
+                power="executive_legislature",
                 scraped_at=datetime.utcnow(),
             )
 
     @staticmethod
     def get_pdf_url(response, link):
-        relative_url = link.css('::attr(href)').extract_first()
-        if not relative_url.lower().endswith('.pdf'):
+        relative_url = link.css("::attr(href)").extract_first()
+        if not relative_url.lower().endswith(".pdf"):
             return None
 
         return response.urljoin(relative_url)
 
     @staticmethod
     def get_date(link):
-        text = ' '.join(link.css('::text').extract())
-        pattern = r'\d{1,2}\s+de\s+\w+\s+de\s+\d{4}'
+        text = " ".join(link.css("::text").extract())
+        pattern = r"\d{1,2}\s+de\s+\w+\s+de\s+\d{4}"
         match = re.search(pattern, text)
         if not match:
             return None
 
-        return parse(match.group(), languages=('pt',)).date()
+        return parse(match.group(), languages=("pt",)).date()
 
     @staticmethod
     def is_extra(link):
-        text = ' '.join(link.css('::text').extract())
-        return 'extra' in text.lower()
+        text = " ".join(link.css("::text").extract())
+        return "extra" in text.lower()

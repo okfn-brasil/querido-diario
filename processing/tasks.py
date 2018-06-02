@@ -7,8 +7,8 @@ from gazette.data.bidding_exemption_parsing import BiddingExemptionParsing
 from gazette.data.row_update import RowUpdate
 from gazette.data.section_parsing import SectionParsing
 
-app = Celery('tasks', backend=config('REDIS_URL'), broker=config('RABBITMQ_URL'))
-PARSING_FREQUENCY = config('PARSING_FREQUENCY_IN_SECONDS', cast=int)
+app = Celery("tasks", backend=config("REDIS_URL"), broker=config("RABBITMQ_URL"))
+PARSING_FREQUENCY = config("PARSING_FREQUENCY_IN_SECONDS", cast=int)
 
 
 @app.on_after_configure.connect
