@@ -7,7 +7,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '3549904'
+    TERRITORY_ID = '3549904'
 
     GAZETTE_NAME_CSS = 'td:last-child a::text'
     GAZETTE_URL_CSS = 'td:last-child a::attr(href)'
@@ -25,7 +25,7 @@ class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
         """
         @url http://servicos2.sjc.sp.gov.br/servicos/portal_da_transparencia/boletim_municipio.aspx
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css('#corpo table tr'):
@@ -41,7 +41,7 @@ class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive_legislature',
                 scraped_at=datetime.utcnow(),
             )
