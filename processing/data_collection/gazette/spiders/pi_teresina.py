@@ -7,7 +7,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PiTeresinaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '2211001'
+    TERRITORY_ID = '2211001'
 
     ATTACHMENT_CSS = 'td:last-child a::attr(href)'
     DATE_CSS = 'td:nth-child(2)::text'
@@ -23,7 +23,7 @@ class PiTeresinaSpider(BaseGazetteSpider):
         """
         @url http://www.dom.teresina.pi.gov.br/lista_diario.php
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ROW_CSS):
@@ -39,7 +39,7 @@ class PiTeresinaSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=file_urls,
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive',
                 scraped_at=datetime.utcnow(),
             )
