@@ -30,10 +30,10 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 20 | Campo Grande | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/53) |
 | 22 | São Bernardo do Campo | | | | |
-| 23 | João Pessoa | | | | |
+| 23 | João Pessoa | :soon: | | | |
 | 24 | Nova Iguaçu | | | | |
 | 25 | Santo André | | | | |
-| 26 | São José dos Campos | :soon: | | | |
+| 26 | São José dos Campos | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
 | 27 | Osasco | | | | |
 | 28 | Jaboatão dos Guararapes | | | | |
 | 29 | Ribeirão Preto | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/31) | |
@@ -52,7 +52,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 42 | Serra | :white_check_mark: | | | |
 | 43 | Niterói | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
 | 44 | Belford Roxo | | | | |
-| 45 | Campos dos Goytacazes Campos dos Goytacazes | | | | |
+| 45 | Campos dos Goytacazes | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/70) |
 | 46 | Vila Velha | :white_check_mark: | | | |
 | 47 | Florianópolis | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/17) |
 | 48 | Caxias do Sul | :white_check_mark: | | | |
