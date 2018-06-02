@@ -7,7 +7,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PbJoaoPessoaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '2507507'
+    TERRITORY_ID = '2507507'
 
     EXTRA_EDITION_CSS = 'td:first-child'
     GAZETTE_ROW_CSS = '.table-semanarios table tbody tr'
@@ -24,7 +24,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
         """
         @url http://www.joaopessoa.pb.gov.br/semanariooficial/
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ROW_CSS):
@@ -37,7 +37,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                territory_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive_legislature',
                 scraped_at=datetime.utcnow(),
             )
