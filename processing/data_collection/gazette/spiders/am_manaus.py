@@ -48,14 +48,7 @@ class AmManausSpider(BaseGazetteSpider):
             pdf_title = element.css(self.EXECUTIVE_PDF_TEXT_CSS).extract_first()
             is_extra_edition = 'Edição Extra' in pdf_title
 
-            yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=is_extra_edition,
-                territory_id=self.TERRITORY_ID,
-                power='executive',
-                scraped_at=datetime.utcnow(),
-            )
+            yield self.build_gazzete(date, url, 'executive', is_extra_edition)
 
         for index in range(self.EXECUTIVE_STEP, self.EXECUTIVE_LAST_PAGE, self.EXECUTIVE_STEP):
             url = self.EXECUTIVE_NEXT_PAGE_URL.format(index)
@@ -77,14 +70,17 @@ class AmManausSpider(BaseGazetteSpider):
             date = date.re(self.LEGISLATIVE_DATE_REGEX).pop()
             date = dateparser.parse(date, languages=['pt']).date()
 
-            yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=False,
-                territory_id=self.TERRITORY_ID,
-                power='legislative',
-                scraped_at=datetime.utcnow(),
-            )
+            yield self.build_gazzete(date, url, 'legislative')
 
         for url in response.css(self.LEGISLATIVE_NEXT_PAGE_CSS).extract():
             yield Request(url, self.parse_legislative)
+
+    def build_gazzete(self, date, url, power, is_extra_edition=False):
+        return Gazette(
+            date=date,
+            file_urls=[url],
+            is_extra_edition=is_extra_edition,
+            territory_id=self.TERRITORY_ID,
+            power=power,
+            scraped_at=datetime.utcnow(),
+        )
