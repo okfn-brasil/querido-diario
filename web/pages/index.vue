@@ -17,19 +17,26 @@
           Nossa meta é começar pelos <strong>100 maiores municípios</strong> do Brasil. De acordo com o <abbr title="Instituto Brasileiro de Geografia e Estatística">IBGE</abbr>, eles representam mais de <strong>40% da população</strong> brasileira.
         </p>
         <p>
-          Neste momento, temos 1 município e 7 outros em fase de finalização.
+          Neste momento, temos 2 municípios e 40 outros em construção.
         </p>
 
         <ul class="municipalities-list">
-          <li>RS - Porto Alegre</li>
+          <li>Goiânia (GO)</li>
+          <li>Porto Alegre (RS)</li>
         </ul>
 
         <div class="has-text-centered">
-          <img src="~/assets/gem.gif" alt="" title="RS - Porto Alegre" class="municipality-icon municipality-active" />
-          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 7" :key="y" />
-          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 2" :key="y" />
+          <img src="~/assets/gem.gif" alt="" class="municipality-icon municipality-active" v-for="y in 2" :key="y" />
+          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 8" :key="y" />
         </div>
-        <div v-for="x in 9" :key="x" class="has-text-centered">
+        <div v-for="x in 2" :key="x" class="has-text-centered">
+          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 10" :key="y" />
+        </div>
+        <div class="has-text-centered">
+          <img src="~/assets/gem.gif" alt="" class="municipality-icon municipality-wip" v-for="y in 2" :key="y" />
+          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon" v-for="y in 8" :key="y" />
+        </div>
+        <div v-for="x in 6" :key="x" class="has-text-centered">
           <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 10" :key="y" />
         </div>
       </div>
