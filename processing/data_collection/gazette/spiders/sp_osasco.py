@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpOsascoSpider(BaseGazetteSpider):
-    TERRITORY_ID = '3534401'
+    TERRITORY_ID = "3534401"
 
     DATE_CSS = ".document-date span::text"
     GAZETTE_CSS = "ul.document-list li.document"
@@ -29,14 +29,14 @@ class SpOsascoSpider(BaseGazetteSpider):
         for element in response.css(self.GAZETTE_CSS):
             url = element.css(self.URL_CSS).extract_first()
             date = element.css(self.DATE_CSS).extract_first()
-            date = dateparser.parse(date, languages=['pt']).date()
+            date = dateparser.parse(date, languages=["pt"]).date()
 
             yield Gazette(
                 date=date,
                 file_urls=[url],
                 is_extra_edition=False,
                 territory_id=self.TERRITORY_ID,
-                power='executive_legislature',
+                power="executive_legislature",
                 scraped_at=datetime.utcnow(),
             )
 
