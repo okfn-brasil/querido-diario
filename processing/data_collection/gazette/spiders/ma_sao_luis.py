@@ -22,28 +22,48 @@ class MaSaoLuisSpider(BaseGazetteSpider):
                  municipality_id power scraped_at
         """
         lua_script = """
-function main(splash, args)
-    splash:init_cookies(splash.args.cookies)
-    splash:go(args.url)
-    getElementByXPath = splash:jsfunc([[
-        function (path) {
-            return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+function wait_for_element(splash, css, value, maxwait)
+  -- Wait until a selector matches an element
+  -- and it contains a specific value
+  -- in the page. Return an error if waited more
+  -- than maxwait seconds.
+  if maxwait == nil then
+      maxwait = 10
+  end
+  return splash:wait_for_resume(string.format([[
+    function main(splash) {
+      var selector = '%s';
+      var value = %s;
+      var maxwait = %s;
+      var end = Date.now() + maxwait*1000;
+      function check() {
+        if(document.querySelector(selector) && document.querySelector(selector).value === value) {
+          splash.resume('Element found');
+        } else if(Date.now() >= end) {
+          var err = 'Timeout waiting for element';
+          splash.error(err + " " + selector);
+        } else {
+          setTimeout(check, 200);
         }
+      }
+      check();
+    }
+  ]], css, value, maxwait))
+end
+
+function main(splash, args)
+    getElementByXPath = splash:jsfunc([[
+    function (path) {
+        return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    }
     ]])
-    splash:wait(28)
-    --[[
-    tamanho_pagina = getElementByXPath("//tbody/tr/td/div[@class='GPFMNGWKN' and text()='20']")
-    tamanho_pagina:mouse_click()
-    splash:wait(3)
-    tamanho_1 = getElementByXPath("//div[1]/div/span[@class='GPFMNGWKGC']")
-    tamanho_1:mouse_click()
-    splash:wait(6)
-    --]]
+    splash:go(args.url)
+    wait_for_element(splash, 'a.campoResultadoDownload', '1', 40)
     page_input_box = getElementByXPath("//div[@class='GPFMNGWNP']/input[@class='gwt-TextBox GPFMNGWOJ GPFMNGWIK']")
     page_input_box:send_keys("<Delete>")
     page_input_box:send_text(args.page_number)
     page_input_box:send_keys("<Return>")
-    splash:wait(24)
+    wait_for_element(splash, 'a.campoResultadoDownload', args.page_number, 40)
     return {html = splash.html(), cookies = splash:get_cookies(), png = splash.png()}
 end
 """
@@ -63,8 +83,8 @@ end
                     print('ano de 2015, parando. data: {}'.format(date))
                     raise StopIteration
                 url = gazzete_table.xpath((".//tbody/tr[4]/td[1]/a"
-                                        "[@class='campoResultadoDownload']"
-                                        "/@href")).extract_first()
+                                           "[@class='campoResultadoDownload']"
+                                           "/@href")).extract_first()
                 url = response.url[:39] + url
                 yield Gazette(
                     date=date, file_urls=[url],
