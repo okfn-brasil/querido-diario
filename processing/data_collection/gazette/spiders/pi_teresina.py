@@ -7,17 +7,17 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PiTeresinaSpider(BaseGazetteSpider):
-    TERRITORY_ID = '2211001'
+    TERRITORY_ID = "2211001"
 
-    ATTACHMENT_CSS = 'td:last-child a::attr(href)'
-    DATE_CSS = 'td:nth-child(2)::text'
-    GAZETTE_ROW_CSS = '.table tbody tr'
-    NEXT_PAGE_CSS = '.box-paginacao a.paginacao:last-child::attr(href)'
-    PDF_HREF_CSS = 'td:nth-child(3) a::attr(href)'
+    ATTACHMENT_CSS = "td:last-child a::attr(href)"
+    DATE_CSS = "td:nth-child(2)::text"
+    GAZETTE_ROW_CSS = ".table tbody tr"
+    NEXT_PAGE_CSS = ".box-paginacao a.paginacao:last-child::attr(href)"
+    PDF_HREF_CSS = "td:nth-child(3) a::attr(href)"
 
-    allowed_domains = ['www.dom.teresina.pi.gov.br']
-    name = 'pi_teresina'
-    start_urls = ['http://www.dom.teresina.pi.gov.br/lista_diario.php']
+    allowed_domains = ["www.dom.teresina.pi.gov.br"]
+    name = "pi_teresina"
+    start_urls = ["http://www.dom.teresina.pi.gov.br/lista_diario.php"]
 
     def parse(self, response):
         """
@@ -31,8 +31,7 @@ class PiTeresinaSpider(BaseGazetteSpider):
             attachment_url = element.css(self.ATTACHMENT_CSS).extract_first()
             file_urls = list(filter(None, [gazette_url, attachment_url]))
             date = dateparser.parse(
-                element.css(self.DATE_CSS).extract_first(),
-                languages=['pt']
+                element.css(self.DATE_CSS).extract_first(), languages=["pt"]
             ).date()
 
             yield Gazette(
@@ -40,7 +39,7 @@ class PiTeresinaSpider(BaseGazetteSpider):
                 file_urls=file_urls,
                 is_extra_edition=False,
                 territory_id=self.TERRITORY_ID,
-                power='executive',
+                power="executive",
                 scraped_at=datetime.utcnow(),
             )
 
