@@ -16,9 +16,6 @@ const createStore = () => {
         state.isModalActive = true
       },
       updateBiddingExemptions (state, { data }) {
-        // Temporarily showing bidding exemptions only from Porto Alegre
-        // Expanding to other municipalities require few changes in the frontend
-        data = data.filter(elem => elem.gazette.municipality_id == '4314902')
         state.biddingExemptions = data
       },
     }

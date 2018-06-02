@@ -10,7 +10,7 @@ last_page_number_xpath = '//div[@class="paginacao"]/ul[@class="pagination"]/li[l
 
 
 class ToPalmasSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '1721000'
+    TERRITORY_ID = '1721000'
     name = 'to_palmas'
     allowed_domains = ['diariooficial.palmas.to.gov.br', 'legislativo.palmas.to.gov.br']
     to_palmas_url = 'http://diariooficial.palmas.to.gov.br/todos-diarios/?page={page_number}'
@@ -72,7 +72,7 @@ class ToPalmasSpider(BaseGazetteSpider):
             date=date,
             file_urls=file_urls,
             is_extra_edition=is_extra_edition,
-            municipality_id=self.MUNICIPALITY_ID,
+            territory_id=self.TERRITORY_ID,
             scraped_at=scraped_at,
             power=power,
         )
