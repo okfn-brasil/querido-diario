@@ -29,14 +29,14 @@
           <img src="~/assets/gem.gif" alt="" class="municipality-icon municipality-active" v-for="y in 2" :key="y" />
           <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 8" :key="y" />
         </div>
-        <div v-for="x in 2" :key="x" class="has-text-centered">
+        <div v-for="x in 3" :key="x" class="has-text-centered">
           <img src="~/assets/gem.png" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 10" :key="y" />
         </div>
         <div class="has-text-centered">
           <img src="~/assets/gem.gif" alt="" class="municipality-icon municipality-wip" v-for="y in 2" :key="y" />
           <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon" v-for="y in 8" :key="y" />
         </div>
-        <div v-for="x in 6" :key="x" class="has-text-centered">
+        <div v-for="x in 5" :key="x" class="has-text-centered">
           <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 10" :key="y" />
         </div>
       </div>
