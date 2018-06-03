@@ -17,19 +17,26 @@
           Nossa meta é começar pelos <strong>100 maiores municípios</strong> do Brasil. De acordo com o <abbr title="Instituto Brasileiro de Geografia e Estatística">IBGE</abbr>, eles representam mais de <strong>40% da população</strong> brasileira.
         </p>
         <p>
-          Neste momento, temos 1 município e 7 outros em fase de finalização.
+          Neste momento, temos 2 municípios e 40 outros em construção.
         </p>
 
         <ul class="municipalities-list">
-          <li>RS - Porto Alegre</li>
+          <li>Goiânia (GO)</li>
+          <li>Porto Alegre (RS)</li>
         </ul>
 
         <div class="has-text-centered">
-          <img src="~/assets/gem.gif" alt="" title="RS - Porto Alegre" class="municipality-icon municipality-active" />
-          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 7" :key="y" />
-          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 2" :key="y" />
+          <img src="~/assets/gem.gif" alt="" class="municipality-icon municipality-active" v-for="y in 2" :key="y" />
+          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 8" :key="y" />
         </div>
-        <div v-for="x in 9" :key="x" class="has-text-centered">
+        <div v-for="x in 3" :key="x" class="has-text-centered">
+          <img src="~/assets/gem.png" alt="" title="" class="municipality-icon municipality-wip" v-for="y in 10" :key="y" />
+        </div>
+        <div class="has-text-centered">
+          <img src="~/assets/gem.gif" alt="" class="municipality-icon municipality-wip" v-for="y in 2" :key="y" />
+          <img src="~/assets/gem.gif" alt="" title="" class="municipality-icon" v-for="y in 8" :key="y" />
+        </div>
+        <div v-for="x in 5" :key="x" class="has-text-centered">
           <img src="~/assets/gem.png" alt="" title="" class="municipality-icon" v-for="y in 10" :key="y" />
         </div>
       </div>
@@ -61,11 +68,12 @@
           <tbody>
             <tr v-once v-for="item in biddingExemptions" :key="item.id">
               <td>{{ new Date(item.date).toLocaleDateString('pt-BR') }}</td>
-              <td>Porto Alegre</td>
+              <td>{{ item.gazette.territory.name }} ({{ item.gazette.territory.state_code }})</td>
               <td v-if="item.value">{{ formatCurrency(item.value) }}</td>
-              <td v-else></td>
+              <td v-else><span class="tag is-warning">Não identificado automaticamente</span></td>
               <td v-if="item.object && item.object.length > 200" :title="item.object">{{ truncate(item.object, 200) }}</td>
-              <td v-else>{{ item.object }}</td>
+              <td v-else-if="item.object">{{ item.object }}</td>
+              <td v-else><span class="tag is-warning">Não identificado automaticamente</span></td>
               <td>
                 <button type="button" class="button is-info" @click="openModal(item)">
                   Detalhes
@@ -123,7 +131,7 @@ import { mapState } from 'vuex'
 
 const BIDDING_EXEMPTIONS_API_URL = process.env.API_URL +
   '/bidding_exemptions' +
-  '?select=*,gazette{file_url,is_extra_edition,territory_id,power}' +
+  '?select=*,gazette{file_url,is_extra_edition,territory_id,power,territory{name,state_code}}' +
   '&order=date.desc'
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
