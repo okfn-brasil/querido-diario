@@ -38,7 +38,7 @@ Tracking of the crawlers and parsers for the top 100 cities.
 | 29 | Ribeirão Preto | | | https://github.com/okfn-brasil/diario-oficial/issues/31 | |
 | 30 | Uberlândia | | | | https://github.com/okfn-brasil/diario-oficial/pull/37 |
 | 31 | Sorocaba | | | | |
-| 32 | Contagem | | | | |
+| 32 | Contagem | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/77) |
 | 33 | Aracaju | | | | |
 | 34 | Feira de Santana | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/25 |
 | 35 | Cuiabá | | | | |
