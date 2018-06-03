@@ -1,6 +1,6 @@
 import re
 
-from database import PARSABLE_MUNICIPALITIES
+from database import PARSABLE_TERRITORIES
 from database.models import BiddingExemption
 from gazette import locations
 
@@ -17,8 +17,8 @@ class BiddingExemptionParsing:
 
     def update(self, records):
         for record in records:
-            municipality = PARSABLE_MUNICIPALITIES.get(record.gazette.municipality_id)
-            if municipality:
+            territory = PARSABLE_TERRITORIES.get(record.gazette.territory_id)
+            if territory:
                 self.update_object(record)
                 self.update_value(record)
                 self.update_contracted(record)
