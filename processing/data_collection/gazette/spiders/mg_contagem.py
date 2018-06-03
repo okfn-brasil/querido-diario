@@ -12,6 +12,11 @@ class MgContagemSpider(BaseGazetteSpider):
     start_urls = ["http://www.contagem.mg.gov.br/?se=doc"]
 
     def parse(self, response):
+        """
+        @url http://www.contagem.mg.gov.br/?se=doc&pagina=2
+        @returns items 15 15
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
+        """
         anchor_elements = response.css(".texto11pt a")
 
         urls = [
