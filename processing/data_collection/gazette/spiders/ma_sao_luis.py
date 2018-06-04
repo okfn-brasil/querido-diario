@@ -9,7 +9,7 @@ from scrapy.shell import inspect_response
 
 
 class MaSaoLuisSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '2111300'
+    TERRITORY_ID = '2111300'
     name = 'ma_sao_luis'
     allowed_domains = ['www.semad.saoluis.ma.gov.br']
     start_url = 'http://www.semad.saoluis.ma.gov.br:8090/easysearch/'
@@ -96,7 +96,7 @@ end
             yield Gazette(
                 date=date, file_urls=[url],
                 is_extra_edition=extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 scraped_at=datetime.utcnow(), power='executive')
         page_number = int(response._splash_args()['page_number']) + 1
         self.logger.info("sent page %d to splash", page_number)
