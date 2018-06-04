@@ -89,7 +89,7 @@ end
             url = gazette_table.xpath((".//tbody/tr/td/a"
                                        "[contains(text(), 'Download')]"
                                        "/@href")).extract_first()
-            url = response.url[:39] + url
+            url = response.urljoin(url)
             extra_edition = (gazette_table.xpath(
                 ".//div[contains(text(), 'Suplemento')]").extract_first()
                 is not None)
