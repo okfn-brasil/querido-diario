@@ -26,6 +26,8 @@ services:
       - redis
     env_file:
       - .env
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=diario-oficial-auth.json
     volumes:
       - ${DATA_FOLDER}:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
