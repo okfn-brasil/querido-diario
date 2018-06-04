@@ -10,7 +10,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RnNatalSpider(BaseGazetteSpider):
     GAZETTE_ELEMENT_CSS = '#texto a'
-    MUNICIPALITY_ID = '2408102'
+    TERRITORY_ID = '2408102'
 
     allowed_domains = ['www.natal.rn.gov.br']
     name = 'rn_natal'
@@ -27,7 +27,7 @@ class RnNatalSpider(BaseGazetteSpider):
         """
         @url http://www.natal.rn.gov.br/dom/
         @returns items 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
@@ -40,7 +40,7 @@ class RnNatalSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive',
                 scraped_at=datetime.utcnow()
             )
