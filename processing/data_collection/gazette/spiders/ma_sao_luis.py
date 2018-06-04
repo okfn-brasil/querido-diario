@@ -103,4 +103,4 @@ end
         yield SplashRequest(
             url=response.url, callback=self.parse, endpoint='execute',
             args={'lua_source': self.lua_script,
-                  'page_number': str(page_number), 'timeout': '120'})
+                  'page_number': str(page_number), 'timeout': '90'})
