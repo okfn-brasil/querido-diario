@@ -75,22 +75,22 @@ end
                                       'page_number': '1', 'timeout': 90})
 
     def parse_response(self, response):
-        for gazzete_table in response.xpath(
+        for gazette_table in response.xpath(
                 "//table[contains(@class, 'tabelaResultado')]"):
-            date = gazzete_table.xpath(
+            date = gazette_table.xpath(
                     ".//tbody/tr[1]/td[2]/div/text()").extract_first()
-            self.logger.info("ma_sao_luis_spider: got gazzete for day %s",
+            self.logger.info("ma_sao_luis_spider: got gazette for day %s",
                              date)
             date = dateparser.parse(date, settings={'DATE_ORDER': 'DMY'})
 
             if date.year < 2015:
                 print('ano de 2015, parando. data: {}'.format(date))
                 raise StopIteration
-            url = gazzete_table.xpath((".//tbody/tr/td/a"
+            url = gazette_table.xpath((".//tbody/tr/td/a"
                                        "[contains(text(), 'Download')]"
                                        "/@href")).extract_first()
             url = response.url[:39] + url
-            extra_edition = (gazzete_table.xpath(
+            extra_edition = (gazette_table.xpath(
                 ".//div[contains(text(), 'Suplemento')]").extract_first()
                 is not None)
             yield Gazette(
