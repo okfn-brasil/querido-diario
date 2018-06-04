@@ -12,7 +12,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
     DATE_CSS = '.item-info::text'
     NEXT_PAGE_CSS = '.item-paginacao a:last-child::attr(href)'
 
-    MUNICIPALITY_ID = '4125506'
+    TERRITORY_ID = '4125506'
 
     allowed_domains = ['diariooficial.sjp.pr.gov.br']
     name = 'pr_sao_jose_pinhais'
@@ -22,7 +22,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
         """
         @url http://diariooficial.sjp.pr.gov.br/?ano_edicao=&entidade=12526&pg=1
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
@@ -33,7 +33,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive',
                 scraped_at=datetime.utcnow(),
             )
