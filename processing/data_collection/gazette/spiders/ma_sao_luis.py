@@ -83,9 +83,6 @@ end
                              date)
             date = dateparser.parse(date, settings={'DATE_ORDER': 'DMY'})
 
-            if date.year < 2015:
-                print('ano de 2015, parando. data: {}'.format(date))
-                raise StopIteration
             url = gazette_table.xpath((".//tbody/tr/td/a"
                                        "[contains(text(), 'Download')]"
                                        "/@href")).extract_first()
