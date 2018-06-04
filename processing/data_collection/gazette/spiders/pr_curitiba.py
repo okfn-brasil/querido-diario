@@ -13,7 +13,11 @@ class PrCuritibaSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '4106902'
     name = 'pr_curitiba'
     allowed_domains = ['legisladocexterno.curitiba.pr.gov.br']
-    start_urls = ['http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx']
+    custom_settings = {
+        'DEFAULT_REQUEST_HEADERS': {
+            'user-agent': 'Mozilla/5.0'
+        }
+    }
 
     def start_requests(self):
         """
@@ -24,10 +28,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
         """
         todays_date = dt.date.today()
         current_year = todays_date.year
-        stop_on_year = 2015
-        if hasattr(self, 'start_date'):
-            stop_on_year = self.start_date.year
-        for year in range(current_year, stop_on_year - 1, -1):
+        for year in range(current_year, 2006, -1):
             yield scrapy.FormRequest(
                 'http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx',
                 formdata={
@@ -84,7 +85,6 @@ class PrCuritibaSpider(BaseGazetteSpider):
                 starting_offset = 3
                 yield scrapy.FormRequest.from_response(
                     response,
-                    headers={'user-agent': 'Mozilla/5.0'},
                     formdata={
                         '__LASTFOCUS': '',
                         '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(idx+starting_offset)),
@@ -106,7 +106,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
 
     def scrap_not_extra_edition(self, response):
         parsed_date = response.meta['parsed_date']
-        gazette_id = re.findall(r'Id=(\d+)', response.text)[0]
+        gazette_id = response.selector.re_first('Id=(\d+)')
         return Gazette(
             date=parsed_date,
             file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={}".format(gazette_id)],
