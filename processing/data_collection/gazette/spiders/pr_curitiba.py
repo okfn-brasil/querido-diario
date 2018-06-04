@@ -6,12 +6,12 @@ import scrapy
 
 from gazette.items import Gazette
 
+
 class PrCuritibaSpider(scrapy.Spider):
     MUNICIPALITY_ID = '4106902'
     name = 'pr_curitiba'
     allowed_domains = ['legisladocexterno.curitiba.pr.gov.br']
     start_urls = ['http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx']
-
 
     def parse(self, response):
         """
@@ -34,7 +34,6 @@ class PrCuritibaSpider(scrapy.Spider):
             callback=self.parse_year
         )
 
-
     def parse_year(self, response):
         for i in range(12):
             yield self.scrap_month(response, i)
@@ -45,21 +44,21 @@ class PrCuritibaSpider(scrapy.Spider):
             formdata={
                 '__EVENTTARGET': 'ctl00$cphMasterPrincipal$TabContainer1',
                 '__EVENTARGUMENT': 'activeTabChanged:{}'.format(month),
-                'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState' : '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month)
+                'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState': '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month)
             },
-            meta={ "month" : month },
+            meta={"month": month},
             callback=self.parse_month
         )
 
     def parse_month(self, response):
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
         month = response.meta["month"]
-        #The first page of pagination cannot be accessed by page number
+        # The first page of pagination cannot be accessed by page number
         yield scrapy.FormRequest.from_response(
             response,
             formdata={
                 '__EVENTTARGET': 'ctl00$cphMasterPrincipal$TabContainer1',
-                'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState' : '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month),
+                'ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState': '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(month),
                 '__EVENTARGUMENT': 'activeTabChanged:{}'.format(month),
             },
             callback=self.parse_page,
@@ -68,28 +67,25 @@ class PrCuritibaSpider(scrapy.Spider):
             yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
-                    '__EVENTARGUMENT' : 'Page${}'.format(page_number),
-                    '__EVENTTARGET' : 'ctl00$cphMasterPrincipal$gdvGrid2'
+                    '__EVENTARGUMENT': 'Page${}'.format(page_number),
+                    '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2'
                 },
                 callback=self.parse_page,
             )
+
     def parse_page(self, response):
-        row = response.css(".grid_Row")
-        numbers = row.css("td:nth-child(1) span ::text").extract()
-        pdf_dates = row.css("td:nth-child(2) span ::text").extract()
-        ids = row.css("td:nth-child(3) a ::attr(data-teste)").extract()
-        for i in range(len(numbers)):
-            number = numbers[i]
-            pdf_date = pdf_dates[i]
-            id = ids[i]
+        for idx, row in enumerate(response.css(".grid_Row")):
+            pdf_date = row.css("td:nth-child(2) span ::text").extract()
+            gazette_id = row.css("td:nth-child(3) a ::attr(data-teste)").extract()
             parsed_date = parse(f'{pdf_date}', languages=['pt']).date()
-            if id == '0':
+            if gazette_id == '0':
+                starting_offset = 3
                 yield scrapy.FormRequest.from_response(
                     response,
-                    headers = {'user-agent': 'Mozilla/5.0'},
-                    formdata = {
+                    headers={'user-agent': 'Mozilla/5.0'},
+                    formdata={
                         '__LASTFOCUS': '',
-                        '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(i+3)),
+                        '__EVENTTARGET': 'ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar'.format(num=(idx+starting_offset)),
                         '__EVENTARGUMENT': '',
                         '__ASYNCPOST': 'true'
                     },
@@ -98,9 +94,9 @@ class PrCuritibaSpider(scrapy.Spider):
                 )
             else:
                 yield Gazette(
-                    date = parsed_date,
-                    file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={}".format(id)],
-                    is_extra_edition= True,
+                    date=parsed_date,
+                    file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={}".format(gazette_id)],
+                    is_extra_edition=True,
                     municipality_id=self.MUNICIPALITY_ID,
                     power='executive_legislature',
                     scraped_at=dt.datetime.utcnow()
@@ -108,11 +104,11 @@ class PrCuritibaSpider(scrapy.Spider):
 
     def scrap_not_extra_edition(self, response):
         parsed_date = response.meta['parsed_date']
-        id = re.findall(r'Id=(\d+)', response.text )[0]
+        id = re.findall(r'Id=(\d+)', response.text)[0]
         return Gazette(
-            date = parsed_date,
+            date=parsed_date,
             file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={}".format(id)],
-            is_extra_edition= False,
+            is_extra_edition=False,
             municipality_id=self.MUNICIPALITY_ID,
             power='executive_legislature',
             scraped_at=dt.datetime.utcnow()
