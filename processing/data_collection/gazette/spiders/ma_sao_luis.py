@@ -14,14 +14,7 @@ class MaSaoLuisSpider(BaseGazetteSpider):
     allowed_domains = ['www.semad.saoluis.ma.gov.br']
     start_urls = ['http://www.semad.saoluis.ma.gov.br:8090/easysearch/']
 
-    def parse(self, response):
-        """
-        @url
-        @returns items 1
-        @scrapes date file_urls is_extra_edition
-                 municipality_id power scraped_at
-        """
-        lua_script = """
+    lua_script = """
 function wait_for_element(splash, css, value, maxwait)
   -- Wait until a selector matches an element
   -- and it contains a specific value
@@ -67,31 +60,47 @@ function main(splash, args)
     return {html = splash.html(), cookies = splash:get_cookies(), png = splash.png()}
 end
 """
-        for page_number in range(1, 60):
-            yield SplashRequest(
-                url=response.url, callback=self.parse, endpoint='execute',
-                args={'lua_source': lua_script, 'timeout': 90,
-                      'page_number': str(page_number)}
-                )
 
-            for gazzete_table in response.xpath(
-                    "//table[contains(@class, 'tabelaResultado')]"):
-                date = gazzete_table.xpath(
-                        ".//tbody/tr[1]/td[2]/div/text()").extract_first()
-                date = dateparser.parse(date, settings={'DATE_ORDER': 'DMY'})
-                if date.year < 2015:
-                    print('ano de 2015, parando. data: {}'.format(date))
-                    raise StopIteration
-                url = gazzete_table.xpath((".//tbody/tr/td/a"
-                                           "[contains(text(), 'Download')]"
-                                           "/@href")).extract_first()
-                url = response.url[:39] + url
-                extra_edition = (gazzete_table.xpath(
-                    ".//div[contains(text(), 'Suplemento')]").extract_first()
-                    is not None)
-                yield Gazette(
-                    date=date, file_urls=[url],
-                    is_extra_edition=extra_edition,
-                    municipality_id=self.MUNICIPALITY_ID,
-                    scraped_at=datetime.utcnow(), power='executive'
-                )
+    def parse(self, response):
+        """
+        @url
+        @returns items 1
+        @scrapes date file_urls is_extra_edition
+                 municipality_id power scraped_at
+        """
+        self.logger.info("sent page %d to splash", 1)
+        yield SplashRequest(
+            url=response.url, callback=self.parse_response,
+            endpoint='execute', args={'lua_source': self.lua_script,
+                                      'page_number': '1', 'timeout': 90})
+
+    def parse_response(self, response):
+        for gazzete_table in response.xpath(
+                "//table[contains(@class, 'tabelaResultado')]"):
+            date = gazzete_table.xpath(
+                    ".//tbody/tr[1]/td[2]/div/text()").extract_first()
+            self.logger.info("ma_sao_luis_spider: got gazzete for day %s",
+                             date)
+            date = dateparser.parse(date, settings={'DATE_ORDER': 'DMY'})
+
+            if date.year < 2015:
+                print('ano de 2015, parando. data: {}'.format(date))
+                raise StopIteration
+            url = gazzete_table.xpath((".//tbody/tr/td/a"
+                                       "[contains(text(), 'Download')]"
+                                       "/@href")).extract_first()
+            url = response.url[:39] + url
+            extra_edition = (gazzete_table.xpath(
+                ".//div[contains(text(), 'Suplemento')]").extract_first()
+                is not None)
+            yield Gazette(
+                date=date, file_urls=[url],
+                is_extra_edition=extra_edition,
+                municipality_id=self.MUNICIPALITY_ID,
+                scraped_at=datetime.utcnow(), power='executive')
+        page_number = int(response._splash_args()['page_number']) + 1
+        self.logger.info("sent page %d to splash", page_number)
+        yield SplashRequest(
+            url=response.url, callback=self.parse_response, endpoint='execute',
+            args={'lua_source': self.lua_script,
+                  'page_number': str(page_number), 'timeout': '120'})
