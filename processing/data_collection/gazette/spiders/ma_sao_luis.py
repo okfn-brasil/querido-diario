@@ -12,7 +12,7 @@ class MaSaoLuisSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '2111300'
     name = 'ma_sao_luis'
     allowed_domains = ['www.semad.saoluis.ma.gov.br']
-    start_urls = ['http://www.semad.saoluis.ma.gov.br:8090/easysearch/']
+    start_url = 'http://www.semad.saoluis.ma.gov.br:8090/easysearch/'
 
     lua_script = """
 function wait_for_element(splash, css, value, maxwait)
@@ -61,7 +61,7 @@ function main(splash, args)
 end
 """
 
-    def parse(self, response):
+    def start_requests(self):
         """
         @url
         @returns items 1
@@ -70,11 +70,11 @@ end
         """
         self.logger.info("sent page %d to splash", 1)
         yield SplashRequest(
-            url=response.url, callback=self.parse_response,
+            url=self.start_url, callback=self.parse,
             endpoint='execute', args={'lua_source': self.lua_script,
                                       'page_number': '1', 'timeout': 90})
 
-    def parse_response(self, response):
+    def parse(self, response):
         for gazette_table in response.xpath(
                 "//table[contains(@class, 'tabelaResultado')]"):
             date = gazette_table.xpath(
@@ -101,6 +101,6 @@ end
         page_number = int(response._splash_args()['page_number']) + 1
         self.logger.info("sent page %d to splash", page_number)
         yield SplashRequest(
-            url=response.url, callback=self.parse_response, endpoint='execute',
+            url=response.url, callback=self.parse, endpoint='execute',
             args={'lua_source': self.lua_script,
                   'page_number': str(page_number), 'timeout': '120'})
