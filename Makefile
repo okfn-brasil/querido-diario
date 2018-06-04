@@ -13,6 +13,6 @@ setup:
 	make seed
 
 seed:
-	docker-compose up --detach postgres
+	docker-compose up -d postgres
 	docker-compose run --rm processing python3 -c "import database; database.initialize()"
 	docker-compose run --rm processing bash -c 'echo "\copy territories FROM /mnt/data/territories.csv CSV HEADER;" | psql $$DATABASE_URL'
