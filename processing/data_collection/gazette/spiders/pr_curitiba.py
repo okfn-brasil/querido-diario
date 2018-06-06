@@ -10,7 +10,7 @@ from gazette.items import Gazette
 
 
 class PrCuritibaSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '4106902'
+    TERRITORY_ID = '4106902'
     name = 'pr_curitiba'
     allowed_domains = ['legisladocexterno.curitiba.pr.gov.br']
     custom_settings = {
@@ -99,7 +99,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
                     date=parsed_date,
                     file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={}".format(gazette_id)],
                     is_extra_edition=True,
-                    municipality_id=self.MUNICIPALITY_ID,
+                    territory_id=self.TERRITORY_ID,
                     power='executive_legislature',
                     scraped_at=dt.datetime.utcnow()
                 )
@@ -111,7 +111,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
             date=parsed_date,
             file_urls=["http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={}".format(gazette_id)],
             is_extra_edition=False,
-            municipality_id=self.MUNICIPALITY_ID,
+            territory_id=self.TERRITORY_ID,
             power='executive_legislature',
             scraped_at=dt.datetime.utcnow()
         )
