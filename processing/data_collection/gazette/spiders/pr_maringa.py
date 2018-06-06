@@ -13,33 +13,38 @@ class PrMaringaSpider(BaseGazetteSpider):
     name = 'pr_maringa'
     allowed_domains = ['maringa.pr.gov.br']
     starting_year = 2015
-    custom_settings = {
-        'DEFAULT_REQUEST_HEADERS': {
-            'Content-Type':'application/x-www-form-urlencoded'
-        }
-    }
 
     def start_requests(self):
         """
         @url http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/paginar_orgao_oficial_ano.php
         @returns requests 1
         """
-        yield scrapy.FormRequest(
-            'http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/paginar_orgao_oficial_ano.php',
-            formdata={
-                'ano': '2018',
-                'entrar': 'Buscar'
-            },
-            callback=self.parse_year
-        )
+        todays_date = date.today()
+        current_year = todays_date.year
+        for year in range(current_year, 2006, -1):
+            yield scrapy.FormRequest(
+                'http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/paginar_orgao_oficial_ano.php',
+                headers={
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                formdata={
+                    'ano': str(year),
+                    'entrar': 'Buscar'
+                },
+                callback=self.parse_year
+            )
 
     def parse_year(self, response):
         # print(response.body)
-        yield Gazette(
-            date=date(2018, 6, 6),
-            file_urls=['http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/arquivos/oom%202900.pdf'],
-            is_extra_edition=True,
-            territory_id=self.TERRITORY_ID,
-            power='executive_legislature',
-            scraped_at=datetime.utcnow()
-        )
+        rows = response.css('table tr')[1:]
+        for row in rows:
+            gazette_id = row.css('td:nth-child(1) a::attr(href)').re_first('.*/[oO]{2}[mM] (.*)')
+            gazette_date = row.css('td:nth-child(2) font > font::text').extract_first()
+            yield Gazette(
+                date=parse(f'{gazette_date}', languages=['pt']).date(),
+                file_urls=[f'http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/arquivos/oom%20{gazette_id}'],
+                is_extra_edition=any(extra_char in gazette_id for extra_char in ['A', 'B', 'C', 'D']),
+                territory_id=self.TERRITORY_ID,
+                power='executive_legislature',
+                scraped_at=datetime.utcnow()
+            )
