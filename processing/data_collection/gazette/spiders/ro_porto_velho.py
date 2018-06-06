@@ -35,13 +35,16 @@ class RoPortoVelho(BaseGazetteSpider):
         for paragraph, *_ in paragraphs:
             selector = Selector(text=paragraph)
             url = selector.css("p a ::attr(href)").extract_first()
-            date = selector.css("p strong").re_first("\d{1,2} de \w+ de \d{4}")
+
+            text = selector.css("p strong ::text")
+            is_extra_edition = text.extract_first().startswith('Suplemento')
+            date = text.re_first("\d{1,2} de \w+ de \d{4}")
             date = parse(date, languages=["pt"]).date()
 
             yield Gazette(
                 date=date,
                 file_urls=[url],
-                is_extra_edition=False,
+                is_extra_edition=is_extra_edition,
                 territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
                 scraped_at=dt.datetime.utcnow(),
