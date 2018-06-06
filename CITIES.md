@@ -47,7 +47,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 37 | Juiz de Fora | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/12) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/13) |
 | 38 | Londrina |:soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
 | 39 | Aparecida de Goiânia | | | | |
-| 40 | Porto Velho | | | | |
+| 40 | Porto Velho | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/82) |
 | 41 | Ananindeua | | | | |
 | 42 | Serra | :white_check_mark: | | | |
 | 43 | Niterói | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
