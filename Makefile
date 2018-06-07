@@ -12,6 +12,8 @@ setup:
 	docker-compose pull
 	docker-compose build
 	make seed
+	pip install pre-commit
+	pre-commit install
 
 seed:
 	docker-compose up -d postgres
