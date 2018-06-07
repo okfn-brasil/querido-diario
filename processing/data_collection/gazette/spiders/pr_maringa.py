@@ -38,7 +38,7 @@ class PrMaringaSpider(BaseGazetteSpider):
         for row in rows:
             gazette_id = row.css('td:nth-child(1) a::attr(href)').re_first('.*/[oO]{2}[mM] (.*)')
             gazette_date = row.css('td:nth-child(2) font > font::text').extract_first()
-            yield Gazettefile:///C:/Users/DEVELOPER/Downloads/maps-dc-12e89d3afbb1c84fb57c00b06499461a34131ed2/AppHTML-Testes/public_html/maps/zoon-map/index.html(
+            yield Gazette(
                 date=parse(f'{gazette_date}', languages=['pt']).date(),
                 file_urls=[f'http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/arquivos/oom%20{gazette_id}'],
                 is_extra_edition=any(extra_char in gazette_id for extra_char in ['A', 'B', 'C', 'D']),
