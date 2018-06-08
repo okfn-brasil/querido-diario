@@ -14,7 +14,7 @@ class RnMossoroSpider(BaseGazetteSpider):
 
     GAZETTES_CSS = 'body > div > table:first-child > tr > td > table:last-child > tr > td > div > table > tr > td'
     PDF_INFO_CSS = 'td.TextoLink'
-    PDF_REALTIVE_PATH_CSS = 'a::attr(href)'
+    PDF_RELATIVE_PATH_CSS = 'a::attr(href)'
     DATE_REGEX = r'[0-9]{1,2} de [A-Za-z].* de [0-9]{4}'
     IS_EXTRA_REGEX = r'-[A-Za-z]'
 
@@ -39,11 +39,11 @@ class RnMossoroSpider(BaseGazetteSpider):
                 )
 
     def extract_url(self, element):
-        realtive_path = element.css(self.PDF_REALTIVE_PATH_CSS).extract_first()
-        if not realtive_path:
+        relative_path = element.css(self.PDF_RELATIVE_PATH_CSS).extract_first()
+        if not relative_path:
             return None
 
-        return self.PDF_URL.format(realtive_path)
+        return self.PDF_URL.format(relative_path)
 
     def extract_date(self, element):
         date = element.css(self.PDF_INFO_CSS).re(self.DATE_REGEX)
