@@ -12,7 +12,7 @@ class RnMossoroSpider(BaseGazetteSpider):
     MUNICIPALITY_ID = '2408003'
     PDF_URL = 'https://www.prefeiturademossoro.com.br/jom/{}'
 
-    GAZETTES_CSS = 'body > div > table:first-child > tr > td > table:last-child > tr > td > div > table > tr > td'
+    GAZETTES_CSS = 'table:first-child > tr > td > table:last-child > tr > td > div > table > tr > td'
     PDF_INFO_CSS = 'td.TextoLink'
     PDF_RELATIVE_PATH_CSS = 'a::attr(href)'
     DATE_REGEX = r'[0-9]{1,2} de [A-Za-z].* de [0-9]{4}'
