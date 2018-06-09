@@ -9,4 +9,4 @@ RUN adduser --system gazette \
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 USER gazette
-CMD ["celery", "-A", "tasks", "worker", "-B", "--loglevel=INFO"]
+CMD ["celery", "-A", "tasks", "worker", "-B", "--loglevel=INFO", "--schedule=/tmp/celerybeat-schedule"]
