@@ -47,8 +47,9 @@ class BelemSpider(BaseGazetteSpider):
                                   ).extract_first()
         gazettes = scrapy.selector.Selector(text=gazettes).xpath('//tr')
         for gazette in gazettes:
-            date = gazette.xpath('./td[2]').extract_first()
+            date = gazette.xpath('./td[2]/text()').extract_first()
             date = dateparser.parse(date, settings={'DATE_ORDER': 'DMY'})
+            self.logger.info("got gazette for day %s", date)
             url = gazette.xpath('.//a/@href').extract_first()
             url = response.urljoin(url)
             is_extra_edition = False
