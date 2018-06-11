@@ -9,4 +9,4 @@ ITEM_PIPELINES = {
     'gazette.pipelines.PdfParsingPipeline': 200,
     'gazette.pipelines.PostgreSQLPipeline': 300,
 }
-FILES_STORE = '/mnt/data/'
+FILES_STORE = '/mnt/files/'

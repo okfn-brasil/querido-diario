@@ -3,6 +3,8 @@ FROM python:3
 WORKDIR /mnt/code
 
 RUN adduser --system gazette \
+  && mkdir /mnt/files \
+  && chown gazette. /mnt/files \
   && apt-get update \
   && apt-get -y install poppler-utils postgresql-client
 

@@ -29,6 +29,7 @@ services:
     volumes:
       - ${DATA_FOLDER}:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
+      - processing_files:/mnt/files
 
   rabbitmq:
     image: rabbitmq:3-alpine
@@ -50,3 +51,6 @@ services:
     volumes:
       - ./web:/mnt/code
       - /mnt/code/node_modules
+
+volumes:
+  processing_files:
