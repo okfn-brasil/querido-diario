@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from database.models import Gazette, db_connect, create_tables
+from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
 from sqlalchemy.orm import sessionmaker
 
@@ -34,12 +34,16 @@ class PdfParsingPipeline:
 class PostgreSQLPipeline(object):
 
     def __init__(self):
-        engine = db_connect()
-        create_tables(engine)
+        engine = initialize_database()
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
         session = self.Session()
+        # TEMP: The attribute "municipality_id" was recently renamed to "territory_id"
+        #       in the database. The two following lines may be deleted once we have
+        #       no branches using "municipality_id".
+        if 'municipality_id' in item:
+            item['territory_id'] = item.pop('municipality_id')
         gazette = Gazette(**item)
         try:
             session.add(gazette)
