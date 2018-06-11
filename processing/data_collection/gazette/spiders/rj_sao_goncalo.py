@@ -12,7 +12,7 @@ class RjSaoGoncaloSpider(BaseGazetteSpider):
 
     def parse(self, response):
         date = datetime.date.today()
-        end_date = datetime.date(2015, 1, 1)
+        end_date = datetime.date(1998, 2, 3)
         while date >= end_date:
             self.logger.info("got gazette for day %s", date)
             url = self.download_gazette_url.format(date.strftime('%Y_%m_%d'))
