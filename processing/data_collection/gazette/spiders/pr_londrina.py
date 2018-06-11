@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PrLondrina(BaseGazetteSpider):
-    MUNICIPALITY_ID = '4113700'
+    TERRITORY_ID = '4113700'
     name = 'pr_londrina'
     allowed_domains = ['londrina.pr.gov.br']
     start_urls = ['http://www2.londrina.pr.gov.br/jornaloficial/']
