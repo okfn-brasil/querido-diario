@@ -1,6 +1,7 @@
-from gazette.items import Gazette
 import datetime
+
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.items import Gazette
 
 
 class RjSaoGoncaloSpider(BaseGazetteSpider):
