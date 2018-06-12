@@ -3,11 +3,12 @@ FROM python:3
 WORKDIR /mnt/code
 
 RUN adduser --system gazette \
-  && mkdir /mnt/files \
-  && chown gazette. /mnt/files \
+  && mkdir /mnt/data \
+  && chown gazette. /mnt/data \
   && apt-get update \
   && apt-get -y install poppler-utils postgresql-client
 
+COPY data/territories.csv /mnt/data/
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 USER gazette

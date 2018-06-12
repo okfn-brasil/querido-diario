@@ -27,9 +27,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ${DATA_FOLDER}:/mnt/data
+      - data_files:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
-      - processing_files:/mnt/files
 
   rabbitmq:
     image: rabbitmq:3-alpine
@@ -53,4 +52,4 @@ services:
       - /mnt/code/node_modules
 
 volumes:
-  processing_files:
+  data_files:
