@@ -36,12 +36,12 @@ class PrMaringaSpider(BaseGazetteSpider):
     def parse_year(self, response):
         rows = response.css('table tr')[1:]
         for row in rows:
-            gazette_id = row.css('td:nth-child(1) a::attr(href)').re_first('.*/[oO]{2}[mM] (.*)')
+            gazette_id = row.css('td:nth-child(1) a::attr(href)').re_first('.*/[oO]{2}[mM] (.*)\.pdf')
             gazette_date = row.css('td:nth-child(2) font > font::text').extract_first()
             yield Gazette(
-                date=parse(f'{gazette_date}', languages=['pt']).date(),
-                file_urls=[f'http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/arquivos/oom%20{gazette_id}'],
-                is_extra_edition=any(extra_char in gazette_id for extra_char in ['A', 'B', 'C', 'D']),
+                date=parse(gazette_date).date(),
+                file_urls=[f'http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/arquivos/oom%20{gazette_id}.pdf'],
+                is_extra_edition=any(caracter.isalpha() for caracter in gazette_id),
                 territory_id=self.TERRITORY_ID,
                 power='executive_legislature',
                 scraped_at=datetime.utcnow()
