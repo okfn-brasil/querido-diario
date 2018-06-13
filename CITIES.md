@@ -85,7 +85,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 75 | Franca | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/5) |
 | 76 | Pelotas | | | | |
 | 77 | Ponta Grossa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
-| 78 | Canoas | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | |
+| 78 | Canoas | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/91) |
 | 79 | Petrolina | | | | |
 | 80 | Boa Vista | | | | |
 | 81 | Ribeirão das Neves | | | | |
