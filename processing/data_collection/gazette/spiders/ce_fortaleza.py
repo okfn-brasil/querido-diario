@@ -14,7 +14,7 @@ class CeFortalezaSpider(BaseGazetteSpider):
     EXTRA_CSS = 'td:nth-child(1)::text'
     NEXT_PAGE_CSS = 'ul.pagination .page-link::attr(href)'
 
-    MUNICIPALITY_ID = '2304400'
+    TERRITORY_ID = '2304400'
 
     allowed_domains = ['apps.fortaleza.ce.gov.br']
     name = 'ce_fortaleza'
@@ -30,7 +30,7 @@ class CeFortalezaSpider(BaseGazetteSpider):
         """
         @url http://apps.fortaleza.ce.gov.br/diariooficial/
         @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
@@ -43,7 +43,7 @@ class CeFortalezaSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power='executive',
                 scraped_at=datetime.utcnow(),
             )

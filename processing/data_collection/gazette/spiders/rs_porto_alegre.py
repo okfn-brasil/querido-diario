@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RsPortoAlegreSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '4314902'
+    TERRITORY_ID = '4314902'
     name = 'rs_porto_alegre'
     allowed_domains = ['portoalegre.rs.gov.br']
     start_urls = ['http://www2.portoalegre.rs.gov.br/dopa/']
@@ -34,7 +34,7 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
         """
         @url http://www2.portoalegre.rs.gov.br/dopa/default.php?p_secao=1431
         @returns items 58 58
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
+        @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         links = response.css('#conteudo a')
         items = []
@@ -53,7 +53,7 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
                     date=date,
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
-                    municipality_id=self.MUNICIPALITY_ID,
+                    territory_id=self.TERRITORY_ID,
                     power=power,
                     scraped_at=dt.datetime.utcnow(),
                 )
