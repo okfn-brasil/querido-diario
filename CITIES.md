@@ -81,7 +81,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 71 | São Vicente | | | | |
 | 72 | Bandeira caruaru.jpg Caruaru | | | | |
 | 73 | Vitória da Conquista | | | | |
-| 74 | Blumenau | | | | |
+| 74 | Blumenau | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/90) |
 | 75 | Franca | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/5) |
 | 76 | Pelotas | | | | |
 | 77 | Ponta Grossa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
