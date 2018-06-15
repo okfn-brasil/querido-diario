@@ -106,3 +106,7 @@ ENV/
 
 # dolphin
 .directory
+
+
+# Google cloud storage auth file
+diario-oficial-auth.json

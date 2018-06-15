@@ -22,6 +22,25 @@ $ docker-compose up
 
 Once the download and building processes are finished, the processing tasks should start running in background, and the web server should be available at http://localhost:8080/.
 
+### Upload files to Google Cloud Storage
+
+If you don't want to save the pdfs locally, uploading them to a bucket in Google Cloud Storage can be done.
+
+Scrapy does the uploading, you only need to set 3 environemnt variables, `FILES_STORE`, `GCS_PROJECT_ID` and `GOOGLE_APPLICATION_CREDENTIALS`.
+
+ - `FILES_STORE`: the bucket name, e.g. `gs:/<BUCKET-NAME>/`
+ - `GCS_PROJECT_ID`: the Google Cloud Storage project ID
+ - `GOOGLE_APPLICATION_CREDENTIALS`: the Google application credentials json file. It needs to be at the same directory level as `diario-oficial-auth.json.sample`.
+
+ An example would be the following:
+
+ ```sh
+GCS_PROJECT_ID=diario-oficial-2018
+FILES_STORE=gs://test-diario-oficial/
+GOOGLE_APPLICATION_CREDENTIALS=diario-oficial-auth.json
+ ```
+
+If no interest is present in this feature, simply leave these 3 variables values as `null`
 
 ## Contributing
 
