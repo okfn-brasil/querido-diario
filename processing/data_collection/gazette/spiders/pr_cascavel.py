@@ -27,8 +27,8 @@ class PrCascavelSpider(BaseGazetteSpider):
             for link in cols[2].css('a'):
                 link_text = link.css('::text').extract_first()
                 power = 'executive' if 'Executivo' in link_text else 'legislature'
-                url = link.css('::attr(href)').extract_first()[10:]
-                url = self.download_url.format(url)
+                url = link.css('::attr(href)').extract_first()
+                url = response.urljoin(url)
                 yield Gazette(
                     date=date,
                     file_urls=[url],
