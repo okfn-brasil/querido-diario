@@ -19,15 +19,11 @@ class PrCascavelSpider(BaseGazetteSpider):
         @returns items 1
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
-        start_date = dt.date(2015, 1, 1)
-        parsing_date = dt.date.today()
         for row in response.css('table tr')[1:]:
             cols = row.css('td')
             edition = cols[0].css('font::text').extract()
             date = cols[1].css('font::text').extract_first()
             date = parse(date, languages=['pt']).date()
-            if date < start_date:
-                break
             for link in cols[2].css('a'):
                 link_text = link.css('::text').extract_first()
                 power = 'executive' if 'Executivo' in link_text else 'legislature'
