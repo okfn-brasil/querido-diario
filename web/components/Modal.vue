@@ -12,23 +12,32 @@
             <dt>DATA DE PUBLICAÇÃO</dt>
             <dd>{{ new Date(biddingExemption.date).toLocaleDateString('pt-BR') }}</dd>
             <dt>ÓRGÃO</dt>
-            <dd v-if="biddingExemption.gazette.power == 'executive'">Prefeitura de Porto Alegre</dd>
-            <dd v-else-if="biddingExemption.gazette.power == 'legislature'">Câmara Municipal de Porto Alegre</dd>
+            <dd v-if="biddingExemption.gazette.power == 'executive'">
+              Prefeitura -
+              {{ biddingExemption.gazette.territory.name }} ({{ biddingExemption.gazette.territory.state_code }})
+            </dd>
+            <dd v-else-if="biddingExemption.gazette.power == 'legislature'">
+              Câmara Municipal -
+              {{ biddingExemption.gazette.territory.name }} ({{ biddingExemption.gazette.territory.state_code }})
+            </dd>
+            <dd v-else-if="biddingExemption.gazette.power == 'executive_legislature'">
+              Prefeitura e Câmara Municipal -
+              {{ biddingExemption.gazette.territory.name }} ({{ biddingExemption.gazette.territory.state_code }})
+            </dd>
             <dt>VALOR</dt>
             <dd v-if="biddingExemption.value">{{ formatCurrency(biddingExemption.value) }}</dd>
-            <dd v-else><span class="tag is-warning">Não identificado</span></dd>
+            <dd v-else><span class="tag is-warning">Não identificado automaticamente</span></dd>
             <dt>DESCRIÇÃO</dt>
             <dd v-if="biddingExemption.object">{{ biddingExemption.object }}</dd>
-            <dd v-else><span class="tag is-warning">Não identificado</span></dd>
+            <dd v-else><span class="tag is-warning">Não identificado automaticamente</span></dd>
             <dt>CONTRATADO</dt>
             <dd v-if="biddingExemption.contracted">{{ biddingExemption.contracted }}</dd>
-            <dd v-else><span class="tag is-warning">Não identificado</span></dd>
+            <dd v-else><span class="tag is-warning">Não identificado automaticamente</span></dd>
+            <dt>CNPJ</dt>
+            <dd v-if="biddingExemption.contracted_code">{{ biddingExemption.contracted_code.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5") }}</dd>
+            <dd v-else><span class="tag is-warning">Não identificado automaticamente</span></dd>
             <hr>
             <strong>Diário Oficial</strong>
-            <span v-for="(item, key) in biddingExemption.data" :key="item.id">
-              <dt>{{ key }}</dt>
-              <dd>{{ item }}</dd>
-            </span>
             <dt>TEXTO ORIGINAL</dt>
             <dd>{{ biddingExemption.source_text }}</dd>
           </dl>
