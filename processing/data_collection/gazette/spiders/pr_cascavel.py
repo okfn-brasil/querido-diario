@@ -19,16 +19,13 @@ class PrCascavelSpider(BaseGazetteSpider):
         @returns items 1
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
-        for row in response.css('table tr')[1:]:
-            cols = row.css('td')
-            edition = cols[0].css('font::text').extract()
-            date = cols[1].css('font::text').extract_first()
+        for row in response.xpath('//table//tr[position()>1]'):
+            date = row.xpath('.//td[2]//font//text()').extract_first()
             date = parse(date, languages=['pt']).date()
-            for link in cols[2].css('a'):
-                link_text = link.css('::text').extract_first()
+            for link in row.xpath('.//td[3]//a'):
+                link_text = link.xpath('.//text()').extract_first()
                 power = 'executive' if 'Executivo' in link_text else 'legislature'
-                url = link.css('::attr(href)').extract_first()
-                url = response.urljoin(url)
+                url = response.urljoin(link.xpath('./@href').extract_first(''))
                 yield Gazette(
                     date=date,
                     file_urls=[url],
@@ -37,7 +34,7 @@ class PrCascavelSpider(BaseGazetteSpider):
                     power=power,
                     scraped_at=dt.datetime.utcnow()
                 )
-        xpath = '//a[@title="Próxima página"]/@href'
-        next_page_url = response.xpath(xpath).extract_first()
+        next_page_xpath = '//a[@title="Próxima página"]/@href'
+        next_page_url = response.xpath(next_page_xpath).extract_first()
         if next_page_url:
             yield response.follow(next_page_url)
