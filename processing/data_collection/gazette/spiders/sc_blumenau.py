@@ -8,7 +8,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class ScBlumenauSpider(BaseGazetteSpider):
     TERRITORY_ID = '4202404'
-    NEXT_PAGE_URL = 'https://www.diariomunicipal.sc.gov.br{}'
     POSSIBLE_GAZETTE_CSS = '.quiet'
     NEXT_PAGE_CSS = '.pagination li.next:not(.disabled) a::attr(href)'
 
@@ -23,9 +22,9 @@ class ScBlumenauSpider(BaseGazetteSpider):
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
-        possible_gazettes = response.css(self.POSSIBLE_GAZETTE_CSS);
+        possible_gazettes = response.css(self.POSSIBLE_GAZETTE_CSS)
         for element in possible_gazettes:
-            url = self.extract_url(element)
+            url = element.css('a::attr(href)').extract_first()
             if url:
                 date = self.extract_date(element)
 
@@ -37,20 +36,13 @@ class ScBlumenauSpider(BaseGazetteSpider):
                     power='executive_legislature',
                     scraped_at=datetime.utcnow(),
                 )
-        
-        next_page_url = self.extract_next_page_url(response)
-        if next_page_url:
-            yield Request(next_page_url)
 
-    def extract_url(self, element):
-        return element.css('a::attr(href)').extract_first()
+        next_page_path = response.css(self.NEXT_PAGE_CSS).extract_first()
+        if next_page_path:
+            yield Request(response.urljoin(next_page_path))
 
     def extract_date(self, element):
         text = element.css('::text').extract_first()
         date = text[:10]
         return parse(date, languages=['pt']).date()
 
-    def extract_next_page_url(self, response):
-        next_page_path = response.css(self.NEXT_PAGE_CSS).extract_first()
-        if next_page_path:
-            return self.NEXT_PAGE_URL.format(next_page_path)
