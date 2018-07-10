@@ -24,7 +24,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 14 | Campinas | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/2) |
 | 15 | São Luís | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/22) |
 | 16 | São Gonçalo | | | | |
-| 17 | Maceió | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/32) |
+| 17 | Maceió | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/32) |
 | 18 | Duque de Caxias | | | | |
 | 19 | Natal | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/60) |
 | 20 | Campo Grande | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
@@ -66,7 +66,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 56 | Diadema | | | | |
 | 57 | Campina Grande | | | | |
 | 58 | Jundiaí | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
-| 59 | Maringá | | | | |
+| 59 | Maringá | :soon: | | | |
 | 60 | Montes Claros | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
 | 61 | Piracicaba | | | | |
 | 62 | Carapicuíba | | | | |
