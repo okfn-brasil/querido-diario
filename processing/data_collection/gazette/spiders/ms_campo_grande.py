@@ -8,9 +8,9 @@ from gazette.items import Gazette
 
 
 class MsCampoGrandeSpider(scrapy.Spider):
-    MUNICIPALITY_ID = '5002704'
-    name = 'ms_campo_grande'
-    allowed_domains = ['portal.capital.ms.gov.br']
+    MUNICIPALITY_ID = "5002704"
+    name = "ms_campo_grande"
+    allowed_domains = ["portal.capital.ms.gov.br"]
 
     def start_requests(self):
         today = dt.date.today()
@@ -21,12 +21,9 @@ class MsCampoGrandeSpider(scrapy.Spider):
                     return
 
                 yield scrapy.FormRequest(
-                    url='http://portal.capital.ms.gov.br/diogrande/diarioOficial',
-                    method='POST',
-                    formdata={
-                        'mes': str(month),
-                        'ano': str(year)
-                    }
+                    url="http://portal.capital.ms.gov.br/diogrande/diarioOficial",
+                    method="POST",
+                    formdata={"mes": str(month), "ano": str(year)},
                 )
 
     def parse(self, response):
@@ -35,16 +32,16 @@ class MsCampoGrandeSpider(scrapy.Spider):
         @returns items 1
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
-        year = response.css('#leftToRight > h3').extract_first().split('/')[1]
+        year = response.css("#leftToRight > h3").extract_first().split("/")[1]
         docs = response.css(".arquivos li")
         for doc in docs:
-            url = doc.css('.inner-detail a::attr(href)').extract_first()
-            day = doc.css('.day strong::text').extract_first()
-            month = doc.css('.month::text').extract_first()
-            date = parse(f'{day}/{month}/{year}', languages=['pt']).date()
-            doc_title = doc.css('.inner-detail::text').extract_first().lower()
-            is_extra_edition = 'extra' in doc_title or 'suplemento' in doc_title
-            power = 'executive_legislature'
+            url = doc.css(".inner-detail a::attr(href)").extract_first()
+            day = doc.css(".day strong::text").extract_first()
+            month = doc.css(".month::text").extract_first()
+            date = parse(f"{day}/{month}/{year}", languages=["pt"]).date()
+            doc_title = doc.css(".inner-detail::text").extract_first().lower()
+            is_extra_edition = "extra" in doc_title or "suplemento" in doc_title
+            power = "executive_legislature"
             yield Gazette(
                 date=date,
                 file_urls=[url],
