@@ -21,7 +21,7 @@ def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(PARSING_FREQUENCY, parse_sections.s())
     sender.add_periodic_task(
         crontab(hour=13),
-        run_spiders.s(['go_goiania', 'rs_porto_alegre'], timerange='past_week'),
+        run_spiders.s(["go_goiania", "rs_porto_alegre"], timerange="past_week"),
     )
 
 
@@ -48,23 +48,23 @@ def run_spiders(spiders=None, timerange=None):
     command_params = []
     if not spiders:
         spiders = all_spiders()
-    if timerange == 'past_week':
+    if timerange == "past_week":
         start_date = str((dt.datetime.today() - dt.timedelta(days=7)).date())
-        command_params = ['-a', 'start_date=' + start_date]
+        command_params = ["-a", "start_date=" + start_date]
     elif timerange is not None:
         raise ValueError(
-            'timerange not supported.'
+            "timerange not supported."
             'The only possible values are "past_week" and None.'
         )
 
     for spider_name in spiders:
-        command = ['scrapy', 'crawl', spider_name] + command_params
-        subprocess.Popen(command, cwd='data_collection')
+        command = ["scrapy", "crawl", spider_name] + command_params
+        subprocess.Popen(command, cwd="data_collection")
 
 
 def all_spiders():
     names = []
     for info in pkgutil.walk_packages(path=spiders.__path__):
-        if info.name != 'base':
+        if info.name != "base":
             names.append(info.name)
     return names
