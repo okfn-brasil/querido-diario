@@ -9,11 +9,13 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class GoGoianiaSpider(BaseGazetteSpider):
-    TERRITORY_ID = '5208707'
-    name = 'go_goiania'
-    allowed_domains = ['goiania.go.gov.br']
-    start_urls = ['http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075']
-    gazettes_list_url = 'http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={}'
+    TERRITORY_ID = "5208707"
+    name = "go_goiania"
+    allowed_domains = ["goiania.go.gov.br"]
+    start_urls = ["http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075"]
+    gazettes_list_url = (
+        "http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={}"
+    )
 
     def parse(self, response):
         """
@@ -32,24 +34,26 @@ class GoGoianiaSpider(BaseGazetteSpider):
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
         # The page with the list of gazettes is simply a table with links
-        links = response.css('a')
+        links = response.css("a")
         items = []
         for link in links:
-            url = link.css('::attr(href)').extract_first()
-            if url[-4:] != '.pdf':
+            url = link.css("::attr(href)").extract_first()
+            if url[-4:] != ".pdf":
                 continue
 
             url = response.urljoin(url)
             # Apparently, Goiânia doesn't have a separate gazette for executive and legislative
-            power = 'executive_legislature'
-            link_text = link.css('::text').extract_first()
+            power = "executive_legislature"
+            link_text = link.css("::text").extract_first()
             if link_text is None:
                 continue
 
-            date = re.match('.*(\d{2} .* de \d{4})', link_text)[1]
+            date = re.match(".*(\d{2} .* de \d{4})", link_text)[1]
             # Extra editions are marked either with 'suplemento' or 'comunicado'
-            is_extra_edition = 'suplemento' in link_text.lower() or 'comunicado' in link_text.lower()
-            date = parse(date.split('-')[0], languages=['pt']).date()
+            is_extra_edition = (
+                "suplemento" in link_text.lower() or "comunicado" in link_text.lower()
+            )
+            date = parse(date.split("-")[0], languages=["pt"]).date()
             items.append(
                 Gazette(
                     date=date,

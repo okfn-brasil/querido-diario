@@ -20,11 +20,17 @@ This pipeline is temporary and could be deleted as soon as https://github.com/sc
 For more details, see https://github.com/okfn-brasil/diario-oficial/issues/15
 
 """
+
+
 class GazetteFilesPipeline(FilesPipeline):
     def file_path(self, request, response=None, info=None):
         url = request.url
-        media_guid = hashlib.sha1(to_bytes(url)).hexdigest() # the filename is the URL's sha1
+        media_guid = hashlib.sha1(
+            to_bytes(url)
+        ).hexdigest()  # the filename is the URL's sha1
         media_ext = os.path.splitext(url)[1]
         if not media_ext.isalnum():
-            media_ext = os.path.splitext(urlparse(url).path)[1] # remove everything after the file extension (like query param)
-        return 'full/%s%s' % (media_guid, media_ext)
+            media_ext = os.path.splitext(urlparse(url).path)[
+                1
+            ]  # remove everything after the file extension (like query param)
+        return "full/%s%s" % (media_guid, media_ext)
