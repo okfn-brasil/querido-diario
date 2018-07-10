@@ -34,12 +34,12 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 24 | Nova Iguaçu | | | | |
 | 25 | Santo André | | | | |
 | 26 | São José dos Campos | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
-| 27 | Osasco | | | | |
+| 27 | Osasco | :soon: | | | |
 | 28 | Jaboatão dos Guararapes | | | | |
 | 29 | Ribeirão Preto | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/31) | |
 | 30 | Uberlândia | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/37) |
 | 31 | Sorocaba | | | | |
-| 32 | Contagem | | | | |
+| 32 | Contagem | :soon: | | | |
 | 33 | Aracaju | | | | |
 | 34 | Feira de Santana | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/25) |
 | 35 | Cuiabá | | | | |
@@ -66,7 +66,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 56 | Diadema | | | | |
 | 57 | Campina Grande | | | | |
 | 58 | Jundiaí | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
-| 59 | Maringá | | | | |
+| 59 | Maringá | :soon: | | | |
 | 60 | Montes Claros | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
 | 61 | Piracicaba | | | | |
 | 62 | Carapicuíba | | | | |
