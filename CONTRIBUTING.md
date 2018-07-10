@@ -57,4 +57,4 @@ $ pip install black
 $ black .
 ```
 
-Is is important to note that the CI will fail if you commit Python code that is not in accordance with Black code style.
+It is important to note that the CI will fail if you commit Python code that is not in accordance with Black code style.
