@@ -11,10 +11,10 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 1 | São Paulo | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
 | 2 | Rio de Janeiro | :white_check_mark: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/15) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/29) |
 | 3 | Brasília | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/57) |
-| 4 | Salvador | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
-| 5 | Fortaleza | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
+| 4 | Salvador | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
+| 5 | Fortaleza | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
 | 6 | Belo Horizonte | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/33) |
-| 7 | Manaus | :soon:  | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/51) |
+| 7 | Manaus | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/51) |
 | 8 | Curitiba | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/42) |
 | 9 | Recife | :soon: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
@@ -27,7 +27,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 17 | Maceió | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/32) |
 | 18 | Duque de Caxias | | | | |
 | 19 | Natal | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/60) |
-| 20 | Campo Grande | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
+| 20 | Campo Grande | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/53) |
 | 22 | São Bernardo do Campo | | | | |
 | 23 | João Pessoa | :soon: | | | |
