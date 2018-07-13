@@ -92,7 +92,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 82 | Paulista | | | | |
 | 83 | Uberaba | | | | |
 | 84 | Cascavel | | | | |
-| 85 | Guarujá | | | | |
+| 85 | Guarujá | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/96) |
 | 86 | Praia Grande | | | | |
 | 87 | Taubaté | | | | |
 | 88 | São José dos Pinhais | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/59) |
