@@ -5,7 +5,6 @@ from scrapy_splash import SplashRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from scrapy.shell import inspect_response
 
 
 class MaSaoLuisSpider(BaseGazetteSpider):
@@ -14,6 +13,7 @@ class MaSaoLuisSpider(BaseGazetteSpider):
     allowed_domains = ['www.semad.saoluis.ma.gov.br']
     start_url = 'http://www.semad.saoluis.ma.gov.br:8090/easysearch/'
 
+    # lua_scipt is sent to splash to control JS input and output
     lua_script = """
 function wait_for_element(splash, css, value, maxwait)
   -- Wait until a selector matches an element
