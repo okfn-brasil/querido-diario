@@ -32,7 +32,7 @@ services:
       - SCRAPY_SETTINGS_MODULE=gazette.settings
       - PYTHONPATH=/mnt/code/data_collection
     volumes:
-      - ${DATA_FOLDER}:/mnt/data
+      - data_files:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
 
   rabbitmq:
@@ -61,3 +61,5 @@ services:
     ports:
       - 5023:5023
       - 8050:8050
+volumes:
+  data_files:
