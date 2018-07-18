@@ -1,7 +1,6 @@
 import dateparser
 
 from datetime import datetime
-from scrapy import Request, Spider
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -23,6 +22,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
     def parse(self, response):
         """
         @url http://www.joaopessoa.pb.gov.br/semanariooficial/
+        @returns items 10
         @returns requests 1
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
@@ -43,4 +43,4 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
             )
 
         for url in response.css(self.NEXT_PAGE_CSS).extract():
-            yield Request(url)
+            yield response.follow(url)
