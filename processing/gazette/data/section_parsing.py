@@ -4,12 +4,11 @@ from gazette import locations
 
 
 class SectionParsing:
-
     def __init__(self, session):
         self.session = session
 
     def condition(self):
-        return 'is_parsed = FALSE'
+        return "is_parsed = FALSE"
 
     def update(self, gazettes):
         for gazette in gazettes:
