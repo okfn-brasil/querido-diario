@@ -45,3 +45,16 @@ The project is backed by a test suite, which can be run with a single command.
 ```sh
 $ make test
 ```
+
+## Automated code formatting
+
+The project uses [Black](https://github.com/ambv/black) as an automated tool to format and check code style. If you ran `make setup` probably you are ready to go: a pre-commit Git hook will format code that happens to be in dissonance with the code style.
+
+Alternatively just install Black and run it by yourself:
+
+```sh
+$ pip install black
+$ black .
+```
+
+It is important to note that the CI will fail if you commit Python code that is not in accordance with Black code style.

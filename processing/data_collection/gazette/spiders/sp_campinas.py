@@ -9,12 +9,14 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpCampinasSpider(BaseGazetteSpider):
-    TERRITORY_ID = '3509502'
-    name = 'sp_campinas'
-    allowed_domains = ['campinas.sp.gov.br']
-    start_urls = ['http://www.campinas.sp.gov.br/diario-oficial/index.php']
-    sp_campinas_url = 'http://www.campinas.sp.gov.br/'
-    selector_url = 'http://www.campinas.sp.gov.br/diario-oficial/index.php?mes={}&ano={}'
+    TERRITORY_ID = "3509502"
+    name = "sp_campinas"
+    allowed_domains = ["campinas.sp.gov.br"]
+    start_urls = ["http://www.campinas.sp.gov.br/diario-oficial/index.php"]
+    sp_campinas_url = "http://www.campinas.sp.gov.br/"
+    selector_url = (
+        "http://www.campinas.sp.gov.br/diario-oficial/index.php?mes={}&ano={}"
+    )
 
     def parse(self, response):
         """
@@ -43,12 +45,12 @@ class SpCampinasSpider(BaseGazetteSpider):
         ).extract_first()  # "janeiro 2018"
         links = response.css(".tabelaDiario:first-child tr td a")
         for link in links:
-            url = link.css('::attr(href)').extract_first().replace('../', '')
-            day = link.css('::text').extract_first()
-            date = parse(f'{day} {month_year}', languages=['pt']).date()
-            url = f'{self.sp_campinas_url}{url}'
+            url = link.css("::attr(href)").extract_first().replace("../", "")
+            day = link.css("::text").extract_first()
+            date = parse(f"{day} {month_year}", languages=["pt"]).date()
+            url = f"{self.sp_campinas_url}{url}"
             is_extra_edition = False
-            power = 'executive_legislature'
+            power = "executive_legislature"
             items.append(
                 Gazette(
                     date=date,
