@@ -1,5 +1,5 @@
 import datetime as dt
-from json import loads as json_load
+import json
 
 import scrapy
 from dateparser import parse
@@ -17,21 +17,17 @@ class GoAparecidaDeGoianiaSpider(BaseGazetteSpider):
     def parse(self, response):
         download_url = 'https://webio.aparecida.go.gov.br/diariooficial/download/{}'
 
-        items = []
-        records = json_load(response.text)['records']
+        records = json.loads(response.text)['records']
         for record in records:
             url = download_url.format(record['numero'])
             power = 'executive_legislature'
             date = parse(record['publicado'], languages=["en"]).date()
 
-            items.append(
-                Gazette(
-                    date=date,
-                    file_urls=[url],
-                    is_extra_edition=False,
-                    territory_id=self.TERRITORY_ID,
-                    power=power,
-                    scraped_at=dt.datetime.utcnow(),
-                ))
-
-        return items
+            yield Gazette(
+                date=date,
+                file_urls=[url],
+                is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
+                power=power,
+                scraped_at=dt.datetime.utcnow(),
+            )
