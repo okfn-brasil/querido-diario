@@ -37,7 +37,7 @@ class RoPortoVelho(BaseGazetteSpider):
             url = selector.css("p a ::attr(href)").extract_first()
 
             text = selector.css("p strong ::text")
-            is_extra_edition = text.extract_first().startswith('Suplemento')
+            is_extra_edition = text.extract_first().startswith("Suplemento")
             date = text.re_first("\d{1,2} de \w+ de \d{4}")
             date = parse(date, languages=["pt"]).date()
 
