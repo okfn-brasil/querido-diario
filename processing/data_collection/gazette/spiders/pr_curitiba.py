@@ -1,12 +1,10 @@
 from dateparser import parse
-import datetime as dt
-import re
-
-from gazette.spiders.base import BaseGazetteSpider
+from datetime import date, datetime
 
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
 class PrCuritibaSpider(BaseGazetteSpider):
@@ -22,32 +20,28 @@ class PrCuritibaSpider(BaseGazetteSpider):
         @url http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx
         @returns requests 1
         """
-        todays_date = dt.date.today()
-        current_year = todays_date.year
-        for year in range(current_year, 2006, -1):
+        for year in range(date.today().year, 2006, -1):
             yield scrapy.FormRequest(
                 "http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx",
                 formdata={"ctl00$cphMasterPrincipal$ddlGrAno": str(year)},
+                meta={"year": year},
                 callback=self.parse_year,
             )
 
     def parse_year(self, response):
-        for i in range(12):
-            yield self.scrape_month(response, i)
-
-    def scrape_month(self, response, month):
-        return scrapy.FormRequest.from_response(
-            response,
-            formdata={
-                "__EVENTTARGET": "ctl00$cphMasterPrincipal$TabContainer1",
-                "__EVENTARGUMENT": "activeTabChanged:{}".format(month),
-                "ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState": '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(
-                    month
-                ),
-            },
-            meta={"month": month},
-            callback=self.parse_month,
-        )
+        for month in range(12):
+            if date(response.meta["year"], month + 1, 1) <= date.today():
+                formdata = {
+                    "__EVENTTARGET": "ctl00$cphMasterPrincipal$TabContainer1",
+                    "__EVENTARGUMENT": f"activeTabChanged:{month}",
+                    "ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState": '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}',
+                }
+                yield scrapy.FormRequest.from_response(
+                    response,
+                    formdata=formdata,
+                    meta={"month": month},
+                    callback=self.parse_month,
+                )
 
     def parse_month(self, response):
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
@@ -57,10 +51,8 @@ class PrCuritibaSpider(BaseGazetteSpider):
             response,
             formdata={
                 "__EVENTTARGET": "ctl00$cphMasterPrincipal$TabContainer1",
-                "ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState": '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}'.format(
-                    month
-                ),
-                "__EVENTARGUMENT": "activeTabChanged:{}".format(month),
+                "ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState": '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}',
+                "__EVENTARGUMENT": f"activeTabChanged:{month}",
             },
             callback=self.parse_page,
         )
@@ -68,7 +60,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
             yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
-                    "__EVENTARGUMENT": "Page${}".format(page_number),
+                    "__EVENTARGUMENT": f"Page${page_number}",
                     "__EVENTTARGET": "ctl00$cphMasterPrincipal$gdvGrid2",
                 },
                 callback=self.parse_page,
@@ -81,45 +73,40 @@ class PrCuritibaSpider(BaseGazetteSpider):
             parsed_date = parse(f"{pdf_date}", languages=["pt"]).date()
             if gazette_id == "0":
                 starting_offset = 3
+                formdata = {
+                    "__LASTFOCUS": "",
+                    "__EVENTTARGET": f"ctl00$cphMasterPrincipal$gdvGrid2$ctl{idx + starting_offset:02d}$lnkVisualizar",
+                    "__EVENTARGUMENT": "",
+                    "__ASYNCPOST": "true",
+                }
                 yield scrapy.FormRequest.from_response(
                     response,
-                    formdata={
-                        "__LASTFOCUS": "",
-                        "__EVENTTARGET": "ctl00$cphMasterPrincipal$gdvGrid2$ctl{num:02d}$lnkVisualizar".format(
-                            num=(idx + starting_offset)
-                        ),
-                        "__EVENTARGUMENT": "",
-                        "__ASYNCPOST": "true",
-                    },
-                    callback=self.scrap_not_extra_edition,
+                    formdata=formdata,
+                    callback=self.parse_regular_edition,
                     meta={"parsed_date": parsed_date},
                 )
             else:
                 yield Gazette(
                     date=parsed_date,
                     file_urls=[
-                        "http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={}".format(
-                            gazette_id
-                        )
+                        f"http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={gazette_id}"
                     ],
                     is_extra_edition=True,
                     territory_id=self.TERRITORY_ID,
                     power="executive_legislature",
-                    scraped_at=dt.datetime.utcnow(),
+                    scraped_at=datetime.utcnow(),
                 )
 
-    def scrap_not_extra_edition(self, response):
+    def parse_regular_edition(self, response):
         parsed_date = response.meta["parsed_date"]
         gazette_id = response.selector.re_first("Id=(\d+)")
         return Gazette(
             date=parsed_date,
             file_urls=[
-                "http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={}".format(
-                    gazette_id
-                )
+                f"http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={gazette_id}"
             ],
             is_extra_edition=False,
             territory_id=self.TERRITORY_ID,
             power="executive_legislature",
-            scraped_at=dt.datetime.utcnow(),
+            scraped_at=datetime.utcnow(),
         )
