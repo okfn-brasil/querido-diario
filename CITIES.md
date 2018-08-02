@@ -46,7 +46,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 36 | Joinville | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/30) |
 | 37 | Juiz de Fora | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/12) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/13) |
 | 38 | Londrina |:soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
-| 39 | Aparecida de Goiânia | | | | |
+| 39 | Aparecida de Goiânia | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/98) |
 | 40 | Porto Velho | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/82) |
 | 41 | Ananindeua | | | | |
 | 42 | Serra | :white_check_mark: | | | |
@@ -87,7 +87,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 77 | Ponta Grossa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
 | 78 | Canoas | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | |
 | 79 | Petrolina | | | | |
-| 80 | Boa Vista | | | | |
+| 80 | Boa Vista | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/101) |
 | 81 | Ribeirão das Neves | | | | |
 | 82 | Paulista | | | | |
 | 83 | Uberaba | | | | |
