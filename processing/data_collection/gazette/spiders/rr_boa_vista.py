@@ -1,7 +1,7 @@
 import datetime as dt
-import json
 
 import scrapy
+import w3lib.url
 from dateparser import parse
 
 from gazette.items import Gazette
@@ -19,11 +19,10 @@ class RrBoaVistaSpider(BaseGazetteSpider):
         for option in options:
             data = option.extract()
 
-            url = "".join([self.start_urls[0], "?Periodo=", data])
+            url = w3lib.url.add_or_replace_parameter(response.url, "Periodo", data)
             yield scrapy.Request(url, self.parse_period)
 
     def parse_period(self, response):
-        items = []
         div_list = response.xpath('//*[@class="bldownload"]')
         for div in div_list:
             content = div.xpath("./div/text()").extract()
@@ -33,14 +32,11 @@ class RrBoaVistaSpider(BaseGazetteSpider):
             url = response.urljoin(url)
 
             power = "executive_legislature"
-            items.append(
-                Gazette(
-                    date=date,
-                    file_urls=[url],
-                    is_extra_edition=False,
-                    territory_id=self.TERRITORY_ID,
-                    power=power,
-                    scraped_at=dt.datetime.utcnow(),
-                ))
-
-        return items
+            yield Gazette(
+                date=date,
+                file_urls=[url],
+                is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
+                power=power,
+                scraped_at=dt.datetime.utcnow(),
+            )
