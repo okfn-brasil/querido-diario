@@ -25,7 +25,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 15 | São Luís | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/22) |
 | 16 | São Gonçalo | | | | |
 | 17 | Maceió | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/32) |
-| 18 | Duque de Caxias | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/66) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/102)|
+| 18 | Duque de Caxias | :white_check_mark: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/66) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/102)|
 | 19 | Natal | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/60) |
 | 20 | Campo Grande | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/53) |
