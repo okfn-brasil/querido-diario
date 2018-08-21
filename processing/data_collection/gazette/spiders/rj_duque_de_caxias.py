@@ -24,9 +24,7 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
         self.parse_html_indexed_page(response, True, current_year)
 
         for year, url in zip(years, page_urls):
-            request = scrapy.Request(url=url, callback=self.parse_page)
-            request.meta["year"] = year
-            yield request
+            yield scrapy.Request(url, callback=self.parse_page, meta={"year": year})
 
     def parse_page(self, response):
         year = response.meta["year"]
@@ -50,21 +48,22 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
 
             for month in months:
                 url = response.urljoin(month)
-                request = scrapy.Request(url=url, callback=self.parse_directory_page)
-                request.meta["year"] = year
-                request.meta["month"] = month
-                yield request
+                yield scrapy.Request(
+                    url,
+                    callback=self.parse_directory_page,
+                    meta={"year": year, "month": month},
+                )
 
     def parse_directory_page(self, response):
         month = response.meta["month"]
         year = response.meta["year"]
         pdf_names = response.xpath("//a/attribute::href").re("(.*).pdf")
 
-        urls = ["%s%s" % (response.urljoin(url), ".pdf") for url in pdf_names]
+        urls = [f"{response.urljoin(url)}.pdf" for url in pdf_names]
 
         dates = []
         for pdf in pdf_names:
-            dat = "%s/%s/%s" % (pdf[-2:], month[:2], year)
+            dat = f"{pdf[-2:]}/{month[:2]}/{year}"
             dates.append(parse(dat, languages=["pt"]).date())
 
         for url, date, name in zip(urls, dates, pdf_names):
@@ -91,18 +90,18 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
         else:
             xpath = str_previous
 
-        urls_elems = response.xpath("%s//a/@href" % xpath).extract()
+        urls_elems = response.xpath(f"{xpath}//a/@href").extract()
 
         urls = [response.urljoin(url) for url in urls_elems]
 
         full_dates = response.xpath(
-            "%s//div[contains(text(), '%s')]/text()" % (xpath, year)
+            f"{xpath}//div[contains(text(), '{year}')]/text()"
         ).re("(\d{1,2}\s+de\s+\w+\s+\d{4})")
 
         dates = [parse(date, languages=["pt"]).date() for date in full_dates]
 
         names = response.xpath(
-            "%s//div[contains(text(), 'Boletim ')]/text()" % xpath
+            f"{xpath}//div[contains(text(), 'Boletim ')]/text()"
         ).extract()
 
         for url, date, name in zip(urls, dates, names):
