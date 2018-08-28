@@ -1,0 +1,41 @@
+{
+  "bidding_exemptions_ids": [
+    "638-2018-11D",
+    "639-2018-11D",
+    "642-2018-11D",
+    "646-2018-11D",
+    "647-2018-11D",
+    "648-2018-11D",
+    "650-2018-11D",
+    "651-2018-11D",
+    "652-2018-11D",
+    "653-2018-11D",
+    "654-2018-11D",
+    "655-2018-11D",
+    "656-2018-11D",
+    "657-2018-11D",
+    "658-2018-11D",
+    "659-2018-11D",
+    "660-2018-11I",
+    "661-2018-11D",
+    "671-2018-11D"
+  ],
+  "bidding_exemptions": [
+    {
+      "NUMERO": "638-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "OBJETO": "Confecção de blocos de solicitação de exames e procedimentos para atender as necessidades da MAC e Atenção Básica",
+      "CONTRATADA": "MASTER PAPELARIA EIRELLI",
+      "VALOR": 9600.00,
+      "DATA": "2018-08-01"
+    },
+    {
+      "NUMERO": "671-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "OBJETO": "Pagamento dos boletos do conselho regional de técnico em radiologia",
+      "CONTRATADA": "CONSELHO REGIONAL DE TÉCNICOS EM RADIOLOGIA 8º RG",
+      "VALOR": 182.43,
+      "DATA": "2018-08-02"
+    }
+  ]
+}
