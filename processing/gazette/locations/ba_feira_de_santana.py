@@ -28,25 +28,29 @@ class BaFeiraDeSantana(BaseParser):
         return sections
 
     def _parse_bidding_exemption(self, exemption_str):
+        _remove_newlines_and_multiple_whitespaces = lambda text: re.sub(r"\s+", " ", text)
+        exemption_str = _remove_newlines_and_multiple_whitespaces(exemption_str)
+
         exemption = {
             "NUMERO": _extract_regexp(exemption_str, r"Nº:\s*(.+)CONTRATANTE"),
             "CONTRATANTE": _extract_regexp(
-                exemption_str, r"CONTRATANTE:\s*(.+),.*OBJETO", re.DOTALL
+                exemption_str, r"CONTRATANTE:\s*(.+),.*OBJETO"
             ),
             "OBJETO": _extract_regexp(
-                exemption_str, r"OBJETO:\s*(.+)CONTRATADA", re.DOTALL
+                exemption_str, r"OBJETO:\s*(.+)CONTRATADA"
             ),
             "CONTRATADA": _extract_regexp(
-                exemption_str, r"CONTRATADA:\s*(.+)VALOR", re.DOTALL
+                exemption_str, r"CONTRATADA:\s*(.+)VALOR"
             ),
-            "VALOR": self._parse_value(exemption_str),
+            "VALOR": self._parse_currency(exemption_str),
             "DATA": self._parse_date(exemption_str),
         }
 
         return exemption
 
-    def _parse_value(self, exemption_str):
+    def _parse_currency(self, exemption_str):
         value = _extract_regexp(exemption_str, r"R\$\s*([0-9.]+,[0-9]{2})")
+
         if value:
             value = value.replace(".", "").replace(",", ".")
             value = float(value)
@@ -55,17 +59,16 @@ class BaFeiraDeSantana(BaseParser):
 
     def _parse_date(self, exemption_str):
         date = _extract_regexp(exemption_str, "{}[.\s]*$".format(self.DATE_REGEXP))
+
         if date:
             date = date.replace("/", "")
-            date = datetime.datetime.strptime(date, "%d%m%Y")
-            date = date.date()
+            date = datetime.datetime.strptime(date, "%d%m%Y").date()
 
         return date
 
 
-def _extract_regexp(text, regexp, options=0):
-    groups = re.search(regexp, text, options)
+def _extract_regexp(text, regexp):
+    groups = re.search(regexp, text)
 
     if groups:
-        value = groups.group(1).strip()
-        return value.replace("\n", " ")
+        return groups.group(1).strip()
