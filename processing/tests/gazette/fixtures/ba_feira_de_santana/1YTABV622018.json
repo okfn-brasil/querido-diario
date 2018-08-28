@@ -1,0 +1,30 @@
+{
+  "count": 11,
+  "bidding_exemptions_ids": [
+    "2-2018-1123-D",
+    "3-2018-1123-D",
+    "4-2018-1123-D",
+    "5-2018-1123-D",
+    "6-2018-1123-D",
+    "7-2018-1123-D",
+    "8-2018-1123-D",
+    "9-2018-1123-D",
+    "11-2018-1123-D",
+    "11-2018-1122-D",
+    "17-2018-1122-D"
+  ],
+  "bidding_exemptions": [
+    {
+      "NUMERO": "2-2018-1123-D",
+      "CONTRATANTE": "FUNDAÇÃO HOSPITALAR DE FEIRA DE SANTANA",
+      "CONTRATADA": "RIOS TELECOM TELECOMUNICAÇÕES LTDA-ME",
+      "OBJETO": "CONTRATAÇÃO DE EMPRESA PARA PRESTAÇÃO DE SERVIÇO DE ADEQUAÇÃO DO NOVO ESPAÇO TEMPORARIO PARA O LABORATÓRIO DE ANÁLISES CLINICAS, do Hospital Inácia Pinto Dos Santos HIPS.",
+      "VALOR": 3303.59,
+      "DATA": "2018-01-09",
+      "UNIDADE ORCAMENTARIA": "1123-FHFS",
+      "PROJETO/ATIVIDADE": "10.302.025.2076",
+      "SUBELEMENTO DE DESPESA": "3.3.90.39-99",
+      "FONTE": "0002"
+    }
+  ]
+}

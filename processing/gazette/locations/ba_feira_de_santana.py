@@ -32,7 +32,7 @@ class BaFeiraDeSantana(BaseParser):
         exemption_str = _remove_newlines_and_multiple_whitespaces(exemption_str)
 
         exemption = {
-            "NUMERO": _extract_regexp(exemption_str, r"Nº:\s*(.+)CONTRATANTE"),
+            "NUMERO": _extract_regexp(exemption_str, r"Nº:?\s*([0-9]+-[0-9]{4}-[0-9]+-?[A-Z])"),
             "CONTRATANTE": _extract_regexp(
                 exemption_str, r"CONTRATANTE:\s*(.+),.*OBJETO"
             ),
@@ -68,7 +68,7 @@ class BaFeiraDeSantana(BaseParser):
 
 
 def _extract_regexp(text, regexp):
-    groups = re.search(regexp, text)
+    groups = re.search(regexp, text, re.IGNORECASE)
 
     if groups:
         return groups.group(1).strip()

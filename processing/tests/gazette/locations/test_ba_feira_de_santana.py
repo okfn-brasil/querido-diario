@@ -1,24 +1,24 @@
 import datetime
 import json
-from unittest import TestCase
 
 from gazette.locations.ba_feira_de_santana import BaFeiraDeSantana
 
 
-class TestBaFeiraDeSantana(TestCase):
+class TestBaFeiraDeSantana:
     def test_bidding_exemptions_with_empty_text_is_empty(self):
         assert BaFeiraDeSantana("").bidding_exemptions() == []
 
 
-class SampleGazetteScenario(object):
+class SampleGazetteScenario:
     ID_ATTRIBUTE = "NUMERO"
     # If the gazette PDF is "FOOBAR.pdf", the gazette ID is "FOOBAR"
     GAZETTE_ID = None
 
-    def setUp(self):
-        assert self.GAZETTE_ID is not None, "You must set the GAZETTE_ID constant"
-        self.TEXT = load_gazette(self.GAZETTE_ID)
-        self.DATA = load_gazette_data(self.GAZETTE_ID)
+    @classmethod
+    def setup_class(cls):
+        assert cls.GAZETTE_ID is not None, "You must set the GAZETTE_ID constant"
+        cls.TEXT = load_gazette(cls.GAZETTE_ID)
+        cls.DATA = load_gazette_data(cls.GAZETTE_ID)
 
     def test_has_expected_count_of_bidding_exemptions(self):
         bidding_exemptions_ids = self.DATA["bidding_exemptions_ids"]
@@ -42,6 +42,7 @@ class SampleGazetteScenario(object):
         exemptions_ids = [
             exemption[self.ID_ATTRIBUTE]
             for exemption in bidding_exemptions
+            if exemption[self.ID_ATTRIBUTE] is not None
         ]
 
         assert sorted(exemptions_ids) == sorted(expected_exemptions_ids)
@@ -61,7 +62,7 @@ class SampleGazetteScenario(object):
             assert exemption[0] == expected_exemption
 
 
-class TestBaFeiraDeSantana12SO6Y982018(SampleGazetteScenario, TestCase):
+class TestBaFeiraDeSantana12SO6Y982018(SampleGazetteScenario):
     GAZETTE_ID = "12SO6Y982018"
 
     def test_parsing_value_and_date_together(self):
@@ -100,6 +101,10 @@ DE TÉCNICOS EM RADIOLOGIA 8º RG VALOR(R$)R$ 182,43 02/08/2018
         exemption_sections = parser._bidding_exemption_sections()
 
         assert exemption_sections[0].endswith("02/08/2018")
+
+
+class TestBaFeiraDeSantana1YTABV622018(SampleGazetteScenario):
+    GAZETTE_ID = "1YTABV622018"
 
 
 def load_gazette(gazette_id):
