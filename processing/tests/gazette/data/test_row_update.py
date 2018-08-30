@@ -1,11 +1,10 @@
-from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
 from gazette.data.row_update import RowUpdate
 
 
-class TestRowUpdate(TestCase):
-    def setUp(self):
+class TestRowUpdate:
+    def setup_method(self, method):
         self.subject = RowUpdate(MagicMock)
 
     @patch.object(RowUpdate, "filtered_rows")
