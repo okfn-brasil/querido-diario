@@ -73,7 +73,7 @@ class BaSalvadorSpider(BaseGazetteSpider):
         )
 
 
-class BaSalvadorExtraEditionItemPipeline(object):
+class BaSalvadorExtraEditionItemPipeline:
     def process_item(self, item, spider):
         item["is_extra_edition"] = False
 

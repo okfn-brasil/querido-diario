@@ -30,7 +30,7 @@ class PdfParsingPipeline:
             return file.read()
 
 
-class PostgreSQLPipeline(object):
+class PostgreSQLPipeline:
     def __init__(self):
         engine = initialize_database()
         self.Session = sessionmaker(bind=engine)
@@ -55,7 +55,7 @@ class PostgreSQLPipeline(object):
         return item
 
 
-class GazetteDateFilteringPipeline(object):
+class GazetteDateFilteringPipeline:
     def process_item(self, item, spider):
         if hasattr(spider, "start_date"):
             if spider.start_date > item.get("date"):

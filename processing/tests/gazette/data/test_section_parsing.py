@@ -1,11 +1,10 @@
-from unittest import TestCase
 from unittest.mock import MagicMock, PropertyMock, patch
 
 from gazette.data.section_parsing import SectionParsing
 
 
-class TestSectionParsing(TestCase):
-    def setUp(self):
+class TestSectionParsing:
+    def setup_method(self, _):
         session = MagicMock()
         self.subject = SectionParsing(session)
 
@@ -25,7 +24,7 @@ class TestSectionParsing(TestCase):
         ]
         self.subject.update(gazettes)
         for gazette in gazettes:
-            self.assertEqual(True, gazette.is_parsed)
+            assert gazette.is_parsed
 
     def test_update_doesnt_change_is_parsed_when_has_no_parser(self):
         gazettes = [
@@ -33,8 +32,8 @@ class TestSectionParsing(TestCase):
             MagicMock(is_parsed=False, territory_id="42"),
         ]
         self.subject.update(gazettes)
-        self.assertEqual(True, gazettes[0].is_parsed)
-        self.assertEqual(False, gazettes[1].is_parsed)
+        assert gazettes[0].is_parsed
+        assert not gazettes[1].is_parsed
 
     def test_update_doesnt_raise_exception_with_territory_wo_parser(self):
         gazettes = [MagicMock(territory_id="42")]
@@ -48,7 +47,5 @@ class TestSectionParsing(TestCase):
         exceptions = [{"data": {"key": "value"}, "source_text": "key: value"}]
         parser.bidding_exemptions.return_value = exceptions
         self.subject.update_bidding_exemptions(gazette, parser)
-        self.assertEqual(exceptions[0]["data"], gazette.bidding_exemptions[0].data)
-        self.assertEqual(
-            exceptions[0]["source_text"], gazette.bidding_exemptions[0].source_text
-        )
+        assert exceptions[0]["data"] == gazette.bidding_exemptions[0].data
+        assert exceptions[0]["source_text"] == gazette.bidding_exemptions[0].source_text

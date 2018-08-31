@@ -1,7 +1,7 @@
 test: unit_test integration_test
 
 unit_test:
-	docker-compose run --rm processing python -m unittest discover
+	docker-compose run --rm processing pytest -p no:cacheprovider
 
 integration_test:
 	docker-compose run --rm processing bash -c "cd data_collection && scrapy check"

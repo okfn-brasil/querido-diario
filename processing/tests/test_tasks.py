@@ -1,13 +1,14 @@
+import os
 import glob
-from unittest import TestCase
 from unittest.mock import call, patch
 
+import pytest
 from freezegun import freeze_time
 
 import tasks
 
 
-class TestTasks(TestCase):
+class TestTasks:
     @patch("tasks.BiddingExemption")
     @patch("tasks.BiddingExemptionParsing")
     @patch("tasks.RowUpdate")
@@ -43,14 +44,17 @@ class TestTasks(TestCase):
     @patch("tasks.subprocess.Popen")
     def test_run_spiders(self, popen):
         tasks.run_spiders()
-        spiders = "/mnt/code/data_collection/gazette/spiders/*.py"
+        current_folder = os.path.dirname(os.path.realpath(__file__))
+        spiders_glob = os.path.join(
+            current_folder, "..", "data_collection", "gazette", "spiders", "*.py"
+        )
         spider_calls = []
-        for module in sorted(glob.glob(spiders)):
+        for module in sorted(glob.glob(spiders_glob)):
             name = module.split("/")[-1].split(".")[0]
             if name not in ["__init__", "base"]:
                 new_call = call(["scrapy", "crawl", name], cwd="data_collection")
                 spider_calls.append(new_call)
-        self.assertEqual(popen.mock_calls, spider_calls)
+        assert popen.mock_calls == spider_calls
 
     @freeze_time("2018-01-08")
     @patch("tasks.subprocess.Popen")
@@ -61,5 +65,5 @@ class TestTasks(TestCase):
 
     @patch("tasks.subprocess.Popen")
     def test_run_spiders_using_unsupported_timerange(self, popen):
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             tasks.run_spiders(["rs_porto_alegre"], timerange="past_month")

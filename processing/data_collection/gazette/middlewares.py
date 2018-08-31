@@ -6,7 +6,7 @@
 from scrapy import signals
 
 
-class GazetteSpiderMiddleware(object):
+class GazetteSpiderMiddleware:
 
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -50,7 +50,7 @@ class GazetteSpiderMiddleware(object):
         spider.logger.info("Spider opened: %s" % spider.name)
 
 
-class GazetteDownloaderMiddleware(object):
+class GazetteDownloaderMiddleware:
 
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
