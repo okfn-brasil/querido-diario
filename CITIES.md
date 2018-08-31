@@ -96,7 +96,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 86 | Praia Grande | | | | |
 | 87 | Taubaté | | | | |
 | 88 | São José dos Pinhais | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/59) |
-| 89 | Limeira | | | | |
+| 89 | Limeira | :soon: | | | |
 | 90 | Petrópolis | | | | |
 | 91 | Camaçari | | | | |
 | 92 | Santarém | | | | |
