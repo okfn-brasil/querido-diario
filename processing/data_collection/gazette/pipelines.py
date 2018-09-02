@@ -65,3 +65,16 @@ class GazetteDateFilteringPipeline(object):
                 raise DropItem(
                     'Droping all items before {}'.format(spider.start_date))
         return item
+
+
+
+class FilesPipeline(object):
+
+    def process_item(self, item, spider):
+        if FILES_STORE:
+            from gazette.lib import Spaces
+
+            pdf_path = os.path.join(FILES_STORE, item['files'][0]['path'])
+            Spaces().upload_file(pdf_path)
+
+        return item
