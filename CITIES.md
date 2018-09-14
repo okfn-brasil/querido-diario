@@ -64,7 +64,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 54 | Mogi das Cruzes | | | | |
 | 55 | Betim | | | | |
 | 56 | Diadema | | | | |
-| 57 | Campina Grande | | | | |
+| 57 | Campina Grande | :white_check_mark: | | | |
 | 58 | Jundiaí | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
 | 59 | Maringá | :soon: | | | |
 | 60 | Montes Claros | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
