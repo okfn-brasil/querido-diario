@@ -76,5 +76,6 @@ class FilesPipeline(object):
 
             pdf_path = os.path.join(FILES_STORE, item['files'][0]['path'])
             Spaces().upload_file(pdf_path)
+            return None
 
         return item

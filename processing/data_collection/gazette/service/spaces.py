@@ -16,4 +16,4 @@ class Spaces(object):
         )
 
     def upload_file(self, file_path):
-        self.client.upload_file(file_path, 'test-scrapy', file_path)
+        self.client.upload_file(file_path, os.getenv('SPACES_NAME'), file_path)

@@ -22,25 +22,30 @@ $ docker-compose up
 
 Once the download and building processes are finished, the processing tasks should start running in background, and the web server should be available at http://localhost:8080/.
 
-### Upload files to Google Cloud Storage
+### Upload files to Digital Ocean Spaces
 
-If you don't want to save the pdfs locally, uploading them to a bucket in Google Cloud Storage can be done.
+The files are upload using `boto3` API for AWS S3, given that it is compatible with Digital Ocean Spaces.
 
-Scrapy does the uploading, you only need to set 3 environemnt variables, `FILES_STORE`, `GCS_PROJECT_ID` and `GOOGLE_APPLICATION_CREDENTIALS`.
+In order to enable this functionality, you need to set the following environment variables
 
- - `FILES_STORE`: the bucket name, e.g. `gs:/<BUCKET-NAME>/`
- - `GCS_PROJECT_ID`: the Google Cloud Storage project ID
- - `GOOGLE_APPLICATION_CREDENTIALS`: the Google application credentials json file. It needs to be at the same directory level as `diario-oficial-auth.json.sample`.
+```sh
+FILES_STORE=''
+SPACES_NAME=your-spaces-name
+SPACES_ACCESS_KEY_ID=your-key
+SPACES_SECRET_ACCESS_KEY=your-key
+```
+
+ - `FILES_STORE`: if set to false or an empty string, Scrapy does not save the data locally.
+ - `SPACES_ACCESS_KEY_ID`: an access key obtained in the `API` section your Digital Ocean Dashboard
+ - `SPACES_SECRET_ACCESS_KEY`: an secret access key obtained in the `API` section your Digital Ocean Dashboard
 
  An example would be the following:
 
  ```sh
-GCS_PROJECT_ID=diario-oficial-2018
-FILES_STORE=gs://test-diario-oficial/
-GOOGLE_APPLICATION_CREDENTIALS=diario-oficial-auth.json
+SPACES_NAME=test-scrapy
+SPACES_ACCESS_KEY_ID=T3JRHS6M4CFIUH3EM62K
+SPACES_SECRET_ACCESS_KEY=p4arD3AxCupbZxK4Iz/nlHAABaarIEoC4YQdD9G0Tl2
  ```
-
-If no interest is present in this feature, simply leave these 3 variables values as `null`
 
 ## Contributing
 
