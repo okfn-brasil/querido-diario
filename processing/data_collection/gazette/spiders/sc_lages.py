@@ -7,13 +7,15 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class ScLagesSpider(BaseGazetteSpider):
-    TERRITORY_ID = '4209300'
-    POSSIBLE_GAZETTE_CSS = '.quiet'
-    NEXT_PAGE_CSS = '.pagination li.next:not(.disabled) a::attr(href)'
+    TERRITORY_ID = "4209300"
+    POSSIBLE_GAZETTE_CSS = ".quiet"
+    NEXT_PAGE_CSS = ".pagination li.next:not(.disabled) a::attr(href)"
 
-    allowed_domains = ['diariomunicipal.sc.gov.br']
-    name = 'sc_lages'
-    start_urls = ['https://www.diariomunicipal.sc.gov.br/site/?r=site/index&q=cod_municipio%3A277']
+    allowed_domains = ["diariomunicipal.sc.gov.br"]
+    name = "sc_lages"
+    start_urls = [
+        "https://www.diariomunicipal.sc.gov.br/site/?r=site/index&q=cod_municipio%3A277"
+    ]
 
     def parse(self, response):
         """
@@ -24,7 +26,7 @@ class ScLagesSpider(BaseGazetteSpider):
 
         possible_gazettes = response.css(self.POSSIBLE_GAZETTE_CSS)
         for element in possible_gazettes:
-            url = element.css('a::attr(href)').extract_first()
+            url = element.css("a::attr(href)").extract_first()
             if url:
                 date = self.extract_date(element)
 
@@ -33,7 +35,7 @@ class ScLagesSpider(BaseGazetteSpider):
                     file_urls=[url],
                     is_extra_edition=False,
                     territory_id=self.TERRITORY_ID,
-                    power='executive_legislature',
+                    power="executive_legislature",
                     scraped_at=datetime.utcnow(),
                 )
 
@@ -42,6 +44,6 @@ class ScLagesSpider(BaseGazetteSpider):
             yield Request(response.urljoin(next_page_path))
 
     def extract_date(self, element):
-        text = element.css('::text').extract_first()
+        text = element.css("::text").extract_first()
         date = text[:10]
-        return parse(date, languages=['pt']).date()
+        return parse(date, languages=["pt"]).date()
