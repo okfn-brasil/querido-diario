@@ -11,10 +11,10 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 1 | São Paulo | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
 | 2 | Rio de Janeiro | :white_check_mark: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/15) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/29) |
 | 3 | Brasília | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/57) |
-| 4 | Salvador | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
-| 5 | Fortaleza | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
+| 4 | Salvador | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
+| 5 | Fortaleza | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
 | 6 | Belo Horizonte | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/33) |
-| 7 | Manaus | :soon:  | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/51) |
+| 7 | Manaus | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/51) |
 | 8 | Curitiba | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/42) |
 | 9 | Recife | :soon: | | | |
 | 10 | Porto Alegre | :white_check_mark: | :white_check_mark: | | |
@@ -24,10 +24,10 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 14 | Campinas | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/2) |
 | 15 | São Luís | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/22) |
 | 16 | São Gonçalo | | | | |
-| 17 | Maceió | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/32) |
+| 17 | Maceió | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/32) |
 | 18 | Duque de Caxias | | | | |
 | 19 | Natal | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/60) |
-| 20 | Campo Grande | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
+| 20 | Campo Grande | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/53) |
 | 22 | São Bernardo do Campo | | | | |
 | 23 | João Pessoa | :soon: | | | |
@@ -46,8 +46,8 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 36 | Joinville | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/30) |
 | 37 | Juiz de Fora | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/12) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/13) |
 | 38 | Londrina |:soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
-| 39 | Aparecida de Goiânia | | | | |
-| 40 | Porto Velho | | | | |
+| 39 | Aparecida de Goiânia | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/98) |
+| 40 | Porto Velho | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/82) |
 | 41 | Ananindeua | | | | |
 | 42 | Serra | :white_check_mark: | | | |
 | 43 | Niterói | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
@@ -66,7 +66,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 56 | Diadema | | | | |
 | 57 | Campina Grande | | | | |
 | 58 | Jundiaí | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
-| 59 | Maringá | | | | |
+| 59 | Maringá | :soon: | | | |
 | 60 | Montes Claros | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
 | 61 | Piracicaba | | | | |
 | 62 | Carapicuíba | | | | |
@@ -87,16 +87,16 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 77 | Ponta Grossa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
 | 78 | Canoas | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | |
 | 79 | Petrolina | | | | |
-| 80 | Boa Vista | | | | |
+| 80 | Boa Vista | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/101) |
 | 81 | Ribeirão das Neves | | | | |
 | 82 | Paulista | | | | |
 | 83 | Uberaba | | | | |
-| 84 | Cascavel | | | | |
-| 85 | Guarujá | | | | |
+| 84 | Cascavel | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/92) |
+| 85 | Guarujá | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/96) |
 | 86 | Praia Grande | | | | |
 | 87 | Taubaté | | | | |
 | 88 | São José dos Pinhais | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/59) |
-| 89 | Limeira | | | | |
+| 89 | Limeira | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/113) |
 | 90 | Petrópolis | | | | |
 | 91 | Camaçari | | | | |
 | 92 | Santarém | | | | |

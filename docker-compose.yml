@@ -15,8 +15,6 @@ services:
     env_file:
       - .env
     image: postgres:10-alpine
-    ports:
-      - 5432:5432
 
   processing:
     build: processing
@@ -27,7 +25,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${DATA_FOLDER}:/mnt/data
+      - data_files:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
 
   rabbitmq:
@@ -50,3 +48,6 @@ services:
     volumes:
       - ./web:/mnt/code
       - /mnt/code/node_modules
+
+volumes:
+  data_files:

@@ -50,3 +50,7 @@ SPACES_SECRET_ACCESS_KEY=p4arD3AxCupbZxK4Iz/nlHAABaarIEoC4YQdD9G0Tl2
 ## Contributing
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Acknowledgments
+
+This project is maintained by Open Knowledge Foundation Brasil, thanks to the support of Digital Ocean and [hundreds of other names](https://serenata.ai/en/about/).

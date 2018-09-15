@@ -1,5 +1,7 @@
+black==18.5b1
 celery==4.1.1
 dateparser==0.7.0
+freezegun==0.3.10
 ipdb==0.11
 psycopg2-binary==2.7.4
 python-dateutil==2.7.2
@@ -9,3 +11,4 @@ requests==2.18.4
 scrapy==1.5.0
 SQLAlchemy==1.2.5
 boto3
+pytest
