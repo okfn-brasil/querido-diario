@@ -110,3 +110,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 100 | Várzea Grande | | | | |
 | XXX | Foz do Iguaçu | :white_check_mark: | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/34) [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
+| XXX | Lages | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/117) |
