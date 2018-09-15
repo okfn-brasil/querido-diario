@@ -63,14 +63,12 @@ class GazetteDateFilteringPipeline:
         return item
 
 
-
 class FilesPipeline(object):
-
     def process_item(self, item, spider):
         if FILES_STORE:
             from gazette.service import Spaces
 
-            pdf_path = os.path.join(FILES_STORE, item['files'][0]['path'])
+            pdf_path = os.path.join(FILES_STORE, item["files"][0]["path"])
             Spaces().upload_file(pdf_path)
             return None
 

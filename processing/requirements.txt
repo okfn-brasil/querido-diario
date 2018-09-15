@@ -10,5 +10,5 @@ redis==2.10.6
 requests==2.18.4
 scrapy==1.5.0
 SQLAlchemy==1.2.5
-boto3
+boto3==1.8.6
 pytest
