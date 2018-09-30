@@ -6,6 +6,7 @@ from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
+
 class ScLagesSpider(BaseGazetteSpider):
     TERRITORY_ID = "4209300"
     POSSIBLE_GAZETTE_CSS = ".quiet"
@@ -29,7 +30,8 @@ class ScLagesSpider(BaseGazetteSpider):
             url = element.css("a::attr(href)").extract_first()
             if url:
                 date = parse(
-                    element.re_first("([\d]{2}\/[\d]{2}\/[\d]{4})"), languages=["pt"]
+                    element.css("::text").re_first("([\d]{2}\/[\d]{2}\/[\d]{4})"),
+                    languages=["pt"],
                 ).date()
 
                 yield Gazette(
