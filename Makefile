@@ -12,7 +12,7 @@ setup:
 	docker-compose pull
 	docker-compose build
 	make seed
-	pip install pre-commit
+	pip install --user pre-commit
 	pre-commit install
 
 seed:
