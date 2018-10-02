@@ -1,7 +1,8 @@
+from datetime import datetime
 
 from dateparser import parse
-from datetime import datetime
 from scrapy import Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -28,7 +29,10 @@ class ScLagesSpider(BaseGazetteSpider):
         for element in possible_gazettes:
             url = element.css("a::attr(href)").extract_first()
             if url:
-                date = self.extract_date(element)
+                date = parse(
+                    element.css("::text").re_first("([\d]{2}\/[\d]{2}\/[\d]{4})"),
+                    languages=["pt"],
+                ).date()
 
                 yield Gazette(
                     date=date,
@@ -42,8 +46,3 @@ class ScLagesSpider(BaseGazetteSpider):
         next_page_path = response.css(self.NEXT_PAGE_CSS).extract_first()
         if next_page_path:
             yield Request(response.urljoin(next_page_path))
-
-    def extract_date(self, element):
-        text = element.css("::text").extract_first()
-        date = text[:10]
-        return parse(date, languages=["pt"]).date()
