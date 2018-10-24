@@ -1,4 +1,4 @@
-black==18.5b1
+black==18.9b0
 celery==4.1.1
 dateparser==0.7.0
 freezegun==0.3.10
