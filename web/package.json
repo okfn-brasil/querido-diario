@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "prestart": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -16,7 +16,8 @@
     "axios": "^0.18.0",
     "bulma": "^0.6.2",
     "npm": "^5.8.0",
-    "nuxt": "^1.0.0"
+    "nuxt": "^1.0.0",
+    "vue-cli": "^2.9.6"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

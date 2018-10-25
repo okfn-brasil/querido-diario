@@ -14,6 +14,10 @@ If you have never contributed to any open source project, there are tasks just f
 
 Sometimes the community organizes events for solving multiple issues in a short amount of time. Especially in these cases, an issue or pull request may be considered abandoned when is waiting for the contributor but doesn't receive updates for a couple of weeks. Just let us know you need more time, so we don't end up closing it by mistake.
 
+### Creating the database and getting ready to start
+
+There is a series of commands to get your environment ready: `make setup`. Check the `Makefile` for more details about these steps.
+
 ### Option 1 - writing crawlers for new municipalities
 
 For collecting the gazettes from the official websites, we use a crawling framework called [Scrapy](https://docs.scrapy.org). You may find its [official tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) helpful to get started with the architecture. Our project can be found in the [`processing/data_collection`](processing/data_collection) folder.

@@ -4,14 +4,10 @@ ENV HOME /mnt/code
 ENV HOST 0.0.0.0
 ENV PORT 8080
 
-RUN npm install --quiet --global nuxt vue-cli
-
 COPY package*.json $HOME/
-
 WORKDIR $HOME
 RUN npm install
 
 COPY . $HOME
-
 EXPOSE $PORT
-CMD npm run build && npm run start
+CMD ["npm", "run", "start"]
