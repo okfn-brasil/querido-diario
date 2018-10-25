@@ -63,27 +63,19 @@ class TestBiddingExemptionParsing:
         assert object == exemption.object
 
     def test_update_object_using_label_with_introduction_1(self):
-        object = (
-            "Trata o Presente de Ato de Dispensa de Licitação prevista no artigo 24 inciso II da Lei 8.666 de 1993 tendo por objeto a aquisição de serviços de dedetização, desratização e limpeza da caixa d’água das áreas I e II da AGCMG;"
-        )
+        object = "Trata o Presente de Ato de Dispensa de Licitação prevista no artigo 24 inciso II da Lei 8.666 de 1993 tendo por objeto a aquisição de serviços de dedetização, desratização e limpeza da caixa d’água das áreas I e II da AGCMG;"
         exemption = MagicMock(data={"OBJETO": object})
         self.subject.update_object(exemption)
 
-        expected_object = (
-            "serviços de dedetização, desratização e limpeza da caixa d’água das áreas I e II da AGCMG;"
-        )
+        expected_object = "serviços de dedetização, desratização e limpeza da caixa d’água das áreas I e II da AGCMG;"
         assert expected_object == exemption.object
 
     def test_update_object_using_label_with_introduction_2(self):
-        object = (
-            "Trata o presente de Ato de Dispensa de Licitação prevista no artigo 24 inciso II da Lei nº 8.666 de 1993, tendo por objeto aquisição de Certificado Digital PJ1, para atender o Fundo Municipal da Guarda Civil Metropolitana - FMGCM."
-        )
+        object = "Trata o presente de Ato de Dispensa de Licitação prevista no artigo 24 inciso II da Lei nº 8.666 de 1993, tendo por objeto aquisição de Certificado Digital PJ1, para atender o Fundo Municipal da Guarda Civil Metropolitana - FMGCM."
         exemption = MagicMock(data={"OBJETO": object})
         self.subject.update_object(exemption)
 
-        expected_object = (
-            "Certificado Digital PJ1, para atender o Fundo Municipal da Guarda Civil Metropolitana - FMGCM."
-        )
+        expected_object = "Certificado Digital PJ1, para atender o Fundo Municipal da Guarda Civil Metropolitana - FMGCM."
         assert expected_object == exemption.object
 
     def test_update_value_label_1(self):
