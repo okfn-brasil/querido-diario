@@ -3,5 +3,6 @@ repos:
     rev: 18.9b0
     hooks:
     - id: black
+      entry: docker-compose run --rm processing black .
       args: [--safe]
       language_version: python3.6
