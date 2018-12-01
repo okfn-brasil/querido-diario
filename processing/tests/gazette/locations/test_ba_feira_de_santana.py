@@ -28,13 +28,6 @@ class SampleGazetteScenario:
 
         assert len(bidding_exemptions) == expected_bidding_exemptions_count
 
-    def test_bidding_exemptions_have_no_none_values(self):
-        bidding_exemptions = BaFeiraDeSantana(self.TEXT).bidding_exemptions()
-
-        for exemption in bidding_exemptions:
-            values = exemption.values()
-            assert None not in values, exemption
-
     def test_extracts_expected_bidding_exemptions_ids(self):
         expected_exemptions_ids = self.DATA["bidding_exemptions_ids"]
 
@@ -54,12 +47,16 @@ class SampleGazetteScenario:
 
         for expected_exemption in expected_bidding_exemptions:
             exemption = [
-                x for x in bidding_exemptions
+                x
+                for x in bidding_exemptions
                 if x[self.ID_ATTRIBUTE] == expected_exemption[self.ID_ATTRIBUTE]
             ]
             msg = "Could not find bidding exemption '{}'"
             assert exemption, msg.format(expected_exemption[self.ID_ATTRIBUTE])
-            assert exemption[0] == expected_exemption
+            exemption = {
+                key: value for key, value in exemption[0].items() if value is not None
+            }
+            assert exemption == expected_exemption
 
 
 class TestBaFeiraDeSantana12SO6Y982018(SampleGazetteScenario):
@@ -96,11 +93,14 @@ DE TÉCNICOS EM RADIOLOGIA 8º RG VALOR(R$)R$ 182,43 02/08/2018
 
                                                   ANTONIO ROSA DE ASSIS
                                                PREGOEIRO/PRESIDENTE DA CPL"""
+        expected_section = """ Nº:671-2018-11D CONTRATANTE: PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA,
+OBJETO:Pagamento dos boletos do conselho regional de técnico em radiologia CONTRATADA: CONSELHO REGIONAL
+DE TÉCNICOS EM RADIOLOGIA 8º RG VALOR(R$)R$ 182,43 02/08/2018"""
 
         parser = BaFeiraDeSantana(text)
         exemption_sections = parser._bidding_exemption_sections()
 
-        assert exemption_sections[0].endswith("02/08/2018")
+        assert exemption_sections[0] == expected_section
 
 
 class TestBaFeiraDeSantana1YTABV622018(SampleGazetteScenario):
@@ -118,5 +118,7 @@ def load_gazette_data(gazette_id):
     with open(path) as fp:
         data = json.load(fp)
         for exemption in data["bidding_exemptions"]:
-            exemption["DATA"] = datetime.datetime.strptime(exemption["DATA"], "%Y-%m-%d").date()
+            exemption["DATA"] = datetime.datetime.strptime(
+                exemption["DATA"], "%d/%m/%Y"
+            ).date()
         return data
