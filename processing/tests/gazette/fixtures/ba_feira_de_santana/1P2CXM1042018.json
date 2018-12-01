@@ -1,0 +1,162 @@
+{
+  "bidding_exemptions_ids": [
+    "212-2018-11D",
+    "213-2018-11D",
+    "214-2018-11D",
+    "223-2018-11D",
+    "224-2018-11D",
+    "225-2018-11D",
+    "226-2018-11D",
+    "227-2018-11D",
+    "229-2018-11D",
+    "231-2018-11D",
+    "234-2018-11D",
+    "235-2018-11D"
+  ],
+  "bidding_exemptions": [
+    {
+      "NUMERO": "212-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "FARME BRITO LTDA – EPP",
+      "OBJETO": "Aquisição de medicamento para atender ao solicitado no mandado judicial no 537-51.2016.4.01.3304 da paciente Amanda Victória Bulhosa Santos Amorim", 
+      "VALOR": 1682.10,
+      "DATA": "02/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "213-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "BIOTRADE PRODUTOS PARA LABORATÓRIOS LTDA",
+      "OBJETO": "Aquisição de fitas medidoras de glicemia para atender ao solicitado no mandado judicial no 0037154-79.2009.805.0080 do paciente Juan Lucas Ramos Santos Bispo", 
+      "VALOR": 35948.00,
+      "DATA": "02/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "214-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "BAHIA MÉDICA SOCIEDADE COMERCIAL LTDA-ME",
+      "OBJETO": "Contratação de uma empresa para realizar manutenção preventiva e corretiva dos aparelhos de detector fetal da marca Martec sendo 10 das Unidades Bàsicas de Saúde e 34 das Unidades de Saúde da Familia. PARECER 372 /PGM / 2018, PROTOCOLO No 5445/2018, INEXIGIBILIDADE N° 09 / PGM / 2018 I", 
+      "VALOR": 52480.00,
+      "DATA": "02/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "223-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "SANTA CASA DE MISERICORDIA",
+      "OBJETO": "Compra de cirurgia de Uretroplastia para o paciente João Oliveira Cerqueira, referente demanda judicial no 0305660-45.2017.8.05.0080", 
+      "VALOR": 5250.00,
+      "DATA": "04/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "224-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "FARME BRITO LTDA – EPP",
+      "OBJETO": "Aquisição de fraldas e medicamento para atender ao solicitado no mandado judicial no 0515220-27.2017.8.05.0080 da paciente Joana Angelica Soares Bondo", 
+      "VALOR": 7147.00,
+      "DATA": "04/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "225-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "BAHIA MÉDICA SOCIEDADE COMERCIAL LTDA-ME",
+      "OBJETO": "Contratação de uma empresa para realizar manutenção preventiva e corretiva dos aparelhos de detector fetal da marca SIGMED sendo 10 das Unidades Básicas de Saúde e 43 das Unidades de Saúde da Familia. PARECER 381 / PGM / 2018, PROTOCOLO No 14017 / 18, INEXIGIBILIDADE No 11 / PGM / 2018 I", 
+      "VALOR": 54428.00,
+      "DATA": "04/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "226-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "CLAY BRITES",
+      "OBJETO": "Contratação de um palestrante para o I encontro estadual de familia de pessoa com Autismo. PARECER N° 473 / PGM /18. PROCESSO No 11823 / 18, INEXIGIBILIDADE No 13 / PGM / 18", 
+      "VALOR": 7000.00,
+      "DATA": "02/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "227-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "OGS CONSULTORIA LTDA - ME",
+      "OBJETO": "Curso de gestão fiscalização de contratos para os servidores da SMS", 
+      "VALOR": 7880.00,
+      "DATA": "04/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "229-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "DIVIMED COM. DE PRODUTOS HOSPITALARES LTDA",
+      "OBJETO": "Aquisição de materiais para exames do programa de tuberculose", 
+      "VALOR": 447.00,
+      "DATA": "02/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "231-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "MASTER PAPELARIA EIRELLI",
+      "OBJETO": "Confecção de material gráfico para o curso de gestão e fiscalização de contratos", 
+      "VALOR": 1950.00,
+      "DATA": "03/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "234-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "ANILTON DE ARAÚJO BRITO",
+      "OBJETO": "Contratação de empresa para manutenção e aquisição de peças para equipamentos odontológicos da marca DABI ATLANTE para atender as necessidades da Atenção Básica, PARECER 371 / pgm /2018, PROCESSO no 10515 / 18, INEXIGIBILIDADE no 08 / pgm / 2018 I", 
+      "VALOR": 120486.00,
+      "DATA": "05/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "235-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "EDILSON DA SILVA RODRIGUES",
+      "OBJETO": "Confecção de duas bancadas e seis armarios para a UPA queimadinha", 
+      "VALOR": 7949.96,
+      "DATA": "04/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    }
+  ]
+}

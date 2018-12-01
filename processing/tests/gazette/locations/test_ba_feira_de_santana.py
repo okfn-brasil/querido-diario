@@ -1,5 +1,6 @@
 import datetime
 import json
+import pytest
 
 from gazette.locations.ba_feira_de_santana import BaFeiraDeSantana
 
@@ -101,6 +102,46 @@ DE TÉCNICOS EM RADIOLOGIA 8º RG VALOR(R$)R$ 182,43 02/08/2018"""
         exemption_sections = parser._bidding_exemption_sections()
 
         assert exemption_sections[0] == expected_section
+
+
+class TestBaFeiraDeSantana1CN1G31852018(SampleGazetteScenario):
+    GAZETTE_ID = "1CN1G31852018"
+
+
+@pytest.mark.skip()
+class TestBaFeiraDeSantana1CQN162852018(SampleGazetteScenario):
+    GAZETTE_ID = "1CQN162852018"
+
+
+class TestBaFeiraDeSantana1GVUJB392018(SampleGazetteScenario):
+    GAZETTE_ID = "1GVUJB392018"
+
+
+@pytest.mark.skip()
+class TestBaFeiraDeSantana1IMOPN1242018(SampleGazetteScenario):
+    GAZETTE_ID = "1IMOPN1242018"
+
+
+class TestBaFeiraDeSantana1L509N1332018(SampleGazetteScenario):
+    GAZETTE_ID = "1L509N1332018"
+
+
+@pytest.mark.skip()
+class TestBaFeiraDeSantana1P2CXM1042018(SampleGazetteScenario):
+    GAZETTE_ID = "1P2CXM1042018"
+
+
+class TestBaFeiraDeSantana1TCJ74132018(SampleGazetteScenario):
+    GAZETTE_ID = "1TCJ74132018"
+
+
+@pytest.mark.skip()
+class TestBaFeiraDeSantana1VQS3J252018(SampleGazetteScenario):
+    GAZETTE_ID = "1VQS3J252018"
+
+
+class TestBaFeiraDeSantana1X7HTY12112018(SampleGazetteScenario):
+    GAZETTE_ID = "1X7HTY12112018"
 
 
 class TestBaFeiraDeSantana1YTABV622018(SampleGazetteScenario):

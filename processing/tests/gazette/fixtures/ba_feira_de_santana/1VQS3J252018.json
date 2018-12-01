@@ -1,0 +1,84 @@
+{
+  "bidding_exemptions_ids": [
+    "335-2018-11D",
+    "336-2018-11D",
+    "337-2018-11D",
+    "339-2018-11D",
+    "340-2018-11D",
+    "342-2018-11D"
+  ],
+  "bidding_exemptions": [
+    {
+      "NUMERO": "335-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "JUSSINEIDE ALMEIDA",
+      "OBJETO": "Aluguel de imovel situado na rua visconde de Maúa, 565, lagoa grande, na cidade de Feira de Santana. Para o funcionamento de uma Unidade de Saúde da Família - USF",
+      "VALOR": 10607.40,
+      "DATA": "18/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "336-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "JOSE RAMON DA SILVA",
+      "OBJETO": "Aluguel de imóvel situado na rua Borborema No 62 - Bairro Capuchinhos, na cidade de Feira de Santana. Para o funcionamento de Residência Terapêutica do CAPS III",
+      "VALOR": 15600.00,
+      "DATA": "23/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "337-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "MARIA ANGÊLICA SENA DIAS",
+      "OBJETO": "Aluguel de imóvel situado na rua Pau Brasil, casa 27 - loteamento morada Tropical - Calumbi, na cidade de Feira de Santana. Para o funcionamento de uma Unidade de Saúde familiar - USF",
+      "VALOR": 8556.00,
+      "DATA": "23/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "339-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "MARIA CRISPINA DOS SANTOS PINHEIRO",
+      "OBJETO": "Aluguel de imovel situado no conjunto Feira VII, caminho 07, casa 11 na cidade de Feira de Santana. Para o funcionamento de uma Unidade de Saúde Familiar– USF",
+      "VALOR": 4281.30,
+      "DATA": "04/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "340-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "ANA MARIA PASSOS DE ALMEIDA",
+      "OBJETO": "Aluguel de imovel situado na rua Vitoria da Conquista, casa 88 - Sobradinho I na cidade de Feira de Santana. Para o funcionamento de uma Unidade de Saúde Familiar - USF",
+      "VALOR": 12000.00,
+      "DATA": "25/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    },
+    {
+      "NUMERO": "342-2018-11D",
+      "CONTRATANTE": "PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA",
+      "CONTRATADA": "RAIMUNDO JOSÉ DANTAS DE SOUZA",
+      "OBJETO": "Aluguel de imovel situado na rua Prudente de Morais, casa 174 - Ponto Central na cidade de Feira de Santana. Para o funcionamento de Unidade de Saúde Mental",
+      "VALOR": 40954.56,
+      "DATA": "25/04/2018",
+      "UNIDADE ORCAMENTARIA": "",
+      "PROJETO/ATIVIDADE": "",
+      "SUBELEMENTO DE DESPESA": "",
+      "FONTE": ""
+    }
+  ]
+}
