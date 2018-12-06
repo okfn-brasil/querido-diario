@@ -136,6 +136,11 @@ class TestBaFeiraDeSantana1CQN162852018(SampleGazetteScenario):
     GAZETTE_ID = "1CQN162852018"
 
 
+@pytest.mark.skip()
+class TestBaFeiraDeSantana1MGLTU1682018(SampleGazetteScenario):
+    GAZETTE_ID = "1MGLTU1682018"
+
+
 class TestBaFeiraDeSantana1GVUJB392018(SampleGazetteScenario):
     GAZETTE_ID = "1GVUJB392018"
 
