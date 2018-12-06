@@ -6,7 +6,9 @@ from .base_parser import BaseParser
 
 
 class BaFeiraDeSantana(BaseParser):
-    BIDDING_EXEMPTIONS_MARKER = "Dispensa de Licitação"
+    BIDDING_EXEMPTIONS_MARKER_REGEXP = re.compile(
+        r".*Dispensa de Licitação", re.IGNORECASE
+    )
     DATE_REGEXP = r"([0-9]{2}/?[0-9]{2}/?2[0-9]{3})"
 
     def bidding_exemptions(self):
@@ -15,12 +17,40 @@ class BaFeiraDeSantana(BaseParser):
             for exemption in self._bidding_exemption_sections()
         ]
 
-        return exemptions
+        return [exemption for exemption in exemptions if self.is_valid(exemption)]
+
+    def is_valid(self, exemption):
+        return bool(exemption.get("NUMERO"))
 
     def _bidding_exemption_sections(self):
-        sections = self.text.split(self.BIDDING_EXEMPTIONS_MARKER)[1:]
+        sections = []
+        errata_regexp = re.compile("errata", re.IGNORECASE)
+        text = self.text
 
-        return [section.split("\n\n")[0] for section in sections]
+        while True:
+            match = self.BIDDING_EXEMPTIONS_MARKER_REGEXP.search(text)
+            if not match:
+                break
+
+            # A section can end either if there are 2 newlines, or if another
+            # section begins, whichever comes first.
+            start = match.start()
+            end = text.find("\n\n", start)
+            next_section_match = self.BIDDING_EXEMPTIONS_MARKER_REGEXP.search(
+                text[match.end() :]
+            )
+            if next_section_match:
+                potential_end = next_section_match.start() + match.end()
+                end = min(end, potential_end)
+
+            section = text[start:end].strip()
+
+            if not errata_regexp.search(section):
+                sections.append(section)
+
+            text = text[end:]
+
+        return sections
 
     def _parse_bidding_exemption(self, exemption_str):
         _remove_newlines_and_multiple_whitespaces = lambda text: re.sub(
@@ -46,7 +76,10 @@ class BaFeiraDeSantana(BaseParser):
         exemption.update(
             {
                 "NUMERO": _extract_regexp(
-                    exemption_str, r"Nº:?\s*([0-9]+-[0-9]{4}-[0-9]+-?[A-Z])"
+                    exemption_str, r"N[º°]:?\s*([0-9]+-[0-9]{4}-[0-9]+-?[A-Z])"
+                ),
+                "PROCESSO ADMINISTRATIVO": _extract_regexp(
+                    exemption_str, r"processo administrativo n.\s*([0-9]+-[0-9]{4})"
                 ),
                 "CONTRATANTE": self._extract_value(exemption_str, "contratante"),
                 "VALOR": self._parse_currency(exemption_str),
@@ -70,6 +103,7 @@ class BaFeiraDeSantana(BaseParser):
             "PROJETO/ATIVIDADE",
             r"Sub\. elemento de despesa",
             "Unidade Orçamentária",
+            "Processo administrativo",
             "$",  # Handle case where we"re extracting the last value.
         ]
 

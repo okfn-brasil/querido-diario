@@ -9,6 +9,30 @@ class TestBaFeiraDeSantana:
     def test_bidding_exemptions_with_empty_text_is_empty(self):
         assert BaFeiraDeSantana("").bidding_exemptions() == []
 
+    def test_removes_sections_with_errata(self):
+        text = """
+ERRATA – DISPENSA DE LICITAÇÃO Nº 202-2018-17I – Avisamos que, na publicação do dia 11/04/2018. Onde se
+lê: 28/03/2018. Leia-se: 02/04/2018. As demais informações permanecem inalteradas. FSA, 15/05/2018. Colbert
+Martins da Silva Filho – Prefeito.
+
+DISPENSA DE LICITAÇÃO Nº 202-2018-17I – Avisamos que, na publicação do
+dia 11/04/2018. Onde se lê: 28/03/2018. Leia-se: 02/04/2018. As demais informações permanecem inalteradas.
+Feira de Santana, 15/05/2018. THISISIT
+        """
+
+        parser = BaFeiraDeSantana(text)
+
+        sections = parser._bidding_exemption_sections()
+        assert len(sections) == 1
+        assert "THISISIT" in sections[0]
+
+    def test_validate_exemption_requires_numero(self):
+        parser = BaFeiraDeSantana("")
+
+        exemption = {"NUMERO": None}
+
+        assert not parser.is_valid(exemption)
+
 
 class SampleGazetteScenario:
     ID_ATTRIBUTE = "NUMERO"
@@ -94,7 +118,7 @@ DE TÉCNICOS EM RADIOLOGIA 8º RG VALOR(R$)R$ 182,43 02/08/2018
 
                                                   ANTONIO ROSA DE ASSIS
                                                PREGOEIRO/PRESIDENTE DA CPL"""
-        expected_section = """ Nº:671-2018-11D CONTRATANTE: PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA,
+        expected_section = """Dispensa de Licitação Nº:671-2018-11D CONTRATANTE: PMFS/FUNDO MUNICIPAL DE SAÚDE DE FEIRA DE SANTANA,
 OBJETO:Pagamento dos boletos do conselho regional de técnico em radiologia CONTRATADA: CONSELHO REGIONAL
 DE TÉCNICOS EM RADIOLOGIA 8º RG VALOR(R$)R$ 182,43 02/08/2018"""
 
@@ -108,7 +132,6 @@ class TestBaFeiraDeSantana1CN1G31852018(SampleGazetteScenario):
     GAZETTE_ID = "1CN1G31852018"
 
 
-@pytest.mark.skip()
 class TestBaFeiraDeSantana1CQN162852018(SampleGazetteScenario):
     GAZETTE_ID = "1CQN162852018"
 
