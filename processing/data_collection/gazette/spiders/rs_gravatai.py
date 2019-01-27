@@ -32,7 +32,7 @@ class RsGravataiSpider(BaseGazetteSpider):
     def parse_gazette(self, response):
         """
         @url https://gravatai.atende.net/?pg=diariooficial&pagina=1
-        @returns requests 15
+        @returns items 1
         @scrapes date file_urls is_extra_edition territory_id power scraped_at
         """
 
