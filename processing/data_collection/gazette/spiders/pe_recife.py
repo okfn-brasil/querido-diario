@@ -74,14 +74,14 @@ class PeRecifeSpider(BaseGazetteSpider):
     def parse_document(self, response):
         hidden_id = response.css("input[id=HiddenID]::attr(value)").extract_first()
         items = []
-        # if hidden_id:
-        #     url = self.DOWNLOAD_URL.format(doc_id=hidden_id)
-        #     items.append(
-        #         Gazette(
-        #             date=response.meta["date"],
-        #             file_urls=[url],
-        #             # territory_id=self.MUNICIPALITY_ID,
-        #             scraped_at=dt.datetime.utcnow(),
-        #         )
-        #     )
+        if hidden_id:
+            url = self.DOWNLOAD_URL.format(doc_id=hidden_id)
+            items.append(
+                Gazette(
+                    date=response.meta["date"],
+                    file_urls=[url],
+                    # territory_id=self.MUNICIPALITY_ID,
+                    scraped_at=dt.datetime.utcnow(),
+                )
+            )
         return items
