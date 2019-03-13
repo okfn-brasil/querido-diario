@@ -15,7 +15,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PeRecifeSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = ""
+    MUNICIPALITY_ID = "2611606"
     name = "pe_recife"
     allowed_domains = ["cepe.com.br", "200.238.101.22"]
 
@@ -80,7 +80,7 @@ class PeRecifeSpider(BaseGazetteSpider):
                 Gazette(
                     date=response.meta["date"],
                     file_urls=[url],
-                    # territory_id=self.MUNICIPALITY_ID,
+                    territory_id=self.MUNICIPALITY_ID,
                     scraped_at=dt.datetime.utcnow(),
                 )
             )
