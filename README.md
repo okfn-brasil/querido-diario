@@ -6,6 +6,7 @@ Even with recurrent efforts of enforcing the [Freedom of Information legislation
 
 The goal of this same project is to upgrade **Diário Oficial** to the year when it gets published, making accessible information that is currently only available.
 
+When this project was initially released, had two distinct goals: creating crawlers for governments gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
 
 ## Build and Run
 
@@ -19,9 +20,6 @@ After you cloned the repository, you may want to run the following from the sour
 $ make setup
 $ docker-compose up
 ```
-
-Once the download and building processes are finished, the processing tasks should start running in background, and the web server should be available at http://localhost:8080/.
-
 
 ## Contributing
 
