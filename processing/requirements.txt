@@ -2,7 +2,6 @@ black==18.9b0
 dateparser==0.7.1
 ipdb==0.12
 psycopg2-binary==2.8.2
-pytest==4.5.0
 python-dateutil==2.8.0
 python-decouple==3.1
 requests==2.22.0
