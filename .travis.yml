@@ -14,5 +14,4 @@ before_install:
 install:
   - make setup
 script:
-  - make unit_test
-  - docker-compose run --rm processing black . --check
+  - make test

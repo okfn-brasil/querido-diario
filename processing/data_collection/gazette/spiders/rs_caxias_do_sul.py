@@ -29,10 +29,6 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
         yield scrapy.Request(url)
 
     def parse(self, response):
-        """
-        @url https://doe.caxias.rs.gov.br/site/index?PublicacoesSearch[dt_publicacao]=&PublicacoesSearch[dt_range]=01-01-15+até+31-12-18&PublicacoesSearch[palavra_chave]=&PublicacoesSearch[num_publicacao]=&page=1
-        @returns requests 11 11
-        """
         for gazette_node in response.css(".table tbody tr"):
             item = self.gazette(response, gazette_node)
             pdf_page_url = gazette_node.css("a::attr(href)").extract_first()

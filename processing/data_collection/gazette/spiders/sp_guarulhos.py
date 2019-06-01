@@ -22,11 +22,6 @@ class SpGuarulhosSpider(BaseGazetteSpider):
             )
 
     def parse(self, response):
-        """
-        @url http://www.guarulhos.sp.gov.br/diario-oficial/index.php?mes=1&ano=2018
-        @returns items 17 17
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         diarios = response.xpath('//div[contains(@id, "diario")]')
         items = []
         for diario in diarios:

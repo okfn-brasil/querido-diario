@@ -14,19 +14,11 @@ class SpGuaruja(BaseGazetteSpider):
     start_urls = ["http://www.guaruja.sp.gov.br/index.php/diario-oficial/"]
 
     def parse(self, response):
-        """
-        @url http://www.guaruja.sp.gov.br/index.php/diario-oficial/
-        @returns requests 26
-        """
         months = response.css("div.span12 a::attr(href)").extract()
         for month_url in months:
             yield scrapy.Request(month_url, self.parse_items)
 
     def parse_items(self, response):
-        """
-        @url http://www.guaruja.sp.gov.br/index.php/maio-2/maio2018/
-        @returns items 22 22
-        """
         gazettes = response.css("div.span12 p")
         for gazette in gazettes:
             date = gazette.css("a ::text").extract_first()

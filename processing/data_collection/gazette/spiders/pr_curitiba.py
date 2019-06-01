@@ -14,12 +14,6 @@ class PrCuritibaSpider(BaseGazetteSpider):
     custom_settings = {"DEFAULT_REQUEST_HEADERS": {"user-agent": "Mozilla/5.0"}}
 
     def start_requests(self):
-        """
-        The Curitiba website is a statefull page, so we can't just build the
-        request from zero, we have to resend the viewstate with every request.
-        @url http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx
-        @returns requests 1
-        """
         for year in range(date.today().year, 2006, -1):
             yield scrapy.FormRequest(
                 "http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx",

@@ -17,10 +17,6 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     last_page = 1
 
     def parse(self, response):
-        """
-        @url http://www.diariooficial.feiradesantana.ba.gov.br/?p=29
-        @returns requests 30
-        """
         gazette_table = response.css(".style166")
         gazettes_links = gazette_table.xpath("a//@href").extract()
         dates = gazette_table.css("a::text").extract()

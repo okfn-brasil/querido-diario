@@ -18,21 +18,12 @@ class GoGoianiaSpider(BaseGazetteSpider):
     )
 
     def parse(self, response):
-        """
-        @url http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075
-        @returns requests 4
-        """
         current_year = dt.date.today().year
         for year in range(current_year, 2014, -1):
             url = self.gazettes_list_url.format(year)
             yield scrapy.Request(url, self.parse_year)
 
     def parse_year(self, response):
-        """
-        @url http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano=2018
-        @returns items 75
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         # The page with the list of gazettes is simply a table with links
         links = response.css("a")
         items = []

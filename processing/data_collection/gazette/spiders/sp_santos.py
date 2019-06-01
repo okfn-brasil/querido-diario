@@ -13,11 +13,6 @@ class SpSantosSpider(BaseGazetteSpider):
     download_url = "https://diariooficial.santos.sp.gov.br/edicoes/inicio/download/{}"
 
     def parse(self, response):
-        """
-        @url https://diariooficial.santos.sp.gov.br/
-        @returns items 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         # all of the dates with gazettes are available inside the following hidden textarea:
         dates = response.css("#datas.hidden::text").extract_first()
 

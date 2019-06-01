@@ -15,12 +15,6 @@ class AlMaceioSpider(BaseGazetteSpider):
     page_number = 1
 
     def parse(self, response):
-        """
-        @url http://www.maceio.al.gov.br/noticias/diario-oficial/
-        @returns items 0 9
-        @returns requests 1 10
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
-        """
         gazettes = list(response.xpath("//article"))
         for gazette in gazettes:
             url = gazette.xpath("a/@href").extract_first()
@@ -52,12 +46,6 @@ class AlMaceioSpider(BaseGazetteSpider):
             )
 
     def parse_additional_page(self, response):
-        """
-        @url http://www.maceio.al.gov.br/noticias/diario-oficial/
-        @returns items 1 9
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
-        """
         url = response.xpath('//p[@class="attachment"]/a/@href').extract_first()
         gazette = self.create_gazette(
             response.meta["date"], url, response.meta["is_extra_edition"]
