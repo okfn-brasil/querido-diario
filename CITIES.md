@@ -33,7 +33,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 23 | João Pessoa | :soon: | | | |
 | 24 | Nova Iguaçu | | | | |
 | 25 | Santo André | | | | |
-| 26 | São José dos Campos | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
+| 26 | São José dos Campos | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
 | 27 | Osasco | :soon: | | | |
 | 28 | Jaboatão dos Guararapes | | | | |
 | 29 | Ribeirão Preto | | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/31) | |
