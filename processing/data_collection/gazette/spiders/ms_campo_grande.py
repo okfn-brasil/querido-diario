@@ -27,11 +27,6 @@ class MsCampoGrandeSpider(scrapy.Spider):
                 )
 
     def parse(self, response):
-        """
-        @url http://portal.capital.ms.gov.br/diogrande/diarioOficial
-        @returns items 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
-        """
         year = response.css("#leftToRight > h3").extract_first().split("/")[1]
         docs = response.css(".arquivos li")
         for doc in docs:

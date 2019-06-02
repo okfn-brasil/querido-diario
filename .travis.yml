@@ -2,7 +2,7 @@ language: python
 python: 3.6
 env:
   global:
-    - DOCKER_COMPOSE_VERSION=1.21.0
+    - DOCKER_COMPOSE_VERSION=1.24.0
 services:
   - docker
 before_install:
@@ -14,5 +14,4 @@ before_install:
 install:
   - make setup
 script:
-  - make unit_test
-  - docker-compose run --rm processing black . --check
+  - make test

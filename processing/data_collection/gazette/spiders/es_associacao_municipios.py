@@ -14,12 +14,6 @@ class EsAssociacaoMunicipiosSpider(BaseGazetteSpider):
     start_urls = ["https://diariomunicipales.org.br/?r=site/edicoes&Edicao_page=1"]
 
     def parse(self, response):
-        """
-        @url https://diariomunicipales.org.br/?r=site/edicoes&Edicao_page=1
-        @returns items 15 15
-        @returns requests 1 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         for gazette_node in response.css(".items tbody tr"):
             url = gazette_node.css("[download]::attr(href)").extract_first()
             date = gazette_node.css("td::text")[1].extract()

@@ -9,12 +9,10 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
-    Numeric,
     String,
     Text,
     UniqueConstraint,
 )
-from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -35,22 +33,6 @@ def initialize_database():
     return engine
 
 
-class BiddingExemption(DeclarativeBase):
-    __tablename__ = "bidding_exemptions"
-    id = Column(Integer, primary_key=True)
-    data = Column("data", JSONB)
-    source_text = Column("source_text", Text)
-    date = Column("date", Date)
-    contracted = Column("contracted", String)
-    contracted_code = Column("contracted_code", String)
-    value = Column("value", Numeric)
-    is_parsed = Column("is_parsed", Boolean, default=False)
-    object = Column("object", String)
-    created_at = Column("created_at", DateTime, default=dt.datetime.utcnow)
-    gazette = relationship("Gazette", back_populates="bidding_exemptions")
-    gazette_id = Column(Integer, ForeignKey("gazettes.id"))
-
-
 class Gazette(DeclarativeBase):
     __tablename__ = "gazettes"
     id = Column(Integer, primary_key=True)
@@ -66,9 +48,6 @@ class Gazette(DeclarativeBase):
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     territory = relationship("Territory", back_populates="gazettes")
     territory_id = Column(String, ForeignKey("territories.id"))
-    bidding_exemptions = relationship(
-        "BiddingExemption", order_by=BiddingExemption.id, back_populates="gazette"
-    )
     __table_args__ = (UniqueConstraint("territory_id", "date", "file_checksum"),)
 
 

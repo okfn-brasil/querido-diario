@@ -35,12 +35,6 @@ class AmManausSpider(BaseGazetteSpider):
         yield Request(self.LEGISLATIVE_URL, self.parse_legislative)
 
     def parse_executive(self, response):
-        """
-        @url http://dom.manaus.am.gov.br/diario-oficial-de-manaus
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
-
         for element in response.css(self.EXECUTIVE_GAZETTE_ROW_CSS):
             url = element.css(self.EXECUTIVE_PDF_HREF_CSS).extract_first()
             date = element.css(self.EXECUTIVE_DATE_CSS).extract_first()
@@ -56,12 +50,6 @@ class AmManausSpider(BaseGazetteSpider):
             yield Request(url, self.parse_executive)
 
     def parse_legislative(self, response):
-        """
-        @url http://www.cmm.am.gov.br/diario-oficial/
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
-
         for element in response.css(self.LEGISLATIVE_GAZETTE_ROW_CSS):
             if not element.css("td"):
                 continue

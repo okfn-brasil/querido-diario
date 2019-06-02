@@ -14,11 +14,6 @@ class PrCascavelSpider(BaseGazetteSpider):
     download_url = "http://www.cascavel.pr.gov.br/anexos/{}"
 
     def parse(self, response):
-        """
-        @url http://www.cascavel.pr.gov.br/servicos/orgao_oficial.php
-        @returns items 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         for row in response.xpath("//table//tr[position()>1]"):
             date = row.xpath(".//td[2]//font//text()").extract_first()
             date = parse(date, languages=["pt"]).date()
