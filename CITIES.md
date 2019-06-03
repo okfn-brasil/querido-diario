@@ -45,7 +45,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 35 | Cuiabá | | | | |
 | 36 | Joinville | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/30) |
 | 37 | Juiz de Fora | :soon: | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/12) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/13) |
-| 38 | Londrina |:soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
+| 38 | Londrina | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
 | 39 | Aparecida de Goiânia | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/98) |
 | 40 | Porto Velho | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/82) |
 | 41 | Ananindeua | | | | |
