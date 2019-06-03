@@ -14,10 +14,6 @@ class PrLondrina(BaseGazetteSpider):
     start_urls = ["http://www2.londrina.pr.gov.br/jornaloficial/"]
 
     def parse(self, response):
-        """
-        @url http://www2.londrina.pr.gov.br/jornaloficial/
-        @returns items 20
-        """
         lines = response.xpath('//table[contains(@class, "adminlist")]/tr')
 
         urls = [

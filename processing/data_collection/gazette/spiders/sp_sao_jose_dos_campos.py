@@ -22,12 +22,6 @@ class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
     ]
 
     def parse(self, response):
-        """
-        @url http://servicos2.sjc.sp.gov.br/servicos/portal_da_transparencia/boletim_municipio.aspx
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
-
         for element in response.css("#corpo table tr"):
             if element.css("th").extract():
                 continue
