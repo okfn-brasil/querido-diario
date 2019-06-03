@@ -3,7 +3,11 @@ setup:
 	docker-compose pull
 	docker-compose build
 	make seed
-	pip install pre-commit
+	@if [ -z $$VIRTUAL_ENV ]; then \
+		pip install --user pre-commit; \
+	else \
+		pip install pre-commit; \
+	fi
 	pre-commit install
 
 seed:
