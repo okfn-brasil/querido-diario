@@ -1,3 +1,4 @@
+import re
 import datetime as dt
 
 from dateparser import parse
@@ -10,7 +11,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class MgUberaba(BaseGazetteSpider):
     TERRITORY_ID = "3170107"
     name = "mg_uberaba"
-    allowed_domains = ["http://www.uberaba.mg.gov.br"]
+    allowed_domains = ["uberaba.mg.gov.br"]
 
     LIST_GAZETTES_URL = "http://www.uberaba.mg.gov.br/portal/listImagesHtml"
     DOWNLOAD_URL_TEMPLATE = (
@@ -55,7 +56,7 @@ class MgUberaba(BaseGazetteSpider):
             )
 
     def extract_date(self, filename):
-        date_str = filename.split()[-1].replace(".pdf", "").replace("-", " ").strip()
+        date_str = re.search(r"(\d{2}-\d{2}-\d{4})", filename).group(1)
         return parse(date_str, languages=["pt"]).date()
 
     def mount_url(self, filename, year):
