@@ -66,7 +66,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 56 | Diadema | | | | |
 | 57 | Campina Grande | | | | |
 | 58 | Jundiaí | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
-| 59 | Maringá | :soon: | | | |
+| 59 | Maringá | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/83) |
 | 60 | Montes Claros | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
 | 61 | Piracicaba | | | | |
 | 62 | Carapicuíba | | | | |
