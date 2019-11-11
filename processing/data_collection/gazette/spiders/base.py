@@ -28,7 +28,6 @@ class FecamGazetteSpider(scrapy.Spider):
                 f"{self.URL}?q={self.FECAM_QUERY}", callback=self.parse
             )
 
-
     def parse(self, response):
         if self.total_pages is None:
             self.total_pages = self.get_last_page(response)
@@ -41,8 +40,7 @@ class FecamGazetteSpider(scrapy.Spider):
                 f"{self.URL}?q={self.FECAM_QUERY}&Search_page={self.total_pages}",
                 callback=self.parse,
             )
-            self.total_pages = self.total_pages-1
-
+            self.total_pages = self.total_pages - 1
 
     def get_documents_links_date(self, response):
         """
@@ -60,7 +58,6 @@ class FecamGazetteSpider(scrapy.Spider):
             date = e.re_first("\d{2}/\d{2}/\d{4}").strip()
             documents.append((link, date))
         return documents
-
 
     @staticmethod
     def get_last_page(response):

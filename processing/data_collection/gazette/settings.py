@@ -6,6 +6,7 @@ ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 50,
     "gazette.parser.GazetteFilesPipeline": 60,
     "scrapy.pipelines.files.FilesPipeline": 100,
+    "gazette.pipelines.DocToPdfPipeline": 150,
     "gazette.pipelines.PdfParsingPipeline": 200,
     "gazette.pipelines.PostgreSQLPipeline": 300,
 }

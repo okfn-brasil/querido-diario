@@ -1,5 +1,6 @@
 import os
 import subprocess
+import hashlib
 
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
@@ -61,3 +62,51 @@ class GazetteDateFilteringPipeline:
             if spider.start_date > item.get("date"):
                 raise DropItem("Droping all items before {}".format(spider.start_date))
         return item
+
+
+class DocToPdfPipeline:
+    """
+    Convert a doc[x] file to pdf
+    """
+
+    def process_item(self, item, spider):
+        # if item is not a doc, skip it
+        if not self.is_doc(item["files"][0]["path"]):
+            return item
+        # it's doc[x]. Convert it to pdf
+        doc_path = os.path.join(FILES_STORE, item["files"][0]["path"])
+        # use libreoffice writer to convert
+        command = f"lowriter --convert-to pdf --outdir {FILES_STORE}/full {doc_path}"
+        subprocess.run(command, shell=True, check=True)
+        if doc_path.endswith("doc"):
+            pdf_path = doc_path[:-3] + "pdf"
+        elif doc_path.endswith("docx"):
+            pdf_path = doc_path[:-4] + "pdf"
+        else:
+            pdf_path = doc_path + ".pdf"
+        os.unlink(doc_path)
+        # update to the new file path and its checksum
+        item["files"][0]["path"] = pdf_path
+        item["files"][0]["checksum"] = self.calculate_md5sum(pdf_path)
+        return item
+
+    @staticmethod
+    def is_doc(filepath):
+        """
+        If the file path ends with doc or docx returns True. Otherwise,
+        returns False
+        """
+        return filepath.endswith("doc") or filepath.endswith("docx")
+
+    @staticmethod
+    def calculate_md5sum(filepath):
+        """
+        Get the md5sum of the given file
+
+        Returns string of the md5sum
+        """
+        hash_md5 = hashlib.md5()
+        with open(filepath, "rb") as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash_md5.update(chunk)
+        return hash_md5.hexdigest()
