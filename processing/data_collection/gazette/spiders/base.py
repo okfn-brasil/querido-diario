@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-import dateparser
-import scrapy
 import re
 from datetime import datetime
+
+import dateparser
+import scrapy
 
 from gazette.items import Gazette
 
