@@ -78,13 +78,7 @@ class DocToPdfPipeline:
         # use libreoffice writer to convert
         command = f"lowriter --convert-to pdf --outdir {FILES_STORE}/full {doc_path}"
         subprocess.run(command, shell=True, check=True)
-        if doc_path.endswith("doc"):
-            pdf_path = doc_path[:-3] + "pdf"
-        elif doc_path.endswith("docx"):
-            pdf_path = doc_path[:-4] + "pdf"
-        else:
-            pdf_path = doc_path + ".pdf"
-        os.unlink(doc_path)
+        pdf_path = doc_path + ".pdf"
         # update to the new file path and its checksum
         item["files"][0]["path"] = pdf_path
         item["files"][0]["checksum"] = self.calculate_md5sum(pdf_path)
