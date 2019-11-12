@@ -96,6 +96,7 @@ class DocToPdfPipeline:
         If the file path ends with doc or docx returns True. Otherwise,
         returns False
         """
+        filepath = filepath.lower()
         return filepath.endswith("doc") or filepath.endswith("docx")
 
     @staticmethod
