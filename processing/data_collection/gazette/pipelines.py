@@ -69,10 +69,7 @@ class ExtractTextPipeline:
         pdf_path = os.path.join(FILES_STORE, item["files"][0]["path"])
         command = f"pdftotext -layout {pdf_path}"
         subprocess.run(command, shell=True, check=True)
-        if ".pdf" in pdf_path:
-            text_path = pdf_path.replace(".pdf", ".txt")
-        else:
-            text_path = pdf_path + ".txt"
+        text_path = pdf_path + ".txt"
         with open(text_path) as file:
             return file.read()
 
