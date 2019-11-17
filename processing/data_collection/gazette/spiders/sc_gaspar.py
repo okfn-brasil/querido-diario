@@ -1,10 +1,3 @@
-import re
-from datetime import date, datetime
-
-from dateparser import parse
-from dateutil.relativedelta import relativedelta
-
-from gazette.items import Gazette
 from gazette.spiders.base import FecamGazetteSpider
 
 
