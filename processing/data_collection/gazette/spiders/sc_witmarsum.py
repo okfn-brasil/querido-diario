@@ -1,0 +1,7 @@
+from gazette.spiders.base import FecamGazetteSpider
+
+
+class ScWitmarsumSpider(FecamGazetteSpider):
+    name = "sc_witmarsum"
+    FECAM_QUERY = 'cod_entidade:292'
+    TERRITORY_ID = "4219408"
