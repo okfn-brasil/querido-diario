@@ -21,7 +21,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
             year, month = str(target.year), str(target.month)
             data = dict(ano=year, mes=month, passo="1", enviar="")
             yield FormRequest(url=self.URL, formdata=data, callback=self.parse)
-            target = target + relativedelta(months=1)
+            target = target - relativedelta(months=1)
 
     def parse(self, response):
         for link in response.css("ul.listagem li a"):
