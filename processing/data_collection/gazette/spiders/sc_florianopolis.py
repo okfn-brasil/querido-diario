@@ -21,6 +21,9 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
             year, month = str(target.year), str(target.month)
             data = dict(ano=year, mes=month, passo="1", enviar="")
             yield FormRequest(url=self.URL, formdata=data, callback=self.parse)
+            if target <= self.start_date:
+                break
+
             target = target - relativedelta(months=1)
 
     def parse(self, response):
@@ -29,8 +32,12 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
             if not url:
                 continue
 
+            gazette_date = self.get_date(link)
+            if gazette_date < self.start_date:
+                continue
+
             yield Gazette(
-                date=self.get_date(link),
+                date=gazette_date,
                 file_urls=(url,),
                 is_extra_edition=self.is_extra(link),
                 territory_id=self.TERRITORY_ID,
