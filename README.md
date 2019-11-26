@@ -21,6 +21,16 @@ $ make setup
 $ docker-compose up
 ```
 
+### Run Gazette Crawler
+
+The gazettes spiders are written using Scrapy framework and must be executed with crawl command: `scrapy crawl <spider filename>`.
+However, it's recommended to use the processing container for that: `docker-compose run --rm processing <command>`.
+The following example is the command to run the gazette crawler for Florianópolis/SC:
+
+```console
+$ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis"
+```
+
 ## Contributing
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).
