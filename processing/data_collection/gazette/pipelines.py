@@ -54,7 +54,9 @@ class ExtractTextPipeline:
         elif self.is_pdf(item["files"][0]["path"]):
             item["source_text"] = self.pdf_source_text(item)
         else:
-            raise "Unsupported file type"
+            raise Exception(
+                "Unsupported file type: " + self.get_extension(item["files"][0]["path"])
+            )
 
         for key, value in item["files"][0].items():
             item[f"file_{key}"] = value
@@ -101,3 +103,10 @@ class ExtractTextPipeline:
         """
         filepath = filepath.lower()
         return filepath.endswith("doc") or filepath.endswith("docx")
+
+    @staticmethod
+    def get_extension(filename):
+        """
+        Returns the file's extension
+        """
+        return filename[filename.rfind(".") :]
