@@ -67,9 +67,9 @@ class ExtractTextPipeline:
         Gets the text from pdf files
         """
         pdf_path = os.path.join(FILES_STORE, item["files"][0]["path"])
-        command = f"pdftotext -layout {pdf_path}"
-        subprocess.run(command, shell=True, check=True)
         text_path = pdf_path + ".txt"
+        command = f"pdftotext -layout {pdf_path} {text_path}"
+        subprocess.run(command, shell=True, check=True)
         with open(text_path) as file:
             return file.read()
 
