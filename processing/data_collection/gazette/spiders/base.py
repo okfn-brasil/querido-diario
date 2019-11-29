@@ -35,7 +35,7 @@ class FecamGazetteSpider(scrapy.Spider):
         # Get gazzete info
         documents = self.get_documents_links_date(response)
         for d in documents:
-            yield self.get_gazzete(d)
+            yield self.get_gazette(d)
         if self.total_pages > 1:
             yield scrapy.Request(
                 f"{self.URL}?q={self.FECAM_QUERY}&Search_page={self.total_pages}",
@@ -72,7 +72,7 @@ class FecamGazetteSpider(scrapy.Spider):
         if result is not None:
             return int(result.groups()[0])
 
-    def get_gazzete(self, document):
+    def get_gazette(self, document):
         """
         Transform the tuple returned by get_documents_links_date and returns a
         Gazette item
