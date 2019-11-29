@@ -1,5 +1,6 @@
 import os
 import subprocess
+import hashlib
 
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
@@ -7,27 +8,6 @@ from sqlalchemy.orm import sessionmaker
 
 
 from gazette.settings import FILES_STORE
-
-
-class PdfParsingPipeline:
-    def process_item(self, item, spider):
-        item["source_text"] = self.pdf_source_text(item)
-        for key, value in item["files"][0].items():
-            item[f"file_{key}"] = value
-        item.pop("files")
-        item.pop("file_urls")
-        return item
-
-    def pdf_source_text(self, item):
-        pdf_path = os.path.join(FILES_STORE, item["files"][0]["path"])
-        command = f"pdftotext -layout {pdf_path}"
-        subprocess.run(command, shell=True, check=True)
-        if ".pdf" in pdf_path:
-            text_path = pdf_path.replace(".pdf", ".txt")
-        else:
-            text_path = pdf_path + ".txt"
-        with open(text_path) as file:
-            return file.read()
 
 
 class PostgreSQLPipeline:
@@ -61,3 +41,72 @@ class GazetteDateFilteringPipeline:
             if spider.start_date > item.get("date"):
                 raise DropItem("Droping all items before {}".format(spider.start_date))
         return item
+
+
+class ExtractTextPipeline:
+    """
+    Identify file format and call the right tool to extract the text from it
+    """
+
+    def process_item(self, item, spider):
+        if self.is_doc(item["files"][0]["path"]):
+            item["source_text"] = self.doc_source_text(item)
+        elif self.is_pdf(item["files"][0]["path"]):
+            item["source_text"] = self.pdf_source_text(item)
+        else:
+            raise Exception(
+                "Unsupported file type: " + self.get_extension(item["files"][0]["path"])
+            )
+
+        for key, value in item["files"][0].items():
+            item[f"file_{key}"] = value
+        item.pop("files")
+        item.pop("file_urls")
+        return item
+
+    def pdf_source_text(self, item):
+        """
+        Gets the text from pdf files
+        """
+        pdf_path = os.path.join(FILES_STORE, item["files"][0]["path"])
+        text_path = pdf_path + ".txt"
+        command = f"pdftotext -layout {pdf_path} {text_path}"
+        subprocess.run(command, shell=True, check=True)
+        with open(text_path) as file:
+            return file.read()
+
+    def doc_source_text(self, item):
+        """
+        Gets the text from docish files
+        """
+        doc_path = os.path.join(FILES_STORE, item["files"][0]["path"])
+        text_path = doc_path + ".txt"
+        command = f"java -jar /tika-app-1.22.jar --text {doc_path}"
+        with open(text_path, "w") as f:
+            subprocess.run(command, shell=True, check=True, stdout=f)
+        with open(text_path, "r") as f:
+            return f.read()
+
+    @staticmethod
+    def is_pdf(filepath):
+        """
+        If the file path ends with pdf returns True. Otherwise,
+        returns False
+        """
+        return filepath.lower().endswith("pdf")
+
+    @staticmethod
+    def is_doc(filepath):
+        """
+        If the file path ends with doc or docx returns True. Otherwise,
+        returns False
+        """
+        filepath = filepath.lower()
+        return filepath.endswith("doc") or filepath.endswith("docx")
+
+    @staticmethod
+    def get_extension(filename):
+        """
+        Returns the file's extension
+        """
+        return filename[filename.rfind(".") :]

@@ -6,7 +6,7 @@ ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 50,
     "gazette.parser.GazetteFilesPipeline": 60,
     "scrapy.pipelines.files.FilesPipeline": 100,
-    "gazette.pipelines.PdfParsingPipeline": 200,
+    "gazette.pipelines.ExtractTextPipeline": 200,
     "gazette.pipelines.PostgreSQLPipeline": 300,
 }
 FILES_STORE = "/mnt/data/"
