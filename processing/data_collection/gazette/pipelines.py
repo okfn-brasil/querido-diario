@@ -53,6 +53,8 @@ class ExtractTextPipeline:
             item["source_text"] = self.doc_source_text(item)
         elif self.is_pdf(item["files"][0]["path"]):
             item["source_text"] = self.pdf_source_text(item)
+        elif self.is_txt(item["files"][0]["path"]):
+            item["source_text"] = self.txt_source_text(item)
         else:
             raise Exception(
                 "Unsupported file type: " + self.get_extension(item["files"][0]["path"])
@@ -87,26 +89,40 @@ class ExtractTextPipeline:
         with open(text_path, "r") as f:
             return f.read()
 
-    @staticmethod
-    def is_pdf(filepath):
+    def is_pdf(self, filepath):
         """
         If the file path ends with pdf returns True. Otherwise,
         returns False
         """
-        return filepath.lower().endswith("pdf")
+        return self.get_extension(filepath) == "pdf"
 
-    @staticmethod
-    def is_doc(filepath):
+    def is_doc(self, filepath):
         """
         If the file path ends with doc or docx returns True. Otherwise,
         returns False
         """
-        filepath = filepath.lower()
-        return filepath.endswith("doc") or filepath.endswith("docx")
+        extension = self.get_extension(filepath)
+        return extension == "doc" or extension == "docx"
 
-    @staticmethod
-    def get_extension(filename):
+    def get_extension(self, filename):
         """
         Returns the file's extension
         """
-        return filename[filename.rfind(".") :]
+        filename = filename.lower()
+        return filename[filename.rfind(".") + 1 :]
+
+    def is_txt(self, filepath):
+        """
+        If the file path ends with txt returns True. Otherwise,
+        returns False
+        """
+        return self.get_extension(filepath) == "txt"
+
+    def txt_source_text(self, item):
+        """
+        Gets the text from txt files
+        """
+        with open(
+            os.path.join(FILES_STORE, item["files"][0]["path"]), encoding="ISO-8859-1"
+        ) as f:
+            return f.read()
