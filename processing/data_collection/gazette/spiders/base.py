@@ -25,10 +25,10 @@ class FecamGazetteSpider(scrapy.Spider):
 
     def start_requests(self):
         yield scrapy.Request(
-            f"{self.URL}?q={self.FECAM_QUERY}", callback=self.first_parse
+            f"{self.URL}?q={self.FECAM_QUERY}", callback=self.parse_pagination
         )
 
-    def first_parse(self, response):
+    def parse_pagination(self, response):
         """
         This parse function is used to get all the pages available and
         return request object for each one
