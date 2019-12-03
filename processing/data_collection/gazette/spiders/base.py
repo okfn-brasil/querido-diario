@@ -24,24 +24,30 @@ class FecamGazetteSpider(scrapy.Spider):
     total_pages = None
 
     def start_requests(self):
-        if self.total_pages is None:
-            yield scrapy.Request(
-                f"{self.URL}?q={self.FECAM_QUERY}", callback=self.parse
+        yield scrapy.Request(
+            f"{self.URL}?q={self.FECAM_QUERY}", callback=self.parse_pagination
+        )
+
+    def parse_pagination(self, response):
+        """
+        This parse function is used to get all the pages available and
+        return request object for each one
+        """
+        return [
+            scrapy.Request(
+                f"{self.URL}?q={self.FECAM_QUERY}&Search_page={i}", callback=self.parse
             )
+            for i in range(1, self.get_last_page(response) + 1)
+        ]
 
     def parse(self, response):
-        if self.total_pages is None:
-            self.total_pages = self.get_last_page(response)
+        """
+        Parse each page from the gazette page.
+        """
         # Get gazzete info
         documents = self.get_documents_links_date(response)
         for d in documents:
             yield self.get_gazette(d)
-        if self.total_pages > 1:
-            yield scrapy.Request(
-                f"{self.URL}?q={self.FECAM_QUERY}&Search_page={self.total_pages}",
-                callback=self.parse,
-            )
-            self.total_pages = self.total_pages - 1
 
     def get_documents_links_date(self, response):
         """
