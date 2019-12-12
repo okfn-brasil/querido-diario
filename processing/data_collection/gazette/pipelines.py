@@ -83,7 +83,7 @@ class ExtractTextPipeline:
         """
         doc_path = os.path.join(FILES_STORE, item["files"][0]["path"])
         text_path = doc_path + ".txt"
-        command = f"java -jar /tika-app-1.22.jar --text {doc_path}"
+        command = f"java -jar /tika-app.jar --text {doc_path}"
         with open(text_path, "w") as f:
             subprocess.run(command, shell=True, check=True, stdout=f)
         with open(text_path, "r") as f:
