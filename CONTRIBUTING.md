@@ -34,6 +34,12 @@ For running an existing spider, the command receives its name (in this case, `rs
 $ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl rs_porto_alegre"
 ```
 
+In order to make our life easier, the following command does the same of the previous one:
+
+```sh
+SPIDER=rs_porto_alegre make run_spider
+```
+
 ## Automated code formatting
 
 The project uses [Black](https://github.com/ambv/black) as an automated tool to format and check code style. If you run `make setup` you should probably be ready to go. It will set up a pre-commit Git hook to format code that happens to be in dissonance with the code style.
