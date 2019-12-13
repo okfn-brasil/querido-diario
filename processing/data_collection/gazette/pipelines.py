@@ -98,11 +98,11 @@ class ExtractTextPipeline:
 
     def is_doc(self, filepath):
         """
-        If the file path ends with doc or docx returns True. Otherwise,
+        If the file path ends with doc,  docx or odt returns True. Otherwise,
         returns False
         """
         extension = self.get_extension(filepath)
-        return extension == "doc" or extension == "docx"
+        return extension == "doc" or extension == "docx" or extension == "odt"
 
     def get_extension(self, filename):
         """
