@@ -1,13 +1,18 @@
+import logging
 import os
 import subprocess
 import hashlib
 
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 
 from gazette.settings import FILES_STORE
+
+
+logger = logging.getLogger("gazette.pipeline")
 
 
 class PostgreSQLPipeline:
@@ -26,6 +31,9 @@ class PostgreSQLPipeline:
         try:
             session.add(gazette)
             session.commit()
+        except IntegrityError as exc:
+            logger.warning(exc)
+            session.rollback()
         except:
             session.rollback()
             raise
