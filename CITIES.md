@@ -80,7 +80,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 70 | Itaquaquecetuba | | | |
 | 71 | São Vicente | | | |
 | 72 | Bandeira caruaru.jpg Caruaru | | | |
-| 73 | Vitória da Conquista | | | |
+| 73 | Vitória da Conquista | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/154) |
 | 74 | Franca | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/5) |
 | 75 | Pelotas | | | |
 | 76 | Ponta Grossa | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
