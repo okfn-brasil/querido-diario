@@ -1,4 +1,3 @@
-import logging
 import os
 import subprocess
 import hashlib
@@ -10,9 +9,6 @@ from sqlalchemy.orm import sessionmaker
 
 
 from gazette.settings import FILES_STORE
-
-
-logger = logging.getLogger("gazette.pipeline")
 
 
 class PostgreSQLPipeline:
@@ -32,7 +28,8 @@ class PostgreSQLPipeline:
             session.add(gazette)
             session.commit()
         except IntegrityError as exc:
-            logger.warning(exc)
+            spider.logger.warning("Gazette from %s already exists", item["date"])
+            spider.logger.debug(exc)
             session.rollback()
         except:
             session.rollback()
