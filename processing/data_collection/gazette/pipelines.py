@@ -4,6 +4,7 @@ import hashlib
 
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 
@@ -26,6 +27,9 @@ class PostgreSQLPipeline:
         try:
             session.add(gazette)
             session.commit()
+        except IntegrityError as exc:
+            spider.logger.warning("Gazette from %s already exists", item["date"])
+            session.rollback()
         except:
             session.rollback()
             raise
