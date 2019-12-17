@@ -9,6 +9,7 @@ services:
     build: processing
     depends_on:
       - postgres
+      - kafka
     env_file:
       - .env
     volumes:

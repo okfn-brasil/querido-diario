@@ -4,8 +4,10 @@ import hashlib
 
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
+from scrapy.utils.serialize import ScrapyJSONEncoder
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
+from kafka import KafkaProducer
 
 
 from gazette.settings import FILES_STORE
@@ -130,3 +132,30 @@ class ExtractTextPipeline:
             os.path.join(FILES_STORE, item["files"][0]["path"]), encoding="ISO-8859-1"
         ) as f:
             return f.read()
+
+
+class KafkaExporterPipeline:
+    """
+    Published the found gazette files in a Apache Kafka topic
+    """
+
+    kafka = None
+
+    def open_spider(self, spider):
+        hosts = spider.settings.get("KAFKA_HOSTS", ["localhost:9092"])
+        topic = spider.settings.get("KAFKA_TOPIC", "gazettes")
+        spider.logger.info(f"kafka hosts: {hosts}. kafka topic: {topic} ")
+        self.kafka = KafkaProducer(bootstrap_servers=hosts)
+        self.topic = topic
+        self.encoder = ScrapyJSONEncoder()
+
+    def close_spider(self, spider):
+        if self.kafka is not None:
+            self.kafka.flush()
+
+    def process_item(self, item, spider):
+        if self.encoder is None:
+            raise Exception("Missing encoder")
+        msg = self.encoder.encode(dict(item)).encode()
+        self.kafka.send(self.topic, msg)
+        return item
