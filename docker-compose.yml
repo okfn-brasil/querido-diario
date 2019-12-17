@@ -14,3 +14,17 @@ services:
     volumes:
       - ${DATA_FOLDER}:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
+
+  zookeeper:
+    build: 
+      context: .
+      dockerfile: containers/Dockerfile.kafka
+    command: ["bin/zookeeper-server-start.sh", "config/zookeeper.properties"]
+
+  kafka:
+    build: 
+      context: .
+      dockerfile: containers/Dockerfile.kafka
+    command: ["bin/kafka-server-start.sh", "config/server.properties"]
+    depends_on:
+      - zookeeper

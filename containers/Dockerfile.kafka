@@ -1,0 +1,10 @@
+FROM openjdk:9
+
+ADD http://mirror.nbtelecom.com.br/apache/kafka/2.3.0/kafka_2.12-2.3.0.tgz /
+
+EXPOSE 2181
+
+RUN tar -xzf /kafka_2.12-2.3.0.tgz
+WORKDIR  kafka_2.12-2.3.0
+
+RUN sed -i -e 's/zookeeper.connect=.*/zookeeper.connect=zookeeper:2181/g' config/server.properties
