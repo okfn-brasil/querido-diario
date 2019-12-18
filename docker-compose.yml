@@ -30,6 +30,18 @@ services:
     depends_on:
       - zookeeper
 
+  consumer:
+    build:
+      context: ./processing/process_gazettes
+      dockerfile: Dockerfile
+    volumes:
+      - ./processing/process_gazettes:/mnt/code
+    depends_on:
+      - kafka
+    env_file:
+      - .env
+    command: ["python3", "consumer.py"]
+
   dgraph:
     image: dgraph/standalone:latest
     ports:
