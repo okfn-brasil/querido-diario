@@ -29,3 +29,10 @@ services:
     command: ["bin/kafka-server-start.sh", "config/server.properties"]
     depends_on:
       - zookeeper
+
+  dgraph:
+    image: dgraph/standalone:latest
+    ports:
+      - 8080:8080
+      - 8000:8000
+      - 9080:9080
