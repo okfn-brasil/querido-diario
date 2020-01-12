@@ -35,9 +35,11 @@ services:
       context: ./processing/process_gazettes
       dockerfile: Dockerfile
     volumes:
+      - ${DATA_FOLDER}:/mnt/data
       - ./processing/process_gazettes:/mnt/code
     depends_on:
       - kafka
+      - dgraph
     env_file:
       - .env
     command: ["python3", "consumer.py"]
