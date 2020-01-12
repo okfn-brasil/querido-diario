@@ -134,15 +134,6 @@ def update_graph(dgraph, msg):
     link_city_cnpj(dgraph, msg)
 
 
-def set_dgraph_schema(dgraph):
-    schema = """
-    id: string @index(exact) .
-    cnpj: string .
-    email: string .
-    """
-    dgraph.alter(pydgraph.Operation(schema=schema))
-
-
 # Drop All - discard all data and start from a clean slate.
 def drop_all(client):
     return client.alter(pydgraph.Operation(drop_all=True))
@@ -160,11 +151,9 @@ def process_gazettes():
     dgraph, stub = get_dgraph_client()
     load_cities()
     drop_all(dgraph)
-    # set_dgraph_schema(dgraph)
     for data in consumer:
         msg = json.loads(data.value.decode())
         msg["cnpj"] = re.findall(CNPJ_REGEX, msg["source_text"])
-        msg["email"] = re.findall(EMAIL_REGEX, msg["source_text"])
         update_graph(dgraph, msg)
     stub.close()
 
