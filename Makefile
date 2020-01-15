@@ -25,3 +25,30 @@ sql:
 
 clean:
 	find data/full/ -delete
+
+up:
+	docker-compose up -d
+
+down:
+	docker-compose down
+
+restart: down up
+
+ps:
+	docker-compose ps
+
+consumer-start:
+	docker-compose start consumer
+
+consumer-stop:
+	docker-compose stop consumer
+
+restart-consumer: consumer-stop consumer-start
+
+cnpj-finder-start:
+	docker-compose start cnpj-finder
+
+cnpj-finder-stop:
+	docker-compose stop cnpj-finder
+
+restart-cnpj-finder: cnpj-finder-stop cnpj-finder-start
