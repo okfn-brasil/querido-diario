@@ -44,6 +44,20 @@ services:
       - .env
     command: ["python3", "consumer.py"]
 
+  cnpj-finder:
+    build:
+      context: ./processing/process_cnpj/
+      dockerfile: Dockerfile
+    volumes:
+      - ${DATA_FOLDER}:/mnt/data
+      - ./processing/process_cnpj:/mnt/code
+    depends_on:
+      - kafka
+      - dgraph
+    env_file:
+      - .env
+    command: ["python3", "find_cnpj_name.py"]
+
   dgraph:
     image: dgraph/standalone:latest
     ports:
