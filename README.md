@@ -31,6 +31,22 @@ The following example is the command to run the gazette crawler for Florianópol
 $ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis"
 ```
 
+## Processing pipeline
+
+There is a very simple processing pipeline to extract some info from the gazettes files. The whole pipeline run in the containers and can be started using the `docker-compose` command shown earlier in this document. Because of the startup time for all the services and their dependencies, sometimes it is necessary restart some service individually.
+This pipeline is compound by three main services:
+
+* processing: it's the web crawler, the scrapy program. Find and download the gazettes files.
+* consumer: process and extract info from the gazettes text
+* cnpj-finder: using the CNPJ found by the consumer service, search for more info about it in the (Brasil.io)[https://brasil.io/home] API
+
+When the processing service found something, it saves the files on a database, disk and publishes a message in a (Kafka)[https://kafka.apache.org/] topic. The consumer program listen to the Kafka topic waiting for new gazette files published by the processing service. Once it gets something, it extracts the CNPJ from the gazette text and update a graph database. 
+The CNPJs found by the consumer service are published in another Kafka topic which is monitored by the cnpj-finder service. This service will query the Brasil.io API looking for more information about the CNPJ, specially by the entity's name. If it find something, the graph database is updated adding this additional information.
+
+### Graph database
+
+The current version of the graph database is *very* simple. It contains only a node for each city and CNPJ found. An edge is created between city and CNPJ nodes if the CNPJ is mentioned in the gazette text for that city.
+
 ## Contributing
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).
