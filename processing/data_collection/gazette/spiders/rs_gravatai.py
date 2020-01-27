@@ -18,8 +18,9 @@ class RsGravataiSpider(BaseGazetteSpider):
     def parse(self, response):
         """
         @url https://gravatai.atende.net/?pg=diariooficial
-        @returns requests 68
+        @returns requests 1
         """
+
         last_page_number_css = "#paginacao > ul > li:nth-child(7) > button::attr(value)"
         last_page_number = int(response.css(last_page_number_css).extract_first())
 
@@ -49,8 +50,8 @@ class RsGravataiSpider(BaseGazetteSpider):
 
             code = element.css(".opcoes > button::attr(data-codigo)").extract_first()
             url = (
-                "https://gravatai.atende.net/atende.php?rot=54002&aca=737&"
-                "processo=download&codigo={codigo}".format(codigo=code)
+                "https://gravatai.atende.net/atende.php?rot=54002&aca=737"
+                f"&processo=download&codigo={code}"
             )
 
             yield Gazette(
