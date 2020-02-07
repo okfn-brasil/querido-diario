@@ -8,7 +8,8 @@ import pydgraph
 
 logging.basicConfig(level=logging.INFO)
 
-URL = "https://brasil.io/api/dataset/documentos-brasil/documents/data?document=21190014000195"
+URL = "https://brasil.io/api/dataset/documentos-brasil/documents/data"
+URL_PARTNERS = "https://brasil.io/api/dataset/socios-brasil/socios/data"
 
 
 def get_topic():
@@ -70,15 +71,30 @@ def get_dgraph_client():
     return pydgraph.DgraphClient(stub), stub
 
 
+def do_request(url, params):
+    """
+    Common method to perform a request to the given URL and query string
+    """
+    if url is None:
+        return
+    r = requests.get(url, params=params)
+    return r.json().get("results", [])
+
+
 def get_cnpj_data(cnpj):
     """
     Query the Brasil.io API to check if there is addtional info for the given
     CNPJ
     """
-    if cnpj is None:
-        return
-    r = requests.get(URL, params={"document": cnpj})
-    return r.json().get("results", [])
+    return do_request(URL, {"document": cnpj})
+
+
+def get_cnpj_partners(cnpj):
+    """
+    Query the Brasil.io API to check if there is addtional info about business partners
+    for the given CNPJ
+    """
+    return do_request(URL_PARTNERS, {"cnpj": cnpj})
 
 
 def get_cnpj_uuid(t, cnpj):
@@ -91,7 +107,6 @@ def get_cnpj_uuid(t, cnpj):
     )
     res = t.query(query)
     rjson = json.loads(res.json)
-    logging.info(f"{rjson}")
     if len(rjson["cnpj"]) > 0:
         if len(rjson["cnpj"]) > 1:
             logging.warning(
@@ -101,11 +116,78 @@ def get_cnpj_uuid(t, cnpj):
     return None
 
 
-def update_cnpj(dgraph, cnpj):
+def get_partner_uuid(dgraph, partner):
+    """
+    Look for the partner by name
+
+    Returns the partner uid if exists
+    """
+    t = dgraph.txn()
+    try:
+        query = (
+            "{ var(func: has(name)) { id as name }\n"
+            'partner(func: eq(val(id), "' + partner["nome_socio"] + '")) { uid } }'
+        )
+        res = t.query(query)
+        rjson = json.loads(res.json)
+        if len(rjson["partner"]) > 0:
+            return rjson["partner"][0]["uid"]
+    finally:
+        t.discard()
+
+
+def add_partner(dgraph, partner):
+    """
+    Adds the partner in the graph database
+    """
+    t = dgraph.txn()
+    try:
+        p = {
+            "name": partner["nome_socio"],
+            "qualificacao": partner["qualificacao_socio"],
+            "type": partner["tipo_socio"],
+        }
+        res = t.mutate(set_obj=p, commit_now=True)
+        logging.info(f"{p['name']}({next(iter(res.uids))}) updated!")
+        return res.uids[next(iter(res.uids))]
+    finally:
+        t.discard()
+
+
+def link_cnpj_partners(dgraph, cnpj_uuid, partner_uuid):
+    """
+    Create an edge between the companies and its partner
+    """
+    if cnpj_uuid is None or partner_uuid is None:
+        logging.info("Missing CNPJ or partner uids!")
+        return
+
+    t = dgraph.txn()
+    try:
+        cnpj_partners = [{"uid": partner_uuid}]
+        cnpj_links = {"uid": cnpj_uuid, "partners": cnpj_partners}
+        res = t.mutate(set_obj=cnpj_links, commit_now=True)
+        logging.info(f"Edge between {cnpj_uuid} and {cnpj_partners} has been created")
+    finally:
+        t.discard()
+
+
+def add_update_partner(dgraph, cnpj_uuid, partner):
+    """
+    Add and update the partners and their edges
+    """
+    # check if the given partner already exists
+    uuid = get_partner_uuid(dgraph, partner)
+    if uuid is None:
+        uuid = add_partner(dgraph, partner)
+    # link partner and companies
+    link_cnpj_partners(dgraph, cnpj_uuid, uuid)
+
+
+def update_cnpj(dgraph, cnpj, partners):
     """
     Update the CNPJ node with the data found in the Brasil.io API
     """
-    logging.info(f"{cnpj}")
     if cnpj is None or len(cnpj) == 0:
         return
     t = dgraph.txn()
@@ -124,6 +206,13 @@ def update_cnpj(dgraph, cnpj):
             "name": cnpj.get("name", "Unknown"),
             "type": cnpj.get("document_type", "Unknown"),
         }
+
+        # if we have companies partners, we need to link them
+        if partners:
+            cnpjobj["razao_social"] = partners[0].get("razao_social", "Unknown")
+            for partner in partners:
+                add_update_partner(dgraph, cnpj_uuid, partner)
+
         res = t.mutate(set_obj=cnpjobj, commit_now=True)
         logging.info(f"{cnpjobj['name']}({cnpjobj['uid']}) updated!")
     finally:
@@ -140,7 +229,8 @@ def process_cnpj():
             continue
         logging.info(f"Get: {msg}")
         cnpj = get_cnpj_data(msg)
-        update_cnpj(dgraph, cnpj)
+        partners = get_cnpj_partners(msg)
+        update_cnpj(dgraph, cnpj, partners)
     stub.close()
 
 
