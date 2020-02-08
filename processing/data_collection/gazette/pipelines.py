@@ -94,12 +94,21 @@ class ExtractTextPipeline:
         with open(text_path, "r") as f:
             return f.read()
 
+    def txt_source_text(self, item):
+        """
+        Gets the text from txt files
+        """
+        with open(
+            os.path.join(FILES_STORE, item["files"][0]["path"]), encoding="ISO-8859-1"
+        ) as f:
+            return f.read()
+
     def is_pdf(self, filepath):
         """
         If the file type is pdf returns True. Otherwise,
         returns False
         """
-        return self.get_file_type(filepath) == "application/pdf"
+        return self._is_file_type(filepath, file_types=["application/pdf"])
 
     def is_doc(self, filepath):
         """
@@ -111,7 +120,14 @@ class ExtractTextPipeline:
             "application/octet-stream",
             "application/vnd.oasis.opendocument.text",
         ]
-        return self.get_file_type(filepath) in file_types
+        return self._is_file_type(filepath, file_types)
+
+    def is_txt(self, filepath):
+        """
+        If the file type is txt returns True. Otherwise,
+        returns False
+        """
+        return self._is_file_type(filepath, file_types=["text/plain"])
 
     def get_file_type(self, filename):
         """
@@ -120,18 +136,8 @@ class ExtractTextPipeline:
         file_path = os.path.join(FILES_STORE, filename)
         return magic.from_file(file_path, mime=True)
 
-    def is_txt(self, filepath):
+    def _is_file_type(self, filepath, file_types):
         """
-        If the file type is txt returns True. Otherwise,
-        returns False
+        Generic method to check if a identified file type matches a given list of types
         """
-        return self.get_file_type(filepath) == "text/plain"
-
-    def txt_source_text(self, item):
-        """
-        Gets the text from txt files
-        """
-        with open(
-            os.path.join(FILES_STORE, item["files"][0]["path"]), encoding="ISO-8859-1"
-        ) as f:
-            return f.read()
+        return self.get_file_type(filepath) in file_types
