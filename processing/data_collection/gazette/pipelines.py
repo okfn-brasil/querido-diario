@@ -2,6 +2,7 @@ import os
 import subprocess
 import hashlib
 
+import magic
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
 from sqlalchemy.exc import IntegrityError
@@ -61,7 +62,7 @@ class ExtractTextPipeline:
             item["source_text"] = self.txt_source_text(item)
         else:
             raise Exception(
-                "Unsupported file type: " + self.get_extension(item["files"][0]["path"])
+                "Unsupported file type: " + self.get_file_type(item["files"][0]["path"])
             )
 
         for key, value in item["files"][0].items():
@@ -95,32 +96,36 @@ class ExtractTextPipeline:
 
     def is_pdf(self, filepath):
         """
-        If the file path ends with pdf returns True. Otherwise,
+        If the file type is pdf returns True. Otherwise,
         returns False
         """
-        return self.get_extension(filepath) == "pdf"
+        return self.get_file_type(filepath) == "application/pdf"
 
     def is_doc(self, filepath):
         """
-        If the file path ends with doc,  docx or odt returns True. Otherwise,
+        If the file type is doc or similar returns True. Otherwise,
         returns False
         """
-        extension = self.get_extension(filepath)
-        return extension == "doc" or extension == "docx" or extension == "odt"
+        file_types = [
+            "application/msword",
+            "application/octet-stream",
+            "application/vnd.oasis.opendocument.text",
+        ]
+        return self.get_file_type(filepath) in file_types
 
-    def get_extension(self, filename):
+    def get_file_type(self, filename):
         """
-        Returns the file's extension
+        Returns the file's type
         """
-        filename = filename.lower()
-        return filename[filename.rfind(".") + 1 :]
+        file_path = os.path.join(FILES_STORE, filename)
+        return magic.from_file(file_path, mime=True)
 
     def is_txt(self, filepath):
         """
-        If the file path ends with txt returns True. Otherwise,
+        If the file type is txt returns True. Otherwise,
         returns False
         """
-        return self.get_extension(filepath) == "txt"
+        return self.get_file_type(filepath) == "text/plain"
 
     def txt_source_text(self, item):
         """
