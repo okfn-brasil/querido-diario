@@ -2,6 +2,7 @@ import os
 import subprocess
 import hashlib
 
+import magic
 from database.models import Gazette, initialize_database
 from scrapy.exceptions import DropItem
 from sqlalchemy.exc import IntegrityError
@@ -61,7 +62,7 @@ class ExtractTextPipeline:
             item["source_text"] = self.txt_source_text(item)
         else:
             raise Exception(
-                "Unsupported file type: " + self.get_extension(item["files"][0]["path"])
+                "Unsupported file type: " + self.get_file_type(item["files"][0]["path"])
             )
 
         for key, value in item["files"][0].items():
@@ -93,35 +94,6 @@ class ExtractTextPipeline:
         with open(text_path, "r") as f:
             return f.read()
 
-    def is_pdf(self, filepath):
-        """
-        If the file path ends with pdf returns True. Otherwise,
-        returns False
-        """
-        return self.get_extension(filepath) == "pdf"
-
-    def is_doc(self, filepath):
-        """
-        If the file path ends with doc,  docx or odt returns True. Otherwise,
-        returns False
-        """
-        extension = self.get_extension(filepath)
-        return extension == "doc" or extension == "docx" or extension == "odt"
-
-    def get_extension(self, filename):
-        """
-        Returns the file's extension
-        """
-        filename = filename.lower()
-        return filename[filename.rfind(".") + 1 :]
-
-    def is_txt(self, filepath):
-        """
-        If the file path ends with txt returns True. Otherwise,
-        returns False
-        """
-        return self.get_extension(filepath) == "txt"
-
     def txt_source_text(self, item):
         """
         Gets the text from txt files
@@ -130,3 +102,42 @@ class ExtractTextPipeline:
             os.path.join(FILES_STORE, item["files"][0]["path"]), encoding="ISO-8859-1"
         ) as f:
             return f.read()
+
+    def is_pdf(self, filepath):
+        """
+        If the file type is pdf returns True. Otherwise,
+        returns False
+        """
+        return self._is_file_type(filepath, file_types=["application/pdf"])
+
+    def is_doc(self, filepath):
+        """
+        If the file type is doc or similar returns True. Otherwise,
+        returns False
+        """
+        file_types = [
+            "application/msword",
+            "application/vnd.oasis.opendocument.text",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ]
+        return self._is_file_type(filepath, file_types)
+
+    def is_txt(self, filepath):
+        """
+        If the file type is txt returns True. Otherwise,
+        returns False
+        """
+        return self._is_file_type(filepath, file_types=["text/plain"])
+
+    def get_file_type(self, filename):
+        """
+        Returns the file's type
+        """
+        file_path = os.path.join(FILES_STORE, filename)
+        return magic.from_file(file_path, mime=True)
+
+    def _is_file_type(self, filepath, file_types):
+        """
+        Generic method to check if a identified file type matches a given list of types
+        """
+        return self.get_file_type(filepath) in file_types
