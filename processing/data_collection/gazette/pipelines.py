@@ -117,8 +117,8 @@ class ExtractTextPipeline:
         """
         file_types = [
             "application/msword",
-            "application/octet-stream",
             "application/vnd.oasis.opendocument.text",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         ]
         return self._is_file_type(filepath, file_types)
 
