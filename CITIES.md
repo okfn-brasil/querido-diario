@@ -105,7 +105,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 95 | Governador Valadares | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/19) |
 | 96 | Taboão da Serra | | | |
 | 97 | Santa Maria | | | |
-| 98 | Gravataí | | | |
+| 98 | Gravataí | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/129) |
 | 99 | Várzea Grande | | | |
 | 100 | Abdon Batista | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
 | 101 | Agrolândia | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
