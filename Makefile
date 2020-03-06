@@ -25,3 +25,11 @@ sql:
 
 clean:
 	find data/full/ -delete
+
+build:
+	docker build -t $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) -t $(NAMESPACE)/diario-oficial:latest processing
+
+publish:
+	docker push $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) 
+	docker push $(NAMESPACE)/diario-oficial:latest
+
