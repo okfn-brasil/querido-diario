@@ -5,7 +5,10 @@ WORKDIR /mnt/code
 COPY requirements.txt requirements.txt
 
 # install Apache Tika
-ADD http://ftp.unicamp.br/pub/apache/tika/tika-app-1.24.jar /tika-app.jar
+COPY ./download-tika-app.py /download-tika-app.py
+RUN cd / \
+    && python download-tika-app.py \
+    && rm -f download-tika-app.py
 
 RUN adduser --system -u ${LOCAL_USER_ID:-1000} gazette \
 	&& apt-get update \

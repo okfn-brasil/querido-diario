@@ -1,7 +1,7 @@
 setup:
 	cp .env.example .env
 	docker-compose pull
-	docker-compose build
+	docker-compose build --build-arg dns=1.1.1.1
 	make seed
 	@if [ -z $$VIRTUAL_ENV ]; then \
 		pip install --user pre-commit; \
