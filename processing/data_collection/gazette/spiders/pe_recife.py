@@ -39,3 +39,119 @@ Gazettes examples:
     - `07/04/2020, main edition, 8 pages, without attachment
       <http://200.238.101.22/docreader/docreader.aspx?bib=R20200407&pasta=Abril\Dia%2007>`_
 """
+
+import datetime as dt
+
+import dateparser
+import scrapy
+
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
+
+
+class PeRecifeSpider(BaseGazetteSpider):
+    name = "pe_recife"
+    TERRITORY_ID = "2611606"
+    custom_settings = {"COOKIES_ENABLED": True, "AUTOTHROTTLE_ENABLED": True}
+
+    AVAILABLE_DATES_URL = "https://www.cepe.com.br/prefeituradiario/diarios.txt"
+    BASE_URL = (
+        "http://200.238.101.22/docreader/docreader.aspx?"
+        "bib=R{reversed_date}&pasta={month_full}%5CDia%20{day}"
+    )
+
+    months_full_names = {
+        "01": "Janeiro",
+        "02": "Fevereiro",
+        "03": "Marco",
+        "04": "Abril",
+        "05": "Maio",
+        "06": "Junho",
+        "07": "Julho",
+        "08": "Agosto",
+        "09": "Setembro",
+        "10": "Outubro",
+        "11": "Novembro",
+        "12": "Dezembro",
+    }
+
+    def start_requests(self):
+        yield scrapy.Request(self.AVAILABLE_DATES_URL, self.fetch_gazette_initial_page)
+
+    def fetch_gazette_initial_page(self, response):
+        dates = self._parse_available_dates(raw_dates=response.text)
+
+        for date in dates:
+            url = self.BASE_URL.format(
+                reversed_date=date.strftime("%Y%m%d"),
+                month_full=self._month_full_name(date.month),
+                day=date.strftime("%d"),
+            )
+            yield scrapy.Request(
+                url,
+                callback=self.request_main_page,
+                meta={"date": date, "cookiejar": url},
+            )
+
+    def request_main_page(self, response):
+        formdata = {
+            "ScriptManager1": "DocumentoUpdatePanel|Timer1",
+            "HiddenSize": "1x1",
+            "__EVENTTARGET": "Timer1",
+        }
+
+        meta = response.meta.copy()
+        meta.update(
+            {
+                "session_id": response.css("input[id=HiddenID]::attr(value)").get(),
+                "gazette_id": response.css("input[id=hPagFis]::attr(value)").get(),
+            }
+        )
+
+        yield scrapy.FormRequest.from_response(
+            response,
+            formdata=formdata,
+            meta=meta,
+            callback=self.choose_download_strategy,
+            dont_filter=True,
+        )
+
+    def choose_download_strategy(self, response):
+        if self._has_attachment(response) and not self._attachment_encrypted(response):
+            yield from self.download_attachment(response)
+        else:
+            yield from self.download_pages(response)
+
+    def download_attachment(self, response):
+        href = response.css("a[href*=SendAttach]::attr(href)").get()
+        req = scrapy.Request(response.urljoin(href), meta=response.meta)
+
+        yield Gazette(
+            date=response.meta["date"],
+            file_urls=[req],
+            territory_id=self.TERRITORY_ID,
+            scraped_at=dt.datetime.utcnow(),
+            power="executive_legislative",
+        )
+
+    def download_pages(self, response):
+        raise NotImplementedError("Pagination not implemented yet")
+
+    def _parse_available_dates(self, raw_dates):
+        available_dates = raw_dates.split("&")
+
+        for date in filter(str.isdigit, available_dates):
+            yield dateparser.parse(date, settings={"DATE_ORDER": "DMY"})
+
+    def _month_full_name(self, month):
+        month_str = str(month).zfill(2)
+        return self.months_full_names[month_str]
+
+    def _has_attachment(self, response):
+        return True if response.css("input[id=AnexosBtn]") else False
+
+    def _attachment_encrypted(self, response):
+        attachment_url = response.xpath(
+            "//span[@class='rmText'][contains(./text(), 'PrefeituradoRecife')]/text()"
+        ).get()
+        return ".p7s" in attachment_url
