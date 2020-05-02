@@ -1,7 +1,7 @@
 repos:
--   repo: https://github.com/ambv/black/
-    rev: stable
+  - repo: https://github.com/ambv/black/
+    rev: 18.9b0
     hooks:
-    - id: black
-      entry: docker-compose run --rm processing black .
-      language_version: python3.6
+      - id: black
+        entry: black .
+        language_version: python3.7
