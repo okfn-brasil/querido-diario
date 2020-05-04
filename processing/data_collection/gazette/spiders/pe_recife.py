@@ -41,6 +41,7 @@ Gazettes examples:
 """
 
 import datetime as dt
+import re
 
 import dateparser
 import scrapy
@@ -59,6 +60,13 @@ class PeRecifeSpider(BaseGazetteSpider):
         "http://200.238.101.22/docreader/docreader.aspx?"
         "bib=R{reversed_date}&pasta={month_full}%5CDia%20{day}"
     )
+    PAGE_URL = (
+        "http://200.238.101.22/docreader/cache/{session_id}/I{gazette_page_id}-2"
+        "Alt={img_height}Lar={img_width}LargOri=003295AltOri=004299.JPG"
+    )
+
+    PAGE_PX_HEIGHT = 3295
+    PAGE_PX_WIDTH = 4299
 
     months_full_names = {
         "01": "Janeiro",
@@ -96,7 +104,7 @@ class PeRecifeSpider(BaseGazetteSpider):
     def request_main_page(self, response):
         formdata = {
             "ScriptManager1": "DocumentoUpdatePanel|Timer1",
-            "HiddenSize": "1x1",
+            "HiddenSize": f"{self.PAGE_PX_HEIGHT}x{self.PAGE_PX_WIDTH}",
             "__EVENTTARGET": "Timer1",
         }
 
@@ -120,7 +128,7 @@ class PeRecifeSpider(BaseGazetteSpider):
         if self._has_attachment(response) and not self._attachment_encrypted(response):
             yield from self.download_attachment(response)
         else:
-            yield from self.download_pages(response)
+            yield from self.request_pages(response)
 
     def download_attachment(self, response):
         href = response.css("a[href*=SendAttach]::attr(href)").get()
@@ -134,8 +142,42 @@ class PeRecifeSpider(BaseGazetteSpider):
             power="executive_legislative",
         )
 
-    def download_pages(self, response):
-        raise NotImplementedError("Pagination not implemented yet")
+    def request_pages(self, response):
+        total_pages = self._total_pages(
+            response.css("span[id=PagTotalLbl]::text").get()
+        )
+
+        for i in range(total_pages):
+            page = i + 1
+            gazette_page_id = str(int(response.meta["gazette_id"]) + i)
+
+            formdata = {
+                "ScriptManager1": "PagUpdatePanel|PagAtualTxt",
+                "HiddenSize": f"{self.PAGE_PX_HEIGHT}x{self.PAGE_PX_WIDTH}",
+                "__EVENTTARGET": "PagAtualTxt",
+                "PagAtualTxt": str(page),
+                "hPagFis": gazette_page_id,
+            }
+
+            yield scrapy.FormRequest.from_response(
+                response,
+                formdata=formdata,
+                meta=response.meta,
+                callback=self.download_page,
+                dont_filter=True,
+            )
+
+    def download_page(self, response):
+        href = response.css("img[id=DocumentoImg]::attr(src)").get()
+        req = scrapy.Request(response.urljoin(href), meta=response.meta)
+
+        yield Gazette(
+            date=response.meta["date"],
+            file_urls=[req],
+            territory_id=self.TERRITORY_ID,
+            scraped_at=dt.datetime.utcnow(),
+            power="executive_legislative",
+        )
 
     def _parse_available_dates(self, raw_dates):
         available_dates = raw_dates.split("&")
@@ -155,3 +197,7 @@ class PeRecifeSpider(BaseGazetteSpider):
             "//span[@class='rmText'][contains(./text(), 'PrefeituradoRecife')]/text()"
         ).get()
         return ".p7s" in attachment_url
+
+    def _total_pages(self, text):
+        match = re.search("\d+", text)
+        return int(match.group()) if match else None
