@@ -4,7 +4,7 @@
 
 Even with recurrent efforts of enforcing the [Freedom of Information legislation](http://www.acessoainformacao.gov.br/assuntos/conheca-seu-direito/principais-aspectos/principais-aspectos) across the country, official communication remains - in most of the territories - in PDFs.
 
-The goal of this same project is to upgrade **Diário Oficial** to the year when it gets published, making accessible information that is currently only available.
+The goal of this project is to upgrade **Diário Oficial** to the digital age, centralizing information currently only available through separate sources.
 
 When this project was initially released, had two distinct goals: creating crawlers for governments gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
 
