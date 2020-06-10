@@ -54,7 +54,7 @@ class FecamGazetteSpider(scrapy.Spider):
         Method to get all the relevant documents list and their dates from the page
         """
         documents = []
-        elements = response.xpath('/html/body/div[1]/div[3]/div[5]/p[@class="quiet"]')
+        elements = response.xpath('/html/body/div[1]/div[4]/div[5]/p[@class="quiet"]')
         for e in elements:
             if "Visualizar" in e.xpath("a[1]/text()").get():
                 # The element does not contain the element with the file URL.
@@ -72,7 +72,7 @@ class FecamGazetteSpider(scrapy.Spider):
         Get the last page number available in the pages navigation menu
         """
         href = response.xpath(
-            "/html/body/div[1]/div[3]/div[4]/div/div/ul/li[14]/a/@href"
+            "/html/body/div[1]/div[4]/div[4]/div/div/ul/li[14]/a/@href"
         ).get()
         result = re.search("Search_page=(\d+)", href)
         if result is not None:
