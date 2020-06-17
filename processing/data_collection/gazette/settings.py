@@ -13,3 +13,4 @@ FILES_STORE = "/mnt/data/"
 # skip already crawled item
 DELTAFETCH_ENABLED = True
 DELTAFETCH_DIR = "/mnt/data/deltafetch"
+DELTAFETCH_RESET = True # reset deltafetch middleware state

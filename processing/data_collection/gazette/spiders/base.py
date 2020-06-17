@@ -18,7 +18,7 @@ class BaseGazetteSpider(scrapy.Spider):
                 self.start_date = parsed_data.date()
 
 
-class FecamGazetteSpider(scrapy.Spider):
+class FecamGazetteSpider(BaseGazetteSpider):
 
     URL = "https://www.diariomunicipal.sc.gov.br/site/"
     total_pages = None
