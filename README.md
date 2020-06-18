@@ -31,6 +31,14 @@ The following example is the command to run the gazette crawler for Florianópol
 $ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis"
 ```
 
+## Tips and tricks
+
+There is a make target allowing you run the scrapy shell inside the container used by the crawler:
+
+```bash
+make shell
+```
+
 ## Contributing
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).

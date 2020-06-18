@@ -33,3 +33,5 @@ publish:
 	docker push $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) 
 	docker push $(NAMESPACE)/diario-oficial:latest
 
+shell:
+	docker-compose run --rm processing bash -c "cd data_collection && scrapy shell"
