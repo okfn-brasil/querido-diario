@@ -54,15 +54,18 @@ class FecamGazetteSpider(scrapy.Spider):
         Method to get all the relevant documents list and their dates from the page
         """
         documents = []
-        elements = response.xpath('/html/body/div[1]/div[4]/div[5]/p[@class="quiet"]')
-        for e in elements:
-            if "Visualizar" in e.xpath("a[1]/text()").get():
-                # The element does not contain the element with the file URL.
-                # Thus, the URL is in the preceding title
-                link = e.xpath("preceding-sibling::h4[1]/a/@href").get().strip()
+        titles = response.css("div.row.no-print h4")
+        for title in titles:
+            title_sibling_link = title.xpath("following-sibling::a[2]")
+            if "[Abrir/Salvar Original]" in title_sibling_link.xpath("./text()").get():
+                link = title_sibling_link.xpath("./@href").get().strip()
             else:
-                link = e.xpath("a[1]/@href").get().strip()
-            date = e.re_first("\d{2}/\d{2}/\d{4}").strip()
+                link = title.xpath("./a/@href").get().strip()
+            date = (
+                title.xpath("following-sibling::span[1]")
+                .re_first("\d{2}/\d{2}/\d{4}")
+                .strip()
+            )
             documents.append((link, date))
         return documents
 
