@@ -6,7 +6,10 @@ services:
     image: postgres:11.3-alpine
 
   processing:
-    build: processing
+    build:
+      context: processing
+      args:
+        - LOCAL_USER_ID
     depends_on:
       - postgres
     env_file:

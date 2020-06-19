@@ -1,5 +1,7 @@
 FROM python:3.7-stretch
 
+ARG LOCAL_USER_ID
+
 WORKDIR /mnt/code
 
 COPY requirements.txt requirements.txt
