@@ -39,6 +39,22 @@ There is a make target allowing you run the scrapy shell inside the container us
 make shell
 ```
 
+## Troubleshooting
+
+### "Permission denied" error when files are downloaded
+
+This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
+
+Run this command in your system's terminal to get your user's id:
+
+```console
+$ id -u
+```
+
+Copy the output, replace the value of the environment variable `LOCAL_USER_ID` in the generated `.env` file with the copied value and execute `docker-compose build`. With the image rebuilt you are ready to go.
+
+To save yourself this effort in the future, you can replace the value of `LOCAL_USER_ID` in `.env.example` too and `.env` will already be generated with the correct value for it when `make setup` is executed.
+
 ## Contributing
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [CONTRIBUTING.md](CONTRIBUTING.md).
