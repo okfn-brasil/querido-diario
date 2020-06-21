@@ -35,3 +35,6 @@ publish:
 
 shell:
 	docker-compose run --rm processing bash -c "cd data_collection && scrapy shell"
+
+run_spider_since:
+	docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl -a start_date=$(START_DATE) $(SPIDER)"
