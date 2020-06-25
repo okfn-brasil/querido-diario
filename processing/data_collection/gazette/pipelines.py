@@ -62,10 +62,6 @@ class ExtractTextPipeline:
             item["source_text"] = self.pdf_source_text(item)
         elif self.is_txt(item["files"][0]["path"]):
             item["source_text"] = self.txt_source_text(item)
-        elif self.is_img(item["files"][0]["path"]):
-            spider.logger.warning(
-                "Text content is not being extracted from image file types yet"
-            )
         else:
             raise Exception(
                 "Unsupported file type: " + self.get_file_type(item["files"][0]["path"])
@@ -134,14 +130,6 @@ class ExtractTextPipeline:
         returns False
         """
         return self._is_file_type(filepath, file_types=["text/plain"])
-
-    def is_img(self, filepath):
-        """
-        If the file type is a common image type returns True. Otherwise,
-        returns False
-        """
-        file_types = ["image/png", "image/jpg", "image/jpeg", "image/bmp", "image/gif"]
-        return self._is_file_type(filepath, file_types)
 
     def get_file_type(self, filename):
         """
