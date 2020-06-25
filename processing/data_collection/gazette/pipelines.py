@@ -4,9 +4,7 @@ import hashlib
 
 import magic
 from database.models import Gazette, initialize_database
-from scrapy import Request
 from scrapy.exceptions import DropItem
-from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
@@ -143,11 +141,3 @@ class ExtractTextPipeline:
         Generic method to check if a identified file type matches a given list of types
         """
         return self.get_file_type(filepath) in file_types
-
-
-class GazetteFilesPipeline(FilesPipeline):
-    def get_media_requests(self, item, info):
-        return [
-            x if isinstance(x, Request) else Request(x)
-            for x in item.get(self.files_urls_field, [])
-        ]
