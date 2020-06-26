@@ -18,7 +18,7 @@ class RnNatalSpider(BaseGazetteSpider):
         base_url = 'http://www.natal.rn.gov.br/dom/'
         for year in range(2003, datetime.now().year + 1):
             for month in range(1, 13):
-                data = dict(ano=str(year), mes=str(month), list='Listar')
+                data = dict(ano=str(year), mes=str(month).zfill(2), list='Listar')
                 yield FormRequest(url=base_url, formdata=data)
 
     def parse(self, response):
