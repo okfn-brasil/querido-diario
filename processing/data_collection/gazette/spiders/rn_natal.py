@@ -9,28 +9,21 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RnNatalSpider(BaseGazetteSpider):
-    GAZETTE_ELEMENT_CSS = '#texto a'
+
     TERRITORY_ID = '2408102'
 
-    allowed_domains = ['www.natal.rn.gov.br']
     name = 'rn_natal'
+    allowed_domains = ['www.natal.rn.gov.br']
 
     def start_requests(self):
         base_url = 'http://www.natal.rn.gov.br/dom/'
-
         for year in range(2003, datetime.now().year + 1):
             for month in range(1, 13):
                 data = dict(ano=str(year), mes=str(month), list='Listar')
                 yield FormRequest(url=base_url, formdata=data)
 
     def parse(self, response):
-        """
-        @url http://www.natal.rn.gov.br/dom/
-        @returns items 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
-
-        for element in response.css(self.GAZETTE_ELEMENT_CSS):
+        for element in response.css('#texto a'):
             url = response.urljoin(element.css('::attr(href)').extract_first())
             link_text = element.css('::text').extract_first()
             date = dateparser.parse(link_text.split(' - ')[-1], languages=['pt']).date()
