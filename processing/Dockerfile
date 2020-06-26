@@ -4,7 +4,7 @@ ARG LOCAL_USER_ID
 
 WORKDIR /mnt/code
 
-COPY requirements.txt requirements.txt
+COPY . /mnt/code
 
 # install Apache Tika
 ADD http://archive.apache.org/dist/tika/tika-app-1.24.jar /tika-app.jar
