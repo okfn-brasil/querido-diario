@@ -23,7 +23,7 @@ class RnNatalSpider(BaseGazetteSpider):
         for entry in response.css('#texto a'):
             file_url = response.urljoin(entry.css('::attr(href)').get())
             title = entry.css('::text').get()
-            date = dateparser.parse(title.split(' - ')[-1], languages=['pt']).date()
+            date = dateparser.parse(title.split('-')[-1], languages=['pt']).date()
             extra_edition = 'Extra' in title
 
             yield Gazette(
