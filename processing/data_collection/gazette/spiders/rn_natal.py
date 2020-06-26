@@ -25,8 +25,8 @@ class RnNatalSpider(BaseGazetteSpider):
 
     def parse(self, response):
         for element in response.css('#texto a'):
-            url = response.urljoin(element.css('::attr(href)').extract_first())
-            link_text = element.css('::text').extract_first()
+            url = response.urljoin(element.css('::attr(href)').get())
+            link_text = element.css('::text').get()
             date = dateparser.parse(link_text.split(' - ')[-1], languages=['pt']).date()
             extra_edition = "Extra" in link_text
 
