@@ -22,15 +22,15 @@ class RnNatalSpider(BaseGazetteSpider):
                 yield FormRequest(url=base_url, formdata=data)
 
     def parse(self, response):
-        for element in response.css('#texto a'):
-            url = response.urljoin(element.css('::attr(href)').get())
-            link_text = element.css('::text').get()
-            date = dateparser.parse(link_text.split(' - ')[-1], languages=['pt']).date()
-            extra_edition = 'Extra' in link_text
+        for entry in response.css('#texto a'):
+            file_url = response.urljoin(entry.css('::attr(href)').get())
+            title = entry.css('::text').get()
+            date = dateparser.parse(title.split(' - ')[-1], languages=['pt']).date()
+            extra_edition = 'Extra' in title
 
             yield Gazette(
                 date=date,
-                file_urls=[url],
+                file_urls=[file_url],
                 is_extra_edition=extra_edition,
                 territory_id='2408102',
                 power='executive',
