@@ -12,6 +12,8 @@ class RnNatalSpider(BaseGazetteSpider):
     name = "rn_natal"
     allowed_domains = ["www.natal.rn.gov.br"]
 
+    TERRITORY_ID = "2408102"
+
     def start_requests(self):
         base_url = "http://www.natal.rn.gov.br/dom/"
         for year in range(2003, datetime.now().year + 1):
@@ -30,7 +32,7 @@ class RnNatalSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[file_url],
                 is_extra_edition=extra_edition,
-                territory_id="2408102",
+                territory_id=self.TERRITORY_ID,
                 power="executive_legislative",
                 scraped_at=datetime.utcnow(),
             )
