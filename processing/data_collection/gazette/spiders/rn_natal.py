@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import dateparser
-from scrapy import Request, FormRequest
+from scrapy import FormRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
