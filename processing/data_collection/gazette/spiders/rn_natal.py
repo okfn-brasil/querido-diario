@@ -31,6 +31,6 @@ class RnNatalSpider(BaseGazetteSpider):
                 file_urls=[file_url],
                 is_extra_edition=extra_edition,
                 territory_id="2408102",
-                power="executive",
+                power="executive_legislative",
                 scraped_at=datetime.utcnow(),
             )
