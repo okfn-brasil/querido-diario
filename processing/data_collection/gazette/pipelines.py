@@ -1,15 +1,17 @@
-import os
-import subprocess
 import hashlib
-
 import magic
+import os
+import pathlib
+import subprocess
+
 from database.models import Gazette, initialize_database
+from gazette.settings import FILES_STORE
+from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
+from scrapy.http import Request
+from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
-
-
-from gazette.settings import FILES_STORE
 
 
 class PostgreSQLPipeline:
@@ -141,3 +143,37 @@ class ExtractTextPipeline:
         Generic method to check if a identified file type matches a given list of types
         """
         return self.get_file_type(filepath) in file_types
+
+
+class RequestWithItem(Request):
+    """
+    Specialized Request object to allow carry the item which generate the request.
+    Thus, we can use the gazette date in the path where the file will be stored.
+    """
+
+    def __init__(self, url, item):
+        super().__init__(url)
+        self.item = item
+
+
+class QueridoDiarioFilesPipeline(FilesPipeline):
+    """
+    When the downloaded file are stored in a remote storage system (e.g.
+    Digital Ocean spaces), we need to specialize FilesPipeline class in order
+    to allow us define a different directory where the files will be store. In
+    the current implementation we organize gazette files by date. All the
+    gazettes from the same date will be store in the same directory.
+    """
+
+    def file_path(self, request, response=None, info=None):
+        filepath = super().file_path(request, response, info)
+        datestr = request.item["date"].strftime("%d-%m-%Y")
+        # The default path from the scrapy class begins with "full/". In this
+        # class we replace that with the gazette date.
+        return str(pathlib.Path(datestr, filepath[5:]))
+
+    def get_media_requests(self, item, info):
+        urls = ItemAdapter(item).get(self.files_urls_field)
+        if not urls:
+            return
+        yield from (RequestWithItem(u, item) for u in urls)
