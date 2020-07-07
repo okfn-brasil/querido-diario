@@ -1,5 +1,4 @@
 /data/full/
-web/.config/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -43,6 +42,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+.pytest_cache
 nosetests.xml
 coverage.xml
 *.cover
@@ -106,3 +106,6 @@ ENV/
 
 # dolphin
 .directory
+
+# scrapy deltafetch middleware directory
+data/deltafetch

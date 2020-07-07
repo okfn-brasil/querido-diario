@@ -1,12 +1,15 @@
-BOT_NAME = 'gazette'
-SPIDER_MODULES = ['gazette.spiders']
-NEWSPIDER_MODULE = 'gazette.spiders'
+BOT_NAME = "gazette"
+SPIDER_MODULES = ["gazette.spiders"]
+NEWSPIDER_MODULE = "gazette.spiders"
 ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
-    'gazette.pipelines.GazetteDateFilteringPipeline': 50,
-    'gazette.parser.GazetteFilesPipeline': 60,
-    'scrapy.pipelines.files.FilesPipeline': 100,
-    'gazette.pipelines.PdfParsingPipeline': 200,
-    'gazette.pipelines.PostgreSQLPipeline': 300,
+    "gazette.pipelines.GazetteDateFilteringPipeline": 50,
+    "scrapy.pipelines.files.FilesPipeline": 100,
+    "gazette.pipelines.ExtractTextPipeline": 200,
+    "gazette.pipelines.PostgreSQLPipeline": 300,
 }
-FILES_STORE = '/mnt/data/'
+SPIDER_MIDDLEWARES = {"scrapy_deltafetch.DeltaFetch": 100}
+FILES_STORE = "/mnt/data/"
+# skip already crawled item
+DELTAFETCH_ENABLED = True
+DELTAFETCH_DIR = "/mnt/data/deltafetch"
