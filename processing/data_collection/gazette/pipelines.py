@@ -1,11 +1,9 @@
+from  pathlib import Path
 import hashlib
 import magic
 import os
-import pathlib
 import subprocess
 
-from database.models import Gazette, initialize_database
-from gazette.settings import FILES_STORE
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
@@ -13,6 +11,8 @@ from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
+from database.models import Gazette, initialize_database
+from gazette.settings import FILES_STORE
 
 class PostgreSQLPipeline:
     def __init__(self):
