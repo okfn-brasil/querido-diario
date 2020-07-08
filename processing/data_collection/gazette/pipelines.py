@@ -1,4 +1,4 @@
-from  pathlib import Path
+from pathlib import Path
 import hashlib
 import magic
 import os
@@ -13,6 +13,7 @@ from sqlalchemy.orm import sessionmaker
 
 from database.models import Gazette, initialize_database
 from gazette.settings import FILES_STORE
+
 
 class PostgreSQLPipeline:
     def __init__(self):
@@ -167,10 +168,11 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
 
     def file_path(self, request, response=None, info=None):
         filepath = super().file_path(request, response, info)
-        datestr = request.item["date"].strftime("%d-%m-%Y")
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the gazette date.
-        return str(pathlib.Path(datestr, filepath[5:]))
+        datestr = request.item["date"].strftime("%d-%m-%Y")
+        filename = Path(filepath).name
+        return str(Path(datestr, filename))
 
     def get_media_requests(self, item, info):
         urls = ItemAdapter(item).get(self.files_urls_field)
