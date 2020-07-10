@@ -16,7 +16,7 @@ class SpBauruSpider(Spider):
         avaliable_years = response.xpath(f"{self.BASE_XPATH}"
                                          "/ul/li/a/text()").extract()
 
-        for year in [avaliable_years[0]]:
+        for year in avaliable_years:
             yield Request(url=f"{response.url}?a={year}",
                           callback=self.parse_year)
 
