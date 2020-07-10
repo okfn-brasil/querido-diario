@@ -18,6 +18,7 @@ constantly==15.1.0        # via twisted
 cryptography==3.1.1       # via pyopenssl, scrapy, service-identity
 cssselect==1.1.0          # via parsel, scrapy
 dateparser==0.7.6         # via -r requirements.in
+fake-useragent==0.1.11    # via -r requirements.in
 hyperlink==20.0.1         # via twisted
 idna==2.10                # via hyperlink, requests
 incremental==17.5.0       # via twisted
