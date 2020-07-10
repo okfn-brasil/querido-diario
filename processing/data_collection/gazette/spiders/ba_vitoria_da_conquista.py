@@ -29,10 +29,7 @@ class BaVitoriaDaConquistaSpider(BaseGazetteSpider):
             parsing_date = box.re("diario-(\d{8})")[0]
             parsing_date = parse(parsing_date, date_formats=["%Y%m%d"]).date()
             url = box.xpath(links_xpath).extract_first()
-            url = url.replace(
-                "dom.pmvc.ba.gov.br/diarios/previsualizar/",
-                "dom.pmvc.ba.gov.br/diarios/baixar/",
-            )
+            url = url.replace("previsualizar", "baixar")
             yield Gazette(
                 date=parsing_date,
                 file_urls=[url],
