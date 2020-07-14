@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from scrapy import Request, Spider
+from scrapy import Request
+from gazette.spiders.base import BaseGazetteSpider
 from gazette.items import Gazette
 from datetime import datetime
 import dateparser
 
 
-class SpBauruSpider(Spider):
+class SpBauruSpider(BaseGazetteSpider):
     TERRITORY_ID = "3506003"
     BASE_XPATH = "//div[@class='col-md-12']"
     name = "sp_bauru"
