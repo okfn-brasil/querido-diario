@@ -32,7 +32,9 @@ class PostgreSQLPipeline:
             session.add(gazette)
             session.commit()
         except IntegrityError as exc:
-            spider.logger.warning("Gazette from %s already exists", item["date"])
+            spider.logger.warning(
+                "Gazette from %s already exists in the database", item["date"]
+            )
             session.rollback()
         except:
             session.rollback()
