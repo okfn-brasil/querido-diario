@@ -7,6 +7,8 @@ import dateparser
 
 
 class SpBauruSpider(BaseGazetteSpider):
+    custom_settings = {"MEDIA_ALLOW_REDIRECTS": True}
+
     TERRITORY_ID = "3506003"
     BASE_XPATH = "//div[@class='col-md-12']"
     name = "sp_bauru"

@@ -13,4 +13,3 @@ FILES_STORE = "/mnt/data/"
 # skip already crawled item
 DELTAFETCH_ENABLED = True
 DELTAFETCH_DIR = "/mnt/data/deltafetch"
-MEDIA_ALLOW_REDIRECTS = True
