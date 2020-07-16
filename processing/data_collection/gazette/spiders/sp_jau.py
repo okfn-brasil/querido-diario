@@ -15,7 +15,6 @@ class SpJauSpider(Spider):
         gazettes_selector = response.xpath("//div[@id='concursos']")
 
         for gazette_selector in gazettes_selector:
-
             date_element = gazette_selector.xpath(".//p/text()").get().strip()
             date_values = date_element.split(" ")
             date_value = date_values[0].strip()
