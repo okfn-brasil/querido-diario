@@ -74,7 +74,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 64 | Cariacica | :white_check_mark: | | |
 | 65 | Rio Branco | | | |
 | 66 | Anápolis | | | |
-| 67 | Bauru | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/68) |
+| 67 | Bauru | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/196) |
 | 68 | Vitória | :white_check_mark: | | |
 | 69 | Caucaia | | | |
 | 70 | Itaquaquecetuba | | | |
