@@ -15,14 +15,12 @@ class SpJauSpider(Spider):
         gazettes_selector = response.xpath("//div[@id='concursos']")
 
         for gazette_selector in gazettes_selector:
-            date = dateparser.parse(
-                gazette_selector.xpath(".//p/text()")
-                .get()
-                .strip()
-                .split(" ")[0]
-                .strip(),
-                date_formats=["%d/%m/%Y"],
-            ).date()
+
+            date_element = gazette_selector.xpath(".//p/text()").get().strip()
+            date_values = date_element.split(" ")
+            date_value = date_values[0].strip()
+
+            date = dateparser.parse(date_value, date_formats=["%d/%m/%Y"],).date()
             url = response.urljoin(gazette_selector.xpath(".//a/@href").get())
             gazette_title = gazette_selector.xpath(".//h2/text()").get().lower()
 
