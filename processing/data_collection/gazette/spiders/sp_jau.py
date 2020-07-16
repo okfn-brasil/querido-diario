@@ -19,7 +19,7 @@ class SpJauSpider(Spider):
             date_values = date_element.split(" ")
             date_value = date_values[0].strip()
 
-            date = dateparser.parse(date_value, date_formats=["%d/%m/%Y"],).date()
+            date = dateparser.parse(date_value, date_formats=["%d/%m/%Y"]).date()
             url = response.urljoin(gazette_selector.xpath(".//a/@href").get())
             gazette_title = gazette_selector.xpath(".//h2/text()").get().lower()
 
