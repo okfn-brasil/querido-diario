@@ -1,6 +1,6 @@
-from dateparser import parse
 import datetime as dt
 
+import dateparser
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -28,7 +28,10 @@ class MgContagemSpider(BaseGazetteSpider):
         dates_in_sentence = anchor_elements.css("p span:last-child ::text").re(
             "(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})"
         )
-        dates = [parse(date, languages=["pt"]).date() for date in dates_in_sentence]
+        dates = [
+            dateparser.parse(date, languages=["pt"]).date()
+            for date in dates_in_sentence
+        ]
 
         for url, date, is_extra_edition in zip(urls, dates, extra_editions):
             yield Gazette(
