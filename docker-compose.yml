@@ -1,19 +1,35 @@
 version: "3"
 services:
   postgres:
-    env_file:
-      - .env
     image: postgres:11.3-alpine
+    container_name: postgres
+    env_file:  .env
+    #restart: on-failure
+    environment:
+      - POSTGRES_USER:${POSTGRES_USER}
+      - POSTGRES_PASSWORD:$POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_HOST_PORT}:${POSTGRES_DOCKER_PORT}
+    networks:
+      - production-network
 
   processing:
     build:
-      context: processing
-      args:
-        - LOCAL_USER_ID
+      dockerfile: Dockerfile
+      context: ./processing
+    container_name: processing
+    #command: cd data_collection && scrapy crawl am_manaus
+    command: "scrapy crawl am_manaus"
+    restart: unless-stopped
     depends_on:
       - postgres
-    env_file:
-      - .env
+    env_file: .env
     volumes:
       - ${DATA_FOLDER}:/mnt/data
       - ${PROCESSING_FOLDER}:/mnt/code
+    networks:
+      - production-network
+
+networks:
+  production-network:
+    driver: bridge
