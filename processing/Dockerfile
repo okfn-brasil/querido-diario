@@ -1,18 +1,19 @@
 FROM python:3.7-stretch
 
-ARG LOCAL_USER_ID
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && apt-get install --no-install-recommends -y \
+    poppler-utils \
+    postgresql-client \
+    wait-for-it \ 
+    default-jre \ 
+    && rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /mnt/code
 
-COPY . /mnt/code
+COPY . . 
 
-# install Apache Tika
-ADD http://archive.apache.org/dist/tika/tika-app-1.24.jar /tika-app.jar
+ADD http://archive.apache.org/dist/tika/tika-app-1.24.jar tika-app.jar
 
-RUN adduser --system -u ${LOCAL_USER_ID:-1000} gazette \
-	&& apt-get update \
-	&& apt-get -y install poppler-utils postgresql-client wait-for-it default-jre \
-	&& pip install --no-cache-dir -r requirements.txt \
-	&& chmod 755 /tika-app.jar
+RUN pip install --no-cache-dir -r requirements.txt 
 
-USER gazette

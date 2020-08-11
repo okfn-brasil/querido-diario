@@ -24,7 +24,7 @@ sql:
 	docker-compose run --rm postgres psql --username gazette -h postgres -W
 
 clean:
-	find ./data/* -type d -exec rm -rv {} \;
+	find data/full/ -delete
 
 build:
 	docker build -t $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) -t $(NAMESPACE)/diario-oficial:latest processing
