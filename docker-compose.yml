@@ -17,8 +17,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./processing
+    image: diario-oficial_processing:lastest
     container_name: processing
-    #command: cd data_collection && scrapy crawl am_manaus
     command: "scrapy crawl am_manaus"
     restart: unless-stopped
     depends_on:
