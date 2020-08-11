@@ -31,7 +31,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 21 | Teresina | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/53) |
 | 22 | São Bernardo do Campo | | | |
 | 23 | João Pessoa | :soon: | | |
-| 24 | Nova Iguaçu | | | |
+| 24 | Nova Iguaçu | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/120) |
 | 25 | Santo André | | | |
 | 26 | São José dos Campos | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
 | 27 | Osasco | :soon: | | |
@@ -74,7 +74,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 64 | Cariacica | :white_check_mark: | | |
 | 65 | Rio Branco | | | |
 | 66 | Anápolis | | | |
-| 67 | Bauru | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/68) |
+| 67 | Bauru | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/196) |
 | 68 | Vitória | :white_check_mark: | | |
 | 69 | Caucaia | | | |
 | 70 | Itaquaquecetuba | | | |
