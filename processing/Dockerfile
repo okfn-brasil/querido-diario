@@ -3,7 +3,7 @@ FROM python:3.7-stretch
 #RUN useradd -rm -d /home/gazette -s /bin/bash -g root -G sudo -u 1000 gazette
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update && apt-get install -y \
+    apt-get update && apt-get install --no-install-recommends -y \
     poppler-utils \
     postgresql-client \
     wait-for-it \ 
