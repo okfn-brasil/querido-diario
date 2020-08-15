@@ -1,4 +1,4 @@
-setup:
+setup: destroy
 	cp .env.example .env
 	docker-compose pull
 	docker-compose build
@@ -10,6 +10,10 @@ setup:
 
 check:
 	python3 -m black .
+
+destroy:
+	echo "Removing all containers...."
+	docker-compose down --rmi all --volumes --remove-orphans
 
 seed:
 	docker-compose up -d postgres
