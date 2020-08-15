@@ -39,6 +39,22 @@ There is a make target allowing you run the scrapy shell inside the container us
 make shell
 ```
 
+There is another make target allowing you run access the PostgreSQL database:
+
+```bash
+make sql
+```
+
+You need the password to access the database. You can find it in the .env file.
+
+You can also run the spider with some less key strokes. The following make target
+allows you to run the spider. It calls the same command of the docker compose 
+described in the documentation:
+
+```bash
+SPIDER=sc_florianopolis make run_spider
+```
+
 ## Troubleshooting
 
 ### "Permission denied" error when files are downloaded
