@@ -3,12 +3,13 @@ setup:
 	docker-compose pull
 	docker-compose build
 	make seed
-	@if [ -z $$VIRTUAL_ENV ]; then \
-		pip install --user pre-commit; \
-	else \
-		pip install pre-commit; \
-	fi
-	pre-commit install
+	pip3 install -r requirements.txt
+	touch .git/hooks/pre-commit
+	echo "make check" > .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
+
+check:
+	python3 -m black .
 
 seed:
 	docker-compose up -d postgres

@@ -42,7 +42,7 @@ SPIDER=rs_porto_alegre make run_spider
 
 ## Automated code formatting
 
-The project uses [Black](https://github.com/ambv/black) as an automated tool to format and check code style. If you run `make setup` you should probably be ready to go. It will set up a pre-commit Git hook to format code that happens to be in dissonance with the code style.
+The project uses [Black](https://github.com/psf/black) as an automated tool to format and check code style. If you run `make setup` you should probably be ready to go. It will set up a pre-commit Git hook to format code that happens to be in dissonance with the code style.
 
 Alternatively, just install Black and run it by yourself:
 
