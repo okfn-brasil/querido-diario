@@ -11,9 +11,7 @@ class SpValinhosSpider(BaseGazetteSpider):
     name = "sp_valinhos"
     allowed_domains = ["valinhos.sp.gov.br"]
     base_urls = ["http://www.valinhos.sp.gov.br"]
-    selector_url = (
-        "http://www.valinhos.sp.gov.br/boletins?title=&field_boletim_publicacao_value%5Bvalue%5D%5Bmonth%5D={}&field_boletim_publicacao_value%5Bvalue%5D%5Byear%5D={}"
-    )
+    selector_url = "http://www.valinhos.sp.gov.br/boletins?title=&field_boletim_publicacao_value%5Bvalue%5D%5Bmonth%5D={}&field_boletim_publicacao_value%5Bvalue%5D%5Byear%5D={}"
 
     def parse(self, response):
         today = datetime.date.today()
@@ -28,7 +26,7 @@ class SpValinhosSpider(BaseGazetteSpider):
 
     def parse_month_page(self, response):
         items = []
-        blocks = response.xpath("//*[@id=\"block-system-main\"]/div/div[2]/div/ul/li")
+        blocks = response.xpath('//*[@id="block-system-main"]/div/div[2]/div/ul/li')
         for edition in blocks:
             span = edition.xpath("//div/span/div/div[2]/a")
             url = span.css("::attr(href)").extract_first().replace("../", "")
@@ -43,5 +41,5 @@ class SpValinhosSpider(BaseGazetteSpider):
                     territory_id=self.TERRITORY_ID,
                     scraped_at=datetime.datetime.utcnow(),
                 )
-        )
+            )
         return items
