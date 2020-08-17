@@ -13,6 +13,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
     GAZETTE_ELEMENT_CSS = "ul.jornal li"
     NEXT_PAGE_CSS = "ul.pagination li.next a::attr(href)"
     DATE_CSS = "span.article-date::text"
+    EXTRA_EDITION_CSS = "span.edicao_extraordinaria::text"
     DATE_REGEX = "([\d]+)[ |]+([\w]+)[ |]+([\d]+)"
 
     allowed_domains = ["joinville.sc.gov.br"]
@@ -29,11 +30,12 @@ class ScJoinvilleSpider(BaseGazetteSpider):
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
             date = self.extract_date(element)
             url = self.extract_url(element)
+            is_extra_edition = self.extract_extra_edition_info(element)
 
             yield Gazette(
                 date=date,
                 file_urls=[url],
-                is_extra_edition=False,
+                is_extra_edition=is_extra_edition,
                 territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
                 scraped_at=datetime.utcnow(),
@@ -50,3 +52,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
     def extract_url(self, element):
         path = element.css("a::attr(href)").extract_first()
         return self.PDF_URL.format(path)
+
+    def extract_extra_edition_info(self, element):
+        extra_edition_data = element.css(self.EXTRA_EDITION_CSS).extract_first()
+        return extra_edition_data == "Edição Extraordinária"
