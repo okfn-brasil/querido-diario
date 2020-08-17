@@ -13,6 +13,11 @@ class PaBelemSpider(BaseGazetteSpider):
     TERRITORY_ID = "1501402"
     name = "pa_belem"
     allowed_domains = ["sistemas.belem.pa.gov.br"]
+    custom_settings = {
+        "DEFAULT_REQUEST_HEADERS": {
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8,application/octet-stream"
+        }
+    }
 
     BASE_URL = "https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios"
 
