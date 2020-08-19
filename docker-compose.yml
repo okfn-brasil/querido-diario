@@ -4,7 +4,6 @@ services:
     image: postgres:11.3-alpine
     container_name: postgres
     env_file:  .env
-    #restart: on-failure
     environment:
       - POSTGRES_USER:${POSTGRES_USER}
       - POSTGRES_PASSWORD:$POSTGRES_PASSWORD}
