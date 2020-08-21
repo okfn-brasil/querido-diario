@@ -1,9 +1,9 @@
-setup: destroy
+setup: 
 	cp .env.example .env
 	docker-compose pull
 	docker-compose build
 	make seed
-	pip3 install --user -r requirements.txt
+	pip3 install -r requirements.txt
 	touch .git/hooks/pre-commit
 	echo "make check" > .git/hooks/pre-commit
 	chmod +x .git/hooks/pre-commit
