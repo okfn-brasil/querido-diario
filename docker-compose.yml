@@ -1,17 +1,10 @@
 version: "3"
 services:
-  postgres:
-    env_file:
-      - .env
-    image: postgres:11.3-alpine
-
   processing:
     build:
       context: processing
       args:
         - LOCAL_USER_ID
-    depends_on:
-      - postgres
     env_file:
       - .env
     volumes:
