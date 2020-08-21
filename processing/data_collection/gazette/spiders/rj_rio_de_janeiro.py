@@ -10,12 +10,8 @@ class RjRioDeJaneiroSpider(BaseGazetteSpider):
     name = "rj_rio_de_janeiro"
     allowed_domains = ["doweb.rio.rj.gov.br"]
     start_urls = ["http://doweb.rio.rj.gov.br"]
-    search_gazette_url = (
-        "http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca={}"
-    )  # format 20/04/2018
-    download_gazette_url = (
-        "http://doweb.rio.rj.gov.br/ler_pdf.php?download=ok&edi_id={}"
-    )  # 20/04/2018 has edi_id = 3734
+    search_gazette_url = "http://doweb.rio.rj.gov.br/?buscar_diario=ok&tipo=1&data_busca={}"  # format 20/04/2018
+    download_gazette_url = "http://doweb.rio.rj.gov.br/ler_pdf.php?download=ok&edi_id={}"  # 20/04/2018 has edi_id = 3734
 
     def parse(self, response):
         parsing_date = dt.date.today()
