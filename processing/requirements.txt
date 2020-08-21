@@ -1,4 +1,4 @@
-black==18.9b0
+black==19.10b0
 dateparser==0.7.1
 ipdb==0.12
 psycopg2-binary==2.8.2
