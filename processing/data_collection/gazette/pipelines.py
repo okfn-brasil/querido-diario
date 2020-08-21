@@ -11,38 +11,7 @@ from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
-from database.models import Gazette, initialize_database
 from gazette.settings import FILES_STORE
-
-
-class PostgreSQLPipeline:
-    def __init__(self):
-        engine = initialize_database()
-        self.Session = sessionmaker(bind=engine)
-
-    def process_item(self, item, spider):
-        session = self.Session()
-        # TEMP: The attribute "municipality_id" was recently renamed to "territory_id"
-        #       in the database. The two following lines may be deleted once we have
-        #       no branches using "municipality_id".
-        if "municipality_id" in item:
-            item["territory_id"] = item.pop("municipality_id")
-        gazette = Gazette(**item)
-        try:
-            session.add(gazette)
-            session.commit()
-        except IntegrityError as exc:
-            spider.logger.warning(
-                "Gazette from %s already exists in the database", item["date"]
-            )
-            session.rollback()
-        except:
-            session.rollback()
-            raise
-
-        finally:
-            session.close()
-        return item
 
 
 class GazetteDateFilteringPipeline:

@@ -6,7 +6,6 @@ ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 50,
     "scrapy.pipelines.files.FilesPipeline": 100,
     "gazette.pipelines.ExtractTextPipeline": 200,
-    "gazette.pipelines.PostgreSQLPipeline": 300,
 }
 SPIDER_MIDDLEWARES = {"scrapy_deltafetch.DeltaFetch": 100}
 FILES_STORE = "/mnt/data/"
