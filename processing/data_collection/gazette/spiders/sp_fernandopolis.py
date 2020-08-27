@@ -1,4 +1,4 @@
-from dateparser import parse as parse_date
+from dateparser import parse
 from datetime import datetime
 
 import scrapy
@@ -20,16 +20,14 @@ class SpFernandopolis(BaseGazetteSpider):
         for pub in list_pubs:
             link_date = pub.css("h3>a")
             date = link_date.css("::text").get()
-            date = parse_date(date, languages=["pt"]).date()
+            date = parse(date, languages=["pt"]).date()
             link = response.urljoin(link_date.attrib["href"])
-            is_extra_edition = (
-                pub.css("ul>li::text")[IDX_EXTRA_EDITION_LI].re_first("EXTRA") is None
-            )
+            is_extra_edition = bool(pub.xpath(".//li[contains(., 'EXTRA')]"))
             yield Gazette(
                 date=date,
                 file_urls=[link],
                 is_extra_edition=is_extra_edition,
                 municipality_id=self.MUNICIPALITY_ID,
-                power="executive_legislature",
+                power="executive",
                 scraped_at=datetime.utcnow(),
             )
