@@ -1,7 +1,7 @@
-import scrapy
 import json
 from dateparser import parse
 from datetime import datetime
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -24,7 +24,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
         for year in range(FIRST_YEAR, final_year + 1):
             for month in range(1, 13):
                 date_url = f"{BASE_URL}/published/{year}/{month}"
-                yield scrapy.Request(date_url)
+                yield Request(date_url)
 
     def parse(self, response):
         editions = json.loads(response.text)["editions"]
