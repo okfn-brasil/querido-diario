@@ -14,41 +14,14 @@ FIRST_YEAR = 1967
 BASE_URL = "https://diariooficial.cuiaba.mt.gov.br/api/api/editions"
 
 
-# class TooManyRequestsRetryMiddleware(RetryMiddleware):
-#     def __init__(self, crawler):
-#         super(TooManyRequestsRetryMiddleware, self).__init__(crawler.settings)
-#         self.crawler = crawler
-
-#     @classmethod
-#     def from_crawler(cls, crawler):
-#         return cls(crawler)
-
-#     def process_response(self, request, response, spider):
-#         if response.status == 429:
-#             delay = int(response.headers.get("Retry-After", 25))
-#             self.crawler.engine.pause()
-#             time.sleep(delay)
-#             self.crawler.engine.unpause()
-#             return self._retry(request, "429 response", spider) or response
-#         return response
-
-
 class MtCuiabaSpider(BaseGazetteSpider):
     TERRITORY_ID = 5103403
     name = "mt_cuiaba"
     allowed_domains = ["diariooficial.cuiaba.mt.gov.br"]
     start_urls = ["https://diariooficial.cuiaba.mt.gov.br/"]
 
-    # handle_httpstatus_list = [429]
-
     custom_settings = {
-        # "RETRY_TIMES": 5,
-        "CONCURRENT_REQUESTS": 3,
-        "CONCURRENT_REQUESTS_PER_DOMAIN": 3,
         "DOWNLOAD_DELAY": 1,
-        # "DOWNLOADER_MIDDLEWARES":{
-        #     "gazette.spiders.mt_cuiaba.TooManyRequestsRetryMiddleware": 98
-        # },
     }
 
     def start_requests(self):
@@ -61,19 +34,10 @@ class MtCuiabaSpider(BaseGazetteSpider):
                     url=date_url,
                     headers={
                         "referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",
-                    }
+                    },
                 )
 
     def parse(self, response):
-        # if response.status == 429:
-        #     delay = int(response.headers.get("Retry-After", 25))
-        #     self.crawler.stats.inc_value("response_429")
-        #     print(f"Got response 429, start waiting {delay} seconds...")
-        #     time.sleep(delay)
-        #     yield Request(
-        #         response.url,
-        #         dont_filter=True,
-        #     )
         editions = json.loads(response.text)["editions"]
         for edition in editions:
             edition_id = edition["id"]
