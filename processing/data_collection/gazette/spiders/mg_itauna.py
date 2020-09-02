@@ -17,7 +17,7 @@ class MgItaunaSpider(BaseGazetteSpider):
         last_page = int(
             response.xpath("//select[@id='select']/option[last()]/text()").get()
         )
-        for page in range(1, 1 + last_page):
+        for page in range(2, 1 + last_page):
             yield Request(page_url.format(page=page), callback=self.parse_editions_page)
 
     def parse_editions_page(self, response):
