@@ -13,13 +13,15 @@ class MgItaunaSpider(BaseGazetteSpider):
     start_urls = ["https://www.itauna.mg.gov.br/portal/diario-oficial/"]
 
     def parse(self, response):
-        url = self.start_urls[0] + "{i}/0/0/0/0/"
-        last_page = int(response.xpath("//select/option/text()")[-1].extract())
-        for i in range(1, 1 + last_page):
-            yield Request(url.format(i=i), callback=self.parse_editions_page)
+        page_url = response.urljoin("{page}/0/0/0/0/")
+        last_page = int(
+            response.xpath("//select[@id='select']/option[last()]/text()").get()
+        )
+        for page in range(1, 1 + last_page):
+            yield Request(url.format(page=page), callback=self.parse_editions_page)
 
     def parse_editions_page(self, response):
-        diarios = response.xpath("//div[@class='d_e_modelo_diario']")
+        diarios = response.css(".d_e_modelo_diario")
         for diario in diarios:
             href = diario.xpath('.//a[contains(@href, "downloads")]/@href').get()
             date = diario.xpath("div/span/text()").re_first("\d{2}/\d{2}/\d{4}")
