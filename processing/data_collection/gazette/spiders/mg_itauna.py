@@ -18,7 +18,7 @@ class MgItaunaSpider(BaseGazetteSpider):
             response.xpath("//select[@id='select']/option[last()]/text()").get()
         )
         for page in range(1, 1 + last_page):
-            yield Request(url.format(page=page), callback=self.parse_editions_page)
+            yield Request(page_url.format(page=page), callback=self.parse_editions_page)
 
     def parse_editions_page(self, response):
         diarios = response.css(".d_e_modelo_diario")
