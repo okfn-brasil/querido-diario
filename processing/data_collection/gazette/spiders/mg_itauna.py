@@ -19,6 +19,7 @@ class MgItaunaSpider(BaseGazetteSpider):
         )
         for page in range(2, 1 + last_page):
             yield Request(page_url.format(page=page), callback=self.parse_editions_page)
+            yield from self.parse_editions_page(response)
 
     def parse_editions_page(self, response):
         diarios = response.css(".d_e_modelo_diario")
