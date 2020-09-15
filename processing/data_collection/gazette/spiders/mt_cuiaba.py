@@ -32,9 +32,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
             date_url = f"{BASE_URL}/published/{date.year}/{date.month}"
             yield Request(
                 url=date_url,
-                headers={
-                    "referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",
-                },
+                headers={"referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",},
             )
 
     def parse(self, response):
