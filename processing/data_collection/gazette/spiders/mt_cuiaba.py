@@ -2,6 +2,7 @@ import json
 import time
 from dateparser import parse
 from datetime import datetime
+
 from scrapy import Request
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
 
@@ -11,14 +12,14 @@ from gazette.spiders.base import BaseGazetteSpider
 
 # based on the website
 FIRST_YEAR = 1967
-BASE_URL = "https://diariooficial.cuiaba.mt.gov.br/api/api/editions"
+BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
 
 
 class MtCuiabaSpider(BaseGazetteSpider):
     TERRITORY_ID = 5103403
     name = "mt_cuiaba"
-    allowed_domains = ["diariooficial.cuiaba.mt.gov.br"]
-    start_urls = ["https://diariooficial.cuiaba.mt.gov.br/"]
+    allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
+    start_urls = ["http://gazetamunicipal.cuiaba.mt.gov.br/"]
 
     custom_settings = {
         "DOWNLOAD_DELAY": 1,
