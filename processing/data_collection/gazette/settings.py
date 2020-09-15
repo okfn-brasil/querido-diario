@@ -8,7 +8,7 @@ ITEM_PIPELINES = {
     "gazette.pipelines.ExtractTextPipeline": 200,
 }
 SPIDER_MIDDLEWARES = {"scrapy_deltafetch.DeltaFetch": 100}
-FILES_STORE = "/mnt/data/"
+FILES_STORE = "data/"
 # skip already crawled item
 DELTAFETCH_ENABLED = True
-DELTAFETCH_DIR = "/mnt/data/deltafetch"
+DELTAFETCH_DIR = "data/deltafetch"

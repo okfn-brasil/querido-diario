@@ -1,17 +1,16 @@
 import json
 import time
 from dateparser import parse
-from datetime import datetime
+import datetime
 
 from scrapy import Request
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
+from dateutil.rrule import rrule, MONTHLY
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-# based on the website
-FIRST_YEAR = 1967
 BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
 
 
@@ -26,17 +25,17 @@ class MtCuiabaSpider(BaseGazetteSpider):
     }
 
     def start_requests(self):
-        today = datetime.today()
-        final_year = today.year
-        for year in range(FIRST_YEAR, final_year + 1):
-            for month in range(1, 13):
-                date_url = f"{BASE_URL}/published/{year}/{month}"
-                yield Request(
-                    url=date_url,
-                    headers={
-                        "referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",
-                    },
-                )
+        start_date = datetime.date(1967, 1, 1)
+        end_date = datetime.date.today()
+
+        for date in rrule(MONTHLY, dtstart=start_date, until=end_date):
+            date_url = f"{BASE_URL}/published/{date.year}/{date.month}"
+            yield Request(
+                url=date_url,
+                headers={
+                    "referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",
+                },
+            )
 
     def parse(self, response):
         editions = json.loads(response.text)["editions"]
@@ -51,5 +50,5 @@ class MtCuiabaSpider(BaseGazetteSpider):
                 is_extra_edition=edition["suplement"],
                 territory_id=self.TERRITORY_ID,
                 power="executive",
-                scraped_at=datetime.utcnow(),
+                scraped_at=datetime.datetime.utcnow(),
             )
