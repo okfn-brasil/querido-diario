@@ -1,4 +1,5 @@
 import datetime as dt
+
 from dateparser import parse
 from scrapy import Request
 
@@ -12,8 +13,11 @@ class BaseInstarSpider(BaseGazetteSpider):
         last_page = int(
             response.xpath("//select[@id='select']/option[last()]/text()").get()
         )
-        for page in range(2, 1 + last_page):
-            yield Request(page_url.format(page=page), callback=self.parse_editions_page)
+        if last_page is not None:
+            for page in range(2, 1 + last_page):
+                yield Request(
+                    page_url.format(page=page), callback=self.parse_editions_page
+                )
         yield from self.parse_editions_page(response)
 
     def parse_editions_page(self, response):
