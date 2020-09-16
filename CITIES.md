@@ -42,7 +42,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 32 | Contagem | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/77) |
 | 33 | Aracaju | | | |
 | 34 | Feira de Santana | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/25) |
-| 35 | Cuiabá | | | |
+| 35 | Cuiabá | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/181) | [PR](https://github.com/okfn-brasil/querido-diario/pull/226) |
 | 36 | Joinville | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/63) |
 | 37 | Juiz de Fora | :soon: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/12) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/13) |
 | 38 | Londrina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
