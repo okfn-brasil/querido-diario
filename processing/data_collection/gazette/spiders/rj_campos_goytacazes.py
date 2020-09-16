@@ -32,7 +32,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             if not date_re:
                 continue
 
-            url = element.css("a::attr(href)").extract_first()
+            url = element.css("a::attr(href)").extract_first().strip()
             date = dateparser.parse(date_re.group(0), languages=["pt"]).date()
             is_extra_edition = gazette_text.startswith("Suplemento")
 
