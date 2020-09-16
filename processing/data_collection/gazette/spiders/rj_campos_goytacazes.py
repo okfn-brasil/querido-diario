@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RjCampoGoytacazesSpider(BaseGazetteSpider):
     GAZETTE_ELEMENT_CSS = "ul.ul-licitacoes li"
-    MUNICIPALITY_ID = "3301009"
+    TERRITORY_ID = "3301009"
 
     allowed_domains = ["www.campos.rj.gov.br"]
     name = "rj_campos_goytacazes"
@@ -37,7 +37,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
                     date=date,
                     file_urls=[url],
                     is_extra_edition=extra_edition,
-                    municipality_id=self.MUNICIPALITY_ID,
+                    territory_id=self.TERRITORY_ID,
                     power="executive",
                     scraped_at=datetime.utcnow(),
                 )
