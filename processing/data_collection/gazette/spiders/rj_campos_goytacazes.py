@@ -26,22 +26,24 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
         """
 
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
-            url = element.css("a::attr(href)").extract_first()
-            gazette_text = element.css("h4::text").extract_first()
-            extra_edition = gazette_text.startswith("Suplemento")
+            gazette_text = element.css("h4::text").extract_first() or ""
 
             date_re = re.search(r"(\d{2} de (.*) de \d{4})", gazette_text)
-            if date_re:
-                date = dateparser.parse(date_re.group(0), languages=["pt"]).date()
+            if not date_re:
+                continue
 
-                yield Gazette(
-                    date=date,
-                    file_urls=[url],
-                    is_extra_edition=extra_edition,
-                    territory_id=self.TERRITORY_ID,
-                    power="executive",
-                    scraped_at=datetime.utcnow(),
-                )
+            url = element.css("a::attr(href)").extract_first()
+            date = dateparser.parse(date_re.group(0), languages=["pt"]).date()
+            is_extra_edition = gazette_text.startswith("Suplemento")
+
+            yield Gazette(
+                date=date,
+                file_urls=[url],
+                is_extra_edition=is_extra_edition,
+                territory_id=self.TERRITORY_ID,
+                power="executive",
+                scraped_at=datetime.utcnow(),
+            )
 
         next_url = (
             response.css(".pagination")
