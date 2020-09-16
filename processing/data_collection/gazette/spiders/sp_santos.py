@@ -6,20 +6,15 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpSantosSpider(BaseGazetteSpider):
-    MUNICIPALITY_ID = '3548500'
-    name = 'sp_santos'
-    allowed_domains = ['santos.sp.gov.br']
-    start_urls = ['https://diariooficial.santos.sp.gov.br/']
-    download_url = 'https://diariooficial.santos.sp.gov.br/edicoes/inicio/download/{}'
+    TERRITORY_ID = "3548500"
+    name = "sp_santos"
+    allowed_domains = ["santos.sp.gov.br"]
+    start_urls = ["https://diariooficial.santos.sp.gov.br/"]
+    download_url = "https://diariooficial.santos.sp.gov.br/edicoes/inicio/download/{}"
 
     def parse(self, response):
-        """
-        @url https://diariooficial.santos.sp.gov.br/
-        @returns items 1
-        @scrapes date file_urls is_extra_edition municipality_id power scraped_at
-        """
         # all of the dates with gazettes are available inside the following hidden textarea:
-        dates = response.css('#datas.hidden::text').extract_first()
+        dates = response.css("#datas.hidden::text").extract_first()
 
         start_date = dt.date(2015, 1, 1)
         parsing_date = dt.date.today()
@@ -30,9 +25,9 @@ class SpSantosSpider(BaseGazetteSpider):
                     date=parsing_date,
                     file_urls=[url],
                     is_extra_edition=False,
-                    municipality_id=self.MUNICIPALITY_ID,
-                    power='executive_legislature',
-                    scraped_at=dt.datetime.utcnow()
+                    territory_id=self.TERRITORY_ID,
+                    power="executive_legislature",
+                    scraped_at=dt.datetime.utcnow(),
                 )
 
             parsing_date = parsing_date - dt.timedelta(days=1)
