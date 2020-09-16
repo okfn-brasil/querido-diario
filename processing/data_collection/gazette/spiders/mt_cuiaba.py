@@ -1,11 +1,10 @@
 import json
 import time
-from dateparser import parse
 import datetime
 
 from scrapy import Request
-from scrapy.downloadermiddlewares.retry import RetryMiddleware
 from dateutil.rrule import rrule, MONTHLY
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
