@@ -21,6 +21,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
         """
         @url https://www.campos.rj.gov.br/diario-oficial.php?PGpagina=1&PGporPagina=15
         @returns requests 1
+        @returns items 15 15
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
 
