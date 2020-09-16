@@ -15,7 +15,6 @@ class SpFernandopolis(BaseGazetteSpider):
     ]
 
     def parse(self, response):
-        IDX_EXTRA_EDITION_LI = 3
         list_pubs = response.css("div.row")
         for pub in list_pubs:
             link_date = pub.css("h3>a")
