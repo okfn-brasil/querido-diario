@@ -33,7 +33,11 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
                 continue
 
             url = element.css("a::attr(href)").extract_first().strip()
-            date = dateparser.parse(date_re.group(0), languages=["pt"]).date()
+
+            # The extra edition for August 28th, 2018 has a typo in the month name.
+            date = date_re.group(0).replace("Agosoto", "Agosto")
+            date = dateparser.parse(date, languages=["pt"]).date()
+
             is_extra_edition = gazette_text.startswith("Suplemento")
 
             yield Gazette(
