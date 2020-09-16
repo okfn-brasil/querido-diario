@@ -48,5 +48,4 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             .extract_first()
         )
         if next_url:
-            print(next_url)
             yield Request(response.urljoin(next_url))
