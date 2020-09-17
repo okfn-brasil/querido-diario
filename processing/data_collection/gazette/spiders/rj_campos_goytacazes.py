@@ -3,6 +3,7 @@ import dateparser
 
 from datetime import datetime
 from scrapy import Request
+from scrapy.exceptions import CloseSpider
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -16,6 +17,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
     start_urls = [
         "https://www.campos.rj.gov.br/diario-oficial.php?PGpagina=1&PGporPagina=15"
     ]
+    LIMIT_DATE = dateparser.parse("2015-01-01").date()
 
     def parse(self, response):
         """
@@ -32,15 +34,18 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             if not date_re:
                 continue
 
+            # The extra edition for August 28th, 2018 has a typo in the month name.
+            date = date_re.group(0).replace("Agosoto", "Agosto")
+            date = dateparser.parse(date, languages=["pt"]).date()
+
+            if date < self.LIMIT_DATE:
+                raise CloseSpider("Went further than 2015")
+
             url = element.css("a::attr(href)").extract_first().strip()
             # From November 17th, 2017 and backwards the path to the gazette PDF
             # is relative.
             if url.startswith("up/diario_oficial.php"):
                 url = "https://www.campos.rj.gov.br/%s" % url
-
-            # The extra edition for August 28th, 2018 has a typo in the month name.
-            date = date_re.group(0).replace("Agosoto", "Agosto")
-            date = dateparser.parse(date, languages=["pt"]).date()
 
             is_extra_edition = gazette_text.startswith("Suplemento")
 
