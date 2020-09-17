@@ -1,0 +1,57 @@
+import re
+from datetime import datetime
+from scrapy import Request
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
+from scrapy import FormRequest, Request
+
+
+class SpPresidentePrudenhteSpider(BaseGazetteSpider):
+    TERRITORY_ID = "3541406"
+    GAZETTE_URL = "https://www.gdoe.com.br/presidenteprudente/"
+    allowed_domains = ["https://www.gdoe.com.br/", "gdoe.com.br"]
+    name = "sp_presidente_prudente"
+    start_url = "https://www.gdoe.com.br/presidenteprudente/33"
+    page_ctd = 1
+
+    def start_requests(self):
+        yield Request(self.start_url, callback=self.parse)
+
+    def parse(self, response):
+        for doc in response.xpath('//div[@class="col-md-4"]/a'):
+            yield self.parse_gazette(doc)
+
+        next_page = (
+            response.xpath('//ul[@class="pagination"]/li')[-1]
+            .css("a::attr(href)")
+            .get()
+        )
+        if "javascript:void(0)" not in next_page:
+            yield response.follow(next_page, callback=self.parse)
+
+    def parse_gazette(self, response):
+        doc_url = response.css("a::attr(href)").get()
+        doc_date = self.get_date(response.css("a::text")[1].get())
+        # If one advance more pages then it still will have content; the
+        # card view will be empty, but present.
+        print(doc_date)
+        if doc_date is None:
+            return None
+
+        return Gazette(
+            date=doc_date,
+            file_urls=(doc_url,),
+            is_extra_edition=False,  # verify
+            territory_id=self.TERRITORY_ID,
+            scraped_at=datetime.utcnow(),
+            power="executive",  # verify
+        )
+
+    @staticmethod
+    def get_date(text):
+        pattern = r"\d+\/\d+\/\d+"
+        match = re.search(pattern, text)
+        if not match:
+            return None
+
+        return match.group()
