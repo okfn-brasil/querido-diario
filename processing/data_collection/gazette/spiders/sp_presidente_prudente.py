@@ -3,19 +3,16 @@ from datetime import datetime
 from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from scrapy import FormRequest, Request
 
 
 class SpPresidentePrudenhteSpider(BaseGazetteSpider):
     TERRITORY_ID = "3541406"
-    GAZETTE_URL = "https://www.gdoe.com.br/presidenteprudente/"
+    GAZETTE_URL = "https://www.gdoe.com.br/presidenteprudente/1"
     allowed_domains = ["https://www.gdoe.com.br/", "gdoe.com.br"]
     name = "sp_presidente_prudente"
-    start_url = "https://www.gdoe.com.br/presidenteprudente/33"
-    page_ctd = 1
 
     def start_requests(self):
-        yield Request(self.start_url, callback=self.parse)
+        yield Request(self.GAZETTE_URL, callback=self.parse)
 
     def parse(self, response):
         for doc in response.xpath('//div[@class="col-md-4"]/a'):
@@ -26,15 +23,14 @@ class SpPresidentePrudenhteSpider(BaseGazetteSpider):
             .css("a::attr(href)")
             .get()
         )
+
         if "javascript:void(0)" not in next_page:
             yield response.follow(next_page, callback=self.parse)
 
     def parse_gazette(self, response):
         doc_url = response.css("a::attr(href)").get()
         doc_date = self.get_date(response.css("a::text")[1].get())
-        # If one advance more pages then it still will have content; the
-        # card view will be empty, but present.
-        print(doc_date)
+
         if doc_date is None:
             return None
 
