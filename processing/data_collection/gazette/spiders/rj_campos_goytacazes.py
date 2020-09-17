@@ -33,6 +33,10 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
                 continue
 
             url = element.css("a::attr(href)").extract_first().strip()
+            # From November 17th, 2017 and backwards the path to the gazette PDF
+            # is relative.
+            if url.startswith("up/diario_oficial.php"):
+                url = "https://www.campos.rj.gov.br/%s" % url
 
             # The extra edition for August 28th, 2018 has a typo in the month name.
             date = date_re.group(0).replace("Agosoto", "Agosto")
