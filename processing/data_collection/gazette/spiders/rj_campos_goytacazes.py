@@ -44,7 +44,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             # From November 17th, 2017 and backwards the path to the gazette PDF
             # is relative.
             if path_to_gazette.startswith("up/diario_oficial.php"):
-                path_to_gazette = response.urljoin(path_to_gazette).get()
+                path_to_gazette = response.urljoin(path_to_gazette)
 
             is_extra_edition = gazette_text.startswith("Suplemento")
 
