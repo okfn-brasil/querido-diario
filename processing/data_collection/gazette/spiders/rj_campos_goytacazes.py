@@ -9,7 +9,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RjCampoGoytacazesSpider(BaseGazetteSpider):
-    GAZETTE_ELEMENT_CSS = "ul.ul-licitacoes li"
     TERRITORY_ID = "3301009"
 
     allowed_domains = ["www.campos.rj.gov.br"]
@@ -27,7 +26,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
         @scrapes date file_urls is_extra_edition municipality_id power scraped_at
         """
 
-        for element in response.css(self.GAZETTE_ELEMENT_CSS):
+        for element in response.css("ul.ul-licitacoes li"):
             gazette_text = element.css("h4::text").extract_first() or ""
 
             date_re = re.search(r"(\d{2} de (.*) de \d{4})", gazette_text)
