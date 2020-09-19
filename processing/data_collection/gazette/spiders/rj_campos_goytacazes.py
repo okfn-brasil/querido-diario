@@ -27,7 +27,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
         """
 
         for element in response.css("ul.ul-licitacoes li"):
-            gazette_text = element.css("h4::text").extract_first() or ""
+            gazette_text = element.css("h4::text").get("")
 
             date_re = re.search(r"(\d{2} de (.*) de \d{4})", gazette_text)
             if not date_re:
@@ -40,7 +40,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             if date < self.LIMIT_DATE:
                 raise CloseSpider("Went further than 2015")
 
-            url = element.css("a::attr(href)").extract_first().strip()
+            url = element.css("a::attr(href)").get().strip()
             # From November 17th, 2017 and backwards the path to the gazette PDF
             # is relative.
             if url.startswith("up/diario_oficial.php"):
@@ -60,7 +60,7 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
         next_url = (
             response.css(".pagination")
             .xpath("//a[contains(text(), 'Proxima')]/@href")
-            .extract_first()
+            .get()
         )
         if next_url:
             yield Request(response.urljoin(next_url))
