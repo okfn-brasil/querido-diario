@@ -40,17 +40,17 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             if date < self.LIMIT_DATE:
                 raise CloseSpider("Went further than 2015")
 
-            url = element.css("a::attr(href)").get().strip()
+            path_to_gazette = element.css("a::attr(href)").get().strip()
             # From November 17th, 2017 and backwards the path to the gazette PDF
             # is relative.
-            if url.startswith("up/diario_oficial.php"):
-                url = "https://www.campos.rj.gov.br/%s" % url
+            if path_to_gazette.startswith("up/diario_oficial.php"):
+                path_to_gazette = response.urljoin(path_to_gazette).get()
 
             is_extra_edition = gazette_text.startswith("Suplemento")
 
             yield Gazette(
                 date=date,
-                file_urls=[url],
+                file_urls=[path_to_gazette],
                 is_extra_edition=is_extra_edition,
                 territory_id=self.TERRITORY_ID,
                 power="executive",
