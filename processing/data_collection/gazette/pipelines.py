@@ -11,7 +11,7 @@ from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
-from gazette.settings import FILES_STORE
+from gazette.settings import FILES_STORE, DELETE_FILE_AFTER_EXTRACT_TEXT
 
 
 class GazetteDateFilteringPipeline:
@@ -39,6 +39,10 @@ class ExtractTextPipeline:
                 "Unsupported file type: " + self.get_file_type(item["files"][0]["path"])
             )
 
+        if DELETE_FILE_AFTER_EXTRACT_TEXT:
+            original_path = os.path.join(FILES_STORE, item["files"][0]["path"])
+            os.remove(original_path + ".txt")
+            os.remove(original_path)
         for key, value in item["files"][0].items():
             item[f"file_{key}"] = value
         item.pop("files")
