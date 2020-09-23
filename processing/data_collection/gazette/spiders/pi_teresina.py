@@ -1,3 +1,4 @@
+import math
 from datetime import datetime
 from urllib.parse import urlencode
 
@@ -17,11 +18,12 @@ class PiTeresina(BaseGazetteSpider):
 
     def parse(self, response):
         total_items = int(response.css(".texto span b::text").get())
-        total_pages = self.calculate_number_of_pages(total_items, 10)
+        ITEMS_PER_PAGE = 10
+        total_pages = math.ceil(total_items / ITEMS_PER_PAGE)
 
         for i in range(1, total_pages + 1):
             params = {"pagina": i}
-            url = "{}?{}".format(self.BASE_URL, urlencode(params))
+            url = f"{self.BASE_URL}?{urlencode(params)}"
             yield scrapy.Request(url=url, callback=self.parse_page)
 
     def parse_page(self, response):
@@ -39,10 +41,3 @@ class PiTeresina(BaseGazetteSpider):
                 power="executive_legislative",
                 scraped_at=datetime.utcnow(),
             )
-
-    def calculate_number_of_pages(self, total_items, items_per_page=10):
-        if total_items % items_per_page == 0:
-            number_of_pages = total_items // items_per_page
-        else:
-            number_of_pages = (total_items // items_per_page) + 1
-        return number_of_pages
