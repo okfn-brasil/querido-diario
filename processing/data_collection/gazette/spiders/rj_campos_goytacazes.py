@@ -17,7 +17,6 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
     start_urls = [
         "https://www.campos.rj.gov.br/diario-oficial.php?PGpagina=1&PGporPagina=15"
     ]
-    LIMIT_DATE = dateparser.parse("2015-01-01").date()
 
     def parse(self, response):
         """
@@ -37,9 +36,6 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             # The extra edition for August 28th, 2018 has a typo in the month name.
             date = date_re.group(0).replace("Agosoto", "Agosto")
             date = dateparser.parse(date, languages=["pt"]).date()
-
-            if date < self.LIMIT_DATE:
-                raise CloseSpider("Went further than 2015")
 
             path_to_gazette = element.css("a::attr(href)").get().strip()
             # From November 17th, 2017 and backwards the path to the gazette PDF
