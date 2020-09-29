@@ -39,8 +39,11 @@ class ExtractTextPipeline:
                 "Unsupported file type: " + self.get_file_type(item["files"][0]["path"])
             )
 
-        for key, value in item["files"][0].items():
-            item[f"file_{key}"] = value
+        item_file = item["files"][0]
+        item["file_path"] = item_file["path"]
+        item["file_url"] = item_file["url"]
+        item["file_checksum"] = item_file["checksum"]
+
         item.pop("files")
         item.pop("file_urls")
         return item
