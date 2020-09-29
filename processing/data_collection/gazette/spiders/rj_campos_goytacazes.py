@@ -33,8 +33,11 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             if not date_re:
                 continue
 
+            date = date_re.group(0)
             # The extra edition for August 28th, 2018 has a typo in the month name.
-            date = date_re.group(0).replace("Agosoto", "Agosto")
+            date = date.replace("Agosoto", "Agosto")
+            # The edition for December 17th, 2012 has a typo in the month name.
+            date = date.replace("Dezembrbo", "Dezembro")
             date = dateparser.parse(date, languages=["pt"]).date()
 
             path_to_gazette = element.css("a::attr(href)").get().strip()
