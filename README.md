@@ -8,6 +8,16 @@ The goal of this project is to upgrade **Diário Oficial** to the digital age, c
 
 When this project was initially released, had two distinct goals: creating crawlers for governments gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
 
+Table of Contents
+=================
+  * [Build and Run](#build-and-run)
+     * [Run Gazette Crawler](#run-gazette-crawler)
+  * [Tips and tricks](#tips-and-tricks)
+  * [Troubleshooting](#troubleshooting)
+     * ["Permission denied" error when files are downloaded](#permission-denied-error-when-files-are-downloaded)
+  * [Contributing](#contributing)
+  * [Acknowledgments](#acknowledgments)
+
 ## Build and Run
 
 If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
