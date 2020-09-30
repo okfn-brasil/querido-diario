@@ -28,6 +28,12 @@ class ExtractTextPipeline:
     """
 
     def process_item(self, item, spider):
+        extract_text_from_file = spider.settings.getbool(
+            "QUERIDODIARIO_EXTRACT_TEXT_FROM_FILE", True
+        )
+        if not extract_text_from_file:
+            return item
+
         if self.is_doc(item["files"][0]["path"]):
             item["source_text"] = self.doc_source_text(item)
         elif self.is_pdf(item["files"][0]["path"]):
