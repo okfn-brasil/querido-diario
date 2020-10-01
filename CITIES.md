@@ -28,7 +28,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 18 | Duque de Caxias | | | |
 | 19 | Natal | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/189) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/192) |
 | 20 | Campo Grande | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
-| 21 | Teresina | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/53) |
+| 21 | Teresina | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/188)| [PR](https://github.com/okfn-brasil/diario-oficial/pull/216) |
 | 22 | São Bernardo do Campo | | | |
 | 23 | João Pessoa | :soon: | | |
 | 24 | Nova Iguaçu | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/120) |
@@ -377,7 +377,44 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 367 | Xavantina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
 | 368 | Xaxim | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
 | 369 | Zortéa | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
-| 370 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
+| 370 | Campo Belo | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 371 | Candeias | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 372 | Carmo da Cachoeira | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 373 | Crucilândia | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 374 | Itaúna | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 375 | Nova Serrana | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 376 | Piranguinho | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 377 | Salinas | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 378 | Inocência | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 379 | Maracaju | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 380 | São Mateus do Sul | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 381 | Arraial do Cabo | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 382 | Camaquã | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 383 | Cerrito | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 384 | Vera Cruz (SP) | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 385 | Alto Alegre | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 386 | Araçariguama | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 387 | Barão de Antonina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 388 | Coronel Macedo | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 389 | Glicerio | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 390 | Ibitinga | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 391 | Itapirapuão Paulista | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 392 | Jaboti | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 393 | Lavinia | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 394 | Marília | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 395 | Monte Alto | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 396 | Parisi | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 397 | Patrocínio Paulista | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 398 | Penápolis | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 399 | Piedade | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 400 | Pratânia | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 401 | Santa Ernestina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 402 | São Manuel | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 403 | São Roque | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 404 | Sarutaiá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 405 | Vera Cruz (RS) | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 406 | Votorantim | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 407 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
