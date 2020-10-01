@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class SpPresidentePrudenhteSpider(BaseGazetteSpider):
     TERRITORY_ID = "3541406"
     GAZETTE_URL = "https://www.gdoe.com.br/presidenteprudente/1"
-    allowed_domains = ["https://www.gdoe.com.br/", "gdoe.com.br"]
+    allowed_domains = ["gdoe.com.br"]
     name = "sp_presidente_prudente"
 
     def start_requests(self):
@@ -37,10 +37,10 @@ class SpPresidentePrudenhteSpider(BaseGazetteSpider):
         return Gazette(
             date=doc_date,
             file_urls=(doc_url,),
-            is_extra_edition=False,  # verify
+            is_extra_edition=False,
             territory_id=self.TERRITORY_ID,
             scraped_at=datetime.utcnow(),
-            power="executive",  # verify
+            power="executive",
         )
 
     @staticmethod
