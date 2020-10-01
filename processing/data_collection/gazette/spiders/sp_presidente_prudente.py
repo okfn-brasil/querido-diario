@@ -5,7 +5,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class SpPresidentePrudenhteSpider(BaseGazetteSpider):
+class SpPresidentePrudenteSpider(BaseGazetteSpider):
     TERRITORY_ID = "3541406"
     GAZETTE_URL = "https://www.gdoe.com.br/presidenteprudente/1"
     allowed_domains = ["gdoe.com.br"]
