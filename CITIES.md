@@ -377,6 +377,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 367 | Xavantina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
 | 368 | Xaxim | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
 | 369 | Zortéa | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/141) |
+| 370 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
