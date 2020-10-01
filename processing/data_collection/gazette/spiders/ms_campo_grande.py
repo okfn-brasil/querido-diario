@@ -8,7 +8,7 @@ from gazette.items import Gazette
 
 
 class MsCampoGrandeSpider(scrapy.Spider):
-    MUNICIPALITY_ID = "5002704"
+    TERRITORY_ID = "5002704"
     name = "ms_campo_grande"
     allowed_domains = ["portal.capital.ms.gov.br"]
 
@@ -41,7 +41,7 @@ class MsCampoGrandeSpider(scrapy.Spider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power=power,
                 scraped_at=dt.datetime.utcnow(),
             )
