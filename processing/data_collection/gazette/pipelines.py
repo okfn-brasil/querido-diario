@@ -50,6 +50,9 @@ class ExtractTextPipeline:
         if not extract_text_from_file:
             return item
 
+        if "files" not in item or not item["files"]:
+            return item
+
         if self.is_doc(item["files"][0]["path"]):
             item["source_text"] = self.doc_source_text(item)
         elif self.is_pdf(item["files"][0]["path"]):
@@ -155,9 +158,10 @@ class SQLDatabasePipeline:
 
         session = self.Session()
 
-        item_file = item["files"][0]
-        item["file_path"] = item_file["path"]
-        item["file_url"] = item_file["url"]
+        if "files" in item and item["files"]:
+            item_file = item["files"][0]
+            item["file_path"] = item_file["path"]
+            item["file_url"] = item_file["url"]
         item["file_checksum"] = item_file["checksum"]
         item.pop("files")
         item.pop("file_urls")
