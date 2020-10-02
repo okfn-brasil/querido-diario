@@ -14,7 +14,7 @@ BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
 
 
 class MtCuiabaSpider(BaseGazetteSpider):
-    TERRITORY_ID = 5103403
+    TERRITORY_ID = "5103403"
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
     start_urls = ["http://gazetamunicipal.cuiaba.mt.gov.br/"]
