@@ -99,7 +99,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 89 | Petrópolis | | | |
 | 90 | Camaçari | | | |
 | 91 | Santarém | | | |
-| 92 | Mossoró | | | |
+| 92 | Mossoró | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/259) |
 | 93 | Suzano | | | |
 | 94 | Palmas | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/1) |
 | 95 | Governador Valadares | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/19) |
