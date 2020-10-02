@@ -34,6 +34,9 @@ class ExtractTextPipeline:
         if not extract_text_from_file:
             return item
 
+        if len(item["files"]) == 0:
+            return item
+
         if self.is_doc(item["files"][0]["path"]):
             item["source_text"] = self.doc_source_text(item)
         elif self.is_pdf(item["files"][0]["path"]):
