@@ -56,7 +56,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 46 | Vila Velha | :white_check_mark: | | |
 | 47 | Florianópolis | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/17) |
 | 48 | Caxias do Sul | :white_check_mark: | | |
-| 49 | Macapá | | | |
+| 49 | Macapá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/254) |
 | 50 | Mauá | | | |
 | 51 | São João de Meriti | | | |
 | 52 | São José do Rio Preto | | | |
