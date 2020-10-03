@@ -6,9 +6,10 @@ import ast
 import scrapy
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class MgGovernadorValadares(scrapy.Spider):
+class MgGovernadorValadares(BaseGazetteSpider):
     MUNICIPALITY_ID = "3127701"
     name = "mg_governador_valadares"
     allowed_domains = ["valadares.mg.gov.br"]
