@@ -64,7 +64,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
         for row in rows[1]:
             d = row[4]
             date = dt.date(d[0], d[1] + 1, d[2])
-            # pelo que vi cdLocal é sempre 12
+
             url = "http://www.valadares.mg.gov.br/abrir_arquivo.aspx?cdLocal=12&arquivo={}{}".format(
                 row[6], row[7]
             )
