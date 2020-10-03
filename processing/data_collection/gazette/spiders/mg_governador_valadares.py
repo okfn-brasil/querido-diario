@@ -28,15 +28,16 @@ class MgGovernadorValadares(BaseGazetteSpider):
             url,
             callback=self.parse,
             method="POST",
-            headers={
-                "Content-Type": "text/plain",
-                "X-AjaxPro-Method": "GetDiario",
-                "Referer": "http://www.valadares.mg.gov.br/diario-eletronico/caderno/diario-oficial-eletronico/1",
-                "Origin": "http://www.valadares.mg.gov.br",
-                "Host": "www.valadares.mg.gov.br",
+            headers={"X-AjaxPro-Method": "GetDiario",},
+            body={
+                "Page": page,
+                "cdCaderno": 1,
+                "Size": self.page_size,
+                "dtDiario_menor": null,
+                "dtDiario_maior": null,
+                "dsPalavraChave": "",
+                "nuEdicao": -1,
             },
-            body='{"Page":%s,"cdCaderno":1,"Size":%s,"dtDiario_menor":null,"dtDiario_maior":null,"dsPalavraChave":"","nuEdicao":-1}'
-            % (page, self.page_size),
             dont_filter=True,
         )
 
