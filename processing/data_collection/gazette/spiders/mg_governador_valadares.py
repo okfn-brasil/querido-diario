@@ -70,22 +70,3 @@ class MgGovernadorValadares(scrapy.Spider):
         self.current_page+=1
         yield self.make_request(self.start_urls[0], self.current_page)
 
-    def errback_httpbin(self, failure):
-
-        self.logger.error(repr(failure))
-
-        if failure.check(HttpError):
-            # exceptions vindas de HttpError spider middleware
-            # pega non-200 response
-            response = failure.value.response
-            self.logger.error('HttpError em %s', response.url)
-
-        elif failure.check(DNSLookupError):
-            # request original
-            request = failure.request
-            self.logger.error('DNSLookupError em %s', request.url)
-
-        elif failure.check(TimeoutError, TCPTimedOutError):
-            request = failure.request
-            self.logger.error('TimeoutError em %s', request.url)
-
