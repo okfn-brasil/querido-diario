@@ -37,7 +37,6 @@ class MgGovernadorValadares(BaseGazetteSpider):
             },
             body='{"Page":%s,"cdCaderno":1,"Size":%s,"dtDiario_menor":null,"dtDiario_maior":null,"dsPalavraChave":"","nuEdicao":-1}'
             % (page, self.page_size),
-            errback=self.errback_httpbin,
             dont_filter=True,
         )
 
