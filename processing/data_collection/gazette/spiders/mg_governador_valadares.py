@@ -14,7 +14,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
     name = "mg_governador_valadares"
     allowed_domains = ["valadares.mg.gov.br"]
     start_urls = [
-        "http://www.valadares.mg.gov.br/ajaxpro/diel_diel_lis,App_Web_diel_diel_lis.aspx.cdcab7d2.tw0oogts.ashx"
+        "https://www.valadares.mg.gov.br/ajaxpro/diel_diel_lis,App_Web_eozglfst.ashx"
     ]
     current_page = 0
     page_size = 10
