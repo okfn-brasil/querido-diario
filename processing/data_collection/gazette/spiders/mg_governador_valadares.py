@@ -3,7 +3,6 @@ import datetime as dt
 import json
 import re
 
-from dateparser import parse
 import scrapy
 
 from gazette.items import Gazette
