@@ -2,6 +2,7 @@ from dateparser import parse
 
 import datetime as dt
 import ast
+import json
 
 import scrapy
 
@@ -73,4 +74,14 @@ class MgGovernadorValadares(BaseGazetteSpider):
         yield self.make_request(self.start_urls[0], self.current_page)
 
     def make_body(self, page):
-        return f'{{"Page":{page},"cdCaderno":1,"Size":"{self.ITEMS_PER_PAGE}","dtDiario_menor":null,"dtDiario_maior":null,"dsPalavraChave":"","nuEdicao":-1}}'
+        return json.dumps(
+            {
+                "Page": page,
+                "cdCaderno": 1,
+                "Size": str(self.ITEMS_PER_PAGE),
+                "dtDiario_menor": None,
+                "dtDiario_maior": None,
+                "dsPalavraChave": "",
+                "nuEdicao": -1
+            }
+        )
