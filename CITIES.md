@@ -6,7 +6,6 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 :white_check_mark: Done
 :soon: In progress
 
-<<<<<<< HEAD
 | # | Cidade | Crawler | Issue | PR |
 |:-:|--------|:-------:|:------:|:------:|
 | 1 | São Paulo | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
@@ -31,7 +30,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 20 | Campo Grande | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/188)| [PR](https://github.com/okfn-brasil/diario-oficial/pull/216) |
 | 22 | São Bernardo do Campo | | | |
-| 23 | João Pessoa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/72) |
+| 23 | João Pessoa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido-diario/pull/72), [PR](https://github.com/okfn-brasil/querido-diario/pull/270) |
 | 24 | Nova Iguaçu | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/120) |
 | 25 | Santo André | | | |
 | 26 | São José dos Campos | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
