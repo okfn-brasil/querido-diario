@@ -21,24 +21,15 @@ class MgGovernadorValadares(BaseGazetteSpider):
     ITEMS_PER_PAGE = 10
 
     def start_requests(self):
-        for u in self.start_urls:
-            yield self.make_request(u, self.current_page)
+        url = self.start_urls[0]
+        yield self.make_request(url, self.current_page)
 
     def make_request(self, url, page):
         return scrapy.Request(
             url,
-            callback=self.parse,
             method="POST",
             headers={"X-AjaxPro-Method": "GetDiario",},
-            body={
-                "Page": page,
-                "cdCaderno": 1,
-                "Size": self.page_size,
-                "dtDiario_menor": None,
-                "dtDiario_maior": None,
-                "dsPalavraChave": "",
-                "nuEdicao": -1,
-            },
+            body=self.make_body(page),
             dont_filter=True,
         )
 
@@ -73,10 +64,13 @@ class MgGovernadorValadares(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power="executive",
                 scraped_at=dt.datetime.utcnow(),
             )
 
         self.current_page += 1
         yield self.make_request(self.start_urls[0], self.current_page)
+
+    def make_body(self, page):
+        return f'{{"Page":{page},"cdCaderno":1,"Size":"{self.ITEMS_PER_PAGE}","dtDiario_menor":null,"dtDiario_maior":null,"dsPalavraChave":"","nuEdicao":-1}}'
