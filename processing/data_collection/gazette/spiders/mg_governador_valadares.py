@@ -1,9 +1,9 @@
-from dateparser import parse
-
-import datetime as dt
 import ast
+import datetime as dt
 import json
+import re
 
+from dateparser import parse
 import scrapy
 
 from gazette.items import Gazette
@@ -82,6 +82,6 @@ class MgGovernadorValadares(BaseGazetteSpider):
                 "dtDiario_menor": None,
                 "dtDiario_maior": None,
                 "dsPalavraChave": "",
-                "nuEdicao": -1
+                "nuEdicao": -1,
             }
         )
