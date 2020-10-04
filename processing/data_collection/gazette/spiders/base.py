@@ -4,13 +4,16 @@ from datetime import datetime
 
 import dateparser
 import scrapy
-
 from gazette.items import Gazette
+from scrapy.exceptions import NotConfigured
 
 
 class BaseGazetteSpider(scrapy.Spider):
     def __init__(self, start_date=None, *args, **kwargs):
         super(BaseGazetteSpider, self).__init__(*args, **kwargs)
+
+        if not hasattr(self, "TERRITORY_ID"):
+            raise NotConfigured("Please set a value for `TERRITORY_ID`")
 
         if start_date is not None:
             parsed_data = dateparser.parse(start_date)
