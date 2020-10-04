@@ -26,14 +26,14 @@ class DefaultValuesPipeline:
     """ Add defaults values field, if not already set in the item """
 
     default_field_values = {
-        "territory_id": lambda item, spider: getattr(spider, "TERRITORY_ID"),
-        "scraped_at": lambda item, spider: dt.datetime.utcnow(),
+        "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
+        "scraped_at": lambda spider: dt.datetime.utcnow(),
     }
 
     def process_item(self, item, spider):
-        for field in self.default_values:
+        for field in self.default_field_values:
             if field not in item:
-                item[field] = self.default_field_values(field)(item, spider)
+                item[field] = self.default_field_values.get(field)(spider)
         return item
 
 
