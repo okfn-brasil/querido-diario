@@ -1,78 +1,77 @@
-import re
-import json
-import itertools
-import dateparser
-
 from datetime import datetime
+import re
+
+import dateparser
 from scrapy import Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class DfBrasiliaSpider(BaseGazetteSpider):
     TERRITORY_ID = "5300108"
+    name = "df_brasilia"
+
     GAZETTE_URL = "http://dodf.df.gov.br/listar"
-
-    MONTHS = {
-        "12": "12_Dezembro",
-        "11": "11_Novembro",
-        "10": "10_Outubro",
-        "09": "09_Setembro",
-        "08": "08_Agosto",
-        "07": "07_Julho",
-        "06": "06_Junho",
-        "05": "05_Maio",
-        "04": "04_Abril",
-        "03": "03_Março",
-        "02": "02_Fevereiro",
-        "01": "01_Janeiro",
-    }
-    YEARS = ["2018", "2017", "2016", "2015"]
-    MONTHS_YEARS = itertools.product(MONTHS.values(), YEARS)
-
-    DATE_REGEX = r"DODF [0-9]+ ([0-9]{2}-[0-9]{2}-[0-9]{4})(.*)$"
+    DATE_REGEX = r"[0-9]{2}-[0-9]{2}-[0-9]{4}"
     EXTRA_EDITION_TEXT = "EDICAO EXTR"
     PDF_URL = "http://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
 
-    allowed_domains = ["dodf.df.gov.br"]
-    name = "df_brasilia"
-
     def start_requests(self):
-        for month, year in self.MONTHS_YEARS:
-            yield Request(f"{self.GAZETTE_URL}?dir={year}/{month}", self.parse_month)
+        """Requests page that has a list of all available years."""
+        yield Request(self.GAZETTE_URL, callback=self.parse_year_list)
+
+    def parse_year_list(self, response):
+        """Parses available years to request list of available months for each year."""
+        years_available = response.css(
+            "#local-arquivos .arquivo::attr(data-file)"
+        ).getall()
+
+        for year in years_available:
+            yield Request(
+                f"{self.GAZETTE_URL}?dir={year}",
+                meta={"year": year},
+                callback=self.parse_year,
+            )
+
+    def parse_year(self, response):
+        """Parses available months to request list of available dates for each month.
+        """
+        months_available = response.json().get("data", [])
+        year = response.meta["year"]
+
+        for month in months_available:
+            yield Request(
+                f"{self.GAZETTE_URL}?dir={year}/{month}",
+                meta={"month": month, "year": year},
+                callback=self.parse_month,
+            )
 
     def parse_month(self, response):
-        json_response = json.loads(response.body_as_unicode())
-        dates = json_response["data"]
-
-        if not dates:
-            return
+        """Parses available dates to request a list of documents for each date."""
+        month, year = response.meta["month"], response.meta["year"]
+        dates = response.json().get("data", [])
 
         for gazette_name in dates.values():
-            date = re.search(self.DATE_REGEX, gazette_name).group(1)
-            day, month, year = date.split("-")
-            url = f"{self.GAZETTE_URL}?dir={year}/{self.MONTHS[month]}/{gazette_name}"
-            yield Request(url)
+            url = f"{self.GAZETTE_URL}?dir={year}/{month}/{gazette_name}"
+            yield Request(url, callback=self.parse_gazette)
 
-    def parse(self, response):
-        """
-        @url http://dodf.df.gov.br/listar?dir=2018/05_Maio/DODF%20097%2022-05-2018%20SUPLEMENTO
-        @returns items 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
-
-        json_response = json.loads(response.body_as_unicode())
+    def parse_gazette(self, response):
+        """Parses list of documents to request each one for the date."""
+        json_response = response.json()
 
         if not json_response:
+            self.logger.warning(f"Document not found in {response.url}")
             return
 
         json_dir = json_response["dir"]
-        json_data = json_response["data"]
 
-        date = dateparser.parse(json_dir)
+        date = re.search(self.DATE_REGEX, json_dir).group()
+        date = dateparser.parse(date, date_formats=["%d-%m-%Y"])
         is_extra_edition = self.EXTRA_EDITION_TEXT in json_dir
-
         path = json_dir.replace("/", "|")
+
+        json_data = json_response["data"]
         file_urls = [self.PDF_URL.format(path, url.split("/")[-1]) for url in json_data]
 
         yield Gazette(
