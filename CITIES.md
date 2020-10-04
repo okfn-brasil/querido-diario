@@ -102,7 +102,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 92 | Mossoró | | | |
 | 93 | Suzano | | | |
 | 94 | Palmas | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/1) |
-| 95 | Governador Valadares | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/19) |
+| 95 | Governador Valadares | :white_check_mark: | | PR [19](https://github.com/okfn-brasil/diario-oficial/pull/19) [269](https://github.com/okfn-brasil/diario-oficial/pull/269) |
 | 96 | Taboão da Serra | | | |
 | 97 | Santa Maria | | | |
 | 98 | Gravataí | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/129) |
