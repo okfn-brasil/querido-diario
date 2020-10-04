@@ -1,5 +1,5 @@
 import ast
-import datetime as dt
+from datetime import datetime, date
 import json
 import re
 
@@ -57,7 +57,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
             item = dict(zip(definition, row))
 
             date_values = item["DTPUBLICACAO"]
-            date = dt.date(date_values[0], date_values[1] + 1, date_values[2])
+            date = date(date_values[0], date_values[1] + 1, date_values[2])
 
             url = "https://www.valadares.mg.gov.br/abrir_arquivo.aspx?cdLocal=12&arquivo={}{}".format(
                 item["NMARQUIVO"], item["NMEXTENSAOARQUIVO"]
@@ -68,7 +68,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
                 is_extra_edition=False,
                 territory_id=self.TERRITORY_ID,
                 power="executive",
-                scraped_at=dt.datetime.utcnow(),
+                scraped_at=datetime.utcnow(),
             )
 
         self.current_page += 1
