@@ -10,14 +10,15 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class MgGovernadorValadares(BaseGazetteSpider):
-    MUNICIPALITY_ID = "3127701"
+    TERRITORY_ID = "3127701"
     name = "mg_governador_valadares"
     allowed_domains = ["valadares.mg.gov.br"]
     start_urls = [
         "https://www.valadares.mg.gov.br/ajaxpro/diel_diel_lis,App_Web_eozglfst.ashx"
     ]
+
     current_page = 0
-    page_size = 10
+    ITEMS_PER_PAGE = 10
 
     def start_requests(self):
         for u in self.start_urls:
