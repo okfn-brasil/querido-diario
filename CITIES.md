@@ -10,7 +10,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 |:-:|--------|:-------:|:------:|:------:|
 | 1 | São Paulo | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
 | 2 | Rio de Janeiro | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/15) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/29) |
-| 3 | Brasília | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/57) |
+| 3 | Brasília | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido_diario/pull/57), [PR](https://github.com/okfn-brasil/querido-diario/pull/271) |
 | 4 | Salvador | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
 | 5 | Fortaleza | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
 | 6 | Belo Horizonte | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/33) |
