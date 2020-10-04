@@ -19,11 +19,14 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
     start_urls = ["http://antigo.joaopessoa.pb.gov.br/semanariooficial/"]
 
     def parse(self, response):
-        """
-        @url http://antigo.joaopessoa.pb.gov.br/semanariooficial/
-        @returns items 10
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
+        """Parses gazettes page and requests next page.
+
+        Normal gazettes are displayed in a weekly basis, so, the date which is taken
+        into account for this type of gazette is the last in the publication period
+        (i.e. "29/08/2020" from "23/08/2020 à 29/08/2020").
+
+        Special gazzetes are daily, but that same logic applies here and it works
+        correctly.
         """
 
         for element in response.css(self.GAZETTE_ROW_CSS):
