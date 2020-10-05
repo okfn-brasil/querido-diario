@@ -1,6 +1,5 @@
 import dateparser
 
-from datetime import datetime
 from scrapy import Request, Spider
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

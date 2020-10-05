@@ -1,7 +1,6 @@
 from dateparser import parse
 import requests
 import re
-import datetime as dt
 import scrapy
 
 from gazette.items import Gazette

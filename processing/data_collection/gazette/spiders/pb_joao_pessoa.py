@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import dateparser
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

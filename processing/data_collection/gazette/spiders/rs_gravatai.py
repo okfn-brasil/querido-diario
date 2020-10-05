@@ -1,5 +1,4 @@
 from dateparser import parse
-from datetime import datetime
 
 from scrapy import Request
 

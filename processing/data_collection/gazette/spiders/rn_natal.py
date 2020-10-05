@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 
 import dateparser
 from dateutil.rrule import rrule, MONTHLY

@@ -1,5 +1,4 @@
 import math
-from datetime import datetime
 from urllib.parse import urlencode
 
 import dateparser

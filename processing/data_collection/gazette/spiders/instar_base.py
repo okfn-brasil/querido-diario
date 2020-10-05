@@ -1,5 +1,3 @@
-import datetime as dt
-
 from dateparser import parse
 from scrapy import Request
 

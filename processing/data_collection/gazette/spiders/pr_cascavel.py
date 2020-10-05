@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from dateparser import parse
-import datetime as dt
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

@@ -1,5 +1,4 @@
 from dateparser import parse
-import datetime as dt
 
 import scrapy
 

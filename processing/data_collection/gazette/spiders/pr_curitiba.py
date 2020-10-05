@@ -10,9 +10,8 @@ keys dynamically as they are hidden inputs in the page.
 
 from datetime import date
 
-from dateparser import parse
 import scrapy
-
+from dateparser import parse
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -54,10 +53,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
                     "ctl00_cphMasterPrincipal_TabContalegacyDealPooliner1_ClientState": '{{"ActiveTabIndex":{},"TabState":[true,true,true,true,true,true,true,true,true,true,true,true]}}',
                 }
                 yield scrapy.FormRequest.from_response(
-                    response,
-                    formdata=formdata,
-                    meta={"month": month},
-                    callback=self.parse_month,
+                    response, formdata=formdata, meta={"month": month}, callback=self.parse_month,
                 )
 
     def parse_month(self, response):
@@ -85,9 +81,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
             pdf_date = row.css("td:nth-child(2) span ::text").extract_first()
             gazette_id = row.css("td:nth-child(3) a ::attr(data-teste)").extract_first()
             parsed_date = parse(f"{pdf_date}", languages=["pt"]).date()
-            eventtarget = row.css("td:nth-child(3) a ::attr(href)").re_first(
-                "'(.*lnkVisualizar)'"
-            )
+            eventtarget = row.css("td:nth-child(3) a ::attr(href)").re_first("'(.*lnkVisualizar)'")
             if gazette_id == "0":
                 yield scrapy.FormRequest.from_response(
                     response,

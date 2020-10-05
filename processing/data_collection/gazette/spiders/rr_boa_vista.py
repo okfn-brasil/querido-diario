@@ -1,5 +1,3 @@
-import datetime as dt
-
 import scrapy
 import w3lib.url
 from dateparser import parse

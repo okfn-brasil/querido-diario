@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from dateparser import parse
 
 import scrapy
