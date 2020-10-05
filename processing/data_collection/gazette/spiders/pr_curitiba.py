@@ -16,7 +16,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
     def start_requests(self):
         for year in range(date.today().year, 2006, -1):
             yield scrapy.FormRequest(
-                "http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx",
+                "https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx",
                 formdata={"ctl00$cphMasterPrincipal$ddlGrAno": str(year)},
                 meta={"year": year},
                 callback=self.parse_year,
@@ -83,7 +83,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
                 yield Gazette(
                     date=parsed_date,
                     file_urls=[
-                        f"http://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?id={gazette_id}"
+                        f"https://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?Id={gazette_id}"
                     ],
                     is_extra_edition=True,
                     territory_id=self.TERRITORY_ID,
@@ -97,7 +97,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
         return Gazette(
             date=parsed_date,
             file_urls=[
-                f"http://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?id={gazette_id}"
+                f"https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?Id={gazette_id}"
             ],
             is_extra_edition=False,
             territory_id=self.TERRITORY_ID,
