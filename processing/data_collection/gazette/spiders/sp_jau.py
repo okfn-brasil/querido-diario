@@ -27,7 +27,5 @@ class SpJauSpider(Spider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition="extra" in gazette_title,
-                territory_id=self.TERRITORY_ID,
-                scraped_at=datetime.utcnow(),
                 power="executive",
             )

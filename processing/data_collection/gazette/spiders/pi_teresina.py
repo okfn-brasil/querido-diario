@@ -35,9 +35,5 @@ class PiTeresina(BaseGazetteSpider):
             date = dateparser.parse(date_text, languages=["pt"]).date()
 
             yield Gazette(
-                date=date,
-                file_urls=file_urls,
-                territory_id=self.TERRITORY_ID,
-                power="executive_legislative",
-                scraped_at=datetime.utcnow(),
+                date=date, file_urls=file_urls, power="executive_legislative",
             )

@@ -32,7 +32,5 @@ class BaseInstarSpider(BaseGazetteSpider):
                 date=parse(date, languages=["pt"]).date(),
                 file_urls=[response.urljoin(href)],
                 is_extra_edition=is_extra_edition,
-                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
-                scraped_at=dt.datetime.utcnow(),
             )

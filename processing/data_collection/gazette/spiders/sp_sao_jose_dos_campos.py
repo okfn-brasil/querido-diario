@@ -36,9 +36,7 @@ class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra,
-                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
-                scraped_at=datetime.utcnow(),
             )
 
         for element in response.css(self.NEXT_PAGE_LINK_CSS):

@@ -66,10 +66,5 @@ class AmManausSpider(BaseGazetteSpider):
 
     def build_gazzete(self, date, url, power, is_extra_edition=False):
         return Gazette(
-            date=date,
-            file_urls=[url],
-            is_extra_edition=is_extra_edition,
-            territory_id=self.TERRITORY_ID,
-            power=power,
-            scraped_at=datetime.utcnow(),
+            date=date, file_urls=[url], is_extra_edition=is_extra_edition, power=power,
         )

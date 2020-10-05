@@ -32,9 +32,7 @@ class PrPontaGrossaSpider(BaseGazetteSpider):
                     date=gazette_date,
                     file_urls=[pdf_info["url"]],
                     is_extra_edition=pdf_info["is_extra_edition"],
-                    territory_id=self.TERRITORY_ID,
                     power="executive_legislature",
-                    scraped_at=datetime.utcnow(),
                 )
 
     @staticmethod

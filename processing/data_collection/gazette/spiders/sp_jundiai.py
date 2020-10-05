@@ -38,7 +38,5 @@ class SpJundiaiSpider(BaseGazetteSpider):
             date=gazette_date,
             file_urls=file_urls,
             is_extra_edition=is_extra_edition,
-            territory_id=self.TERRITORY_ID,
             power=power,
-            scraped_at=dt.datetime.utcnow(),
         )

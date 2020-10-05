@@ -24,7 +24,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
         """
         @url http://www.joinville.sc.gov.br/jornal/index/page/1
         @returns requests 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
+        @scrapes date file_urls is_extra_edition power
         """
 
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
@@ -36,9 +36,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
-                scraped_at=datetime.utcnow(),
             )
 
         for url in response.css(self.NEXT_PAGE_CSS).extract():

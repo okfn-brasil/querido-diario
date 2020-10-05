@@ -45,19 +45,14 @@ class ToAraguainaSpider(BaseGazetteSpider):
             yield gazette_object
 
     def create_gazette_object(
-        self, date, file_url, is_extra_edition=False, scraped_at=None, power="executive"
+        self, date, file_url, is_extra_edition=False, power="executive"
     ):
-        if not scraped_at:
-            scraped_at = dt.datetime.utcnow()
-
         file_urls = [file_url]
 
         gazette_object = Gazette(
             date=date,
             file_urls=file_urls,
             is_extra_edition=is_extra_edition,
-            territory_id=self.TERRITORY_ID,
-            scraped_at=scraped_at,
             power=power,
         )
         return gazette_object
