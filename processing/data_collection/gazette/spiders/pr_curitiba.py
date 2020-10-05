@@ -14,11 +14,20 @@ class PrCuritibaSpider(BaseGazetteSpider):
     custom_settings = {"DEFAULT_REQUEST_HEADERS": {"user-agent": "Mozilla/5.0"}}
 
     def start_requests(self):
-        for year in range(date.today().year, 2006, -1):
-            yield scrapy.FormRequest(
-                "https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx",
+        yield scrapy.Request(
+            "https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx",
+            callback=self.fetch_years,
+        )
+
+    def fetch_years(self, response):
+        years_available = response.xpath(
+            "//select[@id='ctl00_cphMasterPrincipal_ddlGrAno']/option/@value"
+        ).getall()
+        for year in years_available:
+            yield scrapy.FormRequest.from_response(
+                response,
                 formdata={"ctl00$cphMasterPrincipal$ddlGrAno": str(year)},
-                meta={"year": year},
+                meta={"year": int(year)},
                 callback=self.parse_year,
             )
 
