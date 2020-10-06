@@ -13,7 +13,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     name = "df_brasilia"
 
     GAZETTE_URL = "http://dodf.df.gov.br/listar"
-    DATE_REGEX = r"[0-9]{2}-[0-9]{2}-[0-9]{4}"
+    DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
     EXTRA_EDITION_TEXT = "EDICAO EXTR"
     PDF_URL = "http://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
 
@@ -67,7 +67,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         json_dir = json_response["dir"]
 
         date = re.search(self.DATE_REGEX, json_dir).group()
-        date = dateparser.parse(date, date_formats=["%d-%m-%Y"])
+        date = dateparser.parse(date, settings={"DATE_ORDER": "DMY"})
         is_extra_edition = self.EXTRA_EDITION_TEXT in json_dir
         path = json_dir.replace("/", "|")
 
