@@ -24,7 +24,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
 
         Normal gazettes are displayed in a weekly basis, so, the date which is taken
         into account for this type of gazette is the last in the publication period
-        (i.e. "29/08/2020" from "23/08/2020 à 29/08/2020").
+        (i.e. "29/08/2020" from "23/08/2020 to 29/08/2020").
 
         Special gazzetes are daily, but that same logic applies here and it works
         correctly.
