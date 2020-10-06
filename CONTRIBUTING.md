@@ -52,3 +52,16 @@ $ black .
 ```
 
 It is important to note that the CI will fail if you commit Python code that is not in accordance with Black code style.
+
+## Guidelines to maintainers
+
+This section is a space for project maintainers, since as code review and repository organization are part of the contribution process, all code review guidelines are of public interest to anyone in the community.
+
+### Responsibilities of a Querido Diario maintainer:
+
+- Respect the [code of conduct](https://github.com/okfn-brasil/querido-diario/blob/main/CODE_OF_CONDUCT.md) and ensure that anyone who may have suffered harassment has a help channel.
+- Manage the labels to avoid rework and conflict communication. ([CPython project](https://github.com/python/cpython/pulls) as a reference)
+    - *awaiting review*
+    - *awaiting changes*
+    - *awaiting merge*
+- Always justify a suggestion according to the practices already adopted in the project, legibility and simplicity. It is essential for a civil project to have a structure as easy as possible for beginners.
