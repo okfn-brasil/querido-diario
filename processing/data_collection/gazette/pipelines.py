@@ -23,30 +23,6 @@ class GazetteDateFilteringPipeline:
         return item
 
 
-class ExtraIssuePipeline:
-    """
-    Try to identify whether or not a given Gazette is an extraordinary
-    issue based on the item's source_text, and a spider-defined pattern
-    """
-
-    def process_item(self, item, spider):
-        # If the spider has not defined a pattern, go away
-        if not hasattr(spider, "EXTRA_ISSUE_PATTERN"):
-            return item
-
-        # Avoid touching an item that was manually defined.
-        if "is_extra_edition" in item:
-            return item
-
-        # No source_text, nothing to do
-        if item["source_text"] is None:
-            return item
-
-        if re.search(spider.EXTRA_ISSUE_PATTERN, item["source_text"], re.IGNORECASE):
-            item["is_extra_edition"] = True
-        return item
-
-
 class DefaultValuesPipeline:
     """ Add defaults values field, if not already set in the item """
 

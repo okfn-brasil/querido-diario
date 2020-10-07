@@ -8,7 +8,6 @@ ITEM_PIPELINES = {
     "scrapy.pipelines.files.FilesPipeline": 100,
     "gazette.pipelines.ExtractTextPipeline": 200,
     "gazette.pipelines.SQLDatabasePipeline": 300,
-    "gazette.pipelines.ExtraIssuePipeline": 300,
 }
 FILES_STORE = "/mnt/data/"
 
