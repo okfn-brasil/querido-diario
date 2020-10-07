@@ -15,7 +15,7 @@ class ApMacapaSpider(BaseGazetteSpider):
     TERRITORY_ID = "1600303"
 
     def __init__(self, start_date=None, end_date=None, *args, **kwargs):
-        self.start_date = dt.date.today().replace(day=1)
+        self.start_date = dt.date(2018, 1, 1)
         self.end_date = dt.date.today()
 
         super(ApMacapaSpider, self).__init__(start_date, end_date)
