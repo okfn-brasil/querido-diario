@@ -15,7 +15,7 @@ class RnMacaiba(BaseGazetteSpider):
     allowed_domains = ["macaiba.rn.gov.br"]
 
     def __init__(self, start_date=None, end_date=None):
-        self.start_date = dt.date.today().replace(day=1)
+        self.start_date = dt.date(2010, 5, 14)
         self.end_date = dt.date.today()
 
         super(RnMacaiba, self).__init__(start_date, end_date)
