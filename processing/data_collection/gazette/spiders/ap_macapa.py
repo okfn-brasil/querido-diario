@@ -1,6 +1,7 @@
-from dateparser import parse
 from urllib.parse import urlencode
 import datetime as dt
+
+from dateparser import parse
 import scrapy
 
 from gazette.items import Gazette
