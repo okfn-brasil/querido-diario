@@ -19,7 +19,10 @@ class RjPetropolis(BaseGazetteSpider):
     start_urls = [
         "http://www.petropolis.rj.gov.br/pmp/index.php/servicos-na-web/informacoes/diario-oficial/viewcategory/3-diario-oficial.html"
     ]
-    set_to_discard = {"/pmp/index.php/servicos-na-web/informacoes/diario-oficial.html", None}
+    set_to_discard = {
+        "/pmp/index.php/servicos-na-web/informacoes/diario-oficial.html",
+        None,
+    }
 
     def parse(self, response):
         for entry in response.css("#col1 > div > table"):
@@ -43,7 +46,9 @@ class RjPetropolis(BaseGazetteSpider):
                 edition_number = re.search(r"\d+-(\d+)", url).group(1)
 
                 if date_match is not None:
-                    date = dateparser.parse(date_match.group(0), languages=["pt"]).date()
+                    date = dateparser.parse(
+                        date_match.group(0), languages=["pt"]
+                    ).date()
 
                     yield Gazette(
                         date=date,
@@ -52,5 +57,5 @@ class RjPetropolis(BaseGazetteSpider):
                         territory_id=self.TERRITORY_ID,
                         power="executive_legislative",
                         scraped_at=datetime.utcnow(),
-                        edition_number=edition_number
+                        edition_number=edition_number,
                     )
