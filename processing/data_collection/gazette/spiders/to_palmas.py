@@ -32,6 +32,12 @@ class ToPalmasSpider(BaseGazetteSpider):
         url = f"http://diariooficial.palmas.to.gov.br/resultado-pesquisa/?{params}"
         yield scrapy.Request(url)
 
+    def _get_date_from_parent_edition(self, response, gazette):
+        parent_gazette_class_id = gazette.re_first(r"treegrid-parent-(\d+)")
+        parent_gazette_class = f"treegrid-{parent_gazette_class_id}"
+        main_edition_gazette = response.css(f".{parent_gazette_class}")
+        return main_edition_gazette.xpath("./td[2]/text()").get()
+
     def parse(self, response):
         gazettes = response.css(".diario-resultado-pesquisa tbody tr")
         for gazette in gazettes:
@@ -40,10 +46,9 @@ class ToPalmasSpider(BaseGazetteSpider):
 
             is_extra_edition = bool(gazette.xpath(".//*[contains(., 'Suplemento')]"))
             if is_extra_edition:
-                parent_gazette_class_id = gazette.re_first(r"treegrid-parent-(\d+)")
-                parent_gazette_class = f"treegrid-{parent_gazette_class_id}"
-                main_edition_gazette = response.css(f".{parent_gazette_class}")
-                gazette_date = main_edition_gazette.xpath("./td[2]/text()").get()
+                # Extra Editions doesn't have a date in its line. We need to get it from
+                # the main edition of that day
+                gazette_date = self._get_date_from_parent_edition(response, gazette)
 
             item = Gazette(
                 date=dateparser.parse(gazette_date, languages=["pt"]).date(),
