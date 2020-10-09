@@ -1,22 +1,26 @@
 from datetime import datetime
-from parsel import Selector
 
-from gazette.spiders.base import BaseGazetteSpider
-
-from gazette.items import Gazette
-from dateparser import parse
 import scrapy
+from dateparser import parse
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
+from parsel import Selector
 
 
 class SeAracajuSpider(BaseGazetteSpider):
     TERRITORY_ID = "2800308"
     name = "se_aracaju"
 
-    custom_settings = {"CONCURRENT_REQUESTS": 1}
+    custom_settings = {"CONCURRENT_REQUESTS": 12}
 
     start_urls = [
         "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp"
     ]
+
+    def start_requests(self, cookiejar=None):
+        for url in self.start_urls:
+            meta = {"cookiejar": cookiejar} if cookiejar else {}
+            yield scrapy.Request(url, meta=meta, dont_filter=True)
 
     def parse(self, response):
         mesano_param = response.css("[value=mesano]::attr(name)").get()
@@ -24,6 +28,8 @@ class SeAracajuSpider(BaseGazetteSpider):
             response,
             formdata={mesano_param: "mesano"},
             callback=self.parse_search_by_month_and_year,
+            dont_filter=True,
+            meta={"cookiejar": response.meta.get("cookiejar")},
         )
 
     def parse_search_by_month_and_year(self, response):
@@ -42,22 +48,30 @@ class SeAracajuSpider(BaseGazetteSpider):
         ).get()
         search_button_param = response.css(".botaoCadastrarPesq::attr(id)").get()
 
-        for year in all_years_available:
-            for month in range(1, 13):
-                yield scrapy.FormRequest.from_response(
-                    response,
-                    formdata={
-                        "AJAXREQUEST": container_id,
-                        ano_param: str(year),
-                        mes_param: str(month),
-                        search_button_param: search_button_param,
-                    },
-                    callback=self.parse_page_result,
-                )
+        jar = response.meta.get("cookiejar", None)
+        if not jar:
+            for year in all_years_available:
+                for month in range(1, 13):
+                    yield from self.start_requests((year, month,))
+        else:
+            year, month = jar
+            yield scrapy.FormRequest.from_response(
+                response,
+                formdata={
+                    "AJAXREQUEST": container_id,
+                    ano_param: str(year),
+                    mes_param: str(month),
+                    search_button_param: search_button_param,
+                },
+                meta={"cookiejar": response.meta.get("cookiejar")},
+                callback=self.parse_page_result,
+            )
 
     def parse_page_result(self, response):
-        gazettes = response.css(".rich-table-cell")
-        for gazette in gazettes:
+        page = Selector(response.text)
+        page.remove_namespaces()
+
+        for gazette in page.css(".rich-table-cell"):
             gazette.remove_namespaces()
             gazette_number = gazette.xpath(".//table//td/text()").get()
             if gazette_number is None:
