@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import datetime
+import datetime
 from urllib.parse import urljoin
 
 import scrapy
@@ -19,6 +19,7 @@ class RjPetropolis(BaseGazetteSpider):
     start_urls = [
         "http://www.petropolis.rj.gov.br/pmp/index.php/servicos-na-web/informacoes/diario-oficial/viewcategory/3-diario-oficial.html"
     ]
+    start_date = datetime.date(2001, 10, 2)
 
     def parse(self, response):
         for entry in response.css("#col1 div table"):
@@ -53,6 +54,6 @@ class RjPetropolis(BaseGazetteSpider):
                     is_extra_edition=is_extra_edition,
                     territory_id=self.TERRITORY_ID,
                     power="executive_legislative",
-                    scraped_at=datetime.utcnow(),
+                    scraped_at=datetime.datetime.utcnow(),
                     edition_number=edition_number,
                 )
