@@ -50,7 +50,7 @@ class ToPalmasSpider(BaseGazetteSpider):
                 is_extra_edition=is_extra_edition,
                 territory_id=self.TERRITORY_ID,
                 scraped_at=datetime.datetime.utcnow(),
-                power="executive",
+                power="executive_legislative",
             )
             yield scrapy.Request(
                 gazette_url,
