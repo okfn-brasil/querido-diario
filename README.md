@@ -31,6 +31,9 @@ $ make setup
 $ docker-compose up
 ```
 
+If you get some error here, see the section [Troubleshooting](#troubleshooting)
+below.
+
 ### Run Gazette Crawler
 
 The gazettes spiders are written using Scrapy framework and must be executed with crawl command: `scrapy crawl <spider filename>`.
@@ -74,6 +77,13 @@ SPIDER=sc_florianopolis make run_spider
 
 ## Troubleshooting
 
+### Non-specific errors when building or running
+Several error is because your user don't is from docker group. To resolve this,
+execute the follow command and do logout and login:
+
+```console
+$ sudo usermod -aG docker $USER
+```
 ### "Permission denied" error when files are downloaded
 
 This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
@@ -87,6 +97,7 @@ $ id -u
 Copy the output, replace the value of the environment variable `LOCAL_USER_ID` in the generated `.env` file with the copied value and execute `docker-compose build`. With the image rebuilt you are ready to go.
 
 To save yourself this effort in the future, you can replace the value of `LOCAL_USER_ID` in `.env.example` too and `.env` will already be generated with the correct value for it when `make setup` is executed.
+
 
 ## Contributing
 
