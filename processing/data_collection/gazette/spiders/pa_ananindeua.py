@@ -1,9 +1,10 @@
+from datetime import datetime
+
+import dateparser
 from scrapy import Request
+
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.items import Gazette
-from datetime import datetime
-import dateparser
-
 
 class PaAnanindeuaSpider(BaseGazetteSpider):
 
@@ -11,6 +12,9 @@ class PaAnanindeuaSpider(BaseGazetteSpider):
     name = "pa_ananindeua"
     allowed_domains = ["ananindeua.pa.gov.br"]
     start_urls = ["http://www.ananindeua.pa.gov.br/diario/inicio/diarios-pdf"]
+    FILE_ELEMENT_CSS = "div#content div div#online_arquivo a::attr(href)"
+    DATE_ELEMENT_CSS = "div#content div div#online_data::text"
+    DATE_FORMAT = "%d/%m/%Y"
 
     def parse(self, response):
         # Year ids are not truly sequential, this offset prevent from missing someone
@@ -26,13 +30,11 @@ class PaAnanindeuaSpider(BaseGazetteSpider):
             )
 
     def parse_month(self, response):
-        file_urls = response.css(
-            "div#content div div#online_arquivo a::attr(href)"
-        ).extract()
-        dates = response.css("div#content div div#online_data::text").extract()
+        file_urls = response.css(self.FILE_ELEMENT_CSS).extract()
+        dates = response.css(self.DATE_ELEMENT_CSS).extract()
 
         for date_str, file_url in zip(dates, file_urls):
-            date = dateparser.parse(date_str, date_formats=["%d/%m/%Y"]).date()
+            date = dateparser.parse(date_str, date_formats=[self.DATE_FORMAT]).date()
             url = response.urljoin(file_url)
 
             yield Gazette(
