@@ -30,7 +30,9 @@ class PrCuritibaSpider(BaseGazetteSpider):
 
     def fetch_years(self, response):
         """Requests pages for all available years."""
-        years_available = response.xpath("//select[@id='ctl00_cphMasterPrincipal_ddlGrAno']/option/@value").getall()
+        years_available = response.xpath(
+            "//select[@id='ctl00_cphMasterPrincipal_ddlGrAno']/option/@value"
+        ).getall()
         for year in years_available:
             yield scrapy.FormRequest.from_response(
                 response,
@@ -62,7 +64,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
         """Paginates to show all available gazettes and parses first page."""
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
         month = response.meta["month"]
-        yield from self.parse_page(response) 
+        yield from self.parse_page(response)
         for page_number in range(2, page_count + 1):
             yield scrapy.FormRequest.from_response(
                 response,
@@ -83,7 +85,9 @@ class PrCuritibaSpider(BaseGazetteSpider):
             pdf_date = row.css("td:nth-child(2) span ::text").extract_first()
             gazette_id = row.css("td:nth-child(3) a ::attr(data-teste)").extract_first()
             parsed_date = parse(f"{pdf_date}", languages=["pt"]).date()
-            eventtarget = row.css("td:nth-child(3) a ::attr(href)").re_first("'(.*lnkVisualizar)'")
+            eventtarget = row.css("td:nth-child(3) a ::attr(href)").re_first(
+                "'(.*lnkVisualizar)'"
+            )
             if gazette_id == "0":
                 yield scrapy.FormRequest.from_response(
                     response,
@@ -117,4 +121,3 @@ class PrCuritibaSpider(BaseGazetteSpider):
             power="executive_legislative",
             scraped_at=datetime.utcnow(),
         )
-
