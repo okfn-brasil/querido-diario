@@ -14,7 +14,9 @@ Table of Contents
      * [Run Gazette Crawler](#run-gazette-crawler)
   * [Tips and tricks](#tips-and-tricks)
   * [Troubleshooting](#troubleshooting)
-     * ["Permission denied" error when files are downloaded](#permission-denied-error-when-files-are-downloaded)
+     * [Non-specific errors when building or running](#non-specific-errors-when-building-or-running)
+     * [ImportError: cannot import name 'main'](importerror-cannot-import-name-main)
+     * ["Permission denied" error when gazette files are downloaded](#permission-denied-error-when-gazette-files-are-downloaded)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
 
