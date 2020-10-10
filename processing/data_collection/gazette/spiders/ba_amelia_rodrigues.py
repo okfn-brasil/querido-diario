@@ -14,7 +14,7 @@ class BaAmeliaRodriguesSpider(BaseGazetteSpider):
 
     name = "ba_amelia_rodrigues"
     allowed_domains = ["pmameliarodriguesba.imprensaoficial.org"]
-    start_date = date(2015, 1, 1)
+    start_date = date(2020, 6, 1)
 
     TERRITORY_ID = "2901106"
 
@@ -29,9 +29,17 @@ class BaAmeliaRodriguesSpider(BaseGazetteSpider):
             yield scrapy.Request(url, callback=self.extract_gazette_links)
 
     def extract_gazette_links(self, response):
-        # FIXME add pagination
+        # pagination exists when the button "Publicações mais antigas" is in the page
+        another_page = response.xpath(
+            ".//a[contains(text(), 'Publicações mais antigas')]/@href"
+        ).extract_first()
+        # or response.css("div.nav-previous a::attr(href)").extract_first()
+
         for a in response.css("h2 a"):
             yield scrapy.Request(a.attrib["href"], callback=self.parse)
+
+        if another_page:
+            yield scrapy.Request(another_page, callback=self.extract_gazette_links)
 
     def parse(self, response):
         pass
