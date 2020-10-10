@@ -29,6 +29,35 @@ class MgGovernadorValadares(BaseGazetteSpider):
         self.path = endpoint
         yield self.make_request(self.current_page)
 
+    def parse_items(self, response):
+        body = response.body
+
+        if self.is_body_empty(body):
+            return
+
+        definition, rows = self.parse_definitions_and_rows(body)
+
+        for row in rows:
+            item = dict(zip(definition, row))
+
+            date_values = item["DTPUBLICACAO"]
+            item_date = date(date_values[0], date_values[1] + 1, date_values[2])
+
+            url = "https://www.valadares.mg.gov.br/abrir_arquivo.aspx?cdLocal=12&arquivo={}{}".format(
+                item["NMARQUIVO"], item["NMEXTENSAOARQUIVO"]
+            )
+            yield Gazette(
+                date=item_date,
+                file_urls=[url],
+                is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
+                power="executive",
+                scraped_at=datetime.utcnow(),
+            )
+
+        self.current_page += 1
+        yield self.make_request(self.current_page)
+
     def make_request(self, page):
         return scrapy.Request(
             f"{self.BASE_URL}{self.path}",
@@ -65,35 +94,6 @@ class MgGovernadorValadares(BaseGazetteSpider):
             "Minute": 0,
             "Second": 0,
         }
-
-    def parse_items(self, response):
-        body = response.body
-
-        if self.is_body_empty(body):
-            return
-
-        definition, rows = self.parse_definitions_and_rows(body)
-
-        for row in rows:
-            item = dict(zip(definition, row))
-
-            date_values = item["DTPUBLICACAO"]
-            item_date = date(date_values[0], date_values[1] + 1, date_values[2])
-
-            url = "https://www.valadares.mg.gov.br/abrir_arquivo.aspx?cdLocal=12&arquivo={}{}".format(
-                item["NMARQUIVO"], item["NMEXTENSAOARQUIVO"]
-            )
-            yield Gazette(
-                date=item_date,
-                file_urls=[url],
-                is_extra_edition=False,
-                territory_id=self.TERRITORY_ID,
-                power="executive",
-                scraped_at=datetime.utcnow(),
-            )
-
-        self.current_page += 1
-        yield self.make_request(self.current_page)
 
     def is_body_empty(self, body):
         return body == "null;/*".encode()
