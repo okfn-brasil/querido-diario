@@ -15,7 +15,7 @@ Table of Contents
   * [Tips and tricks](#tips-and-tricks)
   * [Troubleshooting](#troubleshooting)
      * [Non-specific errors when building or running](#non-specific-errors-when-building-or-running)
-     * [ImportError: cannot import name 'main'](importerror-cannot-import-name-main)
+     * [ImportError: cannot import name 'main'](#importerror-cannot-import-name-main)
      * ["Permission denied" error when gazette files are downloaded](#permission-denied-error-when-gazette-files-are-downloaded)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
