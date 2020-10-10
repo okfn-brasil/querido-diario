@@ -11,6 +11,16 @@ def get_next_month(current_date):
     return date(year, month, 1)
 
 
+def extract_public_url(file_url):
+    if not file_url:
+        return
+    # download: http://www.imprensaoficial.org/pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+    # original: http://www.imprensaoficial.org/pdf/baixar.php?
+    # arquivo=../pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+    index = file_url.find("arquivo=../") + 11
+    return f"http://www.imprensaoficial.org/{file_url[index:]}"
+
+
 class BaAmeliaRodriguesSpider(BaseGazetteSpider):
 
     name = "ba_amelia_rodrigues"
@@ -43,12 +53,9 @@ class BaAmeliaRodriguesSpider(BaseGazetteSpider):
             yield scrapy.Request(another_page, callback=self.extract_gazette_links)
 
     def parse(self, response):
-        file_url = response.xpath(
-            ".//a[contains(@src, '/pdf/salvar.jpg')]/@href"
-        ).extract_first()
-        # download: http://www.imprensaoficial.org/pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
-        # original: http://www.imprensaoficial.org/pdf/baixar.php?
-        # arquivo=../pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+        file_url = response.css("div.entry-content a::attr(href)").extract_first()
+        file_url = extract_public_url(file_url)
+
         gazette_date = response.css(
             "span.posted-on a time::attr(datetime)"
         ).extract_first()
