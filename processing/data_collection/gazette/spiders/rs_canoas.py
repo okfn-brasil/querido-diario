@@ -8,17 +8,16 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RsCanoasSpider(BaseGazetteSpider):
-    TERRITORY_ID = '4304606'
-    name = 'rs_canoas'
+    TERRITORY_ID = "4304606"
+    name = "rs_canoas"
     START_DATE = date(2018, 5, 29)
-    BASE_URL = 'https://sistemas.canoas.rs.gov.br/domc/api/'
+    BASE_URL = "https://sistemas.canoas.rs.gov.br/domc/api"
 
     def start_requests(self):
         today = date.today()
         day = self.START_DATE
         while day < today:
-            url = '{}public/diary-by-day?day={}'.format(
-                self.BASE_URL, day.strftime('%d/%m/%Y'))
+            url = f"{self.BASE_URL}/public/diary-by-day?day={day.strftime('%d/%m/%Y')}"
             yield scrapy.Request(url)
             day = day + timedelta(days=1)
 
@@ -31,17 +30,18 @@ class RsCanoasSpider(BaseGazetteSpider):
         data = json.loads(response.body_as_unicode())
         items = []
 
-        for edition in data['editions']:
-            file_url = '{}edition-file/{}'.format(self.BASE_URL, edition['id'])
-            is_extra_edition = edition['type'] == 'C'
+        # "editions" is empty when there were no gazettes in the date
+        for edition in data.get("editions", []):
+            file_url = f"{self.BASE_URL}/edition-file/{edition['id']}"
+            is_extra_edition = edition["type"] == "C"
 
             items.append(
                 Gazette(
-                    date=data['day'],
+                    date=data["day"],
                     file_urls=[file_url],
                     is_extra_edition=is_extra_edition,
                     territory_id=self.TERRITORY_ID,
-                    power='executive',
+                    power="executive",
                     scraped_at=datetime.utcnow(),
                 )
             )
