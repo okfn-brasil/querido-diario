@@ -1,0 +1,34 @@
+name: Building container image
+on: 
+  push:
+    branches:
+      - master
+ 
+env:
+  NAMESPACE: ${{ secrets.NAMESPACE }}
+  USERNAME: ${{ secrets.USERNAME }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+
+jobs:
+    build-image:
+        name: Building container image
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@master
+
+            - name: Build and tag the image
+              run: |
+                  make build
+
+            - name: Docker login
+              run: |
+                  docker login --username=$USERNAME --password=$PASSWORD
+
+            - name: Publish container images
+              run: |
+                  make publish
+
+            - name: Docker logout
+              run: |
+                  docker logout
