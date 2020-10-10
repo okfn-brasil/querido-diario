@@ -19,10 +19,6 @@ class SpFrancaSpider(BaseGazetteSpider):
     documents_url = "http://www.franca.sp.gov.br/arquivos/diario-oficial/documentos/{}"
 
     def parse(self, response):
-        """
-        @url http://www.franca.sp.gov.br/pmf-diario/rest/diario/init
-        @returns requests 10
-        """
         dates = set(json.loads(response.body_as_unicode()))
 
         start_date = dt.date(2015, 1, 1)
@@ -35,11 +31,6 @@ class SpFrancaSpider(BaseGazetteSpider):
             start_date += delta
 
     def parse_document(self, response):
-        """
-        @url http://www.franca.sp.gov.br/pmf-diario/rest/diario/buscaPorArquivo/03-01-2018
-        @returns items 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         items = []
 
         document = json.loads(response.body_as_unicode())[0]

@@ -21,10 +21,6 @@ class ToPalmasSpider(BaseGazetteSpider):
     start_urls = ["http://diariooficial.palmas.to.gov.br/todos-diarios/"]
 
     def parse(self, response):
-        """
-        @url http://diariooficial.palmas.to.gov.br/todos-diarios/
-        @returns requests 142
-        """
         last_page_number_str = response.xpath(last_page_number_xpath).extract_first()
         last_page_number = int(last_page_number_str)
         for page_number in range(1, last_page_number + 1):
@@ -32,10 +28,6 @@ class ToPalmasSpider(BaseGazetteSpider):
             yield scrapy.Request(url=url, callback=self.parse_page)
 
     def parse_page(self, response):
-        """
-        @url http://diariooficial.palmas.to.gov.br/todos-diarios/?page=1
-        @returns items 14
-        """
         li_list = response.css("div.diario-content-todos > ul > li")
         for li in li_list:
             edicao, data = li.xpath('.//*[@id="audio-titulo"]/text()').re(

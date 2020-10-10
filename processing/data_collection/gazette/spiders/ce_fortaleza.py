@@ -27,12 +27,6 @@ class CeFortalezaSpider(BaseGazetteSpider):
             yield Request(year_url)
 
     def parse(self, response):
-        """
-        @url http://apps.fortaleza.ce.gov.br/diariooficial/
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
-
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
             url = response.urljoin(element.css("a::attr(href)").extract_first())
             date = dateparser.parse(

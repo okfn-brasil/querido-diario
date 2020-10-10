@@ -1,21 +1,44 @@
-test: unit_test integration_test
+ENV_FILE := .env
 
-unit_test:
-	docker-compose run --rm processing python -m unittest discover
-
-integration_test:
-	docker-compose run --rm processing bash -c "cd data_collection && scrapy check"
-	docker-compose run --rm processing black . --check
-
-setup:
-	cp .env.example .env
+setup: 
+	cp .env.example $(ENV_FILE)
 	docker-compose pull
 	docker-compose build
-	make seed
-	pip install pre-commit
-	pre-commit install
+	pip3 install -r requirements.txt
+	touch .git/hooks/pre-commit
+	echo "make check" > .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
 
-seed:
-	docker-compose up -d postgres
-	docker-compose run --rm processing python3 -c "import database; database.initialize()"
-	docker-compose run --rm processing bash -c 'echo "\copy territories FROM /mnt/data/territories.csv CSV HEADER;" | psql $$DATABASE_URL'
+check:
+	python3 -m black .
+
+destroy:
+	echo "Removing all containers...."
+	docker-compose down --rmi all --volumes --remove-orphans
+	docker-compose rm -v -s -f
+	rm -f $(ENV_FILE)
+
+test:
+	docker-compose run --rm processing black . --check
+
+run_spider:
+	docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl $(SPIDER)"
+
+sql:
+	docker-compose run --rm postgres psql --username gazette -h postgres -W
+
+clean:
+	find ./data/* -type d -exec rm -rv {} \;
+
+build:
+	docker build -t $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) -t $(NAMESPACE)/diario-oficial:latest processing
+
+publish:
+	docker push $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) 
+	docker push $(NAMESPACE)/diario-oficial:latest
+
+shell:
+	docker-compose run --rm processing bash -c "cd data_collection && scrapy shell"
+
+run_spider_since:
+	docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl -a start_date=$(START_DATE) $(SPIDER)"

@@ -4,9 +4,9 @@ NEWSPIDER_MODULE = "gazette.spiders"
 ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 50,
-    "gazette.parser.GazetteFilesPipeline": 60,
+    "gazette.pipelines.DefaultValuesPipeline": 60,
     "scrapy.pipelines.files.FilesPipeline": 100,
-    "gazette.pipelines.PdfParsingPipeline": 200,
-    "gazette.pipelines.PostgreSQLPipeline": 300,
+    "gazette.pipelines.ExtractTextPipeline": 200,
 }
 FILES_STORE = "/mnt/data/"
+QUERIDODIARIO_EXTRACT_TEXT_FROM_FILE = True
