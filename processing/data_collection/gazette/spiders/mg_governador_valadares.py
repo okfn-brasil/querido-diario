@@ -29,52 +29,6 @@ class MgGovernadorValadares(BaseGazetteSpider):
         self.path = endpoint
         yield self.make_request(self.current_page)
 
-    def parse_items(self, response):
-        body = response.body
-        has_no_results = body == "null;/*".encode()
-        if has_no_results:
-            return
-
-        content = re.findall(
-            "new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
-        )[0]
-        content = content.replace("new Date", "")
-
-        rows = None
-        definition = None
-
-        try:
-            definition, rows = self.extract_definitions_and_rows(content)
-        except Exception as e:
-            return
-
-        for row in rows:
-            item = dict(zip(definition, row))
-
-            date_values = item["DTPUBLICACAO"]
-            item_date = date(date_values[0], date_values[1] + 1, date_values[2])
-
-            url = "https://www.valadares.mg.gov.br/abrir_arquivo.aspx?cdLocal=12&arquivo={}{}".format(
-                item["NMARQUIVO"], item["NMEXTENSAOARQUIVO"]
-            )
-            yield Gazette(
-                date=item_date,
-                file_urls=[url],
-                is_extra_edition=False,
-                territory_id=self.TERRITORY_ID,
-                power="executive",
-                scraped_at=datetime.utcnow(),
-            )
-
-        self.current_page += 1
-        yield self.make_request(self.current_page)
-
-    def extract_definitions_and_rows(self, content):
-        definition, rows = ast.literal_eval(content)
-        definition = [name for name, property_type in definition]
-
-        return definition, rows
-
     def make_request(self, page):
         return scrapy.Request(
             f"{self.BASE_URL}{self.path}",
@@ -98,7 +52,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
         )
 
     def parse_start_date(self):
-        if not self.start_date:
+        if not hasattr(self, "start_date"):
             return None
 
         return {
@@ -111,3 +65,56 @@ class MgGovernadorValadares(BaseGazetteSpider):
             "Minute": 0,
             "Second": 0,
         }
+
+    def parse_items(self, response):
+        body = response.body
+
+        if self.is_body_empty(body):
+            return
+
+        definition, rows = self.parse_definitions_and_rows(body)
+
+        for row in rows:
+            item = dict(zip(definition, row))
+
+            date_values = item["DTPUBLICACAO"]
+            item_date = date(date_values[0], date_values[1] + 1, date_values[2])
+
+            url = "https://www.valadares.mg.gov.br/abrir_arquivo.aspx?cdLocal=12&arquivo={}{}".format(
+                item["NMARQUIVO"], item["NMEXTENSAOARQUIVO"]
+            )
+            yield Gazette(
+                date=item_date,
+                file_urls=[url],
+                is_extra_edition=False,
+                territory_id=self.TERRITORY_ID,
+                power="executive",
+                scraped_at=datetime.utcnow(),
+            )
+
+        self.current_page += 1
+        yield self.make_request(self.current_page)
+
+    def is_body_empty(self, body):
+        return body == "null;/*".encode()
+
+    def parse_definitions_and_rows(self, body):
+        content = self.extract_python_expression(body)
+
+        definition, rows = [], []
+
+        try:
+            definition, rows = ast.literal_eval(content)
+            definition = [name for name, property_type in definition]
+        except Exception:
+            return [], []
+
+        return definition, rows
+
+    def extract_python_expression(self, body):
+        content = re.findall(
+            "new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
+        )[0]
+        content = content.replace("new Date", "")
+
+        return content
