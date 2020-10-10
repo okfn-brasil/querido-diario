@@ -26,7 +26,12 @@ class BaAmeliaRodriguesSpider(BaseGazetteSpider):
             # format http://pmameliarodriguesba.imprensaoficial.org/2015/01/
             url = f"http://pmameliarodriguesba.imprensaoficial.org/{year_month}/"
             current_date = get_next_month(current_date)
-            yield scrapy.Request(url, callback=self.parse)
+            yield scrapy.Request(url, callback=self.extract_gazette_links)
+
+    def extract_gazette_links(self, response):
+        # FIXME add pagination
+        for a in response.css("h2 a"):
+            yield scrapy.Request(a.attrib["href"], callback=self.parse)
 
     def parse(self, response):
         pass
