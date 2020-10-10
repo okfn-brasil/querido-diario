@@ -18,7 +18,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
     ]
 
     current_page = 0
-    ITEMS_PER_PAGE = 10
+    ITEMS_PER_PAGE = "100"
 
     def start_requests(self):
         url = self.start_urls[0]
@@ -79,7 +79,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
             {
                 "Page": page,
                 "cdCaderno": 1,
-                "Size": str(self.ITEMS_PER_PAGE),
+                "Size": self.ITEMS_PER_PAGE,
                 "dtDiario_menor": None,
                 "dtDiario_maior": None,
                 "dsPalavraChave": "",
