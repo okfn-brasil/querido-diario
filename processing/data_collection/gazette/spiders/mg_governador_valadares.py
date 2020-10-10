@@ -30,7 +30,6 @@ class MgGovernadorValadares(BaseGazetteSpider):
             method="POST",
             headers={"X-AjaxPro-Method": "GetDiario",},
             body=self.make_body(page),
-            dont_filter=True,
         )
 
     def parse(self, response):
