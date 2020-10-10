@@ -6,7 +6,7 @@ from gazette.items import Gazette
 
 
 class MgBeloHorizonteSpider(Spider):
-    MUNICIPALITY_ID = 3106200
+    TERRITORY_ID = "3106200"
     name = "mg_belo_horizonte"
     allowed_domains = ["portal6.pbh.gov.br"]
     documents_url = (
@@ -44,7 +44,7 @@ class MgBeloHorizonteSpider(Spider):
                 date=response.meta["current_date"],
                 file_urls=[response.urljoin(file_url)],
                 is_extra_edition=False,
-                municipality_id=self.MUNICIPALITY_ID,
+                territory_id=self.TERRITORY_ID,
                 power="executive_legislature",
                 scraped_at=datetime.utcnow(),
             )
