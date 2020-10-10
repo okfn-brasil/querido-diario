@@ -17,7 +17,7 @@ class RjSaoGoncaloSpider(BaseGazetteSpider):
         date = datetime.date.today()
         start_date = self.start_date
         while date >= start_date:
-            is_weekend = (date.weekday() >= 5)
+            is_weekend = date.weekday() >= 5
             if is_weekend:
                 date = date - datetime.timedelta(days=1)
                 continue
