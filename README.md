@@ -84,6 +84,21 @@ execute the follow command and do logout and login:
 ```console
 $ sudo usermod -aG docker $USER
 ```
+
+### ImportError: cannot import name 'main'
+
+A error like this can occour when you run `pip3 install -r requirements.txt`,
+which is a step from build (`make setup`). This means you must have
+inadvertently upgraded your system pip (probably through something like
+`sudo pip install pip --upgrade`)
+
+To recover the pip3 binary you'll need to run (on Debian-based systems. On
+non-Debian system, replace `apt` by the specific package manager):
+
+```console
+$ sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
+```
+
 ### "Permission denied" error when files are downloaded
 
 This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
