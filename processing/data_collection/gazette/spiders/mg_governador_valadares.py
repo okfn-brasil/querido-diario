@@ -14,26 +14,22 @@ class MgGovernadorValadares(BaseGazetteSpider):
     name = "mg_governador_valadares"
     allowed_domains = ["valadares.mg.gov.br"]
     start_urls = [
-        "https://www.valadares.mg.gov.br/ajaxpro/diel_diel_lis,App_Web_k15lisyg.ashx"
+        "https://www.valadares.mg.gov.br/diario-eletronico/caderno/diario-oficial-eletronico/1"
     ]
 
-    current_page = 0
     ITEMS_PER_PAGE = "100"
+    BASE_URL = "https://www.valadares.mg.gov.br/"
 
-    def start_requests(self):
-        url = self.start_urls[0]
-        yield self.make_request(url, self.current_page)
-
-    def make_request(self, url, page):
-        return scrapy.Request(
-            url,
-            method="POST",
-            headers={"X-AjaxPro-Method": "GetDiario",},
-            body=self.make_body(page),
-        )
+    path = ""
+    current_page = 0
 
     def parse(self, response):
+        scripts = response.xpath("//script//@src").extract()
+        endpoint = next(path for path in scripts if "diel_diel_lis" in path)
+        self.path = endpoint
+        yield self.make_request(self.current_page)
 
+    def parse_items(self, response):
         body = response.body
         has_no_results = body == "null;/*".encode()
         if has_no_results:
@@ -71,7 +67,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
             )
 
         self.current_page += 1
-        yield self.make_request(self.start_urls[0], self.current_page)
+        yield self.make_request(self.current_page)
 
     def make_body(self, page):
         return json.dumps(
@@ -91,3 +87,12 @@ class MgGovernadorValadares(BaseGazetteSpider):
         definition = [name for name, property_type in definition]
 
         return definition, rows
+
+    def make_request(self, page):
+        return scrapy.Request(
+            f"{self.BASE_URL}{self.path}",
+            method="POST",
+            headers={"X-AjaxPro-Method": "GetDiario",},
+            body=self.make_body(page),
+            callback=self.parse_items,
+        )
