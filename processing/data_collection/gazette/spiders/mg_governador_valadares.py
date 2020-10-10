@@ -69,19 +69,6 @@ class MgGovernadorValadares(BaseGazetteSpider):
         self.current_page += 1
         yield self.make_request(self.current_page)
 
-    def make_body(self, page):
-        return json.dumps(
-            {
-                "Page": page,
-                "cdCaderno": 1,
-                "Size": self.ITEMS_PER_PAGE,
-                "dtDiario_menor": None,
-                "dtDiario_maior": None,
-                "dsPalavraChave": "",
-                "nuEdicao": -1,
-            }
-        )
-
     def extract_definitions_and_rows(self, content):
         definition, rows = ast.literal_eval(content)
         definition = [name for name, property_type in definition]
@@ -96,3 +83,31 @@ class MgGovernadorValadares(BaseGazetteSpider):
             body=self.make_body(page),
             callback=self.parse_items,
         )
+
+    def make_body(self, page):
+        return json.dumps(
+            {
+                "Page": page,
+                "cdCaderno": 1,
+                "Size": self.ITEMS_PER_PAGE,
+                "dtDiario_menor": self.parse_start_date(),
+                "dtDiario_maior": None,
+                "dsPalavraChave": "",
+                "nuEdicao": -1,
+            }
+        )
+
+    def parse_start_date(self):
+        if not self.start_date:
+            return None
+
+        return {
+            "__type": "System.DateTime",
+            "Year": self.start_date.year,
+            "Month": self.start_date.month,
+            "Day": self.start_date.day,
+            "Hour": 0,
+            "Millisecond": 0,
+            "Minute": 0,
+            "Second": 0,
+        }
