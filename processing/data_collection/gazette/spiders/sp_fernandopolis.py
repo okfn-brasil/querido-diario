@@ -26,7 +26,7 @@ class SpFernandopolis(BaseGazetteSpider):
                 date=date,
                 file_urls=[link],
                 is_extra_edition=is_extra_edition,
-                municipality_id=self.MUNICIPALITY_ID,
+                municipality_id=self.TERRITORY_ID,
                 power="executive",
                 scraped_at=datetime.utcnow(),
             )
