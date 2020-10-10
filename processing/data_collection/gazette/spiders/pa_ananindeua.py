@@ -6,6 +6,7 @@ from scrapy import Request
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.items import Gazette
 
+
 class PaAnanindeuaSpider(BaseGazetteSpider):
 
     TERRITORY_ID = "1500800"
