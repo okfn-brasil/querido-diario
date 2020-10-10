@@ -99,7 +99,7 @@ non-Debian system, replace `apt` by the specific package manager):
 $ sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 ```
 
-### "Permission denied" error when files are downloaded
+### "Permission denied" error when gazette files are downloaded
 
 This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
 
