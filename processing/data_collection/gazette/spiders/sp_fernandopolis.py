@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpFernandopolis(BaseGazetteSpider):
-    MUNICIPALITY_ID = "3515509"
+    TERRITORY_ID = "3515509"
     name = "sp_fernandopolis"
     start_urls = [
         "https://diariotransparente.com.br/publicacoes/frame/spfernandopolispm"
