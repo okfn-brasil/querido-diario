@@ -26,11 +26,6 @@ class RoPortoVelho(BaseGazetteSpider):
             yield Request(f"{self.BASE_URL}{date.year}/{date.month}")
 
     def parse(self, response):
-        """
-        @url https://www.portovelho.ro.gov.br/dom/datatablearquivosmes/2017/1
-        @returns items 20 20
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         paragraphs = json.loads(response.body_as_unicode())["aaData"]
         for paragraph, *_ in paragraphs:
             selector = Selector(text=paragraph)

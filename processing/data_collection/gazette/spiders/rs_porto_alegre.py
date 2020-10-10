@@ -14,10 +14,6 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
     start_urls = ["http://www2.portoalegre.rs.gov.br/dopa/"]
 
     def parse(self, response):
-        """
-        @url http://www2.portoalegre.rs.gov.br/dopa/
-        @returns requests 48
-        """
         selector = (
             '//ul[contains(@id, "menucss")]'
             '/descendant::*[contains(text(), "Diário Oficial {}")]'
@@ -31,11 +27,6 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
                 yield scrapy.Request(url, self.parse_month_page)
 
     def parse_month_page(self, response):
-        """
-        @url http://www2.portoalegre.rs.gov.br/dopa/default.php?p_secao=1431
-        @returns items 58 58
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         links = response.css("#conteudo a")
         items = []
         for link in links:

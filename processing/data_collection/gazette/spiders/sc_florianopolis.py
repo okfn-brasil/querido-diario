@@ -16,33 +16,31 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
     AVAILABLE_FROM = date(2015, 1, 1)  # actually from June/2009
 
     def start_requests(self):
-        """The City Hall website publish the gazettes in a page with a form
-        that allow users to browse through different years and months. This
-        form sends requests via POST, so this method emulates a series of these
-        POSTs.
-        @url http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial
-        @returns requests 1
-        """
         target = date.today()
         while target >= self.AVAILABLE_FROM:
             year, month = str(target.year), str(target.month)
             data = dict(ano=year, mes=month, passo="1", enviar="")
             yield FormRequest(url=self.URL, formdata=data, callback=self.parse)
-            target = target + relativedelta(months=1)
+            if hasattr(self, "start_date") and target <= self.start_date:
+                break
+
+            target = target - relativedelta(months=1)
 
     def parse(self, response):
-        """Parse each page. Each list all gazettes for a given month.
-        @url http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial
-        @returns items 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         for link in response.css("ul.listagem li a"):
             url = self.get_pdf_url(response, link)
             if not url:
                 continue
 
+            gazette_date = self.get_date(link)
+            if hasattr(self, "start_date") and gazette_date < self.start_date:
+                continue
+
+            gazette_edition_number = link.css("::attr(title)").re_first(r"Edição (\d+)")
+
             yield Gazette(
-                date=self.get_date(link),
+                date=gazette_date,
+                edition_number=gazette_edition_number,
                 file_urls=(url,),
                 is_extra_edition=self.is_extra(link),
                 territory_id=self.TERRITORY_ID,

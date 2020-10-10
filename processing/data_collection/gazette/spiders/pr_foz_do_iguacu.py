@@ -14,10 +14,6 @@ class PrFozDoIguacuSpider(BaseGazetteSpider):
     start_urls = [f"{BASE_URL}/utilidades/diario/index.xhtml"]
 
     def parse(self, response):
-        """
-        @url http://www.pmfi.pr.gov.br/utilidades/diario/index.xhtml
-        @returns requests 1 1
-        """
         selector = '(//span[@class="ui-paginator-current"])[1]/text()'
         paginator_text = response.xpath(selector)
         quantity_of_documents = int(paginator_text.re_first("\([\d]+ de ([\d]+)\)")) + 1
@@ -33,10 +29,6 @@ class PrFozDoIguacuSpider(BaseGazetteSpider):
         return FormRequest(response.url, formdata=data, callback=self.parse_items)
 
     def parse_items(self, response):
-        """
-        @url http://www.pmfi.pr.gov.br/utilidades/diario/index.xhtml
-        @returns items 10 10
-        """
         lines = response.xpath('//tr[@role="row"]')
         for line in lines:
             date, url, is_extra_edition = self.get_gazette_data(line)

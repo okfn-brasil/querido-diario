@@ -16,10 +16,6 @@ class PrPontaGrossaSpider(BaseGazetteSpider):
     starting_year = 2015
 
     def parse(self, response):
-        """
-        @url http://www.pontagrossa.pr.gov.br/diario-oficial/
-        @returns requests 1
-        """
         links = response.css(".view-content .field a")
         smallest_year = min(
             (p["date"].year for p in self.pdf_infos(links, self.starting_year)),

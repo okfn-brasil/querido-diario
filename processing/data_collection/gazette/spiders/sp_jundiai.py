@@ -25,11 +25,6 @@ class SpJundiaiSpider(BaseGazetteSpider):
             yield response.follow(next_page_url, callback=self.parse)
 
     def parse_gazette(self, response):
-        """
-        @url https://imprensaoficial.jundiai.sp.gov.br/edicao-4403
-        @returns items 1 1
-        @scrapes date file_urls is_extra_edition territory_id power scraped_at
-        """
         gazette_date = parse(
             response.css(".edicao-data::text").extract_first(""), languages=["pt"]
         ).date()

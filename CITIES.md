@@ -1,6 +1,6 @@
 # CITIES
 
-Tracking of the crawlers and parsers for the top 100 cities.
+Tracking of the crawlers.
 The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil_por_popula%C3%A7%C3%A3o).
 
 :white_check_mark: Done

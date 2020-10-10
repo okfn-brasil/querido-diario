@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from dateparser import parse
 import datetime as dt
 import scrapy
@@ -15,12 +14,9 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     start_urls = ["http://www.diariooficial.feiradesantana.ba.gov.br"]
     powers = {"executive": 1, "legislative": 2}
     last_page = 1
+    handle_httpstatus_list = [302]
 
     def parse(self, response):
-        """
-        @url http://www.diariooficial.feiradesantana.ba.gov.br/?p=29
-        @returns requests 30
-        """
         gazette_table = response.css(".style166")
         gazettes_links = gazette_table.xpath("a//@href").extract()
         dates = gazette_table.css("a::text").extract()
@@ -40,10 +36,9 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
 
             gazette_details_page = f"abrir.asp?edi={edition}&p={power_id}"
             gazette_url = response.urljoin(gazette_details_page)
-            gazette_request = Request(gazette_url, self.parse_document_url)
-            gazette_request.meta["item"] = gazette
-
-            yield gazette_request
+            yield Request(
+                gazette_url, callback=self.parse_document_url, meta={"item": gazette}
+            )
 
         current_page_selector = "#pages ul li.current::text"
         current_page = response.css(current_page_selector).extract_first()
@@ -55,10 +50,9 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
             yield Request(next_page_url)
 
     def parse_document_url(self, response):
-        partial_url = response.css("iframe::attr(src)").extract_first()
-        document_url = response.urljoin(partial_url)
         item = response.meta["item"]
-        item["file_urls"] = [document_url]
+        url = response.headers["Location"].decode("utf-8")
+        item["file_urls"] = [url.replace("https", "http")]
         return item
 
     def _extract_power(self, url):
