@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from scrapy import Request
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.items import Gazette
