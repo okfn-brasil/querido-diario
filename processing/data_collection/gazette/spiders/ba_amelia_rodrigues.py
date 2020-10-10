@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 import scrapy
 
@@ -14,7 +15,7 @@ class BaAmeliaRodriguesSpider(BaseGazetteSpider):
 
     name = "ba_amelia_rodrigues"
     allowed_domains = ["pmameliarodriguesba.imprensaoficial.org"]
-    start_date = date(2020, 6, 1)
+    start_date = date(2020, 9, 1)  # FIXME
 
     TERRITORY_ID = "2901106"
 
@@ -42,4 +43,22 @@ class BaAmeliaRodriguesSpider(BaseGazetteSpider):
             yield scrapy.Request(another_page, callback=self.extract_gazette_links)
 
     def parse(self, response):
-        pass
+        file_url = response.xpath(
+            ".//a[contains(@src, '/pdf/salvar.jpg')]/@href"
+        ).extract_first()
+        # download: http://www.imprensaoficial.org/pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+        # original: http://www.imprensaoficial.org/pdf/baixar.php?
+        # arquivo=../pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+        gazette_date = response.css(
+            "span.posted-on a time::attr(datetime)"
+        ).extract_first()
+        gazette_date = datetime.strptime(gazette_date, "%Y-%m-%dT%H:%M:%S%z").date()
+
+        yield Gazette(
+            date=gazette_date,
+            file_urls=[file_url],
+            is_extra_edition=False,  # TODO
+            territory_id=self.TERRITORY_ID,
+            power="executive",
+            scraped_at=datetime.utcnow(),
+        )
