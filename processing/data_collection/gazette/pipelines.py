@@ -135,7 +135,7 @@ class ExtractTextPipeline:
         return self.get_file_type(filepath) in file_types
 
 
-class PostgreSQLPipeline:
+class SQLDatabasePipeline:
     def __init__(self, database_url):
         self.database_url = database_url
 
