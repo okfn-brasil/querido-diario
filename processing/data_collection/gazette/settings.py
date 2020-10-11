@@ -12,13 +12,11 @@ FILES_STORE = "/mnt/data/"
 QUERIDODIARIO_EXTRACT_TEXT_FROM_FILE = True
 
 EXTENSIONS = {
-    'spidermon.contrib.scrapy.extensions.Spidermon': 500,
+    "spidermon.contrib.scrapy.extensions.Spidermon": 500,
 }
 SPIDERMON_ENABLED = True
 ITEM_PIPELINES = {
-    'spidermon.contrib.scrapy.pipelines.ItemValidationPipeline': 800,
+    "spidermon.contrib.scrapy.pipelines.ItemValidationPipeline": 800,
 }
-SPIDERMON_VALIDATION_SCHEMAS = [
-    'gazette/schema.json'
-]
+SPIDERMON_VALIDATION_SCHEMAS = ["gazette/schema.json"]
 SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
