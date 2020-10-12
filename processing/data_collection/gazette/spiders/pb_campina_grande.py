@@ -20,7 +20,7 @@ class PbCampinaGrandeSpiderExecutive(BaseGazetteSpider):
     def parse_month(self, response):
         editions = response.css(".td_module_1")
         if not editions:
-            self.logger.warning(f"No editions found at {response.url}")
+            self.logger.debug(f"No editions found at {response.url}")
         else:
             for edition in editions:
                 url = edition.css("a::attr(href)").get()
