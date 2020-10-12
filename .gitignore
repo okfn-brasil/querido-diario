@@ -123,3 +123,6 @@ Sessionx.vim
 *~
 tags
 [._]*.un~
+
+# Vscode
+.vscode
