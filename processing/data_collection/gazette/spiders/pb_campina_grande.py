@@ -1,5 +1,3 @@
-from datetime import datetime as dt
-
 from dateutil.parser import parse
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -36,8 +34,6 @@ class PbCampinaGrandeSpiderExecutive(BaseGazetteSpider):
         yield Gazette(
             date=response.meta.get("date"),
             file_urls=urls,
-            territory_id=self.TERRITORY_ID,
             is_extra_edition="separata" in title,
             power="executive",
-            scraped_at=dt.utcnow(),
         )
