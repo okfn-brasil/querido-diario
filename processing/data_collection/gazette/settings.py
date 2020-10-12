@@ -20,3 +20,4 @@ ITEM_PIPELINES = {
 }
 
 SPIDERMON_SPIDER_CLOSE_MONITORS = ("gazette.monitors.SpiderCloseMonitorSuite",)
+GAZETTE_MAX_REQUESTS_ITEMS_RATIO = 1
