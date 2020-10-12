@@ -42,7 +42,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
             edition_date = edition["publication_date"]
 
             yield Gazette(
-                date=parse(edition_date, languages=["pt"]),
+                date=parse(edition_date),
                 file_urls=[edition_url],
                 is_extra_edition=edition["suplement"],
                 territory_id=self.TERRITORY_ID,
