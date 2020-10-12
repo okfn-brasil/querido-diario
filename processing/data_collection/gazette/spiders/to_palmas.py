@@ -55,7 +55,10 @@ class ToPalmasSpider(BaseGazetteSpider):
                 power="executive_legislative",
             )
             yield scrapy.Request(
-                gazette_url, method="HEAD", callback=self.parse_pdf_url, cb_kwargs={"item": item},
+                gazette_url,
+                method="HEAD",
+                callback=self.parse_pdf_url,
+                cb_kwargs={"item": item},
             )
 
         next_pages_urls = response.css(".pagination a::attr(href)").getall()
