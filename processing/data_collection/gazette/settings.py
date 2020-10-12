@@ -19,6 +19,4 @@ ITEM_PIPELINES = {
     "spidermon.contrib.scrapy.pipelines.ItemValidationPipeline": 800,
 }
 
-SPIDERMON_SPIDER_CLOSE_MONITORS = (
-    'gazette.monitors.SpiderCloseMonitorSuite',
-)
+SPIDERMON_SPIDER_CLOSE_MONITORS = ("gazette.monitors.SpiderCloseMonitorSuite",)
