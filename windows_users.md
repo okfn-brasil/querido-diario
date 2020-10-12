@@ -39,6 +39,3 @@ Vai lá no arquivo [README.md](README.md) e segue as instruções  para rodar o 
 
 **Nota:**
 Se você for usar PowerShell para baixar Chocolatey, deverá utilizar a versão 3+. Para verificar sua versão do PowerShell, abra-o como administrador e rode `Get-Host | Select-Object Version`, isso te mostrará qual sua versão. Se não for a versão 3+, você pode atualizá-la seguindo as instruções no site https://www.microsoft.com/en-us/download/details.aspx?id=34595
-
-
-Thanks @cecivieira for reviewing it.
