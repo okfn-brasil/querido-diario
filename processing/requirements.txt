@@ -54,6 +54,7 @@ tzlocal==2.1              # via dateparser
 urllib3==1.25.10          # via botocore, requests
 w3lib==1.22.0             # via itemloaders, parsel, scrapy
 zope.interface==5.1.0     # via scrapy, twisted
+chompjs==1.0.16
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
