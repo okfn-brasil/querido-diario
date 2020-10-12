@@ -31,11 +31,13 @@ class PbCampinaGrandeSpiderExecutive(BaseGazetteSpider):
 
     def parse_issue(self, response):
         urls = response.css(".td-post-content a::attr(href)").getall()
+        title = response.css("h1::text").get().lower()
 
         yield Gazette(
             date=response.meta.get("date"),
             file_urls=urls,
             territory_id=self.TERRITORY_ID,
+            is_extra_edition="separata" in title,
             power="executive",
             scraped_at=dt.utcnow(),
         )
