@@ -1,9 +1,9 @@
-from pathlib import Path
-import hashlib
-import magic
+import datetime as dt
 import os
 import subprocess
+from pathlib import Path
 
+import magic
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
@@ -19,6 +19,21 @@ class GazetteDateFilteringPipeline:
         if hasattr(spider, "start_date"):
             if spider.start_date > item.get("date"):
                 raise DropItem("Droping all items before {}".format(spider.start_date))
+        return item
+
+
+class DefaultValuesPipeline:
+    """ Add defaults values field, if not already set in the item """
+
+    default_field_values = {
+        "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
+        "scraped_at": lambda spider: dt.datetime.utcnow(),
+    }
+
+    def process_item(self, item, spider):
+        for field in self.default_field_values:
+            if field not in item:
+                item[field] = self.default_field_values.get(field)(spider)
         return item
 
 

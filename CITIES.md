@@ -10,7 +10,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 |:-:|--------|:-------:|:------:|:------:|
 | 1 | São Paulo | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
 | 2 | Rio de Janeiro | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/15) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/29) |
-| 3 | Brasília | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/57) |
+| 3 | Brasília | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido_diario/pull/57), [PR](https://github.com/okfn-brasil/querido-diario/pull/271) |
 | 4 | Salvador | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
 | 5 | Fortaleza | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/52) |
 | 6 | Belo Horizonte | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/33) |
@@ -30,7 +30,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 20 | Campo Grande | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/188)| [PR](https://github.com/okfn-brasil/diario-oficial/pull/216) |
 | 22 | São Bernardo do Campo | | | |
-| 23 | João Pessoa | :soon: | | |
+| 23 | João Pessoa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido-diario/pull/72), [PR](https://github.com/okfn-brasil/querido-diario/pull/270) |
 | 24 | Nova Iguaçu | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/120) |
 | 25 | Santo André | | | |
 | 26 | São José dos Campos | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/71) |
@@ -52,11 +52,11 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 42 | Serra | :white_check_mark: | | |
 | 43 | Niterói | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
 | 44 | Belford Roxo | | | |
-| 45 | Campos dos Goytacazes | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/70) |
+| 45 | Campos dos Goytacazes | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/70 |
 | 46 | Vila Velha | :white_check_mark: | | |
 | 47 | Florianópolis | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/17) |
 | 48 | Caxias do Sul | :white_check_mark: | | |
-| 49 | Macapá | | | |
+| 49 | Macapá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/254) |
 | 50 | Mauá | | | |
 | 51 | São João de Meriti | | | |
 | 52 | São José do Rio Preto | | | |
@@ -414,6 +414,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 404 | Sarutaiá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
 | 405 | Vera Cruz (RS) | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
 | 406 | Votorantim | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
+| 407 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
