@@ -13,6 +13,7 @@ botocore==1.18.6          # via boto3, s3transfer
 certifi==2020.6.20        # via requests
 cffi==1.14.3              # via cryptography
 chardet==3.0.4            # via requests
+chompjs==1.0.16           # via -r requirements.in
 click==7.1.2              # via black
 constantly==15.1.0        # via twisted
 cryptography==3.1.1       # via pyopenssl, scrapy, service-identity
@@ -54,7 +55,6 @@ tzlocal==2.1              # via dateparser
 urllib3==1.25.10          # via botocore, requests
 w3lib==1.22.0             # via itemloaders, parsel, scrapy
 zope.interface==5.1.0     # via scrapy, twisted
-chompjs==1.0.16
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

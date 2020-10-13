@@ -26,19 +26,17 @@ class SpItuSpider(BaseGazetteSpider):
         response_js = chompjs.parse_js_object(response.text)
 
         for element in response_js.get("data"):
-            print("DATE")
             date = self.extract_date(element)
-
-            print("URL")
             url = self.extract_url(element)
-            print(url)
+            edition_number = self.extract_edition_number(element)
+            is_extra_edition = self.extract_is_extra_edition(element)
 
             yield Gazette(
                 date=date,
                 file_urls=[url],
-                territory_id=self.TERRITORY_ID,
+                edition_number=edition_number,
+                is_extra_edition=is_extra_edition,
                 power="executive_legislature",
-                scraped_at=datetime.utcnow(),
             )
 
     def extract_date(self, element):
@@ -47,6 +45,12 @@ class SpItuSpider(BaseGazetteSpider):
             date_string=journal_date, date_formats=["%Y-%m-%d"], languages=["pt"]
         ).date()
         return parse_date
+
+    def extract_edition_number(self, element):
+        return element.get("edicao_do")
+
+    def extract_is_extra_edition(self, element):
+        return bool(element.get("is_extra_edition"))
 
     def extract_url(self, element):
         iddo = str(element.get("iddo")).encode("ascii")
