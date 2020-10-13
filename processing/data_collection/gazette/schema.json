@@ -4,10 +4,11 @@
     "properties": {
         "date": {
             "description": "Date of the gazzete",
-            "type": "string"
+            "type": "string",
+            "format": "date"
         },
-        "file_urls": {
-            "type": "array",
+        "file_url": {
+            "type": "string",
             "examples": [
                 "https://diariooficial.jaboatao.pe.gov.br/10-de-outubro-de-2020-xxx-no-199-jaboatao-dos-guararapes/?pdf=22609"
             ]
@@ -21,7 +22,11 @@
         },
         "power": {
             "type": "string",
-            "examples": ["executive", "legislative"]
+            "enum": [
+                "executive",
+                "legislative",
+                "executive_legislative"
+            ]
         },
         "scraped_at":{
             "type": "string"
@@ -50,7 +55,7 @@
     },
     "required": [
         "date",
-        "file_urls",
+        "file_url",
         "territory_id",
         "power",
         "scraped_at"
