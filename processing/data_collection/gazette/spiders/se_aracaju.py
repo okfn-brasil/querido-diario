@@ -14,9 +14,7 @@ class SeAracajuSpider(BaseGazetteSpider):
 
     custom_settings = {"CONCURRENT_REQUESTS": 12}
 
-    start_urls = [
-        "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp"
-    ]
+    start_urls = ["http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp"]
 
     def start_requests(self, cookiejar=None):
         for url in self.start_urls:
@@ -34,9 +32,7 @@ class SeAracajuSpider(BaseGazetteSpider):
         )
 
     def _make_year_month_request(self, response, formdata=None):
-        container_id = response.css("select::attr(onchange)").re_first(
-            r"containerId\':\'(.+)\'"
-        )
+        container_id = response.css("select::attr(onchange)").re_first(r"containerId\':\'(.+)\'")
         mes_param = response.xpath(
             "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select/@name"
         ).get()
@@ -60,7 +56,7 @@ class SeAracajuSpider(BaseGazetteSpider):
                 callback=self.parse_page_result,
             )
         else:
-            # request the first page for the pair (year, month)
+            # request the next page from the pagination widget
             return scrapy.FormRequest(
                 response.url,
                 formdata=formdata,
@@ -94,10 +90,8 @@ class SeAracajuSpider(BaseGazetteSpider):
             yield Gazette(
                 date=parse(gazette_date, languages=["pt"]).date(),
                 is_extra_edition=False,
-                territory_id=self.TERRITORY_ID,
                 file_urls=[file_url],
                 power="executive",
-                scraped_at=datetime.utcnow(),
             )
 
         next_page_param = page.css(".rich-datascr::attr(id)").get()
