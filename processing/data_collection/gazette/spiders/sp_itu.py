@@ -50,7 +50,7 @@ class SpItuSpider(BaseGazetteSpider):
         return element.get("edicao_do")
 
     def extract_is_extra_edition(self, element):
-        return bool(element.get("is_extra_edition"))
+        return bool(element.get("flag_extra"))
 
     def extract_url(self, element):
         iddo = str(element.get("iddo")).encode("ascii")
