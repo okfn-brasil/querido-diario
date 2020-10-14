@@ -17,7 +17,9 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
     start_urls = ["https://prefeituradebelfordroxo.rj.gov.br/atos-oficiais/"]
 
     def parse(self, response):
-        for link in response.xpath('//article[contains(@class, "post-listing")]//div[@class="entry"]/p/a'):
+        for link in response.xpath(
+            '//article[contains(@class, "post-listing")]//div[@class="entry"]/p/a'
+        ):
             date = self.get_date(link)
             if not date:
                 continue
