@@ -52,8 +52,7 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
 
         return None
 
-    @staticmethod
-    def get_date(link):
+    def get_date(self, link):
         link_text = link.css("::text").get()
 
         date_re = re.search(r"\d{2}\/\d{2}\/\d{2,4}", link_text)
