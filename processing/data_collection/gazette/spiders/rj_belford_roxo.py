@@ -25,16 +25,32 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
             if not date or date < self.start_date:
                 continue
 
-            path_to_gazette = link.css("::attr(href)").get()
+            link_href = link.css("::attr(href)").get()
+
+            power = self.get_power(link)
+            if not power:
+                continue
 
             yield Gazette(
                 date=date,
-                file_urls=[path_to_gazette],
+                file_urls=[link_href],
                 is_extra_edition=False,
                 territory_id=self.TERRITORY_ID,
-                power="executive",
+                power=power,
                 scraped_at=datetime.utcnow(),
             )
+
+    def get_power(self, link):
+        link_text = link.css("::text").get()
+
+        # Segundo|Terceiro caderno cases
+        if link_text.startswith("Atos Oficiais") or "caderno" in link_text.lower():
+            return "executive"
+
+        if link_text.startswith("BOE"):
+            return "legislative"
+
+        return None
 
     @staticmethod
     def get_date(link):
