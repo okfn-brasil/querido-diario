@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 import re
 
 import dateparser
@@ -15,6 +15,7 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
     allowed_domains = ["prefeituradebelfordroxo.rj.gov.br"]
     name = "rj_belford_roxo"
     start_urls = ["https://prefeituradebelfordroxo.rj.gov.br/atos-oficiais/"]
+    start_date = date(2017, 31, 1)
 
     def parse(self, response):
         for link in response.xpath(
