@@ -15,6 +15,7 @@ After the installation, you should restart the PowerShell window or Prompt comma
 You need to run `Docker Quickstart Terminal` so the virtual machine is created for the first time. After you see the whale there, you’ll be able to run `make setup`. So that's it! Now you need to go back to [README.md](README.md) and follow the instructions from there. 
 
 **Notes**
-**1)** If you use PowerShell to download Chocolatey, you will need PowerShell version 3+. To check your version, open PowerShell with a right-click and run as administrator. Then run `Get-Host | Select-Object Version`, this will give you the current version you're using. If you don't have version 3+, you can update it at https://www.microsoft.com/en-us/download/details.aspx?id=34595
 
-**2)** Windows 10 users that meet [these requirements](https://docs.docker.com/docker-for-windows/install/#system-requirements) may be able to use Docker Desktop instead of Docker Toolbox but we haven't tested it and there is no documentation here for how to do it.
+1. If you use PowerShell to download Chocolatey, you will need PowerShell version 3+. To check your version, open PowerShell with a right-click and run as administrator. Then run `Get-Host | Select-Object Version`, this will give you the current version you're using. If you don't have version 3+, you can update it at https://www.microsoft.com/en-us/download/details.aspx?id=34595
+
+2. Windows 10 users that meet [these requirements](https://docs.docker.com/docker-for-windows/install/#system-requirements) may be able to use Docker Desktop instead of Docker Toolbox but we haven't tested it and there is no documentation here for how to do it.
