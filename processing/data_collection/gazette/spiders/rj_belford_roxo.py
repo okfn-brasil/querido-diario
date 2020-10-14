@@ -24,9 +24,7 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
             if not date:
                 continue
 
-            path_to_gazette = link.css("::attr(href)").extract_first()
-            if not path_to_gazette:
-                continue
+            path_to_gazette = link.css("::attr(href)").get()
 
             yield Gazette(
                 date=date,
