@@ -28,13 +28,10 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
             if not path_to_gazette:
                 continue
 
-            # executive only, apparently
-            is_extra_edition = False
-
             yield Gazette(
                 date=date,
                 file_urls=[path_to_gazette],
-                is_extra_edition=is_extra_edition,
+                is_extra_edition=False,
                 territory_id=self.TERRITORY_ID,
                 power="executive",
                 scraped_at=datetime.utcnow(),
