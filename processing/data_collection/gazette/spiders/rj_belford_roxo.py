@@ -22,7 +22,7 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
             '//article[contains(@class, "post-listing")]//div[@class="entry"]/p/a'
         ):
             date = self.get_date(link)
-            if not date:
+            if not date or date < self.start_date:
                 continue
 
             path_to_gazette = link.css("::attr(href)").get()
