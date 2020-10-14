@@ -414,7 +414,6 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 404 | Sarutaiá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
 | 405 | Vera Cruz (RS) | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
 | 406 | Votorantim | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
-<<<<<<< HEAD
 | 407 | Abadia Dos Dourados - MG | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/195) |
 | 408 | Abadia - GO | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/195) |
 | 409 | Abadiania - GO | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/195) |
