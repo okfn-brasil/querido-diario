@@ -51,7 +51,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 41 | Ananindeua | | | |
 | 42 | Serra | :white_check_mark: | | |
 | 43 | Niterói | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
-| 44 | Belford Roxo | | | |
+| 44 | Belford Roxo | :white_check_mark: | | |
 | 45 | Campos dos Goytacazes | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/70 |
 | 46 | Vila Velha | :white_check_mark: | | |
 | 47 | Florianópolis | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/17) |
