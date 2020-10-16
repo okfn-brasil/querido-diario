@@ -39,7 +39,6 @@ pyhamcrest==2.0.2         # via twisted
 pyopenssl==19.1.0         # via scrapy
 python-dateutil==2.8.1    # via -r requirements.in, botocore, dateparser
 python-decouple==3.3      # via -r requirements.in
-python-magic==0.4.18      # via -r requirements.in
 pytz==2020.1              # via dateparser, tzlocal
 queuelib==1.5.0           # via scrapy
 regex==2020.9.27          # via black, dateparser
