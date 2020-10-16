@@ -53,5 +53,5 @@ class SpPiracicabaSpider(BaseGazetteSpider):
             date=gazette_date,
             file_urls=file_urls,
             is_extra_edition=False,
-            power="executive",
+            power="executive_legislative",
         )
