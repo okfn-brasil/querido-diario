@@ -126,3 +126,6 @@ tags
 
 # Vscode
 .vscode
+
+# SQLite database
+querido-diario.db

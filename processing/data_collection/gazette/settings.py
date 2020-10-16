@@ -7,6 +7,9 @@ ITEM_PIPELINES = {
     "gazette.pipelines.DefaultValuesPipeline": 60,
     "scrapy.pipelines.files.FilesPipeline": 100,
     "gazette.pipelines.ExtractTextPipeline": 200,
+    "gazette.pipelines.SQLDatabasePipeline": 300,
 }
 FILES_STORE = "/mnt/data/"
+
 QUERIDODIARIO_EXTRACT_TEXT_FROM_FILE = True
+QUERIDODIARIO_DATABASE_URL = "sqlite:///querido-diario.db"

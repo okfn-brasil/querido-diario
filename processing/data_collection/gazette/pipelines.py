@@ -11,6 +11,7 @@ from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
+from gazette.database.models import initialize_database, Gazette
 from gazette.settings import FILES_STORE
 
 
@@ -60,13 +61,6 @@ class ExtractTextPipeline:
                 "Unsupported file type: " + self.get_file_type(item["files"][0]["path"])
             )
 
-        item_file = item["files"][0]
-        item["file_path"] = item_file["path"]
-        item["file_url"] = item_file["url"]
-        item["file_checksum"] = item_file["checksum"]
-
-        item.pop("files")
-        item.pop("file_urls")
         return item
 
     def pdf_source_text(self, item):
@@ -139,6 +133,52 @@ class ExtractTextPipeline:
         Generic method to check if a identified file type matches a given list of types
         """
         return self.get_file_type(filepath) in file_types
+
+
+class SQLDatabasePipeline:
+    def __init__(self, database_url):
+        self.database_url = database_url
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        database_url = crawler.settings.get("QUERIDODIARIO_DATABASE_URL")
+        return cls(database_url=database_url)
+
+    def open_spider(self, spider):
+        if self.database_url is not None:
+            engine = initialize_database(self.database_url)
+            self.Session = sessionmaker(bind=engine)
+
+    def process_item(self, item, spider):
+        if self.database_url is None:
+            return item
+
+        session = self.Session()
+
+        item_file = item["files"][0]
+        item["file_path"] = item_file["path"]
+        item["file_url"] = item_file["url"]
+        item["file_checksum"] = item_file["checksum"]
+        item.pop("files")
+        item.pop("file_urls")
+
+        gazette = Gazette(**item)
+        try:
+            session.add(gazette)
+            session.commit()
+        except IntegrityError:
+            spider.logger.warning(
+                f"Gazette from {item['date']} already exists in the database."
+            )
+            session.rollback()
+        except Exception:
+            session.rollback()
+            raise
+
+        finally:
+            session.close()
+
+        return item
 
 
 class RequestWithItem(Request):
