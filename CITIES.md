@@ -68,7 +68,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 58 | Jundiaí | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
 | 59 | Maringá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/83) |
 | 60 | Montes Claros | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
-| 61 | Piracicaba | | | |
+| 61 | Piracicaba | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/294) | [PR](https://github.com/okfn-brasil/querido-diario/pull/312) |
 | 62 | Carapicuíba | | | |
 | 63 | Olinda | | | |
 | 64 | Cariacica | :white_check_mark: | | |
