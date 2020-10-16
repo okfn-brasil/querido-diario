@@ -1,14 +1,13 @@
 import datetime as dt
 from pathlib import Path
 
+from gazette.database.models import Gazette, initialize_database
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
-
-from gazette.database.models import initialize_database, Gazette
 
 
 class GazetteDateFilteringPipeline:
@@ -54,29 +53,38 @@ class SQLDatabasePipeline:
 
         session = self.Session()
 
-        item_file = item["files"][0]
-        item["file_path"] = item_file["path"]
-        item["file_url"] = item_file["url"]
-        item["file_checksum"] = item_file["checksum"]
-        item.pop("files")
-        item.pop("file_urls")
+        fields = [
+            "source_text",
+            "date",
+            "edition_number",
+            "is_extra_edition",
+            "power",
+            "scraped_at",
+            "territory_id",
+        ]
+        gazette_item = {field: item.get(field) for field in fields}
 
-        gazette = Gazette(**item)
-        try:
+        for file_info in item.get("files", []):
+            gazette_item["file_path"] = file_info["path"]
+            gazette_item["file_url"] = file_info["url"]
+            gazette_item["file_checksum"] = file_info["checksum"]
+
+            gazette = Gazette(**gazette_item)
             session.add(gazette)
-            session.commit()
-        except IntegrityError:
-            spider.logger.warning(
-                f"Gazette from {item['date']} already exists in the database."
-            )
-            session.rollback()
-        except Exception:
-            session.rollback()
-            raise
+            try:
+                session.commit()
+            except IntegrityError:
+                spider.logger.warning(
+                    f"Gazette already exists in database. "
+                    f"Date: {gazette_item['date']}. "
+                    f"File Checksum: {gazette_item['file_checksum']}"
+                )
+                session.rollback()
+            except Exception:
+                session.rollback()
+                raise
 
-        finally:
-            session.close()
-
+        session.close()
         return item
 
 
