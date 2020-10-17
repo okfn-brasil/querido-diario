@@ -22,24 +22,24 @@ class RjPetropolis(BaseGazetteSpider):
     start_date = datetime.date(2001, 10, 2)
 
     def parse(self, response):
-        for entry in response.css("#col1 div table"):
-            entry_url = entry.css("b a::attr(href)").get()
-            url = urljoin(self.BASE_URL, entry_url)
+        for year in response.css("#col1 div table"):
+            year_url = year.css("b a::attr(href)").get()
+            url = urljoin(self.BASE_URL, year_url)
             yield scrapy.Request(url=url, callback=self.parse_month_page)
 
     def parse_month_page(self, response):
-        for entry in response.css("#col1 div table"):
-            entry_url = entry.css("b a::attr(href)").get()
-            url = urljoin(self.BASE_URL, entry_url)
+        for month in response.css("#col1 div table"):
+            month_url = month.css("b a::attr(href)").get()
+            url = urljoin(self.BASE_URL, month_url)
             yield scrapy.Request(url=url, callback=self.parse_items_page)
 
     def parse_items_page(self, response):
-        for entry in response.css(".jd_download_url"):
-            entry_url = entry.css("a::attr(href)").get()
-            url = urljoin(self.BASE_URL, entry_url)
+        for gazette in response.css(".jd_download_url"):
+            gazette_url = gazette.css("a::attr(href)").get()
+            url = urljoin(self.BASE_URL, gazette_url)
             file_url = url.replace(".html", ".pdf")
 
-            title = entry.css("::text").get().strip()
+            title = gazette.css("::text").get().strip()
             date_match = re.search(
                 r"(\d+ de \w+ de \d+)|(\d+\/\d+\/\d+)", title, re.IGNORECASE
             )
