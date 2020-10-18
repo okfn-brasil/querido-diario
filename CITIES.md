@@ -48,7 +48,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 38 | Londrina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
 | 39 | Aparecida de Goiânia | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/98) |
 | 40 | Porto Velho | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/82) |
-| 41 | Ananindeua | | | |
+| 41 | Ananindeua | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/297) |
 | 42 | Serra | :white_check_mark: | | |
 | 43 | Niterói | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
 | 44 | Belford Roxo | | | |
