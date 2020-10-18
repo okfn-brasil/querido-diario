@@ -24,7 +24,7 @@ Table of Contents
 
 If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
 
-The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies.
+The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies. If you're a Windows 7+ user, please check our setup guide in [windows_users.md](windows_users.md).
 
 After you cloned the repository, you may want to run the following from the source folder:
 
