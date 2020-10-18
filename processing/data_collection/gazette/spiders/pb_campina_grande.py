@@ -15,8 +15,8 @@ class PbCampinaGrandeSpiderExecutive(BaseGazetteSpider):
         yield from response.follow_all(years_urls, self.parse_year)
 
     def parse_year(self, response):
-        monthes_urls = response.css(".secretaria-text a::attr(href)").getall()
-        yield from response.follow_all(monthes_urls, self.parse_month)
+        months_urls = response.css(".secretaria-text a::attr(href)").getall()
+        yield from response.follow_all(months_urls, self.parse_month)
 
     def parse_month(self, response):
         editions = response.css(".td_module_1")
