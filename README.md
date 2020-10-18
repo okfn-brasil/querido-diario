@@ -80,7 +80,7 @@ SPIDER=sc_florianopolis make run_spider
 ## Troubleshooting
 
 ### Non-specific errors when building or running
-Several error is because your user don't is from docker group. To resolve this,
+Several error is because your user is not in the docker group. To resolve this,
 execute the follow command and do logout and login:
 
 ```console
