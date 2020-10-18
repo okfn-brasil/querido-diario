@@ -1,4 +1,5 @@
 from dateutil.parser import parse
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
