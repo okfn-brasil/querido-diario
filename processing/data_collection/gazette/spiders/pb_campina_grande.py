@@ -25,7 +25,7 @@ class PbCampinaGrandeSpiderExecutive(BaseGazetteSpider):
         else:
             for edition in editions:
                 url = edition.css("a::attr(href)").get()
-                date = parse(edition.css("time::attr(datetime)").get())
+                date = parse(edition.css("time::attr(datetime)").get()).date()
                 yield response.follow(url, self.parse_issue, meta={"date": date})
 
     def parse_issue(self, response):
