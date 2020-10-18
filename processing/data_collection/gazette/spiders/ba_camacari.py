@@ -31,6 +31,7 @@ class BaCamacari(BaseGazetteSpider):
 
     def parse(self, response):
         document_list = response.css(self.DOCUMENT_SELECTOR)
+        last_scraped_gazette_date = datetime.date.today()
 
         for document in document_list:
             date_text = document.css(self.DATE_SELECTOR).re_first(self.DATE_REGEX)
@@ -56,7 +57,9 @@ class BaCamacari(BaseGazetteSpider):
                 edition_number=edition_number,
             )
 
-        if document_list:
+            last_scraped_gazette_date = date
+
+        if document_list and self.start_date <= last_scraped_gazette_date:
             next_params = response.meta["params"]
             next_params["paged"] += 1
             next_url = f"{self.BASE_URL}?{urlencode(next_params)}"
