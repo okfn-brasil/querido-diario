@@ -88,36 +88,16 @@ class SQLDatabasePipeline:
         return item
 
 
-class RequestWithItem(Request):
-    """
-    Specialized Request object to allow carry the item which generate the request.
-    Thus, we can use the gazette date in the path where the file will be stored.
-    """
-
-    def __init__(self, url, item):
-        super().__init__(url)
-        self.item = item
-
-
 class QueridoDiarioFilesPipeline(FilesPipeline):
     """
-    When the downloaded file are stored in a remote storage system (e.g.
-    Digital Ocean spaces), we need to specialize FilesPipeline class in order
-    to allow us define a different directory where the files will be store. In
-    the current implementation we organize gazette files by date. All the
-    gazettes from the same date will be store in the same directory.
+    Specialize the Scrapy FilesPipeline class to organize the gazettes in directories.
+    The files will be under <territory_id>/<gazette date>/.
     """
 
-    def file_path(self, request, response=None, info=None):
-        filepath = super().file_path(request, response, info)
+    def file_path(self, request, response=None, info=None, item=None):
+        filepath = super().file_path(request, response=response, info=info, item=item)
         # The default path from the scrapy class begins with "full/". In this
-        # class we replace that with the gazette date.
-        datestr = request.item["date"].strftime("%d-%m-%Y")
+        # class we replace that with the territory_id and gazette date.
+        datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
-        return str(Path(datestr, filename))
-
-    def get_media_requests(self, item, info):
-        urls = ItemAdapter(item).get(self.files_urls_field)
-        if not urls:
-            return
-        yield from (RequestWithItem(u, item) for u in urls)
+        return str(Path(item["territory_id"], datestr, filename))
