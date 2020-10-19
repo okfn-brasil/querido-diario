@@ -9,8 +9,7 @@ ITEM_PIPELINES = {
     "spidermon.contrib.scrapy.pipelines.ItemValidationPipeline": 400,
     "gazette.pipelines.SQLDatabasePipeline": 500,
 }
-
-FILES_STORE = "/mnt/data/"
+FILES_STORE = "data/"
 
 EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
