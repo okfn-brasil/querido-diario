@@ -19,19 +19,19 @@ class BaCamacari(BaseGazetteSpider):
     def start_requests(self):
         params = {"paged": 1, "categoria": "diario-oficial"}
         url = f"{self.BASE_URL}?{urlencode(params)}"
-        yield scrapy.Request(url=url, callback=self.parse, meta={"params": params})
+        yield scrapy.Request(url=url, meta={"params": params})
 
     def parse(self, response):
         document_list = response.css(".col-sm-12")
         last_scraped_gazette_date = datetime.date.today()
 
-        for entry in entries:
-            date_text = entry.css(".mb-10::text").re_first(r"\d+\/\d+\/\d+")
-            date = dateparser.parse(date_text, languages=["pt"]).date()
+        for document in document_list:
+            date_text = document.css(".mb-10::text").re_first(r"\d+\/\d+\/\d+")
+            date = datetime.datetime.strptime(date_text, "%d/%m/%Y").date()
 
-            file_url = entry.css(".mb-40 a::attr(href)").get()
+            file_url = document.css("a::attr(href)").get()
 
-            title = entry.css(".mb-40 a::text").get()
+            title = document.css("a::text").get()
             edition_number = re.search(r"\d+", title.replace(".", "")).group(0)
             is_extra_edition = bool(re.search(r"EXTRA", title, re.IGNORECASE))
 
@@ -51,6 +51,4 @@ class BaCamacari(BaseGazetteSpider):
             next_params = response.meta["params"]
             next_params["paged"] += 1
             next_url = f"{self.BASE_URL}?{urlencode(next_params)}"
-            yield scrapy.Request(
-                url=next_url, callback=self.parse, meta={"params": next_params}
-            )
+            yield scrapy.Request(url=next_url, meta={"params": next_params})
