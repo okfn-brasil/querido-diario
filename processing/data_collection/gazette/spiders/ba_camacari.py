@@ -16,36 +16,24 @@ class BaCamacari(BaseGazetteSpider):
     allowed_domains = ["camacari.ba.gov.br"]
     start_date = datetime.date(2007, 10, 10)
 
-    FILE_SELECTOR = ".mb-40 a::attr(href)"
-    TITLE_SELECTOR = ".mb-40 a::text"
-    EXTRA_EDITION_REGEX = r"EXTRA"
-    EDITION_NUMBER_REGEX = r"\d+"
-    DATE_SELECTOR = ".mb-10::text"
-    DATE_REGEX = r"\d+\/\d+\/\d+"
-    DOCUMENT_SELECTOR = ".col-sm-12"
-
     def start_requests(self):
         params = {"paged": 1, "categoria": "diario-oficial"}
         url = f"{self.BASE_URL}?{urlencode(params)}"
         yield scrapy.Request(url=url, callback=self.parse, meta={"params": params})
 
     def parse(self, response):
-        document_list = response.css(self.DOCUMENT_SELECTOR)
+        document_list = response.css(".col-sm-12")
         last_scraped_gazette_date = datetime.date.today()
 
-        for document in document_list:
-            date_text = document.css(self.DATE_SELECTOR).re_first(self.DATE_REGEX)
+        for entry in entries:
+            date_text = entry.css(".mb-10::text").re_first(r"\d+\/\d+\/\d+")
             date = dateparser.parse(date_text, languages=["pt"]).date()
 
-            file_url = document.css(self.FILE_SELECTOR).get()
+            file_url = entry.css(".mb-40 a::attr(href)").get()
 
-            title = document.css(self.TITLE_SELECTOR).get()
-            edition_number = re.search(
-                self.EDITION_NUMBER_REGEX, title.replace(".", "")
-            ).group(0)
-            is_extra_edition = bool(
-                re.search(self.EXTRA_EDITION_REGEX, title, re.IGNORECASE)
-            )
+            title = entry.css(".mb-40 a::text").get()
+            edition_number = re.search(r"\d+", title.replace(".", "")).group(0)
+            is_extra_edition = bool(re.search(r"EXTRA", title, re.IGNORECASE))
 
             yield Gazette(
                 date=date,
