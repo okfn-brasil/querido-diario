@@ -9,13 +9,13 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RsCanoasSpider(BaseGazetteSpider):
     TERRITORY_ID = "4304606"
-    name = "rs_canoas"
-    START_DATE = date(2018, 5, 29)
     BASE_URL = "https://sistemas.canoas.rs.gov.br/domc/api"
+    name = "rs_canoas"
+    start_date = date(2018, 5, 29)
 
     def start_requests(self):
         today = date.today()
-        day = self.START_DATE
+        day = self.start_date
         while day < today:
             url = f"{self.BASE_URL}/public/diary-by-day?day={day.strftime('%d/%m/%Y')}"
             yield scrapy.Request(url)
