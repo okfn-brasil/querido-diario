@@ -1,8 +1,8 @@
-BOT_NAME = "gazette"                                                          
+BOT_NAME = "gazette"
 SPIDER_MODULES = ["gazette.spiders"]
 NEWSPIDER_MODULE = "gazette.spiders"
 ROBOTSTXT_OBEY = False
-ITEM_PIPELINES = { 
+ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 100,
     "gazette.pipelines.DefaultValuesPipeline": 200,
     "gazette.pipelines.QueridoDiarioFilesPipeline": 300,
@@ -12,7 +12,7 @@ ITEM_PIPELINES = {
 
 FILES_STORE = "/mnt/data/"
 
-EXTENSIONS = { 
+EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
 }
 SPIDERMON_ENABLED = True
