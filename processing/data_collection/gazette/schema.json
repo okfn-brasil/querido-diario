@@ -55,7 +55,7 @@
     },
     "required": [
         "date",
-        "file_url",
+        "file_urls",
         "territory_id",
         "power",
         "scraped_at"
