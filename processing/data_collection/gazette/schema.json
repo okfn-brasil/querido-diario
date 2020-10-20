@@ -7,12 +7,12 @@
             "type": "string",
             "format": "date"
         },
-        "file_url": {
-            "type": "string",
-            "examples": [
-                "https://diariooficial.jaboatao.pe.gov.br/10-de-outubro-de-2020-xxx-no-199-jaboatao-dos-guararapes/?pdf=22609"
-            ]
-        },
+        "file_urls": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }                                                                 
+        },  
         "is_extra_edition": {
             "description": "Determines if the edition of the gazzete is extra or not",
             "type": "boolean"
