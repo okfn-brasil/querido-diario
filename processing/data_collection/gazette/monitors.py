@@ -8,7 +8,7 @@ class RequestsItemsRatioMonitor(Monitor):
         n_scraped_items = self.data.stats.get("item_scraped_count", 0)
         n_requests_count = self.data.stats.get("downloader/request_count", 0)
         max_ratio = self.data.crawler.settings.get(
-            "GAZETTE_MAX_REQUESTS_ITEMS_RATIO", 0
+            "QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO", 5
         )
 
         if n_scraped_items > 0:
