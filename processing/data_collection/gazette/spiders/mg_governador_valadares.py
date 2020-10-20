@@ -24,10 +24,13 @@ class MgGovernadorValadares(BaseGazetteSpider):
     current_page = 0
 
     def parse(self, response):
+        self.path = self.get_path_to_request_items(response)
+        yield self.make_request(self.current_page)
+
+    def get_path_to_request_items(self, response):
         scripts = response.xpath("//script//@src").extract()
         endpoint = next(path for path in scripts if "diel_diel_lis" in path)
-        self.path = endpoint
-        yield self.make_request(self.current_page)
+        return endpoint
 
     def parse_items(self, response):
         body = response.body
@@ -99,7 +102,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
         return body == "null;/*".encode()
 
     def parse_definitions_and_rows(self, body):
-        content = self.extract_python_expression(body)
+        content = self.extract_items_data(body)
 
         definition, rows = [], []
 
@@ -111,7 +114,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
 
         return definition, rows
 
-    def extract_python_expression(self, body):
+    def extract_items_data(self, body):
         content = re.findall(
             "new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
         )[0]
