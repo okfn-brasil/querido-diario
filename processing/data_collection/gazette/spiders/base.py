@@ -1,13 +1,14 @@
+import dateparser
 import json
 import re
 from datetime import date, datetime
 
-import dateparser
-from dateutil.rrule import DAILY, rrule
-from fake_useragent import UserAgent
 import scrapy
-from gazette.items import Gazette
+from dateutil.rrule import DAILY, rrule
 from scrapy.exceptions import NotConfigured
+
+from fake_useragent import UserAgent
+from gazette.items import Gazette
 
 
 class BaseGazetteSpider(scrapy.Spider):

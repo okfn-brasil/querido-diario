@@ -1,11 +1,12 @@
 import datetime as dt
 from pathlib import Path
 
-from gazette.database.models import Gazette, initialize_database
-from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
+
+from gazette.database.models import Gazette, initialize_database
+from itemadapter import ItemAdapter
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 

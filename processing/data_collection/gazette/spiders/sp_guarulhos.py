@@ -1,8 +1,8 @@
-from dateparser import parse
 import datetime as dt
-from dateutil.rrule import rrule, MONTHLY
+from dateparser import parse
 
 import scrapy
+from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from dateparser import parse
 import datetime as dt
+from dateparser import parse
 
 import scrapy
 

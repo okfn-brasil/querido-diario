@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+import dateparser
 import datetime
 import re
 import urllib.parse
 
-import dateparser
 import scrapy
 
 from gazette.items import Gazette

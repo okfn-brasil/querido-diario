@@ -1,14 +1,13 @@
+import datetime
 import json
 import time
-import datetime
-
-from scrapy import Request
-from dateutil.rrule import rrule, MONTHLY
 from dateparser import parse
+
+from dateutil.rrule import MONTHLY, rrule
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-
 
 BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
 
