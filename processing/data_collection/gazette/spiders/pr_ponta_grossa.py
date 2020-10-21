@@ -1,6 +1,6 @@
+import re
 from dateparser import parse
 from datetime import date
-import re
 
 import scrapy
 

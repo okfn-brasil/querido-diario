@@ -1,7 +1,7 @@
-import re
 import datetime as dt
-
+import re
 from dateparser import parse
+
 from scrapy.http import FormRequest
 
 from gazette.items import Gazette
