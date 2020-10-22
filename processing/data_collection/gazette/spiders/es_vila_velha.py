@@ -1,10 +1,11 @@
-import dateparser
+from datetime import date, datetime
+import os
 
-from datetime import datetime, date
+import dateparser
+from scrapy import FormRequest, Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from scrapy import FormRequest, Request
-import os
 
 
 class VilaVelhaSpider(BaseGazetteSpider):
