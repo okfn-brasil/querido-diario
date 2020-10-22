@@ -41,7 +41,7 @@ class VilaVelhaSpider(BaseGazetteSpider):
 
             document_request = FormRequest.from_response(
                 response,
-                formdata={"__EVENTARGUMENT": "", "__EVENTTARGET": event_target},
+                formdata={"__EVENTTARGET": event_target},
                 dont_click=True,
                 dont_filter=True,
                 method="POST",
