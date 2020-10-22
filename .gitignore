@@ -1,4 +1,5 @@
-/data/full/
+/data/*
+!/data/territories.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

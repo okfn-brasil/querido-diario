@@ -6,6 +6,7 @@ from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
+from scrapy.settings import Settings
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
@@ -88,36 +89,51 @@ class SQLDatabasePipeline:
         return item
 
 
-class RequestWithItem(Request):
-    """
-    Specialized Request object to allow carry the item which generate the request.
-    Thus, we can use the gazette date in the path where the file will be stored.
-    """
-
-    def __init__(self, url, item):
-        super().__init__(url)
-        self.item = item
-
-
 class QueridoDiarioFilesPipeline(FilesPipeline):
-    """
-    When the downloaded file are stored in a remote storage system (e.g.
-    Digital Ocean spaces), we need to specialize FilesPipeline class in order
-    to allow us define a different directory where the files will be store. In
-    the current implementation we organize gazette files by date. All the
-    gazettes from the same date will be store in the same directory.
-    """
+    """Adds item field for ready requests and organizes files in directories."""
 
-    def file_path(self, request, response=None, info=None):
-        filepath = super().file_path(request, response, info)
-        # The default path from the scrapy class begins with "full/". In this
-        # class we replace that with the gazette date.
-        datestr = request.item["date"].strftime("%d-%m-%Y")
-        filename = Path(filepath).name
-        return str(Path(datestr, filename))
+    DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
+
+    def __init__(self, *args, settings=None, **kwargs):
+        super().__init__(*args, settings=settings, **kwargs)
+
+        if isinstance(settings, dict) or settings is None:
+            settings = Settings(settings)
+
+        self.files_requests_field = settings.get(
+            "FILES_REQUESTS_FIELD", self.DEFAULT_FILES_REQUESTS_FIELD
+        )
 
     def get_media_requests(self, item, info):
-        urls = ItemAdapter(item).get(self.files_urls_field)
-        if not urls:
-            return
-        yield from (RequestWithItem(u, item) for u in urls)
+        """Makes requests from urls and/or lets through ready requests."""
+        urls = ItemAdapter(item).get(self.files_urls_field, [])
+        yield from (Request(u) for u in urls)
+        requests = ItemAdapter(item).get(self.files_requests_field, [])
+        yield from requests
+
+    def item_completed(self, results, item, info):
+        """
+        Transforms requests into strings if any present. 
+
+        Defaut behaviour also adds results to item.
+        """
+        requests = ItemAdapter(item).get(self.files_requests_field, [])
+        if requests:
+            ItemAdapter(item)[self.files_requests_field] = [
+                f"{r.method} {r.url}" for r in requests
+            ]
+
+        return super().item_completed(results, item, info)
+
+    def file_path(self, request, response=None, info=None, item=None):
+        """
+        Path to save the files, modified to organize the gazettes in directories.
+
+        The files will be under <territory_id>/<gazette date>/.
+        """
+        filepath = super().file_path(request, response=response, info=info, item=item)
+        # The default path from the scrapy class begins with "full/". In this
+        # class we replace that with the territory_id and gazette date.
+        datestr = item["date"].strftime("%Y-%m-%d")
+        filename = Path(filepath).name
+        return str(Path(item["territory_id"], datestr, filename))

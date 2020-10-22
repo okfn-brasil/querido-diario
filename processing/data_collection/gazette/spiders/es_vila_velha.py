@@ -39,30 +39,18 @@ class VilaVelhaSpider(BaseGazetteSpider):
             edition_number = gazette_issue.split(" ")[0]
             event_target = url.re(self.JAVASCRIPT_POSTBACK_REGEX).pop()
 
-            gazette = Gazette(
-                date=date,
-                edition_number=edition_number,
-                is_extra_edition=is_extra,
-                territory_id=self.TERRITORY_ID,
-                power="executive_legislature",
-                scraped_at=datetime.utcnow(),
-            )
-
-            yield FormRequest.from_response(
+            document_request = FormRequest.from_response(
                 response,
                 formdata={"__EVENTARGUMENT": "", "__EVENTTARGET": event_target},
                 dont_click=True,
                 dont_filter=True,
                 method="POST",
-                meta={"item": gazette},
-                callback=self._save_pdf,
             )
 
-    def _save_pdf(self, response):
-        gazette = response.meta["item"]
-        filename = f"es_vila_velha_{gazette['date']}.pdf"
-        path = os.path.join("/mnt/data/full", filename)
-        with open(path, "wb") as f:
-            f.write(response.body)
-
-        yield gazette
+            yield Gazette(
+                date=date,
+                file_requests=[document_request],
+                edition_number=edition_number,
+                is_extra_edition=is_extra,
+                power="executive_legislative",
+            )
