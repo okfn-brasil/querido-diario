@@ -17,7 +17,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
     BASE_URL = "http://diariooficial.sjp.pr.gov.br/"
     GAZETTE_ELEMENT_CSS = ".container-publicacao .item-publicacao"
     DATE_CSS = ".item-info::text"
-    NEXT_PAGE_CSS = ".item-paginacao a:last-child::attr(href)"
+    LAST_PAGE_CSS = ".item-paginacao a:last-child::attr(href)"
 
     def start_requests(self):
         params = {"entidade": 12526, "pg": 1}
@@ -51,7 +51,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
         current_page = w3lib.url.url_query_parameter(response.url, "pg")
 
         if (
-            not response.css(self.NEXT_PAGE_CSS)
+            not response.css(self.LAST_PAGE_CSS)
             .extract_first()
             .endswith("pg=" + current_page)
         ):
