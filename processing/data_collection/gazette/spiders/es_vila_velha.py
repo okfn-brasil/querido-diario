@@ -34,7 +34,6 @@ class VilaVelhaSpider(BaseGazetteSpider):
 
             date = element.css(self.GAZETTE_DATE_CSS).extract_first()
             date = dateparser.parse(date, languages=["pt"]).date()
-
             event_target = element.css(self.GAZETTE_URL_CSS).re_first(
                 self.JAVASCRIPT_POSTBACK_REGEX
             )
