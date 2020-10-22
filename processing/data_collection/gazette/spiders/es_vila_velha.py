@@ -29,7 +29,7 @@ class VilaVelhaSpider(BaseGazetteSpider):
         for element in response.css("#ctl00_cpConteudo_gvDocumentos tr"):
             is_header = element.css("th").extract() != []
             if is_header:
-            	continue
+                continue
 
             date = element.css(self.GAZETTE_DATE_CSS).extract_first()
             date = dateparser.parse(date, languages=["pt"]).date()
