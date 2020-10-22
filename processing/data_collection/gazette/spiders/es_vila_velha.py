@@ -26,11 +26,10 @@ class VilaVelhaSpider(BaseGazetteSpider):
         yield Request(gazettes_url)
 
     def parse(self, response):
-        table_head = "th"
-
         for element in response.css("#ctl00_cpConteudo_gvDocumentos tr"):
-            if element.css(table_head).extract():
-                continue
+            is_header = element.css("th").extract() != []
+            if is_header:
+            	continue
 
             date = element.css(self.GAZETTE_DATE_CSS).extract_first()
             date = dateparser.parse(date, languages=["pt"]).date()
