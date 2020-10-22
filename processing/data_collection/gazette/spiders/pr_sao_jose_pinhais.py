@@ -16,7 +16,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
 
     BASE_URL = "http://diariooficial.sjp.pr.gov.br/"
     GAZETTE_ELEMENT_CSS = ".container-publicacao .item-publicacao"
-    DATE_CSS = ".item-info::text"
+    DATE_XPATH = './/div[contains(@class, "item-label") and text()="Publicado em"]/following-sibling::div[1]/text()'
     LAST_PAGE_CSS = ".item-paginacao a:last-child::attr(href)"
 
     def start_requests(self):
@@ -36,7 +36,7 @@ class PrSaoJosePinhaisSpider(BaseGazetteSpider):
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
             url = element.css("a::attr(href)").extract_first()
             date = dateparser.parse(
-                element.css(self.DATE_CSS).extract()[2], languages=["pt"]
+                element.xpath(self.DATE_XPATH).extract_first(), languages=["pt"]
             ).date()
 
             yield Gazette(
