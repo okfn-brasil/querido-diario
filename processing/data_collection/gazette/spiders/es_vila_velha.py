@@ -1,10 +1,10 @@
-import dateparser
+from datetime import date
 
-from datetime import datetime, date
+import dateparser
+from scrapy import FormRequest, Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from scrapy import FormRequest, Request
-import os
 
 
 class VilaVelhaSpider(BaseGazetteSpider):
@@ -17,7 +17,6 @@ class VilaVelhaSpider(BaseGazetteSpider):
     GAZETTE_ISSUE_CSS = "td:nth-child(3) span b::text"
     JAVASCRIPT_POSTBACK_REGEX = r"javascript:__doPostBack\('(.*)',''\)"
 
-    # this is the first date which has gazettes available (edition number 1)
     start_date = date(2016, 7, 1)
 
     def start_requests(self):
@@ -27,24 +26,24 @@ class VilaVelhaSpider(BaseGazetteSpider):
         yield Request(gazettes_url)
 
     def parse(self, response):
+        table_head = "th"
+
         for element in response.css("#ctl00_cpConteudo_gvDocumentos tr"):
-            if element.css("th").extract():
+            if element.css(table_head).extract():
                 continue
 
             date = element.css(self.GAZETTE_DATE_CSS).extract_first()
             date = dateparser.parse(date, languages=["pt"]).date()
-            url = element.css(self.GAZETTE_URL_CSS)
+
+            event_target = element.css(self.GAZETTE_URL_CSS).re_first(
+                self.JAVASCRIPT_POSTBACK_REGEX
+            )
             gazette_issue = element.css(self.GAZETTE_ISSUE_CSS).extract_first()
             is_extra = "EXTRA" in gazette_issue
             edition_number = gazette_issue.split(" ")[0]
-            event_target = url.re(self.JAVASCRIPT_POSTBACK_REGEX).pop()
 
             document_request = FormRequest.from_response(
-                response,
-                formdata={"__EVENTARGUMENT": "", "__EVENTTARGET": event_target},
-                dont_click=True,
-                dont_filter=True,
-                method="POST",
+                response, formdata={"__EVENTTARGET": event_target}, method="POST"
             )
 
             yield Gazette(
