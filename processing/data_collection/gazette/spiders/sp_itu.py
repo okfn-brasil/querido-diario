@@ -36,7 +36,7 @@ class SpItuSpider(BaseGazetteSpider):
                 file_urls=[url],
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
     def extract_date(self, element):

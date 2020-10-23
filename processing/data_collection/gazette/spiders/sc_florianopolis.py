@@ -44,7 +44,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
                 edition_number=gazette_edition_number,
                 file_urls=(url,),
                 is_extra_edition=self.is_extra(link),
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
     @staticmethod

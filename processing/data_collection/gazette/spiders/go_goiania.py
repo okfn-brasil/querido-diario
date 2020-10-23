@@ -34,7 +34,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
 
             url = response.urljoin(url)
             # Apparently, Goiânia doesn't have a separate gazette for executive and legislative
-            power = "executive_legislature"
+            power = "executive_legislative"
             link_text = link.css("::text").extract_first()
             if link_text is None:
                 continue
