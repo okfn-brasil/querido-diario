@@ -49,10 +49,10 @@ class RjPetropolis(BaseGazetteSpider):
     def parse_month_page(self, response):
         for document in response.css("#col1 div table tr td b a"):
             month_name = document.css("::text").get().lower()
-            month = self.month_name_to_number[month_name]
+            month = self.month_name_to_number.get(month_name, None)
             year = response.meta["year"]
 
-            if datetime.date(year, month, 1) >= datetime.date(
+            if month and datetime.date(year, month, 1) >= datetime.date(
                 self.start_date.year, self.start_date.month, 1
             ):
                 month_url_sufix = document.css("::attr(href)").get()
@@ -60,26 +60,37 @@ class RjPetropolis(BaseGazetteSpider):
                 yield scrapy.Request(url=month_url, callback=self.parse_items_page)
 
     def parse_items_page(self, response):
-        for document in response.css(".jd_download_url"):
-            document_url = document.css("a::attr(href)").get()
-            url = urljoin(self.BASE_URL, document_url)
-            file_url = url.replace(".html", ".pdf")
+        for document in response.css("#col1 div table"):
+            if document.css(".jd_download_url"):
+                document_url_sufix = document.css("a::attr(href)").get()
+                document_url = urljoin(self.BASE_URL, document_url_sufix)
+                file_url = document_url.replace(".html", ".pdf")
 
-            title = document.css("::text").get().strip()
-            date_match = re.search(
-                r"(\d+ de \w+ de \d+)|(\d+\/\d+\/\d+)", title, re.IGNORECASE
-            )
-            is_extra_edition = bool(re.search(r"Suplemento", title, re.IGNORECASE))
-            edition_number = re.search(r"^\d+", title).group(0)
+                text = " ".join(document.css("*::text").getall())
+                text = re.sub(r"\s+", " ", text).strip()
 
-            if date_match is not None:
-                date = dateparser.parse(date_match.group(0), languages=["pt"]).date()
-                yield Gazette(
-                    date=date,
-                    file_urls=[file_url],
-                    is_extra_edition=is_extra_edition,
-                    territory_id=self.TERRITORY_ID,
-                    power="executive_legislative",
-                    scraped_at=datetime.datetime.utcnow(),
-                    edition_number=edition_number,
+                date_match = re.search(
+                    r"(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}.de.\w+.de.\d{4})",
+                    text,
+                    re.IGNORECASE,
                 )
+
+                is_extra_edition = bool(
+                    re.search(r"suplemento|extra", text, re.IGNORECASE)
+                )
+                edition_number_match = re.search(r"^\d+", text)
+
+                if date_match is not None and edition_number_match is not None:
+                    edition_number = edition_number_match.group(0)
+                    date = dateparser.parse(
+                        date_match.group(0), languages=["pt"]
+                    ).date()
+                    yield Gazette(
+                        date=date,
+                        file_urls=[file_url],
+                        is_extra_edition=is_extra_edition,
+                        territory_id=self.TERRITORY_ID,
+                        power="executive_legislative",
+                        scraped_at=datetime.datetime.utcnow(),
+                        edition_number=edition_number,
+                    )
