@@ -74,11 +74,12 @@ class SQLDatabasePipeline:
             session.add(gazette)
             try:
                 session.commit()
-            except IntegrityError:
+            except IntegrityError as e:
                 spider.logger.warning(
-                    f"Gazette already exists in database. "
+                    f"Something wrong has happened when adding the gazette in the database."
                     f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}"
+                    f"File Checksum: {gazette_item['file_checksum']}.",
+                    exc_info=e,
                 )
                 session.rollback()
             except Exception:
