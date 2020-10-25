@@ -6,6 +6,7 @@ from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
+from scrapy.settings import Settings
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
@@ -89,12 +90,47 @@ class SQLDatabasePipeline:
 
 
 class QueridoDiarioFilesPipeline(FilesPipeline):
-    """
-    Specialize the Scrapy FilesPipeline class to organize the gazettes in directories.
-    The files will be under <territory_id>/<gazette date>/.
-    """
+    """Adds item field for ready requests and organizes files in directories."""
+
+    DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
+
+    def __init__(self, *args, settings=None, **kwargs):
+        super().__init__(*args, settings=settings, **kwargs)
+
+        if isinstance(settings, dict) or settings is None:
+            settings = Settings(settings)
+
+        self.files_requests_field = settings.get(
+            "FILES_REQUESTS_FIELD", self.DEFAULT_FILES_REQUESTS_FIELD
+        )
+
+    def get_media_requests(self, item, info):
+        """Makes requests from urls and/or lets through ready requests."""
+        urls = ItemAdapter(item).get(self.files_urls_field, [])
+        yield from (Request(u) for u in urls)
+        requests = ItemAdapter(item).get(self.files_requests_field, [])
+        yield from requests
+
+    def item_completed(self, results, item, info):
+        """
+        Transforms requests into strings if any present. 
+
+        Defaut behaviour also adds results to item.
+        """
+        requests = ItemAdapter(item).get(self.files_requests_field, [])
+        if requests:
+            ItemAdapter(item)[self.files_requests_field] = [
+                f"{r.method} {r.url}" for r in requests
+            ]
+
+        return super().item_completed(results, item, info)
 
     def file_path(self, request, response=None, info=None, item=None):
+        """
+        Path to save the files, modified to organize the gazettes in directories.
+
+        The files will be under <territory_id>/<gazette date>/.
+        """
         filepath = super().file_path(request, response=response, info=info, item=item)
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the territory_id and gazette date.
