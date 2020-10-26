@@ -265,4 +265,3 @@ class DoemGazetteSpider(BaseGazetteSpider):
         edition_text = response_item.css(DIV_HEADER_CSS_QUERY).get()
         edition_number = edition_text.strip().split(" ")[1]
         return int(edition_number) if edition_number.isnumeric() else None
-
