@@ -212,7 +212,8 @@ class DoemGazetteSpider(BaseGazetteSpider):
         """
         Parse each page from the results page and yield the gazette issues available.
         """
-        gazette_boxes = response.css("div.box-diario")
+        GAZETTE_CONTAINER_CSS_QUERY = "div.box-diario"
+        gazette_boxes = response.css(GAZETTE_CONTAINER_CSS_QUERY)
 
         for gazette_box in gazette_boxes:
             file_url = self.get_pdf_url(gazette_box)
