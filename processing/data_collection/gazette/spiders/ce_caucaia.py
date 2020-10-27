@@ -18,10 +18,7 @@ class CeCaucaia(BaseGazetteSpider):
     start_date = datetime.date(2002, 6, 3)
 
     BASE_URL = "http://www.caucaia.ce.gov.br"
-    params = {
-        "tabela": "pagina",
-        "acao": "diario_buscar_data",
-    }
+    params = {"tabela": "pagina", "acao": "diario_buscar_data"}
     FROM_URL = f"{BASE_URL}/index.php?{urlencode(params)}"
 
     month_number_to_name = {
@@ -51,9 +48,7 @@ class CeCaucaia(BaseGazetteSpider):
                 "pesquisa_data_ano": str(date.year),
             }
             yield scrapy.FormRequest(
-                url=self.FROM_URL,
-                method="POST",
-                formdata=formdata,
+                url=self.FROM_URL, method="POST", formdata=formdata
             )
 
     def parse(self, response):
