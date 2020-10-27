@@ -30,5 +30,5 @@ class BaseInstarSpider(BaseGazetteSpider):
                 date=parse(date, languages=["pt"]).date(),
                 file_urls=[response.urljoin(href)],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )

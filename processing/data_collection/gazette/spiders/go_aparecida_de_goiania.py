@@ -19,7 +19,7 @@ class GoAparecidaDeGoianiaSpider(BaseGazetteSpider):
         records = json.loads(response.text)["records"]
         for record in records:
             url = download_url.format(record["numero"])
-            power = "executive_legislature"
+            power = "executive_legislative"
             date = parse(record["publicado"], languages=["en"]).date()
 
             yield Gazette(

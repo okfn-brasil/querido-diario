@@ -40,5 +40,5 @@ class RoPortoVelho(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )

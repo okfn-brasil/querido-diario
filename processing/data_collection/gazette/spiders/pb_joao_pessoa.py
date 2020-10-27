@@ -37,7 +37,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
         for url in response.css(self.NEXT_PAGE_CSS).extract():

@@ -50,7 +50,7 @@ class MgUberaba(BaseGazetteSpider):
                 date=date,
                 file_urls=[self.mount_url(filename, date.year)],
                 is_extra_edition=False,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
     def extract_date(self, filename):

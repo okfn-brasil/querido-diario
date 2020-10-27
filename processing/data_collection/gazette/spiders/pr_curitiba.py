@@ -101,7 +101,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
                         f"https://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?Id={gazette_id}"
                     ],
                     is_extra_edition=True,
-                    power="executive_legislature",
+                    power="executive_legislative",
                 )
 
     def parse_regular_edition(self, response):
@@ -114,5 +114,5 @@ class PrCuritibaSpider(BaseGazetteSpider):
                 f"https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?Id={gazette_id}"
             ],
             is_extra_edition=False,
-            power="executive_legislature",
+            power="executive_legislative",
         )

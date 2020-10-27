@@ -25,7 +25,7 @@ class SpSantosSpider(BaseGazetteSpider):
                     date=parsing_date,
                     file_urls=[url],
                     is_extra_edition=False,
-                    power="executive_legislature",
+                    power="executive_legislative",
                 )
 
             parsing_date = parsing_date - dt.timedelta(days=1)

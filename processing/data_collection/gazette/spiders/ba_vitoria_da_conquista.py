@@ -34,5 +34,5 @@ class BaVitoriaDaConquistaSpider(BaseGazetteSpider):
                 date=parsing_date,
                 file_urls=[url],
                 is_extra_edition=False,
-                power="executive_legislature",
+                power="executive_legislative",
             )

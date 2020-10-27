@@ -185,4 +185,5 @@ class FecamGazetteSpider(BaseGazetteSpider):
         return Gazette(
             date=dateparser.parse(document[1], languages=("pt",)).date(),
             file_urls=(document[0],),
+            power="executive",
         )
