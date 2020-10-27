@@ -76,7 +76,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 66 | Anápolis | | | |
 | 67 | Bauru | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/196) |
 | 68 | Vitória | :white_check_mark: | | |
-| 69 | Caucaia | | | |
+| 69 | Caucaia | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/332) | [PR](https://github.com/okfn-brasil/querido-diario/pull/335) |
 | 70 | Itaquaquecetuba | | | |
 | 71 | São Vicente | | | |
 | 72 | Bandeira caruaru.jpg Caruaru | | | |
