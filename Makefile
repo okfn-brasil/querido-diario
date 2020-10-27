@@ -1,6 +1,6 @@
 ENV_FILE := .env
 
-setup: 
+setup:
 	cp .env.example $(ENV_FILE)
 	docker-compose pull
 	docker-compose build
@@ -31,7 +31,7 @@ destroy:
 	rm -f $(ENV_FILE)
 
 test:
-	docker-compose run --rm processing black . --check
+	black . --check
 
 run_spider:
 	docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl $(SPIDER)"
@@ -46,7 +46,7 @@ build:
 	docker build -t $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) -t $(NAMESPACE)/diario-oficial:latest processing
 
 publish:
-	docker push $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc) 
+	docker push $(NAMESPACE)/diario-oficial:$(shell date --rfc-3339=date --utc)
 	docker push $(NAMESPACE)/diario-oficial:latest
 
 shell:
