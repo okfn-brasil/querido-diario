@@ -415,7 +415,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 405 | Vera Cruz (RS) | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
 | 406 | Votorantim | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/232) |
 | 407 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
-| XXX | Vinhedo | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/234) |
+| XXX | Vinhedo | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/283) |
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
