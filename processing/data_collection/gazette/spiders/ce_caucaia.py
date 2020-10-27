@@ -42,11 +42,8 @@ class CeCaucaia(BaseGazetteSpider):
     def start_requests(self):
         rule_start_date = datetime.date(self.start_date.year, self.start_date.month, 1)
 
-        today = datetime.date.today()
-        rule_end_date = datetime.date(today.year, today.month, 1)
-
         date_list = list(
-            rrule(freq=MONTHLY, dtstart=rule_start_date, until=rule_end_date)
+            rrule(freq=MONTHLY, dtstart=rule_start_date, until=datetime.date.today())
         )
         for date in date_list:
             formdata = {
