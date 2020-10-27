@@ -35,7 +35,7 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
                 continue
 
             url = response.urljoin(url)
-            power = "executive" if "executivo" in url.lower() else "legislature"
+            power = "executive" if "executivo" in url.lower() else "legislative"
             date = link.css("::text").extract_first()
             is_extra_edition = "extra" in date.lower()
             date = parse(date.split("-")[0], languages=["pt"]).date()
@@ -44,9 +44,7 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
                     date=date,
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
-                    territory_id=self.TERRITORY_ID,
                     power=power,
-                    scraped_at=dt.datetime.utcnow(),
                 )
             )
         return items

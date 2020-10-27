@@ -41,15 +41,13 @@ class SpCampinasSpider(BaseGazetteSpider):
             date = parse(f"{day} {month_year}", languages=["pt"]).date()
             url = f"{self.sp_campinas_url}{url}"
             is_extra_edition = False
-            power = "executive_legislature"
+            power = "executive_legislative"
             items.append(
                 Gazette(
                     date=date,
                     file_urls=[url],
                     is_extra_edition=is_extra_edition,
-                    territory_id=self.TERRITORY_ID,
                     power=power,
-                    scraped_at=dt.datetime.utcnow(),
                 )
             )
         return items
