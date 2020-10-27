@@ -7,5 +7,5 @@ ITEM_PIPELINES = {
     "scrapy.pipelines.files.FilesPipeline": 100,
     "gazette.pipelines.ExtractTextPipeline": 200,
 }
-FILES_STORE = "/mnt/data/"
+FILES_STORE = "../data/"
 QUERIDODIARIO_EXTRACT_TEXT_FROM_FILE = True
