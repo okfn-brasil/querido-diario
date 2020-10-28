@@ -18,26 +18,20 @@ Please refer to the [README file](README.md) to set up the project. Also, read t
 
 ### Writing crawlers for new municipalities
 
-For collecting the gazettes from the official websites, we use a crawling framework called [Scrapy](https://docs.scrapy.org). You may find its [official tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) helpful to get started with the architecture. Our project can be found in the [`processing/data_collection`](processing/data_collection) folder.
+For collecting the gazettes from the official websites, we use a crawling framework called [Scrapy](https://docs.scrapy.org). You may find its [official tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) helpful to get started with the architecture. Our project can be found in the [`data_collection`](data_collection) directory.
 
 Two commands may especially be useful: `scrapy shell` and `scrapy crawl`.
 
 Scrapy has a shell interface for experimenting with crawlers, or spiders (how prefers to call it). To see how the framework reads a webpage before writing a spider for it, try the following, where you can replace the URL for a different municipality website:
 
 ```sh
-$ docker-compose run --rm processing scrapy shell http://www2.portoalegre.rs.gov.br/dopa/
+$ scrapy shell http://www2.portoalegre.rs.gov.br/dopa/
 ```
 
 For running an existing spider, the command receives its name (in this case, `rs_porto_alegre`):
 
 ```sh
-$ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl rs_porto_alegre"
-```
-
-In order to make our life easier, the following command does the same of the previous one:
-
-```sh
-SPIDER=rs_porto_alegre make run_spider
+$ SPIDER=rs_porto_alegre && make run_spider"
 ```
 
 ## Automated code formatting
