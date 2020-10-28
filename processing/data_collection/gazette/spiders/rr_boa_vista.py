@@ -1,8 +1,8 @@
 from dateparser import parse
 
 import scrapy
-
 import w3lib.url
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 

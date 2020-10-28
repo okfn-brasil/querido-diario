@@ -5,9 +5,9 @@ from datetime import date, datetime
 
 import scrapy
 from dateutil.rrule import DAILY, rrule
+from fake_useragent import UserAgent
 from scrapy.exceptions import NotConfigured
 
-from fake_useragent import UserAgent
 from gazette.items import Gazette
 
 
