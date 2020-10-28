@@ -10,6 +10,19 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RjPetropolis(BaseGazetteSpider):
+    """
+    The petropolis city gazettes are organized on the site in a directory-based structure (year/month/items)
+
+    The gazettes website has many cases that are outside the standard
+    Some examples are:
+        - edition 4406 of 2014-02-11 (recovered by the spider)
+        - edition 4526 of 2014-08-14 (recovered)
+        - month page of 2006-12 (recovered)
+        - year page of 2002 (recovered)
+        - edition 2377 of 2015-09 (not recovered, no date available)
+        - edition 3392 of 2009-12-03 (not recovered, wrong writing)
+    """
+
     TERRITORY_ID = "3303906"
     BASE_URL = "https://www.petropolis.rj.gov.br"
 
@@ -39,6 +52,8 @@ class RjPetropolis(BaseGazetteSpider):
     def parse(self, response):
         for document in response.css("#col1 div table tr td b a"):
             year = int(document.css("::text").get())
+
+            # yield a request only if the year is greater than the starting year
             if year >= self.start_date.year:
                 year_url_sufix = document.css("::attr(href)").get()
                 year_url = urljoin(self.BASE_URL, year_url_sufix)
@@ -49,9 +64,10 @@ class RjPetropolis(BaseGazetteSpider):
     def parse_month_page(self, response):
         for document in response.css("#col1 div table tr td b a"):
             month_name = document.css("::text").get().lower()
-            month = self.month_name_to_number.get(month_name, None)
+            month = self.month_name_to_number.get(month_name)
             year = response.meta["year"]
 
+            # yield a request only if the month and year are greater than the starting month and year
             if month and datetime.date(year, month, 1) >= datetime.date(
                 self.start_date.year, self.start_date.month, 1
             ):
@@ -69,6 +85,8 @@ class RjPetropolis(BaseGazetteSpider):
                 text = " ".join(document.css("*::text").getall())
                 text = re.sub(r"\s+", " ", text).strip()
 
+                # being able to retrieve the date in both formats is important
+                # because in some cases it is only available in one format
                 date_match = re.search(
                     r"(\d{1,2}\/\d{1,2}\/\d{4})|(\d{1,2}.de.\w+.de.\d{4})",
                     text,
@@ -85,6 +103,7 @@ class RjPetropolis(BaseGazetteSpider):
                     date = dateparser.parse(
                         date_match.group(0), languages=["pt"]
                     ).date()
+
                     yield Gazette(
                         date=date,
                         file_urls=[file_url],
