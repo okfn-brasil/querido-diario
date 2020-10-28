@@ -1,10 +1,11 @@
 import re
-import dateparser
-import w3lib.url
+from datetime import datetime, date
 from urllib.parse import urlencode
 
-from datetime import datetime, date
+import dateparser
+import w3lib.url
 from scrapy import Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
