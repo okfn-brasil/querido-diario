@@ -22,51 +22,39 @@ class RsBentoGoncalvesSpider(BaseGazetteSpider):
         pages = response.xpath(pagesURLSelector).getall()
 
         for page in pages:
-            url = "http://www." + self.allowed_domains[0] + "/" + page
+            url = 'http://www.' + self.allowed_domains[0] + '/' + page
             yield scrapy.Request(url, self.parse_gazettes)
 
     def parse_gazettes(self, response):
-        gazetteLinksSelector = '//*[@id="conteudo"]/div[2]/ul/li/p/a/@href'
+        gazetteLinksSelector = '//*[@id="conteudo"]/div[2]/ul/li/p/a[contains(@class, \'txt-130p\')]/@href'
         gazetteTitleSelector = '//*[@id="conteudo"]/div[2]/ul/li/p/a/strong/text()'
 
-        gazetteLinks = list(
-            map(self.linkToGazette, response.xpath(gazetteLinksSelector).getall())
-        )
+        gazetteLinks= response.xpath(gazetteLinksSelector).getall()
         gazetteTitles = response.xpath(gazetteTitleSelector).getall()
-        gazetteDates = list(map(self.gazetteDate, gazetteTitles))
-        gazetteIsExtraEdition = list(map(self.isExtraEdition, gazetteTitles))
 
-        for date, link, isExtraEdition in zip(
-            gazetteDates, gazetteLinks, gazetteIsExtraEdition
-        ):
-            if link and date:
+        for i in range(0, len(gazetteTitles)):
+            splitedElem = gazetteTitles[i].split('/')
+            # Check if the Gazette has a date
+            try:
+                date = dt.date(
+                    int(splitedElem[2][:4]),
+                    int(splitedElem[1][:2]),
+                    int(splitedElem[0][-2:]),
+                )
+
                 yield Gazette(
                     date=date,
-                    file_urls=[link],
-                    is_extra_edition=isExtraEdition,
+                    file_urls=['http://www.' + self.allowed_domains[0] + '/' + gazetteLinks[i]],
+                    is_extra_edition=self.isExtraEdition(gazetteTitles[i]),
                     territory_id=self.TERRITORY_ID,
                     power="executive",
                     scraped_at=dt.datetime.utcnow(),
                 )
-
-    def linkToGazette(self, elem):
-        if ".pdf" in elem:
-            return "http://www." + self.allowed_domains[0] + "/" + elem
-
-    def gazetteDate(self, elem):
-        splitedElem = elem.split("/")
-        try:
-            return dt.date(
-                int(splitedElem[2][:4]),
-                int(splitedElem[1][:2]),
-                int(splitedElem[0][-2:]),
-            )
-        except:
-            print("No date found.")
-            return None
+            except:
+                continue
 
     def isExtraEdition(self, elem):
-        extraStrings = ["extra", "suplementar", "complementar"]
+        extraStrings = ["extra", "suplementar", "complementar", "continuação"]
         elemLower = elem.lower()
         for extraString in extraStrings:
             if extraString in elemLower:
