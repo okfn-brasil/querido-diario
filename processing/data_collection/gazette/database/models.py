@@ -1,6 +1,7 @@
 import csv
 import datetime as dt
 import logging
+
 import pkg_resources
 from sqlalchemy import (
     Boolean,
@@ -32,7 +33,7 @@ def load_territories(engine):
 
     num_territories = session.query(Territory).count()
     if num_territories == 0:
-        logger.info("Populating 'territories' table. Please wait!")
+        logger.info("Populating 'territories' table - Please wait!")
         territories_file = pkg_resources.resource_filename(
             "gazette", "resources/territories.csv"
         )
@@ -43,6 +44,7 @@ def load_territories(engine):
                 territories.append(Territory(**row))
             session.bulk_save_objects(territories)
             session.commit()
+        logger.info("Populating 'territories' table - Done!")
 
 
 def initialize_database(database_url):
