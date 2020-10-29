@@ -1,3 +1,5 @@
+import pkg_resources
+
 BOT_NAME = "gazette"
 SPIDER_MODULES = ["gazette.spiders"]
 NEWSPIDER_MODULE = "gazette.spiders"
@@ -16,7 +18,9 @@ EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
 }
 SPIDERMON_ENABLED = True
-SPIDERMON_VALIDATION_SCHEMAS = ["gazette/schema.json"]
+SPIDERMON_VALIDATION_SCHEMAS = [
+    pkg_resources.resource_filename("gazette", "resources/gazette_schema.json")
+]
 
 SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
 SPIDERMON_VALIDATION_DROP_ITEMS_WITH_ERRORS = True
