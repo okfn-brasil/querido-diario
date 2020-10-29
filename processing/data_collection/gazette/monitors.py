@@ -1,4 +1,10 @@
 from spidermon import Monitor, MonitorSuite, monitors
+from spidermon.contrib.actions.telegram import SendTelegramMessage
+from spidermon.contrib.scrapy.monitors import (
+    ErrorCountMonitor,
+    FinishReasonMonitor,
+    ItemValidationMonitor,
+)
 
 
 @monitors.name("Requests/Items Ratio")
@@ -24,8 +30,31 @@ class RequestsItemsRatioMonitor(Monitor):
             )
 
 
+class CustomSendTelegramMessage(SendTelegramMessage):
+    def get_message(self):
+        stats = self.data.stats
+
+        failures = len(self.result.failures)
+        emoji = "\U0001F525" if failures > 0 else "\U0001F60E"
+
+        message = "\n".join(
+            [
+                f"*{self.data.spider.name}* {stats['finish_reason']}",
+                f"- Finish time: *{stats['finish_time']}*",
+                f"- Gazettes scraped: *{stats['item_scraped_count']}*",
+                f"- {emoji} {failures} failures {emoji}",
+            ]
+        )
+        return message
+
+
 class SpiderCloseMonitorSuite(MonitorSuite):
 
     monitors = [
         RequestsItemsRatioMonitor,
+        ErrorCountMonitor,
+        FinishReasonMonitor,
+        ItemValidationMonitor,
     ]
+
+    monitors_finished_actions = [CustomSendTelegramMessage]
