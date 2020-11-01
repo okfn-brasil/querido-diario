@@ -2277,3 +2277,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
 | XXX | Itu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/303) |
+| XXX | Guarapuava | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/340) |
