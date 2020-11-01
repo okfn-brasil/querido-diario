@@ -23,35 +23,33 @@ class PrGuarapuavaSpider(BaseGazetteSpider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        for gazette in response.css('.link > a'):
-            link_str = gazette.css('a ::text').get()
+        for gazette in response.css(".link > a"):
+            link_str = gazette.css("a ::text").get()
             gazette_date = self.extract_gazette_date(link_str)
 
-            if (gazette_date == None):
+            if gazette_date == None:
                 continue
 
             yield Gazette(
                 date=gazette_date,
-                file_urls=[
-                    gazette.css("a::attr(href)").extract_first()
-                ],
-                power='executive',
-                edition_number=self.extract_gazette_edition_number(link_str)
+                file_urls=[gazette.css("a::attr(href)").extract_first()],
+                power="executive",
+                edition_number=self.extract_gazette_edition_number(link_str),
                 is_extra_edition=self.gazzete_is_extra_edition(link_str),
             )
 
     def extract_gazette_date(self, text):
-        matches = re.findall(r'(\d+/\d+/\d+)', text)
+        matches = re.findall(r"(\d+/\d+/\d+)", text)
 
-        if (len(matches) == 0):
+        if len(matches) == 0:
             return None
 
         return parse(matches[-1], languages=["pt"]).date()
 
     def extract_gazette_edition_number(self, text):
-        match = re.search(r'Boletim(\s+)Oficial(\s+)(\d+)', text)
+        match = re.search(r"Boletim(\s+)Oficial(\s+)(\d+)", text)
 
-        if (match == None):
+        if match == None:
             return None
 
         return match.group(0)
