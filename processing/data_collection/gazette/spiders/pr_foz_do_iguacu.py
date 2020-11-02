@@ -37,7 +37,7 @@ class PrFozDoIguacuSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[f"{self.BASE_URL}{url}"],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
     @staticmethod

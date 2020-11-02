@@ -1,9 +1,10 @@
-import re
 import dateparser
-import w3lib.url
-
+import re
 from datetime import datetime
+
+import w3lib.url
 from scrapy import Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 

@@ -1,6 +1,7 @@
-from dateparser import parse
-import requests
 import re
+from dateparser import parse
+
+import requests
 import scrapy
 
 from gazette.items import Gazette

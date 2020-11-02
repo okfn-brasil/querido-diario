@@ -8,10 +8,11 @@ That's why so many `FormRequest.from_response` are necessary, to catch those for
 keys dynamically as they are hidden inputs in the page.
 """
 
+from dateparser import parse
 from datetime import date
 
 import scrapy
-from dateparser import parse
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -101,7 +102,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
                         f"https://legisladocexterno.curitiba.pr.gov.br/DiarioSuplementoConsultaExterna_Download.aspx?Id={gazette_id}"
                     ],
                     is_extra_edition=True,
-                    power="executive_legislature",
+                    power="executive_legislative",
                 )
 
     def parse_regular_edition(self, response):
@@ -114,5 +115,5 @@ class PrCuritibaSpider(BaseGazetteSpider):
                 f"https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Download.aspx?Id={gazette_id}"
             ],
             is_extra_edition=False,
-            power="executive_legislature",
+            power="executive_legislative",
         )

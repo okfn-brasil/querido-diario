@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from scrapy import Request
-from gazette.spiders.base import BaseGazetteSpider
-from gazette.items import Gazette
 import dateparser
+
+from scrapy import Request
+
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpBauruSpider(BaseGazetteSpider):

@@ -1,7 +1,7 @@
 import json
+from dateparser import parse
 
 import scrapy
-from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -19,7 +19,7 @@ class GoAparecidaDeGoianiaSpider(BaseGazetteSpider):
         records = json.loads(response.text)["records"]
         for record in records:
             url = download_url.format(record["numero"])
-            power = "executive_legislature"
+            power = "executive_legislative"
             date = parse(record["publicado"], languages=["en"]).date()
 
             yield Gazette(

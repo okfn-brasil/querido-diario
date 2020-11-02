@@ -1,5 +1,5 @@
-from dateparser import parse
 import datetime as dt
+from dateparser import parse
 
 import scrapy
 from scrapy.http import Request
@@ -48,7 +48,7 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
         date = parse(cells[1].extract(), languages=["pt"]).date()
         is_extra_edition = cells[2].extract() != "Normal"
         return Gazette(
-            date=date, is_extra_edition=is_extra_edition, power="executive_legislature",
+            date=date, is_extra_edition=is_extra_edition, power="executive_legislative",
         )
 
     def parse_pdf_page(self, response):

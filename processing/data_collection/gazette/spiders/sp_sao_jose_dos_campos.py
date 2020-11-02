@@ -1,6 +1,7 @@
 import dateparser
 
 from scrapy import FormRequest
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -35,7 +36,7 @@ class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
         for element in response.css(self.NEXT_PAGE_LINK_CSS):
