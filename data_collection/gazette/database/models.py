@@ -1,6 +1,7 @@
 import csv
 import datetime as dt
 import logging
+
 import pkg_resources
 from sqlalchemy import (
     Boolean,
