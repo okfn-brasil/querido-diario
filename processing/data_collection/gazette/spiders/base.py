@@ -228,7 +228,10 @@ class DoemGazetteSpider(BaseGazetteSpider):
 
     def get_url(self, page=1):
         state, city = self.name.split("_")
-        return f"https://doem.org.br/{state}/{city}/pesquisar?data_inicial=2013-01-01&page={page}"
+        start_date = "2013-01-01"
+        if hasattr(self, "start_date"):
+            start_date = self.start_date.strftime("%Y-%m-%d")
+        return f"https://doem.org.br/{state}/{city}/pesquisar?data_inicial={start_date}&page={page}"
 
     @staticmethod
     def get_last_page(response):
