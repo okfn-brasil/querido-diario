@@ -31,5 +31,5 @@ class RrBoaVistaSpider(BaseGazetteSpider):
 
             power = "executive_legislature"
             yield Gazette(
-                date=date, file_urls=[url], is_extra_edition=False, power=power,
+                date=date, file_urls=[url], is_extra_edition=False, power=power
             )

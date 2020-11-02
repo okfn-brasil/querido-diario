@@ -19,9 +19,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
     start_urls = ["http://gazetamunicipal.cuiaba.mt.gov.br/"]
 
-    custom_settings = {
-        "DOWNLOAD_DELAY": 1,
-    }
+    custom_settings = {"DOWNLOAD_DELAY": 1}
 
     def start_requests(self):
         start_date = datetime.date(1967, 1, 1)
@@ -31,7 +29,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
             date_url = f"{BASE_URL}/published/{date.year}/{date.month}"
             yield Request(
                 url=date_url,
-                headers={"referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",},
+                headers={"referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes"},
             )
 
     def parse(self, response):

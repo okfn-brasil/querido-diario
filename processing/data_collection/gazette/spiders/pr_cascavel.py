@@ -21,7 +21,7 @@ class PrCascavelSpider(BaseGazetteSpider):
                 power = "executive" if "Executivo" in link_text else "legislature"
                 url = response.urljoin(link.xpath("./@href").extract_first(""))
                 yield Gazette(
-                    date=date, file_urls=[url], is_extra_edition=False, power=power,
+                    date=date, file_urls=[url], is_extra_edition=False, power=power
                 )
         next_page_xpath = '//a[@title="Próxima página"]/@href'
         next_page_url = response.xpath(next_page_xpath).extract_first()

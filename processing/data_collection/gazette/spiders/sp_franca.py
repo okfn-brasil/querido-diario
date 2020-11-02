@@ -39,7 +39,7 @@ class SpFrancaSpider(BaseGazetteSpider):
 
         items.append(
             Gazette(
-                date=date, file_urls=[url], is_extra_edition=False, power="executive",
+                date=date, file_urls=[url], is_extra_edition=False, power="executive"
             )
         )
 

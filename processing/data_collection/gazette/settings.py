@@ -12,9 +12,7 @@ ITEM_PIPELINES = {
 
 FILES_STORE = "/mnt/data/"
 
-EXTENSIONS = {
-    "spidermon.contrib.scrapy.extensions.Spidermon": 500,
-}
+EXTENSIONS = {"spidermon.contrib.scrapy.extensions.Spidermon": 500}
 SPIDERMON_ENABLED = True
 SPIDERMON_VALIDATION_SCHEMAS = ["gazette/schema.json"]
 SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
