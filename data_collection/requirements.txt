@@ -27,6 +27,7 @@ hyperlink==20.0.1         # via twisted
 idna==2.10                # via hyperlink, jsonschema, requests
 importlib-metadata==2.0.0  # via jsonschema
 incremental==17.5.0       # via twisted
+isort==5.6.4              # via -r requirements.in
 itemadapter==0.1.1        # via -r requirements.in, itemloaders, scrapy
 itemloaders==1.0.3        # via scrapy
 jmespath==0.10.0          # via boto3, botocore, itemloaders

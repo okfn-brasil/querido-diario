@@ -10,111 +10,53 @@ When this project was initially released, had two distinct goals: creating crawl
 
 Table of Contents
 =================
-  * [Build and Run](#build-and-run)
+  * [Development environment](#development-environment)
      * [Run Gazette Crawler](#run-gazette-crawler)
-  * [Tips and tricks](#tips-and-tricks)
-  * [Troubleshooting](#troubleshooting)
-     * [Non-specific errors when building or running](#non-specific-errors-when-building-or-running)
-     * [ImportError: cannot import name 'main'](#importerror-cannot-import-name-main)
-     * ["Permission denied" error when gazette files are downloaded](#permission-denied-error-when-gazette-files-are-downloaded)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
 
-## Build and Run
+## Development environment
 
-If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
+The best way to understand how **Querido Diário** works, is getting the source
+and run it locally. All crawlers are developed using [Scrapy](https://scrapy.org)
+framework. They provide a [tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
+so you can learn to use it.
 
-The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies. If you're a Windows 7+ user, please check our setup guide in [windows_users.md](windows_users.md).
-
-After you cloned the repository, you may want to run the following from the source folder:
+If you are in a Linux-like environment, the following commands will create a new
+[virtual environment](https://docs.python.org/3/library/venv.html) - that will keep
+everything isolated from your system - activate it and install all libraries needed
+to start running and developing new spiders.
 
 ```console
-$ make setup
-$ docker-compose up
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ cd processing/data_collection/
+$ pip install -r requirements.txt
 ```
-
-If you get some error here, see the section [Troubleshooting](#troubleshooting)
-below.
 
 ### Run Gazette Crawler
 
-The gazettes spiders are written using Scrapy framework and must be executed with crawl command: `scrapy crawl <spider filename>`.
-However, it's recommended to use the processing container for that: `docker-compose run --rm processing <command>`.
-The following example is the command to run the gazette crawler for Florianópolis/SC:
+After configuring your environment, you will be able to execute and develop new spiders.
+Following we list some helpful commands.
+
+Get list of all available spiders:
 
 ```console
-$ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis"
+$ scrapy list
+```
+
+Execute spider with name `spider_name`:
+
+```console
+$ scrapy crawl spider_name
 ```
 
 You can limit the gazettes you want to download passing `start_date` as argument with `YYYY-MM-DD` format. The
 following command will download only gazettes which date is greater than 01/Sep/2020:
 
 ```console
-$ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis -a start_date=2020-09-01"
+$ scrapy crawl sc_florianopolis -a start_date=2020-09-01
 ```
-
-## Tips and tricks
-
-There is a make target allowing you run the scrapy shell inside the container used by the crawler:
-
-```bash
-make shell
-```
-
-There is another make target allowing you run access the PostgreSQL database:
-
-```bash
-make sql
-```
-
-You need the password to access the database. You can find it in the .env file.
-
-You can also run the spider with some less key strokes. The following make target
-allows you to run the spider. It calls the same command of the docker compose 
-described in the documentation:
-
-```bash
-SPIDER=sc_florianopolis make run_spider
-```
-
-## Troubleshooting
-
-### Non-specific errors when building or running
-Several error is because your user is not in the docker group. To resolve this,
-execute the follow command and do logout and login:
-
-```console
-$ sudo usermod -aG docker $USER
-```
-
-### ImportError: cannot import name 'main'
-
-A error like this can occour when you run `pip3 install -r requirements.txt`,
-which is a step from build (`make setup`). This means you must have
-inadvertently upgraded your system pip (probably through something like
-`sudo pip install pip --upgrade`)
-
-To recover the pip3 binary you'll need to run (on Debian-based systems. On
-non-Debian system, replace `apt` by the specific package manager):
-
-```console
-$ sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
-```
-
-### "Permission denied" error when gazette files are downloaded
-
-This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
-
-Run this command in your system's terminal to get your user's id:
-
-```console
-$ id -u
-```
-
-Copy the output, replace the value of the environment variable `LOCAL_USER_ID` in the generated `.env` file with the copied value and execute `docker-compose build`. With the image rebuilt you are ready to go.
-
-To save yourself this effort in the future, you can replace the value of `LOCAL_USER_ID` in `.env.example` too and `.env` will already be generated with the correct value for it when `make setup` is executed.
-
 
 ## Contributing
 
