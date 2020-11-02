@@ -1,5 +1,6 @@
 import re
 import datetime
+import calendar
 from urllib.parse import urlencode
 from dateutil.rrule import rrule, MONTHLY
 
@@ -21,21 +22,6 @@ class CeCaucaia(BaseGazetteSpider):
     params = {"tabela": "pagina", "acao": "diario_buscar_data"}
     FROM_URL = f"{BASE_URL}/index.php?{urlencode(params)}"
 
-    month_number_to_name = {
-        1: "Janeiro",
-        2: "Fevereiro",
-        3: "Março",
-        4: "Abril",
-        5: "Maio",
-        6: "Junho",
-        7: "Julho",
-        8: "Agosto",
-        9: "Setembro",
-        10: "Outubro",
-        11: "Novembro",
-        12: "Dezembro",
-    }
-
     def start_requests(self):
         rule_start_date = datetime.date(self.start_date.year, self.start_date.month, 1)
 
@@ -44,7 +30,7 @@ class CeCaucaia(BaseGazetteSpider):
         )
         for date in date_list:
             formdata = {
-                "pesquisa_data_mes": self.month_number_to_name.get(date.month),
+                "pesquisa_data_mes": self.get_month_name(date.month),
                 "pesquisa_data_ano": str(date.year),
             }
             yield scrapy.FormRequest(
@@ -75,3 +61,7 @@ class CeCaucaia(BaseGazetteSpider):
                     power="executive_legislative",
                     edition_number=edition_number,
                 )
+
+    def get_month_name(self, number):
+        with calendar.different_locale("pt_BR.utf8") as different_locale:
+            return calendar.month_name[number].capitalize()
