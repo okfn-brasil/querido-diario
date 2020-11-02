@@ -3,6 +3,7 @@ boto3
 chompjs==1.0.16
 dateparser
 fake-useragent
+isort
 itemadapter
 psycopg2-binary
 python-dateutil
