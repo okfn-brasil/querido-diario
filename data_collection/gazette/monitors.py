@@ -33,6 +33,7 @@ class RequestsItemsRatioMonitor(Monitor):
 class CustomSendTelegramMessage(SendTelegramMessage):
     def get_message(self):
         stats = self.data.stats
+        n_scraped_items = stats.get("item_scraped_count", 0)
 
         failures = len(self.result.failures)
         emoji = "\U0001F525" if failures > 0 else "\U0001F60E"
@@ -41,7 +42,7 @@ class CustomSendTelegramMessage(SendTelegramMessage):
             [
                 f"*{self.data.spider.name}* {stats['finish_reason']}",
                 f"- Finish time: *{stats['finish_time']}*",
-                f"- Gazettes scraped: *{stats['item_scraped_count']}*",
+                f"- Gazettes scraped: *{n_scraped_items}*",
                 f"- {emoji} {failures} failures {emoji}",
             ]
         )
