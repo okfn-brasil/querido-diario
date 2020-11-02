@@ -1,5 +1,5 @@
 import re
-from datetime import date
+from datetime import date, datetime
 
 from dateparser import parse
 import scrapy
@@ -13,12 +13,12 @@ class PrGuarapuavaSpider(BaseGazetteSpider):
     name = "pr_guarapuava"
     allowed_domains = ["guarapuava.pr.gov.br"]
     start_urls = ["https://www.guarapuava.pr.gov.br/boletins-oficiais"]
-    starting_year = 2001
+    start_date = datetime(2002, 1, 20).date()
 
     def start_requests(self):
         todays_date = date.today()
         current_year = todays_date.year
-        for year in range(current_year, self.starting_year, -1):
+        for year in range(current_year, self.start_date.year - 1, -1):
             url = f"https://www.guarapuava.pr.gov.br/boletins-oficiais/{year}-2/"
             yield scrapy.Request(url=url, callback=self.parse)
 
