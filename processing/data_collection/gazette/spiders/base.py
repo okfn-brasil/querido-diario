@@ -32,16 +32,13 @@ class BaseGazetteSpider(scrapy.Spider):
 
 class SigpubGazetteSpider(BaseGazetteSpider):
     """www.diariomunicipal.com.br (Sigpub) base spider
-
     Documents obtained by this kind of spider are text-PDFs with many cities in it.
     That's because the websites are usually made for associations of cities.
-
     TODO:
         - All variations have a "possible" start date of 01/01/2009, but that may cause
         many unnecessary requests to be made if they actually start making available
         documents later. Some investigation for the start date of each website needs to
         be made in this case.
-
     Observations:
         - These websites have an "Advanced Search", but they are protected by ReCaptcha.
     """
@@ -205,7 +202,7 @@ class DoemGazetteSpider(BaseGazetteSpider):
         """
         return [
             scrapy.Request(self.get_url(page), callback=self.parse)
-            for page in range(1, self.get_last_page(response) + 1)
+            for page in range(1, 1 + self.get_last_page(response))
         ]
 
     def parse(self, response):
@@ -226,24 +223,30 @@ class DoemGazetteSpider(BaseGazetteSpider):
                 power="executive_legislative",
             )
 
-    def get_url(self, page=1):
+    def get_url(self, page=None):
         state, city = self.name.split("_")
         start_date = "2013-01-01"
+        page_param = ""
+
+        if page is not None:
+            page_param = f"&page={page}"
+
         if hasattr(self, "start_date"):
             start_date = self.start_date.strftime("%Y-%m-%d")
-        return f"https://doem.org.br/{state}/{city}/pesquisar?data_inicial={start_date}&page={page}"
 
-    @staticmethod
-    def get_last_page(response):
+        return f"https://doem.org.br/{state}/{city}/pesquisar?data_inicial={start_date}{page_param}"
+
+    def get_last_page(self, response):
         """
         Gets the last page number available in the pages navigation menu
         """
         PAGINATION_CSS_QUERY = "ul.pagination li a::text"
         pages = response.css(PAGINATION_CSS_QUERY).getall()
+        if len(pages) == 0:
+            return 1
         return max([int(page) for page in pages if page.isnumeric()])
 
-    @staticmethod
-    def get_pdf_url(response_item):
+    def get_pdf_url(self, response_item):
         """
         Gets the url for the gazette inside one of the 'box-diario' divs
         """
@@ -251,8 +254,7 @@ class DoemGazetteSpider(BaseGazetteSpider):
         preview_link = response_item.css(LINK_CSS_QUERY).get()
         return preview_link.replace("previsualizar", "baixar")
 
-    @staticmethod
-    def get_gazette_date(response_item):
+    def get_gazette_date(self, response_item):
         """
         Get the date for the gazette inside one of the 'box-diario' divs
         """
@@ -260,8 +262,7 @@ class DoemGazetteSpider(BaseGazetteSpider):
         date = response_item.css(DATE_CSS_QUERY).get().strip()
         return dateparser.parse(date, languages=["pt"]).date()
 
-    @staticmethod
-    def get_edition_number(response_item):
+    def get_edition_number(self, response_item):
         """
         Get the edition number inside one of the 'box-diario' divs
         """
