@@ -30,10 +30,12 @@ incremental==17.5.0       # via twisted
 isort==5.6.4              # via -r requirements.in
 itemadapter==0.1.1        # via -r requirements.in, itemloaders, scrapy
 itemloaders==1.0.3        # via scrapy
+jinja2==2.11.2            # via -r requirements.in
 jmespath==0.10.0          # via boto3, botocore, itemloaders
 jsonpointer==2.0          # via jsonschema
 jsonschema[format]==3.2.0  # via spidermon
 lxml==4.6.1               # via parsel, scrapy
+markupsafe==1.1.1         # via jinja2
 parsel==1.6.0             # via itemloaders, scrapy
 pathspec==0.8.0           # via black
 protego==0.1.16           # via scrapy
