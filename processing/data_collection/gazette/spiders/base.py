@@ -191,6 +191,7 @@ class DoemGazetteSpider(BaseGazetteSpider):
     """
 
     allowed_domains = ["doem.org.br"]
+    start_date = date(2009, 1, 1)
 
     def start_requests(self):
         yield scrapy.Request(self.get_url(), callback=self.parse_pagination)
@@ -225,14 +226,8 @@ class DoemGazetteSpider(BaseGazetteSpider):
 
     def get_url(self, page=None):
         state, city = self.name.split("_")
-        start_date = "2013-01-01"
-        page_param = ""
-
-        if page is not None:
-            page_param = f"&page={page}"
-
-        if hasattr(self, "start_date"):
-            start_date = self.start_date.strftime("%Y-%m-%d")
+        start_date = self.start_date.strftime("%Y-%m-%d")
+        page_param = f"&page={page}" if page is not None else ""
 
         return f"https://doem.org.br/{state}/{city}/pesquisar?data_inicial={start_date}{page_param}"
 
