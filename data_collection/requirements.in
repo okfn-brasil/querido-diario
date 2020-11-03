@@ -6,6 +6,7 @@ dateparser
 fake-useragent
 isort
 itemadapter
+jinja2
 psycopg2-binary
 python-dateutil
 python-decouple
