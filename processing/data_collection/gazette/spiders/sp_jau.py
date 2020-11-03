@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from scrapy import Spider
-from gazette.items import Gazette
 import dateparser
+
+from scrapy import Spider
+
+from gazette.items import Gazette
 
 
 class SpJauSpider(Spider):

@@ -1,6 +1,7 @@
 import dateparser
 
 from scrapy import Request, Spider
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -35,7 +36,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
         for url in response.css(self.NEXT_PAGE_CSS).extract():

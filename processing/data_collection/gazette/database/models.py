@@ -1,9 +1,10 @@
+import csv
 import datetime as dt
-
+import logging
+import pkg_resources
 from sqlalchemy import (
-    create_engine,
-    Column,
     Boolean,
+    Column,
     Date,
     DateTime,
     ForeignKey,
@@ -11,20 +12,43 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    create_engine,
 )
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, sessionmaker
 
 DeclarativeBase = declarative_base()
+
+logger = logging.getLogger(__name__)
 
 
 def create_tables(engine):
     DeclarativeBase.metadata.create_all(engine)
 
 
+def load_territories(engine):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    num_territories = session.query(Territory).count()
+    if num_territories == 0:
+        logger.info("Populating 'territories' table. Please wait!")
+        territories_file = pkg_resources.resource_filename(
+            "gazette", "resources/territories.csv"
+        )
+        with open(territories_file) as csvfile:
+            reader = csv.DictReader(csvfile)
+            territories = []
+            for row in reader:
+                territories.append(Territory(**row))
+            session.bulk_save_objects(territories)
+            session.commit()
+
+
 def initialize_database(database_url):
     engine = create_engine(database_url)
     create_tables(engine)
+    load_territories(engine)
     return engine
 
 
@@ -43,7 +67,7 @@ class Gazette(DeclarativeBase):
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     territory = relationship("Territory", back_populates="gazettes")
     territory_id = Column(String, ForeignKey("territories.id"))
-    processed = Column(Boolean)
+    processed = Column(Boolean, default=False)
     __table_args__ = (UniqueConstraint("territory_id", "date", "file_checksum"),)
 
 

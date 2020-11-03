@@ -19,12 +19,12 @@ Gazettes examples:
 
 """
 
+import dateparser
 import datetime as dt
 import re
 
-import dateparser
-from dateutil.rrule import DAILY, rrule
 import scrapy
+from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

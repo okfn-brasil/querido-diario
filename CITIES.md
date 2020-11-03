@@ -94,7 +94,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 84 | Guarujá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/96) |
 | 85 | Praia Grande | | | |
 | 86 | Taubaté | | | |
-| 87 | São José dos Pinhais | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/59) |
+| 87 | São José dos Pinhais | :white_check_mark: | | | PR [59](https://github.com/okfn-brasil/diario-oficial/pull/59) [325](https://github.com/okfn-brasil/querido-diario/pull/325) |
 | 88 | Limeira | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/113) |
 | 89 | Petrópolis | | | |
 | 90 | Camaçari | | | |
@@ -102,7 +102,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 92 | Mossoró | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/259) |
 | 93 | Suzano | | | |
 | 94 | Palmas | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/1) |
-| 95 | Governador Valadares | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/19) |
+| 95 | Governador Valadares | :white_check_mark: | | PR [19](https://github.com/okfn-brasil/diario-oficial/pull/19) [269](https://github.com/okfn-brasil/diario-oficial/pull/269) |
 | 96 | Taboão da Serra | | | |
 | 97 | Santa Maria | | | |
 | 98 | Gravataí | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/129) |

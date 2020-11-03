@@ -1,7 +1,7 @@
+import dateparser
 import math
 from urllib.parse import urlencode
 
-import dateparser
 import scrapy
 
 from gazette.items import Gazette

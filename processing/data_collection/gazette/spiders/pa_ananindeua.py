@@ -1,10 +1,10 @@
+import dateparser
 from datetime import datetime
 
-import dateparser
 from scrapy import Request
 
-from gazette.spiders.base import BaseGazetteSpider
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
 class PaAnanindeuaSpider(BaseGazetteSpider):

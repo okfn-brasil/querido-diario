@@ -1,8 +1,8 @@
 import datetime as dt
+from dateparser import parse
 
 import scrapy
-from dateparser import parse
-from dateutil.rrule import rrule, DAILY
+from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

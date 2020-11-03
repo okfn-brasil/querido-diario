@@ -1,8 +1,8 @@
 import datetime as dt
 import json
-
-from dateutil.rrule import rrule, MONTHLY
 from dateparser import parse
+
+from dateutil.rrule import MONTHLY, rrule
 from scrapy.http import Request
 from scrapy.selector import Selector
 
@@ -40,5 +40,5 @@ class RoPortoVelho(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )

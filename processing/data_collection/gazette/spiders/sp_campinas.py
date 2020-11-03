@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from dateparser import parse
 import datetime as dt
+from dateparser import parse
 
 import scrapy
 
@@ -41,7 +41,7 @@ class SpCampinasSpider(BaseGazetteSpider):
             date = parse(f"{day} {month_year}", languages=["pt"]).date()
             url = f"{self.sp_campinas_url}{url}"
             is_extra_edition = False
-            power = "executive_legislature"
+            power = "executive_legislative"
             items.append(
                 Gazette(
                     date=date,

@@ -1,7 +1,7 @@
-from dateparser import parse
 import datetime as dt
-
 import re
+from dateparser import parse
+
 import scrapy
 
 from gazette.items import Gazette
@@ -34,7 +34,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
 
             url = response.urljoin(url)
             # Apparently, Goiânia doesn't have a separate gazette for executive and legislative
-            power = "executive_legislature"
+            power = "executive_legislative"
             link_text = link.css("::text").extract_first()
             if link_text is None:
                 continue

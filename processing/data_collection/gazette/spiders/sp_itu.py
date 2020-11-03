@@ -1,8 +1,8 @@
 import base64
+import dateparser
 from datetime import datetime
 
 import chompjs
-import dateparser
 from scrapy import Request, Spider
 
 from gazette.items import Gazette
@@ -36,7 +36,7 @@ class SpItuSpider(BaseGazetteSpider):
                 file_urls=[url],
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
     def extract_date(self, element):

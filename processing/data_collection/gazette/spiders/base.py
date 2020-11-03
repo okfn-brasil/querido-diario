@@ -1,13 +1,14 @@
+import dateparser
 import json
 import re
 from datetime import date, datetime
 
-import dateparser
+import scrapy
 from dateutil.rrule import DAILY, rrule
 from fake_useragent import UserAgent
-import scrapy
-from gazette.items import Gazette
 from scrapy.exceptions import NotConfigured
+
+from gazette.items import Gazette
 
 
 class BaseGazetteSpider(scrapy.Spider):
@@ -185,4 +186,5 @@ class FecamGazetteSpider(BaseGazetteSpider):
         return Gazette(
             date=dateparser.parse(document[1], languages=("pt",)).date(),
             file_urls=(document[0],),
+            power="executive",
         )

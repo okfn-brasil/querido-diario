@@ -42,5 +42,5 @@ class MsCampoGrandeSpider(BaseGazetteSpider):
                 date=gazette_date,
                 file_urls=[gazette_url],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )

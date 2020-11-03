@@ -1,4 +1,5 @@
 import dateparser
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -36,7 +37,7 @@ class MgContagemSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra_edition,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
         number_of_pages = int(

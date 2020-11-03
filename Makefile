@@ -12,6 +12,18 @@ setup:
 check:
 	python3 -m black .
 
+ISORT_ARGS := --recursive --combine-star --combine-as --order-by-type --thirdparty scrapy --builtin dateparser --multi-line 3 --trailing-comma --force-grid-wrap 0 --use-parentheses --line-width 88
+
+SRC_DIRS := ./processing
+
+check:
+	python3 -m isort --check --diff $(ISORT_ARGS) $(SRC_DIRS)
+	python3 -m black --check $(SRC_DIRS)
+
+format:
+	python3 -m isort --apply $(ISORT_ARGS) $(SRC_DIRS)
+	python3 -m black $(SRC_DIRS)
+
 destroy:
 	echo "Removing all containers...."
 	docker-compose down --rmi all --volumes --remove-orphans

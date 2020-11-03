@@ -1,6 +1,6 @@
+import re
 from dateparser import parse
 from datetime import date
-import re
 
 import scrapy
 
@@ -32,7 +32,7 @@ class PrPontaGrossaSpider(BaseGazetteSpider):
                     date=gazette_date,
                     file_urls=[pdf_info["url"]],
                     is_extra_edition=pdf_info["is_extra_edition"],
-                    power="executive_legislature",
+                    power="executive_legislative",
                 )
 
     @staticmethod

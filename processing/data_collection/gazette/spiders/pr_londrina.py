@@ -1,4 +1,5 @@
 from dateparser import parse
+
 from scrapy import FormRequest
 
 from gazette.items import Gazette
@@ -31,7 +32,7 @@ class PrLondrina(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=is_extra,
-                power="executive_legislature",
+                power="executive_legislative",
             )
 
         for page in range(2, len(response.css(".button.othersOptPage")) + 1):
