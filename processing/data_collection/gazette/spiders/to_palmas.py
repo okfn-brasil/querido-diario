@@ -13,7 +13,9 @@ class ToPalmasSpider(BaseGazetteSpider):
     allowed_domains = ["diariooficial.palmas.to.gov.br"]
     start_date = datetime.date(2010, 3, 22)  # First gazette available
 
-    custom_settings = {"MEDIA_ALLOW_REDIRECTS": True}
+    custom_settings = {
+        "MEDIA_ALLOW_REDIRECTS": True,
+    }
 
     def start_requests(self):
         dt_inicial = self.start_date.strftime("%d/%m/%Y")

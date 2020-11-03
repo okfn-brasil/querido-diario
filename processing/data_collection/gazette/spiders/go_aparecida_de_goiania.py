@@ -23,5 +23,5 @@ class GoAparecidaDeGoianiaSpider(BaseGazetteSpider):
             date = parse(record["publicado"], languages=["en"]).date()
 
             yield Gazette(
-                date=date, file_urls=[url], is_extra_edition=False, power=power
+                date=date, file_urls=[url], is_extra_edition=False, power=power,
             )

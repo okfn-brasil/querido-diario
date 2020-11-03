@@ -26,4 +26,6 @@ class RequestsItemsRatioMonitor(Monitor):
 
 class SpiderCloseMonitorSuite(MonitorSuite):
 
-    monitors = [RequestsItemsRatioMonitor]
+    monitors = [
+        RequestsItemsRatioMonitor,
+    ]

@@ -33,4 +33,6 @@ class PiTeresina(BaseGazetteSpider):
             date_text = entry.css("td:nth-child(2)::text").get()
             date = dateparser.parse(date_text, languages=["pt"]).date()
 
-            yield Gazette(date=date, file_urls=file_urls, power="executive_legislative")
+            yield Gazette(
+                date=date, file_urls=file_urls, power="executive_legislative",
+            )
