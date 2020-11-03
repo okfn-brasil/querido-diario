@@ -12,7 +12,13 @@
             "items": {
                 "type": "string"
             }                                                                 
-        },  
+        },
+        "file_requests": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }                                                                 
+        },
         "is_extra_edition": {
             "description": "Determines if the edition of the gazzete is extra or not",
             "type": "boolean"
@@ -59,5 +65,17 @@
         "territory_id",
         "power",
         "scraped_at"
+    ],
+    "anyOf": [
+        {
+            "required": [
+                "file_urls"
+            ]
+        },
+        {
+            "required": [
+                "file_requests"
+            ]
+        }
     ]
 }

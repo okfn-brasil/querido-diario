@@ -13,6 +13,7 @@ ITEM_PIPELINES = {
 }
 
 FILES_STORE = "data"
+MEDIA_ALLOW_REDIRECTS = True
 
 EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
