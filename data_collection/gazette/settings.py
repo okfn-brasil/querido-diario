@@ -12,7 +12,7 @@ ITEM_PIPELINES = {
     "gazette.pipelines.SQLDatabasePipeline": 500,
 }
 
-FILES_STORE = "/mnt/data/"
+FILES_STORE = "data"
 
 EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
