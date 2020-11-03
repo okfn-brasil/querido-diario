@@ -22,7 +22,7 @@ class RsBentoGoncalvesSpider(BaseGazetteSpider):
         pages = response.xpath(pagesURLSelector).getall()
 
         for page in pages:
-            url = 'http://www.' + self.allowed_domains[0] + '/' + page
+            url = 'http://www.{}/{}'.format(self.allowed_domains[0], page)
             yield scrapy.Request(url, self.parse_gazettes)
 
     def parse_gazettes(self, response):
@@ -44,7 +44,7 @@ class RsBentoGoncalvesSpider(BaseGazetteSpider):
 
                 yield Gazette(
                     date=date,
-                    file_urls=['http://www.' + self.allowed_domains[0] + '/' + gazetteLinks[i]],
+                    file_urls=['http://www.{}/{}'.format(self.allowed_domains[0], gazetteLinks[i])],
                     is_extra_edition=self.isExtraEdition(gazetteTitles[i]),
                     territory_id=self.TERRITORY_ID,
                     power="executive",
