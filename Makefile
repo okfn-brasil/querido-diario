@@ -1,4 +1,4 @@
-ISORT_ARGS := --recursive --combine-star --combine-as --order-by-type --thirdparty scrapy --builtin dateparser --multi-line 3 --trailing-comma --force-grid-wrap 0 --use-parentheses --line-width 88
+ISORT_ARGS := --recursive --combine-star --combine-as --order-by-type --thirdparty scrapy --multi-line 3 --trailing-comma --force-grid-wrap 0 --use-parentheses --line-width 88
 
 SRC_DIRS := ./data_collection
 
