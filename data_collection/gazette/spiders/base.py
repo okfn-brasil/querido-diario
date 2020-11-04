@@ -230,11 +230,10 @@ class DoemGazetteSpider(BaseGazetteSpider):
             )
 
     def get_url(self, page=None):
-        state, city = self.name.split("_")
+        url = f"https://doem.org.br/{self.state_city_url_part}"
         start_date = self.start_date.strftime("%Y-%m-%d")
         page_param = f"&page={page}" if page is not None else ""
-
-        return f"https://doem.org.br/{state}/{city}/pesquisar?data_inicial={start_date}{page_param}"
+        return f"{url}/pesquisar?data_inicial={start_date}{page_param}"
 
     def get_last_page(self, response):
         """
