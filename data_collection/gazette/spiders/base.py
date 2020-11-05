@@ -193,7 +193,6 @@ class FecamGazetteSpider(BaseGazetteSpider):
 class ImprensaOficialSpider(BaseGazetteSpider):
     @staticmethod
     def _get_next_month(current_date):
-        # https://stackoverflow.com/a/22236549
         month = (current_date.month % 12) + 1
         year = current_date.year + (current_date.month + 1 > 12)
         return date(year, month, 1)
@@ -202,9 +201,10 @@ class ImprensaOficialSpider(BaseGazetteSpider):
     def _extract_public_url(file_url):
         if not file_url:
             return
-        # download: http://www.imprensaoficial.org/pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
         # original: http://www.imprensaoficial.org/pdf/baixar.php?
-        # arquivo=../pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+        #           arquivo=../pub/prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
+        # download: http://www.imprensaoficial.org/pub/
+        #           prefeituras/ba/ameliarodrigues/2020/proprio/1582.pdf
         index = file_url.find("arquivo=../") + 11
         return f"http://www.imprensaoficial.org/{file_url[index:]}"
 
@@ -223,7 +223,6 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         another_page = response.xpath(
             ".//a[contains(text(), 'Publicações mais antigas')]/@href"
         ).extract_first()
-        # or response.css("div.nav-previous a::attr(href)").extract_first()
 
         for a in response.css("h2 a"):
             yield scrapy.Request(a.attrib["href"], callback=self.parse)
