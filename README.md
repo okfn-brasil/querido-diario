@@ -22,6 +22,8 @@ and run it locally. All crawlers are developed using [Scrapy](https://scrapy.org
 framework. They provide a [tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
 so you can learn to use it.
 
+If you are in a Windows computer, before you run the steps below you will need Microsoft Visual Build Tools (download [here](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). When you start the installation you need to select 'C++ build tools' on Workload tab and also 'Windows 10 SDK' and 'MSVC v142 - VS 2019 C++ x64/x86 build tools' on Individual Components tab.
+
 If you are in a Linux-like environment, the following commands will create a new
 [virtual environment](https://docs.python.org/3/library/venv.html) - that will keep
 everything isolated from your system - activate it and install all libraries needed
@@ -33,6 +35,8 @@ $ source .venv/bin/activate
 $ pip install -r data_collection/requirements.txt
 $ pre-commit install
 ```
+
+In a Windows computer, you can use the code above. You just need to substitute ```source .venv/bin/activate ``` for ```.venv/Scripts/activate.bat```. The rest is the same as in Linux.
 
 ### Run Gazette Crawler
 
