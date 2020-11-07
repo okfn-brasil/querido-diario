@@ -12,7 +12,6 @@ pre-commit
 psycopg2-binary
 python-dateutil
 python-decouple
-requests
 scrapy
 schematics
 SQLAlchemy
