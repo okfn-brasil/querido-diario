@@ -17,7 +17,7 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
         self, start_date: dt.date = None, end_date: dt.date = None, *args, **kwargs
     ):
         self.base_url = "https://juazeiro.ce.gov.br"
-        self.start_date = dt.date(year=2009, month=1, day=5)
+        self.start_date = dt.date(year=2009, month=1, day=1)
         self.end_date = dt.date.today()
 
         super(CeJuazeiroDoNorteSpider, self).__init__(start_date, end_date)
@@ -43,7 +43,7 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
             target_date = target_date + dt.timedelta(days=1)
 
     def parse(self, response):
-        links = [element.attrib["href"] for element in response.css("section.diario a")]
+        links = set([element.attrib["href"] for element in response.css("section.diario a")])
         file_urls = [f"{self.base_url}/{link}" for link in links]
         gazette_date = response.meta["date"]
 
@@ -52,7 +52,7 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
                 "No gazettes found for date {date}".format(date=gazette_date)
             )
         else:
-            edition = re.findall(r"/Num(.+?)-", links[0])[0]
+            edition = re.findall(r"/Num(.+?)-", file_urls[0])[0]
 
             yield Gazette(
                 date=gazette_date,
