@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import dateparser
 import datetime
 import re
 import urllib.parse
 
+import dateparser
 import scrapy
 
 from gazette.items import Gazette
@@ -65,7 +65,9 @@ class BaSalvadorSpider(BaseGazetteSpider):
         pdf_url = response.css("#PDFId embed::attr(src)").extract_first()
 
         yield Gazette(
-            date=parsed_date.date(), file_urls=[pdf_url], power=self.power,
+            date=parsed_date.date(),
+            file_urls=[pdf_url],
+            power=self.power,
         )
 
 

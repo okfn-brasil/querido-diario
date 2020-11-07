@@ -65,7 +65,9 @@ class MgGovernadorValadares(BaseGazetteSpider):
         return scrapy.Request(
             f"{self.BASE_URL}{self.path}",
             method="POST",
-            headers={"X-AjaxPro-Method": "GetDiario",},
+            headers={
+                "X-AjaxPro-Method": "GetDiario",
+            },
             body=self.make_body(page),
             callback=self.parse_items,
         )

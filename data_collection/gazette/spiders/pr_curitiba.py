@@ -8,10 +8,10 @@ That's why so many `FormRequest.from_response` are necessary, to catch those for
 keys dynamically as they are hidden inputs in the page.
 """
 
-from dateparser import parse
 from datetime import date
 
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

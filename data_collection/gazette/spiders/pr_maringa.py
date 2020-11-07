@@ -1,8 +1,8 @@
 import re
-from dateparser import parse
 from datetime import date
 
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

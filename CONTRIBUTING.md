@@ -42,18 +42,13 @@ SPIDER=rs_porto_alegre make run_spider
 
 ## Automated code formatting
 
-The project uses [Black](https://github.com/psf/black) as an automated tool to format and check code style and [isort](https://github.com/PyCQA/isort) to sort the imports. If you run `make setup` you should probably be ready to go. It will set up a pre-commit Git hook to format code that happens to be in dissonance with the code style.
+Project uses [Black](https://github.com/psf/black) as an automated tool to format and check code style and
+[isort](https://github.com/pycqa/isort) to sort the imports. CI will **fail** if your code are not correctly
+formatted according these tools.
 
-Alternatively, just install dependencies and run it by yourself:
-
-```sh
-$ pip install black
-$ black .
-$ pip install -r requirements.txt
-$ make check
-```
-
-It is important to note that the CI will fail if you commit Python code that is not in accordance with Black code style.
+If you followed the setup instructions, installing pre-commit hooks, it is possible that you will never
+need to run these tools manually, as they will be execute before each commit. However, if you want
+to run them in all files in the project, you have `make format` command that will call these tools.
 
 ## Guidelines to maintainers
 

@@ -1,7 +1,7 @@
 import datetime as dt
 import json
-from dateparser import parse
 
+from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
 from scrapy.http import Request
 from scrapy.selector import Selector

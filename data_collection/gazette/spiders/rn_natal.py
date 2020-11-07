@@ -1,6 +1,6 @@
-import dateparser
 from datetime import date
 
+import dateparser
 from dateutil.rrule import MONTHLY, rrule
 from scrapy import FormRequest
 

@@ -1,7 +1,7 @@
-import dateparser
 import math
 from urllib.parse import urlencode
 
+import dateparser
 import scrapy
 
 from gazette.items import Gazette
@@ -34,5 +34,7 @@ class PiTeresina(BaseGazetteSpider):
             date = dateparser.parse(date_text, languages=["pt"]).date()
 
             yield Gazette(
-                date=date, file_urls=file_urls, power="executive_legislative",
+                date=date,
+                file_urls=file_urls,
+                power="executive_legislative",
             )

@@ -1,5 +1,4 @@
 import dateparser
-
 from scrapy import FormRequest
 
 from gazette.items import Gazette

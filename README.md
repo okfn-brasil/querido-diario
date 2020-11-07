@@ -30,8 +30,8 @@ to start running and developing new spiders.
 ```console
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-$ cd data_collection
-$ pip install -r requirements.txt
+$ pip install -r data_collection/requirements.txt
+$ pre-commit install
 ```
 
 ### Run Gazette Crawler

@@ -19,10 +19,10 @@ Gazettes examples:
 
 """
 
-import dateparser
 import datetime as dt
 import re
 
+import dateparser
 import scrapy
 from dateutil.rrule import DAILY, rrule
 

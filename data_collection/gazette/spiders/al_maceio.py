@@ -1,6 +1,5 @@
-from dateparser import parse
-
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -33,7 +32,10 @@ class AlMaceioSpider(BaseGazetteSpider):
                 yield scrapy.Request(
                     url,
                     callback=self.parse_additional_page,
-                    meta={"date": date, "is_extra_edition": is_extra_edition,},
+                    meta={
+                        "date": date,
+                        "is_extra_edition": is_extra_edition,
+                    },
                 )
 
         next_pages = response.css(".envolve-content nav a::attr(href)").getall()
