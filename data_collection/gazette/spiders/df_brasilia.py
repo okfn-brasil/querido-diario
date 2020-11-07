@@ -1,6 +1,6 @@
-import dateparser
 import re
 
+import dateparser
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -34,8 +34,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
             )
 
     def parse_year(self, response):
-        """Parses available months to request list of available dates for each month.
-        """
+        """Parses available months to request list of available dates for each month."""
         months_available = response.json().get("data", [])
         year = response.meta["year"]
 

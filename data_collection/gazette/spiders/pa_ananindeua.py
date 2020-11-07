@@ -1,6 +1,6 @@
-import dateparser
 from datetime import datetime
 
+import dateparser
 from scrapy import Request
 
 from gazette.items import Gazette

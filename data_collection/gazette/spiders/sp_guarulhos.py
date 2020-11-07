@@ -1,7 +1,7 @@
 import datetime as dt
-from dateparser import parse
 
 import scrapy
+from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette

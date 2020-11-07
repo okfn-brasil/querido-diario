@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime as dt
 import json
-from dateparser import parse
 
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -40,7 +40,10 @@ class SpFrancaSpider(BaseGazetteSpider):
 
         items.append(
             Gazette(
-                date=date, file_urls=[url], is_extra_edition=False, power="executive",
+                date=date,
+                file_urls=[url],
+                is_extra_edition=False,
+                power="executive",
             )
         )
 

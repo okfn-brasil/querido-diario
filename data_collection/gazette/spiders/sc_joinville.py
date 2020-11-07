@@ -1,5 +1,4 @@
 import dateparser
-
 from scrapy import Request, Spider
 
 from gazette.items import Gazette

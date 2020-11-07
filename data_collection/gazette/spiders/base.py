@@ -1,8 +1,8 @@
-import dateparser
 import json
 import re
 from datetime import date, datetime
 
+import dateparser
 import scrapy
 from dateutil.rrule import DAILY, rrule
 from fake_useragent import UserAgent

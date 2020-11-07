@@ -1,7 +1,7 @@
-import dateparser
 import re
 from datetime import datetime
 
+import dateparser
 import w3lib.url
 from scrapy import Request
 

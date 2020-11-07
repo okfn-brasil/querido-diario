@@ -11,8 +11,8 @@
             "type": "array",
             "items": {
                 "type": "string"
-            }                                                                 
-        },  
+            }
+        },
         "is_extra_edition": {
             "description": "Determines if the edition of the gazzete is extra or not",
             "type": "boolean"

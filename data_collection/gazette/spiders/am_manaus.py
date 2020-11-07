@@ -1,5 +1,4 @@
 import dateparser
-
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -66,5 +65,8 @@ class AmManausSpider(BaseGazetteSpider):
 
     def build_gazzete(self, date, url, power, is_extra_edition=False):
         return Gazette(
-            date=date, file_urls=[url], is_extra_edition=is_extra_edition, power=power,
+            date=date,
+            file_urls=[url],
+            is_extra_edition=is_extra_edition,
+            power=power,
         )

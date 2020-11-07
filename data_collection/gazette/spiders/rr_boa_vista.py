@@ -1,7 +1,6 @@
-from dateparser import parse
-
 import scrapy
 import w3lib.url
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -32,5 +31,8 @@ class RrBoaVistaSpider(BaseGazetteSpider):
 
             power = "executive_legislative"
             yield Gazette(
-                date=date, file_urls=[url], is_extra_edition=False, power=power,
+                date=date,
+                file_urls=[url],
+                is_extra_edition=False,
+                power=power,
             )
