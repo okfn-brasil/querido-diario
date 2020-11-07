@@ -47,7 +47,7 @@ Project uses [Black](https://github.com/psf/black) as an automated tool to forma
 formatted according these tools.
 
 If you followed the setup instructions, installing pre-commit hooks, it is possible that you will never
-need to run these tools manually, as they will be execute before eacho commit. However, if you want
+need to run these tools manually, as they will be execute before each commit. However, if you want
 to run them in all files in the project, you have `make format` command that will call these tools.
 
 ## Guidelines to maintainers
