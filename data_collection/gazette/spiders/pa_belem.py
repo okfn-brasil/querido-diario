@@ -2,9 +2,23 @@ import datetime
 from urllib.parse import urlencode
 
 import scrapy
+from itemadapter import ItemAdapter
 
 from gazette.items import Gazette
+from gazette.pipelines import QueridoDiarioFilesPipeline
 from gazette.spiders.base import BaseGazetteSpider
+
+
+class PaBelemFilesPipeline(QueridoDiarioFilesPipeline):
+    def get_media_requests(self, item, info):
+        urls = ItemAdapter(item).get(self.files_urls_field, [])
+
+        # We need to add this header to the requests that downloads
+        # the files, or else we will receive just a JSON containing
+        # meta information about the gazette
+        headers = {"Accept": "application/octet-stream"}
+
+        return [scrapy.Request(u, headers=headers) for u in urls]
 
 
 class PaBelemSpider(BaseGazetteSpider):
@@ -14,6 +28,21 @@ class PaBelemSpider(BaseGazetteSpider):
     start_date = datetime.date(2005, 2, 1)
 
     BASE_URL = "https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios"
+
+    @classmethod
+    def update_settings(cls, settings):
+        super(PaBelemSpider, cls).update_settings(settings)
+        files_pipeline_order = settings["ITEM_PIPELINES"].get(
+            "gazette.pipelines.QueridoDiarioFilesPipeline", 300
+        )
+
+        # Disable default file item pipeline and enable customized
+        settings["ITEM_PIPELINES"][
+            "gazette.pipelines.QueridoDiarioFilesPipeline"
+        ] = None
+        settings["ITEM_PIPELINES"][
+            "gazette.spiders.pa_belem.PaBelemFilesPipeline"
+        ] = files_pipeline_order
 
     def start_requests(self):
         initial_date = self.start_date.strftime("%Y-%m-%dT00:00:00.000Z")
