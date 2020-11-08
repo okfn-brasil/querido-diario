@@ -1,9 +1,9 @@
 name: Building container image
-on:
+on: 
   push:
     branches:
       - master
-
+ 
 env:
   NAMESPACE: ${{ secrets.NAMESPACE }}
   USERNAME: ${{ secrets.USERNAME }}

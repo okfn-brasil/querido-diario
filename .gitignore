@@ -1,4 +1,4 @@
-data_collection/data
+/data/full/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -123,9 +123,3 @@ Sessionx.vim
 *~
 tags
 [._]*.un~
-
-# Vscode
-.vscode
-
-# SQLite database
-querido-diario.db
