@@ -37,6 +37,13 @@ $ pre-commit install
 ### Run Gazette Crawler
 
 After configuring your environment, you will be able to execute and develop new spiders.
+The Scrapy project is in `data_collection` directory, so you must enter in to execute the
+spiders and the `scrapy` command: 
+
+```console
+$ cd data_collection
+```
+
 Following we list some helpful commands.
 
 Get list of all available spiders:
