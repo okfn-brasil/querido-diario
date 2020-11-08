@@ -37,7 +37,7 @@ def load_territories(engine):
         territories_file = pkg_resources.resource_filename(
             "gazette", "resources/territories.csv"
         )
-        with open(territories_file) as csvfile:
+        with open(territories_file, encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             territories = []
             for row in reader:
