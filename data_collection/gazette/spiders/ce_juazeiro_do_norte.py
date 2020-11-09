@@ -1,7 +1,7 @@
 import datetime as dt
+import re
 
 import scrapy
-import re
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -18,7 +18,7 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
     def start_requests(self):
         """
         Creates requests for each date since `start_date`.
-        
+
         The system allows requests for a date range (from beginning-date to end-date)
         or for a single date. This spider uses the single date method.
         """
@@ -29,12 +29,15 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
 
             yield scrapy.Request(
                 url=search_url,
-                method="GET", meta={"date": target_date},
+                method="GET",
+                meta={"date": target_date},
             )
             target_date = target_date + dt.timedelta(days=1)
 
     def parse(self, response):
-        links = set([element.attrib["href"] for element in response.css("section.diario a")])
+        links = set(
+            [element.attrib["href"] for element in response.css("section.diario a")]
+        )
         file_urls = [f"{self.base_url}/{link}" for link in links]
         gazette_date = response.meta["date"]
 
