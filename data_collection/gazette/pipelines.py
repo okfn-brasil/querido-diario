@@ -103,3 +103,10 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
         return str(Path(item["territory_id"], datestr, filename))
+
+    def get_media_requests(self, item, info):
+        urls = ItemAdapter(item).get(self.files_urls_field, [])
+
+        download_file_headers = getattr(info.spider, "download_file_headers", {})
+
+        return [Request(u, headers=download_file_headers) for u in urls]
