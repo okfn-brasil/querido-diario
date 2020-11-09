@@ -11,26 +11,15 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
     TERRITORY_ID = "2307304"
     name = "ce_juazeiro_do_norte"
     allowed_domains = ["juazeiro.ce.gov.br"]
-    start_date = None
-
-    def __init__(
-        self, start_date: dt.date = None, end_date: dt.date = None, *args, **kwargs
-    ):
-        self.base_url = "https://juazeiro.ce.gov.br"
-        self.start_date = dt.date(year=2009, month=1, day=1)
-        self.end_date = dt.date.today()
-
-        super(CeJuazeiroDoNorteSpider, self).__init__(start_date, end_date)
-
-        self.logger.debug(
-            "Start date is {date}".format(date=self.start_date.isoformat())
-        )
-        self.logger.debug("End date is {date}".format(date=self.end_date.isoformat()))
+    start_date = dt.date(year=2009, month=1, day=1)
+    BASE_URL = "https://juazeiro.ce.gov.br"
 
     def start_requests(self):
         """
-        This base URL accepts two dates (beginning-date and end-date) or only one date (which will return
-        the gazettes for the given date). I will use the second one.
+        Creates requests for each date since `start_date`.
+        
+        The system allows requests for a date range (from beginning-date to end-date)
+        or for a single date. This spider uses the single date method.
         """
         target_date = self.start_date
         while target_date <= self.end_date:
