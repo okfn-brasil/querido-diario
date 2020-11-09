@@ -12,7 +12,8 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
     name = "ce_juazeiro_do_norte"
     allowed_domains = ["juazeiro.ce.gov.br"]
     start_date = dt.date(year=2009, month=1, day=1)
-    BASE_URL = "https://juazeiro.ce.gov.br"
+    end_date = dt.date.today()
+    base_url = "https://juazeiro.ce.gov.br"
 
     def start_requests(self):
         """
@@ -26,8 +27,9 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
             formatted_date = target_date.strftime("%d-%m-%Y")
             search_url = f"{self.base_url}/Imprensa/Diario-Oficial/{formatted_date}/"
 
-            yield scrapy.FormRequest(
-                url=search_url, method="GET", meta={"date": target_date}
+            yield scrapy.Request(
+                url=search_url,
+                method="GET", meta={"date": target_date},
             )
             target_date = target_date + dt.timedelta(days=1)
 
@@ -36,11 +38,7 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
         file_urls = [f"{self.base_url}/{link}" for link in links]
         gazette_date = response.meta["date"]
 
-        if len(links) == 0:
-            self.logger.warning(
-                "No gazettes found for date {date}".format(date=gazette_date)
-            )
-        else:
+        if len(links) > 0:
             edition = re.findall(r"/Num(.+?)-", file_urls[0])[0]
 
             yield Gazette(
