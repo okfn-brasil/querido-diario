@@ -1,5 +1,4 @@
 import datetime
-import re
 
 import scrapy
 from dateparser import parse
@@ -13,9 +12,6 @@ class GoGoianiaSpider(BaseGazetteSpider):
     name = "go_goiania"
     allowed_domains = ["goiania.go.gov.br"]
     start_urls = ["http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075"]
-    gazettes_list_url = (
-        "http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={}"
-    )
     start_date = datetime.date(1960, 4, 21)
 
     def start_requests(self):
@@ -26,34 +22,30 @@ class GoGoianiaSpider(BaseGazetteSpider):
                 f"http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={year}"
             )
 
-    def parse_year(self, response):
-        # The page with the list of gazettes is simply a table with links
-        links = response.css("a")
-        items = []
-        for link in links:
-            url = link.css("::attr(href)").extract_first()
-            if url[-4:] != ".pdf":
-                continue
-
-            url = response.urljoin(url)
-            # Apparently, Goiânia doesn't have a separate gazette for executive and legislative
-            power = "executive_legislative"
-            link_text = link.css("::text").extract_first()
-            if link_text is None:
-                continue
-
-            date = re.match(".*(\d{2} .* de \d{4})", link_text)[1]
-            # Extra editions are marked either with 'suplemento' or 'comunicado'
-            is_extra_edition = (
-                "suplemento" in link_text.lower() or "comunicado" in link_text.lower()
+    def parse(self, response):
+        gazettes = response.css("a")
+        for gazette in gazettes:
+            gazette_info = gazette.css("::text").re(
+                r"Edi..o\s*n.\s*(\d+) de (\d{2}) de (.*?) de (\d{4})"
             )
-            date = parse(date.split("-")[0], languages=["pt"]).date()
-            items.append(
-                Gazette(
-                    date=date,
-                    file_urls=[url],
-                    is_extra_edition=is_extra_edition,
-                    power=power,
+            if not gazette_info:
+                self.logger.warning(
+                    f"Unable to identify gazette info for {response.url}."
                 )
+                continue
+
+            edition_number, day, month, year = gazette_info
+            gazette_date = parse(f"{day} de {month} de {year}", languages=["pt"]).date()
+
+            gazette_url = response.urljoin(gazette.css("::attr(href)").get())
+
+            link_text = gazette.css("::text").get().lower()
+            is_extra_edition = "suplemento" in link_text or "complemento" in link_text
+
+            yield Gazette(
+                date=gazette_date,
+                edition_number=edition_number,
+                file_urls=[gazette_url],
+                is_extra_edition=is_extra_edition,
+                power="executive",
             )
-        return items
