@@ -36,6 +36,8 @@ class GoGoianiaSpider(BaseGazetteSpider):
 
             edition_number, day, month, year = gazette_info
             gazette_date = parse(f"{day} de {month} de {year}", languages=["pt"]).date()
+            if gazette_date < self.start_date:
+                continue
 
             gazette_url = response.urljoin(gazette.css("::attr(href)").get())
 
