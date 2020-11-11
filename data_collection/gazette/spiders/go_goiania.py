@@ -1,4 +1,4 @@
-import datetime as dt
+import datetime
 import re
 
 import scrapy
@@ -16,12 +16,15 @@ class GoGoianiaSpider(BaseGazetteSpider):
     gazettes_list_url = (
         "http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={}"
     )
+    start_date = datetime.date(1960, 4, 21)
 
-    def parse(self, response):
-        current_year = dt.date.today().year
-        for year in range(current_year, 2014, -1):
-            url = self.gazettes_list_url.format(year)
-            yield scrapy.Request(url, self.parse_year)
+    def start_requests(self):
+        initial_year = self.start_date.year
+        end_year = datetime.date.today().year
+        for year in range(initial_year, end_year + 1):
+            yield scrapy.Request(
+                f"http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={year}"
+            )
 
     def parse_year(self, response):
         # The page with the list of gazettes is simply a table with links
