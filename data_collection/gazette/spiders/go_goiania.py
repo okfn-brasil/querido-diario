@@ -1,4 +1,5 @@
 import datetime
+import re
 
 import scrapy
 from dateparser import parse
@@ -42,7 +43,9 @@ class GoGoianiaSpider(BaseGazetteSpider):
             gazette_url = response.urljoin(gazette.css("::attr(href)").get())
 
             link_text = gazette.css("::text").get().lower()
-            is_extra_edition = "suplemento" in link_text or "complemento" in link_text
+            is_extra_edition = bool(
+                re.search(r"suplemento|complemento|especial", link_text)
+            )
 
             yield Gazette(
                 date=gazette_date,
