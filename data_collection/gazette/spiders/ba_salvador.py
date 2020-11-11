@@ -15,18 +15,20 @@ class BaSalvadorSpider(BaseGazetteSpider):
     name = "ba_salvador"
     allowed_domains = ["salvador.ba.gov.br"]
     power = "executive"
+    start_date = datetime.date(2001, 1, 1)
 
     def start_requests(self):
-        # According to their website, they have gazettes available from 2001-01-01
+        initial_date = self.start_date.strftime("%Y-%m-%d")
+        end_date = datetime.date.today().strftime("%Y-%m-%d")
         initial_search_parameters = {
-            "filterDateFrom": "2001-01-01",
-            "filterDateTo": datetime.date.today().strftime("%Y-%m-%d"),
+            "filterTitle": "",
+            "filterDateFrom": initial_date,
+            "filterDateTo": end_date,
             "option": "com_dmarticlesfilter",
             "view": "articles",
             "Itemid": "3",
             "userSearch": "1",
             "limstart": "0",
-            "limitstart": "10",
         }
         encoded_params = urllib.parse.urlencode(initial_search_parameters)
         base_url = "http://www.dom.salvador.ba.gov.br/index.php"
@@ -46,8 +48,8 @@ class BaSalvadorSpider(BaseGazetteSpider):
                 callback=self.parse_gazette,
             )
 
-        for href in response.css(".paginacao a::attr(href)"):
-            yield response.follow(href, callback=self.parse)
+        for next_page_url in response.css(".paginacao a::attr(href)"):
+            yield response.follow(next_page_url)
 
     def parse_gazette(self, response):
         parsed_date = dateparser.parse(
