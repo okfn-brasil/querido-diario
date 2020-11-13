@@ -22,7 +22,7 @@ class BaseInstarSpider(BaseGazetteSpider):
         diarios = response.css(".d_e_modelo_diario")
         for diario in diarios:
             href = diario.xpath('.//a[contains(@href, "downloads")]/@href').get()
-            date = diario.xpath("div/span/text()").re_first("\d{2}/\d{2}/\d{4}")
+            date = diario.xpath("div/span/text()").re_first(r"\d{2}/\d{2}/\d{4}")
             is_extra_edition = (
                 diario.xpath(".//span[contains(./text(), 'Extra')]").get() is not None
             )

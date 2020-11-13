@@ -118,7 +118,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
 
     def extract_items_data(self, body):
         content = re.findall(
-            "new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
+            r"new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
         )[0]
         content = content.replace("new Date", "")
 

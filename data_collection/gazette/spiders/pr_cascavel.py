@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from dateparser import parse
 
 from gazette.items import Gazette

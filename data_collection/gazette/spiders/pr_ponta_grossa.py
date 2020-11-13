@@ -2,7 +2,6 @@ import re
 from datetime import date
 
 import scrapy
-from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -37,7 +36,7 @@ class PrPontaGrossaSpider(BaseGazetteSpider):
 
     @staticmethod
     def pdf_infos(links, starting_year):
-        link_pattern = ".*/diario-oficial/_?(\d{4})-(\d{2})-(\d{2}).*.pdf"
+        link_pattern = r".*/diario-oficial/_?(\d{4})-(\d{2})-(\d{2}).*.pdf"
         for link in links:
             file_name = link.css("::attr(href)").extract_first()
             link_text = link.css("::text").extract_first()

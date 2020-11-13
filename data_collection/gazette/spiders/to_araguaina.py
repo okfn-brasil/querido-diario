@@ -1,7 +1,6 @@
 import re
 
 import requests
-import scrapy
 from dateparser import parse
 
 from gazette.items import Gazette
@@ -29,7 +28,6 @@ class ToAraguainaSpider(BaseGazetteSpider):
                 edition_number = edition_number.split()[0]
                 is_extra_edition = True
             edition_number = only_number_regex.sub("", edition_number)
-            number_of_pages = row.xpath(".//td[3]/text()").extract_first()
 
             publication_date_str = row.xpath(".//td[2]/text()").extract_first()
             publication_date = parse(publication_date_str, languages=["pt"]).date()
