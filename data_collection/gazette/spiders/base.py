@@ -61,19 +61,19 @@ class SigpubGazetteSpider(BaseGazetteSpider):
                 "//input[@id='calendar__token']/@value"
             ).get()
         }
-        for date, date_form_fields in self.available_dates_form_fields():
+        for gazette_date, date_form_fields in self.available_dates_form_fields():
             formdata = {**default_form_fields, **date_form_fields}
 
             yield scrapy.FormRequest(
                 url=response.urljoin("materia/calendario"),
                 formdata=formdata,
-                meta={"date": date, "edition_type": "regular"},
+                meta={"date": gazette_date, "edition_type": "regular"},
                 callback=self.parse_gazette_info,
             )
             yield scrapy.FormRequest(
                 url=response.urljoin("materia/calendario/extra"),
                 formdata=formdata,
-                meta={"date": date, "edition_type": "extra"},
+                meta={"date": gazette_date, "edition_type": "extra"},
                 callback=self.parse_gazette_info,
             )
 
@@ -155,7 +155,7 @@ class FecamGazetteSpider(BaseGazetteSpider):
                 link = title.xpath("./a/@href").get().strip()
             date = (
                 title.xpath("following-sibling::span[1]")
-                .re_first("\d{2}/\d{2}/\d{4}")
+                .re_first(r"\d{2}/\d{2}/\d{4}")
                 .strip()
             )
             documents.append((link, date))
@@ -169,7 +169,7 @@ class FecamGazetteSpider(BaseGazetteSpider):
         href = response.xpath(
             "/html/body/div[1]/div[4]/div[4]/div/div/ul/li[14]/a/@href"
         ).get()
-        result = re.search("Search_page=(\d+)", href)
+        result = re.search(r"Search_page=(\d+)", href)
         if result is not None:
             return int(result.groups()[0])
 

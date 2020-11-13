@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import dateparser
 from scrapy import Spider
 

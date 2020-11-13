@@ -63,7 +63,6 @@ class PrCuritibaSpider(BaseGazetteSpider):
     def parse_month(self, response):
         """Paginates to show all available gazettes and parses first page."""
         page_count = len(response.css(".grid_Pager:nth-child(1) table td").extract())
-        month = response.meta["month"]
         yield from self.parse_page(response)
         for page_number in range(2, page_count + 1):
             yield scrapy.FormRequest.from_response(
@@ -108,7 +107,7 @@ class PrCuritibaSpider(BaseGazetteSpider):
     def parse_regular_edition(self, response):
         """Parses page for regular edition to build its item."""
         parsed_date = response.meta["parsed_date"]
-        gazette_id = response.selector.re_first("Id=(\d+)")
+        gazette_id = response.selector.re_first(r"Id=(\d+)")
         return Gazette(
             date=parsed_date,
             file_urls=[

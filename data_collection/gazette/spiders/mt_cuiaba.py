@@ -1,6 +1,5 @@
 import datetime
 import json
-import time
 
 from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
