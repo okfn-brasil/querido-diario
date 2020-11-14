@@ -18,5 +18,6 @@ jobs:
         run: pip install -r data_collection/requirements.txt
       - name: Run added/modified spider
         run: |
+          git branch -a
           cd data_collection
           for spider in $(git diff --name-only main | grep -o "gazette\/spiders\/.*\.py"); do scrapy runspider ${spider}; done
