@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-    - 'data_collection/gazette/spiders/**.py'
+    - 'data_collection/gazette/spiders/*.py'
 
 jobs:
   build:
