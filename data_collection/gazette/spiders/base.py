@@ -209,7 +209,6 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         return f"http://www.imprensaoficial.org/{file_url[index:]}"
 
     def start_requests(self):
-        """Gera as requests as páginas dos Diários."""
         current_date = self.start_date
         while current_date <= date.today():
             year_month = current_date.strftime("%Y/%m")  # like 2015/01
@@ -225,7 +224,9 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         ).extract_first()
 
         for a in response.css("h2 a"):
-            yield scrapy.Request(a.attrib["href"], callback=self.parse)
+            yield scrapy.Request(
+                a.attrib["href"], callback=self.parse, dont_filter=True
+            )
 
         if another_page:
             yield scrapy.Request(another_page, callback=self.extract_gazette_links)
@@ -242,7 +243,7 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         yield Gazette(
             date=gazette_date,
             file_urls=[file_url],
-            is_extra_edition=False,  # TODO
+            is_extra_edition=False,  # it wasn't possible to identify whenever is extra or not
             territory_id=self.TERRITORY_ID,
             power="executive",
             scraped_at=datetime.utcnow(),

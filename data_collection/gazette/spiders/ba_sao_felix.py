@@ -1,4 +1,5 @@
 from datetime import date
+
 from gazette.spiders.base import ImprensaOficialSpider
 
 
