@@ -23,4 +23,4 @@ jobs:
           git branch -a
           git tag -l
           cd data_collection
-          for spider in $(git diff --name-only main -- | grep -o "gazette\/spiders\/.*\.py"); do scrapy runspider ${spider}; done
+          for spider in $(git diff --name-only HEAD~ -- | grep -o "gazette\/spiders\/.*\.py"); do scrapy runspider ${spider}; done
