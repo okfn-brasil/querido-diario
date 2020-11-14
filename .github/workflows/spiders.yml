@@ -1,7 +1,10 @@
 on:
   push:
-    paths:
-    - 'data_collection/gazette/spiders/**'
+    paths: 
+      - 'data_collection/gazette/spiders/*.py'
+  pull_request:
+    paths: 
+      - 'data_collection/gazette/spiders/*.py'
 
 jobs:
   build:
