@@ -19,8 +19,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r data_collection/requirements.txt
       - name: Fetch main branch
-        run: git fetch origin main:refs/remotes/origin/main
+        run: |
+          git fetch origin main:refs/remotes/origin/main
+          git branch
       - name: Run added/modified spider
         run: |
           cd data_collection
-          for spider in $(git diff --name-only main -- | grep -o "gazette\/spiders\/.*\.py"); do scrapy runspider ${spider}; done
+          for spider in $(git diff --name-only origin/main -- | grep -o "gazette\/spiders\/.*\.py"); do scrapy runspider ${spider}; done
