@@ -29,7 +29,6 @@ class CeJuazeiroDoNorteSpider(BaseGazetteSpider):
 
             yield scrapy.Request(
                 url=search_url,
-                method="GET",
                 meta={"date": target_date},
             )
             target_date = target_date + dt.timedelta(days=1)
