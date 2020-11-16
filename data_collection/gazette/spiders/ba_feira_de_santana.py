@@ -6,7 +6,6 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-# modificação para testar GA
 class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2910800"
     name = "ba_feira_de_santana"
