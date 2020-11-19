@@ -1,3 +1,11 @@
+# CITIES
+
+Tracking of the crawlers.
+The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil_por_popula%C3%A7%C3%A3o).
+
+:white_check_mark: Done
+:soon: In progress
+
 | # | Cidade | Crawler | Issue | PR |
 |:-:|--------|:-------:|:------:|:------:|
 | 1 | São Paulo | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
