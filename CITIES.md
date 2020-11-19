@@ -2278,7 +2278,6 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2268 | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
 | 2269 | Itu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/303) |
 | 2270 | Acajutiba - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/330) |
-| 2271 | Alagoinhas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2271 | Antônio Cardoso - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2272 | Banzaê - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2273 | Barra do Choca - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
@@ -2290,7 +2289,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2279 | Campo Formoso - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2280 | Canudos - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2281 | Catolândia - BA| :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
-| 2281 | Catu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
+| 2282 | Catu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2283 | Cícero Dantas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2284 | Floresta Azul - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2285 | Inhambupe - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
@@ -2315,3 +2314,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2304 | Teixeira de Freitas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2305 | Teolândia - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
 | 2306 | Tucano - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
+| 2307 | Alagoinhas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/???) |
