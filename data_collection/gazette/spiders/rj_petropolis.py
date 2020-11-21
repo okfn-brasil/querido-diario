@@ -1,9 +1,9 @@
-import re
 import datetime
+import re
 from urllib.parse import urljoin
 
-import scrapy
 import dateparser
+import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
