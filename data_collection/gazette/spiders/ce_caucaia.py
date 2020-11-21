@@ -1,11 +1,11 @@
-import re
-import datetime
 import calendar
+import datetime
+import re
 from urllib.parse import urlencode
-from dateutil.rrule import rrule, MONTHLY
 
-import scrapy
 import dateparser
+import scrapy
+from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
