@@ -55,8 +55,6 @@ class SpSaoJoaoDeMeritiSpider(BaseGazetteSpider):
             months.append(self.end_date)
         return months
 
-    # BEFORE 2018:
-
     def get_day_fom_pdf_link(self, pdf_link):
         day_regex = r"[/-](\d{1,2})[^\d/][^/]*.pdf"
         day = int(re.search(day_regex, pdf_link, re.IGNORECASE).group(1))
