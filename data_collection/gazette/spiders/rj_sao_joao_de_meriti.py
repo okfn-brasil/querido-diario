@@ -22,31 +22,19 @@ class SpSaoJoaoDeMeritiSpider(BaseGazetteSpider):
     start_date = datetime.date(2011, 9, 30)
     end_date = datetime.date.today()
 
-    # start_date = datetime.date(2017, 12, 25)
-    # end_date = datetime.date(2018, 1, 5)
-
     def start_requests(self):
         janeiro_2018 = datetime.date(2018, 1, 1)
         for month in self.months_interval():
             if month < janeiro_2018:
                 yield scrapy.Request(
-                    f"{self.URL_BEFORE_2018}{month.year}{month.month:02}.php"
+                    f"{self.URL_BEFORE_2018}{month.year}{month.month:02}.php",
+                    callback = self.parse_month_before_2018
                 )
             else:
                 yield scrapy.Request(
-                    f"{self.URL_FROM_2018}{month.month}/{month.year}"
+                    f"{self.URL_FROM_2018}{month.month}/{month.year}",
+                    callback = self.parse_month_from_2018
                 )
-
-    def parse(self, response):
-        gazettes = []
-
-        if self.URL_BEFORE_2018 in response.url:
-            gazettes = self.parse_month_before_2018(response)
-        else:
-            gazettes = self.parse_month_from_2018(response)
-
-        for gazette in gazettes:
-            yield gazette
 
     def months_interval(self):
         month_rule = rrule(freq=MONTHLY, dtstart=self.start_date, until=self.end_date)
