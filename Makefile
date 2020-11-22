@@ -3,8 +3,11 @@ ISORT_ARGS := --recursive --combine-star --combine-as --order-by-type --thirdpar
 SRC_DIRS := ./data_collection
 
 check:
-
+	python3 -m isort --check --diff $(ISORT_ARGS) $(SRC_DIRS)
+	python3 -m black --check $(SRC_DIRS)
 format:
+	python3 -m isort --apply $(ISORT_ARGS) $(SRC_DIRS)
+	python3 -m black $(SRC_DIRS)
 
 run_spider:
 	cd $(SRC_DIRS) && scrapy crawl $(SPIDER)
