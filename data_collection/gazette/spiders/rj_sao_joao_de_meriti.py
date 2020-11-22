@@ -92,8 +92,6 @@ class SpSaoJoaoDeMeritiSpider(BaseGazetteSpider):
 
         return gazettes
 
-    # FROM 2018 ONWARDS:
-
     def parse_gazette_from_2018(self, gazette_entry):
         edition_number = int(re.search(r"\d+", gazette_entry["ANEXO"]).group())
         is_extra_edition = "EXTRA" in gazette_entry["ANEXO"]
