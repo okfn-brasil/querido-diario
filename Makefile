@@ -5,6 +5,7 @@ SRC_DIRS := ./data_collection
 check:
 	python3 -m isort --check --diff $(ISORT_ARGS) $(SRC_DIRS)
 	python3 -m black --check $(SRC_DIRS)
+
 format:
 	python3 -m isort --apply $(ISORT_ARGS) $(SRC_DIRS)
 	python3 -m black $(SRC_DIRS)
