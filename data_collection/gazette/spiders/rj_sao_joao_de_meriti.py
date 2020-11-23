@@ -23,24 +23,28 @@ class SpSaoJoaoDeMeritiSpider(BaseGazetteSpider):
     end_date = datetime.date.today()
 
     def start_requests(self):
-        janeiro_2018 = datetime.date(2018, 1, 1)
-        for month in self.months_interval():
-            if month < janeiro_2018:
+        january_2018 = (2018, 1)
+        for year, month in self.months_interval():
+            if (year, month) < january_2018:
                 yield scrapy.Request(
-                    f"{self.URL_BEFORE_2018}{month.year}{month.month:02}.php",
-                    callback = self.parse_month_before_2018
+                    f"{self.URL_BEFORE_2018}{year}{month:02}.php",
+                    callback=self.parse_month_before_2018,
+                    cb_kwargs={"year": year, "month": month},
                 )
             else:
                 yield scrapy.Request(
-                    f"{self.URL_FROM_2018}{month.month}/{month.year}",
-                    callback = self.parse_month_from_2018
+                    f"{self.URL_FROM_2018}{month}/{year}",
+                    callback=self.parse_month_from_2018,
                 )
 
     def months_interval(self):
-        month_rule = rrule(freq=MONTHLY, dtstart=self.start_date, until=self.end_date)
-        months = [month.date() for month in month_rule]
-        if months and months[-1].month != self.end_date.month:
-            months.append(self.end_date)
+        month_rule = rrule(
+            freq=MONTHLY,
+            dtstart=datetime.date(self.start_date.year, self.start_date.month, 1),
+            until=self.end_date,
+        )
+        months = [(month.year, month.month) for month in month_rule]
+
         return months
 
     def get_day_fom_pdf_link(self, pdf_link):
@@ -48,37 +52,19 @@ class SpSaoJoaoDeMeritiSpider(BaseGazetteSpider):
         day = int(re.search(day_regex, pdf_link, re.IGNORECASE).group(1))
         return day
 
-    def parse_gazette_before_2018(self, month_response, pdf_link):
-        year = int(month_response.url[-10:-6])
-        month = int(month_response.url[-6:-4])
-        day = self.get_day_fom_pdf_link(pdf_link)
-        date = datetime.date(year, month, day)
+    def parse_month_before_2018(self, response, year, month):
+        pdf_links = response.css("a::attr(href)").re("(.+\.(?:PDF|pdf))")
+        for pdf_link in pdf_links:
+            day = self.get_day_fom_pdf_link(pdf_link)
+            date = datetime.date(year, month, day)
 
-        return Gazette(
-            date=date,
-            file_urls=[pdf_link],
-            is_extra_edition=False,
-            power="executive_legislative",
-        )
-
-    def get_pdf_links(self, month_response):
-        upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        lower = "abcdefghijklmnopqrstuvwxyz"
-        pdf_links = month_response.xpath(
-            f"//a[contains(translate(@href, {upper}, {lower}), '.pdf')]//@href"
-        ).getall()
-
-        return pdf_links
-
-    def parse_month_before_2018(self, response):
-        gazettes = []
-
-        for pdf_link in self.get_pdf_links(response):
-            gazette = self.parse_gazette_before_2018(response, pdf_link)
-            if self.start_date <= gazette["date"] <= self.end_date:
-                gazettes.append(gazette)
-
-        return gazettes
+            if self.start_date <= date <= self.end_date:
+                yield Gazette(
+                    date=date,
+                    file_urls=[pdf_link],
+                    is_extra_edition=False,
+                    power="executive_legislative",
+                )
 
     def parse_gazette_from_2018(self, gazette_entry):
         edition_number = int(re.search(r"\d+", gazette_entry["ANEXO"]).group())
@@ -98,12 +84,8 @@ class SpSaoJoaoDeMeritiSpider(BaseGazetteSpider):
         )
 
     def parse_month_from_2018(self, response):
-        gazettes = []
         month_entries = json.loads(response.text)
-
         for gazette_entry in month_entries:
             gazette = self.parse_gazette_from_2018(gazette_entry)
             if self.start_date <= gazette["date"] <= self.end_date:
-                gazettes.append(gazette)
-
-        return gazettes
+                yield gazette
