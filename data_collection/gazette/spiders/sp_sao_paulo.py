@@ -7,7 +7,7 @@ import scrapy
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-RE_max_page_num = re.compile(r"\d+ de (\d+)")
+RE_MAX_PAGE_NUM = re.compile(r"\d+ de (\d+)")
 
 
 class SpSaoPauloSpider(BaseGazetteSpider):
@@ -31,7 +31,7 @@ class SpSaoPauloSpider(BaseGazetteSpider):
         page_txt = response.css("span.form-text::text").get()
 
         try:
-            max_page = int(RE_max_page_num.search(page_txt).group(1))
+            max_page = int(RE_MAX_PAGE_NUM.search(page_txt).group(1))
         except:
             max_page = None
 
