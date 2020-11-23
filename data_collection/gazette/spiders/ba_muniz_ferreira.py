@@ -11,5 +11,5 @@ class BaMunizFerreiraSpider(ImprensaOficialSpider):
         "munizferreira.ba.gov.br",
     ]
     start_date = date(2014, 12, 1)
-    url_base = "http://munizferreira.ba.gov.br/{}/"
+    url_base = "http://munizferreira.ba.gov.br/{}"
     TERRITORY_ID = "2922201"

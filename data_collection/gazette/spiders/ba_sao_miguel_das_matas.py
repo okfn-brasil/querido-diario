@@ -11,5 +11,5 @@ class BaSaoMiguelDasMatasSpider(ImprensaOficialSpider):
         "saomigueldasmatas.ba.gov.br",
     ]
     start_date = date(2019, 2, 1)
-    url_base = "http://saomigueldasmatas.ba.gov.br/{}/"
+    url_base = "http://saomigueldasmatas.ba.gov.br/{}"
     TERRITORY_ID = "2929404"

@@ -11,5 +11,5 @@ class BaConceicaoDoAlmeidaSpider(ImprensaOficialSpider):
         "conceicaodoalmeida.ba.gov.br",
     ]
     start_date = date(2019, 5, 1)
-    url_base = "http://conceicaodoalmeida.ba.gov.br/{}/"
+    url_base = "http://conceicaodoalmeida.ba.gov.br/{}"
     TERRITORY_ID = "2908309"
