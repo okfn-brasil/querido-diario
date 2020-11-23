@@ -11,7 +11,8 @@ When this project was initially released, had two distinct goals: creating crawl
 Table of Contents
 =================
   * [Development environment](#development-environment)
-     * [Run Gazette Crawler](#run-gazette-crawler)
+    * [Run Gazette Crawler](#run-gazette-crawler)
+    * [Generate multiple spiders from template](#generate-multiple-spiders-from-template)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
 
@@ -68,6 +69,47 @@ following command will download only gazettes which date is greater than 01/Sep/
 ```console
 $ scrapy crawl sc_florianopolis -a start_date=2020-09-01
 ```
+
+### Generate multiple spiders from template
+
+You may end up in a situation where you have different cities using the same spider base,
+such us `FecamGazetteSpider`. To avoid creating the spider files manually, you can use a script
+for cases where we have a few spiders that are not complex and from the same spider base.
+
+The spider template lives in the `scripts/` folder. Here an example of a generated spider:
+
+```
+from datetime import date
+from gazette.spiders.base import ImprensaOficialSpider
+
+
+class BaGentioDoOuroSpider(ImprensaOficialSpider):
+
+    name = "ba_gentio_do_ouro"
+    allowed_domains = ["pmGENTIODOOUROBA.imprensaoficial.org"]
+    start_date = date(2017, 2, 1)
+    url_base = "http://pmGENTIODOOUROBA.imprensaoficial.org"
+    TERRITORY_ID = "2911303"
+```
+
+To run the script, you only need a CSV file following the structure below:
+
+```
+url,city,state,territory_id,start_day,start_month,start_year,base_class
+http://pmXIQUEXIQUEBA.imprensaoficial.org,Xique-Xique,BA,2933604,1,1,2017,ImprensaOficialSpider
+http://pmWENCESLAUGUIMARAESBA.imprensaoficial.org,Wenceslau Guimarães,BA,2933505,1,1,2017,ImprensaOficialSpider
+http://pmVERACRUZBA.imprensaoficial.org,Vera Cruz,BA,2933208,1,4,2017,ImprensaOficialSpider
+```
+
+Once you have the CSV file, run the command:
+
+```
+cd scripts/
+
+python generate_spiders.py new-spiders.csv
+```
+
+That's it. The new spiders will be in the directory `data_collection/gazette/spiders/`.
 
 ## Troubleshooting
 
