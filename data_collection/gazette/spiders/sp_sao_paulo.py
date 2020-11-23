@@ -30,7 +30,7 @@ class SpSaoPauloSpider(BaseGazetteSpider):
 
         try:
             max_page = int(RE_MAX_PAGE_NUM.search(page_txt).group(1))
-        except:
+        except TypeError:
             max_page = None
 
         return max_page
