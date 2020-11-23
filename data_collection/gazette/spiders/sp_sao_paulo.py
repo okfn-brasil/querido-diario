@@ -1,8 +1,9 @@
 import locale
 import re
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 
 import scrapy
+from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -20,12 +21,9 @@ class SpSaoPauloSpider(BaseGazetteSpider):
     def start_requests(self):
         # Need to have the month's name in portuguese for the pdf url
         locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
-        today = date.today()
-        day = self.start_date
-        while day < today:
+        for day in rrule(freq=DAILY, dtstart=self.start_date, until=date.today()):
             url = f"{self.BASE_URL}/nav_v6/header.asp?txtData={day.strftime('%d/%m/%Y')}&cad=1"
-            yield scrapy.Request(url, cb_kwargs=dict(day=day))
-            day = day + timedelta(days=1)
+            yield scrapy.Request(url, cb_kwargs=dict(day=day.date()))
 
     def get_max_page(self, response):
         page_txt = response.css("span.form-text::text").get()
