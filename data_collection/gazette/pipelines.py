@@ -5,7 +5,6 @@ from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import Gazette, initialize_database
@@ -66,6 +65,12 @@ class SQLDatabasePipeline:
         gazette_item = {field: item.get(field) for field in fields}
 
         for file_info in item.get("files", []):
+            already_downloaded = file_info["status"] == "uptodate"
+            if already_downloaded:
+                # We should not insert in database information of
+                # files that were already downloaded before
+                continue
+
             gazette_item["file_path"] = file_info["path"]
             gazette_item["file_url"] = file_info["url"]
             gazette_item["file_checksum"] = file_info["checksum"]
@@ -74,15 +79,12 @@ class SQLDatabasePipeline:
             session.add(gazette)
             try:
                 session.commit()
-            except IntegrityError as e:
-                spider.logger.warning(
+            except Exception:
+                spider.logger.exception(
                     f"Something wrong has happened when adding the gazette in the database."
                     f"Date: {gazette_item['date']}. "
                     f"File Checksum: {gazette_item['file_checksum']}.",
-                    exc_info=e,
                 )
-                session.rollback()
-            except Exception:
                 session.rollback()
                 raise
 
