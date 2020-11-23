@@ -1,6 +1,6 @@
 from datetime import date
 
-from gazette.spiders.base import ImprensaOficialSpider
+from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 
 
 class BaSaoFelipeSpider(ImprensaOficialSpider):

@@ -1,4 +1,4 @@
-from gazette.spiders.base import SigpubGazetteSpider
+from gazette.spiders.base.sigpub import SigpubGazetteSpider
 
 
 class PaAssociacaoMunicipiosSpider(SigpubGazetteSpider):

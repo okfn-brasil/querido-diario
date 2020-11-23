@@ -1,4 +1,3 @@
-# coding=utf-8
 import re
 from datetime import date, datetime
 
@@ -52,7 +51,7 @@ class RnMossoroSpider(BaseGazetteSpider):
     def parse_gazette(self, response):
         gazette_date = response.meta["date"]
         file_url = response.css(".wp-block-file__button::attr(href)").get()
-        edition_regex = re.compile("JOM n\.º ([a-z0-9]+)$", re.IGNORECASE)
+        edition_regex = re.compile(r"JOM n\.º ([a-z0-9]+)$", re.IGNORECASE)
         edition = response.css("h1.entry-title::text").re_first(edition_regex)
         yield Gazette(
             date=gazette_date,

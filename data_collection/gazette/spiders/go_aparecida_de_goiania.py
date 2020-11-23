@@ -1,6 +1,5 @@
 import json
 
-import scrapy
 from dateparser import parse
 
 from gazette.items import Gazette
