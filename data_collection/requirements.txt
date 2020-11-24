@@ -24,7 +24,6 @@ cssselect==1.1.0          # via parsel, scrapy
 dateparser==0.7.6         # via -r requirements.in
 distlib==0.3.1            # via virtualenv
 docutils==0.15.2          # via awscli
-fake-useragent==0.1.11    # via -r requirements.in
 filelock==3.0.12          # via virtualenv
 flake8==3.8.4             # via -r requirements.in
 hyperlink==20.0.1         # via twisted
@@ -46,7 +45,7 @@ mypy-extensions==0.4.3    # via black
 nodeenv==1.5.0            # via pre-commit
 parsel==1.6.0             # via itemloaders, scrapy
 pathspec==0.8.0           # via black
-pip-tools==5.3.1          # via -r requirements.in
+pip-tools==5.4.0          # via -r requirements.in
 pre-commit==2.8.2         # via -r requirements.in
 protego==0.1.16           # via scrapy
 psycopg2-binary==2.8.6    # via -r requirements.in
