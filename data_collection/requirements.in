@@ -4,6 +4,7 @@ boto3
 chompjs
 dateparser
 fake-useragent
+flake8
 isort
 itemadapter
 jinja2

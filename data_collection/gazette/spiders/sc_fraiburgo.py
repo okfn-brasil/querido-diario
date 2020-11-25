@@ -1,4 +1,4 @@
-from gazette.spiders.base import FecamGazetteSpider
+from gazette.spiders.base.fecam import FecamGazetteSpider
 
 
 class ScFraiburgoSpider(FecamGazetteSpider):
