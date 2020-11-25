@@ -1,4 +1,3 @@
-import scrapy
 from dateparser import parse
 from scrapy.http import Request
 

@@ -1,4 +1,4 @@
-from gazette.spiders.instar_base import BaseInstarSpider
+from gazette.spiders.base.instar import BaseInstarSpider
 
 
 class SpSaoRoqueSpider(BaseInstarSpider):

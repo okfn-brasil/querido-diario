@@ -2,7 +2,6 @@ import re
 
 import dateparser
 from scrapy import Request
-from scrapy.exceptions import CloseSpider
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

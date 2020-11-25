@@ -1,5 +1,5 @@
-from gazette.spiders.base import SigpubGazetteSpider
-from gazette.spiders.instar_base import BaseInstarSpider
+from gazette.spiders.base.instar import BaseInstarSpider
+from gazette.spiders.base.sigpub import SigpubGazetteSpider
 
 
 class SpMonteAltoSpider(BaseInstarSpider):

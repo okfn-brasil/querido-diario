@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import scrapy
 from dateparser import parse
 
