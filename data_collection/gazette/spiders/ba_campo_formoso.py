@@ -1,4 +1,4 @@
-from gazette.spiders.base import DoemGazetteSpider
+from gazette.spiders.base.doem import DoemGazetteSpider
 
 
 class BaCampoFormosoSpider(DoemGazetteSpider):
