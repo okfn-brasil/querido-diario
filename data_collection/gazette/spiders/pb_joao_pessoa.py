@@ -1,21 +1,41 @@
-import dateparser
+import datetime
+from urllib.parse import urlencode
+
+import scrapy
+from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class PbJoaoPessoaSpider(BaseGazetteSpider):
+    name = "pb_joao_pessoa"
     TERRITORY_ID = "2507507"
 
-    EXTRA_EDITION_CSS = "td:first-child"
-    GAZETTE_ROW_CSS = ".table-semanarios table tbody tr"
-    GAZETTE_URL_CSS = "td:last-child a::attr(href)"
-    NEXT_PAGE_CSS = ".pagination a.next::attr(href)"
-    DATE_CSS = "td:nth-last-child(2)::text"
-    DATE_REGEX = r"[0-9]{2}/[0-9]{2}/[0-9]{4}"
+    start_date = datetime.date(1992, 1, 1)
 
-    name = "pb_joao_pessoa"
-    start_urls = ["http://antigo.joaopessoa.pb.gov.br/semanariooficial/"]
+    def start_requests(self):
+        base_url = "http://antigo.joaopessoa.pb.gov.br/semanariooficial/"
+        url_params = {
+            "querysearch": "1",
+            "semanario_edicao": "-1",
+            "submitsearch": "OK",
+            "keyword": "",
+        }
+        initial_date = datetime.date(self.start_date.year, self.start_date.month, 1)
+        end_date = datetime.date.today()
+
+        periods_of_interest = [
+            (date.year, date.month)
+            for date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date)
+        ]
+        for year, month in periods_of_interest:
+            url_params["semanario_ano"] = str(year)
+            url_params["semanario_mes"] = str(month).zfill(2)
+
+            parsed_params = urlencode(url_params)
+            url = f"{base_url}?{parsed_params}"
+            yield scrapy.Request(url=url)
 
     def parse(self, response):
         """Parses gazettes page and requests next page.
@@ -27,19 +47,23 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
         Special gazzetes are daily, but that same logic applies here and it works
         correctly.
         """
-
-        for element in response.css(self.GAZETTE_ROW_CSS):
-            url = element.css(self.GAZETTE_URL_CSS).extract_first()
-            date = element.css(self.DATE_CSS).re(self.DATE_REGEX).pop()
-            date = dateparser.parse(date, languages=["pt"]).date()
-            is_extra = "Especial" in element.css(self.EXTRA_EDITION_CSS).extract_first()
+        gazettes = response.css(".table-semanarios table tbody tr")
+        for gazette in gazettes:
+            url = gazette.css("td:last-child a::attr(href)").get()
+            gazette_date = (
+                gazette.css("td:nth-last-child(2)::text")
+                .re(r"[0-9]{2}/[0-9]{2}/[0-9]{4}")
+                .pop()
+            )
+            gazette_date = datetime.datetime.strptime(gazette_date, "%d/%m/%Y").date()
+            is_extra = "Especial" in gazette.css("td:first-child").get()
 
             yield Gazette(
-                date=date,
+                date=gazette_date,
                 file_urls=[url],
                 is_extra_edition=is_extra,
                 power="executive_legislative",
             )
 
-        for url in response.css(self.NEXT_PAGE_CSS).extract():
+        for url in response.css(".pagination a.next::attr(href)").getall():
             yield response.follow(url)
