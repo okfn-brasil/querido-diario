@@ -12,6 +12,8 @@ ITEM_PIPELINES = {
     "gazette.pipelines.SQLDatabasePipeline": 500,
 }
 
+DOWNLOAD_TIMEOUT = 360
+
 FILES_STORE = "data"
 
 EXTENSIONS = {
