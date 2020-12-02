@@ -18,6 +18,7 @@ FILES_STORE = "data"
 
 EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
+    "gazette.extensions.StatsPersist": 600,
 }
 SPIDERMON_ENABLED = True
 SPIDERMON_VALIDATION_SCHEMAS = [
