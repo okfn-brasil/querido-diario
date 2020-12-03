@@ -27,7 +27,7 @@ class PrGuarapuavaSpider(BaseGazetteSpider):
             link_str = gazette.css("a ::text").get()
             gazette_date = self.extract_gazette_date(link_str)
 
-            if gazette_date == None:
+            if gazette_date is None:
                 continue
 
             yield Gazette(
@@ -49,7 +49,7 @@ class PrGuarapuavaSpider(BaseGazetteSpider):
     def extract_gazette_edition_number(self, text):
         match = re.search(r"Boletim(\s+)Oficial(\s+)(\d+)", text)
 
-        if match == None:
+        if match is None:
             return None
 
         return match.group(0)
