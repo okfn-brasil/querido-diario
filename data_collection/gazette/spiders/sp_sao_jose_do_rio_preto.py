@@ -1,7 +1,6 @@
 import datetime
 
 import scrapy
-from fake_useragent import UserAgent
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -18,7 +17,7 @@ class SpSaoJoseDoRioPreto(BaseGazetteSpider):
 
     start_date = datetime.date(2006, 5, 3)
     end_date = datetime.date.today()
-    custom_settings = {"USER_AGENT": UserAgent().random}
+    custom_settings = {"USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}
 
     def start_requests(self):
         date = self.start_date
