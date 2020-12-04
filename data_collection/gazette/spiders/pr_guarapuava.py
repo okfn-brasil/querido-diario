@@ -13,46 +13,28 @@ class PrGuarapuavaSpider(BaseGazetteSpider):
     name = "pr_guarapuava"
     allowed_domains = ["guarapuava.pr.gov.br"]
     start_urls = ["https://www.guarapuava.pr.gov.br/boletins-oficiais"]
-    start_date = datetime(2002, 1, 20).date()
+    start_date = date(2002, 1, 20)
 
     def start_requests(self):
-        todays_date = date.today()
-        current_year = todays_date.year
-        for year in range(current_year, self.start_date.year - 1, -1):
+        end_date = date.today()
+        for year in range(self.start_date.year, end_date.year + 1):
             url = f"https://www.guarapuava.pr.gov.br/boletins-oficiais/{year}-2/"
-            yield scrapy.Request(url=url, callback=self.parse)
+            yield scrapy.Request(url, self.parse)
 
     def parse(self, response):
         for gazette in response.css(".link > a"):
-            link_str = gazette.css("a ::text").get()
-            gazette_date = self.extract_gazette_date(link_str)
+            link = gazette.css("a ::text")
+            gazette_date = parse(link.re_first(r"(\d+/\d+/\d+)"), languages=["pt"]).date()
+            gazette_edition_number = re.search(r"Boletim(\s+)Oficial(\s+)(\d+)", link.get()).group(0)
+            is_extra_edition = "extra" in link.get().lower()
 
             if gazette_date is None:
                 continue
 
             yield Gazette(
                 date=gazette_date,
-                file_urls=[gazette.css("a::attr(href)").extract_first()],
+                file_urls=[gazette.css("a::attr(href)").get()],
                 power="executive",
-                edition_number=self.extract_gazette_edition_number(link_str),
-                is_extra_edition=self.gazzete_is_extra_edition(link_str),
+                edition_number=gazette_edition_number,
+                is_extra_edition=is_extra_edition,
             )
-
-    def extract_gazette_date(self, text):
-        matches = re.findall(r"(\d+/\d+/\d+)", text)
-
-        if len(matches) == 0:
-            return None
-
-        return parse(matches[-1], languages=["pt"]).date()
-
-    def extract_gazette_edition_number(self, text):
-        match = re.search(r"Boletim(\s+)Oficial(\s+)(\d+)", text)
-
-        if match is None:
-            return None
-
-        return match.group(0)
-
-    def gazzete_is_extra_edition(self, text):
-        return "extra" in text.lower()
