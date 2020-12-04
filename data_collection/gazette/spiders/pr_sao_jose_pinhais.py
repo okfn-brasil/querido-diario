@@ -1,4 +1,3 @@
-import re
 from datetime import date, datetime
 from urllib.parse import urlencode
 

@@ -1,4 +1,3 @@
-import re
 from datetime import datetime
 
 import dateparser
@@ -43,7 +42,7 @@ class CeFortalezaSpider(BaseGazetteSpider):
                 power="executive",
             )
 
-        for page_number in response.css(self.NEXT_PAGE_CSS).re("#(\d)+"):
+        for page_number in response.css(self.NEXT_PAGE_CSS).re(r"#(\d)+"):
             next_url = w3lib.url.add_or_replace_parameter(
                 response.url, "current", page_number
             )

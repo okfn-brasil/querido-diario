@@ -12,6 +12,8 @@ ITEM_PIPELINES = {
     "gazette.pipelines.SQLDatabasePipeline": 500,
 }
 
+DOWNLOAD_TIMEOUT = 360
+
 FILES_STORE = "data"
 
 EXTENSIONS = {
@@ -40,3 +42,4 @@ AWS_ACCESS_KEY_ID = ""
 AWS_SECRET_ACCESS_KEY = ""
 AWS_ENDPOINT_URL = ""
 AWS_REGION_NAME = ""
+FILES_STORE_S3_ACL = "public-read"

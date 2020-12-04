@@ -1,5 +1,5 @@
 import dateparser
-from scrapy import Request, Spider
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -13,7 +13,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
     NEXT_PAGE_CSS = "ul.pagination li.next a::attr(href)"
     DATE_CSS = "span.article-date::text"
     EXTRA_EDITION_CSS = "span.edicao_extraordinaria::text"
-    DATE_REGEX = "([\d]+)[ |]+([\w]+)[ |]+([\d]+)"
+    DATE_REGEX = r"([\d]+)[ |]+([\w]+)[ |]+([\d]+)"
 
     allowed_domains = ["joinville.sc.gov.br"]
     name = "sc_joinville"
