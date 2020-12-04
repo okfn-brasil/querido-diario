@@ -1,5 +1,5 @@
 import re
-from datetime import date, datetime
+from datetime import date
 
 import scrapy
 from dateparser import parse
@@ -24,8 +24,12 @@ class PrGuarapuavaSpider(BaseGazetteSpider):
     def parse(self, response):
         for gazette in response.css(".link > a"):
             link = gazette.css("a ::text")
-            gazette_date = parse(link.re_first(r"(\d+/\d+/\d+)"), languages=["pt"]).date()
-            gazette_edition_number = re.search(r"Boletim(\s+)Oficial(\s+)(\d+)", link.get()).group(0)
+            gazette_date = parse(
+                link.re_first(r"(\d+/\d+/\d+)"), languages=["pt"]
+            ).date()
+            gazette_edition_number = re.search(
+                r"Boletim(\s+)Oficial(\s+)(\d+)", link.get()
+            ).group(0)
             is_extra_edition = "extra" in link.get().lower()
 
             if gazette_date is None:
