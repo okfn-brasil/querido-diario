@@ -3,7 +3,6 @@ import datetime
 import re
 from urllib.parse import urlencode
 
-import dateparser
 import scrapy
 from dateutil.rrule import MONTHLY, rrule
 
@@ -63,5 +62,5 @@ class CeCaucaia(BaseGazetteSpider):
                 )
 
     def get_month_name(self, number):
-        with calendar.different_locale("pt_BR.utf8") as different_locale:
+        with calendar.different_locale("pt_BR.utf8"):
             return calendar.month_name[number].capitalize()
