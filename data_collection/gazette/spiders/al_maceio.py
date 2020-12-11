@@ -1,3 +1,6 @@
+import datetime
+import re
+
 import scrapy
 from dateparser import parse
 
@@ -10,49 +13,53 @@ class AlMaceioSpider(BaseGazetteSpider):
 
     name = "al_maceio"
     allowed_domains = ["maceio.al.gov.br"]
-    start_urls = ["http://www.maceio.al.gov.br/noticias/diario-oficial/"]
+    start_date = datetime.date(2013, 1, 10)
+
+    def start_requests(self):
+        initial_date = self.start_date
+        end_date = datetime.date.today()
+
+        current_date = initial_date
+        while current_date <= end_date:
+            url = f"http://www.maceio.al.gov.br/{current_date.year}/{current_date.month}/{current_date.day}/?post_type=downloads&cat=13003"
+            yield scrapy.Request(url)
+            current_date = current_date + datetime.timedelta(days=1)
 
     def parse(self, response):
         gazettes = response.xpath("//article")
         for gazette in gazettes:
-            url = gazette.xpath("a/@href").get()
-            if not url:  # In some cases the href attr is empty, e.g. 24-11-2015
-                continue
-
             gazette_date = gazette.xpath("time/text()").get()
-            date = parse(gazette_date, languages=["pt"]).date()
+            gazette_date = parse(gazette_date, languages=["pt"]).date()
 
             title = gazette.xpath("a/@title").get()
-            is_extra_edition = "suplemento" in title.lower()
+            is_extra_edition = bool(
+                re.search(r"suplemento|suplementar|extraordinária", title.lower())
+            )
 
-            if "wp-content/uploads" in url:
-                gazette = self.create_gazette(date, url, is_extra_edition)
-                yield gazette
+            download_url = gazette.xpath("a/@href").get()
+
+            if "wp-content/uploads" in download_url:
+                yield self.create_gazette(gazette_date, download_url, is_extra_edition)
             else:
                 yield scrapy.Request(
-                    url,
+                    download_url,
                     callback=self.parse_additional_page,
                     meta={
-                        "date": date,
+                        "gazette_date": gazette_date,
                         "is_extra_edition": is_extra_edition,
                     },
                 )
 
-        next_pages = response.css(".envolve-content nav a::attr(href)").getall()
-        for next_page_url in next_pages:
-            yield scrapy.Request(next_page_url)
-
     def parse_additional_page(self, response):
         url = response.css("p.attachment a::attr(href)").get()
-        gazette = self.create_gazette(
-            response.meta["date"], url, response.meta["is_extra_edition"]
+        yield self.create_gazette(
+            response.meta["gazette_date"], url, response.meta["is_extra_edition"]
         )
-        yield gazette
 
     def create_gazette(self, date, url, is_extra_edition):
         return Gazette(
             date=date,
             file_urls=[url],
             is_extra_edition=is_extra_edition,
-            power="executive_legislative",
+            power="executive",
         )
