@@ -40,6 +40,8 @@ class AlMaceioSpider(BaseGazetteSpider):
 
             if "wp-content/uploads" in download_url:
                 yield self.create_gazette(gazette_date, download_url, is_extra_edition)
+            elif "wp-content/themes" in download_url:
+                self.warning(f"Unable to get download URL for {gazette_date}")
             else:
                 yield scrapy.Request(
                     download_url,
