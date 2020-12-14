@@ -48,10 +48,10 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 38 | Londrina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/62) |
 | 39 | Aparecida de Goiânia | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/98) |
 | 40 | Porto Velho | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/82) |
-| 41 | Ananindeua | | | |
+| 41 | Ananindeua | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/297) |
 | 42 | Serra | :white_check_mark: | | |
-| 43 | Niterói | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/55) |
-| 44 | Belford Roxo | :white_check_mark: | | |
+| 43 | Niterói | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/373) |
+| 44 | Belford Roxo | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/308) |
 | 45 | Campos dos Goytacazes | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/70 |
 | 46 | Vila Velha | :white_check_mark: | | |
 | 47 | Florianópolis | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/17) |
@@ -68,7 +68,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 58 | Jundiaí | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
 | 59 | Maringá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/83) |
 | 60 | Montes Claros | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/26) |
-| 61 | Piracicaba | | | |
+| 61 | Piracicaba | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/294) | [PR](https://github.com/okfn-brasil/querido-diario/pull/312) |
 | 62 | Carapicuíba | | | |
 | 63 | Olinda | | | |
 | 64 | Cariacica | :white_check_mark: | | |
@@ -76,7 +76,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 66 | Anápolis | | | |
 | 67 | Bauru | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/196) |
 | 68 | Vitória | :white_check_mark: | | |
-| 69 | Caucaia | | | |
+| 69 | Caucaia | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/332) | [PR](https://github.com/okfn-brasil/querido-diario/pull/335) |
 | 70 | Itaquaquecetuba | | | |
 | 71 | São Vicente | | | |
 | 72 | Bandeira caruaru.jpg Caruaru | | | |
@@ -84,7 +84,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 74 | Franca | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/5) |
 | 75 | Pelotas | | | |
 | 76 | Ponta Grossa | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
-| 77 | Canoas | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | |
+| 77 | Canoas | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | [PR](https://github.com/okfn-brasil/querido-diario/pull/290/) |
 | 78 | Petrolina | | | |
 | 79 | Boa Vista | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/101) |
 | 80 | Ribeirão das Neves | | | |
@@ -94,15 +94,15 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 84 | Guarujá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/96) |
 | 85 | Praia Grande | | | |
 | 86 | Taubaté | | | |
-| 87 | São José dos Pinhais | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/59) |
+| 87 | São José dos Pinhais | :white_check_mark: | | | PR [59](https://github.com/okfn-brasil/diario-oficial/pull/59) [325](https://github.com/okfn-brasil/querido-diario/pull/325) |
 | 88 | Limeira | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/113) |
 | 89 | Petrópolis | | | |
 | 90 | Camaçari | | | |
 | 91 | Santarém | | | |
-| 92 | Mossoró | | | |
+| 92 | Mossoró | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/259) |
 | 93 | Suzano | | | |
 | 94 | Palmas | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/1) |
-| 95 | Governador Valadares | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/19) |
+| 95 | Governador Valadares | :white_check_mark: | | PR [19](https://github.com/okfn-brasil/diario-oficial/pull/19) [269](https://github.com/okfn-brasil/diario-oficial/pull/269) |
 | 96 | Taboão da Serra | | | |
 | 97 | Santa Maria | | | |
 | 98 | Gravataí | :soon: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/129) |
@@ -2276,3 +2276,6 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
+| XXX | Itu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/303) |
+| XXX | Acajutiba - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/330) |
+| XXX | São Gonçalo do Amarante - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/333) | [PR](https://github.com/okfn-brasil/querido-diario/pull/334) |
