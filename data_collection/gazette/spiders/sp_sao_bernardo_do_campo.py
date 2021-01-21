@@ -27,8 +27,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/a/@href"
         ).re(r"#(\w+)")
         ids = dict(zip(years, hrefs))
-        # Duplicated gazettes can be ignored
-        ignore = [" NM 1915"]
+        duplicated = [" NM 1915"]
 
         for y in range(self.start_date.year, self.end_date.year + 1):
             y = str(y)
@@ -38,7 +37,8 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             )
             for gazette in anchors:
                 text = gazette.xpath("text()").get()
-                if text in ignore:
+                # Duplicated gazettes can be ignored
+                if text in duplicated:
                     continue
 
                 gazette_edition = self.extract_edition(text, y)
@@ -46,8 +46,6 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                     gazette_edition_number = self.extract_edition_number(
                         gazette_edition
                     )
-                    # self.logger.info("edition number: %s - edition: %s - gazette: '%s' - year: %s", en, gazette_edition, text, y)
-                    # continue
                 else:
                     gazette_edition_number = None
                     self.logger.error(
@@ -59,8 +57,6 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                 if gazette_date is None:
                     if gazette_edition_number is not None:
                         gazette_date = self.estimate_date(gazette_edition_number)
-                        # self.logger.info("Estimation created for edition number: %s - edition: %s - gazette: '%s' - year: %s",
-                        #        gazette_edition_number, gazette_edition, text, y)
                     else:
                         self.logger.error(
                             "Couldn't extract either edition number or date for gazette: '%s' / year: %s",
@@ -149,7 +145,6 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         if year not in re_edition:
             year = "next"
         found = re.findall(re_edition[year], text)
-        # self.logger.info("Found: %s for: %s", found, text)
         if len(found) == 0:
             return None
         # Return the first non empty value, or None otherwise
@@ -224,10 +219,6 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         result = found[0]
         if result == "":
             return None
-        # elif len(result) == 2 and result[1] != '':
-        #    d = result[1]
-        # else:
-        #    return None
         if year in ("2013", "2016"):
             result = result + year
         result = result.replace(".", "_")
@@ -288,4 +279,3 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         rate = (high_ts - low_ts) / (high_ed - low_ed)
         estimated_ts = rate * (edition - low_ed) + low_ts
         return date.fromtimestamp(estimated_ts)
-        # TODO: verificar se regra de arredondamento é para cima, senão adicionar 12:00
