@@ -62,7 +62,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 52 | São José do Rio Preto | | | |
 | 53 | Santos | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/14) |
 | 54 | Mogi das Cruzes | | | |
-| 55 | Betim | | | |
+| 55 | Betim |:white_check_mark:| | [PR](https://github.com/okfn-brasil/querido-diario/pull/417) |
 | 56 | Diadema | | | |
 | 57 | Campina Grande | | | |
 | 58 | Jundiaí | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
