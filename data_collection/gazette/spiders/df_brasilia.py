@@ -1,7 +1,7 @@
 import datetime
 import re
 
-import dateparser
+from dateparser import parse
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -16,7 +16,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     GAZETTE_URL = "http://dodf.df.gov.br/listar"
     DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
     EXTRA_EDITION_TEXT = "EDICAO EXTR"
-    PDF_URL = "http://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
+    PDF_URL = "https://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
 
     def start_requests(self):
         """Requests page that has a list of all available years."""
@@ -48,7 +48,8 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
         for gazette_name in dates.values():
             date = re.search(self.DATE_REGEX, gazette_name).group()
-            date = dateparser.parse(date, settings={"DATE_ORDER": "DMY"}).date()
+            date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
+
             if date < self.start_date:
                 continue
 
@@ -65,7 +66,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         json_dir = json_response["dir"]
 
         date = re.search(self.DATE_REGEX, json_dir).group()
-        date = dateparser.parse(date, settings={"DATE_ORDER": "DMY"}).date()
+        date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
         is_extra_edition = self.EXTRA_EDITION_TEXT in json_dir
         path = json_dir.replace("/", "|")
 
