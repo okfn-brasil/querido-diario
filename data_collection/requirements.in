@@ -15,5 +15,5 @@ python-decouple
 scrapy
 schematics
 SQLAlchemy
-spidermon
+spidermon[monitoring]
 wheel
