@@ -18,11 +18,13 @@ class VilaVelhaSpider(BaseGazetteSpider):
     JAVASCRIPT_POSTBACK_REGEX = r"javascript:__doPostBack\('(.*)',''\)"
 
     start_date = date(2016, 7, 1)
+    end_date = date.today()
 
     def start_requests(self):
-        date_param = self.start_date.strftime("%d/%m/%Y")
+        start_date = self.start_date.strftime("%d/%m/%Y")
+        end_date = self.end_date.strftime("%d/%m/%Y")
         base_url = "https://www.vilavelha.es.gov.br/diariooficial/ConsultaDiario.aspx"
-        gazettes_url = f"{base_url}?dataInicial={date_param}"
+        gazettes_url = f"{base_url}?dataInicial={start_date}&dataFinal={end_date}"
         yield Request(gazettes_url)
 
     def parse(self, response):
