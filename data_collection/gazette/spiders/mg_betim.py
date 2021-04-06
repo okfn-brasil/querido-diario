@@ -29,7 +29,7 @@ class MgBetimSpider(BaseGazetteSpider):
     def parse_gazettes(self, response):
         gazettes_links = response.xpath(
             '//table[@id="gdvEdicoes"]//a[contains(@href, ".pdf")]/@href'
-        ).getall()  # .selector
+        ).getall()
 
         for href in gazettes_links:
             data = dateparser.parse(
