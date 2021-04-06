@@ -23,7 +23,10 @@ class MsCampoGrandeSpider(BaseGazetteSpider):
         for year, month in periods_of_interest:
             yield scrapy.FormRequest(
                 "http://portal.capital.ms.gov.br/diogrande/diarioOficial",
-                formdata={"mes": month, "ano": year,},
+                formdata={
+                    "mes": month,
+                    "ano": year,
+                },
                 cb_kwargs={"month": month, "year": year},
             )
 

@@ -1,9 +1,8 @@
 import base64
-import dateparser
-from datetime import datetime
 
 import chompjs
-from scrapy import Request, Spider
+import dateparser
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

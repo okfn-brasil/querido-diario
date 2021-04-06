@@ -12,11 +12,14 @@ ITEM_PIPELINES = {
     "gazette.pipelines.SQLDatabasePipeline": 500,
 }
 
+DOWNLOAD_TIMEOUT = 360
+
 FILES_STORE = "data"
 MEDIA_ALLOW_REDIRECTS = True
 
 EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
+    "gazette.extensions.StatsPersist": 600,
 }
 SPIDERMON_ENABLED = True
 SPIDERMON_VALIDATION_SCHEMAS = [
@@ -34,6 +37,7 @@ SPIDERMON_TELEGRAM_RECIPIENTS = ["<RECIPIENT>"]
 
 QUERIDODIARIO_DATABASE_URL = "sqlite:///querido-diario.db"
 QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO = 5
+QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 5
 
 # These settings are needed only when storing downloaded files
 # in a S3 bucket
@@ -41,3 +45,4 @@ AWS_ACCESS_KEY_ID = ""
 AWS_SECRET_ACCESS_KEY = ""
 AWS_ENDPOINT_URL = ""
 AWS_REGION_NAME = ""
+FILES_STORE_S3_ACL = "public-read"

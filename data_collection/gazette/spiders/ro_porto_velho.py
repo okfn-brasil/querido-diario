@@ -1,7 +1,7 @@
 import datetime as dt
 import json
-from dateparser import parse
 
+from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -33,7 +33,7 @@ class RoPortoVelho(BaseGazetteSpider):
 
             text = selector.css("p strong ::text")
             is_extra_edition = text.extract_first().startswith("Suplemento")
-            date = text.re_first("\d{1,2} de \w+ de \d{4}")
+            date = text.re_first(r"\d{1,2} de \w+ de \d{4}")
             date = parse(date, languages=["pt"]).date()
 
             yield Gazette(

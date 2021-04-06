@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 import dateparser
-
 from scrapy import Spider
 
 from gazette.items import Gazette

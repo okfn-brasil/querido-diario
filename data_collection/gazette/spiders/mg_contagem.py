@@ -25,7 +25,7 @@ class MgContagemSpider(BaseGazetteSpider):
         extra_editions = ["complementar" in url for url in urls]
 
         dates_in_sentence = anchor_elements.css("p span:last-child ::text").re(
-            "(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})"
+            r"(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})"
         )
         dates = [
             dateparser.parse(date, languages=["pt"]).date()

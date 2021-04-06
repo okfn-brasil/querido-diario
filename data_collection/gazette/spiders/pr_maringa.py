@@ -1,8 +1,7 @@
-import re
-from dateparser import parse
 from datetime import date
 
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -32,7 +31,7 @@ class PrMaringaSpider(BaseGazetteSpider):
         rows = response.css("table tr")[1:]
         for row in rows:
             gazette_id = row.css("td:nth-child(1) a::attr(href)").re_first(
-                ".*/[oO]{2}[mM] (.*)\.pdf"
+                r".*/[oO]{2}[mM] (.*)\.pdf"
             )
             gazette_date = row.css("td:nth-child(2) font > font::text").extract_first()
             yield Gazette(

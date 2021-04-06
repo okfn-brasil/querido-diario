@@ -11,7 +11,8 @@ When this project was initially released, had two distinct goals: creating crawl
 Table of Contents
 =================
   * [Development environment](#development-environment)
-     * [Run Gazette Crawler](#run-gazette-crawler)
+    * [Run Gazette Crawler](#run-gazette-crawler)
+    * [Generate multiple spiders from template](#generate-multiple-spiders-from-template)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
 
@@ -22,6 +23,8 @@ and run it locally. All crawlers are developed using [Scrapy](https://scrapy.org
 framework. They provide a [tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
 so you can learn to use it.
 
+If you are in a Windows computer, before you run the steps below you will need Microsoft Visual Build Tools (download [here](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). When you start the installation you need to select 'C++ build tools' on Workload tab and also 'Windows 10 SDK' and 'MSVC v142 - VS 2019 C++ x64/x86 build tools' on Individual Components tab.
+
 If you are in a Linux-like environment, the following commands will create a new
 [virtual environment](https://docs.python.org/3/library/venv.html) - that will keep
 everything isolated from your system - activate it and install all libraries needed
@@ -30,13 +33,22 @@ to start running and developing new spiders.
 ```console
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-$ cd data_collection
-$ pip install -r requirements.txt
+$ pip install -r data_collection/requirements.txt
+$ pre-commit install
 ```
+
+In a Windows computer, you can use the code above. You just need to substitute ```source .venv/bin/activate ``` for ```.venv/Scripts/activate.bat```. The rest is the same as in Linux.
 
 ### Run Gazette Crawler
 
 After configuring your environment, you will be able to execute and develop new spiders.
+The Scrapy project is in `data_collection` directory, so you must enter in to execute the
+spiders and the `scrapy` command:
+
+```console
+$ cd data_collection
+```
+
 Following we list some helpful commands.
 
 Get list of all available spiders:
@@ -57,6 +69,66 @@ following command will download only gazettes which date is greater than 01/Sep/
 ```console
 $ scrapy crawl sc_florianopolis -a start_date=2020-09-01
 ```
+
+### Generate multiple spiders from template
+
+You may end up in a situation where you have different cities using the same spider base,
+such us `FecamGazetteSpider`. To avoid creating the spider files manually, you can use a script
+for cases where we have a few spiders that are not complex and from the same spider base.
+
+The spider template lives in the `scripts/` folder. Here an example of a generated spider:
+
+```
+from datetime import date
+from gazette.spiders.base import ImprensaOficialSpider
+
+
+class BaGentioDoOuroSpider(ImprensaOficialSpider):
+
+    name = "ba_gentio_do_ouro"
+    allowed_domains = ["pmGENTIODOOUROBA.imprensaoficial.org"]
+    start_date = date(2017, 2, 1)
+    url_base = "http://pmGENTIODOOUROBA.imprensaoficial.org"
+    TERRITORY_ID = "2911303"
+```
+
+To run the script, you only need a CSV file following the structure below:
+
+```
+url,city,state,territory_id,start_day,start_month,start_year,base_class
+http://pmXIQUEXIQUEBA.imprensaoficial.org,Xique-Xique,BA,2933604,1,1,2017,ImprensaOficialSpider
+http://pmWENCESLAUGUIMARAESBA.imprensaoficial.org,Wenceslau Guimarães,BA,2933505,1,1,2017,ImprensaOficialSpider
+http://pmVERACRUZBA.imprensaoficial.org,Vera Cruz,BA,2933208,1,4,2017,ImprensaOficialSpider
+```
+
+Once you have the CSV file, run the command:
+
+```
+cd scripts/
+
+python generate_spiders.py new-spiders.csv
+```
+
+That's it. The new spiders will be in the directory `data_collection/gazette/spiders/`.
+
+## Troubleshooting
+
+### `Python.h` missing
+
+While running `pip install` command, you can get an error like below:
+
+```
+module.c:1:10: fatal error: Python.h: No such file or directory
+     #include <Python.h>
+              ^~~~~~~~~~
+    compilation terminated.
+    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+```
+
+Please try to install `python3-dev`. E.g. via `apt install python3-dev`, if you
+is using a Debian-like distro, or use your distro manager package. Make sure that
+you use the correct version (e.g. `python3.6-dev` or `python3.7-dev`). You can
+check your version via `python3 --version`.
 
 ## Contributing
 

@@ -1,13 +1,9 @@
-import re
-from dateparser import parse
+import datetime
 
-import requests
 import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-
-only_number_regex = re.compile(r"\D*")
 
 
 class ToAraguainaSpider(BaseGazetteSpider):
@@ -17,42 +13,42 @@ class ToAraguainaSpider(BaseGazetteSpider):
         "diariooficial.araguaina.to.gov.br",
         "diariooficial.araguaina.tk",
     ]
-    start_urls = ["http://diariooficial.araguaina.to.gov.br/Pesquisa/?De=05/12/2011"]
+
+    start_date = datetime.date(2011, 12, 5)
+
+    def start_requests(self):
+        initial_date = self.start_date.strftime("%d/%m/%Y")
+        yield scrapy.Request(
+            f"https://diariooficial.araguaina.to.gov.br/Pesquisa/?De={initial_date}"
+        )
 
     def parse(self, response):
-        rows = response.xpath('//table[@id="ContentPlaceHolder1_gvResultado"]/tbody/tr')
-        for row in rows:
-            is_extra_edition = False
-            edition_number = row.xpath(".//td[1]/text()").extract_first().lower()
-            edition_number = edition_number.strip()
-            if "suplemento" in edition_number:
-                edition_number = edition_number.split()[0]
-                is_extra_edition = True
-            edition_number = only_number_regex.sub("", edition_number)
-            number_of_pages = row.xpath(".//td[3]/text()").extract_first()
+        gazettes = response.css("#ContentPlaceHolder1_gvResultado tbody tr")
+        for gazette in gazettes:
+            gazette_raw_date = gazette.xpath(".//td[2]/text()").get()
+            gazette_date = datetime.datetime.strptime(
+                gazette_raw_date, "%d/%m/%Y"
+            ).date()
 
-            publication_date_str = row.xpath(".//td[2]/text()").extract_first()
-            publication_date = parse(publication_date_str, languages=["pt"]).date()
+            edition = gazette.xpath(".//td[1]/text()")
+            edition_number = edition.re_first(r"\d+")
+            is_extra_edition = "suplemento" in edition.get().lower()
 
-            pdf_url = response.urljoin(row.xpath(".//td[6]/a/@href").extract_first())
-            pdf_url = requests.head(pdf_url, allow_redirects=True).url
-            gazette_object = self.create_gazette_object(
-                date=publication_date,
-                file_url=pdf_url,
+            gazette_item = Gazette(
+                date=gazette_date,
+                edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
+                power="executive",
             )
 
-            yield gazette_object
+            download_url = response.urljoin(gazette.xpath(".//td[6]/a/@href").get())
+            yield scrapy.Request(
+                download_url,
+                method="HEAD",
+                callback=self.parse_gazette_download_url,
+                cb_kwargs={"item": gazette_item},
+            )
 
-    def create_gazette_object(
-        self, date, file_url, is_extra_edition=False, power="executive"
-    ):
-        file_urls = [file_url]
-
-        gazette_object = Gazette(
-            date=date,
-            file_urls=file_urls,
-            is_extra_edition=is_extra_edition,
-            power=power,
-        )
-        return gazette_object
+    def parse_gazette_download_url(self, response, item):
+        item["file_urls"] = [response.url]
+        yield item

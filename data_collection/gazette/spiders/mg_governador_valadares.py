@@ -65,7 +65,9 @@ class MgGovernadorValadares(BaseGazetteSpider):
         return scrapy.Request(
             f"{self.BASE_URL}{self.path}",
             method="POST",
-            headers={"X-AjaxPro-Method": "GetDiario",},
+            headers={
+                "X-AjaxPro-Method": "GetDiario",
+            },
             body=self.make_body(page),
             callback=self.parse_items,
         )
@@ -116,7 +118,7 @@ class MgGovernadorValadares(BaseGazetteSpider):
 
     def extract_items_data(self, body):
         content = re.findall(
-            "new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
+            r"new Ajax\.Web\.DataTable\((?P<conteudo>.*)\);", body.decode("utf-8")
         )[0]
         content = content.replace("new Date", "")
 

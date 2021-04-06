@@ -19,7 +19,6 @@ Gazettes examples:
 
 """
 
-import dateparser
 import datetime as dt
 import re
 
@@ -67,7 +66,7 @@ class PeRecifeSpider(BaseGazetteSpider):
                 full_year=date.strftime("%Y"),
                 full_date=date.strftime("%Y%m%d"),
                 edition_type=edition,
-                edition_type_name_only=re.search("\w+$", edition).group(),
+                edition_type_name_only=re.search(r"\w+$", edition).group(),
             )
 
             yield Gazette(

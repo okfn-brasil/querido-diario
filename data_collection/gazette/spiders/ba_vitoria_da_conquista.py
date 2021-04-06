@@ -1,7 +1,7 @@
-from dateparser import parse
 from datetime import date
 
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -26,7 +26,7 @@ class BaVitoriaDaConquistaSpider(BaseGazetteSpider):
         boxes = response.css(".box-diario")
         links_xpath = './/a[text()[normalize-space(.) = "Visualizar Diário"]]/@href'
         for box in boxes:
-            parsing_date = box.re("diario-(\d{8})")[0]
+            parsing_date = box.re(r"diario-(\d{8})")[0]
             parsing_date = parse(parsing_date, date_formats=["%Y%m%d"]).date()
             url = box.xpath(links_xpath).extract_first()
             url = url.replace("previsualizar", "baixar")

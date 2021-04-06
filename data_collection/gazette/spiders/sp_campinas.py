@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import datetime as dt
-from dateparser import parse
 
 import scrapy
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider

@@ -1,8 +1,7 @@
-import dateparser
-import re
 from datetime import date, datetime
 from urllib.parse import urlencode
 
+import dateparser
 import w3lib.url
 from scrapy import Request
 

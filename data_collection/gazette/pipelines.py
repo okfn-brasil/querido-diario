@@ -6,7 +6,6 @@ from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import Gazette, initialize_database
@@ -67,6 +66,12 @@ class SQLDatabasePipeline:
         gazette_item = {field: item.get(field) for field in fields}
 
         for file_info in item.get("files", []):
+            already_downloaded = file_info["status"] == "uptodate"
+            if already_downloaded:
+                # We should not insert in database information of
+                # files that were already downloaded before
+                continue
+
             gazette_item["file_path"] = file_info["path"]
             gazette_item["file_url"] = file_info["url"]
             gazette_item["file_checksum"] = file_info["checksum"]
@@ -75,14 +80,12 @@ class SQLDatabasePipeline:
             session.add(gazette)
             try:
                 session.commit()
-            except IntegrityError:
-                spider.logger.warning(
-                    f"Gazette already exists in database. "
-                    f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}"
-                )
-                session.rollback()
             except Exception:
+                spider.logger.exception(
+                    f"Something wrong has happened when adding the gazette in the database."
+                    f"Date: {gazette_item['date']}. "
+                    f"File Checksum: {gazette_item['file_checksum']}.",
+                )
                 session.rollback()
                 raise
 
@@ -91,7 +94,13 @@ class SQLDatabasePipeline:
 
 
 class QueridoDiarioFilesPipeline(FilesPipeline):
-    """Adds item field for ready requests and organizes files in directories."""
+    """Pipeline to download files described in file_urls or file_requests item fields.
+
+    The main differences from the default FilesPipelines is that this pipeline:
+        - organizes downloaded files differently (based on territory_id)
+        - adds the file_requests item field to download files from request instances
+        - allows a download_file_headers spider attribute to modify file_urls requests
+    """
 
     DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
 
@@ -108,13 +117,15 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
     def get_media_requests(self, item, info):
         """Makes requests from urls and/or lets through ready requests."""
         urls = ItemAdapter(item).get(self.files_urls_field, [])
-        yield from (Request(u) for u in urls)
+        download_file_headers = getattr(info.spider, "download_file_headers", {})
+        yield from (Request(u, headers=download_file_headers) for u in urls)
+
         requests = ItemAdapter(item).get(self.files_requests_field, [])
         yield from requests
 
     def item_completed(self, results, item, info):
         """
-        Transforms requests into strings if any present. 
+        Transforms requests into strings if any present.
         Default behavior also adds results to item.
         """
         requests = ItemAdapter(item).get(self.files_requests_field, [])
