@@ -33,17 +33,17 @@ class VilaVelhaSpider(BaseGazetteSpider):
             if is_header:
                 continue
 
-            date = element.css(self.GAZETTE_DATE_CSS).extract_first()
+            date = element.css(self.GAZETTE_DATE_CSS).get()
             date = dateparser.parse(date, languages=["pt"]).date()
             event_target = element.css(self.GAZETTE_URL_CSS).re_first(
                 self.JAVASCRIPT_POSTBACK_REGEX
             )
-            gazette_issue = element.css(self.GAZETTE_ISSUE_CSS).extract_first()
+            gazette_issue = element.css(self.GAZETTE_ISSUE_CSS).get()
             is_extra = "EXTRA" in gazette_issue
             edition_number = gazette_issue.split(" ")[0]
 
             document_request = FormRequest.from_response(
-                response, formdata={"__EVENTTARGET": event_target}, method="POST"
+                response, formdata={"__EVENTTARGET": event_target}
             )
 
             yield Gazette(
