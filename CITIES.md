@@ -29,7 +29,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 19 | Natal | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/189) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/192) |
 | 20 | Campo Grande | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/188)| [PR](https://github.com/okfn-brasil/diario-oficial/pull/216) |
-| 22 | São Bernardo do Campo | | | |
+| 22 | São Bernardo do Campo | :soon: | | |
 | 23 | João Pessoa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido-diario/pull/72), [PR](https://github.com/okfn-brasil/querido-diario/pull/270) |
 | 24 | Nova Iguaçu | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/120) |
 | 25 | Santo André | | | |
@@ -38,7 +38,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 28 | Jaboatão dos Guararapes | | | |
 | 29 | Ribeirão Preto | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/31) | |
 | 30 | Uberlândia | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/37) |
-| 31 | Sorocaba | | | |
+| 31 | Sorocaba | :soon:  | | |
 | 32 | Contagem | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/77) |
 | 33 | Aracaju | | | |
 | 34 | Feira de Santana | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/25) |
