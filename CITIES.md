@@ -93,7 +93,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 83 | Cascavel | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/92) |
 | 84 | Guarujá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/96) |
 | 85 | Praia Grande | | | |
-| 86 | Taubaté | | | |
+| 86 | Taubaté | :soon:  | | |
 | 87 | São José dos Pinhais | :white_check_mark: | | | PR [59](https://github.com/okfn-brasil/diario-oficial/pull/59) [325](https://github.com/okfn-brasil/querido-diario/pull/325) |
 | 88 | Limeira | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/113) |
 | 89 | Petrópolis | | | |
