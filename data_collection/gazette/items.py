@@ -8,6 +8,7 @@ class Gazette(scrapy.Item):
     file_checksum = scrapy.Field()
     file_path = scrapy.Field()
     file_url = scrapy.Field()
+    file_requests = scrapy.Field()
     is_extra_edition = scrapy.Field()
     territory_id = scrapy.Field()
     power = scrapy.Field()
