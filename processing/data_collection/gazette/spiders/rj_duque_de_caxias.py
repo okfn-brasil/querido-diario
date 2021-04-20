@@ -1,9 +1,10 @@
 import datetime as dt
 import re
+
+from dateparser import parse
 import scrapy
 
 from gazette.items import Gazette
-from dateparser import parse
 from gazette.spiders.base import BaseGazetteSpider
 
 
