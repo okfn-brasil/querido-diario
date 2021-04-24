@@ -42,8 +42,20 @@ $ pre-commit install
 
 No sistema Windows, você pode utilizar o código abaixo. Apenas substitua ```source .venv/bin/activate ``` por ```.venv/Scripts/activate.bat```. Os outros passos são os mesmos usados no Linux. 
 
+### Rodar dentro de um container
 
-### Rodar o raspador 
+Você pode rodar dentro de um container usando o [podman](https://podman.io/getting-started/).
+Antes de iniciar este container você precisa inicializar o ambiente como explicado [nestas instruções de setup](https://github.com/okfn-brasil/querido-diario-data-processing#setup).
+
+Depois disso, entre no container:
+```console
+$ make shell_run
+```
+
+Agora você pode seguir as instruções para popular os dados.
+
+
+### Rodar o raspador
 
 Depois de configurar o ambiente de desenvolvimento, você poderá desenvolver e executar novos raspadores. Os raspadores estão na pasta `data_collection`, então você deve entrar nela e executar o comando `scrapy`:
 
