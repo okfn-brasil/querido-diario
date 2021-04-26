@@ -2275,7 +2275,6 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2265 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
 | 2266 | Sobral - CE | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/435) |
 | 2267 | Paulínia - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/423) |
-
 | 2268 | Carapicuiba - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/406) |
 | 2269 | Guaratinguetá - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/403) |
 | 2270 | Juazeiro do Norte - CE | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/358) |
@@ -2284,7 +2283,6 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2273 | Macaiba - RN | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/265) |
 | 2274 | Macapa - AP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/217) |
 | 2275 | Valinhos - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/210) |
-
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
 | XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
