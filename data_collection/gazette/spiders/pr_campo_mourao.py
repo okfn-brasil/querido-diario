@@ -1,7 +1,8 @@
-import scrapy
 from dateparser import parse
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+
 
 class PrCampoMouraoSpider(BaseGazetteSpider):
     TERRITORY_ID = "4104303"
@@ -20,24 +21,28 @@ class PrCampoMouraoSpider(BaseGazetteSpider):
         for row in list:
             date = row.xpath("//div[@class='info']/div[@class='data']/text()").get()
             date = parse(date, languages=["pt"]).date()
-            
-            edition_type = row.xpath("//div[@class='info']/div[@class='tipo']/text()").get()
-            edition_number = row.xpath("//div[@class='info']/div[@class='titulo']/text()").get()
-            edition_number = edition_number.split(' ')[1]
+
+            edition_type = row.xpath(
+                "//div[@class='info']/div[@class='tipo']/text()"
+            ).get()
+            edition_number = row.xpath(
+                "//div[@class='info']/div[@class='titulo']/text()"
+            ).get()
+            edition_number = edition_number.split(" ")[1]
 
             code = row.xpath("//button[@data-acao='download']/@data-codigo").get()
             id = row.xpath("//button[@data-acao='download']/@data-id").get()
-            
+
             is_extra = True if edition_type == "Extraordinária" else False
-            
+
             url = f"https://campomourao.atende.net/atende.php?rot=54002&aca=737&processo=download&codigo={code}&hash={id}"
-            
+
             yield Gazette(
                 date=date,
                 edition_number=edition_number,
                 file_urls=[url],
-                is_extra_edition = is_extra,
-                power='executive_legislative'
+                is_extra_edition=is_extra,
+                power="executive_legislative",
             )
 
         yield response.follow(url_base + str(page + 1))
