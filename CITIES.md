@@ -2278,12 +2278,12 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 
 | 2268 | Carapicuiba - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/406) |
 | 2269 | Guaratinguetá - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/403) |
-| 2269 | Juazeiro do Norte - CE | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/358) |
-| 2269 | Guarapuava - PR | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/340) |
-| 2269 | Bento Gonçalves - RS | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/329) |
-| 2269 | Macaiba - RN | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/265) |
-| 2269 | Macapa - AP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/217) |
-| 2269 | Valinhos - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/210) |
+| 2270 | Juazeiro do Norte - CE | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/358) |
+| 2271 | Guarapuava - PR | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/340) |
+| 2272 | Bento Gonçalves - RS | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/329) |
+| 2273 | Macaiba - RN | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/265) |
+| 2274 | Macapa - AP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/217) |
+| 2275 | Valinhos - SP | :soon: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/210) |
 
 | XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
 | XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
