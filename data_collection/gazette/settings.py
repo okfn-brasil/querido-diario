@@ -15,7 +15,6 @@ ITEM_PIPELINES = {
 DOWNLOAD_TIMEOUT = 360
 
 FILES_STORE = "data"
-MEDIA_ALLOW_REDIRECTS = True
 
 EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500,
