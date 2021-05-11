@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 import scrapy
 
@@ -46,25 +46,47 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
                     url = self.base_url_before_2017.format(
                         year, "{:02d}".format(month + 1) + "-" + self.month_names[month]
                     )
-                    yield scrapy.Request(url)
+                    day = 1
+                    yield scrapy.Request(url, callback=self.parse, cb_kwargs={"day": day, "month": month + 1, "year": year})
                     month += 1
                 year += 1
 
 
-    def parse(self, response):
+    def parse(self, response, day, month, year):
         if(response.status == 200):
             for element in response.xpath('//a[contains(@href,"pdf")]/@href'):
+                file_name = element.get()
+
+                gazette_date = datetime.strptime(f"{year}-{month}-{day}", "%Y-%m-%d").date()
+
                 if ".html" in response.url:
                     url = self.base_url + element.get()
                 else:
                     url = response.url + element.get()
+
                 extra_edition = False
                 if element.get().lower() in "extraordionario":
                     extra_edition: True
-                gazette_date = date.today()
+
+                if extra_edition or file_name.lower() in "especial":
+                    gazette_edition_number = file_name.lower().replace(".pdf", "").replace("boletim_")
+                else:
+                    edition_number = []
+                    if file_name.find('-') > 0:
+                        edition_number = file_name.split('-')
+                    else:
+                        edition_number = file_name.split('_')
+                    for e in edition_number:
+                        if e.isnumeric() and int(e.isnumeric()) > 6006:
+                            gazette_edition_number = e
+                        elif e.lower() in "vol" or e.lower()[0] == 'v':
+                            gazette_edition_number = gazette_edition_number + '-' + e
+
                 yield Gazette(
                     date=gazette_date,
                     file_urls=[url],
                     is_extra_edition=extra_edition,
+                    edition_number=edition_number,
                     power="executive_legislative",
                 )
+
