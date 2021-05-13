@@ -15,8 +15,11 @@ class PrCianorteSpider(BaseGazetteSpider):
 
     def parse(self, response):
         lines = response.css("tr")[1:]
-        if len(lines):
-            for row in lines:
+        if not lines:
+        	return
+        	
+        for row in lines:
+        ...
                 date = row.xpath("td[2]/text()").extract()[0]
                 edition_number = row.xpath("td[1]/text()").extract()[0]
 
