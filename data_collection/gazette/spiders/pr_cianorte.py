@@ -31,4 +31,4 @@ class PrCianorteSpider(BaseGazetteSpider):
                     power="executive_legislative",
                 )
                 self.current_page += 1
-                yield Request(self.base_url + str(self.current_page))
+                yield Request(f"https://cianorte.pr.gov.br/orgao-oficial/pagina/{self.current_page}")
