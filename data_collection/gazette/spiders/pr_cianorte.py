@@ -20,8 +20,8 @@ class PrCianorteSpider(BaseGazetteSpider):
         	
         for row in lines:
         ...
-                date = row.xpath("td[2]/text()").extract()[0]
-                edition_number = row.xpath("td[1]/text()").extract()[0]
+                date = row.xpath("td[2]/text()").get()
+                edition_number = row.xpath("td[1]/text()").get()
 
                 yield Gazette(
                     date=parse(date, languages=["pt"]).date(),
