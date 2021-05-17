@@ -37,14 +37,19 @@ class SpGuaratinguetaSpider(BaseGazetteSpider):
             '//*[@id="content"]/article/div[1]/ul/li/a/@href'
         ).getall()
         for gazette_url, text in zip(gazette_urls, texts):
-            date = re.match("\d{2}\/\d{2}\/\d{4}", text).group()
+            date = re.match("[0-9]{2}/[0-9]{2}/[0-9]{4}", text).group()
             gazette_date = dateparser.parse(date, languages=["pt"]).date()
             file_urls = [gazette_url]
-            is_extra_edition = (
-                ("EXTRAORDINÁRIA" in text)
-                or ("ESPECIAL" in text)
-                or ("GABARITO" in text)
-                or ("EXTRAORDINÁRIO" in text)
+            is_extra_edition = any(
+                [
+                    word in text
+                    for word in [
+                        "EXTRAORDINÁRIA",
+                        "ESPECIAL",
+                        "GABARITO",
+                        "EXTRAORDINÁRIO",
+                    ]
+                ]
             )
             yield Gazette(
                 date=gazette_date,
