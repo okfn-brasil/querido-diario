@@ -10,25 +10,24 @@ class PrCianorteSpider(BaseGazetteSpider):
     name = "pr_cianorte"
     allowed_domains = ["cianorte.pr.gov.br"]
     start_urls = ["https://cianorte.pr.gov.br/orgao-oficial/"]
-    current_page = 1
-    base_url = "https://cianorte.pr.gov.br/orgao-oficial/pagina/"
 
-    def parse(self, response):
-        lines = response.css("tr")[1:]
+    def parse(self, response, current_page=1):
+        lines = response.css("tbody tr")
         if not lines:
-        	return
-        	
-        for row in lines:
-        ...
-                date = row.xpath("td[2]/text()").get()
-                edition_number = row.xpath("td[1]/text()").get()
+            return
 
-                yield Gazette(
-                    date=parse(date, languages=["pt"]).date(),
-                    edition_number=edition_number,
-                    file_urls=[row.css("a::attr(href)").get()],
-                    is_extra_edition=False,
-                    power="executive_legislative",
-                )
-                self.current_page += 1
-                yield Request(f"https://cianorte.pr.gov.br/orgao-oficial/pagina/{self.current_page}")
+        for row in lines:
+            date = row.xpath("td[2]/text()").get()
+            edition_number = row.xpath("td[1]/text()").get()
+
+            yield Gazette(
+                date=parse(date, languages=["pt"]).date(),
+                edition_number=edition_number,
+                file_urls=row.xpath("td[3]/a/@href").getall(),
+                is_extra_edition=False,
+                power="executive_legislative",
+            )
+        yield Request(
+            f"https://cianorte.pr.gov.br/orgao-oficial/pagina/{str(current_page)}",
+            cb_kwargs=dict(current_page=current_page + 1),
+        )
