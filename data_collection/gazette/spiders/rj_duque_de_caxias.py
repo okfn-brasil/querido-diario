@@ -68,7 +68,7 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
                 if ".html" in response.url:
                     url = self.base_url + element.get()
                 else:
-                    url = response.url + element.get()
+                    url = response.urljoin(element.get())
 
                 extra_edition = "extra" in element.get().lower()
 
