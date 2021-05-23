@@ -1,3 +1,5 @@
+import datetime
+
 from dateparser import parse
 
 from gazette.items import Gazette
@@ -7,31 +9,28 @@ from gazette.spiders.base import BaseGazetteSpider
 class PrCampoMouraoSpider(BaseGazetteSpider):
     TERRITORY_ID = "4104303"
     name = "pr_campo_mourao"
+    start_date = datetime.date(2012, 3, 2)
     start_urls = ["https://campomourao.atende.net/?pg=diariooficial&pagina=1"]
 
-    def parse(self, response):
-        url_base = response.url[0:56]
-        page = int(response.url[56:])
+    def parse(self, response, page=1):
 
-        list = response.xpath("//div[@class='nova_listagem ']/div[@class='linha']")
+        gazettes = response.xpath("//div[@class='nova_listagem ']/div[@class='linha']")
+        follow_next_page = False if not gazettes else True
 
-        if not list:
-            return
-
-        for row in list:
-            date = row.xpath("//div[@class='info']/div[@class='data']/text()").get()
+        for gazette in gazettes:
+            date = gazette.xpath(".//div[@class='data']/text()").get()
             date = parse(date, languages=["pt"]).date()
 
-            edition_type = row.xpath(
-                "//div[@class='info']/div[@class='tipo']/text()"
-            ).get()
-            edition_number = row.xpath(
-                "//div[@class='info']/div[@class='titulo']/text()"
-            ).get()
+            if date < self.start_date:
+                follow_next_page = False
+                break
+
+            edition_type = gazette.xpath(".//div[@class='tipo']/text()").get()
+            edition_number = gazette.xpath(".//div[@class='titulo']/text()").get()
             edition_number = edition_number.split(" ")[1]
 
-            code = row.xpath("//button[@data-acao='download']/@data-codigo").get()
-            id = row.xpath("//button[@data-acao='download']/@data-id").get()
+            code = gazette.xpath("//button[@data-acao='download']/@data-codigo").get()
+            id = gazette.xpath("//button[@data-acao='download']/@data-id").get()
 
             is_extra = True if edition_type == "Extraordinária" else False
 
@@ -45,4 +44,9 @@ class PrCampoMouraoSpider(BaseGazetteSpider):
                 power="executive_legislative",
             )
 
-        yield response.follow(url_base + str(page + 1))
+        if follow_next_page:
+            next_page = page + 1
+            yield response.follow(
+                f"https://campomourao.atende.net/?pg=diariooficial&pagina={next_page}",
+                cb_kwargs={"page": next_page},
+            )
