@@ -15,7 +15,7 @@ The [Querido Diário’s scrapers][raspQD] are made on [Python 3] with [Scrapy] 
 4. Let’s download and install [VSCode] on your computer (you can follow the pattern installation).
     - The VSCode isn’t mandatory, any text editor works, but to simplify, during the sprint we’ll assume that you’re using the terminal with PowerShell on VSCode.
 
-5. After installing VSCode, let’s install the [git]. It’s important to check these 2 options:
+5. After installing VSCode, let’s install the [git].
 
 6. Open VSCode and open the folder where you want the project folder be located.
 
@@ -61,7 +61,7 @@ Os [raspadores do Querido Diário][raspQD] são feitos no [Python 3] utilizando 
 4. Vamos baixar e instalar o [VSCode] na sua máquina (pode seguir a instalação padrão).
     - O VSCode não é obrigatório, qualquer editor de texto funciona, mas para simplificar, durante a sprint iremos assumir que você estará usando o terminal com Powershell pelo VSCode;
 
-5. Após o VSCode, vamos instalar o [git]. É importante marcar essas 2 opções.
+5. Após o VSCode, vamos instalar o [git].
 
 6. Abra o VSCode e abra a pasta em que você quer que a pasta do projeto fique localizada:
 
