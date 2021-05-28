@@ -23,7 +23,7 @@ and run it locally. All crawlers are developed using [Scrapy](https://scrapy.org
 framework. They provide a [tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
 so you can learn to use it.
 
-If you are on a Windows computer, before you run the steps below you will need Microsoft Visual Build Tools (download [here](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). When you start the installation you need to select 'C++ build tools' on the Workload tab and also 'Windows 10 SDK' and 'MSVC v142 - VS 2019 C++ x64/x86 build tools' on the Individual Components tab.
+If you are on a Windows computer, before you run the steps below you will need Microsoft Visual Build Tools (download [here](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). When you start the installation you need to select 'C++ build tools' on the Workload tab and also 'Windows 10 SDK' and 'MSVC v142 - VS 2019 C++ x64/x86 build tools' on the Individual Components tab. In case of having some difficulties, you can also check our [instructions for Windows](docs/windows_instructions.md).
 
 If you are in a Linux-like environment, the following commands will create a new
 [virtual environment](https://docs.python.org/3/library/venv.html) - that will keep
