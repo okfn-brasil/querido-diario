@@ -33,13 +33,15 @@ class RsLajeadoSpider(BaseGazetteSpider):
             kwargs = {
                 "gazette_date": self.extract_date(filename),
                 "edition_number": self.extract_edition(filename),
-                "is_extra_edition": self.extract_is_extra_edition(filename)
+                "is_extra_edition": self.extract_is_extra_edition(filename),
             }
 
             href = response.urljoin(item.attrib["href"])
             yield Request(href, callback=self.parse_url, cb_kwargs=kwargs)
 
-    def parse_url(self, response, gazette_date=None, edition_number=None, is_extra_edition=None):
+    def parse_url(
+        self, response, gazette_date=None, edition_number=None, is_extra_edition=None
+    ):
         url = response.css("div.topoAbreAnexoDownload a::attr(href)").get()
         yield Gazette(
             date=gazette_date,
