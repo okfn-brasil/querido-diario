@@ -57,4 +57,4 @@ class RsLajeadoSpider(BaseGazetteSpider):
         return filedate.date()
 
     def extract_edition(self, filename):
-        return filename.lower().split("_edição_")[1].split()[0]
+        return re.search(r"ediçã[o0].+?(\d+)", filename, re.IGNORECASE).group(1)
