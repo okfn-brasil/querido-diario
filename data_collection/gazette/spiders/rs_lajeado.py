@@ -1,3 +1,4 @@
+import re
 from datetime import date
 from urllib.parse import urlencode
 
@@ -27,21 +28,23 @@ class RsLajeadoSpider(BaseGazetteSpider):
     def parse(self, response):
         pdfs = response.css("ul.anexos li a")
         for item in pdfs:
-            filename = item.css("::text").get()
+            filename = item.css("::text").get().strip()
 
             kwargs = {
                 "gazette_date": self.extract_date(filename),
                 "edition_number": self.extract_edition(filename),
+                "is_extra_edition": self.extract_is_extra_edition(filename)
             }
 
             href = response.urljoin(item.attrib["href"])
             yield Request(href, callback=self.parse_url, cb_kwargs=kwargs)
 
-    def parse_url(self, response, gazette_date=None, edition_number=None):
+    def parse_url(self, response, gazette_date=None, edition_number=None, is_extra_edition=None):
         url = response.css("div.topoAbreAnexoDownload a::attr(href)").get()
         yield Gazette(
             date=gazette_date,
             edition_number=edition_number,
+            is_extra_edition=is_extra_edition,
             file_urls=[url],
             power="executive",
             territory_id=self.TERRITORY_ID,
@@ -57,4 +60,7 @@ class RsLajeadoSpider(BaseGazetteSpider):
         return filedate.date()
 
     def extract_edition(self, filename):
-        return re.search(r"ediçã[o0].+?(\d+)", filename, re.IGNORECASE).group(1)
+        return re.search(r"edi[çc][aã][o0].+?(\d+)", filename, re.IGNORECASE).group(1)
+
+    def extract_is_extra_edition(self, filename):
+        return re.search(r"edi[çc][ãa][o0].+?\d+$", filename, re.IGNORECASE) is None
