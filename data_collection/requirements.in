@@ -17,3 +17,5 @@ schematics
 SQLAlchemy
 spidermon[monitoring]
 wheel
+amqp
+kafka-python

@@ -10,6 +10,10 @@ ITEM_PIPELINES = {
     "gazette.pipelines.QueridoDiarioFilesPipeline": 300,
     "spidermon.contrib.scrapy.pipelines.ItemValidationPipeline": 400,
     "gazette.pipelines.SQLDatabasePipeline": 500,
+    "gazette.pipelines.AmqpExporterPipeline": 500,
+    "gazette.pipelines.KafkaExporterPipeline": 500,
+    "gazette.pipelines.SQSExporterPipeline": 500,
+    "gazette.pipelines.KinesisExporterPipeline": 500,
 }
 
 DOWNLOAD_TIMEOUT = 360
@@ -39,10 +43,28 @@ QUERIDODIARIO_DATABASE_URL = "sqlite:///querido-diario.db"
 QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO = 5
 QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 5
 
-# These settings are needed only when storing downloaded files
-# in a S3 bucket
+# These settings are used when storing downloaded files
+# in a S3 bucket and to integrate with other AWS services
 AWS_ACCESS_KEY_ID = ""
 AWS_SECRET_ACCESS_KEY = ""
-AWS_ENDPOINT_URL = ""
 AWS_REGION_NAME = ""
+AWS_ENDPOINT_URL = ""
 FILES_STORE_S3_ACL = "public-read"
+
+# AMQP exporter pipeline
+AMQP_HOST = "localhost:5672"
+AMQP_USERNAME = "guest"
+AMQP_PASSWORD = "guest"
+AMQP_QUEUE = "querido-diario"
+AMQP_EXCHANGE = ""
+AMQP_ROUTING_KEY = "querido-diario"
+
+# Kafka exporter pipeline
+KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
+KAFKA_TOPIC = "querido-diario"
+
+# SQS exporter pipeline
+SQS_QUEUE_NAME = "querido-diario"
+
+# Kinesis exporter pipeline
+KINESIS_STREAM_NAME = "querido-diario"

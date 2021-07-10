@@ -6,6 +6,8 @@
 #
 aiohttp==3.7.4.post0
     # via slackclient
+amqp==5.0.6
+    # via -r requirements.in
 appdirs==1.4.4
     # via
     #   black
@@ -116,6 +118,8 @@ jsonpointer==2.1
     # via jsonschema
 jsonschema[format]==3.2.0
     # via spidermon
+kafka-python==2.0.2
+    # via -r requirements.in
 lxml==4.6.3
     # via
     #   parsel
@@ -254,6 +258,8 @@ urllib3==1.26.4
     #   botocore
     #   requests
     #   sentry-sdk
+vine==5.0.0
+    # via amqp
 virtualenv==20.4.3
     # via pre-commit
 w3lib==1.22.0

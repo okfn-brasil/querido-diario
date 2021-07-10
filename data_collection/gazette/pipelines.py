@@ -1,5 +1,8 @@
 import datetime as dt
+import json
+from abc import ABC, abstractmethod
 from pathlib import Path
+from uuid import uuid4
 
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
@@ -7,6 +10,13 @@ from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
 from sqlalchemy.orm import sessionmaker
+
+try:
+    import amqp
+    import boto3
+    import kafka
+except ModuleNotFoundError:
+    pass
 
 from gazette.database.models import Gazette, initialize_database
 
@@ -148,3 +158,133 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
         return str(Path(item["territory_id"], datestr, filename))
+
+
+class QueueExporterPipeline(ABC):
+    def open_spider(self, spider):
+        self.settings = spider.crawler.settings
+
+    @abstractmethod
+    def close_spider(self, spider):
+        pass
+
+    @abstractmethod
+    def send_message(self, data):
+        pass
+
+    @abstractmethod
+    def convert_item_to_message(self, item):
+        pass
+
+    def _convert_item_to_string(self, item):
+        data = dict(item)
+        for field in data.keys():
+            value = data[field]
+            if isinstance(value, dt.date):
+                data[field] = value.isoformat()
+        return json.dumps(data)
+
+    def _convert_item_to_bytes(self, item):
+        data = self._convert_item_to_string(item)
+        return bytes(data, "utf-8")
+
+    def process_item(self, item, spider):
+        message = self.convert_item_to_message(item)
+        self.send_message(message)
+        return item
+
+
+class AmqpExporterPipeline(QueueExporterPipeline):
+    def open_spider(self, spider):
+        super().open_spider(spider)
+        self.connection = amqp.Connection(
+            host=self.settings.get("AMQP_HOST"),
+            userid=self.settings.get("AMQP_USERNAME"),
+            password=self.settings.get("AMQP_PASSWORD"),
+        )
+        self.connection.connect()
+        self.channel = self.connection.channel()
+        self.channel.open()
+        self.channel.queue_declare(queue=self.settings.get("AMQP_QUEUE"))
+
+    def close_spider(self, spider):
+        if self.channel:
+            self.channel.close()
+        if self.connection:
+            self.connection.close()
+
+    def send_message(self, data):
+        self.channel.basic_publish(
+            exchange=self.settings.get("AMQP_EXCHANGE"),
+            routing_key=self.settings.get("AMQP_ROUTING_KEY"),
+            msg=amqp.Message(data),
+        )
+
+    def convert_item_to_message(self, item):
+        return self._convert_item_to_bytes(item)
+
+
+class KafkaExporterPipeline(QueueExporterPipeline):
+    def open_spider(self, spider):
+        super().open_spider(spider)
+        self.producer = kafka.KafkaProducer(
+            bootstrap_servers=self.settings.get("KAFKA_BOOTSTRAP_SERVERS")
+        )
+
+    def close_spider(self, spider):
+        if self.producer:
+            self.producer.flush()
+            self.producer.close()
+
+    def send_message(self, data):
+        self.producer.send(self.settings.get("KAFKA_TOPIC"), data)
+
+    def convert_item_to_message(self, item):
+        return self._convert_item_to_bytes(item)
+
+
+class SQSExporterPipeline(QueueExporterPipeline):
+    def open_spider(self, spider):
+        super().open_spider(spider)
+        self.resource = boto3.resource(
+            service_name="sqs",
+            region_name=self.settings.get("AWS_REGION_NAME"),
+            aws_access_key_id=self.settings.get("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=self.settings.get("AWS_SECRET_ACCESS_KEY"),
+        )
+        self.queue = self.resource.get_queue_by_name(
+            QueueName=self.settings.get("SQS_QUEUE_NAME")
+        )
+
+    def close_spider(self, spider):
+        pass
+
+    def send_message(self, data):
+        self.queue.send_message(MessageBody=data)
+
+    def convert_item_to_message(self, item):
+        return self._convert_item_to_string(item)
+
+
+class KinesisExporterPipeline(QueueExporterPipeline):
+    def open_spider(self, spider):
+        super().open_spider(spider)
+        self.client = boto3.client(
+            service_name="kinesis",
+            region_name=self.settings.get("AWS_REGION_NAME"),
+            aws_access_key_id=self.settings.get("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=self.settings.get("AWS_SECRET_ACCESS_KEY"),
+        )
+
+    def close_spider(self, spider):
+        pass
+
+    def send_message(self, data):
+        self.client.put_record(
+            StreamName=self.settings.get("KINESIS_STREAM_NAME"),
+            PartitionKey=str(uuid4()),
+            Data=data,
+        )
+
+    def convert_item_to_message(self, item):
+        return self._convert_item_to_string(item)
