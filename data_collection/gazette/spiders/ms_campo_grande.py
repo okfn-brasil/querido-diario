@@ -1,7 +1,8 @@
-import datetime
+import base64
+import datetime as dt
+import re
 
-import scrapy
-from dateutil.rrule import MONTHLY, rrule
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -10,40 +11,39 @@ from gazette.spiders.base import BaseGazetteSpider
 class MsCampoGrandeSpider(BaseGazetteSpider):
     TERRITORY_ID = "5002704"
     name = "ms_campo_grande"
-    allowed_domains = ["portal.capital.ms.gov.br"]
-    start_date = datetime.date(1998, 1, 9)  # First gazette available
+    allowed_domains = ["diogrande.campogrande.ms.gov.br"]
+    start_date = dt.date(1998, 1, 9)
 
     def start_requests(self):
-        periods_of_interest = [
-            (str(date.year), str(date.month).zfill(2))
-            for date in rrule(
-                freq=MONTHLY, dtstart=self.start_date, until=datetime.date.today()
-            )
-        ]
-        for year, month in periods_of_interest:
-            yield scrapy.FormRequest(
-                "http://portal.capital.ms.gov.br/diogrande/diarioOficial",
-                formdata={
-                    "mes": month,
-                    "ano": year,
-                },
-                cb_kwargs={"month": month, "year": year},
-            )
+        base_url = "https://diogrande.campogrande.ms.gov.br/wp-admin/admin-ajax.php?action=edicoes_json"
+        initial_date = self.start_date.strftime("%d/%m/%Y")
+        final_date = self.end_date.strftime("%d/%m/%Y")
+        url = f"{base_url}&de={initial_date}&ate{final_date}&start=0"
+        yield Request(url)
 
-    def parse(self, response, month, year):
-        gazettes = response.css(".arquivos li")
-        for gazette in gazettes:
-            day = gazette.css(".day strong::text").get()
-            gazette_date = datetime.datetime.strptime(
-                f"{year}-{month}-{day}", "%Y-%m-%d"
-            ).date()
+    def parse(self, response, sequential=0):
+        for entry in response.json()["data"]:
+            date = dt.datetime.strptime(entry["dia"], "%Y-%m-%d").date()
 
-            gazette_url = gazette.css("a::attr(href)").get()
-            is_extra_edition = bool(gazette.css("p::text").re(r"Extra|Suplemento"))
+            if date < self.start_date:
+                return
 
+            day_id = entry["codigodia"]
+            url_key = f'{{"codigodia":{day_id}}}'
+            url_code = base64.b64encode(url_key.encode()).decode()
+            url = f"https://diogrande.campogrande.ms.gov.br/download_edicao/{url_code}.pdf"
+
+            edition_number = entry["numero"]
+            title = entry["desctpd"]
+            is_extra_edition = "extra" in title.lower()
             yield Gazette(
-                date=gazette_date,
-                file_urls=[gazette_url],
+                file_urls=[url],
+                date=date,
+                edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
                 power="executive_legislative",
             )
+
+        next_sequential = sequential + 10
+        next_url = re.sub(r"start=(\d+)", f"start={next_sequential}", response.url)
+        yield Request(next_url, cb_kwargs={"sequential": next_sequential})
