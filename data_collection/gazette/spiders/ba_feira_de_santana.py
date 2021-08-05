@@ -17,13 +17,16 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     handle_httpstatus_list = [302]
 
     def parse(self, response):
-        gazette_table = response.css(".style166")
-        gazettes_links = gazette_table.xpath("a//@href").extract()
-        dates = gazette_table.css("a::text").extract()
+        gazette_table = response.xpath('//ancestor::tr[td[@class="style166"]]')
+        gazettes_links = gazette_table.xpath("td/a").css("::attr(href)").extract()
+        dates = gazette_table.xpath("td/a").css("::text").extract()
+        is_extra_flags = gazette_table.xpath("td/div/a/img")
 
         found_date_by_power = response.meta.get("found_date_by_power", {})
 
-        for url, gazette_date in zip(gazettes_links, dates):
+        for url, gazette_date, is_extra_edition in zip(
+            gazettes_links, dates, is_extra_flags
+        ):
             date_obj = datetime.strptime(gazette_date, "%d/%m/%Y")
             if date_obj.date() >= self.start_date:
                 edition = self.extract_edition(url)
@@ -34,9 +37,13 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
                     found_date_by_power[power] = date_obj.date()
 
                 file_url = response.urljoin(f"abrir.asp?edi={edition}&p={power_id}")
+                is_extra_edition = bool(
+                    is_extra_edition.css('[alt$="EXTRA"]').extract()
+                )
+
                 gazette = Gazette(
                     date=parse(gazette_date, languages=["pt"]).date(),
-                    is_extra_edition=False,  # FIXME
+                    is_extra_edition=is_extra_edition,
                     power=power,
                     edition_number=edition,
                 )
