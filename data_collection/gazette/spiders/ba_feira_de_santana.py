@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from dateparser import parse
 from scrapy.http import Request
 
@@ -19,44 +21,60 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
         gazettes_links = gazette_table.xpath("a//@href").extract()
         dates = gazette_table.css("a::text").extract()
 
-        for url, date in zip(gazettes_links, dates):
-            edition = self._extract_edition(url)
-            power = self._extract_power(url)
-            power_id = self.powers[power]
+        found_date_by_power = response.meta.get("found_date_by_power", {})
 
-            gazette = Gazette(
-                date=parse(date, languages=["pt"]).date(),
-                is_extra_edition=False,
-                power=power,
-            )
+        for url, gazette_date in zip(gazettes_links, dates):
+            date_obj = datetime.strptime(gazette_date, "%d/%m/%Y")
+            if date_obj.date() >= self.start_date:
+                edition = self.extract_edition(url)
+                power = self.extract_power(url)
+                power_id = self.powers[power]
 
-            gazette_details_page = f"abrir.asp?edi={edition}&p={power_id}"
-            gazette_url = response.urljoin(gazette_details_page)
-            yield Request(
-                gazette_url, callback=self.parse_document_url, meta={"item": gazette}
-            )
+                if date_obj.date() == self.start_date:
+                    found_date_by_power[power] = date_obj.date()
 
-        current_page_selector = "#pages ul li.current::text"
-        current_page = response.css(current_page_selector).extract_first()
-        next_page = int(current_page) + 1
-        next_page_url = response.urljoin(f"/?p={next_page}")
+                file_url = response.urljoin(f"abrir.asp?edi={edition}&p={power_id}")
+                gazette = Gazette(
+                    date=parse(gazette_date, languages=["pt"]).date(),
+                    is_extra_edition=False,  # FIXME
+                    power=power,
+                    edition_number=edition,
+                )
 
-        if next_page > self.last_page:
-            self.last_page = next_page
-            yield Request(next_page_url)
+                yield Request(
+                    file_url,
+                    callback=self.parse_document_url,
+                    meta={"gazette": gazette},
+                )
+
+        # we check the next page because editions from different powers may not be on the same page
+        if len(found_date_by_power) < 2:
+            current_page_selector = "#pages ul li.current::text"
+            current_page = response.css(current_page_selector).extract_first()
+            if current_page:
+                next_page = int(current_page) + 1
+                next_page_url = response.urljoin(f"/?p={next_page}")
+
+                if next_page > self.last_page:
+                    self.last_page = next_page
+                    yield Request(
+                        next_page_url, meta={"found_date_by_power": found_date_by_power}
+                    )
 
     def parse_document_url(self, response):
-        item = response.meta["item"]
-        url = response.headers["Location"].decode("utf-8")
-        item["file_urls"] = [url.replace("https", "http")]
-        return item
+        gazette = response.meta["gazette"]
+        pdf_url = response.headers["Location"].decode("utf-8")
+        if pdf_url is None:
+            self.logger.error(f"Unable to retrieve PDF URL for {gazette['date']}.")
 
-    def _extract_power(self, url):
-        if url.find("st=1") != -1:
-            return "executive"
-        return "legislative"
+        gazette["file_urls"] = [pdf_url]
+        return gazette
 
-    def _extract_edition(self, url):
+    @staticmethod
+    def extract_power(url):
+        return "executive" if url.find("st=1") != -1 else "legislative"
+
+    @staticmethod
+    def extract_edition(url):
         edition_index = url.find("edicao=") + len("edicao=")
-        edition = url[edition_index:]
-        return edition
+        return url[edition_index:]
