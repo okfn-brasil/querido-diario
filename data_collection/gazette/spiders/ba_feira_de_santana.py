@@ -22,19 +22,20 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
         dates = gazette_table.xpath("td/a").css("::text").extract()
         is_extra_flags = gazette_table.xpath("td/div/a/img")
 
-        found_date_by_power = response.meta.get("found_date_by_power", {})
+        go_to_next_page = False
 
         for url, gazette_date, is_extra_edition in zip(
             gazettes_links, dates, is_extra_flags
         ):
             date_obj = datetime.strptime(gazette_date, "%d/%m/%Y")
+
             if date_obj.date() >= self.start_date:
+                # we check the next page because editions from different powers may not be on the same page
+                go_to_next_page = True
+
                 edition = self.extract_edition(url)
                 power = self.extract_power(url)
                 power_id = self.powers[power]
-
-                if date_obj.date() == self.start_date:
-                    found_date_by_power[power] = date_obj.date()
 
                 file_url = response.urljoin(f"abrir.asp?edi={edition}&p={power_id}")
                 is_extra_edition = bool(
@@ -47,15 +48,13 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
                     power=power,
                     edition_number=edition,
                 )
-
                 yield Request(
                     file_url,
                     callback=self.parse_document_url,
                     meta={"gazette": gazette},
                 )
 
-        # we check the next page because editions from different powers may not be on the same page
-        if len(found_date_by_power) < 2:
+        if go_to_next_page:
             current_page_selector = "#pages ul li.current::text"
             current_page = response.css(current_page_selector).extract_first()
             if current_page:
@@ -64,9 +63,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
 
                 if next_page > self.last_page:
                     self.last_page = next_page
-                    yield Request(
-                        next_page_url, meta={"found_date_by_power": found_date_by_power}
-                    )
+                    yield Request(next_page_url)
 
     def parse_document_url(self, response):
         gazette = response.meta["gazette"]
