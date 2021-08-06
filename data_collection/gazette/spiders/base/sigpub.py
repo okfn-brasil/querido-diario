@@ -3,7 +3,6 @@ from datetime import date
 
 import scrapy
 from dateutil.rrule import DAILY, rrule
-from fake_useragent import UserAgent
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -25,7 +24,6 @@ class SigpubGazetteSpider(BaseGazetteSpider):
         - These websites have an "Advanced Search", but they are protected by ReCaptcha.
     """
 
-    custom_settings = {"USER_AGENT": UserAgent().random}
     start_date = date(2009, 1, 1)
 
     def start_requests(self):

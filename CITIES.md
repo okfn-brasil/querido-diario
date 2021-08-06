@@ -8,7 +8,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 
 | # | Cidade | Crawler | Issue | PR |
 |:-:|--------|:-------:|:------:|:------:|
-| 1 | São Paulo | | [issue](https://github.com/okfn-brasil/diario-oficial/issues/7) | |
+| 1 | São Paulo | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/380) | [PR](https://github.com/okfn-brasil/querido-diario/pull/381) |
 | 2 | Rio de Janeiro | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/15) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/29) |
 | 3 | Brasília | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido_diario/pull/57), [PR](https://github.com/okfn-brasil/querido-diario/pull/271) |
 | 4 | Salvador | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/47) |
@@ -53,7 +53,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 43 | Niterói | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/373) |
 | 44 | Belford Roxo | | | |
 | 45 | Campos dos Goytacazes | :white_check_mark: | | | https://github.com/okfn-brasil/diario-oficial/pull/70 |
-| 46 | Vila Velha | :white_check_mark: | | |
+| 46 | Vila Velha | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/318) |
 | 47 | Florianópolis | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/17) |
 | 48 | Caxias do Sul | :white_check_mark: | | |
 | 49 | Macapá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/254) |
@@ -62,7 +62,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 52 | São José do Rio Preto | | | |
 | 53 | Santos | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/14) |
 | 54 | Mogi das Cruzes | | | |
-| 55 | Betim | | | |
+| 55 | Betim |:white_check_mark:| | [PR](https://github.com/okfn-brasil/querido-diario/pull/417) |
 | 56 | Diadema | | | |
 | 57 | Campina Grande | | | |
 | 58 | Jundiaí | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/49) |
@@ -76,7 +76,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 66 | Anápolis | | | |
 | 67 | Bauru | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/196) |
 | 68 | Vitória | :white_check_mark: | | |
-| 69 | Caucaia | | | |
+| 69 | Caucaia | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/332) | [PR](https://github.com/okfn-brasil/querido-diario/pull/335) |
 | 70 | Itaquaquecetuba | | | |
 | 71 | São Vicente | | | |
 | 72 | Bandeira caruaru.jpg Caruaru | | | |
@@ -2299,3 +2299,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | XXX | Vera Cruz - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | XXX | Wenceslau Guimarães - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | XXX | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| XXX | São Gonçalo do Amarante - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/333) | [PR](https://github.com/okfn-brasil/querido-diario/pull/334) |
