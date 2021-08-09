@@ -1,8 +1,8 @@
-from datetime import date
+import re
+from datetime import date, datetime
 
-import dateparser
 from dateutil.rrule import MONTHLY, rrule
-from scrapy import FormRequest
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -12,13 +12,11 @@ class RnNatalSpider(BaseGazetteSpider):
 
     name = "rn_natal"
     allowed_domains = ["www.natal.rn.gov.br"]
-    start_date = date(2003, 1, 1)
+    start_date = date(2003, 11, 19)
 
     TERRITORY_ID = "2408102"
 
     def start_requests(self):
-        base_url = "http://www.natal.rn.gov.br/dom/"
-
         initial_date = date(self.start_date.year, self.start_date.month, 1)
         end_date = date.today()
 
@@ -26,20 +24,24 @@ class RnNatalSpider(BaseGazetteSpider):
             (date.year, date.month)
             for date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date)
         ]
+
         for year, month in periods_of_interest:
-            data = {"ano": str(year), "mes": str(month).zfill(2), "list": "Listar"}
-            yield FormRequest(url=base_url, formdata=data)
+            url = f"http://www.natal.rn.gov.br/api/dom/data/{month:02d}/{year}"
+            yield Request(url)
 
     def parse(self, response):
-        for entry in response.css("#texto a"):
-            file_url = response.urljoin(entry.css("::attr(href)").get())
-            title = entry.css("::text").get()
-            date = dateparser.parse(title.split("-")[-1], languages=["pt"]).date()
-            extra_edition = "Extra" in title
+        for _entry in response.json()["data"]:
+            entry = _entry[0]
+            url = re.search(r"href='(.+?)'", entry).group(1)
+            title = re.search(r">(.+?)<", entry).group(1)
+            date = datetime.strptime(title.split(" - ")[-1], "%d/%m/%Y").date()
+            extra_edition = (
+                re.search("extra|especial", title, re.IGNORECASE) is not None
+            )
 
             yield Gazette(
                 date=date,
-                file_urls=[file_url],
+                file_urls=[url],
                 is_extra_edition=extra_edition,
                 power="executive_legislative",
             )
