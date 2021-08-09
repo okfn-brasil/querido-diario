@@ -59,6 +59,8 @@ $ scrapy list
 
 Execute spider with name `spider_name`:
 
+> Attention: The command below will take a while to finish, by default it will collect the entire website, if you want to stop earlier or limit the job use [CLOSESPIDER_ITEMCOUNT](https://docs.scrapy.org/en/latest/topics/extensions.html#std-setting-CLOSESPIDER_ITEMCOUNT) or set `start_date` of the spider to a more close date.
+
 ```console
 $ scrapy crawl spider_name
 ```
@@ -69,6 +71,8 @@ following command will download only gazettes whose date is greater than 01/Sep/
 ```console
 $ scrapy crawl sc_florianopolis -a start_date=2020-09-01
 ```
+
+Collected data will be saved in `data_collection/data` directory.
 
 ### Generate multiple spiders from template
 
