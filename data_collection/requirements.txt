@@ -209,6 +209,8 @@ scrapy==2.4.1
     # via
     #   -r requirements.in
     #   spidermon
+scrapy-selenium==0.0.7
+selenium==3.141.0
 sentry-sdk==1.0.0
     # via spidermon
 service-identity==18.1.0
