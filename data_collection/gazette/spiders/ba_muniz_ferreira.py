@@ -6,10 +6,8 @@ from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 class BaMunizFerreiraSpider(ImprensaOficialSpider):
 
     name = "ba_muniz_ferreira"
-    allowed_domains = [
-        "pmMUNIZFERREIRABA.imprensaoficial.org",
-        "munizferreira.ba.gov.br",
-    ]
+    allowed_domains = ["pmmunizferreiraba.imprensaoficial.org"]
     start_date = date(2014, 12, 1)
-    url_base = "http://munizferreira.ba.gov.br/{}"
+    end_date = date(2021, 1, 19)
+    url_base = "http://pmmunizferreiraba.imprensaoficial.org/{}"
     TERRITORY_ID = "2922201"

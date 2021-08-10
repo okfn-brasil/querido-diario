@@ -11,9 +11,10 @@ from gazette.spiders.base import BaseGazetteSpider
 class ImprensaOficialSpider(BaseGazetteSpider):
     def start_requests(self):
         initial_date = date(self.start_date.year, self.start_date.month, 1)
-        end_date = date.today()
 
-        for monthly_date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date):
+        for monthly_date in rrule(
+            freq=MONTHLY, dtstart=initial_date, until=self.end_date
+        ):
             year_month = monthly_date.strftime("%Y/%m/")  # like 2015/01
             yield scrapy.Request(
                 self.url_base.format(year_month), callback=self.extract_gazette_links
