@@ -17,7 +17,7 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         current_date = self.start_date
         end_date = date.today()
         while current_date <= end_date:
-            year_month = current_date.strftime("%Y/%m")  # like 2015/01
+            year_month = current_date.strftime("%Y/%m/")  # like 2015/01
             current_date = self._get_next_month(current_date)
             yield scrapy.Request(
                 self.url_base.format(year_month), callback=self.extract_gazette_links
