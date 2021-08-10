@@ -1,3 +1,4 @@
+import re
 from datetime import date, datetime
 
 import scrapy
@@ -19,8 +20,12 @@ class ImprensaOficialSpider(BaseGazetteSpider):
             )
 
     def extract_gazette_links(self, response):
-        for a in response.css("h2 a"):
-            yield scrapy.Request(a.attrib["href"], dont_filter=True)
+        for gazette_link in response.css("h2 a::attr(href)").getall():
+            raw_gazette_date = re.search(r"\d{4}/\d{2}/\d{2}", gazette_link).group()
+            gazette_date = datetime.strptime(raw_gazette_date, "%Y/%m/%d").date()
+            if gazette_date < self.start_date:
+                return
+            yield scrapy.Request(gazette_link)
 
         # pagination exists when the button "Publicações mais antigas" is in the page
         another_page = response.xpath(
