@@ -35,11 +35,13 @@ class ImprensaOficialSpider(BaseGazetteSpider):
             yield scrapy.Request(another_page, callback=self.extract_gazette_links)
 
     def parse(self, response):
-        file_url = self.url_base.format(
-            response.css("div.entry-content a::attr(href)").re_first(
-                r"arquivo=\.\.\/(.*)"
-            )
-        )
+        file_url = response.css(
+            "div.entry-content a[href*='baixar.php?arquivo=']::attr(href)"
+        ).get()
+        if not file_url:  # older dates
+            file_url = response.css(
+                "div.entry-content a[title='Baixar Diário']::attr(href)"
+            ).get()
         gazette_date = response.css("span.posted-on a time::attr(datetime)").get()
         gazette_date = datetime.strptime(gazette_date, "%Y-%m-%dT%H:%M:%S%z").date()
 
