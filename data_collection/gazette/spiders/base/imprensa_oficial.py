@@ -1,24 +1,19 @@
 from datetime import date, datetime
 
 import scrapy
+from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class ImprensaOficialSpider(BaseGazetteSpider):
-    @staticmethod
-    def _get_next_month(current_date):
-        month = (current_date.month % 12) + 1
-        year = current_date.year + (current_date.month + 1 > 12)
-        return date(year, month, 1)
-
     def start_requests(self):
-        current_date = self.start_date
+        initial_date = date(self.start_date.year, self.start_date.month, 1)
         end_date = date.today()
-        while current_date <= end_date:
-            year_month = current_date.strftime("%Y/%m/")  # like 2015/01
-            current_date = self._get_next_month(current_date)
+
+        for monthly_date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date):
+            year_month = monthly_date.strftime("%Y/%m/")  # like 2015/01
             yield scrapy.Request(
                 self.url_base.format(year_month), callback=self.extract_gazette_links
             )
