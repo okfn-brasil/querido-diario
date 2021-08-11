@@ -2282,7 +2282,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2272 | Banzaê - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 2273 | Barra do Choca - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 2274 | Barrocas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
-| 2275 | Brotas de Macaúbas - BA         | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull383?) |
+| 2275 | Brotas de Macaúbas - BA         | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 2276 | Cachoeira - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 2277 | Caculé - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 2278 | Camamu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
@@ -2317,3 +2317,24 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2307 | Alagoinhas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 2308 | Sobral - CE | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/435) |
 | 2309 | São Gonçalo do Amarante - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/333) | [PR](https://github.com/okfn-brasil/querido-diario/pull/334) |
+| 2310 | Amélia Rodrigues - BA | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/299) | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2311 | Serrinha - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2312 | Conceição do Almeida - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2313 | Gentio do Ouro - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2314 | Gongogi - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2315 | Governador Mangabeira - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2316 | Itaquara - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2317 | Jaguarari - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2318 | Muniz Ferreira - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2319 | Paratinga - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2320 | Pé de Serra - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2321 | São Felipe - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2322 | São Félix - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2323 | São Francisco do Conde - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2324 | São Miguel das Matas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2325 | Sapeaçu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2326 | Saúde - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2327 | Serrinha - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2328 | Vera Cruz - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2329 | Wenceslau Guimarães - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2330 | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
