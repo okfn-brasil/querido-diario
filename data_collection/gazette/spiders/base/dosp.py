@@ -1,7 +1,7 @@
-import re
 import logging
-import dateparser
+import re
 
+import dateparser
 from scrapy_selenium import SeleniumRequest
 
 from gazette.items import Gazette
@@ -16,7 +16,7 @@ class DospGazetteSpider(BaseGazetteSpider):
 
     def start_requests(self):
         yield SeleniumRequest(
-            url=f"https://imprensaoficialmunicipal.com.br/{self.city}", 
+            url=f"https://imprensaoficialmunicipal.com.br/{self.city}",
             callback=self.parse,
         )
 
@@ -28,13 +28,12 @@ class DospGazetteSpider(BaseGazetteSpider):
             return True
         return False
 
-
     def parse(self, response):
         DATE = 0
         # YEAR = 1 # In roman form
         EDITION = 2
 
-        driver = response.request.meta['driver']
+        driver = response.request.meta["driver"]
 
         while True:
             for a in driver.find_elements_by_css_selector("#jornal .lista a"):
@@ -43,7 +42,7 @@ class DospGazetteSpider(BaseGazetteSpider):
                 if len(ps) != 3:
                     self.log("Strange clickable link: " + a.text, logging.WARNING)
                     continue
-                
+
                 date = re.search(r"\d{2}/\d{2}/\d{4}", ps[DATE].text)
                 if not date:
                     self.log("Strange date: " + a.text, logging.WARNING)
@@ -53,17 +52,17 @@ class DospGazetteSpider(BaseGazetteSpider):
                 if not edition_number:
                     self.log("Strange edition number: " + a.text, logging.WARNING)
                     continue
-                
+
                 date = dateparser.parse(date.group(), languages=("pt",)).date()
                 file_url = a.get_attribute("href")
                 edition_number = edition_number.group()
-                
+
                 yield Gazette(
                     date=date,
                     file_urls=[file_url],
                     edition_number=edition_number,
                     power="executive_legislative",
                 )
-            
+
             if not self.go_to_next_page(driver):
                 break

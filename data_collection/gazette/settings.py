@@ -1,5 +1,6 @@
-import pkg_resources
 from shutil import which
+
+import pkg_resources
 
 BOT_NAME = "gazette"
 SPIDER_MODULES = ["gazette.spiders"]
@@ -48,9 +49,9 @@ AWS_ENDPOINT_URL = ""
 AWS_REGION_NAME = ""
 FILES_STORE_S3_ACL = "public-read"
 
-SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
-SELENIUM_DRIVER_ARGUMENTS=['-headless']
+SELENIUM_DRIVER_NAME = "chrome"
+SELENIUM_DRIVER_EXECUTABLE_PATH = which("chromedriver")
+SELENIUM_DRIVER_ARGUMENTS = ["-headless"]
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
+    "scrapy_selenium.SeleniumMiddleware": 800,
 }
