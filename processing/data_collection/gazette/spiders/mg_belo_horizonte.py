@@ -3,9 +3,10 @@ from datetime import date, datetime, timedelta
 from scrapy import Request, Spider
 
 from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
-class MgBeloHorizonteSpider(Spider):
+class MgBeloHorizonteSpider(BaseGazetteSpider):
     TERRITORY_ID = "3106200"
     name = "mg_belo_horizonte"
     allowed_domains = ["portal6.pbh.gov.br"]
@@ -13,11 +14,11 @@ class MgBeloHorizonteSpider(Spider):
         "http://portal6.pbh.gov.br/dom/iniciaEdicao.do"
         "?method=DomDia&dia={}&comboAno={}"
     )
-    first_edition = date(2002, 3, 21)
+    start_date = date(2002, 3, 21)
 
     def start_requests(self):
         current_date = date.today()
-        while current_date >= self.first_edition:
+        while current_date >= self.start_date:
             formatted_date = current_date.strftime("%d/%m/%Y")
             yield Request(
                 self.documents_url.format(formatted_date, current_date.year),
