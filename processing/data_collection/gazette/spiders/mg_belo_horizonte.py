@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta
 
-from scrapy import Request, Spider
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
