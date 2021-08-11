@@ -6,87 +6,133 @@ Even with recurrent efforts of enforcing the [Freedom of Information legislation
 
 The goal of this project is to upgrade **Diário Oficial** to the digital age, centralizing information currently only available through separate sources.
 
-When this project was initially released, had two distinct goals: creating crawlers for governments gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
+When this project was initially released, had two distinct goals: creating crawlers for government gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
 
 Table of Contents
 =================
-  * [Build and Run](#build-and-run)
-     * [Run Gazette Crawler](#run-gazette-crawler)
-  * [Tips and tricks](#tips-and-tricks)
-  * [Troubleshooting](#troubleshooting)
-     * ["Permission denied" error when files are downloaded](#permission-denied-error-when-files-are-downloaded)
+  * [Development environment](#development-environment)
+    * [Run Gazette Crawler](#run-gazette-crawler)
+    * [Generate multiple spiders from template](#generate-multiple-spiders-from-template)
   * [Contributing](#contributing)
   * [Acknowledgments](#acknowledgments)
 
-## Build and Run
+## Development environment
 
-If you want to understand how Diário Oficial works, you'll want to get the source, build it, and run it locally.
+The best way to understand how **Querido Diário** works is to get the source
+and run it locally. All crawlers are developed using [Scrapy](https://scrapy.org)
+framework. They provide a [tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
+so you can learn to use it.
 
-The only prerequisites are [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), which are the tools responsible for installing all the other dependencies.
+If you are on a Windows computer, before you run the steps below you will need Microsoft Visual Build Tools (download [here](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). When you start the installation you need to select 'C++ build tools' on the Workload tab and also 'Windows 10 SDK' and 'MSVC v142 - VS 2019 C++ x64/x86 build tools' on the Individual Components tab.
 
-After you cloned the repository, you may want to run the following from the source folder:
+If you are in a Linux-like environment, the following commands will create a new
+[virtual environment](https://docs.python.org/3/library/venv.html) - that will keep
+everything isolated from your system - activate it and install all libraries needed
+to start running and developing new spiders.
 
 ```console
-$ make setup
-$ docker-compose up
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r data_collection/requirements.txt
+$ pre-commit install
 ```
+
+On a Windows computer, you can use the code above. You just need to substitute ```source .venv/bin/activate ``` for ```.venv/Scripts/activate.bat```. The rest is the same as in Linux.
 
 ### Run Gazette Crawler
 
-The gazettes spiders are written using Scrapy framework and must be executed with crawl command: `scrapy crawl <spider filename>`.
-However, it's recommended to use the processing container for that: `docker-compose run --rm processing <command>`.
-The following example is the command to run the gazette crawler for Florianópolis/SC:
+After configuring your environment, you will be able to execute and develop new spiders.
+The Scrapy project is in the `data_collection` directory, so you must enter it to execute the
+spiders and the `scrapy` command:
 
 ```console
-$ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis"
+$ cd data_collection
 ```
 
-You can limit the gazettes you want to download passing `start_date` as argument with `YYYY-MM-DD` format. The
-following command will download only gazettes which date is greater than 01/Sep/2020:
+Following we list some helpful commands.
+
+Get the list of all available spiders:
 
 ```console
-$ docker-compose run --rm processing bash -c "cd data_collection && scrapy crawl sc_florianopolis -a start_date=2020-09-01"
+$ scrapy list
 ```
 
-## Tips and tricks
+Execute spider with name `spider_name`:
 
-There is a make target allowing you run the scrapy shell inside the container used by the crawler:
+> Attention: The command below will take a while to finish, by default it will collect the entire website, if you want to stop earlier or limit the job use [CLOSESPIDER_ITEMCOUNT](https://docs.scrapy.org/en/latest/topics/extensions.html#std-setting-CLOSESPIDER_ITEMCOUNT) or set `start_date` of the spider to a more close date.
 
-```bash
-make shell
+```console
+$ scrapy crawl spider_name
 ```
 
-There is another make target allowing you run access the PostgreSQL database:
+You can limit the gazettes you want to download by passing `start_date` as an argument with the `YYYY-MM-DD` format. The
+following command will download only gazettes whose date is greater than 01/Sep/2020:
 
-```bash
-make sql
+```console
+$ scrapy crawl sc_florianopolis -a start_date=2020-09-01
 ```
 
-You need the password to access the database. You can find it in the .env file.
+Collected data will be saved in `data_collection/data` directory.
 
-You can also run the spider with some less key strokes. The following make target
-allows you to run the spider. It calls the same command of the docker compose 
-described in the documentation:
+### Generate multiple spiders from template
 
-```bash
-SPIDER=sc_florianopolis make run_spider
+You may end up in a situation where you have different cities using the same spider base,
+such as `FecamGazetteSpider`. To avoid creating the spider files manually, you can use a script
+for cases where we have a few spiders that are not complex and from the same spider base.
+
+The spider template lives in the `scripts/` folder. Here an example of a generated spider:
+
 ```
+from datetime import date
+from gazette.spiders.base import ImprensaOficialSpider
+
+
+class BaGentioDoOuroSpider(ImprensaOficialSpider):
+
+    name = "ba_gentio_do_ouro"
+    allowed_domains = ["pmGENTIODOOUROBA.imprensaoficial.org"]
+    start_date = date(2017, 2, 1)
+    url_base = "http://pmGENTIODOOUROBA.imprensaoficial.org"
+    TERRITORY_ID = "2911303"
+```
+
+To run the script, you only need a CSV file following the structure below:
+
+```
+url,city,state,territory_id,start_day,start_month,start_year,base_class
+http://pmXIQUEXIQUEBA.imprensaoficial.org,Xique-Xique,BA,2933604,1,1,2017,ImprensaOficialSpider
+http://pmWENCESLAUGUIMARAESBA.imprensaoficial.org,Wenceslau Guimarães,BA,2933505,1,1,2017,ImprensaOficialSpider
+http://pmVERACRUZBA.imprensaoficial.org,Vera Cruz,BA,2933208,1,4,2017,ImprensaOficialSpider
+```
+
+Once you have the CSV file, run the command:
+
+```
+cd scripts/
+
+python generate_spiders.py new-spiders.csv
+```
+
+That's it. The new spiders will be in the directory `data_collection/gazette/spiders/`.
 
 ## Troubleshooting
 
-### "Permission denied" error when files are downloaded
+### `Python.h` missing
 
-This problem most probably occurs due to a mismatch between your system's user id and the container's user id and there is a volume in place connecting both file systems (that's the default case here).
+While running `pip install` command, you can get an error like this one below:
 
-Run this command in your system's terminal to get your user's id:
-
-```console
-$ id -u
+```
+module.c:1:10: fatal error: Python.h: No such file or directory
+     #include <Python.h>
+              ^~~~~~~~~~
+    compilation terminated.
+    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
 ```
 
-Copy the output, replace the value of the environment variable `LOCAL_USER_ID` in the generated `.env` file with the copied value and execute `docker-compose build`. With the image rebuilt you are ready to go.
-
-To save yourself this effort in the future, you can replace the value of `LOCAL_USER_ID` in `.env.example` too and `.env` will already be generated with the correct value for it when `make setup` is executed.
+Please try to install `python3-dev`. E.g. via `apt install python3-dev`, if you
+are using a Debian-like distro, or use your distro manager package. Make sure that
+you use the correct version (e.g. `python3.6-dev` or `python3.7-dev`). You can
+check your version via `python3 --version`.
 
 ## Contributing
 
