@@ -21,7 +21,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
         while current_date >= self.start_date:
             formatted_date = current_date.strftime("%d/%m/%Y")
             yield Request(
-                self.documents_url.format(formatted_date, current_dateyear),
+                self.documents_url.format(formatted_date, current_date.year),
                 callback=self.parse_page_link,
                 meta={"current_date": current_date},
             )
