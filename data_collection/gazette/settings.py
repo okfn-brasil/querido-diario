@@ -1,5 +1,3 @@
-from shutil import which
-
 import pkg_resources
 
 BOT_NAME = "gazette"
