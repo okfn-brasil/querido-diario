@@ -13,8 +13,6 @@ psycopg2-binary
 python-dateutil
 python-decouple
 scrapy
-scrapy_selenium
-selenium
 schematics
 SQLAlchemy
 spidermon[monitoring]

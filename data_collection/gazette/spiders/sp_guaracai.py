@@ -1,4 +1,5 @@
 from gazette.spiders.base.dosp import DospGazetteSpider
+import datetime
 
 
 class SpGuaracaiSpider(DospGazetteSpider):
@@ -7,3 +8,5 @@ class SpGuaracaiSpider(DospGazetteSpider):
     allowed_domains = ["glicerio.sp.gov.br"]
 
     city = "guaracai"
+    code = 4853
+    start_date = datetime.date(2018, 9, 27)

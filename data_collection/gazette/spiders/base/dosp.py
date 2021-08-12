@@ -1,8 +1,9 @@
-import logging
-import re
+import datetime
+import base64
+import json
 
 import dateparser
-from scrapy_selenium import SeleniumRequest
+import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -12,57 +13,38 @@ class DospGazetteSpider(BaseGazetteSpider):
     allowed_domains = ["dosp.com.br", "imprensaoficialmunicipal.com.br"]
 
     # Must be defined into child classes
-    city = None
+    code = None
+    start_date = None
 
     def start_requests(self):
-        yield SeleniumRequest(
-            url=f"https://imprensaoficialmunicipal.com.br/{self.city}",
-            callback=self.parse,
-        )
+        FORMAT_DATE = "%Y-%m-%d"
+        target_date = self.start_date
+        end_date = datetime.date.today()
 
-    def go_to_next_page(self, driver):
-        # I use find_elements to avoid errors
-        next_btn = driver.find_elements_by_css_selector("#Pagination a.next")
-        if next_btn:
-            next_btn[0].click()
-            return True
-        return False
+        while target_date <= end_date:
+            from_data = target_date.strftime(FORMAT_DATE)
+            target_date = target_date + datetime.timedelta(weeks=1)
+            to_date = target_date.strftime(FORMAT_DATE)
+
+            yield scrapy.Request(
+                f"https://dosp.com.br/api/index.php/dioedata.js/{self.code}/{from_data}/{to_date}?callback=dioe"
+            )
 
     def parse(self, response):
-        DATE = 0
-        # YEAR = 1 # In roman form
-        EDITION = 2
+        # The response are in a javascript format, then needs some clean up
+        data = json.loads(response.text[6:-2])
 
-        driver = response.request.meta["driver"]
+        for item in data["data"]:
+            code = item["iddo"]
+            code = str(code).encode("ascii")
+            pdf_code = base64.b64encode(code).decode("ascii")
+            file_url = "https://dosp.com.br/exibe_do.php?i=" + pdf_code
+            edition_number = item["edicao_do"]
+            date = dateparser.parse(item["data"]).date()
 
-        while True:
-            for a in driver.find_elements_by_css_selector("#jornal .lista a"):
-                ps = a.find_elements_by_tag_name("p")
-
-                if len(ps) != 3:
-                    self.log("Strange clickable link: " + a.text, logging.WARNING)
-                    continue
-
-                date = re.search(r"\d{2}/\d{2}/\d{4}", ps[DATE].text)
-                if not date:
-                    self.log("Strange date: " + a.text, logging.WARNING)
-                    continue
-
-                edition_number = re.search(r"Edi..o: (\d+)", ps[EDITION].text)
-                if not edition_number:
-                    self.log("Strange edition number: " + a.text, logging.WARNING)
-                    continue
-
-                date = dateparser.parse(date.group(), languages=("pt",)).date()
-                file_url = a.get_attribute("href")
-                edition_number = edition_number.group()
-
-                yield Gazette(
-                    date=date,
-                    file_urls=[file_url],
-                    edition_number=edition_number,
-                    power="executive_legislative",
-                )
-
-            if not self.go_to_next_page(driver):
-                break
+            yield Gazette(
+                date=date,
+                file_urls=[file_url],
+                edition_number=edition_number,
+                power="executive_legislative",
+            )
