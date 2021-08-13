@@ -38,7 +38,7 @@ class DospGazetteSpider(BaseGazetteSpider):
             code = item["iddo"]
             code = str(code).encode("ascii")
             pdf_code = base64.b64encode(code).decode("ascii")
-            file_url = "https://dosp.com.br/exibe_do.php?i=" + pdf_code
+            file_url = f"https://dosp.com.br/exibe_do.php?i={pdf_code}"
             edition_number = item["edicao_do"]
             date = dateparser.parse(item["data"]).date()
 
