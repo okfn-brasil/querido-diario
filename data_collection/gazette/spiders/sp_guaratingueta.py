@@ -27,22 +27,22 @@ class SpGuaratinguetaSpider(BaseGazetteSpider):
                 url = "https://guaratingueta.sp.gov.br/diario-oficial-da-estancia-turistica-de-guaratingueta/"
             else:
                 url = f"https://guaratingueta.sp.gov.br/diario-oficial-{year}/"
-            yield scrapy.Request(url, meta={'current_year': year})
+            yield scrapy.Request(url, meta={"current_year": year})
 
     def parse(self, response):
         texts = response.xpath(
-            '//div[1]/div/div/div[1]/div/article/div[1]/ul/li'
+            "//div[1]/div/div/div[1]/div/article/div[1]/ul/li"
         ).getall()
         texts = [self._clean_edition_text(edition_title) for edition_title in texts]
 
         gazette_urls = response.xpath(
-            '//div[1]/div/div/div[1]/div/article/div[1]/ul/li/a[1]/@href'
+            "//div[1]/div/div/div[1]/div/article/div[1]/ul/li/a[1]/@href"
         ).getall()
         for gazette_url, text in zip(gazette_urls, texts):
             # year needs to be 3 or 4 because of typos
-            date = re.match("[0-9]{2}/[0-9]{2}/\s?[0-9]{3,4}", text).group()
+            date = re.match(r"[0-9]{2}/[0-9]{2}/\s?[0-9]{3,4}", text).group()
             if len(date) < 10:
-                date = self._handle_date_typos(date, response.meta.get('current_year'))
+                date = self._handle_date_typos(date, response.meta.get("current_year"))
             gazette_date = dateparser.parse(date, languages=["pt"]).date()
             file_urls = [gazette_url]
             is_extra_edition = any(
@@ -67,16 +67,16 @@ class SpGuaratinguetaSpider(BaseGazetteSpider):
         # use uppercase
         edition_title = edition_title.upper()
         # remove HTML tags
-        edition_title = re.sub(r'<.*?>', '', edition_title)
+        edition_title = re.sub(r"<.*?>", "", edition_title)
         # remove weird character \xa0
-        edition_title = edition_title.replace('\xa0', '')
+        edition_title = edition_title.replace("\xa0", "")
         # replace 'O' with 0 (zero) in date
-        edition_title = edition_title[:10].replace('O', '0') + edition_title[10:]
+        edition_title = edition_title[:10].replace("O", "0") + edition_title[10:]
         return edition_title
 
     def _handle_date_typos(self, date, current_year):
-        date_components = date.split('/')
+        date_components = date.split("/")
         # handle year typo (e.g: '16/07/208' in https://guaratingueta.sp.gov.br/diario-oficial-2018/)
         if len(date_components[2]) != 4:
             date_components[2] = str(current_year)
-        return '/'.join(date_components)
+        return "/".join(date_components)
