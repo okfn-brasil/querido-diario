@@ -85,7 +85,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 75 | Pelotas | | | |
 | 76 | Ponta Grossa | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/45) |
 | 77 | Canoas | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | [PR](https://github.com/okfn-brasil/querido-diario/pull/290/) |
-| 78 | Petrolina | | | |
+| 78 | Petrolina | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/10) | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
 | 79 | Boa Vista | :soon: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/101) |
 | 80 | Ribeirão das Neves | | | |
 | 81 | Paulista | | | |
@@ -2273,10 +2273,69 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2263 | Xexéu - PE | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/195) |
 | 2264 | Xinguara - PA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/195) |
 | 2265 | Presidente Prudente | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/233) |
-| XXX | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
-| XXX | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
-| XXX | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
-| XXX | Itu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/303) |
-| XXX | Acajutiba - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/330) |
-| XXX | São Gonçalo do Amarante - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/333) | [PR](https://github.com/okfn-brasil/querido-diario/pull/334) |
-| XXX | Guaratinguetá | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/403) |
+| 2266 | Foz do Iguaçu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/27) |
+| 2267 | Araguaina | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/3) |
+| 2268 | Jaú | || [PR](https://github.com/okfn-brasil/diario-oficial/pull/197)|
+| 2269 | Itu | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/303) |
+| 2270 | Acajutiba - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/330) |
+| 2271 | Antônio Cardoso - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2272 | Banzaê - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2273 | Barra do Choca - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2274 | Barrocas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2275 | Brotas de Macaúbas - BA         | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2276 | Cachoeira - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2277 | Caculé - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2278 | Camamu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2279 | Campo Formoso - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2280 | Canudos - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2281 | Catolândia - BA| :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2282 | Catu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2283 | Cícero Dantas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2284 | Floresta Azul - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2285 | Inhambupe - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2286 | Ipiau - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2287 | Irará - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2288 | Itapetinga - BA| :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2289 | Ituaçu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2290 | Juazeiro - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2291 | Laje - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2292 | Macajuba - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2293 | Mascote - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2294 | Medeiros Neto - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2295 | Mucuri - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2296 | Prado - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2297 | Ribeira do Pombal - BA  | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2298 | Santa Cruz Cabrália - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2299 | Santo Amaro - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2300 | Santo Estevão - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2301 | Senhor do Bonfim - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2302 | Sento Sé - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2303 | Tabocas do Brejo Velho - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2304 | Teixeira de Freitas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2305 | Teolândia - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2306 | Tucano - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2307 | Alagoinhas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/383) |
+| 2308 | Sobral - CE | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/435) |
+| 2309 | São Gonçalo do Amarante - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/333) | [PR](https://github.com/okfn-brasil/querido-diario/pull/334) |
+| 2310 | Amélia Rodrigues - BA | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/299) | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2311 | Serrinha - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2312 | Conceição do Almeida - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2313 | Gentio do Ouro - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2314 | Gongogi - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2315 | Governador Mangabeira - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2316 | Itaquara - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2317 | Jaguarari - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2318 | Muniz Ferreira - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2319 | Paratinga - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2320 | Pé de Serra - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2321 | São Felipe - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2322 | São Félix - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2323 | São Francisco do Conde - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2324 | São Miguel das Matas - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2325 | Sapeaçu - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2326 | Saúde - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2327 | Serrinha - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2328 | Vera Cruz - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2329 | Wenceslau Guimarães - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2330 | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2331 | Guaratinguetá - SP | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/403) |
