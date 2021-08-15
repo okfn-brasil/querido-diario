@@ -3,6 +3,7 @@ import pkg_resources
 BOT_NAME = "gazette"
 SPIDER_MODULES = ["gazette.spiders"]
 NEWSPIDER_MODULE = "gazette.spiders"
+COMMANDS_MODULE = "gazette.commands"
 ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 100,
