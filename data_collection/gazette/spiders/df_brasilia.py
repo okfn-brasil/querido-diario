@@ -48,6 +48,10 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
         for gazette_name in dates.values():
             date = re.search(self.DATE_REGEX, gazette_name).group()
+
+            if date is None:
+                continue
+
             date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
 
             if date < self.start_date:
