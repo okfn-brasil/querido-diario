@@ -2339,4 +2339,3 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2329 | Wenceslau Guimarães - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2330 | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2331 | Guaratinguetá - SP | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/403) |
-| 2332 | Americana - SP | :white_check_mark: | | [SP](https://github.com/okfn-brasil/querido-diario/pull/470) |
