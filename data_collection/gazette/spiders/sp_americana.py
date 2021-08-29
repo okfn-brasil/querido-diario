@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
+
 class SpAmericanaSpider(BaseGazetteSpider):
     TERRITORY_ID = "3501608"
     name = "sp_americana"
@@ -31,10 +32,7 @@ class SpAmericanaSpider(BaseGazetteSpider):
         date = self.start_date
         today = datetime.date.today()
 
-        while (
-            date.year < today.year
-            or date.month < today.month
-        ):
+        while date.year < today.year or date.month < today.month:
             yield response.follow(url, self.parse_gazette)
             date = date + relativedelta(months=+1)
             url = base_url + f"?mes={date.month}&ano={date.year}"
@@ -69,11 +67,9 @@ class SpAmericanaSpider(BaseGazetteSpider):
 
             file_url = gazette.css(self.locations["gazette_url"]).get()
             date = gazette.re_first(r"(\d{2}\/\d{2}\/\d{4})")
-            date = dateparser.parse(
-                date, date_formats=["%d/%m/%Y"]
-            ).date()
+            date = dateparser.parse(date, date_formats=["%d/%m/%Y"]).date()
             edition = gazette.re_first("\d{3}")
-            
+
             yield Gazette(
                 date=date,
                 file_urls=[file_url],
