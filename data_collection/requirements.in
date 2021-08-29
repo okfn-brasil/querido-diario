@@ -7,7 +7,6 @@ flake8
 isort
 itemadapter
 jinja2
-pip-tools
 pre-commit
 psycopg2-binary
 python-dateutil
@@ -16,4 +15,3 @@ scrapy
 schematics
 SQLAlchemy
 spidermon[monitoring]
-wheel

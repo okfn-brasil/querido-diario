@@ -20,7 +20,7 @@ class GazetteDateFilteringPipeline:
 
 
 class DefaultValuesPipeline:
-    """ Add defaults values field, if not already set in the item """
+    """Add defaults values field, if not already set in the item"""
 
     default_field_values = {
         "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
