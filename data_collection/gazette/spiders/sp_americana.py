@@ -1,12 +1,10 @@
 import dateparser
-from scrapy import Spider
 import datetime
 from dateutil.relativedelta import relativedelta
 from gazette.items import Gazette
-import re
+from gazette.spiders.base import BaseGazetteSpider
 
-
-class SpAmericanaSpider(Spider):
+class SpAmericanaSpider(BaseGazetteSpider):
     TERRITORY_ID = "3501608"
     name = "sp_americana"
     allowed_domains = ["diariooficial.americana.sp.gov.br"]
