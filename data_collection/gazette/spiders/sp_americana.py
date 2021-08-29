@@ -11,13 +11,19 @@ class SpAmericanaSpider(Spider):
     name = "sp_americana"
     allowed_domains = ["diariooficial.americana.sp.gov.br"]
     start_date = datetime.date(2018, 9, 1)  # First gazette available
-    start_urls = ["https://diariooficial.americana.sp.gov.br/diario-oficial-edicaoAnterior.php"]
-    extra_editions = "https://diariooficial.americana.sp.gov.br/diario-oficial-edicaoExtra.php"
+    start_urls = [
+        "https://diariooficial.americana.sp.gov.br/diario-oficial-edicaoAnterior.php"
+    ]
+    extra_editions = (
+        "https://diariooficial.americana.sp.gov.br/diario-oficial-edicaoExtra.php"
+    )
 
     locations = {
-        "gazette": "//*[@class='day table-light']/strong/a",
-        "extra_gazette_url": "//*[@class='list-group-item']/a/@href",
-        "extra_gazette_date": "//*[@class='list-group-item']/text()"}
+        "gazette": ".day a",
+        "gazette_details": "::attr(title)",
+        "gazette_url": "::attr(href)",
+        "extra_gazette": "li.list-group-item",
+    }
 
     def parse(self, response):
 
@@ -25,8 +31,12 @@ class SpAmericanaSpider(Spider):
         base_url = response.url
         url = base_url + param_url
         date = self.start_date
+        today = datetime.date.today()
 
-        while date.year < datetime.date.today().year or date.month < datetime.date.today().month:
+        while (
+            date.year < today.year
+            or date.month < today.month
+        ):
             yield response.follow(url, self.parse_gazette)
             date = date + relativedelta(months=+1)
             url = base_url + f"?mes={date.month}&ano={date.year}"
@@ -35,12 +45,15 @@ class SpAmericanaSpider(Spider):
 
     def parse_gazette(self, response):
 
-        gazettes = response.xpath(self.locations["gazette"]).extract()
+        gazettes = response.css(self.locations["gazette"])
+
         for gazette in gazettes:
-            file_url = gazette.split('"')[1]
-            date = gazette.split('"')[7][6:16]
+
+            file_url = gazette.css(self.locations["gazette_url"]).get()
+            details = gazette.css(self.locations["gazette_details"])
+            date = details.re_first(r"(\d{2}\/\d{2}\/\d{4})")
             date = dateparser.parse(date, date_formats=["%d/%m/%Y"]).date()
-            edition = re.findall(r'\d+', gazette.split(';')[2])[0]
+            edition = details.re_first("No:\s*(\d+)")
 
             yield Gazette(
                 date=date,
@@ -48,21 +61,25 @@ class SpAmericanaSpider(Spider):
                 is_extra_edition=False,
                 power="executive",
                 edition_number=edition,
-
             )
 
     def extra_parse_gazette(self, response):
 
-        gazettes = response.xpath(self.locations['extra_gazette_url']).extract()
-        dates = response.xpath(self.locations['extra_gazette_date']).extract()[2::3]
-        counter = 0
-        while counter < len(gazettes):
-            file_url = gazettes[counter]
-            date = dateparser.parse(dates[counter][2:12], date_formats=["%d/%m/%Y"]).date()
-            counter += 1
+        gazettes = response.css(self.locations["extra_gazette"])
+
+        for gazette in gazettes:
+
+            file_url = gazette.css(self.locations["gazette_url"]).get()
+            date = gazette.re_first(r"(\d{2}\/\d{2}\/\d{4})")
+            date = dateparser.parse(
+                date, date_formats=["%d/%m/%Y"]
+            ).date()
+            edition = gazette.re_first("\d{3}")
+            
             yield Gazette(
                 date=date,
                 file_urls=[file_url],
                 is_extra_edition=True,
                 power="executive",
+                edition_number=edition,
             )
