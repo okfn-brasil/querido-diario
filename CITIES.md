@@ -2338,3 +2338,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2328 | Vera Cruz - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2329 | Wenceslau Guimarães - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2330 | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
+| 2331 | Adolfo - SP | :white_check_mark: || [PR]()
