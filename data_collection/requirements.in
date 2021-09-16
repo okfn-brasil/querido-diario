@@ -1,6 +1,7 @@
 awscli
 black
 boto3
+click
 chompjs
 dateparser
 flake8
