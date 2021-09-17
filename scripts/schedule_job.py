@@ -1,7 +1,7 @@
 import datetime
-from decouple import config, Csv
 
 import click
+from decouple import Csv, config
 from scrapinghub import ScrapinghubClient
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
@@ -35,7 +35,8 @@ def schedule_job(start_date, full, spider_name):
         "AWS_REGION_NAME": config("AWS_REGION_NAME"),
         "SPIDERMON_TELEGRAM_SENDER_TOKEN": config("SPIDERMON_TELEGRAM_SENDER_TOKEN"),
         "SPIDERMON_TELEGRAM_RECIPIENTS": config(
-            "SPIDERMON_TELEGRAM_RECIPIENTS", cast=Csv(),
+            "SPIDERMON_TELEGRAM_RECIPIENTS",
+            cast=Csv(),
         ),
         "SPIDERMON_TELEGRAM_FAKE": config("SPIDERMON_TELEGRAM_FAKE", cast=bool),
     }
@@ -46,7 +47,8 @@ def schedule_job(start_date, full, spider_name):
 
     spider = project.spiders.get(spider_name)
     spider.jobs.run(
-        job_settings=job_settings, job_args=job_args,
+        job_settings=job_settings,
+        job_args=job_args,
     )
 
 

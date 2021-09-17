@@ -1,6 +1,5 @@
 import pkg_resources
-from decouple import config, Csv
-
+from decouple import Csv, config
 
 BOT_NAME = "gazette"
 SPIDER_MODULES = ["gazette.spiders"]
@@ -41,7 +40,9 @@ SPIDERMON_TELEGRAM_RECIPIENTS = config(
     "SPIDERMON_TELEGRAM_RECIPIENTS", default="<RECIPIENT>", cast=Csv()
 )
 
-QUERIDODIARIO_DATABASE_URL = config("QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db")
+QUERIDODIARIO_DATABASE_URL = config(
+    "QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db"
+)
 QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO = 5
 QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 5
 
