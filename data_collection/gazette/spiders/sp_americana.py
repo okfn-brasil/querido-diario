@@ -1,6 +1,8 @@
-import dateparser
 import datetime
+
+import dateparser
 from dateutil.relativedelta import relativedelta
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
