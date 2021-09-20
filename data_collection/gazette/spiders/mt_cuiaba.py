@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from dateparser import parse
+from dateutil.parser import isoparse
 from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
@@ -39,10 +39,9 @@ class MtCuiabaSpider(BaseGazetteSpider):
         for edition in editions:
             edition_id = edition["id"]
             edition_url = f"{BASE_URL}/downloadPdf/{edition_id}"
-            edition_date = edition["publication_date"]
 
             yield Gazette(
-                date=parse(edition_date, languages=["pt"]),
+                date=isoparse(edition["publication_date"]).date(),
                 file_urls=[edition_url],
                 is_extra_edition=edition["suplement"],
                 power="executive",
