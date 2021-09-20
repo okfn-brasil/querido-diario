@@ -1,5 +1,4 @@
 import datetime
-import json
 
 from dateutil.parser import isoparse
 from dateutil.rrule import MONTHLY, rrule
@@ -8,25 +7,23 @@ from scrapy import Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
-
 
 class MtCuiabaSpider(BaseGazetteSpider):
     TERRITORY_ID = "5103403"
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
-    start_urls = ["http://gazetamunicipal.cuiaba.mt.gov.br/"]
+    start_date = datetime.date(1967, 1, 1)
+    end_date = datetime.date.today()
+
+    BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
 
     custom_settings = {
         "DOWNLOAD_DELAY": 1,
     }
 
     def start_requests(self):
-        start_date = datetime.date(1967, 1, 1)
-        end_date = datetime.date.today()
-
-        for date in rrule(MONTHLY, dtstart=start_date, until=end_date):
-            date_url = f"{BASE_URL}/published/{date.year}/{date.month}"
+        for date in rrule(MONTHLY, dtstart=self.start_date, until=self.end_date):
+            date_url = f"{self.BASE_URL}/published/{date.year}/{date.month}"
             yield Request(
                 url=date_url,
                 headers={
@@ -35,14 +32,12 @@ class MtCuiabaSpider(BaseGazetteSpider):
             )
 
     def parse(self, response):
-        editions = json.loads(response.text)["editions"]
+        editions = response.json()["editions"]
         for edition in editions:
-            edition_id = edition["id"]
-            edition_url = f"{BASE_URL}/downloadPdf/{edition_id}"
-
             yield Gazette(
+                file_urls=[f"{self.BASE_URL}/downloadPdf/{edition['id']}"],
                 date=isoparse(edition["publication_date"]).date(),
-                file_urls=[edition_url],
-                is_extra_edition=edition["suplement"],
                 power="executive",
+                is_extra_edition=edition["suplement"],
+                edition_number=edition["number"],
             )
