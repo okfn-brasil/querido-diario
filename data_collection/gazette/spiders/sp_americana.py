@@ -51,7 +51,7 @@ class SpAmericanaSpider(BaseGazetteSpider):
             details = gazette.css(self.locations["gazette_details"])
             date = details.re_first(r"(\d{2}\/\d{2}\/\d{4})")
             date = dateparser.parse(date, date_formats=["%d/%m/%Y"]).date()
-            edition = details.re_first("No:\s*(\d+)")
+            edition = details.re_first(r"No:\s*(\d+)")
 
             yield Gazette(
                 date=date,
@@ -70,7 +70,7 @@ class SpAmericanaSpider(BaseGazetteSpider):
             file_url = gazette.css(self.locations["gazette_url"]).get()
             date = gazette.re_first(r"(\d{2}\/\d{2}\/\d{4})")
             date = dateparser.parse(date, date_formats=["%d/%m/%Y"]).date()
-            edition = gazette.re_first("\d{3}")
+            edition = gazette.re_first(r"\d{3}")
 
             yield Gazette(
                 date=date,
