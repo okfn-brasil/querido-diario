@@ -13,5 +13,6 @@ SPIDERS = [
     "rn_natal",
     "rr_boa_vista",
     "sc_florianopolis",
+    "sp_sao_carlos",
     "to_palmas",
 ]
