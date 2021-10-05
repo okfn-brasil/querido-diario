@@ -1,14 +1,10 @@
 awscli
-black
 boto3
 click
 chompjs
 dateparser
-flake8
-isort
 itemadapter
 jinja2
-pre-commit
 psycopg2-binary
 python-dateutil
 python-decouple

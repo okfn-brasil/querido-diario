@@ -18,6 +18,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
-        run: pip install -r data_collection/requirements.txt
+        run: pip install -r data_collection/requirements-dev.txt
       - name: Check style
         run: make check
