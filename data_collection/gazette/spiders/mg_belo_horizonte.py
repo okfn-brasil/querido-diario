@@ -16,6 +16,8 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
     start_date = datetime.date(1995, 9, 26)
     end_date = datetime.date.today()
 
+    custom_settings = {"DOWNLOAD_DELAY": 0.5}
+
     def start_requests(self):
         base_url = "https://api-dom.pbh.gov.br/api/v1/edicoes/buscarpublicacaopordata"
 
