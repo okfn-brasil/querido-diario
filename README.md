@@ -33,7 +33,7 @@ to start running and developing new spiders.
 ```console
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-$ pip install -r data_collection/requirements-dev.txt
+$ pip install -r data_collection/requirements.txt
 $ pre-commit install
 ```
 
