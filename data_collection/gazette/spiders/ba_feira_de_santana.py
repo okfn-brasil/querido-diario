@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from dateparser import parse
 from scrapy.http import Request
@@ -10,6 +10,8 @@ from gazette.spiders.base import BaseGazetteSpider
 class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2910800"
     name = "ba_feira_de_santana"
+    start_date = date(2015, 1, 1)
+    end_date = date.today()
     allowed_domains = ["diariooficial.feiradesantana.ba.gov.br"]
     start_urls = ["http://www.diariooficial.feiradesantana.ba.gov.br"]
     powers = {"executive": 1, "legislative": 2}
@@ -18,8 +20,8 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
 
     def parse(self, response):
         gazette_table = response.xpath('//ancestor::tr[td[@class="style166"]]')
-        gazettes_links = gazette_table.xpath("td/a").css("::attr(href)").extract()
-        dates = gazette_table.xpath("td/a").css("::text").extract()
+        gazettes_links = gazette_table.css("a.link_menu2::attr(href)").getall()
+        dates = gazette_table.css("a.link_menu2::text").getall()
         is_extra_flags = gazette_table.xpath("td/div/a/img")
 
         go_to_next_page = False
@@ -29,7 +31,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
         ):
             date_obj = datetime.strptime(gazette_date, "%d/%m/%Y")
 
-            if date_obj.date() >= self.start_date:
+            if self.start_date <= date_obj.date() <= self.end_date:
                 # we check the next page because editions from different powers may not be on the same page
                 go_to_next_page = True
 
@@ -38,9 +40,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
                 power_id = self.powers[power]
 
                 file_url = response.urljoin(f"abrir.asp?edi={edition}&p={power_id}")
-                is_extra_edition = bool(
-                    is_extra_edition.css('[alt$="EXTRA"]').extract()
-                )
+                is_extra_edition = bool(is_extra_edition.css('[alt$="EXTRA"]').getall())
 
                 gazette = Gazette(
                     date=parse(gazette_date, languages=["pt"]).date(),
@@ -56,7 +56,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
 
         if go_to_next_page:
             current_page_selector = "#pages ul li.current::text"
-            current_page = response.css(current_page_selector).extract_first()
+            current_page = response.css(current_page_selector).get()
             if current_page:
                 next_page = int(current_page) + 1
                 next_page_url = response.urljoin(f"/?p={next_page}")
