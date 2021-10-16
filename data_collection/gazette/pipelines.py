@@ -66,7 +66,7 @@ class SQLDatabasePipeline:
         gazette_item = {field: item.get(field) for field in fields}
 
         for file_info in item.get("files", []):
-            already_downloaded = file_info["status"] in ["uptodate", "downloaded"]
+            already_downloaded = file_info["status"] == "uptodate"
             if already_downloaded:
                 # We should not insert in database information of
                 # files that were already downloaded before
