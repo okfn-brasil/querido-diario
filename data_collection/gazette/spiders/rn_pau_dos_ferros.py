@@ -17,7 +17,7 @@ class RnPauDosFerrosSpider(BaseGazetteSpider):
     def parse(self, response, page = 1):
         gazettes = response.css(".list-group-item")
         last_page_number_css = ".pagination > li:nth-last-child(-n+2) > a > span::text"
-        last_page_number = int(response.css(last_page_number_css)..get()())
+        last_page_number = int(response.css(last_page_number_css).get()())
         follow_next_page = True
 
         for gazette in gazettes:
