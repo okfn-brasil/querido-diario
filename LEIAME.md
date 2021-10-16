@@ -1,8 +1,10 @@
 # Querido Diário
 
 _Última atualização: 16/10/2021._
+______________________________________
 
 _[Click here](languages/en-US/README.md) to read this article in english._
+______________________________________
 
 **Diário Oficial** é o nome da publicação utilizada pela administração pública brasileira para comunicar suas ações à população. Para ser válido, todo ato público deve ser publicado no diário oficial, seja na esfera federal, estadual ou municipal. 
 
@@ -12,14 +14,16 @@ O objetivo do **Querido Diário** é trazer os _diários oficiais municipais_ pa
 
 O projeto tinha duas metas distintas quando foi lançado: criar raspadores para os diários oficiais e analisar as informações sobre compras públicas e licitações. Atualmente, mantemos apenas o primeiro deles. 
 
+Para saber mais sobre o projeto, acesse o [site oficial](https://queridodiario.ok.org.br/). 
+
 Tabela de Conteúdos
 =================
   * [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
     * [Rodar o raspador](#rodar-o-raspador)
-    * [Gerar múltiplos raspadores a partir de um template](#gerar-multiplos-raspadores-template)
+    * [Gerar múltiplos raspadores a partir de um template](#gerar-múltiplos-raspadores-a-partir-de-um-template)
   * [Solução de problemas](#solução-de-problemas)
   * [Contribuindo](#contribuindo)
-  * [Créditos](#creditos)
+  * [Créditos](#créditos)
 
 ## Ambiente de desenvolvimento
 
@@ -27,7 +31,7 @@ A melhor maneira de entender como o **Querido Diário** funciona é acessar a fo
 
 Se você utiliza Windows, antes de rodar os passos a seguir, você irá precisar do Microsoft Visual Build Tools (baixe [aqui](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). Ao iniciar a instalação, você precisa selecionar 'C++ build tools' na aba de carregamento e também 'Windows 10 SDK' e 'MSVC v142 - VS 2019 C++ x64/x86 build tools' na aba de componentes individuais.
 
-Se você utiliza Linux, os comandos a seguir irão criar um novo [ambiente virtual](https://docs.python.org/3/library/venv.html) - que manterá tudo isolado do seu sistema -, ativá-lo e  instalar todas as bibliotecas necessárias para começar a rodar e desenvolver novos raspadores.
+Se você utiliza Linux, os comandos a seguir irão criar um novo [ambiente virtual](https://docs.python.org/pt-br/3/library/venv.html) - que manterá tudo isolado do seu sistema -, ativá-lo e  instalar todas as bibliotecas necessárias para começar a rodar e desenvolver novos raspadores.
 
 ```console
 $ python3 -m venv .venv
