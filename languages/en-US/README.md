@@ -4,9 +4,9 @@
 
 Even with recurrent efforts of enforcing the [Freedom of Information legislation](http://www.acessoainformacao.gov.br/assuntos/conheca-seu-direito/principais-aspectos/principais-aspectos) across the country, official communication remains - in most of the territories - in PDFs.
 
-The goal of this project is to upgrade **Diário Oficial** to the digital age, centralizing information currently only available through separate sources.
+The goal of **Querido Diário** project is to upgrade **Diário Oficial** to the digital age, centralizing information currently only available through separate sources.
 
-When this project was initially released, had two distinct goals: creating crawlers for government gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
+When this project was initially released, it was called **Diário Oicial** and had two distinct goals: creating crawlers for government gazettes and parsing bidding exemptions from them. Now going forward, it is limited to the first objective.
 
 Table of Contents
 =================
@@ -140,4 +140,4 @@ If you are interested in fixing issues and contributing directly to the code bas
 
 ## Acknowledgments
 
-This project is maintained by Open Knowledge Foundation Brasil, thanks to the support of Digital Ocean and [hundreds of other names](https://serenata.ai/en/about/).
+This project is maintained by Open Knowledge Foundation Brasil, thanks to the support of Digital Ocean and [hundreds of other names](https://queridodiario.ok.org.br/apoie#quem-apoia).
