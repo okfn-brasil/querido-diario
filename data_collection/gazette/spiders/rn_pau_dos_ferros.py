@@ -45,7 +45,6 @@ class RnPauDosFerrosSpider(BaseGazetteSpider):
             partial_url = gazette.css("a::attr(href)").extract_first()
             url = f"https://paudosferros.rn.gov.br/{partial_url}"
 
-            # Make sense to check on database if the value is repeated
             yield Gazette(
                 date=gazette_date,
                 file_urls=[url],
