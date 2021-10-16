@@ -14,21 +14,17 @@ class RnPauDosFerrosSpider(BaseGazetteSpider):
     TERRITORY_ID = "2409407"
     start_urls = ["https://paudosferros.rn.gov.br/publicacoes.php?grupo=&cat=11"]
 
-    def parse(self, response, page = 1):
+    def parse(self, response, page=1):
         gazettes = response.css(".list-group-item")
         last_page_number_css = ".pagination > li:nth-last-child(-n+2) > a > span::text"
         last_page_number = int(response.css(last_page_number_css).get())
         follow_next_page = True
 
         for gazette in gazettes:
-            gazette_date_raw = (
-                gazette.css("div > div > span::text").get().strip()
-            )
+            gazette_date_raw = gazette.css("div > div > span::text").get().strip()
             gazette_date = parse(gazette_date_raw, languages=["pt"]).date()
 
-            gazette_title_raw = gazette.css(
-                "h4 > div > div > strong::text"
-            ).get()
+            gazette_title_raw = gazette.css("h4 > div > div > strong::text").get()
 
             edition_number = gazette_title_raw.strip()
 
