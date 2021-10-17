@@ -18,7 +18,7 @@ class RnNatalSpider(BaseGazetteSpider):
 
     def start_requests(self):
         initial_date = date(self.start_date.year, self.start_date.month, 1)
-        end_date = date.today()
+        end_date = self.end_date
 
         periods_of_interest = [
             (date.year, date.month)

@@ -19,7 +19,7 @@ class DospGazetteSpider(BaseGazetteSpider):
     def start_requests(self):
         FORMAT_DATE = "%Y-%m-%d"
         target_date = self.start_date
-        end_date = datetime.date.today()
+        end_date = self.end_date
 
         while target_date <= end_date:
             from_data = target_date.strftime(FORMAT_DATE)

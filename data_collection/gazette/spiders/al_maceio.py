@@ -17,7 +17,7 @@ class AlMaceioSpider(BaseGazetteSpider):
 
     def start_requests(self):
         initial_date = self.start_date
-        end_date = datetime.date.today()
+        end_date = self.end_date
 
         current_date = initial_date
         while current_date <= end_date:

@@ -16,7 +16,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
     start_date = date(2009, 6, 1)
 
     def start_requests(self):
-        end_date = date.today()
+        end_date = self.end_date
 
         periods_of_interest = [
             (date.year, date.month)
