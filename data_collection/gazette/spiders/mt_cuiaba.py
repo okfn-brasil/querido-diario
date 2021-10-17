@@ -13,7 +13,6 @@ class MtCuiabaSpider(BaseGazetteSpider):
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
     start_date = datetime.date(1967, 1, 1)
-    end_date = datetime.date.today()
 
     BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
 

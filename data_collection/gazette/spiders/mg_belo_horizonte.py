@@ -14,7 +14,6 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
     name = "mg_belo_horizonte"
     allowed_domains = ["dom-web.pbh.gov.br"]
     start_date = datetime.date(1995, 9, 26)
-    end_date = datetime.date.today()
 
     custom_settings = {"DOWNLOAD_DELAY": 0.5}
 

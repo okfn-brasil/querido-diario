@@ -11,7 +11,6 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2910800"
     name = "ba_feira_de_santana"
     start_date = date(2015, 1, 1)
-    end_date = date.today()
     allowed_domains = ["diariooficial.feiradesantana.ba.gov.br"]
     start_urls = ["http://www.diariooficial.feiradesantana.ba.gov.br"]
     powers = {"executive": 1, "legislative": 2}

@@ -17,7 +17,6 @@ class RnMossoroSpider(BaseGazetteSpider):
 
     def __init__(self, start_date=None, end_date=None, *args, **kwargs):
         self.start_date = date(2008, 1, 1)
-        self.end_date = date.today()
 
         super(RnMossoroSpider, self).__init__(start_date, end_date, *args, **kwargs)
 

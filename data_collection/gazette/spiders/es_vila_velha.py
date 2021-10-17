@@ -18,7 +18,6 @@ class VilaVelhaSpider(BaseGazetteSpider):
     JAVASCRIPT_POSTBACK_REGEX = r"javascript:__doPostBack\('(.*)',''\)"
 
     start_date = date(2016, 7, 1)
-    end_date = date.today()
 
     def start_requests(self):
         start_date = self.start_date.strftime("%d/%m/%Y")
