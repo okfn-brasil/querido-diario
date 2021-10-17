@@ -8,6 +8,5 @@ class BaSapeacuSpider(ImprensaOficialSpider):
     name = "ba_sapeacu"
     allowed_domains = ["pmsapeacuba.imprensaoficial.org", "sapeacu.ba.gov.br"]
     start_date = date(2017, 1, 1)
-    end_date = date.today()
     url_base = "http://sapeacu.ba.gov.br/{}"
     TERRITORY_ID = "2929602"
