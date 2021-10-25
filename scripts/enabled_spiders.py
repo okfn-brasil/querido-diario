@@ -4,6 +4,7 @@ SPIDERS = [
     "am_manaus",
     "al_maceio",
     "ba_salvador",
+    "ba_feira_de_santana",
     "go_goiania",
     "mg_belo_horizonte",
     "ms_campo_grande",

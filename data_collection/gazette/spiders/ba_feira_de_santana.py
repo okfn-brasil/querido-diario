@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 from dateparser import parse
 from scrapy.http import Request
 
@@ -8,6 +10,8 @@ from gazette.spiders.base import BaseGazetteSpider
 class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2910800"
     name = "ba_feira_de_santana"
+    start_date = date(2015, 1, 1)
+    end_date = date.today()
     allowed_domains = ["diariooficial.feiradesantana.ba.gov.br"]
     start_urls = ["http://www.diariooficial.feiradesantana.ba.gov.br"]
     powers = {"executive": 1, "legislative": 2}
@@ -15,48 +19,66 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     handle_httpstatus_list = [302]
 
     def parse(self, response):
-        gazette_table = response.css(".style166")
-        gazettes_links = gazette_table.xpath("a//@href").extract()
-        dates = gazette_table.css("a::text").extract()
+        gazette_table = response.xpath('//ancestor::tr[td[@class="style166"]]')
+        gazettes_links = gazette_table.css("a.link_menu2::attr(href)").getall()
+        dates = gazette_table.css("a.link_menu2::text").getall()
+        is_extra_flags = gazette_table.xpath("td/div/a/img")
 
-        for url, date in zip(gazettes_links, dates):
-            edition = self._extract_edition(url)
-            power = self._extract_power(url)
-            power_id = self.powers[power]
+        go_to_next_page = False
 
-            gazette = Gazette(
-                date=parse(date, languages=["pt"]).date(),
-                is_extra_edition=False,
-                power=power,
-            )
+        for url, gazette_date, is_extra_edition in zip(
+            gazettes_links, dates, is_extra_flags
+        ):
+            date_obj = datetime.strptime(gazette_date, "%d/%m/%Y")
 
-            gazette_details_page = f"abrir.asp?edi={edition}&p={power_id}"
-            gazette_url = response.urljoin(gazette_details_page)
-            yield Request(
-                gazette_url, callback=self.parse_document_url, meta={"item": gazette}
-            )
+            if self.start_date <= date_obj.date() <= self.end_date:
+                # we check the next page because editions from different powers may not be on the same page
+                go_to_next_page = True
 
-        current_page_selector = "#pages ul li.current::text"
-        current_page = response.css(current_page_selector).extract_first()
-        next_page = int(current_page) + 1
-        next_page_url = response.urljoin(f"/?p={next_page}")
+                edition = self.extract_edition(url)
+                power = self.extract_power(url)
+                power_id = self.powers[power]
 
-        if next_page > self.last_page:
-            self.last_page = next_page
-            yield Request(next_page_url)
+                file_url = response.urljoin(f"abrir.asp?edi={edition}&p={power_id}")
+                is_extra_edition = bool(is_extra_edition.css('[alt$="EXTRA"]').getall())
+
+                gazette = Gazette(
+                    date=parse(gazette_date, languages=["pt"]).date(),
+                    is_extra_edition=is_extra_edition,
+                    power=power,
+                    edition_number=edition,
+                )
+                yield Request(
+                    file_url,
+                    callback=self.parse_document_url,
+                    meta={"gazette": gazette},
+                )
+
+        if go_to_next_page:
+            current_page_selector = "#pages ul li.current::text"
+            current_page = response.css(current_page_selector).get()
+            if current_page:
+                next_page = int(current_page) + 1
+                next_page_url = response.urljoin(f"/?p={next_page}")
+
+                if next_page > self.last_page:
+                    self.last_page = next_page
+                    yield Request(next_page_url)
 
     def parse_document_url(self, response):
-        item = response.meta["item"]
-        url = response.headers["Location"].decode("utf-8")
-        item["file_urls"] = [url.replace("https", "http")]
-        return item
+        gazette = response.meta["gazette"]
+        pdf_url = response.headers["Location"].decode("utf-8")
+        if pdf_url is None:
+            self.logger.error(f"Unable to retrieve PDF URL for {gazette['date']}.")
 
-    def _extract_power(self, url):
-        if url.find("st=1") != -1:
-            return "executive"
-        return "legislative"
+        gazette["file_urls"] = [pdf_url]
+        return gazette
 
-    def _extract_edition(self, url):
+    @staticmethod
+    def extract_power(url):
+        return "executive" if url.find("st=1") != -1 else "legislative"
+
+    @staticmethod
+    def extract_edition(url):
         edition_index = url.find("edicao=") + len("edicao=")
-        edition = url[edition_index:]
-        return edition
+        return url[edition_index:]
