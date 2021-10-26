@@ -58,6 +58,7 @@ class ComparisonBetweenSpiderExecutionsMonitor(Monitor):
             job_stats = (
                 session.query(JobStats)
                 .filter(JobStats.start_time >= reference_date)
+                .filter(JobStats.spider == self.data.spider.name)
                 .all()
             )
             extracted_in_period = sum(
