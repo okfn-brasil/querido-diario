@@ -1,59 +1,56 @@
-# Contributing
+# Contribuindo
 
-*Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project, you agree to abide by its terms.*
+______________________________________
 
-Since Diário Oficial seeks to become a trustful source of official governmental announcements, every data source must also be trustful. A private company publishing government gazettes without official permission, for instance, is not a trustful source.
+_[Click here](languages/en-US/CONTRIBUTING.md) to read this article in english._
+______________________________________
 
-At this moment, the project aims for the 100 top Brazilian municipalities by population, collecting all the gazettes since 2015. If you want to help us reach this goal, we're tracking the progress of crawlers in [CITIES.md](CITIES.md) file. Have a look at it if you want to know where contributors are already working.
 
-## Starting to contribute
+*Este projeto foi lançado com um [Código de Conduta de Contribuição](CODE_OF_CONDUCT.md). Ao participar dele, você concorda em cumprir seus termos.*
 
-If you have never contributed to any open source project, there are tasks just for you. They are [labeled "good first issue"](https://github.com/okfn-brasil/diario-oficial/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). Before starting, drop a comment saying you plan to work on it and if you have significant questions.
+Uma vez que o Diário Oficial se propõe a ser uma fonte confiável de publicações oficiais do governo, todas as fontes de dados também devem ser confiáveis. Uma empresa privada que publica diários do governo sem permissão oficial, por exemplo, não é uma fonte confiável.
 
-Sometimes the community organizes events for solving multiple issues in a short amount of time. Especially in these cases, an issue or pull request may be considered abandoned when is waiting for the contributor but doesn't receive updates for a couple of weeks. Just let us know you need more time, so we don't end up closing it by mistake.
+No momento, o projeto visa os 100 municípios brasileiros com maior população, coletando todos os diários desde 2015. Se você quiser nos ajudar a atingir essa meta, estamos acompanhando o andamento dos raspadores no arquivo [CITIES.md](CITIES.md). Dê uma olhada nele se quiser saber em que cidades outras pessoas colaboradoras já estão trabalhando.
 
-### Setup
+## Começando a contribuir
 
-Please refer to the [README file](README.md) to set up the project. Also, read the `Makefile` for understanding the available tasks and what they run.
+Se você nunca contribuiu com nenhum projeto de código aberto, existem tarefas pensadas especialmente para você. Elas são [rotuladas como "bom primeiro problema" (_good first issue_)](https://github.com/okfn-brasil/diario-oficial/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). Antes de começar, deixe um comentário dizendo que você planeja trabalhar nisso e aproveite para tirar dúvidas, se houver.
 
-### Writing crawlers for new municipalities
+Às vezes, a comunidade organiza eventos para resolver vários problemas em um curto espaço de tempo. Especialmente nesses casos, um problema (_issue_) ou _pull request_ pode ser considerado abandonado quando está esperando ação da pessoa contribuidora e não recebe atualizações por algumas semanas. Avise-nos se você precisar de mais tempo, para que não acabemos encerrando por engano a contribuição já iniciada.
 
-For collecting the gazettes from the official websites, we use a crawling framework
-called [Scrapy](https://docs.scrapy.org). You may find its
-[official tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) helpful
-to get started with the architecture. Our project can be found in the
-[`data_collection`](data_collection) folder.
 
-Two commands may especially be useful: `scrapy shell` and `scrapy crawl`.
+### Configurar
 
-Scrapy has a shell interface for experimenting with crawlers, or spiders (how
-prefers to call it). To see how the framework reads a webpage before writing a
-spider for it, try the following, where you can replace the URL for a different
-municipality website:
+Por favor, consulte o [arquivo README](README.md) para saber como configurar o projeto. Além disso, leia o `Makefile` para entender as tarefas disponíveis e o que elas executam.
+
+
+### Escrevendo raspadores para novos municípios
+
+Para coletar os diários dos sites oficiais, usamos uma estrutura de raspagem chamada [Scrapy](https://docs.scrapy.org). Você pode acessar seu [tutorial oficial](https://docs.scrapy.org/en/latest/intro/tutorial.html), muito útil para se familiarizar com sua arquitetura. Nosso projeto pode ser encontrado na pasta [`data_collection`](data_collection).
+
+Dois comandos podem ser especialmente úteis: `scrapy shell` and `scrapy crawl`.
+
+O Scrapy tem uma interface de shell para experimentar raspadores ou spiders (como preferir chamá-los). Para ver como o Scrapy lê uma página da web antes de escrever um spider para isso, tente o seguinte, substituindo a URL pelo site de um município diferente:
 
 ```console
 $ scrapy shell http://www2.portoalegre.rs.gov.br/dopa/
 ```
 
-For running an existing spider, please refer to the [README file](README.md).
+Para executar um spider existente, consulte o [arquivo README](README.md).
 
-## Automated code formatting
+## Formatação automatizada do código 
 
-Project uses [Black](https://github.com/psf/black) as an automated tool to format and check code style and
-[isort](https://github.com/pycqa/isort) to sort the imports. CI will **fail** if your code are not correctly
-formatted according these tools.
+O projeto usa [Black](https://github.com/psf/black) como uma ferramenta para formatar e verificar de forma automatizada o estilo do código e [isort](https://github.com/pycqa/isort) para ordenar as importações. A integração contínua (CI) vai **falhar** se seu código não estiver formatado corretamente de acordo com essas ferramentas.
 
-If you followed the setup instructions, installing pre-commit hooks, it is possible that you will never
-need to run these tools manually, as they will be execute before each commit. However, if you want
-to run them in all files in the project, you have `make format` command that will call these tools.
+Se você seguiu as instruções de configuração, instalando ganchos de pré-commit, é possível que você nunca precise executar essas ferramentas manualmente, pois elas serão executadas antes de cada _commit_. Porém, se você quiser executá-las em todos os arquivos do projeto, você pode usar o comando `make format`, que roda essas ferramentas.
 
-## Guidelines to maintainers
+## Diretrizes para pessoas mantenedoras
 
-This section is a space for project maintainers, since as code review and repository organization are part of the contribution process, all code review guidelines are of public interest to anyone in the community.
+Esta seção é um espaço para os mantenedores do projeto. Uma vez que a revisão do código e a organização do repositório fazem parte do processo de contribuição, todas as diretrizes de revisão do código são de interesse público para todas as pessoas na comunidade.
 
-### Responsibilities of a Querido Diario maintainer:
+### Responsabilidades da pessoa mantenedora do Querido Diário:
 
-- Respect the [code of conduct](https://github.com/okfn-brasil/querido-diario/blob/main/CODE_OF_CONDUCT.md) and ensure that anyone who may have suffered harassment has a help channel.
-- Always justify a suggestion according to the practices already adopted in the project, legibility and simplicity. It is essential for a civil project to have a structure as easy as possible for beginners.
-- The maintainers should **run all the spiders before merging it**.
-- If a Pull Request have many commits and their messages are not clear, use the *Squash and merge* option. It is not necessary to do squash when the commits discipline is good, as an example: [Pull Request](https://github.com/okfn-brasil/querido-diario/pull/252/commits).
+- Respeite o [código de conduta](https://github.com/okfn-brasil/querido-diario/blob/main/CODE_OF_CONDUCT.md) e garanta que quem pode ter sofrido assédio tenha um canal de apoio.
+- Justifique sempre uma sugestão de acordo com as práticas já adotadas no projeto - legibilidade e simplicidade. É essencial para um projeto cívico ter uma estrutura o mais fácil possível para iniciantes.
+- As pessoas mantenedoras devem **rodar todos os spiders antes de fundi-los ao projeto (_merge_)**.
+- Se um _Pull Request_ tiver muitos commits e suas mensagens não forem claras, use a opção *squash and merge*. Não é necessário fazer squash quando as práticas de commits forem boas. Veja um exemplo: [Pull Request](https://github.com/okfn-brasil/querido-diario/pull/252/commits).
