@@ -1,5 +1,6 @@
 from ast import literal_eval
 from datetime import date, timedelta
+
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -15,7 +16,6 @@ class MaSaoLuisSpider(BaseGazetteSpider):
 
     ENDPOINT_URL = "http://sistemas.semad.saoluis.ma.gov.br/easysearch/easysearch_searchview/gwtengine"
     GWT_PERMUTATION = "ED8E2EB15828804103DA822266394399"
-    EXTRA_EDITION_TEXT = "SUPLEMENT"
     PDF_URL = "http://sistemas.semad.saoluis.ma.gov.br/easysearch/cachedownloader?collection=default&docId=%s&fieldName=Download&extension=pdf#q="
 
     MONTHS = [
@@ -165,7 +165,6 @@ class MaSaoLuisSpider(BaseGazetteSpider):
 
         return request
 
-
     def parse(self, response):
         body = response.body
         if body[:4] != b'//OK':
@@ -243,4 +242,3 @@ class MaSaoLuisSpider(BaseGazetteSpider):
             begin = idx
 
         return ordered
-
