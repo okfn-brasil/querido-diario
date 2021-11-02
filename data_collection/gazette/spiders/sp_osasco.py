@@ -15,20 +15,14 @@ class SpOsascoSpider(BaseGazetteSpider):
     start_urls = ["http://www.osasco.sp.gov.br/imprensa-oficial/"]
     start_date = date(2002, 8, 2)
 
-    ONLY_JSON_REGEX = re.compile("(\\[.*}]);")
-    NUMBER_REGEX = re.compile("\\s([0-9]+)$")
+    NUMBER_REGEX = re.compile(r"\s(\d+)$")
 
     def parse(self, response):
-        documents_json = response.xpath(
-            '//script[contains(text(), "DOCS")]'
-        ).extract_first()
-        match = self.ONLY_JSON_REGEX.search(documents_json)
-
-        if not match:
-            raise "Gazette metadata not found"
-
-        documents_json = match.group(1)
-        gazettes = json.loads(documents_json)
+        gazettes = json.loads(
+            response.xpath('//script[contains(text(), "DOCS")]/text()').re_first(
+                "var DOCS = (.*);"
+            )
+        )
 
         for gazette in gazettes:
             edition_date = dateparser.parse(
@@ -36,9 +30,7 @@ class SpOsascoSpider(BaseGazetteSpider):
             )
             edition_date = edition_date.date()
 
-            if edition_date < self.start_date:
-                continue
-            if edition_date > self.end_date:
+            if not (self.start_date <= edition_date <= self.end_date):
                 continue
 
             number = None
