@@ -32,5 +32,8 @@ class BaseGazetteSpider(scrapy.Spider):
                     f"Unable to parse {end_date}. Use %Y-%m-d date format."
                 )
                 raise
+        elif hasattr(self, "end_date"):
+            self.logger.info(f"Collecting gazettes until {self.end_date}")
         else:
+            self.end_date = datetime.today().date()
             self.logger.info("Collecting all gazettes available until today")

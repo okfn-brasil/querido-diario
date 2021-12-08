@@ -13,7 +13,6 @@ class CeSobralSpider(BaseGazetteSpider):
     name = "ce_sobral"
     TERRITORY_ID = "2312908"
     start_date = date(2017, 2, 6)
-    end_date = date.today()
 
     def start_requests(self):
         for search_month in rrule(
