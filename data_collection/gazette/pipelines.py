@@ -77,10 +77,19 @@ class SQLDatabasePipeline:
             gazette_item["file_checksum"] = file_info["checksum"]
 
             gazette = Gazette(**gazette_item)
+            # if file_info["checksum"] == "9f2a5da433b02704a5e0cbfa567b13db":
+            #    breakpoint()
+
             session.add(gazette)
             try:
                 session.commit()
+                print(
+                    f"Date: {gazette_item['date']} Checksum: {gazette_item['file_checksum']}"
+                )
             except Exception:
+                print(
+                    f"ERRO Date: {gazette_item['date']} Checksum: {gazette_item['file_checksum']}"
+                )
                 spider.logger.exception(
                     f"Something wrong has happened when adding the gazette in the database."
                     f"Date: {gazette_item['date']}. "
