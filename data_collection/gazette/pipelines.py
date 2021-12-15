@@ -62,6 +62,7 @@ class SQLDatabasePipeline:
             "power",
             "scraped_at",
             "territory_id",
+            "category",
         ]
         gazette_item = {field: item.get(field) for field in fields}
 

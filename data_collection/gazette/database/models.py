@@ -70,6 +70,11 @@ class Gazette(DeclarativeBase):
     territory = relationship("Territory", back_populates="gazettes")
     territory_id = Column(String, ForeignKey("territories.id"))
     processed = Column(Boolean, default=False)
+    # The category field is not required and it should be a **hint** for further
+    # processing pipeline. Some website (e.g. fecam) allow the user to filter
+    # the gazettes by category. Thus, we can take this additional info to help
+    # further processing.
+    category = Column(String, default="unknown")
     __table_args__ = (UniqueConstraint("territory_id", "date", "file_checksum"),)
 
 
