@@ -13,7 +13,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     name = "df_brasilia"
     start_date = datetime.date(1967, 12, 25)
 
-    GAZETTE_URL = "http://dodf.df.gov.br/listar"
+    GAZETTE_URL = "https://dodf.df.gov.br/listar"
     DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
     EXTRA_EDITION_TEXT = "EDICAO EXTR"
     PDF_URL = "https://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
