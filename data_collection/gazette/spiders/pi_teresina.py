@@ -15,7 +15,7 @@ class PiTeresina(BaseGazetteSpider):
 
     def start_requests(self):
         initial_date = self.start_date.strftime("%d/%m/%Y")
-        end_date = datetime.date.today().strftime("%d/%m/%Y")
+        end_date = self.end_date.strftime("%d/%m/%Y")
 
         params = {
             "pagina": 1,

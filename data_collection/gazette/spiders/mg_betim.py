@@ -13,7 +13,6 @@ class MgBetimSpider(BaseGazetteSpider):
     TERRITORY_ID = "3106705"
     start_urls = ["http://betim.mg.gov.br/orgaooficial/"]
     start_date = date(2008, 1, 1)
-    end_date = date.today()
 
     def parse(self, response):
         yield FormRequest.from_response(

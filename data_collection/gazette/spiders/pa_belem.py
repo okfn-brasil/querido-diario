@@ -18,7 +18,7 @@ class PaBelemSpider(BaseGazetteSpider):
 
     def start_requests(self):
         initial_date = self.start_date.strftime("%Y-%m-%dT00:00:00.000Z")
-        end_date = datetime.date.today().strftime("%Y-%m-%dT00:00:00.000Z")
+        end_date = self.end_date.strftime("%Y-%m-%dT00:00:00.000Z")
 
         params = {
             "dataRecebidoInicio": initial_date,

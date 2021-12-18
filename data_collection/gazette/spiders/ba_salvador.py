@@ -15,7 +15,7 @@ class BaSalvadorSpider(BaseGazetteSpider):
 
     def start_requests(self):
         initial_date = self.start_date.strftime("%Y-%m-%d")
-        end_date = datetime.date.today().strftime("%Y-%m-%d")
+        end_date = self.end_date.strftime("%Y-%m-%d")
         initial_search_parameters = {
             "filterTitle": "",
             "filterDateFrom": initial_date,
