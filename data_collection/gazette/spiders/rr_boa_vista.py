@@ -1,8 +1,7 @@
 from datetime import date
 
-import scrapy
-from dateparser import parse
-from dateutil.rrule import MONTHLY, rrule
+import dateparser
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -12,44 +11,29 @@ class RrBoaVistaSpider(BaseGazetteSpider):
     TERRITORY_ID = "1400100"
     name = "rr_boa_vista"
     allowed_domains = ["boavista.rr.gov.br"]
-    start_urls = ["https://www.boavista.rr.gov.br/diario-oficial"]
-    start_date = date(2011, 1, 1)
+    start_urls = ["https://publicacoes.boavista.rr.gov.br/api/v1/diarios"]
+    start_date = date(2010, 6, 14)
+    custom_settings = {"DOWNLOAD_DELAY": 2.0}  # prevent 429 (too many requests)
 
-    def parse(self, response):
-        _check = response.css("#_Check::attr(value)").get()
+    def parse(self, response, page=1):
+        for entry in response.json()["data"]:
+            raw_date = entry["data"].split(", ")[-1]
+            date = dateparser.parse(raw_date, languages=["pt"]).date()
 
-        initial_date = date(self.start_date.year, self.start_date.month, 1)
-        end_date = date.today()
+            if date < self.start_date:
+                return
 
-        periods_of_interest = [
-            (date.year, date.month)
-            for date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date)
-        ]
-        for year, month in periods_of_interest:
-            params = {
-                "_Check": _check,
-                "Numero": "",
-                "Periodo": "{}{}".format(year, str(month).zfill(2)),
-            }
-            yield scrapy.FormRequest(
-                url=response.url,
-                formdata=params,
-                callback=self.parse_period,
-            )
-
-    def parse_period(self, response):
-        gazettes = response.css(".bldownload")
-        for gazette in gazettes:
-            gazette_date = gazette.css(".nome::text").re_first(r"\d{2} \w{3} \d{4}")
-            gazette_date = parse(gazette_date, languages=["pt"]).date()
-
-            edition_number = gazette.css(".nome::text").re_first(r"n. (\d+)")
-            gazette_url = response.urljoin(gazette.css("a::attr(href)").get())
-
+            edition_number = entry["edicao"]
+            url = response.urljoin(entry["media"]["url"])
             yield Gazette(
-                date=gazette_date,
+                file_urls=[url],
+                date=date,
                 edition_number=edition_number,
-                file_urls=[gazette_url],
-                is_extra_edition=False,
                 power="executive",
             )
+
+        next_page = page + 1
+        yield Request(
+            f"https://publicacoes.boavista.rr.gov.br/api/v1/diarios?page={next_page}",
+            cb_kwargs={"page": next_page},
+        )

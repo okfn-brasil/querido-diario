@@ -23,7 +23,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
             "keyword": "",
         }
         initial_date = datetime.date(self.start_date.year, self.start_date.month, 1)
-        end_date = datetime.date.today()
+        end_date = self.end_date
 
         periods_of_interest = [
             (date.year, date.month)
