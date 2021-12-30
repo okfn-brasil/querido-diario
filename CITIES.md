@@ -29,7 +29,7 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 19 | Natal | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/189) | [PR](https://github.com/okfn-brasil/diario-oficial/pull/192) |
 | 20 | Campo Grande | :white_check_mark: | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/35) |
 | 21 | Teresina | :white_check_mark: | [issue](https://github.com/okfn-brasil/diario-oficial/issues/188)| [PR](https://github.com/okfn-brasil/diario-oficial/pull/216) |
-| 22 | São Bernardo do Campo | | | |
+| 22 | São Bernardo do Campo | :soon: In progress | [issue](https://github.com/okfn-brasil/querido-diario/issues/409) | [PR](https://github.com/okfn-brasil/querido-diario/pull/412) |
 | 23 | João Pessoa | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/querido-diario/pull/72), [PR](https://github.com/okfn-brasil/querido-diario/pull/270) |
 | 24 | Nova Iguaçu | :white_check_mark: | | | [PR](https://github.com/okfn-brasil/diario-oficial/pull/120) |
 | 25 | Santo André | | | |
