@@ -27,18 +27,18 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         ids = dict(zip(years, hrefs))
         duplicated = [" NM 1915"]
 
-        for y in range(self.start_date.year, self.end_date.year + 1):
-            y = str(y)
+        for year in range(self.start_date.year, self.end_date.year + 1):
+            year = str(year)
             anchors = response.css(
                 "div.portlet-content div.portlet-content-container div.portlet-body"
-            ).xpath(".//ul[@id=$a_id]/li/a", a_id=ids[y])
+            ).xpath(".//ul[@id=$a_id]/li/a", a_id=ids[year])
             for gazette in anchors:
                 text = gazette.xpath("text()").get()
                 # Duplicated gazettes can be ignored
                 if text in duplicated:
                     continue
 
-                gazette_edition = self.extract_edition(text, y)
+                gazette_edition = self.extract_edition(text, year)
                 if gazette_edition is not None:
                     gazette_edition_number = self.extract_edition_number(
                         gazette_edition
@@ -46,11 +46,11 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                 else:
                     gazette_edition_number = None
                     self.logger.error(
-                        "Couldn't extract edition for gazette: '%s' / year: %s", text, y
+                        "Couldn't extract edition for gazette: '%s' / year: %s", text, year
                     )
                     continue
 
-                gazette_date = self.extract_date(text, y)
+                gazette_date = self.extract_date(text, year)
                 if gazette_date is None:
                     if gazette_edition_number is not None:
                         gazette_date = self.estimate_date(gazette_edition_number)
@@ -58,7 +58,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                         self.logger.error(
                             "Couldn't extract either edition number or date for gazette: '%s' / year: %s",
                             text,
-                            y,
+                            year,
                         )
                         continue
 
@@ -106,11 +106,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             "2015": r"^\d\d_\d\d_2015_NM_(.+)$",
             "2016": r"^\d\d_\d\d_(?:16|2016)[_ ]NM[_ ](.+)$",
             "2017": r"^NM (.+) de \d\d[./]\d\d[./]2017.*$",
-            "2018": r"^NM (.+) de \d\d\.\d\d\.2018.*$",
-            "2019": r"^NM (.+) de \d\d\.\d\d\.2019.*$",
-            "2020": r"^NM (.+) de \d\d\.\d\d\.2020.*$",
-            "2021": r"^NM (.+) de \d\d\.\d\d\.2021.*$",
-            "next": r"^NM (.+) de \d\d\.\d\d\.\d\d\d\d.*$",
+            "next": r"^NM (.+) de \d\d\.\d\d\.\d{4}.*$",
         }
         # Editions that can't be extracted using regular expressions (because of absent/wrong info)
         known_edition = {
@@ -139,11 +135,14 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         if text in known_edition:
             return known_edition[text]
 
-        if year not in re_edition:
-            year = "next"
-        found = re.findall(re_edition[year], text)
+        if year in re_edition:
+            found = re.findall(re_edition[year], text)
+        else:    
+            found = re.findall(re_edition['next'], text)
+
         if len(found) == 0:
             return None
+
         # Return the first non empty value, or None otherwise
         result = found[0]
         if type(result) is tuple:
@@ -179,11 +178,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             "2014": r"^(\d\d_\d\d_2014)_NM_.*$",
             "2015": r"^(\d\d_\d\d_2015)_NM_.*$",
             "2016": r"^(\d\d_\d\d_)2?0?16[_ ]NM.*$",
-            "2017": r"^NM .* de (\d\d\.\d\d\.2017) .*$",
-            "2018": r"^NM .* de (\d\d\.\d\d\.2018) .*$",
-            "2019": r"^NM .* de (\d\d\.\d\d\.2019) .*$",
-            "2020": r"^NM .* de (\d\d\.\d\d\.2020) .*$",
-            "2021": r"^NM .* de (\d\d\.\d\d\.2021) .*$",
+            "next": r"^NM .* de (\d\d\.\d\d\.\d{4}) .*$",
         }
         # Dates that can't be extracted using regular expressions (because of wrong info)
         # Format: dd/mm/yyyy
@@ -210,12 +205,17 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         if text in known_date:
             return datetime.strptime(known_date[text], "%d/%m/%Y").date()
 
-        found = re.findall(re_date[year], text)
+        if year in re_date:
+            found = re.findall(re_date[year], text)
+        else:    
+            found = re.findall(re_date['next'], text)
+
         if len(found) == 0:
             return None
         result = found[0]
         if result == "":
             return None
+
         if year in ("2013", "2016"):
             result = result + year
         result = result.replace(".", "_")
