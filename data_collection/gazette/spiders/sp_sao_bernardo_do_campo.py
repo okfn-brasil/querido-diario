@@ -14,27 +14,24 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
     start_date = date(2002, 5, 3)
     end_date = date.today()
 
-    def start_requests(self):
-        base_url = "https://www.saobernardo.sp.gov.br/web/sbc/todas-as-edicoes"
-        yield scrapy.Request(base_url)
+    start_urls=["https://www.saobernardo.sp.gov.br/web/sbc/todas-as-edicoes"]
 
     def parse(self, response):
         base_files_url = "https://www.saobernardo.sp.gov.br"
-        years = response.xpath(
-            "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/a/text()"
-        ).re(r" *(.+)")
-        hrefs = response.xpath(
-            "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/a/@href"
-        ).re(r"#(\w+)")
+        years = response.css(
+            "div.portlet-content div.portlet-content-container div.portlet-body>a::text"
+        ).re(r"^ *(\d{4})$")
+        hrefs = response.css(
+            "div.portlet-content div.portlet-content-container div.portlet-body>a"
+        ).re(r"href=\"#(\w+)\".*\d{4}</a>")
         ids = dict(zip(years, hrefs))
         duplicated = [" NM 1915"]
 
         for y in range(self.start_date.year, self.end_date.year + 1):
             y = str(y)
-            anchors = response.xpath(
-                "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/ul[@id=$a_id]/li/a",
-                a_id=ids[y],
-            )
+            anchors = response.css(
+                "div.portlet-content div.portlet-content-container div.portlet-body"
+            ).xpath(".//ul[@id=$a_id]/li/a", a_id=ids[y])
             for gazette in anchors:
                 text = gazette.xpath("text()").get()
                 # Duplicated gazettes can be ignored
