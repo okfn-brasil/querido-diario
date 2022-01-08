@@ -15,7 +15,7 @@ class BaSalvadorSpider(BaseGazetteSpider):
 
     def start_requests(self):
         initial_date = self.start_date.strftime("%Y-%m-%d")
-        end_date = datetime.date.today().strftime("%Y-%m-%d")
+        end_date = self.end_date.strftime("%Y-%m-%d")
         initial_search_parameters = {
             "filterTitle": "",
             "filterDateFrom": initial_date,
@@ -47,7 +47,9 @@ class BaSalvadorSpider(BaseGazetteSpider):
 
     def parse_gazette(self, response, gazette_date):
         gazette_date = datetime.datetime.strptime(gazette_date, "%Y-%m-%d").date()
-        pdf_url = response.css("#PDFId embed::attr(src)").get()
+        pdf_url = response.css("#PDFId object::attr(data)").get()
+        if pdf_url is None:
+            self.logger.error(f"Unable to retrieve PDF URL for {gazette_date}.")
 
         yield Gazette(
             date=gazette_date,
