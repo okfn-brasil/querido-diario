@@ -14,7 +14,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
     start_date = date(2002, 5, 3)
     end_date = date.today()
 
-    start_urls=["https://www.saobernardo.sp.gov.br/web/sbc/todas-as-edicoes"]
+    start_urls = ["https://www.saobernardo.sp.gov.br/web/sbc/todas-as-edicoes"]
 
     def parse(self, response):
         base_files_url = "https://www.saobernardo.sp.gov.br"
@@ -46,14 +46,16 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                 else:
                     gazette_edition_number = None
                     self.logger.error(
-                        "Couldn't extract edition for gazette: '%s' / year: %s", text, year
+                        "Couldn't extract edition for gazette: '%s' / year: %s",
+                        text,
+                        year,
                     )
                     continue
 
                 gazette_date = self.extract_date(text, year)
                 if gazette_date is None:
                     if gazette_edition_number is not None:
-                        #Gazette date is missing, so estimate it based on edition, but subject to an error of a few days
+                        # Gazette date is missing, so estimate it based on edition, but subject to an error of a few days
                         gazette_date = self.estimate_date(gazette_edition_number)
                     else:
                         self.logger.error(
@@ -138,8 +140,8 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
 
         if year in re_edition:
             found = re.findall(re_edition[year], text)
-        else:    
-            found = re.findall(re_edition['next'], text)
+        else:
+            found = re.findall(re_edition["next"], text)
 
         if len(found) == 0:
             return None
@@ -208,8 +210,8 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
 
         if year in re_date:
             found = re.findall(re_date[year], text)
-        else:    
-            found = re.findall(re_date['next'], text)
+        else:
+            found = re.findall(re_date["next"], text)
 
         if len(found) == 0:
             return None
