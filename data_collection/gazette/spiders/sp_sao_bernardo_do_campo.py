@@ -14,34 +14,31 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
     start_date = date(2002, 5, 3)
     end_date = date.today()
 
-    def start_requests(self):
-        base_url = "https://www.saobernardo.sp.gov.br/web/sbc/todas-as-edicoes"
-        yield scrapy.Request(base_url)
+    start_urls=["https://www.saobernardo.sp.gov.br/web/sbc/todas-as-edicoes"]
 
     def parse(self, response):
         base_files_url = "https://www.saobernardo.sp.gov.br"
-        years = response.xpath(
-            "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/a/text()"
-        ).re(r" *(.+)")
-        hrefs = response.xpath(
-            "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/a/@href"
-        ).re(r"#(\w+)")
+        years = response.css(
+            "div.portlet-content div.portlet-content-container div.portlet-body>a::text"
+        ).re(r"^ *(\d{4})$")
+        hrefs = response.css(
+            "div.portlet-content div.portlet-content-container div.portlet-body>a"
+        ).re(r"href=\"#(\w+)\".*\d{4}</a>")
         ids = dict(zip(years, hrefs))
+        # Duplicated gazettes are ignored
         duplicated = [" NM 1915"]
 
-        for y in range(self.start_date.year, self.end_date.year + 1):
-            y = str(y)
-            anchors = response.xpath(
-                "/html/body/div[5]/div/div/div[1]/div/div[2]/div/div/section/div/div/div/ul[@id=$a_id]/li/a",
-                a_id=ids[y],
-            )
+        for year in range(self.start_date.year, self.end_date.year + 1):
+            year = str(year)
+            anchors = response.css(
+                "div.portlet-content div.portlet-content-container div.portlet-body"
+            ).xpath(".//ul[@id=$a_id]/li/a", a_id=ids[year])
             for gazette in anchors:
                 text = gazette.xpath("text()").get()
-                # Duplicated gazettes can be ignored
                 if text in duplicated:
                     continue
 
-                gazette_edition = self.extract_edition(text, y)
+                gazette_edition = self.extract_edition(text, year)
                 if gazette_edition is not None:
                     gazette_edition_number = self.extract_edition_number(
                         gazette_edition
@@ -49,19 +46,20 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                 else:
                     gazette_edition_number = None
                     self.logger.error(
-                        "Couldn't extract edition for gazette: '%s' / year: %s", text, y
+                        "Couldn't extract edition for gazette: '%s' / year: %s", text, year
                     )
                     continue
 
-                gazette_date = self.extract_date(text, y)
+                gazette_date = self.extract_date(text, year)
                 if gazette_date is None:
                     if gazette_edition_number is not None:
+                        #Gazette date is missing, so estimate it based on edition, but subject to an error of a few days
                         gazette_date = self.estimate_date(gazette_edition_number)
                     else:
                         self.logger.error(
                             "Couldn't extract either edition number or date for gazette: '%s' / year: %s",
                             text,
-                            y,
+                            year,
                         )
                         continue
 
@@ -109,11 +107,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             "2015": r"^\d\d_\d\d_2015_NM_(.+)$",
             "2016": r"^\d\d_\d\d_(?:16|2016)[_ ]NM[_ ](.+)$",
             "2017": r"^NM (.+) de \d\d[./]\d\d[./]2017.*$",
-            "2018": r"^NM (.+) de \d\d\.\d\d\.2018.*$",
-            "2019": r"^NM (.+) de \d\d\.\d\d\.2019.*$",
-            "2020": r"^NM (.+) de \d\d\.\d\d\.2020.*$",
-            "2021": r"^NM (.+) de \d\d\.\d\d\.2021.*$",
-            "next": r"^NM (.+) de \d\d\.\d\d\.\d\d\d\d.*$",
+            "next": r"^NM (.+) de \d\d\.\d\d\.\d{4}.*$",
         }
         # Editions that can't be extracted using regular expressions (because of absent/wrong info)
         known_edition = {
@@ -142,11 +136,14 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         if text in known_edition:
             return known_edition[text]
 
-        if year not in re_edition:
-            year = "next"
-        found = re.findall(re_edition[year], text)
+        if year in re_edition:
+            found = re.findall(re_edition[year], text)
+        else:    
+            found = re.findall(re_edition['next'], text)
+
         if len(found) == 0:
             return None
+
         # Return the first non empty value, or None otherwise
         result = found[0]
         if type(result) is tuple:
@@ -182,11 +179,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             "2014": r"^(\d\d_\d\d_2014)_NM_.*$",
             "2015": r"^(\d\d_\d\d_2015)_NM_.*$",
             "2016": r"^(\d\d_\d\d_)2?0?16[_ ]NM.*$",
-            "2017": r"^NM .* de (\d\d\.\d\d\.2017) .*$",
-            "2018": r"^NM .* de (\d\d\.\d\d\.2018) .*$",
-            "2019": r"^NM .* de (\d\d\.\d\d\.2019) .*$",
-            "2020": r"^NM .* de (\d\d\.\d\d\.2020) .*$",
-            "2021": r"^NM .* de (\d\d\.\d\d\.2021) .*$",
+            "next": r"^NM .* de (\d\d\.\d\d\.\d{4}) .*$",
         }
         # Dates that can't be extracted using regular expressions (because of wrong info)
         # Format: dd/mm/yyyy
@@ -213,19 +206,24 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         if text in known_date:
             return datetime.strptime(known_date[text], "%d/%m/%Y").date()
 
-        found = re.findall(re_date[year], text)
+        if year in re_date:
+            found = re.findall(re_date[year], text)
+        else:    
+            found = re.findall(re_date['next'], text)
+
         if len(found) == 0:
             return None
         result = found[0]
         if result == "":
             return None
+
         if year in ("2013", "2016"):
             result = result + year
         result = result.replace(".", "_")
         return datetime.strptime(result, "%d_%m_%Y").date()
 
     def estimate_date(self, edition):
-        # Some verified dates on which the estimation will be based
+        # Verified dates every 50 editions on which the estimation will be based
         # Format: dd/mm/yyyy
         # Edition 1431 is unavailable
         known_date = {
@@ -246,11 +244,6 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
             "1831": "03/06/2015",
             "1881": "13/05/2016",
             "1931": "12/04/2017",
-            "1981": "23/02/2018",
-            "2031": "07/12/2018",
-            "2081": "13/09/2019",
-            "2131": "10/04/2020",
-            "2181": "19/11/2020",
         }
 
         # Find the two editions in "known_date" that are closest to "edition"
@@ -258,10 +251,8 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
         edition = int(edition)
         ed_list = list(known_date)
         list.sort(ed_list)
-        low_ed = ed_list[0]
-        high_ed = ed_list[len(ed_list) - 1]
-        del ed_list[0]
-        del ed_list[len(ed_list) - 1]
+        low_ed = ed_list.pop(0)
+        high_ed = ed_list.pop(-1)
         for e in ed_list:
             if int(e) < edition:
                 low_ed = e
@@ -270,7 +261,7 @@ class SpSaoBernardoDoCampoSpider(BaseGazetteSpider):
                 break
 
         # Calculate estimated date from dates of "low_ed" and "high_ed"
-        # "rate" is around 7 days per edition
+        # Use mean rate of publication (around 7 days per edition)
         low_ts = datetime.strptime(known_date[low_ed], "%d/%m/%Y").timestamp()
         high_ts = datetime.strptime(known_date[high_ed], "%d/%m/%Y").timestamp()
         low_ed = int(low_ed)
