@@ -1,0 +1,14 @@
+awscli
+boto3
+click
+chompjs
+dateparser
+itemadapter
+jinja2
+psycopg2-binary
+python-dateutil
+python-decouple
+scrapy
+schematics
+SQLAlchemy
+spidermon[monitoring]
