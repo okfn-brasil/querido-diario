@@ -26,7 +26,7 @@ class FecamGazetteSpider(BaseGazetteSpider):
         if self.start_date is not None:
             date_string = self.start_date.strftime("%Y-%m-%dT00:00:00Z")
             query = f"{query}+data:[{date_string}+TO+*]"
-        if search_page is not None:
+        if search_page:
             query = f"{query}&AtoASolrDocument_page={search_page}"
         self.logger.debug(query)
         return query
