@@ -21,7 +21,7 @@ class FecamGazetteSpider(BaseGazetteSpider):
         if self.FECAM_QUERY is None:
             raise Exception("Missing FECAM_QUERY")
         query = f"q={self.FECAM_QUERY}"
-        if self.category is not None:
+        if self.category:
             query = f"{query}+categoria:{self.category}"
         if self.start_date:
             date_string = self.start_date.strftime("%Y-%m-%dT00:00:00Z")
