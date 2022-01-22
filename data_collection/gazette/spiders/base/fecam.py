@@ -23,7 +23,7 @@ class FecamGazetteSpider(BaseGazetteSpider):
         query = f"q={self.FECAM_QUERY}"
         if self.category is not None:
             query = f"{query}+categoria:{self.category}"
-        if self.start_date is not None:
+        if self.start_date:
             date_string = self.start_date.strftime("%Y-%m-%dT00:00:00Z")
             query = f"{query}+data:[{date_string}+TO+*]"
         if search_page:
