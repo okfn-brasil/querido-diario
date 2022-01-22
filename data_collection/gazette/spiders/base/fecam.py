@@ -44,7 +44,7 @@ class FecamGazetteSpider(BaseGazetteSpider):
         """
 
         requests = []
-        for i in range(1, self.get_last_page(response) + 1):
+        for page in range(1, self.get_last_page(response) + 1):
             query_string = self._build_query_string(i)
             requests.append(
                 scrapy.Request(f"{self.URL}?{query_string}", callback=self.parse)
