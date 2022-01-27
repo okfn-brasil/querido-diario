@@ -12,7 +12,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
     name = "ba_feira_de_santana"
     start_date = date(2015, 1, 1)
     allowed_domains = ["diariooficial.feiradesantana.ba.gov.br"]
-    start_urls = ["http://www.diariooficial.feiradesantana.ba.gov.br"]
+    start_urls = ["https://www.diariooficial.feiradesantana.ba.gov.br"]
     powers = {"executive": 1, "legislative": 2}
     last_page = 1
     handle_httpstatus_list = [302]
