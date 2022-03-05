@@ -24,7 +24,7 @@ systems for the territory you are interested.
   | :-------: | :--------  | :---- | :------------------ |
   | 2800308 | Aracaju | SE | |
   | 1501402 | Belém | PA | [pa_belem](data_collection/gazette/spiders/pa_belem.py) |
-  | 3106200 | Belo Horizonte | MG | |
+  | 3106200 | Belo Horizonte | MG | [mg_belo_horizonte](data_collection/gazette/spiders/mg_belo_horizonte.py) |
   | 1400100 | Boa Vista | RR | [rr_associacao_municipios](data_collection/gazette/spiders/rr_associacao_municipios.py), [rr_boa_vista](data_collection/gazette/spiders/rr_boa_vista.py) |
   | 5300108 | Brasília | DF | [df_brasilia](data_collection/gazette/spiders/df_brasilia.py) |
   | 5002704 | Campo Grande | MS | [ms_campo_grande](data_collection/gazette/spiders/ms_campo_grande.py) |
@@ -62,7 +62,7 @@ systems for the territory you are interested.
   | 5300108 | Brasília | DF | 3055149 | [df_brasilia](data_collection/gazette/spiders/df_brasilia.py) |
   | 2927408 | Salvador | BA | 2886698 | [ba_salvador](data_collection/gazette/spiders/ba_salvador.py) |
   | 2304400 | Fortaleza | CE | 2686612 | [ce_fortaleza](data_collection/gazette/spiders/ce_fortaleza.py) |
-  | 3106200 | Belo Horizonte | MG | 2521564 | |
+  | 3106200 | Belo Horizonte | MG | 2521564 | [mg_belo_horizonte](data_collection/gazette/spiders/mg_belo_horizonte.py) |
   | 1302603 | Manaus | AM | 2219580 | [am_manaus](data_collection/gazette/spiders/am_manaus.py) |
   | 4106902 | Curitiba | PR | 1948626 | [pr_curitiba](data_collection/gazette/spiders/pr_curitiba.py) |
   | 2611606 | Recife | PE | 1653461 | [pe_recife](data_collection/gazette/spiders/pe_recife.py) |
@@ -105,12 +105,12 @@ systems for the territory you are interested.
   | 1600303 | Macapá | AP | 512902 | [ap_macapa](data_collection/gazette/spiders/ap_macapa.py) |
   | 3301009 | Campos dos Goytacazes | RJ | 511168 | [rj_campos_goytacazes](data_collection/gazette/spiders/rj_campos_goytacazes.py) |
   | 4205407 | Florianópolis | SC | 508826 | [sc_florianopolis](data_collection/gazette/spiders/sc_florianopolis.py) |
-  | 3205200 | Vila Velha | ES | 501325 | |
+  | 3205200 | Vila Velha | ES | 501325 | [es_vila_velha](data_collection/gazette/spiders/es_vila_velha.py) |
   | 3529401 | Mauá | SP | 477552 | |
   | 3305109 | São João de Meriti | RJ | 472906 | |
   | 3549805 | São José do Rio Preto | SP | 464983 | |
   | 3530607 | Mogi das Cruzes | SP | 450785 | |
-  | 3106705 | Betim | MG | 444784 | |
+  | 3106705 | Betim | MG | 444784 | [mg_betim](data_collection/gazette/spiders/mg_betim.py) |
   | 3548500 | Santos | SP | 433656 | [sp_santos](data_collection/gazette/spiders/sp_santos.py) |
   | 4115200 | Maringá | PR | 430157 | [pr_maringa](data_collection/gazette/spiders/pr_maringa.py) |
   | 3513801 | Diadema | SP | 426757 | |
@@ -133,7 +133,7 @@ systems for the territory you are interested.
   | 4202404 | Blumenau | SC | 361855 | [sc_blumenau](data_collection/gazette/spiders/sc_blumenau.py) |
   | 3516200 | Franca | SP | 355901 | [sp_franca](data_collection/gazette/spiders/sp_franca.py) |
   | 4119905 | Ponta Grossa | PR | 355336 | [pr_ponta_grossa](data_collection/gazette/spiders/pr_ponta_grossa.py) |
-  | 2611101 | Petrolina | PE | 354317 | |
+  | 2611101 | Petrolina | PE | 354317 | [pe_petrolina](data_collection/gazette/spiders/pe_petrolina.py) |
   | 4304606 | Canoas | RS | 348208 | [rs_canoas](data_collection/gazette/spiders/rs_canoas.py) |
   | 4314407 | Pelotas | RS | 343132 | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 2933307 | Vitória da Conquista | BA | 341128 | [ba_vitoria_da_conquista](data_collection/gazette/spiders/ba_vitoria_da_conquista.py) |
@@ -196,15 +196,15 @@ systems for the territory you are interested.
   | 4204202 | Chapecó | SC | 224013 | [sc_chapeco](data_collection/gazette/spiders/sc_chapeco.py) |
   | 4208203 | Itajaí | SC | 223112 | [sc_itajai](data_collection/gazette/spiders/sc_itajai.py) |
   | 3157807 | Santa Luzia | MG | 220444 | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 2918407 | Juazeiro | BA | 218162 | |
-  | 5200258 | Águas Lindas de Goiás | GO | 217698 | |
+  | 2918407 | Juazeiro | BA | 218162 | [ba_juazeiro](data_collection/gazette/spiders/ba_juazeiro.py) |
+  | 5200258 | Águas Lindas de Goiás | GO | 217698 | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 4204608 | Criciúma | SC | 217311 | [sc_criciuma](data_collection/gazette/spiders/sc_criciuma.py) |
   | 2914802 | Itabuna | BA | 213685 | |
   | 1505536 | Parauapebas | PA | 213576 | |
   | 4315602 | Rio Grande | RS | 211965 | |
   | 5212501 | Luziânia | GO | 211508 | |
   | 4300604 | Alvorada | RS | 211352 | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
-  | 2312908 | Sobral | CE | 210711 | |
+  | 2312908 | Sobral | CE | 210711 | [ce_sobral](data_collection/gazette/spiders/ce_sobral.py) |
   | 3201209 | Cachoeiro de Itapemirim | ES | 210589 | |
   | 2602902 | Cabo de Santo Agostinho | PE | 208944 | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 3543907 | Rio Claro | SP | 208008 | |
@@ -239,7 +239,7 @@ systems for the territory you are interested.
   | 2103000 | Caxias | MA | 165525 | |
   | 3302700 | Maricá | RJ | 164504 | |
   | 3303203 | Nilópolis | RJ | 162693 | |
-  | 2931350 | Teixeira de Freitas | BA | 162438 | |
+  | 2931350 | Teixeira de Freitas | BA | 162438 | [ba_teixeira_de_freitas](data_collection/gazette/spiders/ba_teixeira_de_freitas.py) |
   | 3548807 | São Caetano do Sul | SP | 161957 | |
   | 2913606 | Ilhéus | BA | 159923 | |
   | 1500107 | Abaetetuba | PA | 159080 | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
@@ -254,7 +254,7 @@ systems for the territory you are interested.
   | 2207702 | Parnaíba | PI | 153482 | |
   | 3530706 | Mogi Guaçu | SP | 153033 | |
   | 3152501 | Pouso Alegre | MG | 152549 | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 2900702 | Alagoinhas | BA | 152327 | |
+  | 2900702 | Alagoinhas | BA | 152327 | [ba_alagoinhas](data_collection/gazette/spiders/ba_alagoinhas.py) |
   | 3525300 | Jaú | SP | 151881 | [sp_jau](data_collection/gazette/spiders/sp_jau.py) |
   | 3304144 | Queimados | RJ | 151335 | |
   | 2925303 | Porto Seguro | BA | 150658 | |
@@ -318,7 +318,7 @@ systems for the territory you are interested.
   | 3554003 | Tatuí | SP | 122967 | |
   | 3505500 | Barretos | SP | 122833 | |
   | 3523404 | Itatiba | SP | 122581 | |
-  | 3518404 | Guaratinguetá | SP | 122505 | |
+  | 3518404 | Guaratinguetá | SP | 122505 | [sp_guaratingueta](data_collection/gazette/spiders/sp_guaratingueta.py) |
   | 3511102 | Catanduva | SP | 122497 | |
   | 4302105 | Bento Gonçalves | RS | 121803 | |
   | 4301602 | Bagé | RS | 121335 | |
@@ -347,14 +347,14 @@ systems for the territory you are interested.
   | 3536505 | Paulínia | SP | 112003 | |
   | 5205109 | Catalão | GO | 110983 | |
   | 3119401 | Coronel Fabriciano | MG | 110290 | |
-  | 2612505 | Santa Cruz do Capibaribe | PE | 109897 | |
+  | 2612505 | Santa Cruz do Capibaribe | PE | 109897 | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 1100023 | Ariquemes | RO | 109523 | [ro_associacao_municipios](data_collection/gazette/spiders/ro_associacao_municipios.py) |
   | 3143906 | Muriaé | MG | 109392 | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 1507953 | Tailândia | PA | 108969 | |
   | 2510808 | Patos | PB | 108192 | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 4103701 | Cambé | PR | 107341 | |
   | 3104007 | Araxá | MG | 107337 | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 4307005 | Erechim | RS | 106633 | |
+  | 4307005 | Erechim | RS | 106633 | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4218707 | Tubarão | SC | 106422 | [sc_tubarao](data_collection/gazette/spiders/sc_tubarao.py) |
   | 3305208 | São Pedro da Aldeia | RJ | 106049 | |
   | 5211503 | Itumbiara | GO | 105809 | |
@@ -431,8 +431,8 @@ systems for the territory you are interested.
   | 2700201 | Anadia | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2700300 | Arapiraca | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2700409 | Atalaia | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
-  | 2700508 | Barra de Santo Antônio | |
-  | 2700607 | Barra de São Miguel | |
+  | 2700508 | Barra de Santo Antônio | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
+  | 2700607 | Barra de São Miguel | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2700706 | Batalha | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2700805 | Belém | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2700904 | Belo Monte | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
@@ -446,7 +446,7 @@ systems for the territory you are interested.
   | 2701605 | Canapi | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2701704 | Capela | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2701803 | Carneiros | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
-  | 2701902 | Chã Preta | |
+  | 2701902 | Chã Preta | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2702009 | Coité do Nóia | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2702108 | Colônia Leopoldina | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2702207 | Coqueiro Seco | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
@@ -460,7 +460,7 @@ systems for the territory you are interested.
   | 2702801 | Flexeiras | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2702900 | Girau do Ponciano | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2703007 | Ibateguara | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
-  | 2703106 | Igaci | |
+  | 2703106 | Igaci | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2703205 | Igreja Nova | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2703304 | Inhapi | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2703403 | Jacaré dos Homens | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
@@ -497,10 +497,10 @@ systems for the territory you are interested.
   | 2706406 | Pão de Açúcar | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2706422 | Pariconha | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2706448 | Paripueira | |
-  | 2706505 | Passo de Camaragibe | |
+  | 2706505 | Passo de Camaragibe | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2706604 | Paulo Jacinto | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2706703 | Penedo | |
-  | 2706802 | Piaçabuçu | |
+  | 2706802 | Piaçabuçu | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2706901 | Pilar | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2707008 | Pindoba | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
   | 2707107 | Piranhas | [al_associacao_municipios](data_collection/gazette/spiders/al_associacao_municipios.py) |
@@ -643,8 +643,8 @@ systems for the territory you are interested.
   | 2900355 | Adustina | |
   | 2900405 | Água Fria | |
   | 2900603 | Aiquara | |
-  | 2900702 | Alagoinhas | |
-  | 2900801 | Alcobaça | |
+  | 2900702 | Alagoinhas | [ba_alagoinhas](data_collection/gazette/spiders/ba_alagoinhas.py) |
+  | 2900801 | Alcobaça | [ba_alcobaca](data_collection/gazette/spiders/ba_alcobaca.py) |
   | 2900900 | Almadina | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
   | 2901007 | Amargosa | |
   | 2901106 | Amélia Rodrigues | |
@@ -655,7 +655,7 @@ systems for the territory you are interested.
   | 2901403 | Angical | |
   | 2901502 | Anguera | |
   | 2901601 | Antas | |
-  | 2901700 | Antônio Cardoso | |
+  | 2901700 | Antônio Cardoso | [ba_antonio_cardoso](data_collection/gazette/spiders/ba_antonio_cardoso.py) |
   | 2901809 | Antônio Gonçalves | |
   | 2901908 | Aporá | |
   | 2901957 | Apuarema | |
@@ -668,16 +668,16 @@ systems for the territory you are interested.
   | 2902401 | Aurelino Leal | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
   | 2902500 | Baianópolis | |
   | 2902609 | Baixa Grande | |
-  | 2902658 | Banzaê | |
+  | 2902658 | Banzaê | [ba_banzae](data_collection/gazette/spiders/ba_banzae.py) |
   | 2902708 | Barra | |
-  | 2902906 | Barra do Choça | |
+  | 2902906 | Barra do Choça | [ba_barra_do_choca](data_collection/gazette/spiders/ba_barra_do_choca.py) |
   | 2902807 | Barra da Estiva | |
   | 2903003 | Barra do Mendes | |
   | 2903102 | Barra do Rocha | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
   | 2903201 | Barreiras | |
   | 2903235 | Barro Alto | |
   | 2903300 | Barro Preto | |
-  | 2903276 | Barrocas | |
+  | 2903276 | Barrocas | [ba_barrocas](data_collection/gazette/spiders/ba_barrocas.py) |
   | 2903409 | Belmonte | |
   | 2903508 | Belo Campo | |
   | 2903607 | Biritinga | |
@@ -691,14 +691,14 @@ systems for the territory you are interested.
   | 2904209 | Botuporã | |
   | 2904308 | Brejões | |
   | 2904407 | Brejolândia | |
-  | 2904506 | Brotas de Macaúbas | |
+  | 2904506 | Brotas de Macaúbas | [ba_brotas_de_macaubas](data_collection/gazette/spiders/ba_brotas_de_macaubas.py) |
   | 2904605 | Brumado | |
   | 2904704 | Buerarema | |
   | 2904753 | Buritirama | |
   | 2904803 | Caatiba | |
   | 2904852 | Cabaceiras do Paraguaçu | |
-  | 2904902 | Cachoeira | |
-  | 2905008 | Caculé | |
+  | 2904902 | Cachoeira | [ba_cachoeira](data_collection/gazette/spiders/ba_cachoeira.py) |
+  | 2905008 | Caculé | [ba_cacule](data_collection/gazette/spiders/ba_cacule.py) |
   | 2905107 | Caém | |
   | 2905156 | Caetanos | |
   | 2905206 | Caetité | |
@@ -707,9 +707,9 @@ systems for the territory you are interested.
   | 2905503 | Caldeirão Grande | |
   | 2905602 | Camacan | |
   | 2905701 | Camaçari | |
-  | 2905800 | Camamu | |
+  | 2905800 | Camamu | [ba_camamu](data_collection/gazette/spiders/ba_camamu.py) |
   | 2905909 | Campo Alegre de Lourdes | |
-  | 2906006 | Campo Formoso | |
+  | 2906006 | Campo Formoso | [ba_campo_formoso](data_collection/gazette/spiders/ba_campo_formoso.py) |
   | 2906105 | Canápolis | |
   | 2906204 | Canarana | |
   | 2906303 | Canavieiras | |
@@ -718,7 +718,7 @@ systems for the territory you are interested.
   | 2906600 | Candiba | |
   | 2906709 | Cândido Sales | |
   | 2906808 | Cansanção | |
-  | 2906824 | Canudos | |
+  | 2906824 | Canudos | [ba_canudos](data_collection/gazette/spiders/ba_canudos.py) |
   | 2906857 | Capela do Alto Alegre | |
   | 2906873 | Capim Grosso | |
   | 2906899 | Caraíbas | |
@@ -727,16 +727,16 @@ systems for the territory you are interested.
   | 2907103 | Carinhanha | |
   | 2907202 | Casa Nova | |
   | 2907301 | Castro Alves | |
-  | 2907400 | Catolândia | |
-  | 2907509 | Catu | |
+  | 2907400 | Catolândia | [ba_catolandia](data_collection/gazette/spiders/ba_catolandia.py) |
+  | 2907509 | Catu | [ba_catu](data_collection/gazette/spiders/ba_catu.py) |
   | 2907558 | Caturama | |
   | 2907608 | Central | |
   | 2907707 | Chorrochó | |
-  | 2907806 | Cícero Dantas | |
+  | 2907806 | Cícero Dantas | [ba_cicero_dantas](data_collection/gazette/spiders/ba_cicero_dantas.py) |
   | 2907905 | Cipó | |
   | 2908002 | Coaraci | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
   | 2908101 | Cocos | |
-  | 2908309 | Conceição do Almeida | |
+  | 2908309 | Conceição do Almeida | [ba_conceicao_do_almeida](data_collection/gazette/spiders/ba_conceicao_do_almeida.py) |
   | 2908408 | Conceição do Coité | |
   | 2908200 | Conceição da Feira | |
   | 2908507 | Conceição do Jacuípe | |
@@ -770,14 +770,14 @@ systems for the territory you are interested.
   | 2910800 | Feira de Santana | [ba_feira_de_santana](data_collection/gazette/spiders/ba_feira_de_santana.py) |
   | 2910859 | Filadélfia | |
   | 2910909 | Firmino Alves | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
-  | 2911006 | Floresta Azul | |
+  | 2911006 | Floresta Azul | [ba_floresta_azul](data_collection/gazette/spiders/ba_floresta_azul.py) |
   | 2911105 | Formosa do Rio Preto | |
   | 2911204 | Gandu | |
   | 2911253 | Gavião | |
-  | 2911303 | Gentio do Ouro | |
+  | 2911303 | Gentio do Ouro | [ba_gentio_do_ouro](data_collection/gazette/spiders/ba_gentio_do_ouro.py) |
   | 2911402 | Glória | |
-  | 2911501 | Gongogi | |
-  | 2911600 | Governador Mangabeira | |
+  | 2911501 | Gongogi | [ba_gongogi](data_collection/gazette/spiders/ba_gongogi.py) |
+  | 2911600 | Governador Mangabeira | [ba_governador_mangabeira](data_collection/gazette/spiders/ba_governador_mangabeira.py) |
   | 2911659 | Guajeru | |
   | 2911709 | Guanambi | |
   | 2911808 | Guaratinga | |
@@ -801,15 +801,15 @@ systems for the territory you are interested.
   | 2913457 | Igrapiúna | |
   | 2913507 | Iguaí | |
   | 2913606 | Ilhéus | |
-  | 2913705 | Inhambupe | |
+  | 2913705 | Inhambupe | [ba_inhambupe](data_collection/gazette/spiders/ba_inhambupe.py) |
   | 2913804 | Ipecaetá | |
-  | 2913903 | Ipiaú | |
+  | 2913903 | Ipiaú | [ba_ipiau](data_collection/gazette/spiders/ba_ipiau.py) |
   | 2914000 | Ipirá | |
   | 2914109 | Ipupiara | |
   | 2914208 | Irajuba | |
   | 2914307 | Iramaia | |
   | 2914406 | Iraquara | |
-  | 2914505 | Irará | |
+  | 2914505 | Irará | [ba_irara](data_collection/gazette/spiders/ba_irara.py) |
   | 2914604 | Irecê | |
   | 2914653 | Itabela | |
   | 2914703 | Itaberaba | |
@@ -830,23 +830,23 @@ systems for the territory you are interested.
   | 2916104 | Itaparica | |
   | 2916203 | Itapé | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
   | 2916302 | Itapebi | |
-  | 2916401 | Itapetinga | |
+  | 2916401 | Itapetinga | [ba_itapetinga](data_collection/gazette/spiders/ba_itapetinga.py) |
   | 2916500 | Itapicuru | |
   | 2916609 | Itapitanga | |
-  | 2916708 | Itaquara | |
+  | 2916708 | Itaquara | [ba_itaquara](data_collection/gazette/spiders/ba_itaquara.py) |
   | 2916807 | Itarantim | |
   | 2916856 | Itatim | |
   | 2916906 | Itiruçu | |
   | 2917003 | Itiúba | |
   | 2917102 | Itororó | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
-  | 2917201 | Ituaçu | |
+  | 2917201 | Ituaçu | [ba_ituacu](data_collection/gazette/spiders/ba_ituacu.py) |
   | 2917300 | Ituberá | |
   | 2917334 | Iuiú | |
   | 2917359 | Jaborandi | |
   | 2917409 | Jacaraci | |
   | 2917508 | Jacobina | |
   | 2917607 | Jaguaquara | |
-  | 2917706 | Jaguarari | |
+  | 2917706 | Jaguarari | [ba_jaguarari](data_collection/gazette/spiders/ba_jaguarari.py) |
   | 2917805 | Jaguaripe | |
   | 2917904 | Jandaíra | |
   | 2918001 | Jequié | |
@@ -854,14 +854,14 @@ systems for the territory you are interested.
   | 2918209 | Jiquiriçá | |
   | 2918308 | Jitaúna | |
   | 2918357 | João Dourado | |
-  | 2918407 | Juazeiro | |
+  | 2918407 | Juazeiro | [ba_juazeiro](data_collection/gazette/spiders/ba_juazeiro.py) |
   | 2918456 | Jucuruçu | |
   | 2918506 | Jussara | |
   | 2918555 | Jussari | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
   | 2918605 | Jussiape | |
   | 2918704 | Lafaiete Coutinho | |
   | 2918803 | Lagoa Real | |
-  | 2918902 | Laje | |
+  | 2918902 | Laje | [ba_laje](data_collection/gazette/spiders/ba_laje.py) |
   | 2919009 | Lajedão | |
   | 2919058 | Lajedinho | |
   | 2918753 | Lajedo do Tabocal | |
@@ -872,7 +872,7 @@ systems for the territory you are interested.
   | 2919405 | Licínio de Almeida | |
   | 2919504 | Livramento de Nossa Senhora | |
   | 2919553 | Luís Eduardo Magalhães | |
-  | 2919603 | Macajuba | |
+  | 2919603 | Macajuba | [ba_macajuba](data_collection/gazette/spiders/ba_macajuba.py) |
   | 2919702 | Macarani | |
   | 2919801 | Macaúbas | |
   | 2919900 | Macururé | |
@@ -888,10 +888,10 @@ systems for the territory you are interested.
   | 2920601 | Maragogipe | |
   | 2920700 | Maraú | |
   | 2920809 | Marcionílio Souza | |
-  | 2920908 | Mascote | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py) |
+  | 2920908 | Mascote | [ba_associacao_municipios](data_collection/gazette/spiders/ba_associacao_municipios.py), [ba_mascote](data_collection/gazette/spiders/ba_mascote.py) |
   | 2921005 | Mata de São João | |
   | 2921054 | Matina | |
-  | 2921104 | Medeiros Neto | |
+  | 2921104 | Medeiros Neto | [ba_medeiros_neto](data_collection/gazette/spiders/ba_medeiros_neto.py) |
   | 2921203 | Miguel Calmon | |
   | 2921302 | Milagres | |
   | 2921401 | Mirangaba | |
@@ -901,10 +901,10 @@ systems for the territory you are interested.
   | 2921708 | Morro do Chapéu | |
   | 2921807 | Mortugaba | |
   | 2921906 | Mucugê | |
-  | 2922003 | Mucuri | |
+  | 2922003 | Mucuri | [ba_mucuri](data_collection/gazette/spiders/ba_mucuri.py) |
   | 2922052 | Mulungu do Morro | |
   | 2922102 | Mundo Novo | |
-  | 2922201 | Muniz Ferreira | |
+  | 2922201 | Muniz Ferreira | [ba_muniz_ferreira](data_collection/gazette/spiders/ba_muniz_ferreira.py) |
   | 2922250 | Muquém de São Francisco | |
   | 2922300 | Muritiba | |
   | 2922409 | Mutuípe | |
@@ -927,11 +927,11 @@ systems for the territory you are interested.
   | 2923407 | Palmas de Monte Alto | |
   | 2923506 | Palmeiras | |
   | 2923605 | Paramirim | |
-  | 2923704 | Paratinga | |
+  | 2923704 | Paratinga | [ba_paratinga](data_collection/gazette/spiders/ba_paratinga.py) |
   | 2923803 | Paripiranga | |
   | 2923902 | Pau Brasil | |
   | 2924009 | Paulo Afonso | |
-  | 2924058 | Pé de Serra | |
+  | 2924058 | Pé de Serra | [ba_pe_de_serra](data_collection/gazette/spiders/ba_pe_de_serra.py) |
   | 2924108 | Pedrão | |
   | 2924207 | Pedro Alexandre | |
   | 2924306 | Piatã | |
@@ -949,7 +949,7 @@ systems for the territory you are interested.
   | 2925253 | Ponto Novo | |
   | 2925303 | Porto Seguro | |
   | 2925402 | Potiraguá | |
-  | 2925501 | Prado | |
+  | 2925501 | Prado | [ba_prado](data_collection/gazette/spiders/ba_prado.py) |
   | 2925600 | Presidente Dutra | |
   | 2925709 | Presidente Jânio Quadros | |
   | 2925758 | Presidente Tancredo Neves | |
@@ -963,7 +963,7 @@ systems for the territory you are interested.
   | 2926202 | Riachão das Neves | |
   | 2926400 | Riacho de Santana | |
   | 2926509 | Ribeira do Amparo | |
-  | 2926608 | Ribeira do Pombal | |
+  | 2926608 | Ribeira do Pombal | [ba_ribeira_do_pombal](data_collection/gazette/spiders/ba_ribeira_do_pombal.py) |
   | 2926657 | Ribeirão do Largo | |
   | 2926806 | Rio do Antônio | |
   | 2926707 | Rio de Contas | |
@@ -975,7 +975,7 @@ systems for the territory you are interested.
   | 2927408 | Salvador | [ba_salvador](data_collection/gazette/spiders/ba_salvador.py) |
   | 2927507 | Santa Bárbara | |
   | 2927606 | Santa Brígida | |
-  | 2927705 | Santa Cruz Cabrália | |
+  | 2927705 | Santa Cruz Cabrália | [ba_santa_cruz_cabralia](data_collection/gazette/spiders/ba_santa_cruz_cabralia.py) |
   | 2927804 | Santa Cruz da Vitória | |
   | 2927903 | Santa Inês | |
   | 2928059 | Santa Luzia | |
@@ -985,52 +985,52 @@ systems for the territory you are interested.
   | 2928000 | Santaluz | |
   | 2928208 | Santana | |
   | 2928307 | Santanópolis | |
-  | 2928604 | Santo Amaro | |
+  | 2928604 | Santo Amaro | [ba_santo_amaro](data_collection/gazette/spiders/ba_santo_amaro.py) |
   | 2928703 | Santo Antônio de Jesus | |
-  | 2928802 | Santo Estêvão | |
+  | 2928802 | Santo Estêvão | [ba_santo_estevao](data_collection/gazette/spiders/ba_santo_estevao.py) |
   | 2928901 | São Desidério | |
   | 2928950 | São Domingos | |
-  | 2929107 | São Felipe | |
-  | 2929008 | São Félix | |
+  | 2929107 | São Felipe | [ba_sao_felipe](data_collection/gazette/spiders/ba_sao_felipe.py) |
+  | 2929008 | São Félix | [ba_sao_felix](data_collection/gazette/spiders/ba_sao_felix.py) |
   | 2929057 | São Félix do Coribe | |
-  | 2929206 | São Francisco do Conde | |
+  | 2929206 | São Francisco do Conde | [ba_sao_francisco_do_conde](data_collection/gazette/spiders/ba_sao_francisco_do_conde.py) |
   | 2929255 | São Gabriel | |
   | 2929305 | São Gonçalo dos Campos | |
   | 2929370 | São José do Jacuípe | |
   | 2929354 | São José da Vitória | |
-  | 2929404 | São Miguel das Matas | |
+  | 2929404 | São Miguel das Matas | [ba_sao_miguel_das_matas](data_collection/gazette/spiders/ba_sao_miguel_das_matas.py) |
   | 2929503 | São Sebastião do Passé | |
-  | 2929602 | Sapeaçu | |
+  | 2929602 | Sapeaçu | [ba_sapeacu](data_collection/gazette/spiders/ba_sapeacu.py) |
   | 2929701 | Sátiro Dias | |
   | 2929750 | Saubara | |
-  | 2929800 | Saúde | |
+  | 2929800 | Saúde | [ba_saude](data_collection/gazette/spiders/ba_saude.py) |
   | 2929909 | Seabra | |
   | 2930006 | Sebastião Laranjeiras | |
-  | 2930105 | Senhor do Bonfim | |
-  | 2930204 | Sento Sé | |
+  | 2930105 | Senhor do Bonfim | [ba_senhor_do_bonfim](data_collection/gazette/spiders/ba_senhor_do_bonfim.py) |
+  | 2930204 | Sento Sé | [ba_sento_se](data_collection/gazette/spiders/ba_sento_se.py) |
   | 2930303 | Serra Dourada | |
   | 2930402 | Serra Preta | |
   | 2930154 | Serra do Ramalho | |
-  | 2930501 | Serrinha | |
+  | 2930501 | Serrinha | [ba_amelia_rodrigues](data_collection/gazette/spiders/ba_amelia_rodrigues.py), [ba_serrinha](data_collection/gazette/spiders/ba_serrinha.py) |
   | 2930600 | Serrolândia | |
   | 2930709 | Simões Filho | |
   | 2930758 | Sítio do Mato | |
   | 2930766 | Sítio do Quinto | |
   | 2930774 | Sobradinho | |
   | 2930808 | Souto Soares | |
-  | 2930907 | Tabocas do Brejo Velho | |
+  | 2930907 | Tabocas do Brejo Velho | [ba_tabocas_do_brejo_velho](data_collection/gazette/spiders/ba_tabocas_do_brejo_velho.py) |
   | 2931004 | Tanhaçu | |
   | 2931053 | Tanque Novo | |
   | 2931103 | Tanquinho | |
   | 2931202 | Taperoá | |
   | 2931301 | Tapiramutá | |
-  | 2931350 | Teixeira de Freitas | |
+  | 2931350 | Teixeira de Freitas | [ba_teixeira_de_freitas](data_collection/gazette/spiders/ba_teixeira_de_freitas.py) |
   | 2931400 | Teodoro Sampaio | |
   | 2931509 | Teofilândia | |
-  | 2931608 | Teolândia | |
+  | 2931608 | Teolândia | [ba_teolandia](data_collection/gazette/spiders/ba_teolandia.py) |
   | 2931707 | Terra Nova | |
   | 2931806 | Tremedal | |
-  | 2931905 | Tucano | |
+  | 2931905 | Tucano | [ba_tucano](data_collection/gazette/spiders/ba_tucano.py) |
   | 2932002 | Uauá | |
   | 2932101 | Ubaíra | |
   | 2932200 | Ubaitaba | |
@@ -1047,13 +1047,13 @@ systems for the territory you are interested.
   | 2933109 | Várzea do Poço | |
   | 2933059 | Várzea da Roça | |
   | 2933174 | Varzedo | |
-  | 2933208 | Vera Cruz | |
+  | 2933208 | Vera Cruz | [ba_vera_cruz](data_collection/gazette/spiders/ba_vera_cruz.py) |
   | 2933257 | Vereda | |
   | 2933307 | Vitória da Conquista | [ba_vitoria_da_conquista](data_collection/gazette/spiders/ba_vitoria_da_conquista.py) |
   | 2933406 | Wagner | |
   | 2933455 | Wanderley | |
-  | 2933505 | Wenceslau Guimarães | |
-  | 2933604 | Xique-Xique | |
+  | 2933505 | Wenceslau Guimarães | [ba_wenceslau_guimaraes](data_collection/gazette/spiders/ba_wenceslau_guimaraes.py) |
+  | 2933604 | Xique-Xique | [ba_xique_xique](data_collection/gazette/spiders/ba_xique_xique.py) |
 </details>
 
 
@@ -1068,10 +1068,10 @@ systems for the territory you are interested.
   | 2300150 | Acarape | |
   | 2300200 | Acaraú | |
   | 2300309 | Acopiara | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
-  | 2300408 | Aiuaba | |
+  | 2300408 | Aiuaba | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2300507 | Alcântaras | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2300606 | Altaneira | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
-  | 2300705 | Alto Santo | |
+  | 2300705 | Alto Santo | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2300754 | Amontada | |
   | 2300804 | Antonina do Norte | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2300903 | Apuiarés | |
@@ -1209,7 +1209,7 @@ systems for the territory you are interested.
   | 2310951 | Pires Ferreira | |
   | 2311009 | Poranga | |
   | 2311108 | Porteiras | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
-  | 2311207 | Potengi | |
+  | 2311207 | Potengi | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2311231 | Potiretama | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2311264 | Quiterianópolis | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2311306 | Quixadá | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
@@ -1228,9 +1228,9 @@ systems for the territory you are interested.
   | 2312403 | São Gonçalo do Amarante | |
   | 2312502 | São João do Jaguaribe | |
   | 2312601 | São Luís do Curu | |
-  | 2312700 | Senador Pompeu | |
+  | 2312700 | Senador Pompeu | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2312809 | Senador Sá | |
-  | 2312908 | Sobral | |
+  | 2312908 | Sobral | [ce_sobral](data_collection/gazette/spiders/ce_sobral.py) |
   | 2313005 | Solonópole | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2313104 | Tabuleiro do Norte | [ce_associacao_municipios](data_collection/gazette/spiders/ce_associacao_municipios.py) |
   | 2313203 | Tamboril | |
@@ -1345,7 +1345,7 @@ systems for the territory you are interested.
   | 3205101 | Viana | |
   | 3205150 | Vila Pavão | |
   | 3205176 | Vila Valério | |
-  | 3205200 | Vila Velha | |
+  | 3205200 | Vila Velha | [es_vila_velha](data_collection/gazette/spiders/es_vila_velha.py) |
   | 3205309 | Vitória | |
 </details>
 
@@ -1363,11 +1363,11 @@ systems for the territory you are interested.
   | 5200159 | Adelândia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5200175 | Água Fria de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5200209 | Água Limpa | |
-  | 5200258 | Águas Lindas de Goiás | |
+  | 5200258 | Águas Lindas de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5200308 | Alexânia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5200506 | Aloândia | |
   | 5200555 | Alto Horizonte | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5200605 | Alto Paraíso de Goiás | |
+  | 5200605 | Alto Paraíso de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5200803 | Alvorada do Norte | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5200829 | Amaralina | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5200852 | Americano do Brasil | |
@@ -1382,7 +1382,7 @@ systems for the territory you are interested.
   | 5201702 | Aragarças | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5201801 | Aragoiânia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5202155 | Araguapaz | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5202353 | Arenópolis | |
+  | 5202353 | Arenópolis | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5202502 | Aruanã | |
   | 5202601 | Aurilândia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py), [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5202809 | Avelinópolis | |
@@ -1400,7 +1400,7 @@ systems for the territory you are interested.
   | 5203962 | Buritinópolis | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5204003 | Cabeceiras | |
   | 5204102 | Cachoeira Alta | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5204250 | Cachoeira Dourada | |
+  | 5204250 | Cachoeira Dourada | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5204201 | Cachoeira de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py), [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5204300 | Caçu | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py), [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5204409 | Caiapônia | |
@@ -1408,7 +1408,7 @@ systems for the territory you are interested.
   | 5204557 | Caldazinha | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5204607 | Campestre de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5204656 | Campinaçu | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5204706 | Campinorte | |
+  | 5204706 | Campinorte | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5204805 | Campo Alegre de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5204854 | Campo Limpo de Goiás | |
   | 5204904 | Campos Belos | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
@@ -1427,7 +1427,7 @@ systems for the territory you are interested.
   | 5205703 | Córrego do Ouro | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5205802 | Corumbá de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5205901 | Corumbaíba | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5206206 | Cristalina | |
+  | 5206206 | Cristalina | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5206305 | Cristianópolis | |
   | 5206404 | Crixás | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5206503 | Cromínia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
@@ -1444,7 +1444,7 @@ systems for the territory you are interested.
   | 5207535 | Faina | |
   | 5207600 | Fazenda Nova | |
   | 5207808 | Firminópolis | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5207907 | Flores de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
+  | 5207907 | Flores de Goiás | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5208004 | Formosa | |
   | 5208103 | Formoso | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5208152 | Gameleira de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
@@ -1452,12 +1452,12 @@ systems for the territory you are interested.
   | 5208509 | Goiandira | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5208608 | Goianésia | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5208707 | Goiânia | [go_goiania](data_collection/gazette/spiders/go_goiania.py) |
-  | 5208806 | Goianira | |
+  | 5208806 | Goianira | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5208905 | Goiás | |
   | 5209101 | Goiatuba | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5209150 | Gouvelândia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5209200 | Guapó | |
-  | 5209291 | Guaraíta | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
+  | 5209291 | Guaraíta | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py), [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5209408 | Guarani de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5209457 | Guarinos | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5209606 | Heitoraí | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py), [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
@@ -1479,7 +1479,7 @@ systems for the territory you are interested.
   | 5211008 | Itapirapuã | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5211206 | Itapuranga | |
   | 5211305 | Itarumã | |
-  | 5211404 | Itauçu | |
+  | 5211404 | Itauçu | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5211503 | Itumbiara | |
   | 5211602 | Ivolândia | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5211701 | Jandaia | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
@@ -1496,8 +1496,8 @@ systems for the territory you are interested.
   | 5212709 | Mambaí | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5212808 | Mara Rosa | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5212907 | Marzagão | |
-  | 5212956 | Matrinchã | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5213004 | Maurilândia | |
+  | 5212956 | Matrinchã | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
+  | 5213004 | Maurilândia | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5213053 | Mimoso de Goiás | |
   | 5213087 | Minaçu | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5213103 | Mineiros | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
@@ -1512,17 +1512,17 @@ systems for the territory you are interested.
   | 5214002 | Mozarlândia | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5214051 | Mundo Novo | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5214101 | Mutunópolis | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5214408 | Nazário | |
+  | 5214408 | Nazário | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5214507 | Nerópolis | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5214606 | Niquelândia | |
-  | 5214705 | Nova América | |
+  | 5214705 | Nova América | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5214804 | Nova Aurora | |
   | 5214838 | Nova Crixás | |
   | 5214861 | Nova Glória | |
   | 5214879 | Nova Iguaçu de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5214903 | Nova Roma | |
+  | 5214903 | Nova Roma | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5215009 | Nova Veneza | |
-  | 5215207 | Novo Brasil | |
+  | 5215207 | Novo Brasil | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5215231 | Novo Gama | |
   | 5215256 | Novo Planalto | |
   | 5215306 | Orizona | |
@@ -1545,7 +1545,7 @@ systems for the territory you are interested.
   | 5217401 | Pires do Rio | |
   | 5217609 | Planaltina | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5217708 | Pontalina | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
-  | 5218003 | Porangatu | |
+  | 5218003 | Porangatu | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5218052 | Porteirão | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5218102 | Portelândia | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5218300 | Posse | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
@@ -1571,7 +1571,7 @@ systems for the territory you are interested.
   | 5219753 | Santo Antônio do Descoberto | |
   | 5219738 | Santo Antônio de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5219803 | São Domingos | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
-  | 5219902 | São Francisco de Goiás | |
+  | 5219902 | São Francisco de Goiás | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5220009 | São João d'Aliança | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5220058 | São João da Paraúna | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5220108 | São Luís de Montes Belos | |
@@ -1588,9 +1588,9 @@ systems for the territory you are interested.
   | 5221007 | Taquaral de Goiás | |
   | 5221080 | Teresina de Goiás | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5221197 | Terezópolis de Goiás | |
-  | 5221304 | Três Ranchos | |
+  | 5221304 | Três Ranchos | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
   | 5221403 | Trindade | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
-  | 5221452 | Trombas | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
+  | 5221452 | Trombas | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5221502 | Turvânia | |
   | 5221551 | Turvelândia | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5221577 | Uirapuru | [go_associacao_municipios_agm](data_collection/gazette/spiders/go_associacao_municipios_agm.py) |
@@ -1599,7 +1599,7 @@ systems for the territory you are interested.
   | 5221809 | Urutaí | |
   | 5221858 | Valparaíso de Goiás | |
   | 5221908 | Varjão | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
-  | 5222005 | Vianópolis | |
+  | 5222005 | Vianópolis | [go_associacao_municipios_fgm](data_collection/gazette/spiders/go_associacao_municipios_fgm.py) |
   | 5222054 | Vicentinópolis | |
   | 5222203 | Vila Boa | |
   | 5222302 | Vila Propício | |
@@ -2057,7 +2057,7 @@ systems for the territory you are interested.
   | 5007109 | Ribas do Rio Pardo | [ms_associacao_municipios](data_collection/gazette/spiders/ms_associacao_municipios.py) |
   | 5007208 | Rio Brilhante | |
   | 5007307 | Rio Negro | [ms_associacao_municipios](data_collection/gazette/spiders/ms_associacao_municipios.py) |
-  | 5007406 | Rio Verde de Mato Grosso | [mt_associacao_municipios](data_collection/gazette/spiders/mt_associacao_municipios.py) |
+  | 5007406 | Rio Verde de Mato Grosso | [ms_associacao_municipios](data_collection/gazette/spiders/ms_associacao_municipios.py), [mt_associacao_municipios](data_collection/gazette/spiders/mt_associacao_municipios.py) |
   | 5007505 | Rochedo | [ms_associacao_municipios](data_collection/gazette/spiders/ms_associacao_municipios.py) |
   | 5007554 | Santa Rita do Pardo | |
   | 5007695 | São Gabriel do Oeste | [ms_associacao_municipios](data_collection/gazette/spiders/ms_associacao_municipios.py) |
@@ -2098,7 +2098,7 @@ systems for the territory you are interested.
   | 3101607 | Alfenas | |
   | 3101631 | Alfredo Vasconcelos | |
   | 3101706 | Almenara | |
-  | 3101805 | Alpercata | |
+  | 3101805 | Alpercata | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3101904 | Alpinópolis | |
   | 3102001 | Alterosa | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3102050 | Alto Caparaó | |
@@ -2145,13 +2145,13 @@ systems for the territory you are interested.
   | 3105905 | Barroso | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3106002 | Bela Vista de Minas | |
   | 3106101 | Belmiro Braga | |
-  | 3106200 | Belo Horizonte | |
+  | 3106200 | Belo Horizonte | [mg_belo_horizonte](data_collection/gazette/spiders/mg_belo_horizonte.py) |
   | 3106309 | Belo Oriente | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3106408 | Belo Vale | |
   | 3106507 | Berilo | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3106655 | Berizal | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3106606 | Bertópolis | |
-  | 3106705 | Betim | |
+  | 3106705 | Betim | [mg_betim](data_collection/gazette/spiders/mg_betim.py) |
   | 3106804 | Bias Fortes | |
   | 3106903 | Bicas | |
   | 3107000 | Biquinhas | |
@@ -2195,13 +2195,13 @@ systems for the territory you are interested.
   | 3110301 | Caldas | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3110400 | Camacho | |
   | 3110509 | Camanducaia | |
-  | 3110608 | Cambuí | |
-  | 3110707 | Cambuquira | |
+  | 3110608 | Cambuí | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
+  | 3110707 | Cambuquira | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3110806 | Campanário | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3110905 | Campanha | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3111002 | Campestre | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3111101 | Campina Verde | |
-  | 3111150 | Campo Azul | |
+  | 3111150 | Campo Azul | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3111200 | Campo Belo | [mg_campo_belo](data_collection/gazette/spiders/mg_campo_belo.py) |
   | 3111408 | Campo Florido | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3111309 | Campo do Meio | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2263,7 +2263,7 @@ systems for the territory you are interested.
   | 3116407 | Claraval | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3116506 | Claro dos Poções | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3116605 | Cláudio | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3116704 | Coimbra | |
+  | 3116704 | Coimbra | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3116803 | Coluna | |
   | 3116902 | Comendador Gomes | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3117009 | Comercinho | |
@@ -2289,7 +2289,7 @@ systems for the territory you are interested.
   | 3118700 | Coqueiral | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3118809 | Coração de Jesus | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3118908 | Cordisburgo | |
-  | 3119005 | Cordislândia | |
+  | 3119005 | Cordislândia | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3119104 | Corinto | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3119203 | Coroaci | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3119302 | Coromandel | |
@@ -2324,7 +2324,7 @@ systems for the territory you are interested.
   | 3121704 | Diogo de Vasconcelos | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3121803 | Dionísio | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3121902 | Divinésia | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3122009 | Divino | |
+  | 3122009 | Divino | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3122108 | Divino das Laranjeiras | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3122207 | Divinolândia de Minas | |
   | 3122306 | Divinópolis | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2354,7 +2354,7 @@ systems for the territory you are interested.
   | 3124203 | Espera Feliz | |
   | 3124302 | Espinosa | |
   | 3124401 | Espírito Santo do Dourado | |
-  | 3124500 | Estiva | |
+  | 3124500 | Estiva | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3124609 | Estrela Dalva | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3124708 | Estrela do Indaiá | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3124807 | Estrela do Sul | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2377,7 +2377,7 @@ systems for the territory you are interested.
   | 3126505 | Francisco Badaró | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3126604 | Francisco Dumont | |
   | 3126703 | Francisco Sá | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3126752 | Franciscópolis | |
+  | 3126752 | Franciscópolis | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3126802 | Frei Gaspar | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3126901 | Frei Inocêncio | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3126950 | Frei Lagonegro | |
@@ -2433,7 +2433,7 @@ systems for the territory you are interested.
   | 3130804 | Ingaí | |
   | 3130903 | Inhapim | |
   | 3131000 | Inhaúma | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3131109 | Inimutaba | |
+  | 3131109 | Inimutaba | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3131158 | Ipaba | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3131208 | Ipanema | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3131307 | Ipatinga | |
@@ -2464,7 +2464,7 @@ systems for the territory you are interested.
   | 3133758 | Itaú de Minas | |
   | 3133808 | Itaúna | [mg_itauna](data_collection/gazette/spiders/mg_itauna.py) |
   | 3133907 | Itaverava | |
-  | 3134004 | Itinga | |
+  | 3134004 | Itinga | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3134103 | Itueta | |
   | 3134202 | Ituiutaba | |
   | 3134301 | Itumirim | |
@@ -2476,7 +2476,7 @@ systems for the territory you are interested.
   | 3134905 | Jacutinga | |
   | 3135001 | Jaguaraçu | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3135050 | Jaíba | |
-  | 3135076 | Jampruca | |
+  | 3135076 | Jampruca | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3135100 | Janaúba | |
   | 3135209 | Januária | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3135308 | Japaraíba | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2486,7 +2486,7 @@ systems for the territory you are interested.
   | 3135506 | Jequeri | |
   | 3135605 | Jequitaí | |
   | 3135704 | Jequitibá | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3135803 | Jequitinhonha | |
+  | 3135803 | Jequitinhonha | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3135902 | Jesuânia | |
   | 3136009 | Joaíma | |
   | 3136108 | Joanésia | |
@@ -2525,7 +2525,7 @@ systems for the territory you are interested.
   | 3138658 | Lontra | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3138674 | Luisburgo | |
   | 3138682 | Luislândia | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3138708 | Luminárias | |
+  | 3138708 | Luminárias | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3138807 | Luz | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3138906 | Machacalis | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3139003 | Machado | |
@@ -2549,7 +2549,7 @@ systems for the territory you are interested.
   | 3140530 | Martins Soares | |
   | 3140555 | Mata Verde | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3140605 | Materlândia | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3140704 | Mateus Leme | |
+  | 3140704 | Mateus Leme | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3171501 | Mathias Lobato | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3140803 | Matias Barbosa | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3140852 | Matias Cardoso | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2568,7 +2568,7 @@ systems for the territory you are interested.
   | 3142106 | Miradouro | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3142205 | Miraí | |
   | 3142254 | Miravânia | |
-  | 3142304 | Moeda | |
+  | 3142304 | Moeda | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3142403 | Moema | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3142502 | Monjolos | |
   | 3142601 | Monsenhor Paulo | |
@@ -2692,7 +2692,7 @@ systems for the territory you are interested.
   | 3152131 | Ponto Chique | |
   | 3152170 | Ponto dos Volantes | |
   | 3152204 | Porteirinha | |
-  | 3152303 | Porto Firme | |
+  | 3152303 | Porto Firme | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3152402 | Poté | |
   | 3152501 | Pouso Alegre | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3152600 | Pouso Alto | |
@@ -2751,7 +2751,7 @@ systems for the territory you are interested.
   | 3157336 | Santa Cruz de Minas | |
   | 3157377 | Santa Cruz de Salinas | |
   | 3157500 | Santa Efigênia de Minas | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3157609 | Santa Fé de Minas | |
+  | 3157609 | Santa Fé de Minas | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3157658 | Santa Helena de Minas | |
   | 3157708 | Santa Juliana | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3157807 | Santa Luzia | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2779,7 +2779,7 @@ systems for the territory you are interested.
   | 3158300 | Santana da Vargem | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3159902 | Santo Antônio do Amparo | |
   | 3160009 | Santo Antônio do Aventureiro | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3160108 | Santo Antônio do Grama | |
+  | 3160108 | Santo Antônio do Grama | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3160207 | Santo Antônio do Itambé | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3160306 | Santo Antônio do Jacinto | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3160405 | Santo Antônio do Monte | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
@@ -2803,7 +2803,7 @@ systems for the territory you are interested.
   | 3161809 | São Gonçalo do Pará | |
   | 3161908 | São Gonçalo do Rio Abaixo | |
   | 3125507 | São Gonçalo do Rio Preto | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3162005 | São Gonçalo do Sapucaí | |
+  | 3162005 | São Gonçalo do Sapucaí | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3162104 | São Gotardo | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3162203 | São João Batista do Glória | |
   | 3162500 | São João del Rei | |
@@ -2925,7 +2925,7 @@ systems for the territory you are interested.
   | 3171154 | Vermelho Novo | |
   | 3171204 | Vespasiano | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3171303 | Viçosa | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
-  | 3171402 | Vieiras | |
+  | 3171402 | Vieiras | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3171600 | Virgem da Lapa | [mg_associacao_municipios](data_collection/gazette/spiders/mg_associacao_municipios.py) |
   | 3171709 | Virgínia | |
   | 3171808 | Virginópolis | |
@@ -2956,7 +2956,7 @@ systems for the territory you are interested.
   | 1500859 | Anapu | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1500909 | Augusto Corrêa | |
   | 1500958 | Aurora do Pará | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
-  | 1501006 | Aveiro | |
+  | 1501006 | Aveiro | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1501105 | Bagre | |
   | 1501204 | Baião | |
   | 1501253 | Bannach | |
@@ -2973,7 +2973,7 @@ systems for the territory you are interested.
   | 1501808 | Breves | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1501907 | Bujaru | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1502004 | Cachoeira do Arari | |
-  | 1501956 | Cachoeira do Piriá | |
+  | 1501956 | Cachoeira do Piriá | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1502103 | Cametá | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1502152 | Canaã dos Carajás | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1502202 | Capanema | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
@@ -2989,7 +2989,7 @@ systems for the territory you are interested.
   | 1502855 | Curuá | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1502905 | Curuçá | |
   | 1502939 | Dom Eliseu | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
-  | 1502954 | Eldorado do Carajás | |
+  | 1502954 | Eldorado do Carajás | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1503002 | Faro | |
   | 1503044 | Floresta do Araguaia | |
   | 1503077 | Garrafão do Norte | |
@@ -3003,13 +3003,13 @@ systems for the territory you are interested.
   | 1503606 | Itaituba | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1503705 | Itupiranga | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1503754 | Jacareacanga | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
-  | 1503804 | Jacundá | |
+  | 1503804 | Jacundá | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1503903 | Juruti | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1504000 | Limoeiro do Ajuru | |
   | 1504059 | Mãe do Rio | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1504109 | Magalhães Barata | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1504208 | Marabá | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
-  | 1504307 | Maracanã | |
+  | 1504307 | Maracanã | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1504406 | Marapanim | |
   | 1504422 | Marituba | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1504455 | Medicilândia | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
@@ -3037,7 +3037,7 @@ systems for the territory you are interested.
   | 1505601 | Peixe-Boi | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1505635 | Piçarra | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1505650 | Placas | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
-  | 1505700 | Ponta de Pedras | |
+  | 1505700 | Ponta de Pedras | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1505809 | Portel | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1505908 | Porto de Moz | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1506005 | Prainha | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
@@ -3081,7 +3081,7 @@ systems for the territory you are interested.
   | 1508050 | Trairão | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1508084 | Tucumã | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1508100 | Tucuruí | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
-  | 1508126 | Ulianópolis | |
+  | 1508126 | Ulianópolis | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
   | 1508159 | Uruará | |
   | 1508209 | Vigia | |
   | 1508308 | Viseu | [pa_associacao_municipios](data_collection/gazette/spiders/pa_associacao_municipios.py) |
@@ -3111,8 +3111,8 @@ systems for the territory you are interested.
   | 2500908 | Arara | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2501005 | Araruna | |
   | 2501104 | Areia | |
-  | 2501153 | Areia de Baraúnas | |
-  | 2501203 | Areial | |
+  | 2501153 | Areia de Baraúnas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
+  | 2501203 | Areial | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2501302 | Aroeiras | |
   | 2501351 | Assunção | |
   | 2501401 | Baía da Traição | |
@@ -3139,13 +3139,13 @@ systems for the territory you are interested.
   | 2503209 | Cabedelo | |
   | 2503308 | Cachoeira dos Índios | |
   | 2503407 | Cacimba de Areia | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
-  | 2503506 | Cacimba de Dentro | |
+  | 2503506 | Cacimba de Dentro | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2503555 | Cacimbas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2503605 | Caiçara | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2503704 | Cajazeiras | |
   | 2503753 | Cajazeirinhas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2503803 | Caldas Brandão | |
-  | 2503902 | Camalaú | |
+  | 2503902 | Camalaú | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2504009 | Campina Grande | [pb_campina_grande](data_collection/gazette/spiders/pb_campina_grande.py) |
   | 2504033 | Capim | |
   | 2504074 | Caraúbas | |
@@ -3161,7 +3161,7 @@ systems for the territory you are interested.
   | 2504801 | Coremas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2504850 | Coxixola | |
   | 2504900 | Cruz do Espírito Santo | |
-  | 2505006 | Cubati | |
+  | 2505006 | Cubati | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2505105 | Cuité | |
   | 2505238 | Cuité de Mamanguape | |
   | 2505204 | Cuitegi | |
@@ -3172,7 +3172,7 @@ systems for the territory you are interested.
   | 2505600 | Diamante | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2505709 | Dona Inês | |
   | 2505808 | Duas Estradas | |
-  | 2505907 | Emas | |
+  | 2505907 | Emas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2506004 | Esperança | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2506103 | Fagundes | |
   | 2506202 | Frei Martinho | |
@@ -3181,7 +3181,7 @@ systems for the territory you are interested.
   | 2506400 | Gurinhém | |
   | 2506509 | Gurjão | |
   | 2506608 | Ibiara | |
-  | 2502607 | Igaracy | |
+  | 2502607 | Igaracy | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2506707 | Imaculada | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2506806 | Ingá | |
   | 2506905 | Itabaiana | |
@@ -3221,7 +3221,7 @@ systems for the territory you are interested.
   | 2509602 | Monte Horebe | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2509701 | Monteiro | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2509800 | Mulungu | |
-  | 2509909 | Natuba | |
+  | 2509909 | Natuba | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2510006 | Nazarezinho | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2510105 | Nova Floresta | |
   | 2510204 | Nova Olinda | |
@@ -3245,7 +3245,7 @@ systems for the territory you are interested.
   | 2511806 | Pirpirituba | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2511905 | Pitimbu | |
   | 2512002 | Pocinhos | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
-  | 2512036 | Poço Dantas | |
+  | 2512036 | Poço Dantas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2512077 | Poço de José de Moura | |
   | 2512101 | Pombal | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2512200 | Prata | |
@@ -3260,7 +3260,7 @@ systems for the territory you are interested.
   | 2512804 | Riacho dos Cavalos | |
   | 2512788 | Riacho de Santo Antônio | |
   | 2512903 | Rio Tinto | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
-  | 2513000 | Salgadinho | |
+  | 2513000 | Salgadinho | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2513109 | Salgado de São Félix | |
   | 2513158 | Santa Cecília | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2513208 | Santa Cruz | |
@@ -3269,7 +3269,7 @@ systems for the territory you are interested.
   | 2513406 | Santa Luzia | |
   | 2513703 | Santa Rita | |
   | 2513802 | Santa Teresinha | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
-  | 2513604 | Santana dos Garrotes | |
+  | 2513604 | Santana dos Garrotes | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2513505 | Santana de Mangueira | |
   | 2513851 | Santo André | |
   | 2513927 | São Bentinho | |
@@ -3283,7 +3283,7 @@ systems for the territory you are interested.
   | 2514602 | São José do Bonfim | |
   | 2514651 | São José do Brejo do Cruz | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2514305 | São José de Caiana | |
-  | 2514800 | São José dos Cordeiros | |
+  | 2514800 | São José dos Cordeiros | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2514404 | São José de Espinharas | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2514206 | São José da Lagoa Tapada | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2514503 | São José de Piranhas | |
@@ -3299,7 +3299,7 @@ systems for the territory you are interested.
   | 2515500 | Serra Branca | |
   | 2515708 | Serra Grande | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2515609 | Serra da Raiz | |
-  | 2515807 | Serra Redonda | |
+  | 2515807 | Serra Redonda | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2515906 | Serraria | |
   | 2515930 | Sertãozinho | |
   | 2515971 | Sobrado | |
@@ -3317,7 +3317,7 @@ systems for the territory you are interested.
   | 2516904 | Uiraúna | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2517001 | Umbuzeiro | |
   | 2517100 | Várzea | |
-  | 2517209 | Vieirópolis | |
+  | 2517209 | Vieirópolis | [pb_associacao_municipios](data_collection/gazette/spiders/pb_associacao_municipios.py) |
   | 2505501 | Vista Serrana | |
   | 2517407 | Zabelê | |
 </details>
@@ -3331,7 +3331,7 @@ systems for the territory you are interested.
   | IBGE code | City name | Implemented spiders |
   | :-------: | :-------- | :------------------ |
   | 4100103 | Abatiá | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
-  | 4100202 | Adrianópolis | |
+  | 4100202 | Adrianópolis | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4100301 | Agudos do Sul | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4100400 | Almirante Tamandaré | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4100459 | Altamira do Paraná | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
@@ -3394,7 +3394,7 @@ systems for the territory you are interested.
   | 4104105 | Campo do Tenente | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4104402 | Cândido de Abreu | |
   | 4104428 | Candói | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
-  | 4104451 | Cantagalo | |
+  | 4104451 | Cantagalo | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4104501 | Capanema | |
   | 4104600 | Capitão Leônidas Marques | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4104659 | Carambeí | |
@@ -3417,8 +3417,8 @@ systems for the territory you are interested.
   | 4106308 | Corbélia | |
   | 4106407 | Cornélio Procópio | |
   | 4106456 | Coronel Domingos Soares | |
-  | 4106506 | Coronel Vivida | |
-  | 4106555 | Corumbataí do Sul | |
+  | 4106506 | Coronel Vivida | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
+  | 4106555 | Corumbataí do Sul | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4106803 | Cruz Machado | |
   | 4106571 | Cruzeiro do Iguaçu | |
   | 4106605 | Cruzeiro do Oeste | |
@@ -3429,7 +3429,7 @@ systems for the territory you are interested.
   | 4107108 | Diamante do Norte | |
   | 4107157 | Diamante D'Oeste | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4107124 | Diamante do Sul | |
-  | 4107207 | Dois Vizinhos | |
+  | 4107207 | Dois Vizinhos | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4107256 | Douradina | |
   | 4107306 | Doutor Camargo | |
   | 4128633 | Doutor Ulysses | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
@@ -3444,7 +3444,7 @@ systems for the territory you are interested.
   | 4107702 | Fênix | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4107736 | Fernandes Pinheiro | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4107751 | Figueira | |
-  | 4107850 | Flor da Serra do Sul | |
+  | 4107850 | Flor da Serra do Sul | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4107801 | Floraí | |
   | 4107900 | Floresta | |
   | 4108007 | Florestópolis | |
@@ -3492,7 +3492,7 @@ systems for the territory you are interested.
   | 4111100 | Itambé | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4111209 | Itapejara d'Oeste | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4111258 | Itaperuçu | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
-  | 4111308 | Itaúna do Sul | |
+  | 4111308 | Itaúna do Sul | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4111407 | Ivaí | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4111506 | Ivaiporã | |
   | 4111555 | Ivaté | |
@@ -3541,7 +3541,7 @@ systems for the territory you are interested.
   | 4115002 | Marilena | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4115101 | Mariluz | |
   | 4115200 | Maringá | [pr_maringa](data_collection/gazette/spiders/pr_maringa.py) |
-  | 4115309 | Mariópolis | |
+  | 4115309 | Mariópolis | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4115358 | Maripá | |
   | 4115408 | Marmeleiro | |
   | 4115457 | Marquinho | |
@@ -3687,8 +3687,8 @@ systems for the territory you are interested.
   | 4125704 | São Miguel do Iguaçu | |
   | 4125753 | São Pedro do Iguaçu | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4125803 | São Pedro do Ivaí | |
-  | 4125902 | São Pedro do Paraná | |
-  | 4126009 | São Sebastião da Amoreira | |
+  | 4125902 | São Pedro do Paraná | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
+  | 4126009 | São Sebastião da Amoreira | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4126108 | São Tomé | |
   | 4126207 | Sapopema | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4126256 | Sarandi | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
@@ -3726,7 +3726,7 @@ systems for the territory you are interested.
   | 4128559 | Vera Cruz do Oeste | |
   | 4128609 | Verê | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4128658 | Virmond | |
-  | 4128708 | Vitorino | |
+  | 4128708 | Vitorino | [pr_associacao_municipios](data_collection/gazette/spiders/pr_associacao_municipios.py) |
   | 4128500 | Wenceslau Braz | |
   | 4128807 | Xambrê | |
 </details>
@@ -3781,7 +3781,7 @@ systems for the territory you are interested.
   | 2603702 | Canhotinho | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2603801 | Capoeiras | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2603900 | Carnaíba | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
-  | 2603926 | Carnaubeira da Penha | |
+  | 2603926 | Carnaubeira da Penha | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2604007 | Carpina | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2604106 | Caruaru | |
   | 2604155 | Casinhas | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
@@ -3865,7 +3865,7 @@ systems for the territory you are interested.
   | 2610806 | Pedra | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2610905 | Pesqueira | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2611002 | Petrolândia | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
-  | 2611101 | Petrolina | |
+  | 2611101 | Petrolina | [pe_petrolina](data_collection/gazette/spiders/pe_petrolina.py) |
   | 2611200 | Poção | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2611309 | Pombos | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2611408 | Primavera | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
@@ -3882,7 +3882,7 @@ systems for the territory you are interested.
   | 2612406 | Sanharó | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2612455 | Santa Cruz | |
   | 2612471 | Santa Cruz da Baixa Verde | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
-  | 2612505 | Santa Cruz do Capibaribe | |
+  | 2612505 | Santa Cruz do Capibaribe | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2612554 | Santa Filomena | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2612604 | Santa Maria da Boa Vista | [pe_associacao_municipios](data_collection/gazette/spiders/pe_associacao_municipios.py) |
   | 2612703 | Santa Maria do Cambucá | |
@@ -4271,7 +4271,7 @@ systems for the territory you are interested.
   | IBGE code | City name | Implemented spiders |
   | :-------: | :-------- | :------------------ |
   | 2400109 | Acari | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
-  | 2400208 | Açu | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
+  | 2400208 | Açu | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py), [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2400307 | Afonso Bezerra | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2400406 | Água Nova | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2400505 | Alexandria | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
@@ -4281,7 +4281,7 @@ systems for the territory you are interested.
   | 2400901 | Antônio Martins | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2401008 | Apodi | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2401107 | Areia Branca | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
-  | 2401206 | Arês | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
+  | 2401206 | Arês | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py), [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2401305 | Augusto Severo (Campo Grande) | |
   | 2401404 | Baía Formosa | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2401453 | Baraúna | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
@@ -4327,7 +4327,7 @@ systems for the territory you are interested.
   | 2405009 | Jaçanã | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2405108 | Jandaíra | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2405207 | Janduís | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
-  | 2405306 | Januário Cicco (Boa Saúde) | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
+  | 2405306 | Januário Cicco (Boa Saúde) | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py), [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2405405 | Japi | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2405504 | Jardim de Angicos | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2405603 | Jardim de Piranhas | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
@@ -4370,7 +4370,7 @@ systems for the territory you are interested.
   | 2409100 | Passa e Fica | |
   | 2409209 | Passagem | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2409308 | Patu | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
-  | 2409407 | Pau dos Ferros | |
+  | 2409407 | Pau dos Ferros | [rn_pau_dos_ferros](data_collection/gazette/spiders/rn_pau_dos_ferros.py) |
   | 2409506 | Pedra Grande | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2409605 | Pedra Preta | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
   | 2409704 | Pedro Avelino | [rn_associacao_municipios](data_collection/gazette/spiders/rn_associacao_municipios.py) |
@@ -4457,7 +4457,7 @@ systems for the territory you are interested.
   | 4300471 | Almirante Tamandaré do Sul | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4300505 | Alpestre | |
   | 4300554 | Alto Alegre | |
-  | 4300570 | Alto Feliz | |
+  | 4300570 | Alto Feliz | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4300604 | Alvorada | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4300638 | Amaral Ferrador | |
   | 4300646 | Ametista do Sul | |
@@ -4477,7 +4477,7 @@ systems for the territory you are interested.
   | 4301503 | Augusto Pestana | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4301552 | Áurea | |
   | 4301602 | Bagé | |
-  | 4301636 | Balneário Pinhal | |
+  | 4301636 | Balneário Pinhal | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4301651 | Barão | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4301701 | Barão de Cotegipe | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4301750 | Barão do Triunfo | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
@@ -4490,7 +4490,7 @@ systems for the territory you are interested.
   | 4302006 | Barros Cassal | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4302055 | Benjamin Constant do Sul | |
   | 4302105 | Bento Gonçalves | |
-  | 4302204 | Boa Vista do Buricá | |
+  | 4302204 | Boa Vista do Buricá | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4302220 | Boa Vista do Cadeado | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4302238 | Boa Vista do Incra | |
   | 4302154 | Boa Vista das Missões | |
@@ -4504,7 +4504,7 @@ systems for the territory you are interested.
   | 4302584 | Bozano | |
   | 4302600 | Braga | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4302659 | Brochier | |
-  | 4302709 | Butiá | |
+  | 4302709 | Butiá | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4302808 | Caçapava do Sul | |
   | 4302907 | Cacequi | |
   | 4303004 | Cachoeira do Sul | |
@@ -4573,7 +4573,7 @@ systems for the territory you are interested.
   | 4306072 | Cristal do Sul | |
   | 4306106 | Cruz Alta | |
   | 4306130 | Cruzaltense | |
-  | 4306205 | Cruzeiro do Sul | |
+  | 4306205 | Cruzeiro do Sul | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4306304 | David Canabarro | |
   | 4306320 | Derrubadas | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4306353 | Dezesseis de Novembro | |
@@ -4589,12 +4589,12 @@ systems for the territory you are interested.
   | 4306759 | Doutor Ricardo | |
   | 4306767 | Eldorado do Sul | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4306809 | Encantado | |
-  | 4306908 | Encruzilhada do Sul | |
+  | 4306908 | Encruzilhada do Sul | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4306924 | Engenho Velho | |
   | 4306932 | Entre-Ijuís | |
   | 4306957 | Entre Rios do Sul | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4306973 | Erebango | |
-  | 4307005 | Erechim | |
+  | 4307005 | Erechim | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4307054 | Ernestina | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4307203 | Erval Grande | |
   | 4307302 | Erval Seco | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
@@ -4618,7 +4618,7 @@ systems for the territory you are interested.
   | 4308300 | Fontoura Xavier | |
   | 4308409 | Formigueiro | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4308433 | Forquetinha | |
-  | 4308458 | Fortaleza dos Valos | |
+  | 4308458 | Fortaleza dos Valos | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4308508 | Frederico Westphalen | |
   | 4308607 | Garibaldi | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4308656 | Garruchos | |
@@ -4628,12 +4628,12 @@ systems for the territory you are interested.
   | 4308904 | Getúlio Vargas | |
   | 4309001 | Giruá | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4309050 | Glorinha | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
-  | 4309100 | Gramado | |
+  | 4309100 | Gramado | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4309126 | Gramado dos Loureiros | |
   | 4309159 | Gramado Xavier | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4309209 | Gravataí | [rs_gravatai](data_collection/gazette/spiders/rs_gravatai.py) |
   | 4309258 | Guabiju | |
-  | 4309308 | Guaíba | |
+  | 4309308 | Guaíba | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4309407 | Guaporé | |
   | 4309506 | Guarani das Missões | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4309555 | Harmonia | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
@@ -4641,7 +4641,7 @@ systems for the territory you are interested.
   | 4309571 | Herveiras | |
   | 4309605 | Horizontina | |
   | 4309654 | Hulha Negra | |
-  | 4309704 | Humaitá | |
+  | 4309704 | Humaitá | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4309753 | Ibarama | |
   | 4309803 | Ibiaçá | |
   | 4309902 | Ibiraiaras | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
@@ -4708,7 +4708,7 @@ systems for the territory you are interested.
   | 4312401 | Montenegro | |
   | 4312427 | Mormaço | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4312443 | Morrinhos do Sul | |
-  | 4312450 | Morro Redondo | |
+  | 4312450 | Morro Redondo | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4312476 | Morro Reuter | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4312500 | Mostardas | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4312609 | Muçum | |
@@ -4724,7 +4724,7 @@ systems for the territory you are interested.
   | 4313003 | Nova Bréscia | |
   | 4313011 | Nova Candelária | |
   | 4313037 | Nova Esperança do Sul | |
-  | 4313060 | Nova Hartz | |
+  | 4313060 | Nova Hartz | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4313086 | Nova Pádua | |
   | 4313102 | Nova Palma | |
   | 4313201 | Nova Petrópolis | |
@@ -4732,7 +4732,7 @@ systems for the territory you are interested.
   | 4313334 | Nova Ramada | |
   | 4313359 | Nova Roma do Sul | |
   | 4313375 | Nova Santa Rita | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
-  | 4313490 | Novo Barreiro | |
+  | 4313490 | Novo Barreiro | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4313391 | Novo Cabrais | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
   | 4313409 | Novo Hamburgo | |
   | 4313425 | Novo Machado | [rs_associacao_municipios](data_collection/gazette/spiders/rs_associacao_municipios.py) |
@@ -5347,7 +5347,7 @@ systems for the territory you are interested.
   | IBGE code | City name | Implemented spiders |
   | :-------: | :-------- | :------------------ |
   | 3500105 | Adamantina | |
-  | 3500204 | Adolfo | |
+  | 3500204 | Adolfo | [sp_adolfo](data_collection/gazette/spiders/sp_adolfo.py) |
   | 3500303 | Aguaí | |
   | 3500501 | Águas de Lindóia | |
   | 3500402 | Águas da Prata | |
@@ -5550,13 +5550,13 @@ systems for the territory you are interested.
   | 3517505 | Guapiaçu | |
   | 3517604 | Guapiara | |
   | 3517703 | Guará | |
-  | 3517802 | Guaraçaí | |
+  | 3517802 | Guaraçaí | [sp_guaracai](data_collection/gazette/spiders/sp_guaracai.py) |
   | 3517901 | Guaraci | |
   | 3518008 | Guarani d'Oeste | |
   | 3518107 | Guarantã | |
   | 3518206 | Guararapes | |
   | 3518305 | Guararema | |
-  | 3518404 | Guaratinguetá | |
+  | 3518404 | Guaratinguetá | [sp_guaratingueta](data_collection/gazette/spiders/sp_guaratingueta.py) |
   | 3518503 | Guareí | |
   | 3518602 | Guariba | |
   | 3518701 | Guarujá | [sp_guaruja](data_collection/gazette/spiders/sp_guaruja.py) |

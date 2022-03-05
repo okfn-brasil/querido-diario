@@ -160,4 +160,7 @@ class RnAssociacaoMunicipiosSpider(SigpubGazetteSpider):
         "2400208",
         "2401206",
         "2405306",
+        "2400208",
+        "2401206",
+        "2405306",
     ]

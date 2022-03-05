@@ -3,6 +3,8 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2700201,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Anadia,anadia
 2700300,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Arapiraca,arapiraca
 2700409,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Atalaia,atalaia
+2700508,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Barra de Santo Antonio,barra santo antonio
+2700607,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Barra de São Miguel,barra sao miguel
 2700706,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Batalha,batalha
 2700805,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Belém,belem
 2700904,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Belo Monte,belo monte
@@ -16,6 +18,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2701605,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Canapi,canapi
 2701704,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Capela,capela
 2701803,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Carneiros,carneiros
+2701902,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Chã Preta,cha preta
 2702009,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Coité do Nóia,coite noia
 2702108,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Colônia Leopoldina,colonia leopoldina
 2702207,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Coqueiro Seco,coqueiro seco
@@ -29,6 +32,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2702801,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Flexeiras,flexeiras
 2702900,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Girau do Ponciano,girau ponciano
 2703007,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Ibateguara,ibateguara
+2703106,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Igaci,igaci
 2703205,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Igreja Nova,igreja nova
 2703304,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Inhapi,inhapi
 2703403,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Jacaré dos Homens,jacare homens
@@ -60,7 +64,9 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2706208,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Palestina,palestina
 2706406,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Pão de Açúcar,pao acucar
 2706422,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Pariconha,pariconha
+2706505,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Passo de Camaragibe,passo camaragibe
 2706604,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Paulo Jacinto,paulo jacinto
+2706802,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Piaçabuçu,piacabucu
 2706901,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Pilar,pilar
 2707008,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Pindoba,pindoba
 2707107,http://www.diariomunicipal.com.br/ama,AL,Prefeitura Municipal de Piranhas,piranhas
@@ -164,8 +170,10 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2932705,http://www.diariomunicipal.com.br/amurc,BA,Prefeitura Municipal de Uruçuca,urucuca
 2300101,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Abaiara,abaiara
 2300309,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Acopiara,acopiara
+2300408,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Aiuaba,aiuaba
 2300507,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Alcântaras,alcantaras
 2300606,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Altaneira,altaneira
+2300705,http://www.diariomunicipal.com.br/aprece,CE,PREFEITURA MUNICIPAL DE ALTO SANTO ,alto santo
 2300804,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Antonina do Norte,antonina norte
 2301208,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Aracoiaba,aracoiaba
 2301257,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Ararendá,ararenda
@@ -234,6 +242,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2310852,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Pindoretama,pindoretama
 2310902,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Piquet Carneiro,piquet carneiro
 2311108,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Porteiras,porteiras
+2311207,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Potengi,potengi
 2311231,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Potiretama,potiretama
 2311264,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Quiterianópolis,quiterianopolis
 2311306,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Quixadá,quixada
@@ -245,6 +254,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2312106,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Santana do Cariri,santana cariri
 2312205,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Santa Quitéria,santa quiteria
 2312304,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de São Benedito,sao benedito
+2312700,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Senador Pompeu,senador pompeu
 2313005,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Solonópole,solonopole
 2313104,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Tabuleiro do Norte,tabuleiro norte
 2313302,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Tauá,taua
@@ -253,11 +263,11 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2313906,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Uruoca,uruoca
 2314003,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Várzea Alegre,varzea alegre
 2314102,http://www.diariomunicipal.com.br/aprece,CE,Prefeitura Municipal de Viçosa do Ceará,vicosa ceara
-5205000,http://www.diariomunicipal.com.br/agm,GO,Município  Carmo do Rio Verde,carmo rio verde
 5200050,http://www.diariomunicipal.com.br/agm,GO,Município de Abadia ,abadia goias
 5200134,http://www.diariomunicipal.com.br/agm,GO,Município de Acreúna,acreuna
-5200159,http://www.diariomunicipal.com.br/agm,GO,Municipio de Adelandia,adelandia
-5200175,http://www.diariomunicipal.com.br/agm,GO,Município de Água Fria ,agua fria goias
+5200159,http://www.diariomunicipal.com.br/agm,GO,Município de Adelândia,adelandia
+5200175,http://www.diariomunicipal.com.br/agm,GO,Município de Água Fria de Goiás,agua fria goias
+5200258,http://www.diariomunicipal.com.br/agm,GO,Município de Águas Lindas de Goiás,aguas lindas goias
 5200308,http://www.diariomunicipal.com.br/agm,GO,Município de Alexânia,alexania
 5200555,http://www.diariomunicipal.com.br/agm,GO,Município de Alto Horizonte,alto horizonte
 5200803,http://www.diariomunicipal.com.br/agm,GO,Município de Alvorada do Norte,alvorada norte
@@ -266,6 +276,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5201702,http://www.diariomunicipal.com.br/agm,GO,Município de Aragarças,aragarcas
 5201801,http://www.diariomunicipal.com.br/agm,GO,Município de Aragoiânia,aragoiania
 5202155,http://www.diariomunicipal.com.br/agm,GO,Município de Araguapaz,araguapaz
+5202353,http://www.diariomunicipal.com.br/agm,GO,Município de Arenópolis,arenopolis
 5202601,http://www.diariomunicipal.com.br/agm,GO,Município de Aurilândia,aurilandia
 5203104,http://www.diariomunicipal.com.br/agm,GO,MUNICÍPIO DE BALIZA,baliza
 5203401,http://www.diariomunicipal.com.br/agm,GO,Município de Bom Jardim de Goiás,bom jardim goias
@@ -274,22 +285,26 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5203962,http://www.diariomunicipal.com.br/agm,GO,Município de Buritinópolis,buritinopolis
 5204102,http://www.diariomunicipal.com.br/agm,GO,Município de Cachoeira Alta,cachoeira alta
 5204201,http://www.diariomunicipal.com.br/agm,GO,Município de Cachoeira de Goiás,cachoeira goias
+5204250,http://www.diariomunicipal.com.br/agm,GO,Município de Cachoeira Dourada,cachoeira dourada
 5204300,http://www.diariomunicipal.com.br/agm,GO,Município de Caçu,cacu
 5204557,http://www.diariomunicipal.com.br/agm,GO,Município de Caldazinha,caldazinha
 5204607,http://www.diariomunicipal.com.br/agm,GO,Município de Campestre ,campestre goias
+5204706,http://www.diariomunicipal.com.br/agm,GO,Município de Campinorte,campinorte
 5204805,http://www.diariomunicipal.com.br/agm,GO,Município de Campo Alegre de Goiás,campo alegre goias
 5204904,http://www.diariomunicipal.com.br/agm,GO,Município de Campos Belos,campos belos
+5205000,http://www.diariomunicipal.com.br/agm,GO,Município de Carmo do Rio Verde,carmo rio verde
 5205059,http://www.diariomunicipal.com.br/agm,GO,Município de Castelândia,castelandia
 5205802,http://www.diariomunicipal.com.br/agm,GO,Município de Corumbá ,corumba goias
 5205901,http://www.diariomunicipal.com.br/agm,GO,Município de Corumbaíba,corumbaiba
+5206206,http://www.diariomunicipal.com.br/agm,GO,Município de Cristalina,cristalina
 5206503,http://www.diariomunicipal.com.br/agm,GO,Município de Crominia,crominia
 5206701,http://www.diariomunicipal.com.br/agm,GO,Município de Damianopolis,damianopolis
 5206800,http://www.diariomunicipal.com.br/agm,GO,Município de Damolândia,damolandia
 5208301,http://www.diariomunicipal.com.br/agm,GO,Município de Divinópolis ,divinopolis goias
 5207808,http://www.diariomunicipal.com.br/agm,GO,Município de Firminópolis,firminopolis
-5207907,http://www.diariomunicipal.com.br/agm,GO,Município de Flores,flores goias
 5208103,http://www.diariomunicipal.com.br/agm,GO,Município de Formoso,formoso
 5208509,http://www.diariomunicipal.com.br/agm,GO,Município de Goiandira,goiandira
+5208806,http://www.diariomunicipal.com.br/agm,GO,Município de Goianira,goianira
 5209101,http://www.diariomunicipal.com.br/agm,GO,Município de Goiatuba,goiatuba
 5209150,http://www.diariomunicipal.com.br/agm,GO,Município de Gouvelândia,gouvelandia
 5209291,http://www.diariomunicipal.com.br/agm,GO,Municipio de Guaraita,guaraita
@@ -300,22 +315,23 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5209952,http://www.diariomunicipal.com.br/agm,GO,Município de Indiara,indiara
 5210000,http://www.diariomunicipal.com.br/agm,GO,Município de Inhumas,inhumas
 5210109,http://www.diariomunicipal.com.br/agm,GO,Município de Ipameri,ipameri
-5210158,http://www.diariomunicipal.com.br/agm,GO,Município de Ipiranga ,ipiranga goias
+5210158,http://www.diariomunicipal.com.br/agm,GO,Município de Ipiranga,ipiranga goias
 5210208,http://www.diariomunicipal.com.br/agm,GO,Município de Iporá,ipora
 5210307,http://www.diariomunicipal.com.br/agm,GO,Município de Israelândia,israelandia
 5210604,http://www.diariomunicipal.com.br/agm,GO,Município de Itaguaru,itaguaru
+5211404,http://www.diariomunicipal.com.br/agm,GO,Município de Itauçu,itaucu
 5211602,http://www.diariomunicipal.com.br/agm,GO,Município de Ivolândia,ivolandia
 5212006,http://www.diariomunicipal.com.br/agm,GO,Município de Jaupaci,jaupaci
 5212253,http://www.diariomunicipal.com.br/agm,GO,Município de Lagoa Santa,lagoa santa
-5212709,http://www.diariomunicipal.com.br/agm,GO,Município de Mambai ,mambai
-5212956,http://www.diariomunicipal.com.br/agm,GO,Município de Matrinchã,matrincha
+5212709,http://www.diariomunicipal.com.br/agm,GO,Município de Mambai,mambai
 5213400,http://www.diariomunicipal.com.br/agm,GO,Município de Moiporá,moipora
-5213707,http://www.diariomunicipal.com.br/agm,GO,Município de Montes Claros ,montes claros goias
+5213707,http://www.diariomunicipal.com.br/agm,GO,Município de Montes Claros,montes claros goias
 5213756,http://www.diariomunicipal.com.br/agm,GO,Município de Montividiu,montividiu
 5213772,http://www.diariomunicipal.com.br/agm,GO,Município de Montividiu do Norte,montividiu norte
 5213806,http://www.diariomunicipal.com.br/agm,GO,Município de Morrinhos,morrinhos
 5213905,http://www.diariomunicipal.com.br/agm,GO, Município de Mossâmedes,mossamedes
 5214101,http://www.diariomunicipal.com.br/agm,GO,Município de Mutunópolis,mutunopolis
+5214408,http://www.diariomunicipal.com.br/agm,GO,Município de Nazário,nazario
 5214507,http://www.diariomunicipal.com.br/agm,GO,Município de Nerópolis,neropolis
 5215702,http://www.diariomunicipal.com.br/agm,GO,Município de Palmeiras,palmeiras goias
 5215900,http://www.diariomunicipal.com.br/agm,GO,Município de Palminópolis,palminopolis
@@ -323,8 +339,9 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5216809,http://www.diariomunicipal.com.br/agm,GO,Município de Petrolina,petrolina goias
 5217203,http://www.diariomunicipal.com.br/agm,GO,Município de Piranhas,piranhas
 5217302,http://www.diariomunicipal.com.br/agm,GO,Município de Pirenópolis,pirenopolis
+5218003,http://www.diariomunicipal.com.br/agm,GO,Município de Porangatu,porangatu
 5218300,http://www.diariomunicipal.com.br/agm,GO,Município de Posse,posse
-5219258,http://www.diariomunicipal.com.br/agm,GO,Município de Santa Fé ,santa fe goias
+5219258,http://www.diariomunicipal.com.br/agm,GO,Município de Santa Fé de Goiás,santa fe goias
 5219407,http://www.diariomunicipal.com.br/agm,GO,Município de Santa Rita do Araguaia,santa rita araguaia
 5219456,http://www.diariomunicipal.com.br/agm,GO,Municipio  de Santa Rita do Novo Destino,santa rita novo destino
 5219605,http://www.diariomunicipal.com.br/agm,GO,Município de Santa Tereza de Goiás,santa tereza goias
@@ -332,15 +349,19 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5220157,http://www.diariomunicipal.com.br/agm,GO,Município de São Luiz do Norte,sao luiz norte
 5220264,http://www.diariomunicipal.com.br/agm,GO,Município de São Miguel do Passa Quatro,sao miguel passa quatro
 5220504,http://www.diariomunicipal.com.br/agm,GO,MUNICIPIO DE SERRANÓPOLIS,serranopolis
+5221304,http://www.diariomunicipal.com.br/agm,GO,Município de Três Ranchos,tres ranchos
 5221403,http://www.diariomunicipal.com.br/agm,GO,Municipio de Trindade,trindade
-5221452,http://www.diariomunicipal.com.br/agm,GO,Município de Trombas ,trombas
 5221577,http://www.diariomunicipal.com.br/agm,GO,Município de Uirapuru,uirapuru
 5208152,http://www.diariomunicipal.com.br/agm,GO,Município Gameleira,gameleira goias
 5214879,http://www.diariomunicipal.com.br/agm,GO,Municipio Nova Iguaçu,nova iguacu goias
-5221700,http://www.diariomunicipal.com.br/agm,GO,Municipio Uruana,uruana
+5214903,http://www.diariomunicipal.com.br/agm,GO,Municipio Nova Roma,nova roma
+5221700,http://www.diariomunicipal.com.br/agm,GO,Município Uruana,uruana
+5215207,http://www.diariomunicipal.com.br/agm,GO,Prefeitura de Novo Brasil,novo brasil
+5200605,http://www.diariomunicipal.com.br/agm,GO,Prefeitura Municipal de Alto Paraíso de Goiás,alto paraiso goias
 5200902,http://www.diariomunicipal.com.br/agm,GO,PREFEITURA MUNICIPAL DE AMORINOPOLIS,amorinopolis
 5204656,http://www.diariomunicipal.com.br/agm,GO,PREFEITURA MUNICIPAL DE CAMPINAÇU,campinacu
 5216007,http://www.diariomunicipal.com.br/agm,GO,Prefeitura Municipal de Panamá,panama
+5219902,http://www.diariomunicipal.com.br/agm,GO,Prefeitura Municipal de São Francisco ,sao francisco goias
 5200829,http://www.diariomunicipal.com.br/fgm,GO,MUNICIPIO DE AMARALINA,amaralina
 5201504,http://www.diariomunicipal.com.br/fgm,GO,Município de Aporé,apore
 5202601,http://www.diariomunicipal.com.br/fgm,GO,Município de Aurilândia,aurilandia
@@ -348,17 +369,22 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5205471,http://www.diariomunicipal.com.br/fgm,GO,Município de Chapadão do Céu,chapadao ceu
 5207105,http://www.diariomunicipal.com.br/fgm,GO,Município de Diorama,diorama
 5207352,http://www.diariomunicipal.com.br/fgm,GO,Município de Edealina,edealina
+5207907,http://www.diariomunicipal.com.br/fgm,GO,Município de Flores de Goiás,flores goias
 5208608,http://www.diariomunicipal.com.br/fgm,GO,Município de Goianésia,goianesia
+5209291,http://www.diariomunicipal.com.br/fgm,GO,Municipio de Guaraita,guaraita
 5209457,http://www.diariomunicipal.com.br/fgm,GO,Município de Guarinos,guarinos
 5211800,http://www.diariomunicipal.com.br/fgm,GO,Município de Jaragua,jaragua
-5212808,http://www.diariomunicipal.com.br/fgm,GO, Municipio de Mara Rosa,mara rosa
+5212808,http://www.diariomunicipal.com.br/fgm,GO,Municipio de Mara Rosa,mara rosa
+5212956,http://www.diariomunicipal.com.br/fgm,GO,Município de Matrinchã,matrincha
 5213087,http://www.diariomunicipal.com.br/fgm,GO,Município de Minaçu,minacu
 5213103,http://www.diariomunicipal.com.br/fgm,GO,Município de Mineiros,mineiros
+5214705,http://www.diariomunicipal.com.br/fgm,GO,Município de Nova América,nova america
 5215801,http://www.diariomunicipal.com.br/fgm,GO,Município de Palmelo,palmelo
 5217609,http://www.diariomunicipal.com.br/fgm,GO,Município de Planaltina ,planaltina
 5219209,http://www.diariomunicipal.com.br/fgm,GO,Município de Santa Cruz de Goiás,santa cruz goias
 5219308,http://www.diariomunicipal.com.br/fgm,GO,Município de Santa Helena De Goiás,santa helena goias
 5220009,http://www.diariomunicipal.com.br/fgm,GO,Município de São João da Aliança,sao joao alianca
+5221452,http://www.diariomunicipal.com.br/fgm,GO,Município de Trombas,trombas
 5200100,http://www.diariomunicipal.com.br/fgm,GO,Prefeitura Municipal de Abadiania,abadiania
 5200134,http://www.diariomunicipal.com.br/fgm,GO,Prefeitura Municipal de Acreuna,acreuna
 5201306,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE ANICUNS,anicuns
@@ -369,11 +395,12 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5205455,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE CEZARINA,cezarina
 5205703,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE CORREGO DO OURO,corrego ouro
 5206404,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE CRIXAS,crixas
-5207253,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE DOVERLANDIA ,doverlandia
+5207253,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE DOVERLANDIA,doverlandia
 5209606,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE HEITORAI,heitorai
 5211008,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE ITAPIRAPUÃ,itapirapua
 5211701,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE JANDAIA,jandaia
 5212105,http://www.diariomunicipal.com.br/fgm,GO,Prefeitura Municipal de Joviânia,joviania
+5213004,http://www.diariomunicipal.com.br/fgm,GO,Prefeitura Municipal de Maurilândia,maurilandia
 5214002,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE MOZARLANDIA,mozarlandia
 5214051,http://www.diariomunicipal.com.br/fgm,GO,Prefeitura Municipal de Mundo Novo,mundo novo
 5215652,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE PALESTINA DE GOIAS,palestina goias
@@ -393,6 +420,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 5221551,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE TURVELÂNDIA,turvelandia
 5221601,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE URUAÇU,uruacu
 5221908,http://www.diariomunicipal.com.br/fgm,GO,PREFEITURA MUNICIPAL DE VARJÃO,varjao
+5222005,http://www.diariomunicipal.com.br/fgm,GO,Prefeitura Municipal de Vianópolis,vianopolis
 3100104,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura de Abadia dos Dourados,abadia dourados
 3100401,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura de Acaiaca,acaiaca
 3100500,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura de Açucena,acucena
@@ -699,6 +727,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 3171303,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura de Viçosa,vicosa
 3171600,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura de Virgem da Lapa,virgem lapa
 3172103,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura de Volta Grande,volta grande
+3101805,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Alpercata,alpercata
 3102001,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Alterosa,alterosa
 3102209,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Alvarenga,alvarenga
 3104601,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Astolfo Dutra,astolfo dutra
@@ -706,6 +735,9 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 3108305,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Borda da Mata,borda mata
 3108909,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Brazópolis,brazopolis
 3110301,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Caldas,caldas
+3110608,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Cambuí,cambui
+3110707,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Cambuquira,cambuquira
+3111150,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Campo Azul,campo azul
 3111309,http://www.diariomunicipal.com.br/amm-mg,MG,PREFEITURA MUNICIPAL DE CAMPO DO MEIO,campo meio
 3111705,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Canaã,canaa
 3114303,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Carmo do Paranaíba,carmo paranaiba
@@ -714,19 +746,31 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 3115904,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Chácara ,chacara
 3116159,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Chapada Gaúcha,chapada gaucha
 3116209,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Chiador,chiador
+3116704,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Coimbra,coimbra
 3117876,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Confins,confins
+3119005,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal De Cordislândia,cordislandia
+3122009,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Divino,divino
 3124005,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Ervália,ervalia
+3124500,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Estiva,estiva
+3126752,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Franciscópolis,franciscopolis
 3127008,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Fronteira,fronteira
 3129707,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Ibiraci,ibiraci
+3131109,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Inimutaba,inimutaba
 3131158,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Ipaba,ipaba
+3134004,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Itinga,itinga
+3135076,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Jampruca,jampruca
+3135803,http://www.diariomunicipal.com.br/amm-mg,MG,PREFEITURA MUNICIPAL DE JEQUITINHONHA,jequitinhonha
 3138104,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Lassance,lassance
 3138609,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Lima Duarte,lima duarte
 3138658,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Lontra,lontra
+3138708,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Luminárias,luminarias
 3138906,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Machacalis,machacalis
 3139201,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Malacacheta,malacacheta
 3139904,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Maria da Fé,maria fe
+3140704,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Mateus Leme,mateus leme
 3140803,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Matias Barbosa,matias barbosa
 3141009,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Mato Verde,mato verde
+3142304,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Moeda,moeda
 3144300,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Nanuque,nanuque
 3145109,http://www.diariomunicipal.com.br/amm-mg,MG,PREFEITURA MUNICIPAL DE NOVA RESENDE,nova resende
 3145307,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Novo Cruzeiro,novo cruzeiro
@@ -740,15 +784,19 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 3150307,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Piedade do Rio Grande,piedade rio grande
 3150570,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Pintópolis,pintopolis
 3152105,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Ponte Nova,ponte nova
+3152303,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Porto Firme,porto firme
 3152709,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Prados,prados
 3152907,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Pratápolis,pratapolis
 3153608,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Prudente de Morais,prudente morais
 3156601,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Rubim,rubim
+3157609,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santa Fé de Minas,santa fe minas
 3157708,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santa Juliana,santa juliana
 3158607,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santana do Deserto,santana deserto
 3158805,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santana do Jacaré,santana jacare
+3160108,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santo Antônio do Grama,santo antonio grama
 3160454,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santo Antônio do Retiro,santo antonio retiro
 3160504,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Santo Antônio do Rio Abaixo,santo antonio rio abaixo
+3162005,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de São Gonçalo do Sapucaí,sao goncalo sapucai
 3162906,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de São João Nepomuceno,sao joao nepomuceno
 3163607,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de São José do Mantimento,sao jose mantimento
 3164001,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de São Pedro dos Ferros,sao pedro ferros
@@ -764,6 +812,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 3170057,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Ubaporanga,ubaporanga
 3170479,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Uruana de Minas,uruana minas
 3171006,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Vazante,vazante
+3171402,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Vieiras,vieiras
 3171907,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Virgolândia,virgolandia
 3172004,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal de Visconde do Rio Branco,visconde rio branco
 3121704,http://www.diariomunicipal.com.br/amm-mg,MG,Prefeitura Municipal Diogo de Vasconcelos,diogo vasconcelos
@@ -969,6 +1018,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1500347,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Água Azul do Norte,agua azul norte
 1500859,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Anapú,anapu
 1500958,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Aurora do Pará,aurora para
+1501006,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Aveiro,aveiro
 1501303,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Barcarena,barcarena
 1501451,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Belterra,belterra
 1501576,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Bom Jesus do Tocantins,bom jesus tocantins
@@ -978,6 +1028,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1501782,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Breu Branco,breu branco
 1501808,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Breves,breves
 1501907,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Bujaru,bujaru
+1501956,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Cachoeira do Piriá,cachoeira piria
 1502103,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Cametá,cameta
 1502152,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Canaã dos Carajás,canaa carajas
 1502202,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Capanema,capanema
@@ -988,6 +1039,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1502772,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Curionópolis,curionopolis
 1502855,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Curuá,curua
 1502939,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Dom Eliseu,dom eliseu
+1502954,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Eldorado dos Carajás,eldorado carajas
 1503200,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Igarapé-Açú,igarape acu
 1503408,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Inhangapi,inhangapi
 1503457,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Ipixuna do Pará,ipixuna para
@@ -995,10 +1047,12 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1503606,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Itaituba,itaituba
 1503705,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Itupiranga,itupiranga
 1503754,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Jacareacanga,jacareacanga
+1503804,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Jacundá,jacunda
 1503903,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Juruti,juruti
 1504059,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Mãe do Rio,mae rio
 1504109,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Magalhães Barata,magalhaes barata
 1504208,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Marabá,maraba
+1504307,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Maracanã,maracana
 1504422,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Marituba,marituba
 1504455,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Medicilândia,medicilandia
 1504703,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Moju,moju
@@ -1018,6 +1072,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1505601,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Peixe-Boi,peixe boi
 1505635,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Piçarra,picarra
 1505650,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Placas,placas
+1505700,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Ponta de Pedras,ponta pedras
 1505809,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Portel,portel
 1505908,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Porto de Moz,porto moz
 1506005,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Prainha,prainha
@@ -1046,8 +1101,10 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1508050,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Trairão,trairao
 1508084,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Tucumã,tucuma
 1508100,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Tucuruí,tucurui
+1508126,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Ulianópolis,ulianopolis
 1508308,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Viseu,viseu
 1508407,http://www.diariomunicipal.com.br/famep,PA,Prefeitura Municipal de Xinguara,xinguara
+2501153,http://www.diariomunicipal.com.br/famup,PB,Município de Areia de Baraúnas,areia baraunas
 2503001,http://www.diariomunicipal.com.br/famup,PB,Município de Caaporã,caapora
 2503100,http://www.diariomunicipal.com.br/famup,PB,Município de Cabaceiras,cabaceiras
 2504405,http://www.diariomunicipal.com.br/famup,PB,Município de Conceição,conceicao
@@ -1056,14 +1113,18 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2508505,http://www.diariomunicipal.com.br/famup,PB,Município de Livramento,livramento
 2510808,http://www.diariomunicipal.com.br/famup,PB,Município de Patos,patos
 2511004,http://www.diariomunicipal.com.br/famup,PB,Município de Pedra Branca,pedra branca
+2513000,http://www.diariomunicipal.com.br/famup,PB,Município de Salgadinho,salgadinho
 2513802,http://www.diariomunicipal.com.br/famup,PB,Município de Santa Teresinha,santa teresinha
 2514909,http://www.diariomunicipal.com.br/famup,PB,Município de São Mamede,sao mamede
+2515807,http://www.diariomunicipal.com.br/famup,PB,Município de Serra Redonda,serra redonda
 2500700,http://www.diariomunicipal.com.br/famup,PB,Prefeitura de São João do Rio do Peixe,sao joao rio peixe
+2514800,http://www.diariomunicipal.com.br/famup,PB,Prefeitura de São José dos Cordeiros,sao jose cordeiros
 2500106,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Água Branca,agua branca
 2500403,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE ALAGOA NOVA,alagoa nova
 2500601,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE ALHANDRA,alhandra
 2500775,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE APARECIDA,aparecida
 2500908,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE ARARA,arara
+2501203,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Areial,areial
 2501609,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE BARRA DE SANTA ROSA,barra santa rosa
 2501708,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE BARRA DE SÃO MIGUEL,barra sao miguel
 2501807,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE BAYEUX,bayeux
@@ -1071,14 +1132,19 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2502151,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE BOA VISTA,boa vista
 2502409,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE BONITO DE SANTA FÉ,bonito santa fe
 2503407,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE CACIMBA DE AREIA,cacimba areia
+2503506,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Cacimba de Dentro,cacimba dentro
 2503555,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE CACIMBAS,cacimbas
 2503605,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE CAIÇARA,caicara
 2503753,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE CAJAZEIRINHAS,cajazeirinhas
+2503902,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Camalaú,camalau
 2504207,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE CATINGUEIRA,catingueira
 2504801,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE COREMAS,coremas
+2505006,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Cubati,cubati
 2505303,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Curral Velho,curral velho
 2505600,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Diamante,diamante
+2505907,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Emas,emas
 2506004,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE ESPERANÇA,esperanca
+2502607,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Igaracy,igaracy
 2506707,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE IMACULADA,imaculada
 2507002,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE ITAPORANGA,itaporanga
 2507309,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Jacaraú,jacarau
@@ -1095,6 +1161,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2509503,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE MONTADAS,montadas
 2509602,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE MONTE HOREBE,monte horebe
 2509701,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Monteiro,monteiro
+2509909,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Natuba,natuba
 2510006,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE NAZAREZINHO,nazarezinho
 2510501,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE OLIVEDOS,olivedos
 2510600,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE OURO VELHO,ouro velho
@@ -1103,11 +1170,13 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2511400,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE PICUÍ,picui
 2511806,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE PIRPIRITUBA,pirpirituba
 2512002,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Pocinhos,pocinhos
+2512036,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Poço Dantas,poco dantas
 2512101,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE POMBAL,pombal
 2512309,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Princesa Isabel,princesa isabel
 2512606,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Quixaba,quixaba
 2512903,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE RIO TINTO,rio tinto
 2513158,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE SANTA CECÍLIA,santa cecilia
+2513604,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Santana dos Garrotes,santana garrotes
 2513968,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE SÃO DOMINGOS,sao domingos
 2513984,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de São Francisco,sao francisco
 2514107,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE SÃO JOÃO DO TIGRE,sao joao tigre
@@ -1122,6 +1191,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2516102,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE SOLEDADE,soledade
 2516607,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE TAVARES,tavares
 2516904,http://www.diariomunicipal.com.br/famup,PB,PREFEITURA MUNICIPAL DE UIRAUNA,uirauna
+2517209,http://www.diariomunicipal.com.br/famup,PB,Prefeitura Municipal de Vieirópolis,vieiropolis
 2607604,http://www.diariomunicipal.com.br/amupe,PE,Município da Ilha de Itamaracá,ilha itamaraca
 2600054,http://www.diariomunicipal.com.br/amupe,PE,Município de Abreu e Lima,abreu e lima
 2600104,http://www.diariomunicipal.com.br/amupe,PE,Município de Afogados da Ingazeira,afogados ingazeira
@@ -1163,6 +1233,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2603702,http://www.diariomunicipal.com.br/amupe,PE,Município de Canhotinho,canhotinho
 2603801,http://www.diariomunicipal.com.br/amupe,PE,Município de Capoeiras,capoeiras
 2603900,http://www.diariomunicipal.com.br/amupe,PE,Município de Carnaiba,carnaiba
+2603926,http://www.diariomunicipal.com.br/amupe,PE,Município de Carnaubeira da Penha,carnaubeira penha
 2604007,http://www.diariomunicipal.com.br/amupe,PE,Município de Carpina,carpina
 2604155,http://www.diariomunicipal.com.br/amupe,PE,Município de Casinhas,casinhas
 2604205,http://www.diariomunicipal.com.br/amupe,PE,Município de Catende,catende
@@ -1252,6 +1323,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2612307,http://www.diariomunicipal.com.br/amupe,PE,Município de Saloá,saloa
 2612406,http://www.diariomunicipal.com.br/amupe,PE,Município de Sanharó,sanharo
 2612471,http://www.diariomunicipal.com.br/amupe,PE,Município de Santa Cruz da Baixa Verde,santa cruz baixa verde
+2612505,http://www.diariomunicipal.com.br/amupe,PE,Município de Santa Cruz do Capibaribe,santa cruz capibaribe
 2612554,http://www.diariomunicipal.com.br/amupe,PE,Município de Santa Filomena,santa filomena
 2612604,http://www.diariomunicipal.com.br/amupe,PE,Município de Santa Maria da Boa Vista,santa maria boa vista
 2612802,http://www.diariomunicipal.com.br/amupe,PE,Município de Santa Terezinha,santa terezinha
@@ -1323,11 +1395,14 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 2210805,http://www.diariomunicipal.com.br/appm,PI,Município de Simplício Mendes,simplicio mendes
 2210904,http://www.diariomunicipal.com.br/appm,PI,Município de Socorro do Piauí,socorro piaui
 2211605,http://www.diariomunicipal.com.br/appm,PI,Município de Vila Nova do Piauí,vila nova piaui
+4106555,http://www.diariomunicipal.com.br/amp,PR,Município de Corumbataí do Sul,corumbatai sul
 4107405,http://www.diariomunicipal.com.br/amp,PR,MUNICIPIO DE ENÉAS MARQUES,eneas marques
 4107702,http://www.diariomunicipal.com.br/amp,PR,Município de Fênix,fenix
+4116406,http://www.diariomunicipal.com.br/amp,PR,Município de Nossa Senhora das Graças,nossa senhora gracas
 4126256,http://www.diariomunicipal.com.br/amp,PR,Município de Sarandi,sarandi
 4126272,http://www.diariomunicipal.com.br/amp,PR,MUNICÍPIO DE SAUDADE DO IGUAÇU,saudade iguacu
 4100103,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Abatiá,abatia
+4100202,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Adrianópolis,adrianopolis
 4100301,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Agudos do Sul,agudos sul
 4100400,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Almirante Tamandaré,almirante tamandare
 4100459,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Altamira do Paraná,altamira parana
@@ -1359,6 +1434,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4104105,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Campo do Tenente,campo tenente
 4104253,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Campo Magro,campo magro
 4104428,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Candói,candoi
+4104451,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Cantagalo,cantagalo
 4104600,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Capitão Leônidas Marques,capitao leonidas marques
 4104709,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Carlópolis,carlopolis
 4105003,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Catanduvas,catanduvas
@@ -1368,9 +1444,12 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4105805,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Colombo,colombo
 4105904,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Colorado,colorado
 4106209,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Contenda,contenda
+4106506,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Coronel Vivida,coronel vivida
 4107157,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Diamante D'Oeste,diamante oeste
+4107207,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Dois Vizinhos,dois vizinhos
 4128633,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Doutor Ulysses,doutor ulysses
 4107736,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Fernandes Pinheiro,fernandes pinheiro
+4107850,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Flor da Serra do Sul,flor serra sul
 4108106,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Flórida,florida
 4108403,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Francisco Beltrão,francisco beltrao
 4108502,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de General Carneiro,general carneiro
@@ -1390,6 +1469,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4111100,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Itambé,itambe
 4111209,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Itapejara d'Oeste,itapejara oeste
 4111258,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Itaperuçu,itaperucu
+4111308,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Itaúna do Sul,itauna sul
 4111407,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Ivaí,ivai
 4111605,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Ivatuba,ivatuba
 4111902,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Jaguapitã,jaguapita
@@ -1404,11 +1484,11 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4114302,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Mandirituba,mandirituba
 4114351,http://www.diariomunicipal.com.br/amp,PR,PREFEITURA MUNICIPAL DE MANFRINÓPOLIS,manfrinopolis
 4115002,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Marilena,marilena
+4115309,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Mariópolis,mariopolis
 4115705,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Matinhos,matinhos
 4115739,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Mato Rico,mato rico
 4116000,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Miraselva,miraselva
 4116208,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Morretes,morretes
-4116406,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Nossa Senhora das Graças,nossa senhora gracas
 4117255,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Nova Prata do Iguaçu,nova prata iguacu
 4117503,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Paiçandu,paicandu
 4117701,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Palmeira,palmeira
@@ -1457,6 +1537,8 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4125407,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de São José da Boa Vista,sao jose boa vista
 4125456,http://www.diariomunicipal.com.br/amp,PR,PREFEITURA MUNICIPAL DE SÃO JOSÉ DAS PALMEIRAS,sao jose palmeiras
 4125753,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de São Pedro do Iguaçu,sao pedro iguacu
+4125902,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de São Pedro do Paraná,sao pedro parana
+4126009,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de São Sebastião da Amoreira,sao sebastiao amoreira
 4126207,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Sapopema,sapopema
 4126306,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Sengés,senges
 4126504,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Sertanópolis,sertanopolis
@@ -1473,6 +1555,7 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4127965,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Turvo,turvo
 4128203,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de União da Vitória,uniao vitoria
 4128609,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Verê,vere
+4128708,http://www.diariomunicipal.com.br/amp,PR,Prefeitura Municipal de Vitorino,vitorino
 3300159,http://www.diariomunicipal.com.br/aemerj,RJ,Prefeitura Municipal de Aperibé,aperibe
 3300225,http://www.diariomunicipal.com.br/aemerj,RJ,Prefeitura Municipal de Areal,areal
 3300605,http://www.diariomunicipal.com.br/aemerj,RJ,Prefeitura Municipal de Bom Jesus do Itabapoana,bom jesus itabapoana
@@ -1685,11 +1768,11 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 1101757,http://www.diariomunicipal.com.br/arom,RO,Prefeitura Municipal de Vale do Anari,vale anari
 1101807,http://www.diariomunicipal.com.br/arom,RO,Prefeitura Municipal de Vale do Paraíso,vale paraiso
 1100304,http://www.diariomunicipal.com.br/arom,RO,Prefeitura Municipal de Vilhena,vilhena
-1400050,http://www.diariomunicipal.com.br/amr,RR,PREFEITURA DE ALTO ALEGRE,alto alegre
 1400100,http://www.diariomunicipal.com.br/amr,RR, Prefeitura de Boa Vista,boa vista
 1400407,http://www.diariomunicipal.com.br/amr,RR,Prefeitura de Normandia,normandia
 1400472,http://www.diariomunicipal.com.br/amr,RR,PREFEITURA DE RORAINOPOLIS,rorainopolis
 1400704,http://www.diariomunicipal.com.br/amr,RR,PREFEITURA DE UIRAMUTA,uiramuta
+1400050,http://www.diariomunicipal.com.br/amr,RR,PREFEITURA MUNICIPAL DE ALTO ALEGRE,alto alegre
 1400027,http://www.diariomunicipal.com.br/amr,RR,Prefeitura Municipal de Amajarí,amajari
 1400159,http://www.diariomunicipal.com.br/amr,RR,Prefeitura Municipal de Bonfim,bonfim
 1400209,http://www.diariomunicipal.com.br/amr,RR,Prefeitura Municipal de Caracaraí,caracarai
@@ -1703,12 +1786,14 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4300406,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Alegrete,alegrete
 4300455,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Alegria,alegria
 4300471,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Almirante Tamandaré do Sul,almirante tamandare sul
+4300570,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Alto Feliz,alto feliz
 4300604,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Alvorada,alvorada
 4300851,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Arambaré ,arambare
 4300877,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Araricá,ararica
 4300901,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Aratiba,aratiba
 4301107,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Arroio dos Ratos,arroio ratos
 4301503,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Augusto Pestana,augusto pestana
+4301636,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Balneário Pinhal,balneario pinhal
 4301651,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Barão,barao
 4301701,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Barão de Cotegipe,barao cotegipe
 4301750,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Barão do Triunfo,barao triunfo
@@ -1716,11 +1801,13 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4301859,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Barra do Guarita,barra guarita
 4301958,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Barra Funda,barra funda
 4302006,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Barros Cassal,barros cassal
+4302204,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Boa Vista do Buricá,boa vista burica
 4302220,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Boa Vista do Cadeado,boa vista cadeado
 4302253,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Boa Vista do Sul,boa vista sul
 4302303,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Bom Jesus,bom jesus
 4302352,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Bom Princípio,bom principio
 4302600,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Braga,braga
+4302709,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Butiá,butia
 4303301,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Caibaté,caibate
 4303905,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Campo Bom,campo bom
 4304002,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Campo Novo,campo novo
@@ -1742,13 +1829,16 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4305959,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Cotiporã,cotipora
 4305975,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Coxilha,coxilha
 4306007,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Crissiumal,crissiumal
+4306205,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Cruzeiro do Sul,cruzeiro sul
 4306320,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Derrubadas,derrubadas
 4306429,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Dois Irmãos das Missões,dois irmaos missoes
 4306452,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Dois Lajeados,dois lajeados
 4306502,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Dom Feliciano,dom feliciano
 4306734,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Doutor Maurício Cardoso,doutor mauricio cardoso
 4306767,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Eldorado do Sul,eldorado sul
+4306908,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Encruzilhada do Sul,encruzilhada sul
 4306957,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Entre Rios do Sul,entre rios sul
+4307005,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Erechim,erechim
 4307054,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Ernestina,ernestina
 4307302,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Erval Seco,erval seco
 4307708,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Esteio,esteio
@@ -1758,12 +1848,16 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4308201,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Flores da Cunha,flores cunha
 4308250,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Floriano Peixoto,floriano peixoto
 4308409,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Formigueiro,formigueiro
+4308458,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Fortaleza dos Valos,fortaleza valos
 4308607,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Garibaldi,garibaldi
 4309001,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Giruá,girua
 4309050,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Glorinha,glorinha
+4309100,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Gramado,gramado
 4309159,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Gramado Xavier,gramado xavier
+4309308,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Guaíba,guaiba
 4309506,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Guarani das Missões,guarani missoes
 4309555,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Harmonia,harmonia
+4309704,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Humaitá,humaita
 4309902,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Ibiraiaras,ibiraiaras
 4310009,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Ibirubá,ibiruba
 4310330,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Imbé,imbe
@@ -1790,10 +1884,13 @@ territory_id,homepage,state_code,raw_publishing_entity,matched_territory_name
 4312138,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Mato Castelhano,mato castelhano
 4312377,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Monte Alegre dos Campos,monte alegre campos
 4312427,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Mormaço,mormaco
+4312450,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Morro Redondo,morro redondo
 4312476,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Morro Reuter,morro reuter
 4312500,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Mostardas,mostardas
 4312757,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Nova Alvorada,nova alvorada
+4313060,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Nova Hartz,nova hartz
 4313375,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Nova Santa Rita,nova santa rita
+4313490,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Novo Barreiro,novo barreiro
 4313391,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Novo Cabrais,novo cabrais
 4313425,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Novo Machado ,novo machado
 4313441,http://www.diariomunicipal.com.br/famurs,RS,Prefeitura Municipal de Novo Tiradentes,novo tiradentes

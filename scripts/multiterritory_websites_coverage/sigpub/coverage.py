@@ -12,7 +12,7 @@ from urllib.request import Request, urlopen
 from parsel import Selector
 
 logging.basicConfig(
-    level=logging.ERROR,
+    level=logging.INFO,
     format="%(asctime)s %(levelname)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )

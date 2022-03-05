@@ -6,11 +6,11 @@ class RrAssociacaoMunicipiosSpider(SigpubGazetteSpider):
     TERRITORY_ID = "1400000"
     CALENDAR_URL = "http://www.diariomunicipal.com.br/amr"
     TERRITORIES_COVERAGE = [
-        "1400050",
         "1400100",
         "1400407",
         "1400472",
         "1400704",
+        "1400050",
         "1400027",
         "1400159",
         "1400209",

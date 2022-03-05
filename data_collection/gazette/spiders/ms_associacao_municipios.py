@@ -62,4 +62,5 @@ class MsAssociacaoMunicipiosSpider(SigpubGazetteSpider):
         "5008008",
         "5008305",
         "5008404",
+        "5007406",
     ]
