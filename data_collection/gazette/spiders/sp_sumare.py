@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from datetime import date, datetime
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -11,6 +11,8 @@ class SpSumareSpider(BaseGazetteSpider):
     name = "sp_sumare"
     start_urls = ["https://www.sumare.sp.gov.br/Diario.Oficial.php?edicao=todas"]
     base_url = "https://www.sumare.sp.gov.br/"
+    start_date = date(2011, 2, 11)
+    end_date = date.today()
 
     def parse(self, response):
         gazettes = response.css("li.umDO")
@@ -22,7 +24,7 @@ class SpSumareSpider(BaseGazetteSpider):
             str_date = re.search(r"\d+/\d+/\d{4}", title).group(0)
             date = datetime.strptime(str_date, "%d/%m/%Y").date()
 
-            if hasattr(self, "start_date") and date < self.start_date:
+            if not (self.start_date <= date <= self.end_date):
                 continue
 
             yield Gazette(
