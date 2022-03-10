@@ -21,5 +21,6 @@ class PeJaboataoDosGuararapesSpiderExecutive(BaseGazetteSpider):
                 power="executive",
             )
 
-        if next_page := response.css(".elementor-pagination .next::attr(href)").get():
+        next_page = response.css(".elementor-pagination .next::attr(href)").get()
+        if next_page:
             yield response.follow(next_page)
