@@ -5,7 +5,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PeJaboataoDosGuararapesSpiderExecutive(BaseGazetteSpider):
-    TERRITORY_ID = "3304904"
+    TERRITORY_ID = "2607901"
     allowed_domains = ["jaboatao.pe.gov.br"]
     name = "pe_jaboatao_dos_guararapes"
     start_urls = ["https://diariooficial.jaboatao.pe.gov.br/"]
