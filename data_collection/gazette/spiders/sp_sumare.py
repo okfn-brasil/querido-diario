@@ -32,5 +32,5 @@ class SpSumareSpider(BaseGazetteSpider):
                 date=date,
                 file_urls=[f"{self.base_url}{url}"],
                 is_extra_edition="extra" in title.lower(),
-                power="executive",
+                power="executive_legislative",
             )
