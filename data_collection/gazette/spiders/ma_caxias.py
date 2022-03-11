@@ -39,13 +39,19 @@ class MaCaxiasSpider(BaseGazetteSpider):
         raw_date = response.xpath("//input[@id='date']/@value").get()
         gazette_date = datetime.strptime(raw_date, self.DATE_FORMAT)
         for gazette in gazette_info:
-            file_url = gazette.xpath("@href").get()
-            is_extra_edition = "extra" in file_url.lower()
-            edition_number = gazette.xpath("text()").re_first(r"\d+")
+            url = gazette.xpath("@href")
+            text = gazette.xpath("text()")
+
+            is_extra_edition = "extra" in url.get().lower() + text.get().lower()
+            edition_number = (
+                text.re_first(r"\d+") or url.re_first(r"\d{4}/\d{2}/(\d+)")
+                if not is_extra_edition
+                else ""
+            )
 
             yield Gazette(
                 date=gazette_date.date(),
-                file_urls=[file_url],
+                file_urls=[url.get()],
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
                 territory_id=self.TERRITORY_ID,
