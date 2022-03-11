@@ -27,13 +27,15 @@ class MaCaxiasSpider(BaseGazetteSpider):
                     "date": date_of_interest.strftime(self.DATE_FORMAT),
                     "action": "_dom",
                 },
+                cb_kwargs={"gazette_date": date_of_interest.date()},
             )
 
-    def parse(self, response):
+    def parse(self, response, gazette_date):
         gazette_info = response.xpath("//a[@class='btn-download']")
         gazette_error = response.xpath("//div[@class='gde-error']")
 
         if gazette_error or not gazette_info:
+            self.logger.debug(f"No gazette available for {gazette_date}")
             return
 
         raw_date = response.xpath("//input[@id='date']/@value").get()
