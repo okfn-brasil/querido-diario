@@ -18,7 +18,7 @@ class MaCaxiasSpider(BaseGazetteSpider):
 
     def start_requests(self):
         for date_of_interest in rrule(
-            freq=DAILY, dtstart=self.start_date, until=date.today()
+            freq=DAILY, dtstart=self.start_date, until=self.end_date
         ):
             yield scrapy.FormRequest(
                 url=self.BASE_URL,
