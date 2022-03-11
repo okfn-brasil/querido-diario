@@ -36,18 +36,26 @@ class MaCaxiasSpider(BaseGazetteSpider):
             )
 
     def parse(self, response, gazette_date):
-        gazette_info = response.xpath("//a[@class='btn-download']")
-        gazette_error = response.xpath("//div[@class='gde-error']")
-
-        if gazette_error or not gazette_info:
-            self.logger.debug(f"No gazette available for {gazette_date}")
+        gazette_info = response.xpath("//div[@class='items']/p")
+        if not gazette_info:
+            self.logger.debug(f"No gazette for {gazette_date}")
             return
 
         raw_date = response.xpath("//input[@id='date']/@value").get()
         gazette_date = datetime.strptime(raw_date, self.DATE_FORMAT)
         for gazette in gazette_info:
-            url = gazette.xpath("@href")
-            text = gazette.xpath("text()")
+            download_button = gazette.xpath(".//a[@class='btn-download']")
+            url = download_button.xpath("@href")
+            text = download_button.xpath("text()")
+
+            gazette_error = gazette.xpath(
+                "./preceding-sibling::div[1]/div[@class='gde-error']"
+            )
+            if gazette_error:
+                self.logger.warning(
+                    f"A document for {gazette_date} is not available: {url.get()}"
+                )
+                continue
 
             is_extra_edition = "extra" in url.get().lower() + text.get().lower()
             edition_number = (
