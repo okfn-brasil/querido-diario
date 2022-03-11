@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 
 import scrapy
 from dateutil.rrule import DAILY, rrule
@@ -41,8 +41,6 @@ class MaCaxiasSpider(BaseGazetteSpider):
             self.logger.debug(f"No gazette for {gazette_date}")
             return
 
-        raw_date = response.xpath("//input[@id='date']/@value").get()
-        gazette_date = datetime.strptime(raw_date, self.DATE_FORMAT)
         for gazette in gazette_info:
             download_button = gazette.xpath(".//a[@class='btn-download']")
             url = download_button.xpath("@href")
@@ -65,7 +63,7 @@ class MaCaxiasSpider(BaseGazetteSpider):
             )
 
             yield Gazette(
-                date=gazette_date.date(),
+                date=gazette_date,
                 file_urls=[url.get()],
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
