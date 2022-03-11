@@ -16,6 +16,11 @@ class MaCaxiasSpider(BaseGazetteSpider):
     BASE_URL = "https://caxias.ma.gov.br/diario-oficial-do-municipio"
     DATE_FORMAT = "%d/%m/%Y"
 
+    custom_settings = {
+        "CONCURRENT_REQUESTS": 4,
+        "DOWNLOAD_DELAY": 2.0,
+    }
+
     def start_requests(self):
         for date_of_interest in rrule(
             freq=DAILY, dtstart=self.start_date, until=self.end_date
