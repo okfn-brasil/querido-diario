@@ -61,7 +61,7 @@ class MaCaxiasSpider(BaseGazetteSpider):
 
             is_extra_edition = "extra" in url.get().lower() + text.get().lower()
             edition_number = (
-                text.re_first(r"\d+") or url.re_first(r"\d{4}/\d{2}/(\d+)")
+                text.re_first(r" (\d+) ") or url.re_first(r"\d{4}/\d{2}/(\d+)")
                 if not is_extra_edition
                 else ""
             )
