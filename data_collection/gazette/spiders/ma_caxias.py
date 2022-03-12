@@ -8,6 +8,12 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class MaCaxiasSpider(BaseGazetteSpider):
+    """Raspador para as publicações atuais de Caxias (MA)
+
+    Ao executar a raspagem completa do raspador (publicações a partir de 06/03/2017),
+    erros de duplicidade no banco são esperados pois algumas publicações são repetidas.
+    Por exemplo, no dia 25/05/2017 os dois documentos publicados têm checksum igual.
+    """
 
     name = "ma_caxias"
     allowed_domains = ["caxias.ma.gov.br"]
@@ -46,12 +52,10 @@ class MaCaxiasSpider(BaseGazetteSpider):
             url = download_button.xpath("@href")
             text = download_button.xpath("text()")
 
-            gazette_error = gazette.xpath(
-                "./preceding-sibling::div[1]/div[@class='gde-error']"
-            )
-            if gazette_error:
+            error_text = gazette.xpath("./preceding-sibling::div[1]/div/text()")
+            if error_text and self._file_not_found(error_text.get()):
                 self.logger.warning(
-                    f"A document for {gazette_date} is not available: {url.get()}"
+                    f'The document "{text.get()}" ({url.get()}) for {gazette_date} is not available: "{error_text.get()}"'
                 )
                 continue
 
@@ -70,3 +74,7 @@ class MaCaxiasSpider(BaseGazetteSpider):
                 territory_id=self.TERRITORY_ID,
                 power="executive",
             )
+
+    def _file_not_found(self, error_text):
+        not_found_messages = ["not found", "url is invalid", "forbidden"]
+        return any(message in error_text.lower() for message in not_found_messages)
