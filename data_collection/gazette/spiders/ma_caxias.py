@@ -33,7 +33,6 @@ class MaCaxiasSpider(BaseGazetteSpider):
         ):
             yield scrapy.FormRequest(
                 url=self.BASE_URL,
-                method="POST",
                 formdata={
                     "date": date_of_interest.strftime(self.DATE_FORMAT),
                     "action": "_dom",
@@ -71,7 +70,6 @@ class MaCaxiasSpider(BaseGazetteSpider):
                 file_urls=[url.get()],
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
-                territory_id=self.TERRITORY_ID,
                 power="executive",
             )
 
