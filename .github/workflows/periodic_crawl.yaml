@@ -2,9 +2,10 @@ name: Daily execution of Spiders
 
 on:
   schedule:
-    # Execute daily at 8AM
-    - cron: "0 8 * * *"
-
+    # Execute twice a day at 8AM/6PM (BRT)
+    - cron: "0 11 * * *"
+    - cron: "0 21 * * *"
+    
 jobs:
   schedule-jobs:
     runs-on: ubuntu-latest
