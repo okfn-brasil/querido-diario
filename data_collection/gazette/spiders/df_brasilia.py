@@ -13,7 +13,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     name = "df_brasilia"
     start_date = datetime.date(1967, 12, 25)
 
-    GAZETTE_URL = "http://dodf.df.gov.br/listar"
+    GAZETTE_URL = "https://dodf.df.gov.br/listar"
     DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
     EXTRA_EDITION_TEXT = "EDICAO EXTR"
     PDF_URL = "https://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
@@ -21,8 +21,8 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     def start_requests(self):
         """Requests page that has a list of all available years."""
         initial_year = self.start_date.year
-        end_year = datetime.date.today().year
-        for year in range(initial_year, end_year + 1):
+        end_year = self.end_date.year
+        for year in range(end_year, initial_year - 1, -1):
             yield Request(
                 f"{self.GAZETTE_URL}?dir={year}",
                 meta={"year": year},
