@@ -2339,3 +2339,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2329 | Wenceslau Guimarães - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2330 | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2331 | Pau dos Ferros - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/489) | [PR](https://github.com/okfn-brasil/querido-diario/pull/494) |
+| 2332 | Buriti Bravo - MA | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/524) | [PR](https://github.com/okfn-brasil/querido-diario/pull/525) |
