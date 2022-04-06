@@ -2340,4 +2340,4 @@ The municipality id (IBGE code) can be found on [Wikipedia](https://pt.wikipedia
 | 2330 | Xique-Xique - BA | :white_check_mark: | | [PR](https://github.com/okfn-brasil/querido-diario/pull/354) |
 | 2331 | Adolfo - SP | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/461) | [PR](https://github.com/okfn-brasil/querido-diario/pull/475)
 | 2331 | Pau dos Ferros - RN | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/489) | [PR](https://github.com/okfn-brasil/querido-diario/pull/494) |
-| 2331 | Manhuaçu - MG | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/489) | [PR](https://github.com/okfn-brasil/querido-diario/pull/494) |
+| 2331 | Manhuaçu - MG | :white_check_mark: | [issue](https://github.com/okfn-brasil/querido-diario/issues/489) | [PR](https://github.com/okfn-brasil/querido-diario/pull/547) |
