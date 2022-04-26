@@ -100,4 +100,4 @@ class SpiderCloseMonitorSuite(MonitorSuite):
         ItemValidationMonitor,
     ]
 
-    monitors_finished_actions = [CustomSendTelegramMessage]
+    monitors_failed_actions = [CustomSendTelegramMessage]
