@@ -1,8 +1,6 @@
 import datetime
-from urllib.parse import urlencode
 
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -11,59 +9,36 @@ from gazette.spiders.base import BaseGazetteSpider
 class PbJoaoPessoaSpider(BaseGazetteSpider):
     name = "pb_joao_pessoa"
     TERRITORY_ID = "2507507"
-
-    start_date = datetime.date(1992, 1, 1)
-
-    def start_requests(self):
-        base_url = "http://antigo.joaopessoa.pb.gov.br/semanariooficial/"
-        url_params = {
-            "querysearch": "1",
-            "semanario_edicao": "-1",
-            "submitsearch": "OK",
-            "keyword": "",
-        }
-        initial_date = datetime.date(self.start_date.year, self.start_date.month, 1)
-        end_date = self.end_date
-
-        periods_of_interest = [
-            (date.year, date.month)
-            for date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date)
-        ]
-        for year, month in periods_of_interest:
-            url_params["semanario_ano"] = str(year)
-            url_params["semanario_mes"] = str(month).zfill(2)
-
-            parsed_params = urlencode(url_params)
-            url = f"{base_url}?{parsed_params}"
-            yield scrapy.Request(url=url)
+    start_date = datetime.date(2022, 3, 28)
+    start_urls = ["https://www.joaopessoa.pb.gov.br/doe-jp/"]
 
     def parse(self, response):
-        """Parses gazettes page and requests next page.
+        follow_next_page = True
 
-        Normal gazettes are displayed in a weekly basis, so, the date which is taken
-        into account for this type of gazette is the last in the publication period
-        (i.e. "29/08/2020" from "23/08/2020 to 29/08/2020").
-
-        Special gazzetes are daily, but that same logic applies here and it works
-        correctly.
-        """
-        gazettes = response.css(".table-semanarios table tbody tr")
+        gazettes = response.css("h4.card-title")
         for gazette in gazettes:
-            url = gazette.css("td:last-child a::attr(href)").get()
-            gazette_date = (
-                gazette.css("td:nth-last-child(2)::text")
-                .re(r"[0-9]{2}/[0-9]{2}/[0-9]{4}")
-                .pop()
-            )
-            gazette_date = datetime.datetime.strptime(gazette_date, "%d/%m/%Y").date()
-            is_extra = "Especial" in gazette.css("td:first-child").get()
+            gazette_url = gazette.xpath(".//following-sibling::a/@href").get()
+            edition_number = gazette.css("a::text").re_first(r"Edição (\d+\/\d+)")
+
+            raw_gazette_date = gazette.css("a::text").re_first(r"(\d{2}\/\d{2}\/\d{4})")
+            if not raw_gazette_date:
+                continue
+
+            gazette_date = datetime.datetime.strptime(
+                raw_gazette_date, "%d/%m/%Y"
+            ).date()
 
             yield Gazette(
                 date=gazette_date,
-                file_urls=[url],
-                is_extra_edition=is_extra,
+                edition_number=edition_number,
+                file_urls=[gazette_url],
                 power="executive_legislative",
             )
 
-        for url in response.css(".pagination a.next::attr(href)").getall():
-            yield response.follow(url)
+            if gazette_date < self.start_date:
+                follow_next_page = False
+                break
+
+        next_page_url = response.css("a.next::attr(href)").get()
+        if follow_next_page and next_page_url:
+            yield scrapy.Request(next_page_url)
