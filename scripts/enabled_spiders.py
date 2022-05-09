@@ -12,6 +12,7 @@ SPIDERS = [
     "ms_campo_grande",
     "pa_belem",
     "pe_jaboatao_dos_guararapes",
+    "pe_petrolina",
     "pe_recife",
     "pb_joao_pessoa",
     "pi_teresina",
