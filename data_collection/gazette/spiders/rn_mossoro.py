@@ -1,63 +1,63 @@
+import datetime as dt
 import re
-from datetime import date, datetime
+from urllib.parse import unquote
 
-import dateutil
 import scrapy
+from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class RnMossoroSpider(BaseGazetteSpider):
-
     name = "rn_mossoro"
-    allowed_domains = ["jom.prefeiturademossoro.com.br"]
-
     TERRITORY_ID = "2408003"
-
-    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
-        self.start_date = date(2008, 1, 1)
-
-        super(RnMossoroSpider, self).__init__(start_date, end_date, *args, **kwargs)
-
-        self.logger.debug(
-            "Start date is {date}".format(date=self.start_date.isoformat())
-        )
-        self.logger.debug("End date is {date}".format(date=self.end_date.isoformat()))
+    allowed_domains = ["jom.prefeiturademossoro.com.br"]
+    start_date = dt.date(2008, 1, 1)
 
     def start_requests(self):
-
-        for year in range(self.start_date.year, self.end_date.year + 1):
-            for month in range(self.start_date.month, self.end_date.month + 1):
-                base_url = f"http://jom.prefeiturademossoro.com.br/{year}/{month}/"
-                yield scrapy.Request(base_url)
-
-    def parse(self, response):
-        for entry in response.css("article.post.category-jom"):
-
-            url = entry.css("a:first-of-type::attr(href)").get()
-            datetime_meta = entry.css("time.published::attr(datetime)").get()
-            entry_date = dateutil.parser.isoparse(datetime_meta).date()
-
+        # avoid skipping months if day of start_date is at the end of the month
+        first_day_of_start_date_month = dt.date(
+            self.start_date.year, self.start_date.month, 1
+        )
+        months_of_interest = rrule(
+            MONTHLY, dtstart=first_day_of_start_date_month, until=self.end_date
+        )
+        for month_date in months_of_interest:
             yield scrapy.Request(
-                url, meta={"date": entry_date}, callback=self.parse_gazette
+                url=f"http://jom.prefeiturademossoro.com.br/{month_date.year}/{month_date.month}/"
             )
 
-        next_pages_links = response.css("a.page-numbers::attr(href)").getall()
-        for link in next_pages_links:
-            yield scrapy.Request(link)
+    def parse(self, response):
+        for edition in response.css("article.post.category-jom"):
+            url = edition.css("a:first-of-type::attr(href)").get()
+            raw_date = edition.css("time.published::attr(datetime)").get()
+            date = dt.datetime.fromisoformat(raw_date).date()
 
-    def parse_gazette(self, response):
-        gazette_date = response.meta["date"]
-        file_url = response.css(".wp-block-file__button::attr(href)").get()
-        edition_regex = re.compile(r"JOM n\.º ([a-z0-9]+)$", re.IGNORECASE)
-        edition = response.css("h1.entry-title::text").re_first(edition_regex)
+            if date > self.end_date:
+                continue
+            elif date < self.start_date:
+                return
+
+            yield scrapy.Request(
+                url,
+                callback=self.parse_gazette,
+                cb_kwargs={"date": date},
+            )
+
+        next_page_url = response.css("a.next::attr(href)").get()
+        if next_page_url:
+            yield scrapy.Request(next_page_url)
+
+    def parse_gazette(self, response, date):
+        file_url = unquote(response.css("iframe::attr(src)").re_first(r"file=(.+)"))
+        edition_regex = re.compile(r"JOM[n\s\.°º]+([a-z0-9]+)", re.IGNORECASE)
+        edition_number = response.css(".entry-title::text").re_first(edition_regex)
+
         yield Gazette(
-            date=gazette_date,
-            edition_number=edition,
+            date=date,
+            edition_number=edition_number,
             file_urls=[file_url],
             is_extra_edition=False,
-            territory_id=self.TERRITORY_ID,
             power="executive_legislative",
-            scraped_at=datetime.utcnow(),
         )
