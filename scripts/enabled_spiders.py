@@ -15,6 +15,7 @@ SPIDERS = [
     "pe_recife",
     "pb_joao_pessoa",
     "pi_teresina",
+    "pr_curitiba",
     "rj_rio_de_janeiro",
     "rn_natal",
     "rr_boa_vista",
