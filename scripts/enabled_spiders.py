@@ -18,6 +18,7 @@ SPIDERS = [
     "rj_rio_de_janeiro",
     "rn_natal",
     "rr_boa_vista",
+    "rs_porto_alegre",
     "sc_florianopolis",
     "sp_sumare",
     "to_palmas",
