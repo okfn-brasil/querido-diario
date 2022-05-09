@@ -1,4 +1,4 @@
-from datetime import date
+import datetime as dt
 
 import dateparser
 import scrapy
@@ -13,10 +13,10 @@ class DoemGazetteSpider(BaseGazetteSpider):
     """
 
     allowed_domains = ["doem.org.br"]
-    start_date = date(2009, 1, 1)
+    start_date = dt.date(2009, 1, 1)
 
     def start_requests(self):
-        yield scrapy.Request(self.get_url(), callback=self.parse_pagination)
+        yield scrapy.Request(self.get_url())
 
     def parse_pagination(self, response):
         """
@@ -28,7 +28,7 @@ class DoemGazetteSpider(BaseGazetteSpider):
             for page in range(1, 1 + self.get_last_page(response))
         ]
 
-    def parse(self, response):
+    def parse(self, response, page=1):
         """
         Parse each page from the results page and yield the gazette issues available.
         """
@@ -38,18 +38,31 @@ class DoemGazetteSpider(BaseGazetteSpider):
             file_url = self.get_pdf_url(gazette_box)
             date = self.get_gazette_date(gazette_box)
             edition_number = self.get_edition_number(gazette_box)
+
+            if date > self.end_date:
+                continue
+            elif date < self.start_date:
+                return
+
             yield Gazette(
                 date=date,
                 file_urls=[file_url],
                 edition_number=edition_number,
+                is_extra_edition=False,
                 power="executive_legislative",
             )
 
-    def get_url(self, page=None):
+        last_page = self.get_last_page(response)
+        if page < last_page:
+            yield scrapy.Request(
+                url=self.get_url(page + 1), cb_kwargs={"page": page + 1}
+            )
+
+    def get_url(self, page=1):
         url = f"https://doem.org.br/{self.state_city_url_part}"
         start_date = self.start_date.strftime("%Y-%m-%d")
-        page_param = f"&page={page}" if page is not None else ""
-        return f"{url}/pesquisar?data_inicial={start_date}{page_param}"
+        end_date = self.end_date.strftime("%Y-%m-%d")
+        return f"{url}/pesquisar?data_inicial={start_date}&data_final={end_date}&page={page}"
 
     def get_last_page(self, response):
         """
@@ -80,6 +93,4 @@ class DoemGazetteSpider(BaseGazetteSpider):
         """
         Get the edition number inside one of the 'box-diario' divs
         """
-        edition_text = response_item.css("h2::text").get()
-        edition_number = edition_text.strip().split(" ")[1]
-        return int(edition_number) if edition_number.isnumeric() else None
+        return response_item.css("h2::text").re_first(r"Edição\s+([.\d]+)")
