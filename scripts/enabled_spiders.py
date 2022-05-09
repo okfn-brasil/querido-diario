@@ -18,6 +18,7 @@ SPIDERS = [
     "pi_teresina",
     "pr_curitiba",
     "rj_rio_de_janeiro",
+    "rn_mossoro",
     "rn_natal",
     "rr_boa_vista",
     "rs_porto_alegre",
