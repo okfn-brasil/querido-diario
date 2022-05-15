@@ -25,7 +25,6 @@ class SpUbatubaSpider(BaseGazetteSpider):
                 edition_number=edition_number,
                 file_urls=[url],
                 power="executive")
-            sleep(1)
 
     @staticmethod
     def extract_date(date_item):
