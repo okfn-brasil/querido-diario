@@ -7,6 +7,7 @@ SPIDERS = [
     "ba_feira_de_santana",
     "ce_sobral",
     "df_brasilia",
+    "es_vila_velha",
     "go_goiania",
     "ma_caxias",
     "mg_belo_horizonte",
