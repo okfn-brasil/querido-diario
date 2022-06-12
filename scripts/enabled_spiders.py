@@ -5,6 +5,7 @@ SPIDERS = [
     "al_maceio",
     "ba_salvador",
     "ba_feira_de_santana",
+    "ce_sobral",
     "df_brasilia",
     "go_goiania",
     "ma_caxias",
