@@ -10,18 +10,15 @@ class SpSumareSpider(BaseGazetteSpider):
     allowed_domains = ["sumare.sp.gov.br"]
     name = "sp_sumare"
     start_urls = ["https://www.sumare.sp.gov.br/Diario.Oficial.php?edicao=todas"]
-    base_url = "https://www.sumare.sp.gov.br/"
     start_date = date(2011, 2, 11)
-    end_date = date.today()
 
     def parse(self, response):
         gazettes = response.css("li.umDO")
-        gazettes.reverse()
 
         for gazette in gazettes:
             title = gazette.css("a::attr(title)").get()
             url = gazette.css("a::attr(href)").get()
-            str_date = re.search(r"\d+/\d+/\d{4}", title).group(0)
+            str_date = gazette.css("a > p::text").get()
             date = datetime.strptime(str_date, "%d/%m/%Y").date()
 
             if not (self.start_date <= date <= self.end_date):
@@ -30,7 +27,7 @@ class SpSumareSpider(BaseGazetteSpider):
             yield Gazette(
                 edition_number=re.search(r"\d+", title).group(0),
                 date=date,
-                file_urls=[f"{self.base_url}{url}"],
+                file_urls=[response.urljoin(url)],
                 is_extra_edition="extra" in title.lower(),
                 power="executive_legislative",
             )
