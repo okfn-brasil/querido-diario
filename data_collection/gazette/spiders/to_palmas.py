@@ -1,7 +1,6 @@
 import datetime
 from urllib.parse import urlencode
 
-import dateparser
 import scrapy
 
 from gazette.items import Gazette
@@ -20,7 +19,7 @@ class ToPalmasSpider(BaseGazetteSpider):
 
     def start_requests(self):
         dt_inicial = self.start_date.strftime("%d/%m/%Y")
-        dt_final = datetime.date.today().strftime("%d/%m/%Y")
+        dt_final = self.end_date.strftime("%d/%m/%Y")
 
         url_params = {
             "opcao": "datas",
@@ -41,17 +40,21 @@ class ToPalmasSpider(BaseGazetteSpider):
     def parse(self, response):
         gazettes = response.css(".diario-resultado-pesquisa tbody tr")
         for gazette in gazettes:
-            gazette_date = gazette.xpath("./td[2]/text()").get()
+            raw_gazette_date = gazette.xpath("./td[2]/text()").get()
             gazette_url = response.urljoin(gazette.css("a::attr(href)").get())
 
             is_extra_edition = bool(gazette.xpath(".//*[contains(., 'Suplemento')]"))
             if is_extra_edition:
                 # Extra Editions doesn't have a date in its line. We need to get it from
                 # the main edition of that day
-                gazette_date = self._get_date_from_parent_edition(response, gazette)
+                raw_gazette_date = self._get_date_from_parent_edition(response, gazette)
+
+            gazette_date = datetime.datetime.strptime(
+                raw_gazette_date, "%d/%m/%Y"
+            ).date()
 
             item = Gazette(
-                date=dateparser.parse(gazette_date, languages=["pt"]).date(),
+                date=gazette_date,
                 is_extra_edition=is_extra_edition,
                 power="executive_legislative",
             )
