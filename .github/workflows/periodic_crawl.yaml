@@ -5,7 +5,7 @@ on:
     # Execute twice a day at 8AM/6PM (BRT)
     - cron: "0 11 * * *"
     - cron: "0 21 * * *"
-    
+
 jobs:
   schedule-jobs:
     runs-on: ubuntu-latest
@@ -18,9 +18,8 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
       AWS_REGION_NAME: ${{ secrets.AWS_REGION_NAME }}
-      SPIDERMON_TELEGRAM_SENDER_TOKEN: ${{ secrets.SPIDERMON_TELEGRAM_SENDER_TOKEN }}
-      SPIDERMON_TELEGRAM_RECIPIENTS: ${{ secrets.SPIDERMON_TELEGRAM_RECIPIENTS }}
-      SPIDERMON_TELEGRAM_FAKE: ${{ secrets.SPIDERMON_TELEGRAM_FAKE }}
+      SPIDERMON_DISCORD_FAKE: ${{ secrets.SPIDERMON_DISCORD_FAKE }}
+      SPIDERMON_DISCORD_WEBHOOK_URL: ${{ secrets.SPIDERMON_DISCORD_WEBHOOK_URL }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
