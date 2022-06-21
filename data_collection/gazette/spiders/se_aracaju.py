@@ -1,11 +1,11 @@
-from datetime import datetime
 from urllib.parse import parse_qsl
 
 import scrapy
 from dateparser import parse
+from parsel import Selector
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from parsel import Selector
 
 
 class SeAracajuSpider(BaseGazetteSpider):
@@ -75,7 +75,12 @@ class SeAracajuSpider(BaseGazetteSpider):
             ).getall()
             for year in all_years_available:
                 for month in range(1, 13):
-                    yield from self.start_requests(cookiejar=(year, month,))
+                    yield from self.start_requests(
+                        cookiejar=(
+                            year,
+                            month,
+                        )
+                    )
         else:
             yield self._make_year_month_request(response)
 
