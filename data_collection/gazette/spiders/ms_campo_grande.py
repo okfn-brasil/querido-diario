@@ -22,7 +22,11 @@ class MsCampoGrandeSpider(BaseGazetteSpider):
         yield Request(url)
 
     def parse(self, response, sequential=0):
-        for entry in response.json()["data"]:
+        data = response.json()["data"]
+        if not data:
+            return
+
+        for entry in data:
             date = dt.datetime.strptime(entry["dia"], "%Y-%m-%d").date()
 
             if date < self.start_date:
