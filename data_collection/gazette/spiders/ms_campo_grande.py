@@ -1,6 +1,7 @@
 import base64
 import datetime as dt
 import re
+from collections.abc import Iterable
 
 from scrapy import Request
 
@@ -23,7 +24,7 @@ class MsCampoGrandeSpider(BaseGazetteSpider):
 
     def parse(self, response, sequential=0):
         data_json = response.json()["data"]
-        if not isinstance(data_json, list):
+        if not isinstance(data_json, Iterable):
             return
         for entry in data_json:
             date = dt.datetime.strptime(entry["dia"], "%Y-%m-%d").date()
