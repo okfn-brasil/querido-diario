@@ -1,7 +1,8 @@
+import datetime
 from urllib.parse import parse_qsl
 
 import scrapy
-from dateparser import parse
+from dateutil.rrule import MONTHLY, rrule
 from parsel import Selector
 
 from gazette.items import Gazette
@@ -11,17 +12,16 @@ from gazette.spiders.base import BaseGazetteSpider
 class SeAracajuSpider(BaseGazetteSpider):
     TERRITORY_ID = "2800308"
     name = "se_aracaju"
+    start_date = datetime.date(1991, 7, 1)
 
     custom_settings = {"CONCURRENT_REQUESTS": 12}
 
-    start_urls = [
-        "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp"
-    ]
-
     def start_requests(self, cookiejar=None):
-        for url in self.start_urls:
-            meta = {"cookiejar": cookiejar} if cookiejar else {}
-            yield scrapy.Request(url, meta=meta, dont_filter=True)
+        yield scrapy.Request(
+            "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp",
+            meta={"cookiejar": cookiejar} if cookiejar is not None else {},
+            dont_filter=True,
+        )
 
     def parse(self, response):
         mesano_param = response.css("[value=mesano]::attr(name)").get()
@@ -70,17 +70,19 @@ class SeAracajuSpider(BaseGazetteSpider):
 
     def parse_search_by_month_and_year(self, response):
         if not response.meta.get("cookiejar", False):
-            all_years_available = response.xpath(
-                "//td[contains(./span//text(), 'Ano')]/following-sibling::td//option/@value"
-            ).getall()
-            for year in all_years_available:
-                for month in range(1, 13):
-                    yield from self.start_requests(
-                        cookiejar=(
-                            year,
-                            month,
-                        )
+            rule_start_date = datetime.date(
+                self.start_date.year, self.start_date.month, 1
+            )
+            date_list = list(
+                rrule(freq=MONTHLY, dtstart=rule_start_date, until=self.end_date)
+            )
+            for date in date_list:
+                yield from self.start_requests(
+                    cookiejar=(
+                        date.year,
+                        date.month,
                     )
+                )
         else:
             yield self._make_year_month_request(response)
 
@@ -97,7 +99,7 @@ class SeAracajuSpider(BaseGazetteSpider):
             gazette_date = gazette.css(".rich-panel-header::text").get()
             file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}.pdf"
             yield Gazette(
-                date=parse(gazette_date, languages=["pt"]).date(),
+                date=datetime.datetime.strptime(gazette_date, "%d/%m/%Y").date(),
                 is_extra_edition=False,
                 file_urls=[file_url],
                 power="executive",
@@ -113,7 +115,3 @@ class SeAracajuSpider(BaseGazetteSpider):
                 "AJAX:EVENTS_COUNT": "1",
             }
             yield self._make_year_month_request(response, formdata)
-
-
-# TODO
-# - Verificar o link de diários antigos - que parecem que não seguem o padrão {numero}.pdf
