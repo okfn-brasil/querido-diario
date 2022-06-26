@@ -1,7 +1,6 @@
 import base64
 import datetime as dt
 import re
-from collections.abc import Iterable
 
 from scrapy import Request
 
