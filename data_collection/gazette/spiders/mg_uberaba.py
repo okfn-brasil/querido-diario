@@ -2,15 +2,24 @@ import datetime as dt
 import re
 
 from dateparser import parse
-from scrapy.http import FormRequest
+from scrapy import FormRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.spiders.base.dosp import DospGazetteSpider
 
 
-class MgUberaba(BaseGazetteSpider):
+class MgUberabaSpider(DospGazetteSpider):
     TERRITORY_ID = "3170107"
     name = "mg_uberaba"
+
+    code = 2364
+    start_date = dt.date(2021, 9, 1)
+
+
+class MgUberabaAcervo2003A2021Spider(BaseGazetteSpider):
+    TERRITORY_ID = "3170107"
+    name = "mg_uberaba_acervo_2003_a_2021"
     allowed_domains = ["uberaba.mg.gov.br"]
 
     LIST_GAZETTES_URL = "http://www.uberaba.mg.gov.br/portal/listImagesHtml"
