@@ -1,7 +1,6 @@
 import datetime as dt
 import re
 
-from dateparser import parse
 from scrapy import FormRequest
 
 from gazette.items import Gazette
@@ -21,18 +20,13 @@ class MgUberabaAcervo2003A2021Spider(BaseGazetteSpider):
     TERRITORY_ID = "3170107"
     name = "mg_uberaba_acervo_2003_a_2021"
     allowed_domains = ["uberaba.mg.gov.br"]
-
-    LIST_GAZETTES_URL = "http://www.uberaba.mg.gov.br/portal/listImagesHtml"
-    DOWNLOAD_URL_TEMPLATE = (
-        "http://www.uberaba.mg.gov.br:8080/portal/acervo/portavoz/arquivos/{}/{}"
-    )
+    start_date = dt.date(2003, 4, 25)
+    end_date = dt.date(2021, 9, 1)
 
     def start_requests(self):
-        next_year = dt.datetime.today().year + 1
-
-        for year in range(2015, next_year):
+        for year in range(self.start_date.year, self.end_date.year + 1):
             yield FormRequest(
-                url=self.LIST_GAZETTES_URL,
+                url="http://www.uberaba.mg.gov.br/portal/listImagesHtml",
                 method="POST",
                 formdata={
                     "desc": "1",
@@ -40,31 +34,34 @@ class MgUberabaAcervo2003A2021Spider(BaseGazetteSpider):
                     "folder": f"portavoz/arquivos/{year}",
                     "limit": "5000",
                     "page": "1",
-                    "types": "pdf",
+                    "types": "gif,jpg,png,bmp,tif,dxf,swf,dcr,mov,qt,ram,rm,avi,mpg,mpeg,asf,flv,pdf,doc,docx,xls,xlsx,zip,rar,txt,cdr,ai,eps,ppt,pptx,pot,psd,wmv",
                     "listAll": "1",
                 },
-                meta={"year": year},
             )
 
     def parse(self, response):
         filenames = [
             filename.strip()
-            for filename in response.xpath(
-                '//div[@class="claGaleriaBoxFileTable"]/text()'
-            ).extract()
+            for filename in response.css("div.claGaleriaBoxFileTable::text").getall()
         ]
         for filename in filenames:
-            date = self.extract_date(filename)
+            raw_date = re.search(r"\d{2}-\d{2}-\d{4}", filename)
+            if raw_date is None:
+                continue
+
+            date = dt.datetime.strptime(raw_date.group(), "%d-%m-%Y").date()
+            if self.start_date > date > self.end_date:
+                continue
+
+            base_download_url = (
+                "http://www.uberaba.mg.gov.br:8080/portal/acervo/portavoz/arquivos"
+            )
+            url = f"{base_download_url}/{date.year}/{filename}"
+            edition_number = re.match(r"\d+", filename).group().lstrip("0")
+
             yield Gazette(
                 date=date,
-                file_urls=[self.mount_url(filename, date.year)],
-                is_extra_edition=False,
+                file_urls=[url],
+                edition_number=edition_number,
                 power="executive_legislative",
             )
-
-    def extract_date(self, filename):
-        date_str = re.search(r"(\d{2}-\d{2}-\d{4})", filename).group(1)
-        return parse(date_str, languages=["pt"]).date()
-
-    def mount_url(self, filename, year):
-        return self.DOWNLOAD_URL_TEMPLATE.format(year, filename)
