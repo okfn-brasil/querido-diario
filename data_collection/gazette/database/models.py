@@ -1,6 +1,7 @@
 import csv
 import datetime as dt
 import logging
+import os
 
 import pkg_resources
 from sqlalchemy import (
@@ -34,9 +35,14 @@ def load_territories(engine):
     num_territories = session.query(Territory).count()
     if num_territories == 0:
         logger.info("Populating 'territories' table - Please wait!")
-        territories_file = pkg_resources.resource_filename(
-            "gazette", "resources/territories.csv"
-        )
+
+        if os.environ.get("SHUB_JOBKEY"):  # Running on Scrapy Cloud
+            territories_file = pkg_resources.resource_filename(
+                "gazette", "resources/territories.csv"
+            )
+        else:
+            territories_file = "resources/territories.csv"
+
         with open(territories_file, encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             territories = []
@@ -80,3 +86,5 @@ class Territory(DeclarativeBase):
     state_code = Column(String)
     state = Column(String)
     gazettes = relationship("Gazette", order_by=Gazette.id, back_populates="territory")
+    spider_name = Column(String)
+    enabled = Column(Boolean, default=False)

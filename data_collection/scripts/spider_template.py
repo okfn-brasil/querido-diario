@@ -1,3 +1,4 @@
+# fmt: off
 from datetime import date
 
 from gazette.spiders.base import {{ spider_class_base }}

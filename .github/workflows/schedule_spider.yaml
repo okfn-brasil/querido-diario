@@ -35,7 +35,9 @@ jobs:
         pip install click python-decouple scrapinghub
     - name: Schedule full crawl
       if: ${{ !github.event.inputs.start_date }}
-      run: python scripts/scheduler.py schedule-job ${{ github.event.inputs.spider_name }} --full
+      run: cd data_collection/ && python scripts/scheduler.py schedule-job ${{ github.event.inputs.spider_name }} --full
     - name: Schedule partial crawl
       if: ${{ github.event.inputs.start_date }}
-      run: python scripts/scheduler.py schedule-job ${{ github.event.inputs.spider_name }} --start_date ${{ github.event.inputs.start_date }}
+      run: |
+        cd data_collection/
+        python -m scripts.scheduler schedule-job ${{ github.event.inputs.spider_name }} --start_date ${{ github.event.inputs.start_date }}

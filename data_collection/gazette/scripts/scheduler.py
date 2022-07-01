@@ -1,9 +1,13 @@
 import datetime
 
 import click
-import enabled_spiders
+from database.models import Territory, initialize_database
 from decouple import config
 from scrapinghub import ScrapinghubClient
+from scripts.enabled_spiders import SPIDERS
+from slugify import slugify
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
 
@@ -60,8 +64,47 @@ def schedule_job(start_date, full, spider_name):
 
 @cli.command()
 def schedule_enabled_spiders():
-    for spider_name in enabled_spiders.SPIDERS:
+    db_url = config("QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db")
+    initialize_database(db_url)
+
+    engine = create_engine(db_url)
+    session = sessionmaker(bind=engine)()
+    for territory in session.query(Territory).filter_by(enabled=True):
+        territory_name = slugify(
+            territory.name,
+            replacements=[
+                (
+                    "-",
+                    "_",
+                )
+            ],
+        )
+        spider_name = f"{slugify(territory.state_code)}_{territory_name}"
         _schedule_job(start_date=YESTERDAY, full=False, spider_name=spider_name)
+
+
+@cli.command()
+def update_territories():
+    """Execute this command once after altering 'territories' table
+    so every row has the correct spider_name field populated"""
+    db_url = config("QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db")
+    engine = create_engine(db_url)
+    session = sessionmaker(bind=engine)()
+    for territory in session.query(Territory):
+        territory_name = slugify(
+            territory.name,
+            replacements=[
+                (
+                    "-",
+                    "_",
+                )
+            ],
+        )
+        spider_name = f"{slugify(territory.state_code)}_{territory_name}"
+        territory.spider_name = spider_name
+        territory.enabled = spider_name in SPIDERS
+
+    session.commit()
 
 
 if __name__ == "__main__":

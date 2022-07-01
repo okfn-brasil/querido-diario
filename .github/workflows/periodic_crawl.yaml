@@ -30,4 +30,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install click python-decouple scrapinghub
     - name: Schedule jobs
-      run: python scripts/scheduler.py schedule-enabled-spiders
+      run: |
+        cd data_collection/
+        python -m scripts.scheduler schedule-enabled-spiders
