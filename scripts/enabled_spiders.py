@@ -18,6 +18,7 @@ SPIDERS = [
     "pb_joao_pessoa",
     "pi_teresina",
     "pr_curitiba",
+    "pr_londrina",
     "rj_nova_iguacu",
     "rj_rio_de_janeiro",
     "rn_mossoro",
