@@ -27,7 +27,8 @@ class SpGuarulhosSpider(BaseGazetteSpider):
             raw_date = diario.xpath(".//h3/text()").re_first(r"\d{2}/\d{2}/\d{4}")
             date = dt.datetime.strptime(raw_date, "%d/%m/%Y").date()
 
-            if self.start_date > date > self.end_date:
+            date_within_expected_period = self.start_date <= date <= self.end_date
+            if not date_within_expected_period:
                 continue
 
             hrefs = diario.xpath(".//a/@href").getall()
