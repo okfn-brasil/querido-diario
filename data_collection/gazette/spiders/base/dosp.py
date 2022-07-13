@@ -16,8 +16,8 @@ class DospGazetteSpider(BaseGazetteSpider):
     code = None
     start_date = None
 
-    def start_requests(self):
-        for date in rrule(freq=WEEKLY, dtstart=self.start_date, until=self.end_date):
+    def _dosp_request(self, start_date, end_date):
+        for date in rrule(freq=WEEKLY, dtstart=start_date, until=end_date):
             from_date = date.strftime("%Y-%m-%d")
             to_date = date + datetime.timedelta(days=6)
             to_date = to_date.strftime("%Y-%m-%d")
@@ -25,6 +25,9 @@ class DospGazetteSpider(BaseGazetteSpider):
             yield scrapy.Request(
                 f"https://dosp.com.br/api/index.php/dioedata.js/{self.code}/{from_date}/{to_date}?callback=dioe"
             )
+
+    def start_requests(self):
+        yield from self._dosp_request(self.start_date, self.end_date)
 
     def parse(self, response):
         # The response are in a javascript format, then needs some clean up
