@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+
 from scrapy import Request
 
 from gazette.items import Gazette
