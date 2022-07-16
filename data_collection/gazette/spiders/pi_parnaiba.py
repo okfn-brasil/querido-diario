@@ -11,7 +11,6 @@ class PiParnaibaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2207702"
     name = "pi_parnaiba"
     start_urls = ["http://dom.parnaiba.pi.gov.br/"]
-    name_folder_olds = "Diarios anteriores"
     DATE_FORMAT = "%d/%m/%Y"
     
     def convert_str_to_date(self,data):
