@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime as dt
+import datetime
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -11,13 +11,13 @@ class PiParnaibaSpider(BaseGazetteSpider):
     name = "pi_parnaiba"
     start_urls = ["http://dom.parnaiba.pi.gov.br/"]
     DATE_FORMAT = "%d/%m/%Y"
-    
-    def convert_str_to_date(self,data):
-        date = dt.datetime.strptime(data, self.DATE_FORMAT).date()
+
+    def convert_str_to_date(self, data):
+        date = datetime.datetime.strptime(data, self.DATE_FORMAT).date()
         return date
-    
-    def change_date_order(self,date):
-        date_format = "/".join(date.split('/')[::-1])
+
+    def change_date_order(self, date):
+        date_format = "/".join(date.split("/")[::-1])
         return date_format
 
     def parse(self, response):
@@ -26,7 +26,7 @@ class PiParnaibaSpider(BaseGazetteSpider):
 
         for info in gazette_info:
             edition_number, data, filename = info.xpath("td/text()").extract()
-            date = dt.datetime.strptime(data, "%d-%m-%Y").date()
+            date = datetime.datetime.strptime(data, "%d-%m-%Y").date()
             if date < self.start_date:
                 return
             is_extra_edition = "extra" in filename.lower()
