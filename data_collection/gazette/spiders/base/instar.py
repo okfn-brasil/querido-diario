@@ -31,6 +31,7 @@ class BaseInstarSpider(BaseGazetteSpider):
             num_results = int(response.css(".sw_qtde_resultados::text").get("0"))
             results_per_page = 50
             total_pages = math.ceil(num_results / results_per_page)
+
             for next_page in range(2, total_pages + 1):
                 next_page_url = (
                     "{base_url}/{page}/{start_date}/{end_date}/0/0/0".format(
