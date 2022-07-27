@@ -1,8 +1,7 @@
-from datetime import date, datetime
 import re
+from datetime import date, datetime
 
 from dateparser import parse
-import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -20,12 +19,12 @@ class SpVinhedoSpider(BaseGazetteSpider):
         last_page = re.search(r"(paged=)(\d{,2})", page.get()).group(2)
         for i in range(1, int(last_page)):
             response.urljoin(page.get())
-            gazettes = response.css('table tbody tr')
+            gazettes = response.css("table tbody tr")
             for gazette in gazettes:
-                data = gazette.css('td')
-                edition = data.css('.package-title::text').get()
-                date = data.css('.hidden-sm::text').get()
-                link = data.css('[onclick]').get()
+                data = gazette.css("td")
+                edition = data.css(".package-title::text").get()
+                date = data.css(".hidden-sm::text").get()
+                link = data.css("[onclick]").get()
                 yield Gazette(
                     date=parse(date, languages=["pt"]).date(),
                     edition_number=re.search(
