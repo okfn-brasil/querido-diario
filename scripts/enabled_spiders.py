@@ -31,6 +31,7 @@ SPIDERS = [
     "sp_guarulhos",
     "sp_jundiai",
     "sp_sumare",
+    "sp_valinhos",
     "to_araguaina",
     "to_palmas",
 ]
