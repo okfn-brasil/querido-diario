@@ -179,7 +179,7 @@ s3transfer==0.5.2
     #   boto3
 schematics==2.1.1
     # via -r requirements.in
-scrapy==2.6.1
+scrapy==2.6.2
     # via
     #   -r requirements.in
     #   spidermon
