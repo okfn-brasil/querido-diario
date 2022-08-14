@@ -1,61 +1,69 @@
 import datetime as dt
-import re
 
-from dateparser import parse
-from scrapy.http import FormRequest
+from scrapy import FormRequest
 
 from gazette.items import Gazette
-from gazette.spiders.base import BaseGazetteSpider
+from gazette.spiders.base.dosp import DospGazetteSpider
 
 
-class MgUberaba(BaseGazetteSpider):
+class MgUberabaSpider(DospGazetteSpider):
     TERRITORY_ID = "3170107"
     name = "mg_uberaba"
-    allowed_domains = ["uberaba.mg.gov.br"]
 
-    LIST_GAZETTES_URL = "http://www.uberaba.mg.gov.br/portal/listImagesHtml"
-    DOWNLOAD_URL_TEMPLATE = (
-        "http://www.uberaba.mg.gov.br:8080/portal/acervo/portavoz/arquivos/{}/{}"
-    )
+    code = 2364
+    start_date = dt.date(2003, 4, 25)
 
     def start_requests(self):
-        next_year = dt.datetime.today().year + 1
+        # Gazettes older than this date didn't use DOSP system
+        older_collection_end_date = dt.date(2021, 9, 2)
 
-        for year in range(2015, next_year):
+        if self.end_date >= older_collection_end_date:
+            start_date = max([older_collection_end_date, self.start_date])
+            end_date = self.end_date
+            yield from self._dosp_request(start_date, end_date)
+
+        if self.start_date < older_collection_end_date:
+            start_date = self.start_date
+            end_date = min([older_collection_end_date, self.end_date])
+            yield from self._older_collection_request(start_date, end_date)
+
+    def _older_collection_request(self, start_date, end_date):
+        for year in range(start_date.year, end_date.year + 1):
             yield FormRequest(
-                url=self.LIST_GAZETTES_URL,
+                url="http://www.uberaba.mg.gov.br/portal/listImagesHtml",
                 method="POST",
+                callback=self.parse_older_collection,
                 formdata={
                     "desc": "1",
                     "type": "1",
                     "folder": f"portavoz/arquivos/{year}",
                     "limit": "5000",
                     "page": "1",
-                    "types": "pdf",
+                    "types": "gif,jpg,png,bmp,tif,dxf,swf,dcr,mov,qt,ram,rm,avi,mpg,mpeg,asf,flv,pdf,doc,docx,xls,xlsx,zip,rar,txt,cdr,ai,eps,ppt,pptx,pot,psd,wmv",
                     "listAll": "1",
                 },
-                meta={"year": year},
+                cb_kwargs={"start_date": start_date, "end_date": end_date},
             )
 
-    def parse(self, response):
-        filenames = [
-            filename.strip()
-            for filename in response.xpath(
-                '//div[@class="claGaleriaBoxFileTable"]/text()'
-            ).extract()
-        ]
-        for filename in filenames:
-            date = self.extract_date(filename)
+    def parse_older_collection(self, response, start_date, end_date):
+        gazettes = response.css(".claGaleriaBoxFileTable")
+        for gazette in gazettes:
+            raw_date = gazette.css("::text").re_first(r"(\d{2}-\d{2}-\d{4})")
+            gazette_date = dt.datetime.strptime(raw_date, "%d-%m-%Y").date()
+            if gazette_date < start_date or gazette_date > end_date:
+                continue
+
+            gazette_url = response.urljoin(
+                gazette.css("img::attr(onclick)").re_first(r"download\(\'(.*)\'\)")
+            )
+            edition_number = gazette.css("::text").re_first(r"^\s*?(\d{4})")
+
             yield Gazette(
-                date=date,
-                file_urls=[self.mount_url(filename, date.year)],
+                date=gazette_date,
+                file_urls=[
+                    gazette_url,
+                ],
                 is_extra_edition=False,
+                edition_number=edition_number,
                 power="executive_legislative",
             )
-
-    def extract_date(self, filename):
-        date_str = re.search(r"(\d{2}-\d{2}-\d{4})", filename).group(1)
-        return parse(date_str, languages=["pt"]).date()
-
-    def mount_url(self, filename, year):
-        return self.DOWNLOAD_URL_TEMPLATE.format(year, filename)

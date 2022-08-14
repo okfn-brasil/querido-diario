@@ -15,9 +15,7 @@ class RjRioDeJaneiroSpider(BaseGazetteSpider):
     start_date = datetime.date(2006, 3, 16)
 
     def start_requests(self):
-        for date in rrule(
-            freq=DAILY, dtstart=self.start_date, until=datetime.date.today()
-        ):
+        for date in rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date):
             day = str(date.day).zfill(2)
             month = str(date.month).zfill(2)
             url = f"https://doweb.rio.rj.gov.br/apifront/portal/edicoes/edicoes_from_data/{date.year}-{month}-{day}.json"

@@ -124,7 +124,7 @@ jsonpointer==2.3
     # via jsonschema
 jsonschema[format]==3.2.0
     # via spidermon
-lxml==4.8.0
+lxml==4.9.1
     # via
     #   parsel
     #   premailer
@@ -220,7 +220,7 @@ s3transfer==0.5.2
     #   boto3
 schematics==2.1.1
     # via -r requirements.in
-scrapy==2.6.1
+scrapy==2.6.2
     # via
     #   -r requirements.in
     #   spidermon
@@ -260,9 +260,7 @@ tomli==2.0.1
 twisted==22.4.0
     # via scrapy
 typing-extensions==4.2.0
-    # via
-    #   black
-    #   twisted
+    # via twisted
 tzdata==2022.1
     # via pytz-deprecation-shim
 tzlocal==4.2
