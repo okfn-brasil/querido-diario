@@ -34,7 +34,6 @@ class SpAraraquaraSpider(BaseGazetteSpider):
     def parse_gazette(self, response):
 
         gazettes = response.css(".event-card.animated.flipInX")
-        print(response.url + "AAAAAAAAAAAAAAAAAA")
 
         for gazette in gazettes:
             card = gazette.css(".event-card")
