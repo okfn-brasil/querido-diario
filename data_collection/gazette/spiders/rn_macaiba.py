@@ -3,7 +3,6 @@ import re
 
 import dateparser
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
