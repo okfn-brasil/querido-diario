@@ -1,4 +1,5 @@
 import datetime
+import math
 
 import scrapy
 
@@ -25,11 +26,11 @@ class BaseInstarSpider(BaseGazetteSpider):
             cb_kwargs={"page": page, "start_date": start_date, "end_date": end_date},
         )
 
-    def parse(self, response, page, start_date, end_date):
+    def _pagination_requests(self, response, page, start_date, end_date):
         if page == 1:
             num_results = int(response.css(".sw_qtde_resultados::text").get("0"))
             results_per_page = 50
-            total_pages = (num_results // results_per_page) + 1
+            total_pages = math.ceil(num_results / results_per_page)
             for next_page in range(2, total_pages + 1):
                 next_page_url = (
                     "{base_url}/{page}/{start_date}/{end_date}/0/0/0".format(
@@ -50,6 +51,7 @@ class BaseInstarSpider(BaseGazetteSpider):
                     },
                 )
 
+    def parse(self, response, page, start_date, end_date):
         gazettes = response.css(".dof_publicacao_diario")
         for gazette in gazettes:
             raw_gazette_date = gazette.css("span::text").re_first(
@@ -73,6 +75,8 @@ class BaseInstarSpider(BaseGazetteSpider):
             yield scrapy.Request(
                 gazette_url, callback=self.parse_gazette_url, cb_kwargs={"item": item}
             )
+
+        yield from self._pagination_requests(response, page, start_date, end_date)
 
     def parse_gazette_url(self, response, item):
         gazette_url = response.urljoin(
