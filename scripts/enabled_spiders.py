@@ -13,6 +13,7 @@ SPIDERS = [
     "mg_belo_horizonte",
     "mg_uberaba",
     "ms_campo_grande",
+    "mt_cuiaba",
     "pa_belem",
     "pe_jaboatao_dos_guararapes",
     "pe_petrolina",
