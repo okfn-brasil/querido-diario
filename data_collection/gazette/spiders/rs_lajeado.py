@@ -38,7 +38,7 @@ class RsLajeadoSpider(BaseGazetteSpider):
                 continue
 
             # This file is missing
-            if name == '23/03/20_edição_1000':
+            if name == "23/03/20_edição_1000":
                 continue
 
             done.add(name)
