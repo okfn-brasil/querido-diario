@@ -18,7 +18,7 @@ class SpSumareSpider(BaseGazetteSpider):
         for gazette in gazettes:
             title = gazette.css("a::attr(title)").get()
             url = gazette.css("a::attr(href)").get()
-            str_date = gazette.css("a > p::text").get()
+            str_date = gazette.css(".areaData::text").get()
             date = datetime.strptime(str_date, "%d/%m/%Y").date()
 
             if not (self.start_date <= date <= self.end_date):
