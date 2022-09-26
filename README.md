@@ -1,135 +1,138 @@
+**Português (BR)** | [English (US)](.github/README-en-US.md) | [Español](.github/README-es.md)
+
+<p align="center">
+  <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./.github/images/querido-diario-logo.png" width="200">
+  </a>
+</p>
+
 # Querido Diário
+Dentro do [ecossistema do Querido Diário](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#ecossistema), este repositório é o responsável pela tarefa de **raspagem dos sites publicadores de diários**.
 
-_Última atualização: 16/10/2021._
-______________________________________
+Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia) e a [história](https://queridodiario.ok.org.br/sobre) do projeto no [site do Querido Diário](https://queridodiario.ok.org.br)
 
-_[Click here](languages/en-US/README.md) to read this article in english._
-______________________________________
+# Sumário
+- [Contribua](#contribua)
+- [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
+  - [Em Linux](#em-linux)
+  - [Em MacOS](#em-macos)
+  - [Em Windows](#em-windows)
+- [Como executar](#como-executar)
+- [Agradecimentos](#agradecimentos)
+- [Open Knowledge Brasil](#open-knowledge-brasil)
+- [Licença](#licença)
 
-**Diário Oficial** é o nome da publicação utilizada pela administração pública brasileira para comunicar suas ações à população. Para ser válido, todo ato público deve ser publicado no diário oficial, seja na esfera federal, estadual ou municipal. 
+# Contribua
+<p>
+  <a href="https://discord.com/invite/aC3Q33q" target="_blank">
+    <img alt="Discord Invite" src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" width="100">
+  </a>
+  <a href="https://www.catarse.me/projects/120548/" target="_blank">
+    <img alt="catarse" src="https://img.shields.io/badge/Doe-Catarse-green" width="100">
+  </a>
+</p>
 
-Mesmo com os esforços recorrentes para fortalecer a [Lei de Acesso à Informação](http://www.acessoainformacao.gov.br/assuntos/conheca-seu-direito/principais-aspectos/principais-aspectos) pelo país, a comunicação oficial permanece - na maioria do território nacional - em PDFs.
+Está interessado(a) em contribuir para o repositório? :tada:
+Comece lendo o **[Guia de Contribuição](.github/CONTRIBUTING.md)**!
 
-O objetivo do **Querido Diário** é trazer os _diários oficiais municipais_ para a era digital, centralizando as informações hoje disponíveis apenas em fontes separadas. 
+# Ambiente de desenvolvimento
+Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir como [instalar Python](https://www.python.org/downloads/) e como [instalar Scrapy](https://docs.scrapy.org/en/latest/intro/install.html#installing-scrapy) em seu sistema operacional.
 
-O projeto tinha duas metas distintas quando foi lançado: criar raspadores para os diários oficiais e analisar as informações sobre compras públicas e licitações. Atualmente, mantemos apenas o primeiro deles. 
+Com ambos prontos em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
 
-Para saber mais sobre o projeto, acesse o [site oficial](https://queridodiario.ok.org.br/). 
+## Em Linux
+1. Faça um fork deste repositório e, com o terminal aberto em um diretório de preferência no seu computador, clone-o.
+``` console
+$ git clone <endereço_copiado_do_código_do_fork>
+```
 
-Tabela de Conteúdos
-=================
-  * [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
-    * [Rodar o raspador](#rodar-o-raspador)
-    * [Gerar múltiplos raspadores a partir de um template](#gerar-múltiplos-raspadores-a-partir-de-um-template)
-  * [Solução de problemas](#solução-de-problemas)
-  * [Contribuindo](#contribuindo)
-  * [Créditos](#créditos)
-
-## Ambiente de desenvolvimento
-
-A melhor maneira de entender como o **Querido Diário** funciona é acessar a fonte original e rodá-la localmente. Todos os raspadores são desenvolvidos usando o framework [Scrapy](https://scrapy.org). Eles oferecem um [tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) para que você aprenda como usá-lo.
-
-Se você utiliza Windows, antes de rodar os passos a seguir, você irá precisar do Microsoft Visual Build Tools (baixe [aqui](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/)). Ao iniciar a instalação, você precisa selecionar 'C++ build tools' na aba de carregamento e também 'Windows 10 SDK' e 'MSVC v142 - VS 2019 C++ x64/x86 build tools' na aba de componentes individuais.
-
-Se você utiliza Linux, os comandos a seguir irão criar um novo [ambiente virtual](https://docs.python.org/pt-br/3/library/venv.html) - que manterá tudo isolado do seu sistema -, ativá-lo e  instalar todas as bibliotecas necessárias para começar a rodar e desenvolver novos raspadores.
-
-```console
+2. Crie um novo [ambiente virtual](https://docs.python.org/pt-br/3/library/venv.html) - que manterá as execuções do projeto isoladas de seu sistema.
+``` console
 $ python3 -m venv .venv
+```
+
+3. Ative o recém criado ambiente virtual
+``` console
 $ source .venv/bin/activate
+```
+
+4. Instale as bibliotecas requeridas pelo projeto.
+``` console
 $ pip install -r data_collection/requirements-dev.txt
+```
+
+5. Instale o pré-commit, uma ferramenta que, ao fazer o _commit_ do código, verifica se ele se adequa aos padrões do projeto.
+``` console
 $ pre-commit install
 ```
 
-No sistema Windows, você pode utilizar o código abaixo. Apenas substitua ```source .venv/bin/activate ``` por ```.venv/Scripts/activate.bat```. Os outros passos são os mesmos usados no Linux. 
+6. Seu ambiente de desenvolvimento está pronto! :tada:
 
+_Observação:_ Estas etapas precisam ser executadas apenas na primeira vez que interagir com o projeto, durante a preparação do ambiente. Depois disso, basta ativar o ambiente virtual (passo 3) cada vez que for utilizar ou contribuir com o repositório.
 
-### Rodar o raspador 
+## Em MacOS
+[_em construção_]
 
-Depois de configurar o ambiente de desenvolvimento, você poderá desenvolver e executar novos raspadores. Os raspadores estão na pasta `data_collection`, então você deve entrar nela e executar o comando `scrapy`:
+## Em Windows
+1. [Instale o Microsoft Visual Build Tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/). Ao iniciar a instalação, você precisa selecionar `C++ build tools` na aba de carregamento e também `Windows 10 SDK` e `MSVC v142 - VS 2019 C++ x64/x86 build tools` na aba de componentes individuais.
 
+2. Siga todos os [passos usados no Linux](#em-linux), com exceção do item 3. Nele, o comando deve ser:
+```console
+$ .venv/Scripts/activate.bat
+```
+
+# Como executar
+Depois de configurar o ambiente de desenvolvimento, você poderá desenvolver e executar novos raspadores. As instruções a seguir servem para Linux, MacOs e Windows.
+
+1. Se ainda não o fez, ative o ambiente virtual:
+``` console
+$ source .venv/bin/activate
+```
+
+2. Vá para o diretório `data_collection`:
 ```console
 $ cd data_collection
 ```
-
-A seguir, listamos alguns comandos úteis.
-
-Obter a lista de raspadores disponíveis
-
+3. Verifique a lista de raspadores disponíveis:
 ```console
 $ scrapy list
 ```
-Executar o raspador com o nome `spider_name`:
-
-> Atenção: o comando acima levará um tempo para ser finalizado e irá coletar o site inteiro por padrão. Se você deseja pará-lo antes disso ou limitar a execução, utilize [CLOSESPIDER_ITEMCOUNT](https://docs.scrapy.org/en/latest/topics/extensions.html#std-setting-CLOSESPIDER_ITEMCOUNT) ou configure `start_date` no raspador para uma data mais próxima.
-
+4. Execute um raspador da lista:
 ```console
-$ scrapy crawl spider_name
+$ scrapy crawl <nome_do_raspador>
 ```
-Você pode limitar o número de diários que deseja baixar configurando `start_date` como um argumento com o formato `YYYY-MM-DD`. O comando a seguir irá baixar apenas diários cuja data é maior que 01/09/2020:
 
+5. Os diários coletados na raspagem serão salvos na pasta `data_collection/data`
+
+6. Ao executar o item 4, o raspador coletará todos os diários oficiais do site publicador daquele município desde a primeira edição digital. Para execuções menores, utilize flags no comando de execução:
+
+a. `start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 ```console
-$ scrapy crawl sc_florianopolis -a start_date=2020-09-01
-```
-Dados coletados serão salvos na pasta `data_collection/data`.
-
-### Gerar múltiplos raspadores a partir de um template
-
-Você pode se deparar com um cenário em que há diferentes cidades utilizando a mesma base para o raspador, como em `FecamGazetteSpider`. Para não ter que criar os arquivos de raspadores manualmente, você pode utilizar um script para casos em que temos alguns raspadores que não são complexos e usam a mesma base.
-
-Os templates de raspadores ficam na pasta `scripts/`. Aqui está um exemplo de um raspador gerado: 
-
-```
-from datetime import date
-from gazette.spiders.base import ImprensaOficialSpider
-
-
-class BaGentioDoOuroSpider(ImprensaOficialSpider):
-
-    name = "ba_gentio_do_ouro"
-    allowed_domains = ["pmGENTIODOOUROBA.imprensaoficial.org"]
-    start_date = date(2017, 2, 1)
-    url_base = "http://pmGENTIODOOUROBA.imprensaoficial.org"
-    TERRITORY_ID = "2911303"
+$ scrapy crawl <nome_do_raspador> -a start_date=<AAAA-MM-DD>
 ```
 
-Para rodar o script, você precisa apenas de um arquivo .CSV seguindo a estrutura a seguir: 
+# Agradecimentos
+Este projeto é mantido pela Open Knowledge Brasil e possível graças a comunidade técnica, as [Embaixadoras de Inovação Cívica](https://embaixadoras.ok.org.br/), voluntárias, doadoras financeiras, além de universidades parceiras, empresas apoiadoras e financiadoras. Saiba quem são na [página de apoio do Querido Diário](https://queridodiario.ok.org.br/apoie#quem-apoia)
 
-```
-url,city,state,territory_id,start_day,start_month,start_year,base_class
-http://pmXIQUEXIQUEBA.imprensaoficial.org,Xique-Xique,BA,2933604,1,1,2017,ImprensaOficialSpider
-http://pmWENCESLAUGUIMARAESBA.imprensaoficial.org,Wenceslau Guimarães,BA,2933505,1,1,2017,ImprensaOficialSpider
-http://pmVERACRUZBA.imprensaoficial.org,Vera Cruz,BA,2933208,1,4,2017,ImprensaOficialSpider
-```
+# Open Knowledge Brasil
+<p>
+  <a href="https://twitter.com/okfnbr" target="_blank">
+    <img alt="Twitter Follow" src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" width="100">
+  </a>
+  <a href="https://www.instagram.com/openknowledgebrasil/" target="_blank">
+    <img alt="Instagram Follow" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" width="110">
+  </a>
+  <a href="https://www.linkedin.com/company/open-knowledge-brasil" target="_blank">
+    <img alt="LinkedIn Follow" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" width="100">
+  </a>
+  <a href="https://www.facebook.com/OpenKnowledgeBrasil" target="_blank">
+    <img alt="Facebook Follow" src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" width="105">
+  </a>
+</p>
 
-Depois de obter o arquivo .CSV, rode o comando: 
+A [Open Knowledge Brasil](https://ok.org.br/) é uma organização da sociedade civil sem fins lucrativos, cuja missão é utilizar e desenvolver ferramentas cívicas, projetos, análises de políticas públicas, jornalismo de dados para promover o conhecimento livre nos diversos campos da sociedade.
 
-```
-cd scripts/
+Todo o trabalho produzido pela OKBR está disponível livremente.
 
-python generate_spiders.py new-spiders.csv
-```
+# Licença
 
-É isso. O novo raspador estará na pasta `data_collection/gazette/spiders/`.
-
-## Solução de problemas
-
-### `Python.h` faltando
-
-Ao rodar o comando `pip install`, você pode obter o seguinte erro:
-
-```
-module.c:1:10: fatal error: Python.h: No such file or directory
-     #include <Python.h>
-              ^~~~~~~~~~
-    compilation terminated.
-    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
-```
-
-Tente instalar `python3-dev`. Por exemplo, via `apt install python3-dev`, se você está usando uma distro Debian, ou utilize o gerenciamento de pacotes da sua distro (por exemplo, `python3.6-dev` or `python3.7-dev`). Você pode saber qual é a sua versão via `python3 --version`.
-
-## Contribuindo
-Se você está interessado em resolver issues e contribuir diretamente no código, por favor, leia o documento [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Créditos
-
-Este projeto é mantido pela [Open Knowledge Brasil](https://ok.org.br/) graças ao apoio da Digital Ocean e de [muitas outras pessoas](https://queridodiario.ok.org.br/apoie#quem-apoia).
+Código licenciado sob a [Licença MIT](LICENSE.md).
