@@ -40,9 +40,10 @@ Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o
 Com ambos prontos em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
 
 ## Em Linux
-1. Faça um fork deste repositório e, com o terminal aberto em um diretório de preferência no seu computador, clone-o.
+1. Faça um fork deste repositório e, com o terminal aberto em um diretório de preferência no seu computador, clone-o e acesse o novo diretório criado com o nome do repositório.
 ``` console
 $ git clone <endereço_copiado_do_código_do_fork>
+$ cd <nome_do_repositório>
 ```
 
 2. Crie um novo [ambiente virtual](https://docs.python.org/pt-br/3/library/venv.html) - que manterá as execuções do projeto isoladas de seu sistema.
