@@ -43,7 +43,7 @@ Com ambos prontos em seu computador, siga o passo-a-passo da configuração do a
 1. Faça um fork deste repositório e, com o terminal aberto em um diretório de preferência no seu computador, clone-o e acesse o novo diretório criado com o nome do repositório.
 ``` console
 $ git clone <endereço_copiado_do_código_do_fork>
-$ cd <nome_do_repositório>
+$ cd querido-diario
 ```
 
 2. Crie um novo [ambiente virtual](https://docs.python.org/pt-br/3/library/venv.html) - que manterá as execuções do projeto isoladas de seu sistema.
@@ -82,9 +82,9 @@ $ .venv/Scripts/activate.bat
 ```
 
 # Como executar
-Depois de configurar o ambiente de desenvolvimento, você poderá desenvolver e executar novos raspadores. As instruções a seguir servem para Linux, MacOs e Windows.
+Depois de configurar o ambiente de desenvolvimento, você poderá desenvolver e executar novos raspadores. 
 
-1. Se ainda não o fez, ative o ambiente virtual:
+1. Se ainda não o fez, ative o ambiente virtual no diretório `/querido-diario`:
 ``` console
 $ source .venv/bin/activate
 ```
