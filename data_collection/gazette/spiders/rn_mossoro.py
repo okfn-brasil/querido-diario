@@ -1,6 +1,5 @@
 import datetime as dt
 import re
-from urllib.parse import unquote
 
 import scrapy
 from dateutil.rrule import MONTHLY, rrule
@@ -54,7 +53,7 @@ class RnMossoroSpider(BaseGazetteSpider):
             yield scrapy.Request(next_page_url)
 
     def parse_gazette(self, response, date):
-        file_url = unquote(response.css("iframe::attr(src)").re_first(r"file=(.+)"))
+        file_url = response.xpath("//a[contains(text(), 'Baixar')]/@href").get()
         edition_regex = re.compile(r"JOM[n\s\.°º]+([a-z0-9]+)", re.IGNORECASE)
         edition_number = response.css(".entry-title::text").re_first(edition_regex)
 
