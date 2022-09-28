@@ -29,7 +29,7 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 
 Agradecemos por considerar contribuir com o Querido Diário! :tada:
 
-Você encontra como fazê-lo no [CONTRIBUTING.md](.github/CONTRIBUTING.md)**!
+Você encontra como fazê-lo no [CONTRIBUTING.md](.github/CONTRIBUTING.md)!
 
 # Como configurar o ambiente de desenvolvimento
 Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir como [instalar Python](https://www.python.org/downloads/) e como [instalar Scrapy](https://docs.scrapy.org/en/latest/intro/install.html#installing-scrapy) em seu sistema operacional.
