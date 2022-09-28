@@ -1,4 +1,4 @@
-**Português (BR)** | [English (US)](.github/README-en-US.md) | [Español](.github/README-es.md)
+**Português (BR)** | [English (US)](.github/README-en-US.md) 
 
 <p align="center">
   <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./.github/images/querido-diario-logo.png" width="200">
@@ -11,8 +11,9 @@ Dentro do [ecossistema do Querido Diário](https://github.com/okfn-brasil/querid
 Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia) e a [história](https://queridodiario.ok.org.br/sobre) do projeto no [site do Querido Diário](https://queridodiario.ok.org.br)
 
 # Sumário
-- [Contribua](#contribua)
-- [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
+- [Como contribuir](#como-contribuir)
+- [Suporte](#suporte)
+- [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
   - [Em Linux](#em-linux)
   - [Em MacOS](#em-macos)
   - [Em Windows](#em-windows)
@@ -21,20 +22,16 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 - [Open Knowledge Brasil](#open-knowledge-brasil)
 - [Licença](#licença)
 
-# Contribua
-<p>
-  <a href="https://discord.com/invite/aC3Q33q" target="_blank">
-    <img alt="Discord Invite" src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" width="100">
-  </a>
-  <a href="https://www.catarse.me/projects/120548/" target="_blank">
-    <img alt="catarse" src="https://img.shields.io/badge/Doe-Catarse-green" width="100">
-  </a>
-</p>
+# Como contribuir
+<a href="https://www.catarse.me/projects/120548/" target="_blank"> 
+  <img alt="catarse" src="https://img.shields.io/badge/Doe-Catarse-green" width="100">
+</a>
 
-Está interessado(a) em contribuir para o repositório? :tada:
-Comece lendo o **[Guia de Contribuição](.github/CONTRIBUTING.md)**!
+Agradecemos por considerar contribuir com o Querido Diário! :tada:
 
-# Ambiente de desenvolvimento
+Você encontra como fazê-lo no [CONTRIBUTING.md](.github/CONTRIBUTING.md)**!
+
+# Como configurar o ambiente de desenvolvimento
 Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir como [instalar Python](https://www.python.org/downloads/) e como [instalar Scrapy](https://docs.scrapy.org/en/latest/intro/install.html#installing-scrapy) em seu sistema operacional.
 
 Com ambos prontos em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
@@ -110,6 +107,15 @@ a. `start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 ```console
 $ scrapy crawl <nome_do_raspador> -a start_date=<AAAA-MM-DD>
 ```
+
+# Suporte 
+<p>  
+  <a href="https://discord.com/invite/aC3Q33q" target="_blank">
+    <img alt="Discord Invite" src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" width="100">
+  </a>
+</p>
+
+Ingresse em nosso [Discord](bit.ly/discord-ok) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição, conversar sobre ideias, etc.   
 
 # Agradecimentos
 Este projeto é mantido pela Open Knowledge Brasil e possível graças a comunidade técnica, as [Embaixadoras de Inovação Cívica](https://embaixadoras.ok.org.br/), voluntárias, doadoras financeiras, além de universidades parceiras, empresas apoiadoras e financiadoras. Saiba quem são na [página de apoio do Querido Diário](https://queridodiario.ok.org.br/apoie#quem-apoia)
