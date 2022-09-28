@@ -31,12 +31,24 @@ class ScJoinvilleSpider(BaseGazetteSpider):
             url = self.extract_url(element)
             is_extra_edition = self.extract_extra_edition_info(element)
 
-            yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=is_extra_edition,
-                power="executive_legislative",
+            self.logger.info(
+                "Start Date: %s End Date: %s Date: %s",
+                self.start_date.strftime("%d/%m/%Y"),
+                self.end_date.strftime("%d/%m/%Y"),
+                date.strftime("%d/%m/%Y"),
             )
+
+            if date >= self.start_date and date <= self.end_date:
+                yield Gazette(
+                    date=date,
+                    file_urls=[url],
+                    is_extra_edition=is_extra_edition,
+                    power="executive_legislative",
+                )
+            else:
+                self.logger.info("Skiping : %s", date.strftime("%d/%m/%Y"))
+                if date < self.start_date:
+                    return
 
         for url in response.css(self.NEXT_PAGE_CSS).extract():
             yield Request(url)
