@@ -30,13 +30,17 @@ class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
             url = element.css(self.GAZETTE_URL_CSS).extract_first()
             gazette_title = element.css(self.GAZETTE_NAME_CSS).extract_first()
             is_extra = "Extra" in gazette_title
+            self.logger.debug("Checking %s...", date.strftime("%d/%m/%Y"))
 
-            yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=is_extra,
-                power="executive_legislative",
-            )
+            if self.start_date <= date <= self.end_date:
+                yield Gazette(
+                    date=date,
+                    file_urls=[url],
+                    is_extra_edition=is_extra,
+                    power="executive_legislative",
+                )
+            elif date < self.start_date:
+                return
 
         for element in response.css(self.NEXT_PAGE_LINK_CSS):
             if not element.css("a::text").extract_first() == "Próxima":
