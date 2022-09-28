@@ -16,7 +16,7 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
         (
             "https://doe.caxias.rs.gov.br/site/index"
             "?PublicacoesSearch[dt_publicacao]="
-            "&PublicacoesSearch[dt_range]=01-01-15+até+31-12-{}"
+            "&PublicacoesSearch[dt_range]={}+até+{}"
             "&PublicacoesSearch[palavra_chave]="
             "&PublicacoesSearch[num_publicacao]="
             "&page=1"
@@ -24,8 +24,12 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
     ]
 
     def start_requests(self):
-        current_year = dt.date.today().strftime("%y")
-        url = self.start_urls[0].format(current_year)
+        global rs_caxias_start_date
+        if hasattr(self, "start_date"):
+            rs_caxias_start_date = self.start_date
+        else:
+            rs_caxias_start_date = dt.datetime(2015, 1, 1)  # Default initial date 01-01-15
+        url = self.start_urls[0].format(rs_caxias_start_date.strftime("%d-%m-%y"), self.end_date.strftime("%d-%m-%y"))
         yield scrapy.Request(url)
 
     def parse(self, response):
@@ -33,9 +37,12 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
             item = self.gazette(response, gazette_node)
             pdf_page_url = gazette_node.css("a::attr(href)").extract_first()
             pdf_page_url = response.urljoin(pdf_page_url)
-            gazette_request = Request(pdf_page_url, callback=self.parse_pdf_page)
-            gazette_request.meta["item"] = item
-            yield gazette_request
+            yield Gazette(
+                date=item["date"],
+                file_urls=[pdf_page_url],
+                is_extra_edition=item["is_extra_edition"],
+                power=item["power"],
+            )
 
         css_path = ".pagination .next a::attr(href)"
         next_page_url = response.css(css_path).extract_first()
@@ -53,9 +60,3 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
             power="executive_legislative",
         )
 
-    def parse_pdf_page(self, response):
-        item = response.meta["item"]
-        item["file_urls"] = [
-            response.css('[type="application/pdf"]::attr(data)').extract_first()
-        ]
-        return item
