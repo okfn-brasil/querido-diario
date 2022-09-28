@@ -21,9 +21,16 @@ class GoAparecidaDeGoianiaSpider(BaseGazetteSpider):
             power = "executive_legislative"
             date = parse(record["publicado"], languages=["en"]).date()
 
-            yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=False,
-                power=power,
+            self.logger.info(
+                "Start Date: %s End Date: %s Date: %s",
+                self.start_date.strftime("%d/%m/%Y"),
+                self.end_date.strftime("%d/%m/%Y"),
+                date.strftime("%d/%m/%Y"),
             )
+            if date >= self.start_date and date <= self.end_date:
+                yield Gazette(
+                    date=date,
+                    file_urls=[url],
+                    is_extra_edition=False,
+                    power=power,
+                )
