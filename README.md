@@ -12,20 +12,23 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 
 # Sumário
 - [Como contribuir](#como-contribuir)
-- [Suporte](#suporte)
 - [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
   - [Em Linux](#em-linux)
   - [Em MacOS](#em-macos)
   - [Em Windows](#em-windows)
 - [Como executar](#como-executar)
+- [Solução de problemas](#solução-de-problemas)
+- [Suporte](#suporte)
 - [Agradecimentos](#agradecimentos)
 - [Open Knowledge Brasil](#open-knowledge-brasil)
 - [Licença](#licença)
 
 # Como contribuir
-<a href="https://www.catarse.me/projects/120548/" target="_blank"> 
-  <img alt="catarse" src="https://img.shields.io/badge/Doe-Catarse-green" width="100">
-</a>
+<p>  
+  <a href="https://www.catarse.me/queridodiario-okbr" target="_blank"> 
+    <img alt="catarse" src="https://img.shields.io/badge/Catarse-Apoie o projeto-orange?style=for-the-badge&logo=data:image/ico;base64,AAABAAEAEBIAAAEAIAAXAgAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAAQAAAAEggGAAAAUjteagAAAd5JREFUOI2NlLFrU1EUh7/z7mtIQiWh1ae0SKJBxBaxzyUgBUsULOjQoeCm6V9g1cVB8AUXwSFxcRBB+gYRB3Vw0Mk4OAhCsuiiKVFEsBFqwYJJTa5Dk9fXlzTNb7r33PP77jmcyxWtNSJCUBXbmQIKwGngK5BNlZwigNbayzO6nFt60TYDJIA3FdvJBpP6ARI9YoWK7SQHBZR7xGKAMyhgAaj2iF9ePpmL7wpIlZwyYAPF4Jk5+nG+s5adpuBXxXYeAdnOPnL0CWrPt6vWg/VCvxb81SyIanzxblV/ARb7thCUGv5+f9Ncx4iuQHtKAwMSRTcPMLT/QydU3gaw3PSc5abj3dYthcbeeQBRPPUAlpueAZ6vXHr/ezeAqDoS1gwd2Tjvr6AwagoXnp2a3slcuxa5A2yax5uIYtIPODEWEsZDstTL/OtG+CJNrpsHmoSS/5CwBrgHYLZzqvUWyX2mHH74euLTpKo9njBqL/UPNUODWf40z9DycgGc2JVGzl/BUrXeoqHRq0SPpYzV20BJIjoPnCOqTYY17G0BHIovbuQ6JO8lWm56an7EPDtiyl1L1smoZQ4aa8FuyrEMtv8/6HrKN19NzwG3gORx42d+1vy8BsSBYizDW9j+ofwHqM6MbbvUDjEAAAAASUVORK5CYII=">
+  </a>
+</p> 
 
 Agradecemos por considerar contribuir com o Querido Diário! :tada:
 
@@ -85,7 +88,6 @@ Depois de configurar o ambiente de desenvolvimento, você poderá desenvolver e 
 ``` console
 $ source .venv/bin/activate
 ```
-
 2. Vá para o diretório `data_collection`:
 ```console
 $ cd data_collection
@@ -108,31 +110,48 @@ a. `start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 $ scrapy crawl <nome_do_raspador> -a start_date=<AAAA-MM-DD>
 ```
 
+# Solução de problemas
+
+## `Python.h` faltando
+
+Ao rodar o comando `pip install`, você pode obter o seguinte erro:
+
+```
+module.c:1:10: fatal error: Python.h: No such file or directory
+     #include <Python.h>
+              ^~~~~~~~~~
+    compilation terminated.
+    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+```
+Tente instalar `python3-dev`. Por exemplo, via `apt install python3-dev`, se você está usando uma distro Debian, ou utilize o gerenciamento de pacotes da sua distro (por exemplo, `python3.6-dev` or `python3.7-dev`). Você pode saber qual é a sua versão via `python3 --version`.
+
 # Suporte 
 <p>  
-  <a href="https://discord.com/invite/aC3Q33q" target="_blank">
-    <img alt="Discord Invite" src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" width="100">
+  <a href="https://discord.com/invite/mxHGPq8rdY" target="_blank">
+    <img alt="Discord Invite" src="https://img.shields.io/badge/Discord-Entre%20no%20servidor-blue?style=for-the-badge&logo=discord" >
   </a>
 </p>
 
-Ingresse em nosso [Discord](bit.ly/discord-ok) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição, conversar sobre ideias, etc.   
+Ingresse em nosso [Discord](https://discord.com/invite/mxHGPq8rdY) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição e conversar sobre inovação cívica em geral. 
 
 # Agradecimentos
-Este projeto é mantido pela Open Knowledge Brasil e possível graças a comunidade técnica, as [Embaixadoras de Inovação Cívica](https://embaixadoras.ok.org.br/), voluntárias, doadoras financeiras, além de universidades parceiras, empresas apoiadoras e financiadoras. Saiba quem são na [página de apoio do Querido Diário](https://queridodiario.ok.org.br/apoie#quem-apoia)
+Este projeto é mantido pela Open Knowledge Brasil e possível graças à comunidade técnica, às [Embaixadoras de Inovação Cívica](https://embaixadoras.ok.org.br/), às pessoas voluntárias e doadoras financeiras, além de universidades parceiras, empresas apoiadoras e financiadoras.
+
+Conheça [quem apoia o Querido Diário](https://queridodiario.ok.org.br/apoie#quem-apoia).
 
 # Open Knowledge Brasil
 <p>
   <a href="https://twitter.com/okfnbr" target="_blank">
-    <img alt="Twitter Follow" src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" width="100">
+    <img alt="Twitter Follow" src="https://img.shields.io/badge/Twitter-_-blue?style=for-the-badge&logo=twitter">
   </a>
   <a href="https://www.instagram.com/openknowledgebrasil/" target="_blank">
-    <img alt="Instagram Follow" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" width="110">
+    <img alt="Instagram Follow" src="https://img.shields.io/badge/Instagram-_-red?style=for-the-badge&logo=instagram">
   </a>
   <a href="https://www.linkedin.com/company/open-knowledge-brasil" target="_blank">
-    <img alt="LinkedIn Follow" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" width="100">
+    <img alt="LinkedIn Follow" src="https://img.shields.io/badge/LinkedIn-_-9cf?style=for-the-badge&logo=linkedin">
   </a>
   <a href="https://www.facebook.com/OpenKnowledgeBrasil" target="_blank">
-    <img alt="Facebook Follow" src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" width="105">
+    <img alt="Facebook Follow" src="https://img.shields.io/badge/Facebook-_-informational?style=for-the-badge&logo=facebook">
   </a>
 </p>
 
