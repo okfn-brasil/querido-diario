@@ -18,7 +18,7 @@ class EsSerraSpider(BaseGazetteSpider):
         for date in rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date):
             day = str(date.day).zfill(2)
             month = str(date.month).zfill(2)
-            url = f"https://ioes.dio.es.gov.br/apifront/portal/edicoes/edicoes_from_data/{date.year}-{month}-{day}.json"
+            url = f"https://ioes.dio.es.gov.br/apifront/portal/edicoes/edicoes_from_data/{date.year}-{month}-{day}.json?subtheme=diariodaserra"
             yield scrapy.Request(url=url, cb_kwargs={"gazette_date": date.date()})
 
     def parse(self, response, gazette_date):
