@@ -35,6 +35,7 @@ class EsSerraSpider(BaseGazetteSpider):
             is_extra_edition = item["suplemento"] == 1
             yield Gazette(
                 date=gazette_date,
+                edition_number=item["numero"],
                 file_urls=[gazette_url],
                 is_extra_edition=is_extra_edition,
                 power="executive",
