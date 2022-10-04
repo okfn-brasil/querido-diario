@@ -9,6 +9,7 @@ SPIDERS = [
     "df_brasilia",
     "es_serra",
     "es_vila_velha",
+    "go_aparecida_de_goiania",
     "go_goiania",
     "ma_caxias",
     "mg_belo_horizonte",
