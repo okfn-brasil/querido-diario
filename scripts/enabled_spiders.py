@@ -13,6 +13,7 @@ SPIDERS = [
     "go_goiania",
     "ma_caxias",
     "mg_belo_horizonte",
+    "mg_contagem",
     "mg_uberaba",
     "ms_campo_grande",
     "mt_cuiaba",
