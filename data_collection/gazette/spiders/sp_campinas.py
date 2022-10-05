@@ -12,10 +12,8 @@ class SpCampinasSpider(BaseGazetteSpider):
     name = "sp_campinas"
     allowed_domains = ["campinas.sp.gov.br"]
     start_urls = ["http://www.campinas.sp.gov.br/diario-oficial/index.php"]
-    sp_campinas_url = "http://www.campinas.sp.gov.br/"
-    selector_url = (
-        "http://www.campinas.sp.gov.br/diario-oficial/index.php?mes={}&ano={}"
-    )
+    sp_campinas_url = "https://portal-api.campinas.sp.gov.br"
+    selector_url = "https://portal-api.campinas.sp.gov.br/api/v1/publicacoes-dom/all/{}{}?_format=json"
 
     def parse(self, response):
         today = dt.date.today()
@@ -25,20 +23,15 @@ class SpCampinasSpider(BaseGazetteSpider):
                 if year == today.year and month > today.month:
                     return
 
-                url = self.selector_url.format(month, year)
+                url = self.selector_url.format(year, month)
                 yield scrapy.Request(url, self.parse_month_page)
 
     def parse_month_page(self, response):
         items = []
-        month_year = response.css(
-            ".tabelaDiario:first-child tr th:nth-child(2)::text"
-        ).extract_first()  # "janeiro 2018"
-        links = response.css(".tabelaDiario:first-child tr td a")
-        for link in links:
-            url = link.css("::attr(href)").extract_first().replace("../", "")
-            day = link.css("::text").extract_first()
-            date = parse(f"{day} {month_year}", languages=["pt"]).date()
-            url = f"{self.sp_campinas_url}{url}"
+        data = response.json()
+        for item in data:
+            date = parse(item["dom_data_pub"], languages=["pt"]).date()
+            url = f"{self.sp_campinas_url}{item['dom_arquivo']}"
             is_extra_edition = False
             power = "executive_legislative"
             items.append(
