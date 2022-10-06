@@ -13,15 +13,20 @@ class MgEsmeraldasSpider(BaseGazetteSpider):
     TERRITORY_ID = "3124104"
 
     def parse(self, response):
-        for edicao in response.xpath("//table[@class='table table-striped table-diario']/tbody/tr"):
-            url = edicao.xpath("./td/a/@href").get()
-            date = edicao.xpath("./td/a/span/text()").get()
+        for row in response.xpath("//table[@class='table table-striped table-diario']/tbody/tr"):
+            url = row.xpath("./td/a/@href").get()
+            date = row.xpath("./td/a/span/text()").get()
             date = date.replace("\xa0","")
             date = dateparser.parse(date, languages=["pt"]).date()
+            edition = row.xpath("./td/a/@title").get()
+            is_extra_edition = "EXTRAORDINÁRIA" in edition
+            edition_number = edition.split()[1]
             if date >= self.start_date and date <= self.end_date:
                 yield Gazette(
                     date=date,
                     file_urls=[url],
+                    edition_number=edition_number,
+                    is_extra_edition = is_extra_edition,
                     power="executive"
                 )
     
