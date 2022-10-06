@@ -1,5 +1,9 @@
 import dateparser
 import datetime as dt
+import calendar
+import pandas as pd
+import locale
+import re
 
 from scrapy import Request
 from scrapy import Selector
@@ -10,18 +14,16 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
     TERRITORY_ID = "3301702"
-
-    GAZETTE_ELEMENT_CSS = "ul.jornal li"
-    NEXT_PAGE_CSS = "ul.pagination li.next a::attr(href)"
-    DATE_CSS = "span.article-date::text"
-    EXTRA_EDITION_CSS = "span.edicao_extraordinaria::text"
-    DATE_REGEX = r"([\d]+)[ |]+([\w]+)[ |]+([\d]+)"
-
+    start_date = dt.date(2013, 1, 2)
     allowed_domains = ["duquedecaxias.rj.gov.br"]
     name = "rj_duque_de_caxias"
     DUQUE_DE_CAXIAS_START_URL = "http://duquedecaxias.rj.gov.br/portal/boletim-oficial.html"
     PDF_URL = "http://duquedecaxias.rj.gov.br/portal/{}"
     PHASE2_YEAR_URL = "https://duquedecaxias.rj.gov.br/portal/{}.html"  # 2017 to (actual_year-1)
+    PHASE2_START_YEAR = 2017
+    PHASE1_YEAR_URL = "https://duquedecaxias.rj.gov.br/portal/boletim-oficial/{}"
+    PHASE1_START_YEAR = 2013
+    PHASE1_END_YEAR = 2016
 
     def start_requests(self):
         # Actual year
@@ -29,12 +31,31 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
         january_first_actual_year = dt.date(actual_year, 1, 1)
         if self.end_date >= january_first_actual_year:
             yield Request(self.DUQUE_DE_CAXIAS_START_URL)
+        locale.setlocale(locale.LC_TIME, "pt_BR")  # Get month name as needed... (2013/01-Janeiro)
+
+        # Phase 1 (2013 to 2016)
+        # https://duquedecaxias.rj.gov.br/portal/boletim-oficial/2013/01-Janeiro/
+        if self.start_date.year <= self.PHASE1_END_YEAR:
+            if self.end_date.year > self.PHASE1_END_YEAR:
+                phase1_end_date = dt.date(self.PHASE1_END_YEAR, 12, 31)
+            else:
+                phase1_end_date = dt.datetime(self.end_date.year, self.end_date.month,
+                                              calendar.monthrange(self.end_date.year, self.end_date.month)[1])
+            self.logger.debug("start_date: %s phase1_end_date: %s", self.start_date.strftime("%d/%m/%Y"),
+                              phase1_end_date.strftime("%d/%m/%Y"))
+            month_list = pd.date_range(self.start_date, phase1_end_date, freq='M').strftime("%Y/%m-%B").tolist()
+            self.logger.debug("month_list: %s", month_list)
+            for month in month_list:
+                url_phase1 = self.PHASE1_YEAR_URL.format(month).replace('ç', 'c')  # Março -> Marco
+                self.logger.debug("url phase1: %s", url_phase1)
+                yield Request(url_phase1, callback=self.parse_phase1)
 
         # Phase 2 (2017 to actual_year - 1)
+        # https://duquedecaxias.rj.gov.br/portal/2017.html
         start_date_year = self.start_date.year
+        end_date_year = self.end_date.year
         if start_date_year < 2017:
             start_date_year = 2017
-        end_date_year = self.end_date.year
         if end_date_year == actual_year:
             end_date_year = actual_year - 1
 
@@ -50,8 +71,6 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
         @returns requests 1
         @scrapes date file_urls is_extra_edition power
         """
-
-        # TODO: Criar dois tipos de parsers para o período de 2017 a ano_atual - 1 e anterior a 2017 (2013 a 2016)
 
         for element in response.xpath('//div[contains(@class,"panel-body")]').getall():
             self.logger.debug(element)
@@ -75,13 +94,39 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
                         power="executive_legislative",
                     )
 
+    def parse_phase1(self, response):
+        """
+        @scrapes date file_urls is_extra_edition power
+        """
+        year_month_pattern = r'\d{4}/\d{2}'
+        day_pattern = r'-\d{2}'
+
+        for link in response.css("a::attr(href)").getall():
+            if not link.startswith(("?", "/")):
+                gazzete_url = response.request.url + link
+                gazzete_date = dt.datetime.strptime(re.findall(year_month_pattern, gazzete_url)[0] +
+                                           re.findall(day_pattern, gazzete_url)[0],
+                                           "%Y/%m-%d").date()
+                gazzete_is_extra_edition, gazzete_edition_number = self.extract_edition_info_phase2(link)
+
+                self.logger.debug("%s, %s, %s, %s", gazzete_date, link, gazzete_is_extra_edition, gazzete_edition_number)
+
+                if self.start_date <= gazzete_date <= self.end_date:
+                    yield Gazette(
+                        date=gazzete_date,
+                        file_urls=[gazzete_url],
+                        is_extra_edition=gazzete_is_extra_edition,
+                        edition_number=gazzete_edition_number,
+                        power="executive_legislative",
+                    )
+
     def parse_phase2(self, response):
         """
         @scrapes date file_urls is_extra_edition power
         """
         month_header_cells = 3
 
-        for month_div_no in range(2, 14):
+        for month_div_no in range(1, 14):
             for month in response.xpath('/html/body/center/div[{}]'.format(month_div_no)).getall():
                 path_list = Selector(text=month).css("a::attr(href)").getall()
                 raw_month_text_cells = Selector(text=month).xpath("//div//text()").getall()
@@ -129,3 +174,22 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
         else:
             edition_number = raw_edition_info.split()[1]  # Boletim 6393
         return is_extra_edition, edition_number
+
+    def extract_edition_info_phase2(self, raw_edition_info):
+        """
+        Since the number of exceptions from 2013 to 2016 are small these exceptions are mapped in a dictionary
+        """
+        self.logger.debug("%s, %s", raw_edition_info, raw_edition_info.split())
+        is_extra_edition = False
+
+        # If raw_edition_info doesn't match the regex then it's an extra edition
+        try:
+            edition_pattern = r'\d{4}-'
+            edition_number = re.findall(edition_pattern, raw_edition_info)[0][:4]
+        except IndexError:
+            is_extra_edition = True
+            exception_dict = {'01E-25.pdf': '01', '6211A-05.pdf': '6211', '6186_2-27.pdf': '6186',
+                              '6140_2-10.pdf': '6140', 'E02-25.pdf': '02', '6292_2-29.pdf': '6292'}
+            edition_number = exception_dict[raw_edition_info]
+        return is_extra_edition, edition_number
+
