@@ -154,10 +154,6 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
                             power="executive_legislative",
                         )
 
-    def extract_url(self, element):
-        path = element.css("a::attr(href)").extract_first()
-        return self.PDF_URL.format(path)
-
     def extract_edition_info(self, raw_edition_info):
         self.logger.debug("%s, %s", raw_edition_info, raw_edition_info.split())
         is_extra_edition = False
