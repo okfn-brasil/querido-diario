@@ -11,11 +11,10 @@ class SpCampinasSpider(BaseGazetteSpider):
     TERRITORY_ID = "3509502"
     name = "sp_campinas"
     allowed_domains = ["campinas.sp.gov.br"]
-    start_urls = ["http://www.campinas.sp.gov.br/diario-oficial/index.php"]
     sp_campinas_url = "https://portal-api.campinas.sp.gov.br"
     selector_url = "https://portal-api.campinas.sp.gov.br/api/v1/publicacoes-dom/all/{}{}?_format=json"
 
-    def parse(self, response):
+    def start_requests(self):
         today = dt.date.today()
         next_year = today.year + 1
         for year in range(2015, next_year):
@@ -24,9 +23,9 @@ class SpCampinasSpider(BaseGazetteSpider):
                     return
 
                 url = self.selector_url.format(year, month)
-                yield scrapy.Request(url, self.parse_month_page)
+                yield scrapy.Request(url)
 
-    def parse_month_page(self, response):
+    def parse(self, response):
         items = []
         data = response.json()
         for item in data:
