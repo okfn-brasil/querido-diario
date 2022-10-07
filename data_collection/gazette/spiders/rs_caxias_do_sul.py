@@ -1,11 +1,11 @@
-import datetime as dt
+import datetime
 
 import scrapy
 from dateparser import parse
 from scrapy.http import Request
 
-from gazette.items import Gazette
-from gazette.spiders.base import BaseGazetteSpider
+from ..items import Gazette
+from .base import BaseGazetteSpider
 
 
 class RsCaxiasDoSulSpider(BaseGazetteSpider):
@@ -22,14 +22,10 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
             "&page=1"
         )
     ]
+    start_date = datetime.date(2015, 1, 1)
 
     def start_requests(self):
-        global rs_caxias_start_date
-        if hasattr(self, "start_date"):
-            rs_caxias_start_date = self.start_date
-        else:
-            rs_caxias_start_date = dt.datetime(2015, 1, 1)  # Default initial date 01-01-15
-        url = self.start_urls[0].format(rs_caxias_start_date.strftime("%d-%m-%y"), self.end_date.strftime("%d-%m-%y"))
+        url = self.start_urls[0].format(self.start_date.strftime("%d-%m-%y"), self.end_date.strftime("%d-%m-%y"))
         yield scrapy.Request(url)
 
     def parse(self, response):
