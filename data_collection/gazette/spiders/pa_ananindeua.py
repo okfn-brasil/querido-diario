@@ -1,3 +1,4 @@
+import re
 from calendar import monthrange
 from datetime import date
 
@@ -19,6 +20,8 @@ class PaAnanindeuaSpider(BaseGazetteSpider):
 
     FILE_ELEMENT_CSS = "div.item_lic div.list-group a.list-group-item::attr(href)"
     DATE_ELEMENT_CSS = "div.item_lic div.d-flex div.small::text"
+    EDITION_NUMBER_ELEMENT_CSS = "div.item_lic div.item_lic_titulo::text"
+    EDITION_NUMBER_RE = re.compile(r"DIÁRIO Nº (\d+),")
     DATE_FORMAT = "%d/%m/%Y"
 
     def start_requests(self):
@@ -37,14 +40,22 @@ class PaAnanindeuaSpider(BaseGazetteSpider):
     def parse(self, response):
         file_urls = response.css(self.FILE_ELEMENT_CSS).extract()
         dates = response.css(self.DATE_ELEMENT_CSS).extract()
+        editions = response.css(self.EDITION_NUMBER_ELEMENT_CSS).extract()
 
-        for date_str, file_url in zip(dates, file_urls):
+        for edition_str, date_str, file_url in zip(editions, dates, file_urls):
             date = parse(date_str.split(": ")[1], languages=["pt"]).date()
             url = response.urljoin(file_url)
-            yield Gazette(
+            gazette = Gazette(
                 date=date,
                 file_urls=[url],
                 is_extra_edition="extra" in url.lower(),
                 territory_id=self.TERRITORY_ID,
                 power="executive",
             )
+            # the edition number is not always present.
+            if edition_str:
+                edition_number = self.EDITION_NUMBER_RE.search(edition_str)
+                if edition_number:
+                    gazette["edition_number"] = edition_number.group(1)
+
+            yield gazette
