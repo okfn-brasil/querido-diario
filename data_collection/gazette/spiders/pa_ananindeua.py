@@ -15,7 +15,7 @@ class PaAnanindeuaSpider(BaseGazetteSpider):
     name = "pa_ananindeua"
     allowed_domains = ["ananindeua.pa.gov.br"]
     url_base = "https://www.ananindeua.pa.gov.br/diario_oficial.asp?titulo={}&dataini={}&datafim={}&order=1&go=Buscar&bt_buscar=buscar&num_rows=31&pag=1"
-    start_date = date(1995, 10, 3)
+    start_date = date(2008, 1, 21)
 
     FILE_ELEMENT_CSS = "div.item_lic div.list-group a.list-group-item::attr(href)"
     DATE_ELEMENT_CSS = "div.item_lic div.d-flex div.small::text"
