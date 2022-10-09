@@ -26,7 +26,7 @@ class ApSantanaSpider(BaseGazetteSpider):
             try:
                 file_html = gazette["arquivo"].split('|')[0]
                 file_url = re.search(r'href=[\'"]?([^\'" >]+)', file_html).group(1)
-            except IndexError:
+            except:
                 continue
 
             yield Gazette(
