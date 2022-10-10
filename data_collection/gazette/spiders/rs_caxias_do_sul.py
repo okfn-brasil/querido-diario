@@ -1,58 +1,53 @@
 import datetime
 
 import scrapy
-from dateparser import parse
-from scrapy.http import Request
 
-from ..items import Gazette
-from .base import BaseGazetteSpider
+from gazette.items import Gazette
+from gazette.spiders.base import BaseGazetteSpider
 
 
 class RsCaxiasDoSulSpider(BaseGazetteSpider):
     TERRITORY_ID = "4305108"
     name = "rs_caxias_do_sul"
     allowed_domains = ["caxias.rs.gov.br"]
-    start_urls = [
-        (
+    start_date = datetime.date(2015, 1, 1)
+
+    def start_requests(self):
+        start_date = self.start_date.strftime("%d-%m-%y")
+        end_date = self.end_date.strftime("%d-%m-%y")
+
+        start_url = (
             "https://doe.caxias.rs.gov.br/site/index"
             "?PublicacoesSearch[dt_publicacao]="
-            "&PublicacoesSearch[dt_range]={}+até+{}"
+            f"&PublicacoesSearch[dt_range]={start_date}+até+{end_date}"
             "&PublicacoesSearch[palavra_chave]="
             "&PublicacoesSearch[num_publicacao]="
             "&page=1"
         )
-    ]
-    start_date = datetime.date(2015, 1, 1)
-
-    def start_requests(self):
-        url = self.start_urls[0].format(self.start_date.strftime("%d-%m-%y"), self.end_date.strftime("%d-%m-%y"))
-        yield scrapy.Request(url)
+        yield scrapy.Request(start_url)
 
     def parse(self, response):
-        for gazette_node in response.css(".table tbody tr"):
-            item = self.gazette(response, gazette_node)
-            pdf_page_url = gazette_node.css("a::attr(href)").extract_first()
-            pdf_page_url = response.urljoin(pdf_page_url)
+        for gazette in response.css(".table tbody tr"):
+            edition_number = gazette.xpath("./td[1]/text()").get()
+            raw_gazette_date = gazette.xpath("./td[2]/text()").get().strip()
+            gazette_date = datetime.datetime.strptime(
+                raw_gazette_date, "%d/%m/%Y"
+            ).date()
+            is_extra_edition = gazette.xpath("./td[3]/text()").get() != "Normal"
+
+            gazette_url = response.urljoin(
+                gazette.xpath(".//a[contains(@title, 'Baixar')]/@href").get()
+            )
             yield Gazette(
-                date=item["date"],
-                file_urls=[pdf_page_url],
-                is_extra_edition=item["is_extra_edition"],
-                power=item["power"],
+                date=gazette_date,
+                file_urls=[
+                    gazette_url,
+                ],
+                edition_number=edition_number,
+                is_extra_edition=is_extra_edition,
+                power="executive",
             )
 
-        css_path = ".pagination .next a::attr(href)"
-        next_page_url = response.css(css_path).extract_first()
-        next_page_url = response.urljoin(next_page_url)
+        next_page_url = response.css(".pagination .next a::attr(href)").get()
         if next_page_url:
-            yield Request(next_page_url)
-
-    def gazette(self, response, gazette_node):
-        cells = gazette_node.css("td::text")
-        date = parse(cells[1].extract(), languages=["pt"]).date()
-        is_extra_edition = cells[2].extract() != "Normal"
-        return Gazette(
-            date=date,
-            is_extra_edition=is_extra_edition,
-            power="executive_legislative",
-        )
-
+            yield scrapy.Request(response.urljoin(next_page_url))
