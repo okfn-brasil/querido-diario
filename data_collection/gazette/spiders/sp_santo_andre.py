@@ -2,6 +2,7 @@ import datetime
 
 from gazette.spiders.base.instar import BaseInstarSpider
 
+
 class SpSantoAndre(BaseInstarSpider):
     TERRITORY_ID = "3547809"
     name = "sp_santo_andre"
