@@ -30,6 +30,7 @@ SPIDERS = [
     "rn_mossoro",
     "rn_natal",
     "rr_boa_vista",
+    "rs_caxias_do_sul",
     "rs_porto_alegre",
     "sc_florianopolis",
     "sp_guarulhos",
