@@ -35,6 +35,8 @@ SPIDERS = [
     "sc_florianopolis",
     "sp_guarulhos",
     "sp_jundiai",
+    "sp_marilia",
+    "sp_santo_andre",
     "sp_sumare",
     "sp_valinhos",
     "sp_vinhedo",
