@@ -1,7 +1,6 @@
 import re
-from datetime import date, datetime
 
-import scrapy
+from datetime import date, datetime
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
