@@ -1,3 +1,5 @@
+import datetime
+
 import dateparser
 from scrapy import Request
 
@@ -18,27 +20,28 @@ class ScJoinvilleSpider(BaseGazetteSpider):
     allowed_domains = ["joinville.sc.gov.br"]
     name = "sc_joinville"
     start_urls = ["https://www.joinville.sc.gov.br/jornal/index/page/1"]
+    start_date = datetime.date(2009, 1, 2)
 
     def parse(self, response):
-        """
-        @url http://www.joinville.sc.gov.br/jornal/index/page/1
-        @returns requests 1
-        @scrapes date file_urls is_extra_edition power
-        """
-
         for element in response.css(self.GAZETTE_ELEMENT_CSS):
             date = self.extract_date(element)
             url = self.extract_url(element)
             is_extra_edition = self.extract_extra_edition_info(element)
+            edition_number = element.xpath(".//text()").re_first(r"N.\s(\d+)")
 
-            yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=is_extra_edition,
-                power="executive_legislative",
-            )
+            if date >= self.start_date and date <= self.end_date:
+                yield Gazette(
+                    date=date,
+                    file_urls=[url],
+                    edition_number=edition_number,
+                    is_extra_edition=is_extra_edition,
+                    power="executive_legislative",
+                )
+            else:
+                if date < self.start_date:
+                    return
 
-        for url in response.css(self.NEXT_PAGE_CSS).extract():
+        for url in response.css(self.NEXT_PAGE_CSS).getall():
             yield Request(url)
 
     def extract_date(self, element):
@@ -47,9 +50,9 @@ class ScJoinvilleSpider(BaseGazetteSpider):
         return dateparser.parse(date, languages=["pt"]).date()
 
     def extract_url(self, element):
-        path = element.css("a::attr(href)").extract_first()
+        path = element.css("a::attr(href)").get()
         return self.PDF_URL.format(path)
 
     def extract_extra_edition_info(self, element):
-        extra_edition_data = element.css(self.EXTRA_EDITION_CSS).extract_first()
+        extra_edition_data = element.css(self.EXTRA_EDITION_CSS).get()
         return extra_edition_data == "Edição Extraordinária"
