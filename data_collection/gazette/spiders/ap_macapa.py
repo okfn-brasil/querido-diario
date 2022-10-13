@@ -1,6 +1,5 @@
-import re
+import datetime as dt
 
-import dateparser
 import scrapy
 
 from gazette.items import Gazette
@@ -15,63 +14,56 @@ class ApMacapaSpider(BaseGazetteSpider):
 
     TERRITORY_ID = "1600303"
 
+    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
+        self.start_date = dt.date(2018, 1, 1)
+
+        super(ApMacapaSpider, self).__init__(start_date, end_date)
+
+        self.logger.debug(
+            "Start date is {date}".format(date=self.start_date.isoformat())
+        )
+        self.logger.debug("End date is {date}".format(date=self.end_date.isoformat()))
+
     def start_requests(self):
-        base_url = "https://macapa.ap.gov.br/page/{page}/".format(**{"page": 1})
-        start_date = self.start_date.strftime("%d/%m/%Y")
-        end_date = self.end_date.strftime("%d/%m/%Y")
-        params = {
+        base_url = "https://macapa.ap.gov.br/"
+
+        target_date = self.start_date
+        data = {
             "s": "",
             "post_type": "official_diaries",
             "search": "official_diaries",
-            "official_diary_initial_date": start_date,
-            "official_diary_final_date": end_date,
+            "official_diary_number": "",
         }
-        yield scrapy.FormRequest(
-            url=base_url,
-            method="GET",
-            formdata=params,
-        )
-
-    def _pagination_requests(self, response, page, start_date, end_date):
-        pages = response.xpath("//a[@class='-numbers']/text()").getall()
-        last_page = pages[-1] if pages else None
-        if last_page:
-            for next_page in range(1, last_page + 1):
-                next_page_url = "https://macapa.ap.gov.br/page/{page}/".format(
-                    **{"page": next_page}
-                )
-                params = {
-                    "s": "",
-                    "post_type": "official_diaries",
-                    "search": "official_diaries",
-                    "official_diary_initial_date": self.start_date,
-                    "official_diary_final_date": self.end_date,
+        while target_date <= self.end_date:
+            formatted_date = target_date.strftime("%d/%m/%Y")
+            data.update(
+                {
+                    "official_diary_initial_date": formatted_date,
+                    "official_diary_final_date": formatted_date,
                 }
-                yield scrapy.FormRequest(
-                    url=next_page_url,
-                    method="GET",
-                    formdata=params,
-                    callback=self.parse,
-                )
+            )
+
+            yield scrapy.FormRequest(
+                url=base_url, formdata=data, method="GET", meta={"date": target_date}
+            )
+            target_date = target_date + dt.timedelta(days=1)
 
     def parse(self, response):
         # Extract Items
-        extract_number_date = re.compile(
-            r".+?(?P<num>\d{4}).+?(?P<date>\d\d/\d\d/\d\d\d\d)"
-        )
-        divs = response.xpath("//div[@class='panel-body']")[1:]
-        for div in divs:
-            url = div.xpath("./a/@href").get()
-            text = div.xpath("./a/h4/text()").get()
+        links = response.xpath('//i[@class="fa fa-file-pdf-o"]/parent::a')
+        links = links.xpath("@href").getall()
 
-            num_date = re.match(extract_number_date, text)
-            edition_number = num_date.group("num")
-            date = num_date.group("date")
-            date = dateparser.parse(date, languages=["pt"]).date()
+        gazette_date = response.meta["date"]
+
+        if len(links) == 0:
+            self.logger.warning(
+                "No gazettes found for date {date}".format(date=gazette_date)
+            )
+
+        for index, file_url in enumerate(links):
             yield Gazette(
-                date=date,
-                file_urls=[url],
-                edition_number=edition_number,
-                is_extra_edition=False,
-                power="executive",
+                date=gazette_date,
+                file_urls=[file_url],
+                is_extra_edition=(index > 0),
+                power="executive_legislative",
             )
