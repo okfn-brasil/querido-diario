@@ -12,7 +12,19 @@ class RjNiteroiSpider(BaseGazetteSpider):
     allowed_domains = ["niteroi.rj.gov.br"]
     start_urls = ["http://www.niteroi.rj.gov.br"]
     download_url = "http://pgm.niteroi.rj.gov.br/downloads/do/{}/{}/{:02d}.pdf"
-    start_date = dt.date(2003, 7, 1)
+    start_date = None
+    end_date = None
+
+    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
+        self.start_date = dt.date(2003, 7, 1)
+        self.end_date = dt.date.today()
+
+        super(RjNiteroiSpider, self).__init__(start_date, end_date)
+
+        self.logger.debug(
+            "Start date is {date}".format(date=self.start_date.isoformat())
+        )
+        self.logger.debug("End date is {date}".format(date=self.end_date.isoformat()))
 
     month_names = [
         "01_Jan",
@@ -30,7 +42,7 @@ class RjNiteroiSpider(BaseGazetteSpider):
     ]
 
     def parse(self, response):
-        parsing_date = dt.date.today()
+        parsing_date = self.end_date
         while parsing_date >= self.start_date:
             month = self.month_names[parsing_date.month - 1]
             url = self.download_url.format(parsing_date.year, month, parsing_date.day)
