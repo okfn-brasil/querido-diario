@@ -1,7 +1,7 @@
 import datetime as dt
 
-import scrapy
-from dateparser import parse
+import dateparser
+from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -12,39 +12,74 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
     name = "rs_porto_alegre"
     allowed_domains = ["portoalegre.rs.gov.br"]
     start_urls = ["http://www2.portoalegre.rs.gov.br/dopa/"]
+    start_date = dt.date(2003, 9, 3)
+
+    custom_settings = {"CONCURRENT_REQUESTS": 8}
 
     def parse(self, response):
-        selector = (
-            '//ul[contains(@id, "menucss")]'
-            '/descendant::*[contains(text(), "Diário Oficial {}")]'
-            "/parent::*/descendant::li/a"
-        )
-        current_year = dt.date.today().year
-        for year in range(current_year, 2014, -1):
-            urls = response.xpath(selector.format(year) + "/attribute::href").extract()
-            urls = [response.urljoin(url) for url in urls]
-            for url in urls:
-                yield scrapy.Request(url, self.parse_month_page)
+        menu_years = response.css("ul#menucss > li")
+        for menu_year in menu_years:
+            menu_months = menu_year.xpath("./ul/li[not(contains(a/text(), 'Diário'))]")
+            months_links = self._filter_months_of_interest(menu_months)
+            yield from response.follow_all(months_links, callback=self.parse_month_page)
 
     def parse_month_page(self, response):
-        links = response.css("#conteudo a")
-        items = []
-        for link in links:
-            url = link.css("::attr(href)").extract_first()
-            if url[-4:] != ".pdf":
+        editions = response.css("#conteudo a[href$='.pdf']:not(.gbox)")
+        for edition in editions:
+            text = edition.css("::text")
+            date = self._extract_date(text)
+
+            if date is None:
                 continue
 
-            url = response.urljoin(url)
-            power = "executive" if "executivo" in url.lower() else "legislative"
-            date = link.css("::text").extract_first()
-            is_extra_edition = "extra" in date.lower()
-            date = parse(date.split("-")[0], languages=["pt"]).date()
-            items.append(
-                Gazette(
-                    date=date,
-                    file_urls=[url],
-                    is_extra_edition=is_extra_edition,
-                    power=power,
-                )
+            if not self.start_date <= date <= self.end_date:
+                continue
+
+            is_extra_edition = "extra" in text.get().lower()
+            url = response.urljoin(edition.attrib["href"])
+            power = self._get_power_from_url(url)
+
+            yield Gazette(
+                date=date,
+                file_urls=[url],
+                is_extra_edition=is_extra_edition,
+                power=power,
             )
-        return items
+
+    def _filter_months_of_interest(self, month_elements):
+        # avoid skipping months if day of start_date is at the end of the month
+        first_day_of_start_date_month = dt.date(
+            self.start_date.year, self.start_date.month, 1
+        )
+        months_of_interest = list(
+            rrule(MONTHLY, dtstart=first_day_of_start_date_month, until=self.end_date)
+        )
+        for month, month_element in enumerate(month_elements, start=1):
+            year = int(month_element.css("a::text").re_first(r"\d{4}"))
+            href = month_element.css("a").attrib["href"]
+            month_date = dt.datetime(year, month, 1)
+            if month_date in months_of_interest:
+                yield href
+
+    def _extract_date(self, text):
+        common_pattern = text.re_first(r"\d+/\d+/\d+")
+        full_written_pattern = text.re_first(r"\d{1,2}º?\s+de[\w\s]+\d{4}")
+        marco_2010_pattern = text.re_first(r"marco2010[_\s]+(\d{2})marco10")
+
+        if common_pattern:
+            return dt.datetime.strptime(common_pattern, "%d/%m/%Y").date()
+        elif full_written_pattern:
+            full_written_pattern = full_written_pattern.replace("º", "")
+            return dateparser.parse(full_written_pattern, languages=["pt"]).date()
+        elif marco_2010_pattern:
+            day = int(marco_2010_pattern)
+            return dt.date(2010, 3, day)
+
+    def _get_power_from_url(self, url):
+        if "executivo" in url.lower():
+            power = "executive"
+        elif "legislativo" in url.lower():
+            power = "legislative"
+        else:
+            power = "executive_legislative"
+        return power

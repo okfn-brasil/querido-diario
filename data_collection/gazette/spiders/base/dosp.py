@@ -2,8 +2,8 @@ import base64
 import datetime
 import json
 
-import dateparser
 import scrapy
+from dateutil.rrule import WEEKLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -16,19 +16,18 @@ class DospGazetteSpider(BaseGazetteSpider):
     code = None
     start_date = None
 
-    def start_requests(self):
-        FORMAT_DATE = "%Y-%m-%d"
-        target_date = self.start_date
-        end_date = self.end_date
-
-        while target_date <= end_date:
-            from_data = target_date.strftime(FORMAT_DATE)
-            target_date = target_date + datetime.timedelta(weeks=1)
-            to_date = target_date.strftime(FORMAT_DATE)
+    def _dosp_request(self, start_date, end_date):
+        for date in rrule(freq=WEEKLY, dtstart=start_date, until=end_date):
+            from_date = date.strftime("%Y-%m-%d")
+            to_date = date + datetime.timedelta(days=6)
+            to_date = to_date.strftime("%Y-%m-%d")
 
             yield scrapy.Request(
-                f"https://dosp.com.br/api/index.php/dioedata.js/{self.code}/{from_data}/{to_date}?callback=dioe"
+                f"https://dosp.com.br/api/index.php/dioedata.js/{self.code}/{from_date}/{to_date}?callback=dioe"
             )
+
+    def start_requests(self):
+        yield from self._dosp_request(self.start_date, self.end_date)
 
     def parse(self, response):
         # The response are in a javascript format, then needs some clean up
@@ -40,7 +39,7 @@ class DospGazetteSpider(BaseGazetteSpider):
             pdf_code = base64.b64encode(code).decode("ascii")
             file_url = f"https://dosp.com.br/exibe_do.php?i={pdf_code}"
             edition_number = item["edicao_do"]
-            date = dateparser.parse(item["data"]).date()
+            date = datetime.datetime.strptime(item["data"], "%Y-%m-%d").date()
 
             yield Gazette(
                 date=date,

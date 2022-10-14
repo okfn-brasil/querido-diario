@@ -76,7 +76,9 @@ class SigpubGazetteSpider(BaseGazetteSpider):
 
     def available_dates_form_fields(self):
         """Generates dates and corresponding form fields for availability endpoint."""
-        available_dates = rrule(freq=DAILY, dtstart=self.start_date, until=date.today())
+        available_dates = rrule(
+            freq=DAILY, dtstart=self.start_date, until=self.end_date
+        )
         for query_date in available_dates:
             form_fields = {
                 "calendar[day]": str(query_date.day),

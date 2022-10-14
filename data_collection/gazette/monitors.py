@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from spidermon import Monitor, MonitorSuite, monitors
-from spidermon.contrib.actions.telegram import SendTelegramMessage
+from spidermon.contrib.actions.discord import SendDiscordMessage
 from spidermon.contrib.scrapy.monitors import (
     ErrorCountMonitor,
     FinishReasonMonitor,
@@ -71,7 +71,7 @@ class ComparisonBetweenSpiderExecutionsMonitor(Monitor):
             )
 
 
-class CustomSendTelegramMessage(SendTelegramMessage):
+class CustomSendDiscordMessage(SendDiscordMessage):
     def get_message(self):
         stats = self.data.stats
         n_scraped_items = stats.get("item_scraped_count", 0)
@@ -100,4 +100,4 @@ class SpiderCloseMonitorSuite(MonitorSuite):
         ItemValidationMonitor,
     ]
 
-    monitors_finished_actions = [CustomSendTelegramMessage]
+    monitors_failed_actions = [CustomSendDiscordMessage]
