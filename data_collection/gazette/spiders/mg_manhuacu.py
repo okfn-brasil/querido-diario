@@ -4,7 +4,7 @@ from gazette.spiders.base.ajaxpro import AjaxProSpider
 
 
 class MgManhuacuSpider(AjaxProSpider):
-    TERRITORY_ID = "3127701"
+    TERRITORY_ID = "3139409"
     name = "mg_manhuacu"
     start_url = "https://www.manhuacu.mg.gov.br/diario-eletronico"
     base_file_url = (
