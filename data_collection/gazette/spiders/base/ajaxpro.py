@@ -174,7 +174,7 @@ class AjaxProSpider(BaseGazetteSpider):
                 url = self.base_file_url.format(
                     gazette["NMARQUIVO"], gazette["NMEXTENSAOARQUIVO"]
                 )
-                print(gazette)
+
                 yield Gazette(
                     date=self.system_date_to_date(gazette["DTVISUALIZACAO"]),
                     file_urls=[url],
