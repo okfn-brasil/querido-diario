@@ -5,7 +5,6 @@ from datetime import datetime
 from typing import Dict, List
 from urllib.parse import urljoin
 
-from dateutil.relativedelta import relativedelta
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -27,11 +26,6 @@ class AjaxProSpider(BaseGazetteSpider):
         power_codes (dict): A dict with ID's of a given power as `key` and the
             name of the power as `value`.
             Example: {1: "executive", "2": "legislative"}
-
-    Observations:
-        - The date returned in the Gazette metadata of the request isn't consistent
-        for years before 2022. It also isn't compatible with the datetime module,
-        as such it needs a custom implementation to be interpreted, with is not ideal.
     """
 
     # Optional attribute
@@ -142,19 +136,15 @@ class AjaxProSpider(BaseGazetteSpider):
         }
 
     def system_date_to_date(self, system_date: tuple) -> datetime.date:
-        """Parse the response `Tuple` containing the custom system date."""
+        """
+        Parse the response `Tuple` containing the custom system date.
 
-        if system_date[1] == 0:
-            system_date = system_date[:1] + (1,) + system_date[2:]
+        System the system date starts at month 0, it is needed to
+        add 1 to the month, as the `datetime` object starts at month 1.
+        """
 
-        try:
-            return datetime.date(datetime(*system_date)) + relativedelta(months=+1)
-
-        except ValueError:
-            system_date = system_date[:1] + (system_date[1] + 1, 1) + system_date[3:]
-            if system_date[1] > 12:
-                system_date = (system_date[0] + 1,) + (1, 1) + system_date[3:]
-            return datetime.date(datetime(*system_date)) + relativedelta(months=+1)
+        date = (system_date[0], system_date[1] + 1, system_date[2])
+        return datetime.date(datetime(*date))
 
     def parse(self, response) -> None:
         """
@@ -184,9 +174,9 @@ class AjaxProSpider(BaseGazetteSpider):
                 url = self.base_file_url.format(
                     gazette["NMARQUIVO"], gazette["NMEXTENSAOARQUIVO"]
                 )
-
+                print(gazette)
                 yield Gazette(
-                    date=self.system_date_to_date(gazette["DTPUBLICACAO"]),
+                    date=self.system_date_to_date(gazette["DTVISUALIZACAO"]),
                     file_urls=[url],
                     is_extra_edition=self.is_extra_edition(),
                     territory_id=self.TERRITORY_ID,
