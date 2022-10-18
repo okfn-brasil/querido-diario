@@ -26,28 +26,22 @@ class RjBelfordRoxoSpider(BaseGazetteSpider):
             yield scrapy.FormRequest(
                 url=url,
                 formdata={"mesano": month_year},
-                callback=self.calculate_gazette_url,
             )
 
-    def calculate_gazette_url(self, response):
+    def parse(self, response):
         for gazette_data in response.json():
             raw_gazette_date = gazette_data["Data_Formatada"]
             gazette_date = datetime.strptime(raw_gazette_date, "%d/%m/%Y").date()
             if gazette_date < self.start_date or self.end_date < gazette_date:
                 continue
             gazette_code = gazette_data["Codigo_ANEXO"]
+            gazette_edition_number = gazette_data["ANEXO"]
             gazette_url = self.BASE_URL.format(ATTACHMENT_CODE=gazette_code)
-            yield scrapy.Request(
-                gazette_url,
-                cb_kwargs={
-                    "gazette_date": gazette_date,
-                },
-            )
 
-    def parse(self, response, gazette_date):
-        yield Gazette(
-            date=gazette_date,
-            file_urls=[response.url],
-            is_extra_edition=False,
-            power="executive",
-        )
+            yield Gazette(
+                date=gazette_date,
+                edition_number=gazette_edition_number,
+                file_urls=[gazette_url],
+                is_extra_edition=False,
+                power="executive",
+            )
