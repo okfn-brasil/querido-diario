@@ -1,7 +1,6 @@
-from datetime import date
+import datetime
 
 import scrapy
-from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
@@ -14,10 +13,10 @@ class SpCampinasSpider(BaseGazetteSpider):
     allowed_domains = ["campinas.sp.gov.br"]
     sp_campinas_url = "https://portal-api.campinas.sp.gov.br"
     url_base = "https://portal-api.campinas.sp.gov.br/api/v1/publicacoes-dom/all/{}{}?_format=json"
-    start_date = date(1995, 10, 3)
+    start_date = datetime.date(1995, 10, 3)
 
     def start_requests(self):
-        initial_date = date(self.start_date.year, self.start_date.month, 1)
+        initial_date = datetime.date(self.start_date.year, self.start_date.month, 1)
         for monthly_date in rrule(
             freq=MONTHLY, dtstart=initial_date, until=self.end_date
         ):
@@ -25,19 +24,25 @@ class SpCampinasSpider(BaseGazetteSpider):
             yield scrapy.Request(url)
 
     def parse(self, response):
-        items = []
-        data = response.json()
-        for item in data:
-            date = parse(item["dom_data_pub"], languages=["pt"]).date()
-            url = f"{self.sp_campinas_url}{item['dom_arquivo']}"
+        for item in response.json():
+            gazette_date = datetime.datetime.strptime(
+                item["dom_data_pub"], "%d/%m/%Y"
+            ).date()
+            edition_number = item["dom_edicao"]
+
             is_extra_edition = False
-            power = "executive_legislative"
-            items.append(
-                Gazette(
-                    date=date,
-                    file_urls=[url],
-                    is_extra_edition=is_extra_edition,
-                    power=power,
-                )
+            if item["dom_arquivo"] != "":
+                gazette_url = response.urljoin(item["dom_arquivo"])
+            elif item["dom_extra_arquivo"] != "":
+                gazette_url = response.urljoin(item["dom_extra_arquivo"])
+                is_extra_edition = True
+
+            yield Gazette(
+                date=gazette_date,
+                edition_number=edition_number,
+                file_urls=[
+                    gazette_url,
+                ],
+                is_extra_edition=is_extra_edition,
+                power="executive_legislative",
             )
-        return items
