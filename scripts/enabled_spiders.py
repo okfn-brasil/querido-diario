@@ -3,6 +3,7 @@
 SPIDERS = [
     "am_manaus",
     "al_maceio",
+    "ba_acajutiba",
     "ba_salvador",
     "ba_feira_de_santana",
     "ce_sobral",
@@ -25,6 +26,7 @@ SPIDERS = [
     "pi_teresina",
     "pr_curitiba",
     "pr_londrina",
+    "rj_belford_roxo",
     "rj_nova_iguacu",
     "rj_rio_de_janeiro",
     "rn_mossoro",
@@ -34,6 +36,7 @@ SPIDERS = [
     "rs_porto_alegre",
     "sc_florianopolis",
     "sc_joinville",
+    "sp_campinas",
     "sp_guarulhos",
     "sp_jundiai",
     "sp_marilia",
