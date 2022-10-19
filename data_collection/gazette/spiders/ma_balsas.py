@@ -13,25 +13,21 @@ class MaBalsasSpider(BaseGazetteSpider):
 
     start_urls = ["https://transparencia.balsas.ma.gov.br/acessoInformacao/diario/diario/listarDiario"]
 
-    BASE_URL = "https://painel.siganet.net.br/upload/{}/cms/publicacoes/diario/"
-
     def parse(self, response):
-        data = response.json()['data']
-
-        for gazette in data:
+        for gazette in response.json()['data']:
             gazette_date = datetime.datetime.strptime(gazette['TDI_DT_PUBLICACAO'], "%Y-%m-%d %H:%M:%S").date()
             
+            if self.end_date < gazette_date:
+                continue
+            if self.start_date > gazette_date:
+                break
+
             if gazette_date.year > 2017:
                 x = "0000000002"
             else:
                 x = "0000000424"
 
-            pdf_url = f"{self.BASE_URL.format(x)}{gazette['TDI_ARQUIVO']}"
-
-            if self.end_date < gazette_date:
-                continue
-            if self.start_date > gazette_date:
-                break
+            pdf_url = f"https://painel.siganet.net.br/upload/{x}/cms/publicacoes/diario/" + gazette['TDI_ARQUIVO']
 
             yield Gazette(
                 date=gazette_date,
