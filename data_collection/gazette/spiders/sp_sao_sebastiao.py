@@ -1,4 +1,5 @@
 import re
+from datetime import date
 
 from dateparser import parse as dateparser_parse
 from scrapy.http import HtmlResponse
@@ -9,12 +10,11 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpSaoSebastiaoSpider(BaseGazetteSpider):
+    BASE_URL = "http://www.saosebastiao.sp.gov.br"
     TERRITORY_ID = "3550704"
     name = "sp_sao_sebastiao"
     allowed_domains = ["saosebastiao.sp.gov.br"]
-
-    BASE_URL = "http://www.saosebastiao.sp.gov.br"
-
+    start_date = date(2017, 3, 15)
     start_urls = [f"{BASE_URL}/doem.asp"]
 
     def get_pdf_url(self, gazette_node: Selector) -> str:
