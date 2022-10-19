@@ -12,6 +12,10 @@ class DoemGazetteSpider(BaseGazetteSpider):
     Base spider for all cities listed on https://doem.org.br
     """
 
+    custom_settings = {
+        "DOWNLOAD_FAIL_ON_DATALOSS": False,
+    }
+
     allowed_domains = ["doem.org.br"]
     start_date = dt.date(2009, 1, 1)
 
