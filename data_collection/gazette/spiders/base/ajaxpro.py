@@ -2,7 +2,6 @@ import ast
 import json
 import re
 from datetime import datetime
-from typing import Dict, List
 from urllib.parse import urljoin
 
 from scrapy import Request
@@ -14,8 +13,10 @@ from gazette.spiders.base import BaseGazetteSpider
 class AjaxProSpider(BaseGazetteSpider):
     """
     Base spider for all cities that uses the AjaxPro framework.
+
     To implement this base class, the following attributes
     are required to be defined by child classes:
+
     Attributes:
         TERRITORY_ID (str): Same as `BaseGazetteSpider` requires.
         start_url (str): Url of the gazette from the given city.
@@ -34,12 +35,12 @@ class AjaxProSpider(BaseGazetteSpider):
     TERRITORY_ID: str = None
     start_url: str = None
     base_file_url: str = None
-    power_codes: Dict[int, str] = None
+    power_codes: dict[int, str] = None
 
     # Not exposed attributes that should not be overriden
     _current_page: int = 0
     _current_power: int = None
-    _crawled_power_stack: List[int] = []
+    _crawled_power_stack: list[int] = []
 
     def start_requests(self) -> None:
         yield Request(self.start_url, dont_filter=True, callback=self.ajaxpro_request)
@@ -117,7 +118,7 @@ class AjaxProSpider(BaseGazetteSpider):
         return response.body == "null;/*".encode()
 
     @staticmethod
-    def date_to_system_date(timestamp: datetime.date) -> Dict[str, any]:
+    def date_to_system_date(timestamp: datetime.date) -> dict[str, any]:
         """Parse a `datetime.date` to a custom date format."""
 
         return {
@@ -134,8 +135,8 @@ class AjaxProSpider(BaseGazetteSpider):
     def system_date_to_date(self, system_date: tuple) -> datetime.date:
         """
         Parse the response `Tuple` containing the custom system date.
-        System the system date starts at month 0, it is needed to
-        add 1 to the month, as the `datetime` object starts at month 1.
+        Since the system date starts at month 0, it's needed to
+        add 1 to month, as the `datetime` object starts at month 1.
         """
 
         date = (system_date[0], system_date[1] + 1, system_date[2])
@@ -145,6 +146,7 @@ class AjaxProSpider(BaseGazetteSpider):
         """
         Parse each gazette metadata returned from :meth:`parse_ajaxpro_response`
         and yields its `Gazette` object.
+
         It implements the control flow to iterate over each available page for
         each power mapped in :attribute:`power_codes`, yielding a new
         request if there is a mapped power not yet crawled or if the response
@@ -183,7 +185,7 @@ class AjaxProSpider(BaseGazetteSpider):
                 self.start_url, dont_filter=True, callback=self.ajaxpro_request
             )
 
-    def parse_ajaxpro_response(self, response) -> List[dict]:
+    def parse_ajaxpro_response(self, response) -> list[dict]:
         """
         Parse the AjaxPro response body to `list` containing
         all gazette metadata formatted in to `dict` objects.
@@ -206,4 +208,5 @@ class AjaxProSpider(BaseGazetteSpider):
 
     def is_extra_edition(self) -> bool:
         """Method to be overrided if possible to determine extra_edition."""
+
         return False
