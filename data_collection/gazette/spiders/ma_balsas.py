@@ -9,7 +9,7 @@ class MaBalsasSpider(SiganetSpider):
     allowed_domains = ["transparencia.balsas.ma.gov.br/"]
 
     start_date = datetime.date(2017, 1, 12)
-    
+
     start_urls = [
         "https://transparencia.balsas.ma.gov.br/acessoInformacao/diario/diario/listarDiario"
     ]
