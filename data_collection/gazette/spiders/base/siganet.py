@@ -6,7 +6,12 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class SiganetSpider(BaseGazetteSpider):
     def parse(self, response):
-        sorted_json = sorted(response.json()["data"], key=lambda x: datetime.datetime.strptime(x["TDI_DT_PUBLICACAO"], "%Y-%m-%d %H:%M:%S").date())
+        sorted_json = sorted(
+            response.json()["data"],
+            key=lambda x: datetime.datetime.strptime(
+                x["TDI_DT_PUBLICACAO"], "%Y-%m-%d %H:%M:%S"
+            ).date(),
+        )
         for gazette in sorted_json:
             gazette_date = datetime.datetime.strptime(
                 gazette["TDI_DT_PUBLICACAO"], "%Y-%m-%d %H:%M:%S"
@@ -16,7 +21,7 @@ class SiganetSpider(BaseGazetteSpider):
                 break
             if self.start_date > gazette_date:
                 continue
-            
+
             if int(gazette["TDI_TPS_ID"]) == 2:
                 pdf_url = f"https://painel.siganet.net.br/upload/000000000{gazette['TDI_TPS_ID']}/cms/publicacoes/diario/{gazette['TDI_ARQUIVO']}"
             else:
