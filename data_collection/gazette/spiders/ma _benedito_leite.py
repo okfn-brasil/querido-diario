@@ -1,6 +1,6 @@
 from datetime import date
 
-from gazette.spiders.base import SiganetSpider
+from gazette.spiders.base.siganet import SiganetSpider
 
 
 class MaBeneditoLeiteSpider(SiganetSpider):
