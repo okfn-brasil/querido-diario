@@ -9,7 +9,6 @@ class MaBalsasSpider(SiganetSpider):
     allowed_domains = ["transparencia.saojosedosbasilios.ma.gov.br"]
 
     start_date = datetime.date(2015, 11, 27)
-    end_date = datetime.date.today()
 
     start_urls = [
         "https://transparencia.saojosedosbasilios.ma.gov.br/acessoInformacao/diario/diario/listarDiario"
