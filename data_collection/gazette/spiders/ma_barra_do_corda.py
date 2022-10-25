@@ -1,6 +1,5 @@
 import datetime as dt
 
-
 from gazette.spiders.base.dioenet import BaseDioenetSpider
 
 
