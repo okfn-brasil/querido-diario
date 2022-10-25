@@ -7,18 +7,18 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class RjRioDeJaneiroSpider(BaseGazetteSpider):
-    TERRITORY_ID = "3304557"
-    name = "rj_rio_de_janeiro"
-    allowed_domains = ["doweb.rio.rj.gov.br"]
+class EsSerraSpider(BaseGazetteSpider):
+    TERRITORY_ID = "3205002"
+    name = "es_serra"
+    allowed_domains = ["ioes.dio.es.gov.br"]
 
-    start_date = datetime.date(2006, 3, 16)
+    start_date = datetime.date(2021, 1, 1)
 
     def start_requests(self):
         for date in rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date):
             day = str(date.day).zfill(2)
             month = str(date.month).zfill(2)
-            url = f"https://doweb.rio.rj.gov.br/apifront/portal/edicoes/edicoes_from_data/{date.year}-{month}-{day}.json"
+            url = f"https://ioes.dio.es.gov.br/apifront/portal/edicoes/edicoes_from_data/{date.year}-{month}-{day}.json?subtheme=diariodaserra"
             yield scrapy.Request(url=url, cb_kwargs={"gazette_date": date.date()})
 
     def parse(self, response, gazette_date):
@@ -30,11 +30,12 @@ class RjRioDeJaneiroSpider(BaseGazetteSpider):
         for item in items:
             gazette_id = item["id"]
             gazette_url = (
-                f"https://doweb.rio.rj.gov.br/portal/edicoes/download/{gazette_id}"
+                f"https://ioes.dio.es.gov.br/portal/edicoes/download/{gazette_id}"
             )
             is_extra_edition = item["suplemento"] == 1
             yield Gazette(
                 date=gazette_date,
+                edition_number=item["numero"],
                 file_urls=[gazette_url],
                 is_extra_edition=is_extra_edition,
                 power="executive",

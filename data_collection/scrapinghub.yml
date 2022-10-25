@@ -1,4 +1,4 @@
-project: 470483
-stack: scrapy:2.5
+project: 601251
+stack: scrapy:2.6
 requirements:
   file: requirements.txt
