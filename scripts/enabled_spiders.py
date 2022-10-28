@@ -1,8 +1,9 @@
 # List of Spiders that are enabled to be executed
 # automatically in production
 SPIDERS = [
-    "am_manaus",
     "al_maceio",
+    "am_manaus",
+    "ap_santana",
     "ba_acajutiba",
     "ba_salvador",
     "ba_feira_de_santana",
