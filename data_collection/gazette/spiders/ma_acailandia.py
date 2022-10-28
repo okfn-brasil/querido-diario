@@ -1,8 +1,11 @@
 import datetime as dt
+import re
+
+from scrapy import Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-import scrapy
-import re
+
 
 class MaAcailandia(BaseGazetteSpider):
     TERRITORY_ID = "2100055"
@@ -44,7 +47,7 @@ class MaAcailandia(BaseGazetteSpider):
         start = self.start_date.strftime('%d-%m-%Y').replace('-', '%2F')
         end = self.end_date.strftime('%d-%m-%Y').replace('-', '%2F')
         url = f'{self.BASE_URL}diariooficial/edicoes?categoria={self.CATEGORY}&data_inicial={start}&data_final={end}&t=titulo'
-        yield scrapy.Request(
+        yield Request(
             url, 
             cb_kwargs=dict(url=url), 
         )
@@ -84,7 +87,7 @@ class MaAcailandia(BaseGazetteSpider):
         num_pages = self.get_num_pages(response)
         for page in range(1, num_pages  + 1):
             page_url = f'{url}&page={page}'
-            yield scrapy.Request(
+            yield Request(
                 page_url,
                 callback=self.parse_page,
             )
