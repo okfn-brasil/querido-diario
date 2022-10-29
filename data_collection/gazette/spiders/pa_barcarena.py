@@ -39,6 +39,9 @@ class PaBarcarenaSpider(BaseGazetteSpider):
                 lines["data_publicacao"], "%Y-%m-%d %H:%M:%S"
             ).date()
 
+            if edition_date < self.start_date or self.end_date < edition_date:
+                continue
+
             edition_data = (edition_id, edition_number, url, edition_date)
 
             if edition_data in processed_data:
