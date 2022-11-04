@@ -264,12 +264,7 @@ tldextract==3.4.0
     # via scrapy
 toml==0.10.2
     # via pre-commit
-tomli==2.0.1
-    # via
-    #   black
-    #   build
-    #   pep517
-twisted==22.8.0
+twisted==22.10.0
     # via scrapy
 typing-extensions==4.4.0
     # via twisted
