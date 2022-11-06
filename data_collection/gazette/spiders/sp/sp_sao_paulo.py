@@ -1,4 +1,3 @@
-import locale
 import re
 from datetime import date
 
@@ -9,6 +8,20 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 RE_MAX_PAGE_NUM = re.compile(r"\d+ de (\d+)")
+FULL_MONTH_NAME = {
+    1: "Janeiro",
+    2: "Fevereiro",
+    3: "Março",
+    4: "Abril",
+    5: "Maio",
+    6: "Junho",
+    7: "Julho",
+    8: "Agosto",
+    9: "Setembro",
+    10: "Outubro",
+    11: "Novembro",
+    12: "Dezembro",
+}
 
 
 class SpSaoPauloSpider(BaseGazetteSpider):
@@ -19,8 +32,6 @@ class SpSaoPauloSpider(BaseGazetteSpider):
     start_date = date(2017, 6, 1)
 
     def start_requests(self):
-        # Need to have the month's name in portuguese for the pdf url
-        locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
         for day in rrule(freq=DAILY, dtstart=self.start_date, until=date.today()):
             url = f"{self.BASE_URL}/nav_v6/header.asp?txtData={day.strftime('%d/%m/%Y')}&cad=1"
             yield scrapy.Request(url, cb_kwargs=dict(day=day.date()))
@@ -39,7 +50,14 @@ class SpSaoPauloSpider(BaseGazetteSpider):
         max_page = self.get_max_page(response)
         if not max_page:
             return
-        day_url = f"{self.BASE_URL}/doflash/prototipo/{day.strftime('%Y')}/{day.strftime('%B')}/{day.strftime('%d')}/cidade/pdf"
+        day_url = (
+            f"{self.BASE_URL}"
+            "/doflash/prototipo"
+            f"/{day.strftime('%Y')}"
+            f"/{FULL_MONTH_NAME[day.month]}"
+            f"/{day.strftime('%d')}"
+            "/cidade/pdf"
+        )
         urls = [f"{day_url}/pg_{page:04}.pdf" for page in range(1, max_page + 1)]
 
         yield Gazette(
