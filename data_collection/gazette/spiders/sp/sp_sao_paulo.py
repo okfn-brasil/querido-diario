@@ -1,6 +1,6 @@
 import locale
 import re
-from datetime import date, datetime
+from datetime import date
 
 import scrapy
 from dateutil.rrule import DAILY, rrule
@@ -48,5 +48,4 @@ class SpSaoPauloSpider(BaseGazetteSpider):
             is_extra_edition=False,
             territory_id=self.TERRITORY_ID,
             power="executive",
-            scraped_at=datetime.utcnow(),
         )
