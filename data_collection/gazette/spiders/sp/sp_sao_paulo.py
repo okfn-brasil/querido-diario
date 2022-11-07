@@ -32,7 +32,7 @@ class SpSaoPauloSpider(BaseGazetteSpider):
     start_date = date(2017, 6, 1)
 
     def start_requests(self):
-        for day in rrule(freq=DAILY, dtstart=self.start_date, until=date.today()):
+        for day in rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date):
             url = f"{self.BASE_URL}/nav_v6/header.asp?txtData={day.strftime('%d/%m/%Y')}&cad=1"
             yield scrapy.Request(url, cb_kwargs=dict(day=day.date()))
 
