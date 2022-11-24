@@ -64,5 +64,15 @@ def schedule_enabled_spiders():
         _schedule_job(start_date=YESTERDAY, full=False, spider_name=spider_name)
 
 
+@click.option(
+    "--start_date",
+    help="Start date that we want to scrape all enabled spiders.",
+)
+@cli.command()
+def schedule_all_spiders_by_date(start_date):
+    for spider_name in enabled_spiders.SPIDERS:
+        _schedule_job(start_date, full=False, spider_name=spider_name)
+
+
 if __name__ == "__main__":
     cli()
