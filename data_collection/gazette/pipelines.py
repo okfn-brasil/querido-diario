@@ -83,14 +83,14 @@ class SQLDatabasePipeline:
                 session.commit()
             except SQLAlchemyError as exc:
                 spider.logger.warning(
-                    f"Something wrong has happened when adding the gazette in the database."
+                    f"Something wrong has happened when adding the gazette in the database. "
                     f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}.",
-                    f"Details: {exc.args}",
+                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Details: {exc.args}"
                 )
                 session.rollback()
-            else:
-                session.close()
+
+        session.close()
 
         return item
 
