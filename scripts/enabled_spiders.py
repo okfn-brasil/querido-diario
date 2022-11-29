@@ -3,6 +3,7 @@
 SPIDERS = [
     "al_maceio",
     "am_manaus",
+    "ap_macapa",
     "ap_santana",
     "ba_acajutiba",
     "ba_salvador",

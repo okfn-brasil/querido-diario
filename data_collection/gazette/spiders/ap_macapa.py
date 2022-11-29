@@ -52,8 +52,10 @@ class ApMacapaSpider(BaseGazetteSpider):
         if raw_date:
             gazette_date = datetime.datetime.strptime(raw_date, "%d/%m/%Y").date()
         else:
-            raw_date = gazette.css("a h4::text").re_first(r"(DE .*)")
+            raw_date = gazette.css("a h4::text").re_first(r"(DE .*)") or ""
             gazette_date = dateparser.parse(raw_date)
+            gazette_date = gazette_date.date() if gazette_date else None
+
         return gazette_date
 
     def parse(self, response):
@@ -62,10 +64,9 @@ class ApMacapaSpider(BaseGazetteSpider):
             gazette_url = gazette.css("a::attr(href)").get()
             edition_number = gazette.css(".panel-heading ::text").re_first(r"\d+")
             gazette_date = self.get_gazette_date(gazette)
-            if (
-                gazette_date
-                and gazette_date < self.start_date
-                or gazette_date > self.end_date
+
+            if gazette_date is not None and (
+                gazette_date < self.start_date or gazette_date > self.end_date
             ):
                 continue
 
