@@ -1,5 +1,6 @@
-import datetime as dt
+import datetime
 
+import dateparser
 import scrapy
 
 from gazette.items import Gazette
@@ -7,63 +8,72 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class ApMacapaSpider(BaseGazetteSpider):
-
     name = "ap_macapa"
     allowed_domains = ["macapa.ap.gov.br"]
-    start_date = None
-
+    start_date = datetime.date(2018, 1, 1)
     TERRITORY_ID = "1600303"
 
-    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
-        self.start_date = dt.date(2018, 1, 1)
-
-        super(ApMacapaSpider, self).__init__(start_date, end_date)
-
-        self.logger.debug(
-            "Start date is {date}".format(date=self.start_date.isoformat())
-        )
-        self.logger.debug("End date is {date}".format(date=self.end_date.isoformat()))
-
     def start_requests(self):
-        base_url = "https://macapa.ap.gov.br/"
-
-        target_date = self.start_date
-        data = {
+        base_url = "http://macapa.ap.gov.br/page/1/"
+        start_date = self.start_date.strftime("%d/%m/%Y")
+        end_date = self.end_date.strftime("%d/%m/%Y")
+        params = {
             "s": "",
             "post_type": "official_diaries",
             "search": "official_diaries",
-            "official_diary_number": "",
+            "official_diary_initial_date": start_date,
+            "official_diary_final_date": end_date,
         }
-        while target_date <= self.end_date:
-            formatted_date = target_date.strftime("%d/%m/%Y")
-            data.update(
-                {
-                    "official_diary_initial_date": formatted_date,
-                    "official_diary_final_date": formatted_date,
-                }
-            )
+        yield scrapy.FormRequest(
+            url=base_url,
+            method="GET",
+            formdata=params,
+            callback=self._pagination_requests,
+            cb_kwargs={"params": params},
+        )
 
-            yield scrapy.FormRequest(
-                url=base_url, formdata=data, method="GET", meta={"date": target_date}
-            )
-            target_date = target_date + dt.timedelta(days=1)
+    def _pagination_requests(self, response, params):
+        pages = response.xpath("//a[@class='page-numbers']/text()").getall()
+        if pages:
+            last_page = max([int(page) for page in pages])
+            for page in range(1, last_page + 1):
+                next_page_url = f"http://macapa.ap.gov.br/page/{page}/"
+                yield scrapy.FormRequest(
+                    url=next_page_url,
+                    method="GET",
+                    formdata=params,
+                    callback=self.parse,
+                )
+        yield from self.parse(response)
+
+    def get_gazette_date(self, gazette):
+        gazette_date = None
+        raw_date = gazette.css("a h4::text").re_first(r"\d{2}\/\d{2}\/\d{4}")
+        if raw_date:
+            gazette_date = datetime.datetime.strptime(raw_date, "%d/%m/%Y").date()
+        else:
+            raw_date = gazette.css("a h4::text").re_first(r"(DE .*)") or ""
+            gazette_date = dateparser.parse(raw_date)
+            gazette_date = gazette_date.date() if gazette_date else None
+
+        return gazette_date
 
     def parse(self, response):
-        # Extract Items
-        links = response.xpath('//i[@class="fa fa-file-pdf-o"]/parent::a')
-        links = links.xpath("@href").getall()
+        gazettes = response.css(".diary > .panel")
+        for gazette in gazettes:
+            gazette_url = gazette.css("a::attr(href)").get()
+            edition_number = gazette.css(".panel-heading ::text").re_first(r"\d+")
+            gazette_date = self.get_gazette_date(gazette)
 
-        gazette_date = response.meta["date"]
+            if gazette_date is not None and (
+                gazette_date < self.start_date or gazette_date > self.end_date
+            ):
+                continue
 
-        if len(links) == 0:
-            self.logger.warning(
-                "No gazettes found for date {date}".format(date=gazette_date)
-            )
-
-        for index, file_url in enumerate(links):
             yield Gazette(
                 date=gazette_date,
-                file_urls=[file_url],
-                is_extra_edition=(index > 0),
-                power="executive_legislative",
+                file_urls=[gazette_url],
+                edition_number=edition_number,
+                is_extra_edition=False,
+                power="executive",
             )

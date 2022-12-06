@@ -6,6 +6,7 @@ from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import Gazette, initialize_database
@@ -80,16 +81,17 @@ class SQLDatabasePipeline:
             session.add(gazette)
             try:
                 session.commit()
-            except Exception:
-                spider.logger.exception(
-                    f"Something wrong has happened when adding the gazette in the database."
+            except SQLAlchemyError as exc:
+                spider.logger.warning(
+                    f"Something wrong has happened when adding the gazette in the database. "
                     f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}.",
+                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Details: {exc.args}"
                 )
                 session.rollback()
-                raise
 
         session.close()
+
         return item
 
 
