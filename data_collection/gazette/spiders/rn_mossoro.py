@@ -1,6 +1,5 @@
 import datetime as dt
 import re
-from urllib.parse import unquote
 
 import scrapy
 from dateutil.rrule import MONTHLY, rrule
@@ -14,6 +13,10 @@ class RnMossoroSpider(BaseGazetteSpider):
     TERRITORY_ID = "2408003"
     allowed_domains = ["jom.prefeiturademossoro.com.br"]
     start_date = dt.date(2008, 1, 1)
+
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0",
+    }
 
     def start_requests(self):
         # avoid skipping months if day of start_date is at the end of the month
@@ -50,7 +53,7 @@ class RnMossoroSpider(BaseGazetteSpider):
             yield scrapy.Request(next_page_url)
 
     def parse_gazette(self, response, date):
-        file_url = unquote(response.css("iframe::attr(src)").re_first(r"file=(.+)"))
+        file_url = response.xpath("//a[contains(text(), 'Baixar')]/@href").get()
         edition_regex = re.compile(r"JOM[n\s\.°º]+([a-z0-9]+)", re.IGNORECASE)
         edition_number = response.css(".entry-title::text").re_first(edition_regex)
 
