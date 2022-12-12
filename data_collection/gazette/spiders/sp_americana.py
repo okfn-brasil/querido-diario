@@ -27,14 +27,12 @@ class SpAmericanaSpider(BaseGazetteSpider):
     }
 
     def parse(self, response):
-
         param_url = f"?mes={self.start_date.month}&ano={self.start_date.year}"
         base_url = response.url
         url = base_url + param_url
         date = self.start_date
-        today = datetime.date.today()
 
-        while date.year < today.year or date.month < today.month:
+        while date.year < self.end_date.year or date.month < self.end_date.month:
             yield response.follow(url, self.parse_gazette)
             date = date + relativedelta(months=+1)
             url = base_url + f"?mes={date.month}&ano={date.year}"
@@ -50,7 +48,7 @@ class SpAmericanaSpider(BaseGazetteSpider):
             file_url = gazette.css(self.locations["gazette_url"]).get()
             details = gazette.css(self.locations["gazette_details"])
             date = details.re_first(r"(\d{2}\/\d{2}\/\d{4})")
-            date = dateparser.parse(date, date_formats=["%d/%m/%Y"]).date()
+            date = date = datetime.datetime.strptime(date, "%d/%m/%Y").date() 
             edition = details.re_first(r"No:\s*(\d+)")
 
             yield Gazette(
