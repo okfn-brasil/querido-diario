@@ -14,10 +14,6 @@ class RnMossoroSpider(BaseGazetteSpider):
     allowed_domains = ["jom.prefeiturademossoro.com.br"]
     start_date = dt.date(2008, 1, 1)
 
-    custom_settings = {
-        "USER_AGENT": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0",
-    }
-
     def start_requests(self):
         # avoid skipping months if day of start_date is at the end of the month
         first_day_of_start_date_month = dt.date(
