@@ -57,6 +57,7 @@ SPIDERS = [
     "sp_campinas",
     "sp_guarulhos",
     "sp_jaboticabal",
+    "sp_ibitinga",
     "sp_jundiai",
     "sp_marilia",
     "sp_santo_andre",
