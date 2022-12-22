@@ -40,6 +40,7 @@ SPIDERS = [
     "pi_teresina",
     "pr_curitiba",
     "pr_londrina",
+    "rj_arraial_do_cabo",
     "rj_belford_roxo",
     "rj_nova_iguacu",
     "rj_rio_de_janeiro",
