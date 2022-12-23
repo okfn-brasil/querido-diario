@@ -5,6 +5,13 @@ from scrapy.exceptions import NotConfigured
 
 
 class BaseGazetteSpider(scrapy.Spider):
+    # Some websites block access from servers outside
+    # Brazil. We are running our spiders in Scrapy Cloud
+    # (https://www.zyte.com/scrapy-cloud/) and its servers
+    # are not in Brazil. To allow us to get that data, we
+    # can enable Zyte Smart Proxy (a paid service). Only
+    # enable this in your spider after ensuring that we are
+    # being blocked based on our location.
     zyte_smartproxy_enabled = False
 
     def __init__(self, start_date=None, end_date=None, *args, **kwargs):
