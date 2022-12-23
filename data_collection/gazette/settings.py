@@ -54,3 +54,6 @@ AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="")
 AWS_ENDPOINT_URL = config("AWS_ENDPOINT_URL", default="")
 AWS_REGION_NAME = config("AWS_REGION_NAME", default="")
 FILES_STORE_S3_ACL = config("FILES_STORE_S3_ACL", default="public-read")
+
+DOWNLOADER_MIDDLEWARES = {"scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware": 610}
+ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"

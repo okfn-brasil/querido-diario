@@ -8,6 +8,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpGuarulhosSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "3518800"
     name = "sp_guarulhos"
     allowed_domains = ["diariooficial.guarulhos.sp.gov.br"]

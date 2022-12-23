@@ -7,6 +7,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class ToAraguainaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     name = "to_araguaina"
     TERRITORY_ID = "1702109"
     allowed_domains = [

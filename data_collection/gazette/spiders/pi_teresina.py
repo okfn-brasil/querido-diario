@@ -8,6 +8,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PiTeresina(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "2211001"
     name = "pi_teresina"
     allowed_domains = ["dom.pmt.pi.gov.br"]

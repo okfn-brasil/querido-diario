@@ -21,6 +21,7 @@ def _schedule_job(start_date, full, spider_name):
         "AWS_REGION_NAME": config("AWS_REGION_NAME"),
         "SPIDERMON_DISCORD_FAKE": config("SPIDERMON_DISCORD_FAKE"),
         "SPIDERMON_DISCORD_WEBHOOK_URL": config("SPIDERMON_DISCORD_WEBHOOK_URL"),
+        "ZYTE_SMARTPROXY_APIKEY": config("ZYTE_SMARTPROXY_APIKEY"),
     }
 
     job_args = {}

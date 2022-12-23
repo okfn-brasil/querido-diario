@@ -9,6 +9,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class MtCuiabaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "5103403"
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
