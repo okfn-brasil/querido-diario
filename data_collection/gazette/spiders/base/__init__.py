@@ -5,6 +5,8 @@ from scrapy.exceptions import NotConfigured
 
 
 class BaseGazetteSpider(scrapy.Spider):
+    zyte_smartproxy_enabled = False
+
     def __init__(self, start_date=None, end_date=None, *args, **kwargs):
         super(BaseGazetteSpider, self).__init__(*args, **kwargs)
 

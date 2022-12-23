@@ -9,6 +9,7 @@ psycopg2-binary
 python-dateutil
 python-decouple
 scrapy
+scrapy-zyte-smartproxy
 schematics
 SQLAlchemy
 spidermon[monitoring]
