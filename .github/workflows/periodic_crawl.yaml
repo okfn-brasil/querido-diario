@@ -20,6 +20,7 @@ jobs:
       AWS_REGION_NAME: ${{ secrets.AWS_REGION_NAME }}
       SPIDERMON_DISCORD_FAKE: ${{ secrets.SPIDERMON_DISCORD_FAKE }}
       SPIDERMON_DISCORD_WEBHOOK_URL: ${{ secrets.SPIDERMON_DISCORD_WEBHOOK_URL }}
+      ZYTE_SMARTPROXY_APIKEY: ${{ secrets.ZYTE_SMARTPROXY_APIKEY }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
