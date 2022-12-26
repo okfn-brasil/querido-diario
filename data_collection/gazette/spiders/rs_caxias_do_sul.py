@@ -7,6 +7,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RsCaxiasDoSulSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "4305108"
     name = "rs_caxias_do_sul"
     allowed_domains = ["caxias.rs.gov.br"]
