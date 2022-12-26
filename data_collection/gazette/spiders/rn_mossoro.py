@@ -9,9 +9,9 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RnMossoroSpider(BaseGazetteSpider):
-    name = "rn_mossoro"
     TERRITORY_ID = "2408003"
-    allowed_domains = ["jom.prefeiturademossoro.com.br"]
+    name = "rn_mossoro"
+    allowed_domains = ["jom.mossoro.rn.gov.br"]
     start_date = dt.date(2008, 1, 1)
 
     def start_requests(self):
@@ -24,7 +24,7 @@ class RnMossoroSpider(BaseGazetteSpider):
         )
         for month_date in months_of_interest:
             yield scrapy.Request(
-                url=f"http://jom.prefeiturademossoro.com.br/{month_date.year}/{month_date.month}/"
+                url=f"http://jom.mossoro.rn.gov.br/{month_date.year}/{month_date.month}/"
             )
 
     def parse(self, response):
