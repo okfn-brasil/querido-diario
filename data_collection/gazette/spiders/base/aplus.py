@@ -17,18 +17,16 @@ class BaseAplusSpider(BaseGazetteSpider):
         )
 
     def parse(self, response):
-        gazettes = response.xpath("//tbody/tr")
-
+        gazettes = response.xpath(
+            "//tbody/tr[not(contains(./td/text(), 'Nenhum registro encontrado'))]"
+        )
         for gazette in gazettes:
-
             gazette_date = dt.datetime.strptime(
                 gazette.xpath("./td[2]/text()").get(), "%d/%m/%Y"
             ).date()
-
-            edition_number = gazette.xpath("./td[1]/text()").get()
-            hyphenated_suffix = re.search(r"-\d+$", edition_number)
-            is_extra_edition = True if hyphenated_suffix is not None else False
             gazette_url = gazette.css("td a::attr(href)").get()
+            edition_number = gazette.xpath("./td[1]/text()").get()
+            is_extra_edition = re.search(r"-\d+$", edition_number) is not None
 
             yield Gazette(
                 date=gazette_date,
