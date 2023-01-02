@@ -45,7 +45,7 @@ QUERIDODIARIO_DATABASE_URL = config(
     "QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db"
 )
 QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO = 5
-QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 5
+QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 7
 
 # These settings are needed only when storing downloaded files
 # in a S3 bucket
