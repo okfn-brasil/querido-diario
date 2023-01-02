@@ -44,7 +44,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
 
             link_text = gazette.css("::text").get().lower()
             is_extra_edition = bool(
-                re.search(r"suplemento|complemento|especial", link_text)
+                re.search(r"suplemento|complemento|especial|extra", link_text)
             )
 
             yield Gazette(
