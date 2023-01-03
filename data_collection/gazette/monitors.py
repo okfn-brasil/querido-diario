@@ -61,8 +61,10 @@ class ComparisonBetweenSpiderExecutionsMonitor(Monitor):
                 .filter(JobStats.spider == self.data.spider.name)
                 .all()
             )
-            extracted_in_period = sum(
-                [stat.job_stats.get("item_scraped_count", 0) for stat in job_stats]
+            n_scraped_items = self.data.stats.get("item_scraped_count", 0)
+            extracted_in_period = (
+                sum([stat.job_stats.get("item_scraped_count", 0) for stat in job_stats])
+                + n_scraped_items
             )
             self.assertNotEqual(
                 extracted_in_period,
