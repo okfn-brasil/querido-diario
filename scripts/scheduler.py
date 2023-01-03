@@ -65,6 +65,16 @@ def schedule_enabled_spiders():
         _schedule_job(start_date=YESTERDAY, full=False, spider_name=spider_name)
 
 
+@cli.command()
+def last_week_schedule_enabled_spiders():
+    # Sometimes the online gazette is not published in the websites in the same
+    # day as the physical one (sometimes it take more than two days)
+    # so running this command will ensure that we get the data of the latest week
+    start_date = datetime.date.today() - datetime.timedelta(days=8)
+    for spider_name in enabled_spiders.SPIDERS:
+        _schedule_job(start_date=start_date, full=False, spider_name=spider_name)
+
+
 @click.option(
     "--start_date",
     help="Start date that we want to scrape all enabled spiders.",
