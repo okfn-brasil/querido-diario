@@ -133,7 +133,7 @@ Tente instalar `python3-dev`. Por exemplo, via `apt install python3-dev`, se voc
   </a>
 </p>
 
-Ingresse em nosso [Discord](SUPPORT.md) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição e conversar sobre inovação cívica em geral.
+Ingresse em nosso [canal de comunidade](.github/SUPPORT.md) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição e conversar sobre inovação cívica em geral.
 
 
 # Agradecimentos
@@ -152,9 +152,6 @@ Conheça [quem apoia o Querido Diário](https://queridodiario.ok.org.br/apoie#qu
   </a>
   <a href="https://www.linkedin.com/company/open-knowledge-brasil" target="_blank">
     <img alt="LinkedIn Follow" src="https://img.shields.io/badge/LinkedIn-_-9cf?style=for-the-badge&logo=linkedin">
-  </a>
-  <a href="https://www.facebook.com/OpenKnowledgeBrasil" target="_blank">
-    <img alt="Facebook Follow" src="https://img.shields.io/badge/Facebook-_-informational?style=for-the-badge&logo=facebook">
   </a>
 </p>
 
