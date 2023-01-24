@@ -20,7 +20,9 @@ class SpCampinasSpider(BaseGazetteSpider):
         for monthly_date in rrule(
             freq=MONTHLY, dtstart=initial_date, until=self.end_date
         ):
-            url = self.url_base.format(monthly_date.year, monthly_date.month)
+            url = self.url_base.format(
+                monthly_date.year, str(monthly_date.month).zfill(2)
+            )
             yield scrapy.Request(url)
 
     def parse(self, response):
