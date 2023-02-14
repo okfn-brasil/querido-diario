@@ -2,8 +2,8 @@ name: Weekly execution of Spiders
 
 on:
   schedule:
-    # Execute once a week at 8PM (BRT)
-    - cron: "0 23 * * 1"
+    # Execute once a month at 8PM (BRT)
+    - cron: "0 23 1 * *"
 
 jobs:
   schedule-jobs:
@@ -30,4 +30,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install click python-decouple scrapinghub
     - name: Schedule jobs
-      run: python scripts/scheduler.py last-week-schedule-enabled-spiders
+      run: python scripts/scheduler.py last-month-schedule-enabled-spiders
