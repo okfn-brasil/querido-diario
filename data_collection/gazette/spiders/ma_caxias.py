@@ -25,6 +25,7 @@ class MaCaxiasSpider(BaseGazetteSpider):
     custom_settings = {
         "CONCURRENT_REQUESTS": 4,
         "DOWNLOAD_DELAY": 2.0,
+        "QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES": 14,
     }
 
     def start_requests(self):
