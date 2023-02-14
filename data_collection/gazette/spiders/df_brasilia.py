@@ -2,10 +2,31 @@ import datetime
 import re
 
 from dateparser import parse
+from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+
+MONTH_MAP = {
+    idx + 1: value
+    for idx, value in enumerate(
+        [
+            "01_Janeiro",
+            "02_Fevereiro",
+            "03_Março",
+            "04_Abril",
+            "05_Maio",
+            "06_Junho",
+            "07_Julho",
+            "08_Agosto",
+            "09_Setembro",
+            "10_Outubro",
+            "11_Novembro",
+            "12_Dezembro",
+        ]
+    )
+}
 
 
 class DfBrasiliaSpider(BaseGazetteSpider):
@@ -19,25 +40,17 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     PDF_URL = "https://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
 
     def start_requests(self):
-        """Requests page that has a list of all available years."""
-        initial_year = self.start_date.year
-        end_year = self.end_date.year
-        for year in range(end_year, initial_year - 1, -1):
-            yield Request(
-                f"{self.GAZETTE_URL}?dir={year}",
-                meta={"year": year},
-                callback=self.parse_year,
+        months_by_year = [
+            (date.month, date.year)
+            for date in rrule(
+                MONTHLY, dtstart=self.start_date.replace(day=1), until=self.end_date
             )
-
-    def parse_year(self, response):
-        """Parses available months to request list of available dates for each month."""
-        months_available = response.json().get("data", [])
-        year = response.meta["year"]
-
-        for month in months_available:
+        ]
+        for month, year in months_by_year:
+            month_value = MONTH_MAP.get(month)
             yield Request(
-                f"{self.GAZETTE_URL}?dir={year}/{month}",
-                meta={"month": month, "year": year},
+                f"{self.GAZETTE_URL}?dir={year}/{month_value}",
+                meta={"month": month_value, "year": year},
                 callback=self.parse_month,
             )
 
