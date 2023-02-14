@@ -18,6 +18,7 @@ SPIDERS = [
     "es_vila_velha",
     "go_aparecida_de_goiania",
     "go_goiania",
+    "ma_aldeias_altas",
     "ma_caxias",
     "ma_codo",
     "ma_peritoro",
