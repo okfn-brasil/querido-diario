@@ -12,7 +12,7 @@ class MaAldeiasAltasSpider(BaseGazetteSpider):
     name = "ma_aldeias_altas"
     allowed_domains = ["aldeiasaltas.ma.gov.br"]
     start_date = date(2017, 5, 3)
-    url_base = "http://aldeiasaltas.ma.gov.br/diario-oficial?data={}"
+    url_base = "https://aldeiasaltas.ma.gov.br/diario-oficial?data={}"
     TERRITORY_ID = "2100303"
 
     def start_requests(self):
@@ -21,9 +21,9 @@ class MaAldeiasAltasSpider(BaseGazetteSpider):
             yield scrapy.Request(self.url_base.format(day.strftime("%Y-%m-%d")))
 
     def parse(self, response):
-        gazettes = response.css("tr")
+        gazettes = response.css("tbody tr")
         for gazette in gazettes:
-            gazette_url = gazette.css("a::attr(href)")
+            gazette_url = gazette.css("a::attr(href)").get()
             gazette_date = datetime.strptime(
                 gazette.xpath("td[2]/text()").get(), "%d/%m/%Y"
             )
