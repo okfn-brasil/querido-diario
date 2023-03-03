@@ -30,6 +30,8 @@ MONTH_MAP = {
 
 
 class DfBrasiliaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "5300108"
     name = "df_brasilia"
     start_date = datetime.date(1967, 12, 25)
