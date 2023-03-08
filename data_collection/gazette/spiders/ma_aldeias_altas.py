@@ -8,7 +8,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class MaAldeiasAltasSpider(BaseGazetteSpider):
-
     name = "ma_aldeias_altas"
     allowed_domains = ["aldeiasaltas.ma.gov.br"]
     start_date = date(2017, 5, 3)

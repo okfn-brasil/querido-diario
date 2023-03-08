@@ -4,7 +4,6 @@ from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 
 
 class BaSaoFelixSpider(ImprensaOficialSpider):
-
     name = "ba_sao_felix"
     allowed_domains = ["pmsaofelixba.imprensaoficial.org"]
     start_date = date(2017, 1, 1)

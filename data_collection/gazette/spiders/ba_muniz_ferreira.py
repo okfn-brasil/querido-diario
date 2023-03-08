@@ -4,7 +4,6 @@ from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 
 
 class BaMunizFerreiraSpider(ImprensaOficialSpider):
-
     name = "ba_muniz_ferreira"
     allowed_domains = ["pmmunizferreiraba.imprensaoficial.org"]
     start_date = date(2014, 12, 1)

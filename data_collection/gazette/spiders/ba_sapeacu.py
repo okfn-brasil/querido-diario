@@ -4,7 +4,6 @@ from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 
 
 class BaSapeacuSpider(ImprensaOficialSpider):
-
     name = "ba_sapeacu"
     allowed_domains = ["pmsapeacuba.imprensaoficial.org", "sapeacu.ba.gov.br"]
     start_date = date(2017, 1, 1)

@@ -21,7 +21,6 @@ class SpItuSpider(BaseGazetteSpider):
         yield Request(self.GAZETTE_API_URL)
 
     def parse(self, response):
-
         response_js = chompjs.parse_js_object(response.text)
 
         for element in response_js.get("data"):

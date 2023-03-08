@@ -1,25 +1,49 @@
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    -   id: check-added-large-files
+    -   id: check-case-conflict
+        fail_fast: true
     -   id: check-merge-conflict
-    -   id: check-yaml
+        fail_fast: true
     -   id: debug-statements
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
--   repo: https://github.com/psf/black
-    rev: 22.12.0
+        fail_fast: true
+    -   id: detect-aws-credentials
+        fail_fast: true
+        args: ["--allow-missing-credentials"]
+    -   id: detect-private-key
+        fail_fast: true
+
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
     hooks:
     -   id: black
--   repo: https://github.com/PyCQA/isort
+        fail_fast: true
+
+  - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
     -   id: isort
+        fail_fast: true
         args: ["--profile", "black", "--filter-files"]
--   repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.0.254'
     hooks:
-    -   id: flake8
+    -   id: ruff
+        fail_fast: true
+        args: ["--ignore", "E501"]
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+    -   id: bandit
+        fail_fast: true
+        args: ["-ll"]
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.3.1
+    hooks:
+    -   id: python-safety-dependencies-check
+        fail_fast: true
+        files: requirements\/[a-z]+\.txt

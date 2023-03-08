@@ -101,7 +101,6 @@ class CustomSendDiscordMessage(SendDiscordMessage):
 
 
 class SpiderCloseMonitorSuite(MonitorSuite):
-
     monitors = [
         ComparisonBetweenSpiderExecutionsMonitor,
         RequestsItemsRatioMonitor,
