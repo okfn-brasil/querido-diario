@@ -9,7 +9,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RnNatalSpider(BaseGazetteSpider):
-
     name = "rn_natal"
     allowed_domains = ["www.natal.rn.gov.br"]
     start_date = date(2003, 11, 19)

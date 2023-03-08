@@ -4,7 +4,6 @@ from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 
 
 class BaItaquaraSpider(ImprensaOficialSpider):
-
     name = "ba_itaquara"
     allowed_domains = ["pmitaquaraba.imprensaoficial.org", "itaquara.ba.gov.br"]
     start_date = date(2019, 1, 1)

@@ -4,7 +4,6 @@ from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
 
 
 class BaConceicaoDoAlmeidaSpider(ImprensaOficialSpider):
-
     name = "ba_conceicao_do_almeida"
     allowed_domains = [
         "pmconceicaodoalmeidaba.imprensaoficial.org",

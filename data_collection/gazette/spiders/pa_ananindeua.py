@@ -8,7 +8,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PaAnanindeuaSpider(BaseGazetteSpider):
-
     TERRITORY_ID = "1500800"
     name = "pa_ananindeua"
     allowed_domains = ["ananindeua.pa.gov.br"]

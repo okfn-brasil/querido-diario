@@ -23,7 +23,6 @@ class SpBauruSpider(BaseGazetteSpider):
             yield Request(url=f"{response.url}?a={year}", callback=self.parse_year)
 
     def parse_year(self, response):
-
         months_links = response.xpath(
             f"{self.BASE_XPATH}" "/ul/li/ul/li/a/@href"
         ).extract()
