@@ -1,8 +1,6 @@
-import csv
 import datetime as dt
 import logging
 
-import pkg_resources
 from sqlalchemy import (
     Boolean,
     Column,
@@ -17,6 +15,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
+
+from gazette.utils import territories_metadata
 
 DeclarativeBase = declarative_base()
 
@@ -34,16 +34,11 @@ def load_territories(engine):
     num_territories = session.query(Territory).count()
     if num_territories == 0:
         logger.info("Populating 'territories' table - Please wait!")
-        territories_file = pkg_resources.resource_filename(
-            "gazette", "resources/territories.csv"
-        )
-        with open(territories_file, encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            territories = []
-            for row in reader:
-                territories.append(Territory(**row))
-            session.bulk_save_objects(territories)
-            session.commit()
+        territories = []
+        for row in territories_metadata():
+            territories.append(Territory(**row))
+        session.bulk_save_objects(territories)
+        session.commit()
         logger.info("Populating 'territories' table - Done!")
 
 
