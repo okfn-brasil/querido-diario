@@ -9,7 +9,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class PeRecifeSpiderAcervo2015A2020(BaseGazetteSpider):
+class PeRecife2015To2020Spider(BaseGazetteSpider):
     """Recife's (PE) spider for gazettes from 2015 to 2020
 
     This spider is implemented to crawl Recife's `gazette system
@@ -32,7 +32,7 @@ class PeRecifeSpiderAcervo2015A2020(BaseGazetteSpider):
         - http://200.238.105.211/cadernos/2020/20200616/8-PrefeituradoRecife/PrefeituradoRecife(20200616).pdf
     """
 
-    name = "pe_recife_acervo_2015_a_2020"
+    name = "pe_recife_2015_2020"
     TERRITORY_ID = "2611606"
 
     start_date = dt.date(2015, 4, 30)
@@ -115,7 +115,7 @@ class PeRecifeSpider(BaseGazetteSpider):
         - `Ambas publicações <https://dome.recife.pe.gov.br/dome/doDia.php?dataEdicao=2022-01-29>`_
     """
 
-    name = "pe_recife"
+    name = "pe_recife_main"
     TERRITORY_ID = "2611606"
 
     start_date = dt.date(2020, 8, 1)
