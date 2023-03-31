@@ -1,0 +1,48 @@
+name: Revisão retroativa
+description: Dar manutenção em código legado de raspadores no repositório
+title: "[Revisão retroativa]: Raspador de <MUNICÍPIO-UF>"
+labels: ["refactor"]
+body: 
+  - type: dropdown
+    id: goal
+    attributes:
+      label: Objetivo da Issue
+      description: Selecione a opção abaixo
+      multiple: false
+      options:
+        - Neste repositório, há muitos códigos de raspadores que foram desenvolvidos no começo do projeto e não estão sendo usados. Para passar a usar o raspador deste município, é necessário testar para verificar se segue funcionando e revisá-lo caso não esteja. 
+    validations:
+      required: true
+  - type: input
+    id: replicable-system
+    attributes:
+      label: URL
+      description: URL do arquivo de código do raspador
+    validations:
+      required: true
+  - type: dropdown
+    id: replicated-systems
+    attributes:
+      label: É um município replicado?
+      description: Verifique a lista de imports presente nas primeiras linhas do código.
+      multiple: false
+      options:
+        - Não, o código utiliza BaseGazetteSpider. 
+        - Sim, o código utiliza outro GazetteSpider que não o Base. 
+    validations:
+      required: true
+  - type: input
+    id: publishing-time
+    attributes:
+      label: Período de publicação
+      description: Época de disponibilização dos diários no site que o código usa
+      placeholder: ex. mês/ano até atualmente; de 2016 à 2020
+    validations:
+      required: true
+  - type: textarea
+    id: test-list
+    attributes:
+      label: Lista de testes
+      description: "Utilize a lista a seguir de referência para teste. O raspador precisa atender todos os itens para estar pronto para ser usado. \n 1. [ ] Você executou uma extração completa do spider localmente e os dados retornados estavam corretos.\n 2. [ ] Você executou uma extração por período (start_date e end_date definidos) ao menos uma vez e os dados retornados estavam corretos. \n 3. [ ] Você verificou que não existe nenhum erro nos logs (log/ERROR igual a zero).\n 4. [ ] Você definiu o atributo de classe start_date no seu spider com a data do Diário Oficial mais antigo disponível na página da cidade.\n 5. [ ] Você garantiu que todos os campos que poderiam ser extraídos foram extraídos <a href='https://docs.queridodiario.ok.org.br/pt/latest/escrevendo-um-novo-spider.html#definicao-de-campos'>de acordo com a documentação</a>.  \n \n Por favor, inclua qualquer informação relevante para o desenvolvimento."
+    validations:
+      required: false
