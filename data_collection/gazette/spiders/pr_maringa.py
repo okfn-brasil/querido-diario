@@ -11,6 +11,7 @@ class PrMaringaSpider(BaseGazetteSpider):
     TERRITORY_ID = "4115200"
     name = "pr_maringa"
     allowed_domains = ["maringa.pr.gov.br"]
+    start_date = date(2007, 1, 1)
 
     def start_requests(self):
         """
@@ -23,9 +24,7 @@ class PrMaringaSpider(BaseGazetteSpider):
         )
 
     def parse_form(self, response):
-        todays_date = date.today()
-        current_year = todays_date.year
-        for year in range(current_year, 2006, -1):
+        for year in range(self.start_date.year, self.end_date.year + 1):
             yield scrapy.FormRequest.from_response(
                 response,
                 headers={"Content-Type": "application/x-www-form-urlencoded"},
@@ -37,13 +36,15 @@ class PrMaringaSpider(BaseGazetteSpider):
     def parse_year(self, response):
         rows = response.css("table tr")[3:]
         for row in rows:
-            gazette_file_link = row.css("td:nth-child(1) a::attr(href)").extract_first()
-            gazette_date = row.css("td:nth-child(2) font > font::text").extract_first()
-            yield Gazette(
-                date=parse(gazette_date, languages=["pt"]).date(),
-                file_urls=[gazette_file_link],
-                is_extra_edition=any(
-                    caracter.isalpha() for caracter in gazette_file_link.split(" ")[-1]
-                ),
-                power="executive_legislative",
-            )
+            gazette_file_link = row.css("td:nth-child(1) a::attr(href)").get()
+            gazette_date = row.css("td:nth-child(2) font > font::text").get()
+            data = parse(gazette_date, languages=["pt"]).date()
+            edition = row.css("td:nth-child(1) a::text").get()[1:]
+            if self.start_date <= data <= self.end_date:
+                yield Gazette(
+                    date=data,
+                    edition_number=edition,
+                    file_urls=[gazette_file_link],
+                    is_extra_edition=edition[-1].isalpha(),
+                    power="executive_legislative",
+                )
