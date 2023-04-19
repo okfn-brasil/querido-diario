@@ -78,6 +78,7 @@ SPIDERS = [
     "sp_ibitinga",
     "sp_jundiai",
     "sp_marilia",
+    "sp_paulinia",
     "sp_santo_andre",
     "sp_santos",
     "sp_sumare",
