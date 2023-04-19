@@ -11,6 +11,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    Table,
     Text,
     UniqueConstraint,
     create_engine,
@@ -73,6 +74,14 @@ class Gazette(DeclarativeBase):
     __table_args__ = (UniqueConstraint("territory_id", "date", "file_checksum"),)
 
 
+territory_spider_map = Table(
+    "territory_spider_map",
+    DeclarativeBase.metadata,
+    Column("spider_name", ForeignKey("querido_diario_spiders.spider_name")),
+    Column("territory_id", ForeignKey("territories.id")),
+)
+
+
 class Territory(DeclarativeBase):
     __tablename__ = "territories"
     id = Column(String, primary_key=True)
@@ -80,3 +89,26 @@ class Territory(DeclarativeBase):
     state_code = Column(String)
     state = Column(String)
     gazettes = relationship("Gazette", order_by=Gazette.id, back_populates="territory")
+
+
+class QueridoDiarioSpider(DeclarativeBase):
+    __tablename__ = "querido_diario_spiders"
+
+    spider_name = Column(
+        String,
+        doc="As defined in 'name' attribute of each Spider class.",
+        primary_key=True,
+    )
+    date_from = Column(Date, doc="Initial date this Spider is able to gather data.")
+    date_to = Column(
+        Date,
+        doc="Final date this Spider is able to gather data ('null' if able to gather data in current day)",
+        nullable=True,
+    )
+    enabled = Column(
+        Boolean,
+        default=False,
+        doc="Flag to enable/disable Spider to be executed in production.",
+    )
+
+    territories = relationship("Territory", secondary=territory_spider_map)
