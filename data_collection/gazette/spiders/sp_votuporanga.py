@@ -1,6 +1,6 @@
 from base64 import b64encode
+from datetime import date, datetime
 from json import loads
-from datetime import  date, datetime
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -23,18 +23,14 @@ class SpVotuporangaSpider(BaseGazetteSpider):
 
     def parse(self, response):
         json_text = (
-            response.css('p::text').get().replace("parseResponse(", "")
+            response.css("p::text").get().replace("parseResponse(", "")
         ).replace(");", "")
 
         json_text = loads(json_text)
 
         for diarios in json_text["data"]:
-            data = datetime.strptime(
-                diarios['data'], "%Y-%m-%d"
-            ).date()
-            link = b64encode(
-                bytearray(str(diarios['iddo']), 'utf-8')
-            ).decode('utf-8')
+            data = datetime.strptime(diarios["data"], "%Y-%m-%d").date()
+            link = b64encode(bytearray(str(diarios["iddo"]), "utf-8")).decode("utf-8")
 
             if self.start_date <= data <= self.end_date:
                 yield Gazette(
