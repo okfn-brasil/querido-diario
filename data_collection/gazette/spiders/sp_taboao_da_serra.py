@@ -1,4 +1,5 @@
-from datetime import datetime, date
+from datetime import date, datetime
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -18,9 +19,12 @@ class SpTaboaoDaSerraSpider(BaseGazetteSpider):
     end_date = datetime.today().date()
 
     def parse(self, response):
-
-        links = self.filtro_links(divs=response.css('div[class*=elementor-button-wrapper]'))
-        datas_edits = response.css('div[class*=jet-listing-dynamic-field__content]::text').getall()
+        links = self.filtro_links(
+            divs=response.css("div[class*=elementor-button-wrapper]")
+        )
+        datas_edits = response.css(
+            "div[class*=jet-listing-dynamic-field__content]::text"
+        ).getall()
         datas, edits = datas_edits[::2], datas_edits[1::2]
 
         for info in range(len(links)):
@@ -39,22 +43,21 @@ class SpTaboaoDaSerraSpider(BaseGazetteSpider):
 
     @staticmethod
     def filtro_links(divs):
-
         """
         :param divs: Recebe uma lista de Tags Div para extrair links do PDF
         :return: Lista com links PDF
         """
 
-        listas = {
-            "Lista Principal": [],
-            "Lista Complemento": []
-        }
+        listas = {"Lista Principal": [], "Lista Complemento": []}
 
         for links in divs:
-            if links.css('span[class*=elementor-button-text]::text').get() == "Link externo":
-                listas["Lista Principal"].append(links.css('a::attr(href)').get())
-            if links.css('i').get():
-                listas["Lista Complemento"].append(links.css('a::attr(href)').get())
+            if (
+                links.css("span[class*=elementor-button-text]::text").get()
+                == "Link externo"
+            ):
+                listas["Lista Principal"].append(links.css("a::attr(href)").get())
+            if links.css("i").get():
+                listas["Lista Complemento"].append(links.css("a::attr(href)").get())
 
         for filtro in range(len(listas["Lista Principal"])):
             if str(listas["Lista Principal"][filtro]).find("pdf") == -1:
