@@ -48,10 +48,55 @@ def load_territories(engine):
         logger.info("Populating 'territories' table - Done!")
 
 
-def initialize_database(database_url):
+def load_spiders(engine, territory_spider_map):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    if session.query(QueridoDiarioSpider).count() > 0:
+        return
+
+    logger.info("Populating 'querido_diario_spider' table - Please wait!")
+
+    spiders = []
+    territory_ids = set()
+    for info in territory_spider_map:
+        spider_name, territory_id, date_from = info
+        spiders.append(
+            QueridoDiarioSpider(spider_name=spider_name, date_from=date_from)
+        )
+        territory_ids.add(territory_id)
+
+    session.add_all(spiders)
+    session.commit()
+
+    spiders = (
+        session.query(QueridoDiarioSpider)
+        .filter(
+            QueridoDiarioSpider.spider_name.in_(set(s[0] for s in territory_spider_map))
+        )
+        .all()
+    )
+    spider_map = {spider.spider_name: spider for spider in spiders}
+
+    territories = session.query(Territory).filter(Territory.id.in_(territory_ids)).all()
+    territory_map = {t.id: t for t in territories}
+
+    for info in territory_spider_map:
+        spider_name, territory_id, _ = info
+        spider = spider_map.get(spider_name)
+        territory = territory_map.get(territory_id)
+        if spider is not None and territory is not None:
+            spider.territories.append(territory)
+
+    session.commit()
+    logger.info("Populating 'querido_diario_spider' table - Done!")
+
+
+def initialize_database(database_url, territory_spider_map):
     engine = create_engine(database_url)
     create_tables(engine)
     load_territories(engine)
+    load_spiders(engine, territory_spider_map)
     return engine
 
 

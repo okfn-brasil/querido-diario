@@ -2,10 +2,12 @@ import datetime as dt
 from pathlib import Path
 
 from itemadapter import ItemAdapter
+from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
+from scrapy.utils import project
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
@@ -44,9 +46,25 @@ class SQLDatabasePipeline:
         database_url = crawler.settings.get("QUERIDODIARIO_DATABASE_URL")
         return cls(database_url=database_url)
 
+    def _generate_territory_spider_map(self):
+        settings = project.get_project_settings()
+        spider_loader = spiderloader.SpiderLoader.from_settings(settings)
+        spiders = spider_loader.list()
+        classes = [spider_loader.load(name) for name in spiders]
+
+        mapping = []
+        for spider_class in classes:
+            spider_name = getattr(spider_class, "name", None)
+            territory_id = getattr(spider_class, "TERRITORY_ID", None)
+            date_from = getattr(spider_class, "start_date", None)
+            if all((spider_name, territory_id, date_from)):
+                mapping.append((spider_name, territory_id, date_from))
+        return mapping
+
     def open_spider(self, spider):
         if self.database_url is not None:
-            engine = initialize_database(self.database_url)
+            territory_spider_map = self._generate_territory_spider_map()
+            engine = initialize_database(self.database_url, territory_spider_map)
             self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
