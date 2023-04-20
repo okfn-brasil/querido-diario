@@ -32,20 +32,21 @@ def load_territories(engine):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    num_territories = session.query(Territory).count()
-    if num_territories == 0:
-        logger.info("Populating 'territories' table - Please wait!")
-        territories_file = pkg_resources.resource_filename(
-            "gazette", "resources/territories.csv"
-        )
-        with open(territories_file, encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            territories = []
-            for row in reader:
-                territories.append(Territory(**row))
-            session.bulk_save_objects(territories)
-            session.commit()
-        logger.info("Populating 'territories' table - Done!")
+    if session.query(Territory).count() > 0:
+        return
+
+    logger.info("Populating 'territories' table - Please wait!")
+    territories_file = pkg_resources.resource_filename(
+        "gazette", "resources/territories.csv"
+    )
+    with open(territories_file, encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
+        territories = []
+        for row in reader:
+            territories.append(Territory(**row))
+        session.bulk_save_objects(territories)
+        session.commit()
+    logger.info("Populating 'territories' table - Done!")
 
 
 def load_spiders(engine, territory_spider_map):
