@@ -30,11 +30,14 @@ class BaVitoriaDaConquistaSpider(BaseGazetteSpider):
             parsing_date = box.re(r"diario-(\d{8})")[0]
             parsing_date = parse(parsing_date, date_formats=["%Y%m%d"]).date()
             url = box.xpath(links_xpath).extract_first()
+
             url = url.replace("previsualizar", "baixar")
             if self.start_date <= parsing_date <= self.end_date:
                 yield Gazette(
                     date=parsing_date,
-                    edition_number=(box.css("h1::text").re_first(r"Edição (\S*)")).replace(".", ""),
+                    edition_number=(
+                        box.css("h1::text").re_first(r"Edição (\S*)")
+                    ).replace(".", ""),
                     file_urls=[url],
                     is_extra_edition=False,
                     power="executive_legislative",
