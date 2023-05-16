@@ -1,4 +1,4 @@
-import datetime as dt
+import datetime
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -10,14 +10,12 @@ class SpSantosSpider(BaseGazetteSpider):
     allowed_domains = ["santos.sp.gov.br"]
     start_urls = ["https://diariooficial.santos.sp.gov.br/"]
     download_url = "https://diariooficial.santos.sp.gov.br/edicoes/inicio/download/{}"
-    start_date = dt.date(2001, 5, 5)
+    start_date = datetime.date(2001, 5, 5)
 
     def parse(self, response):
-        # all of the dates with gazettes are available inside the following hidden textarea:
-        dates = response.css("#datas.hidden::text").extract_first()
+        dates = response.css("#datas.hidden::text").get()
 
-        parsing_date = dt.date.today()
-        while parsing_date >= self.start_date:
+        while self.end_date >= self.start_date:
             if str(parsing_date) in dates:
                 url = self.download_url.format(parsing_date)
                 yield Gazette(
@@ -27,4 +25,4 @@ class SpSantosSpider(BaseGazetteSpider):
                     power="executive_legislative",
                 )
 
-            parsing_date = parsing_date - dt.timedelta(days=1)
+            parsing_date = parsing_date - datetime.timedelta(days=1)
