@@ -15,7 +15,7 @@ class PrMaringaSpider(BaseGazetteSpider):
 
     def start_requests(self):
         yield scrapy.FormRequest(
-            "http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/seleciona_ano_oom.php",
+            "https://venus.maringa.pr.gov.br/arquivos/orgao_oficial/seleciona_ano_oom.php",
             callback=self.parse_form,
         )
 
