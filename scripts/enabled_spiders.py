@@ -61,6 +61,7 @@ SPIDERS = [
     "sp_jundiai",
     "sp_marilia",
     "sp_santo_andre",
+    "sp_santos",
     "sp_sumare",
     "sp_valinhos",
     "sp_vinhedo",
