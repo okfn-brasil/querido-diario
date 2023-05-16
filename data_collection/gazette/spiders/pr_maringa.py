@@ -14,10 +14,6 @@ class PrMaringaSpider(BaseGazetteSpider):
     start_date = date(2007, 1, 1)
 
     def start_requests(self):
-        """
-        @url http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/seleciona_ano_oom.php
-        @returns requests 1
-        """
         yield scrapy.FormRequest(
             "http://venus.maringa.pr.gov.br/arquivos/orgao_oficial/seleciona_ano_oom.php",
             callback=self.parse_form,
@@ -39,12 +35,12 @@ class PrMaringaSpider(BaseGazetteSpider):
             gazette_file_link = row.css("td:nth-child(1) a::attr(href)").get()
             gazette_date = row.css("td:nth-child(2) font > font::text").get()
             data = parse(gazette_date, languages=["pt"]).date()
-            edition = row.css("td:nth-child(1) a::text").get()[1:]
+            edition = row.css("td:nth-child(1) a::text").re_first(r"\d+")
             if self.start_date <= data <= self.end_date:
                 yield Gazette(
                     date=data,
                     edition_number=edition,
                     file_urls=[gazette_file_link],
-                    is_extra_edition=edition[-1].isalpha(),
+                    is_extra_edition=False,
                     power="executive_legislative",
                 )
