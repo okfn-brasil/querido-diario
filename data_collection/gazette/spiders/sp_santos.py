@@ -22,7 +22,7 @@ class SpSantosSpider(BaseGazetteSpider):
             if formatted_date in dates:
                 url = self.download_url.format(formatted_date)
                 yield Gazette(
-                    date=date,
+                    date=date.date(),
                     file_urls=[url],
                     is_extra_edition=False,
                     power="executive_legislative",
