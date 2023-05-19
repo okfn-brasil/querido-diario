@@ -8,6 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PrMaringaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
     TERRITORY_ID = "4115200"
     name = "pr_maringa"
     allowed_domains = ["maringa.pr.gov.br"]
