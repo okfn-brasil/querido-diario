@@ -9,6 +9,9 @@ on:
       start_date:
         description: 'Start date (YYYY-MM-DD)'
         required: false
+      end_date:
+        description: 'Start date (YYYY-MM-DD)'
+        required: false
 
 jobs:
   schedule:
@@ -40,3 +43,6 @@ jobs:
     - name: Schedule partial crawl
       if: ${{ github.event.inputs.start_date }}
       run: python scripts/scheduler.py schedule-job ${{ github.event.inputs.spider_name }} --start_date ${{ github.event.inputs.start_date }}
+    - name: Schedule partial crawl within date range
+      if: ${{ github.event.inputs.start_date && github.event.inputs.end_date_date }}
+      run: python scripts/scheduler.py schedule-job ${{ github.event.inputs.spider_name }} --start_date ${{ github.event.inputs.start_date }} --end_date ${{ github.event.inputs.end_date }}
