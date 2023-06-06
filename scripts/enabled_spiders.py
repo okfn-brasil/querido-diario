@@ -28,6 +28,7 @@ SPIDERS = [
     "mg_contagem",
     "mg_itauna",
     "mg_nova_serrana",
+    "mg_taiobeiras",
     "mg_uberaba",
     "mg_varzea_da_palma",
     "ms_campo_grande",
