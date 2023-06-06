@@ -14,6 +14,7 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 - [Como contribuir](#como-contribuir)
 - [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
 - [Como executar](#como-executar)
+  - [Dicas de execução](#dicas-de-execução)
 - [Solução de problemas](#solução-de-problemas)
 - [Suporte](#suporte)
 - [Agradecimentos](#agradecimentos)
@@ -66,17 +67,34 @@ scrapy list
 ```console
 scrapy crawl <nome_do_raspador>       //exemplo: scrapy crawl ba_acajutiba
 ```
-5. Os diários coletados na raspagem serão salvos na pasta `data_collection/data`
+5. Os diários coletados na raspagem serão salvos no diretório `data_collection/data`
 
-6. Ao executar o item 4, o raspador coletará todos os diários oficiais do site publicador daquele município desde a primeira edição digital. Para execuções menores, utilize flags no comando de execução:
+## Dicas de execução
+Além dos comandos acima, o Scrapy oferece outros recursos para configurar o comando de raspagem. Os recursos a seguir podem ser usados sozinhos ou combinados.  
 
-- `start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
+* **Limite de data**  
+Ao executar o item 4, o raspador coletará todos os diários oficiais do site publicador daquele município. Para execuções menores, utilize a flag de atributo `-a` seguida de:
+
+`start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 ```console
 scrapy crawl <nome_do_raspador> -a start_date=<AAAA-MM-DD>
 ```
-- `end_date=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
+`end_date=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
 ```console
 scrapy crawl <nome_do_raspador> -a end_date=<AAAA-MM-DD>
+```
+
+* **Arquivo de log**   
+É possível enviar o log da raspagem para um arquivo ao invés de deixá-lo no terminal. Isto é particularmente útil quando se desenvolve um raspador que apresenta problemas e você quer enviar o arquivo de log no seu PR para obter ajuda. Para isso, use a flag de configuração `-s` seguida de:
+`LOG_FILE=log_<nome_do_municipio>.txt`: definirá o arquivo para armazenar as mensagens de log.
+```console
+scrapy crawl <nome_do_raspador> -s LOG_FILE=log_<nome_do_municipio>.txt
+```
+
+* **Tabela de raspagem**   
+Também é possível construir uma tabela que lista todos os diários e metadados coletados pela raspagem, ficando mais fácil de ver como o raspador está se comportando. Para isso, use a flag de saída `-o` seguida de um nome para o arquivo.
+```console
+scrapy crawl <nome_do_raspador> -o <nome_do_municipio>.csv
 ```
 
 # Solução de problemas

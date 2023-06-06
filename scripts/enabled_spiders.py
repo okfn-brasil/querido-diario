@@ -29,7 +29,7 @@ SPIDERS = [
     "mg_itauna",
     "mg_nova_serrana",
     "mg_uberaba",
-    "mg_varzea_de_palma",
+    "mg_varzea_da_palma",
     "ms_campo_grande",
     "mt_cuiaba",
     "mt_rondonopolis",
