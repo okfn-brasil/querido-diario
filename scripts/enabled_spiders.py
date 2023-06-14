@@ -21,7 +21,6 @@ SPIDERS = [
     "ma_aldeias_altas",
     "ma_caxias",
     "ma_codo",
-    "ma_peritoro",
     "ma_santo_antonio_dos_lopes",
     "mg_belo_horizonte",
     "mg_campo_belo",
