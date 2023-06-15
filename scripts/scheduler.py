@@ -42,6 +42,51 @@ def cli():
 
 @cli.command()
 @click.option(
+    "--spider_name",
+    required=True,
+    help="Spider name to execute.",
+)
+@click.option(
+    "--start_date",
+    default=None,
+    help="Start date (YYYY-MM-DD).",
+)
+@click.option(
+    "--end_date",
+    default=None,
+    help="Start date (YYYY-MM-DD).",
+)
+def schedule_spider(spider_name, start_date, end_date):
+    sh_client = ScrapinghubClient(config("SHUB_APIKEY"))
+    project = sh_client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
+
+    job_settings = {
+        "FILES_STORE": config("FILES_STORE"),
+        "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL"),
+        "AWS_ACCESS_KEY_ID": config("AWS_ACCESS_KEY_ID"),
+        "AWS_SECRET_ACCESS_KEY": config("AWS_SECRET_ACCESS_KEY"),
+        "AWS_ENDPOINT_URL": config("AWS_ENDPOINT_URL"),
+        "AWS_REGION_NAME": config("AWS_REGION_NAME"),
+        "SPIDERMON_DISCORD_FAKE": config("SPIDERMON_DISCORD_FAKE"),
+        "SPIDERMON_DISCORD_WEBHOOK_URL": config("SPIDERMON_DISCORD_WEBHOOK_URL"),
+        "ZYTE_SMARTPROXY_APIKEY": config("ZYTE_SMARTPROXY_APIKEY"),
+    }
+
+    job_args = {}
+    if start_date is not None:
+        job_args["start_date"] = start_date
+    if end_date is not None:
+        job_args["end_date"] = end_date
+
+    spider = project.spiders.get(spider_name)
+    spider.jobs.run(
+        job_settings=job_settings,
+        job_args=job_args,
+    )
+
+
+@cli.command()
+@click.option(
     "--start_date",
     default=YESTERDAY.strftime("%Y-%m-%d"),
     help="Start date that we want to scrape.",
