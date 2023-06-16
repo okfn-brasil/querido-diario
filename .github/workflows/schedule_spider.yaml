@@ -10,7 +10,7 @@ on:
         description: 'Start date (YYYY-MM-DD)'
         required: false
       end_date:
-        description: 'Start date (YYYY-MM-DD)'
+        description: 'End date (YYYY-MM-DD)'
         required: false
 
 jobs:
