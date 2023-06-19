@@ -1,6 +1,8 @@
 import json
 import re
-from datetime import datetime,date
+from datetime import datetime, date
+
+import logging
 
 import dateparser
 
@@ -14,8 +16,8 @@ class SpOsascoSpider(BaseGazetteSpider):
     allowed_domains = ["www.osasco.sp.gov.br"]
     start_urls = ["http://www.osasco.sp.gov.br/imprensa-oficial/"]
     start_date = date(2002, 8, 2)
-
     NUMBER_REGEX = re.compile(r"\s(\d+)$")
+    logger = logging.getLogger(__name__)
 
     def parse(self, response):
         gazettes = json.loads(
@@ -29,22 +31,23 @@ class SpOsascoSpider(BaseGazetteSpider):
                 gazette["date"], settings={"DATE_ORDER": "DMY"}
             )
             edition_date = edition_date.date()
-
             if not (self.start_date <= edition_date <= self.end_date):
                 continue
-
             number = None
             match = self.NUMBER_REGEX.search(gazette["title"])
             if match:
                 number = match.group(1)
-
             url = gazette["url"]
-
-            yield Gazette(
-                date=edition_date,
-                edition_number=number,
-                file_urls=[url],
-                is_extra_edition=False,
-                scraped_at=datetime.utcnow(),
-                power="executive",
-            )
+            if url == "" and number == "0713":
+                self.logger.warning(
+                    f"Edição {number} de {edition_date} sem url para download. Situação esperada para a edição 0713 de 27/04/2010."
+                )
+            else:
+                yield Gazette(
+                    date=edition_date,
+                    edition_number=number,
+                    file_urls=[url],
+                    is_extra_edition=False,
+                    scraped_at=datetime.utcnow(),
+                    power="executive",
+                )
