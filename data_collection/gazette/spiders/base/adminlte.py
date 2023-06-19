@@ -7,11 +7,9 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class AdminlteGazetteSpider(BaseGazetteSpider):
+class AdminLTEGazetteSpider(BaseGazetteSpider):
     """
     Base spider for cities using the Framework AdminLTE as design system.
-
-    To set the date_column and file_url_column, start counting from zero.
     """
 
     def start_requests(self):
@@ -41,7 +39,7 @@ class AdminlteGazetteSpider(BaseGazetteSpider):
 
         stop = int(last_page)
 
-        for page in range(0, stop):
+        for page in range(stop):
             formdata = {
                 "data_inicial": start_date,
                 "data_final": end_date,
@@ -54,24 +52,27 @@ class AdminlteGazetteSpider(BaseGazetteSpider):
             )
 
     def parse(self, response):
-        gazettes = response.xpath("//table/tbody/tr")
+        gazettes = response.xpath("//tbody/tr")
+
+        date_column = response.xpath(
+            "count(//thead/tr/td/b[text()='Data Publicação']/../preceding-sibling::td)"
+        ).get()
+        date_column = re.search(r"^(\d+)", date_column).group(1)
 
         for gazette in gazettes:
             edition_number = gazette.xpath("./th/text()").get()
-            file_name = gazette.xpath(
-                f"./td[{self.file_url_column}]/div/div/a/@href"
-            ).get()
+            file_name = gazette.xpath("./td[last()]/div/div[last()]/a/@href").get()
             edition_type = re.search(r"/([^/]+)/[^/]+$", file_name).group(1)
             file_name = re.search(r"/([^/]+)$", file_name).group(1)
             file_url = f"http://diariooficial.{self.city_domain}/arquivos/{edition_type}/{file_name}"
 
-            date = gazette.xpath(f"./td[{self.date_column}]/text()").get()
+            date = gazette.xpath(f"./td[{date_column}]/text()").get()
             date = datetime.strptime(date, "%d/%m/%Y").date()
 
             yield Gazette(
                 date=date,
                 edition_number=edition_number,
                 file_urls=[file_url],
-                is_extra_edition=(edition_type == "Edição Extra"),
+                is_extra_edition=edition_type == "edicao_extra",
                 power="executive",
             )
