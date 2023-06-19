@@ -10,3 +10,4 @@ class MaSaoLuis(BaseSiganetSpider):
     allowed_domains = ["diariooficial.saoluis.ma.gov.br"]
     BASE_URL = "https://diariooficial.saoluis.ma.gov.br/dom/dom"
     P_VERSION = "2"  # see BaseSiganetSpider
+    P_POWER = "executive"
