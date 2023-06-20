@@ -28,12 +28,13 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
                 raw_gazette_date, "%d/%m/%Y"
             ).date()
 
-            yield Gazette(
-                date=gazette_date,
-                edition_number=edition_number,
-                file_urls=[gazette_url],
-                power="executive_legislative",
-            )
+            if gazette_date >= self.start_date and gazette_date <= self.end_date:
+                yield Gazette(
+                    date=gazette_date,
+                    edition_number=edition_number,
+                    file_urls=[gazette_url],
+                    power="executive_legislative",
+                )
 
             if gazette_date < self.start_date:
                 follow_next_page = False
