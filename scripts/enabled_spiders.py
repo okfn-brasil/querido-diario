@@ -43,6 +43,7 @@ SPIDERS = [
     "pe_recife",
     "pb_joao_pessoa",
     "pi_teresina",
+    "pr_cafelandia",
     "pr_curitiba",
     "pr_londrina",
     "pr_maringa",

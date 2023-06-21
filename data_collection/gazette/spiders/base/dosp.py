@@ -1,6 +1,7 @@
 import base64
 import datetime
 import json
+import re
 
 import scrapy
 from dateutil.rrule import WEEKLY, rrule
@@ -38,12 +39,15 @@ class DospGazetteSpider(BaseGazetteSpider):
             code = str(code).encode("ascii")
             pdf_code = base64.b64encode(code).decode("ascii")
             file_url = f"https://dosp.com.br/exibe_do.php?i={pdf_code}"
-            edition_number = item["edicao_do"]
             date = datetime.datetime.strptime(item["data"], "%Y-%m-%d").date()
+            raw_edition_number = re.search(r"(\d+)([a-zA-Z]*)", item["edicao_do"])
+            edition_number = raw_edition_number.group(1)
 
-            yield Gazette(
-                date=date,
-                file_urls=[file_url],
-                edition_number=edition_number,
-                power="executive_legislative",
-            )
+            if self.start_date <= date <= self.end_date:
+                yield Gazette(
+                    date=date,
+                    file_urls=[file_url],
+                    edition_number=edition_number,
+                    power="executive_legislative",
+                    is_extra_edition=raw_edition_number.group(2) != "",
+                )
