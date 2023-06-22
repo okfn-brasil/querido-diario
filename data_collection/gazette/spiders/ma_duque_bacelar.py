@@ -8,4 +8,6 @@ class MaDuqueBacelar(BaseSiganetSpider):
     name = "ma_duque_bacelar"
     start_date = datetime.date(2018, 6, 1)
     allowed_domains = ["transparencia.duquebacelar.ma.gov.br"]
-    BASE_URL = "https://transparencia.duquebacelar.ma.gov.br/acessoInformacao/diario/diario"
+    BASE_URL = (
+        "https://transparencia.duquebacelar.ma.gov.br/acessoInformacao/diario/diario"
+    )
