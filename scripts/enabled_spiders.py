@@ -54,7 +54,7 @@ SPIDERS = [
     "pa_belem",
     "pe_jaboatao_dos_guararapes",
     "pe_petrolina",
-    "pe_recife",
+    "recife_2020",
     "pb_joao_pessoa",
     "pi_teresina",
     "pr_cafelandia",
