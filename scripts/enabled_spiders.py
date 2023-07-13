@@ -14,6 +14,7 @@ SPIDERS = [
     "ba_senhor_do_bonfim",
     "ce_sobral",
     "df_brasilia",
+    "es_cariacica",
     "es_serra",
     "es_vila_velha",
     "go_aparecida_de_goiania",
