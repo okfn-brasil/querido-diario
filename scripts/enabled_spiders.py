@@ -7,6 +7,7 @@ SPIDERS = [
     "ap_santana",
     "ba_acajutiba",
     "ba_alagoinhas",
+    "ba_barreiras",
     "ba_campo_formoso",
     "ba_feira_de_santana",
     "ba_juazeiro",
