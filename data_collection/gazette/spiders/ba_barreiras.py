@@ -9,6 +9,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaBarreirasSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     name = "ba_barreiras"
     TERRITORY_ID = "2903201"
     allowed_domains = ["barreiras.ba.gov.br"]
