@@ -10,6 +10,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class EsCariacicaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     name = "es_cariacica"
     TERRITORY_ID = "3201308"
     start_date = datetime.date(2014, 7, 1)
