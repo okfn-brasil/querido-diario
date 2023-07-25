@@ -23,26 +23,20 @@ class BaseGazetteSpider(scrapy.Spider):
         if start_date is not None:
             try:
                 self.start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-                self.logger.info(f"Collecting gazettes from {self.start_date}")
             except ValueError:
                 self.logger.exception(
                     f"Unable to parse {start_date}. Use %Y-%m-d date format."
                 )
                 raise
-        else:
-            self.logger.info("Collecting all gazettes available from the beginning")
 
+        self.end_date = datetime.today().date()
         if end_date is not None:
             try:
                 self.end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-                self.logger.info(f"Collecting gazettes until {self.end_date}")
             except ValueError:
                 self.logger.exception(
                     f"Unable to parse {end_date}. Use %Y-%m-d date format."
                 )
                 raise
-        elif hasattr(self, "end_date"):
-            self.logger.info(f"Collecting gazettes until {self.end_date}")
-        else:
-            self.end_date = datetime.today().date()
-            self.logger.info("Collecting all gazettes available until today")
+
+        self.logger.info(f"Collecting data from {self.start_date} to {self.end_date}.")
