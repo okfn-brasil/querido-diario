@@ -14,13 +14,13 @@ class BaseGazetteSpider(scrapy.Spider):
     # being blocked based on our location.
     zyte_smartproxy_enabled = False
 
-    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
+    def __init__(self, start_date="", end_date="", *args, **kwargs):
         super(BaseGazetteSpider, self).__init__(*args, **kwargs)
 
         if not hasattr(self, "TERRITORY_ID"):
             raise NotConfigured("Please set a value for `TERRITORY_ID`")
 
-        if start_date is not None:
+        if start_date:
             try:
                 self.start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
             except ValueError:
@@ -30,7 +30,7 @@ class BaseGazetteSpider(scrapy.Spider):
                 raise
 
         self.end_date = datetime.today().date()
-        if end_date is not None:
+        if end_date:
             try:
                 self.end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
             except ValueError:

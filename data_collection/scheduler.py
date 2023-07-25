@@ -98,9 +98,9 @@ def schedule_spider(spider_name, start_date, end_date):
     }
 
     job_args = {}
-    if start_date is not None:
+    if start_date:
         job_args["start_date"] = start_date
-    if end_date is not None:
+    if end_date:
         job_args["end_date"] = end_date
 
     spider = project.spiders.get(spider_name)
