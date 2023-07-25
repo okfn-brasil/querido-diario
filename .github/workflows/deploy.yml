@@ -21,4 +21,4 @@ jobs:
         SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
       run: |
         cd data_collection/
-        shub deploy
+        shub deploy ${{ secrets.SCRAPY_CLOUD_PROJECT_ID }}
