@@ -28,6 +28,6 @@ jobs:
     - name: Prepare environment
       run: |
         python -m pip install --upgrade pip
-        pip install click python-decouple scrapinghub
+        pip install click python-decouple scrapinghub SQLAlchemy psycopg2
     - name: Schedule jobs
       run: python scripts/scheduler.py schedule-enabled-spiders
