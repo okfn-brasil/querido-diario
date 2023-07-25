@@ -30,4 +30,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install click python-decouple scrapinghub SQLAlchemy psycopg2
     - name: Schedule jobs
-      run: python scripts/scheduler.py last-month-schedule-enabled-spiders
+      run: |
+        cd data_collection/
+        python scheduler.py last-month-schedule-enabled-spiders

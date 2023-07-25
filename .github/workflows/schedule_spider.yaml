@@ -39,7 +39,11 @@ jobs:
         pip install click python-decouple scrapinghub SQLAlchemy psycopg2
     - name: Schedule full crawl
       if: ${{ !github.event.inputs.start_date }}
-      run: python scripts/scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }}
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }}
     - name: Schedule partial crawl
       if: ${{ github.event.inputs.start_date }}
-      run: python scripts/scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }}
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }}

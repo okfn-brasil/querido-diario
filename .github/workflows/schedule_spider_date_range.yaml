@@ -37,4 +37,5 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install click python-decouple scrapinghub SQLAlchemy
-        python scripts/scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }} --end_date=${{ github.event.inputs.end_date }}
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }} --end_date=${{ github.event.inputs.end_date }}
