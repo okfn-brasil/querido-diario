@@ -45,6 +45,5 @@ class SpOsascoSpider(BaseGazetteSpider):
                     edition_number=number,
                     file_urls=[url],
                     is_extra_edition=False,
-                    scraped_at=datetime.utcnow(),
                     power="executive",
                 )
