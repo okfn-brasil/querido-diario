@@ -2,8 +2,6 @@ import json
 import re
 from datetime import datetime, date
 
-import logging
-
 import dateparser
 
 from gazette.items import Gazette
@@ -17,7 +15,6 @@ class SpOsascoSpider(BaseGazetteSpider):
     start_urls = ["http://www.osasco.sp.gov.br/imprensa-oficial/"]
     start_date = date(2002, 8, 2)
     NUMBER_REGEX = re.compile(r"\s(\d+)$")
-    logger = logging.getLogger(__name__)
 
     def parse(self, response):
         gazettes = json.loads(
