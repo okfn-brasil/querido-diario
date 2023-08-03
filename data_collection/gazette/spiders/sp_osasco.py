@@ -2,8 +2,6 @@ import json
 import re
 from datetime import datetime, date
 
-import dateparser
-
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -12,9 +10,9 @@ class SpOsascoSpider(BaseGazetteSpider):
     TERRITORY_ID = "3534401"
     name = "sp_osasco"
     allowed_domains = ["www.osasco.sp.gov.br"]
-    start_urls = ["http://www.osasco.sp.gov.br/imprensa-oficial/"]
+    start_urls = ["https://www.osasco.sp.gov.br/imprensa-oficial/"]
     start_date = date(2002, 8, 2)
-    NUMBER_REGEX = re.compile(r"\s(\d+)$")
+    NUMBER_REGEX = re.compile(r"(\d+)$")
 
     def parse(self, response):
         gazettes = json.loads(
@@ -24,26 +22,26 @@ class SpOsascoSpider(BaseGazetteSpider):
         )
 
         for gazette in gazettes:
-            edition_date = dateparser.parse(
-                gazette["date"], settings={"DATE_ORDER": "DMY"}
-            )
-            edition_date = edition_date.date()
-            if not (self.start_date <= edition_date <= self.end_date):
+            edition_date = datetime.strptime(
+                gazette["date"], "%d / %m / %Y"
+            ).date()
+
+            if not self.start_date <= edition_date <= self.end_date:
                 continue
-            number = None
-            match = self.NUMBER_REGEX.search(gazette["title"])
-            if match:
-                number = match.group(1)
+
+            edition_number = None
+            if edition_number_m := self.NUMBER_REGEX.search(gazette["title"]):
+                edition_number = edition_number_m.group()
+
             url = gazette["url"]
-            if url == "" and number == "0713":
-                self.logger.warning(
-                    f"Edição {number} de {edition_date} sem url para download. Situação esperada para a edição 0713 de 27/04/2010."
-                )
-            else:
-                yield Gazette(
-                    date=edition_date,
-                    edition_number=number,
-                    file_urls=[url],
-                    is_extra_edition=False,
-                    power="executive",
-                )
+            if not url:
+                self.logger.warning(f"Unable to find download URL for: {gazette}.")
+                continue
+
+            yield Gazette(
+                date=edition_date,
+                edition_number=edition_number,
+                file_urls=[url],
+                is_extra_edition=False,
+                power="executive",
+            )
