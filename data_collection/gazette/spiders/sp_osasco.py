@@ -1,6 +1,6 @@
 import json
 import re
-from datetime import datetime, date
+from datetime import date, datetime
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -10,7 +10,7 @@ class SpOsascoSpider(BaseGazetteSpider):
     TERRITORY_ID = "3534401"
     name = "sp_osasco"
     allowed_domains = ["www.osasco.sp.gov.br"]
-    start_urls = ["https://www.osasco.sp.gov.br/imprensa-oficial/"]
+    start_urls = ["http://www.osasco.sp.gov.br/imprensa-oficial/"]
     start_date = date(2002, 8, 2)
     NUMBER_REGEX = re.compile(r"(\d+)$")
 
@@ -22,9 +22,7 @@ class SpOsascoSpider(BaseGazetteSpider):
         )
 
         for gazette in gazettes:
-            edition_date = datetime.strptime(
-                gazette["date"], "%d / %m / %Y"
-            ).date()
+            edition_date = datetime.strptime(gazette["date"], "%d / %m / %Y").date()
 
             if not self.start_date <= edition_date <= self.end_date:
                 continue
