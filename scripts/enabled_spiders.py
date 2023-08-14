@@ -73,6 +73,7 @@ SPIDERS = [
     "rs_porto_alegre",
     "sc_florianopolis",
     "sc_joinville",
+    "se_nossa_senhora_do_socorro",
     "sp_campinas",
     "sp_guarulhos",
     "sp_jaboticabal",
