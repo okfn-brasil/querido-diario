@@ -1,7 +1,6 @@
 import datetime
-from urllib.parse import urlencode
-
 import re
+
 import scrapy
 
 from gazette.items import Gazette
@@ -16,7 +15,6 @@ class PaCameta(BaseGazetteSpider):
     name = "pa_cameta"
     allowed_domains = ["prefeituradecameta.pa.gov.br"]
     start_date = datetime.date(2023, 1, 12)
-    download_file_headers = {"Accept": "application/octet-stream"}
 
     BASE_URL = "https://prefeituradecameta.pa.gov.br/diario-oficial-do-municipio/"
 
@@ -32,10 +30,10 @@ class PaCameta(BaseGazetteSpider):
             # This link seems to be a test. will be ignored
             if "12 de abril de 2022" in text:
                 continue
-            gazette_edition_number = self.get_edition_number(text)
-            gazette_date = self.get_date(text)
+            gazette_edition_number = PaCameta.get_edition_number(text)
+            gazette_date = PaCameta.get_date(text)
             gazette_url = href
-            if gazette_date >= self.start_date and gazette_date <= self.end_date:
+            if self.start_date <= gazette_date <= self.end_date:
                 yield Gazette(
                     date=gazette_date,
                     edition_number=gazette_edition_number,
@@ -44,11 +42,17 @@ class PaCameta(BaseGazetteSpider):
                     power="executive",
                 )
 
-    def get_edition_number(self, text):
+    @staticmethod
+    def get_edition_number(text):
         match = RE_EDITION_NUMBER.search(text)
-        return match.group(1)
+        return PaCameta.get_group(match)
 
-    def get_date(self, text):
+    @staticmethod
+    def get_group(match, number=1):
+        return str(match.group(number)) if match else ""
+
+    @staticmethod
+    def get_date(text):
         months_pt_br = {
             "janeiro": 1,
             "fevereiro": 2,
@@ -63,8 +67,14 @@ class PaCameta(BaseGazetteSpider):
             "novembro": 11,
             "dezembro": 12,
         }
+
         match = RE_EXT_DATE.search(text)
-        day = int(str(match.group(1)).zfill(2))
-        month = int(str(months_pt_br[match.group(2).lower()]).zfill(2))
-        year = int(str(match.group(3)).zfill(4))
+
+        first_group = PaCameta.get_group(match, 1)
+        second_group = PaCameta.get_group(match, 2)
+        third_group = PaCameta.get_group(match, 3)
+
+        day = int(first_group)
+        month = months_pt_br[second_group.lower()]
+        year = int(third_group.zfill(4))
         return datetime.date(year, month, day)
