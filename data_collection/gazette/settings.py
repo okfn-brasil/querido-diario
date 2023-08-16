@@ -2,9 +2,10 @@ import pkg_resources
 from decouple import config
 
 BOT_NAME = "gazette"
-SPIDER_MODULES = ["gazette.spiders"]
+SPIDER_MODULES = ["gazette.spiders", "gazette.mapeadores"]
 NEWSPIDER_MODULE = "gazette.spiders"
 ROBOTSTXT_OBEY = False
+HTTPCACHE_ENABLED = True
 ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 100,
     "gazette.pipelines.DefaultValuesPipeline": 200,
