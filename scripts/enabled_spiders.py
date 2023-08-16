@@ -53,6 +53,7 @@ SPIDERS = [
     "ms_inocencia",
     "ms_maracaju",
     "pa_belem",
+    "pa_santana_do_araguaia",
     "pe_jaboatao_dos_guararapes",
     "pe_petrolina",
     "recife_2020",
@@ -88,5 +89,6 @@ SPIDERS = [
     "sp_valinhos",
     "sp_vinhedo",
     "to_araguaina",
+    "to_gurupi",
     "to_palmas",
 ]
