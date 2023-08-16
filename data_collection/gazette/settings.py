@@ -1,8 +1,9 @@
 import pkg_resources
 from decouple import config
 
+DUPEFILTER_CLASS = "scrapy.dupefilters.BaseDupeFilter"
 BOT_NAME = "gazette"
-SPIDER_MODULES = ["gazette.spiders"]
+SPIDER_MODULES = ["gazette.spiders", "gazette.mapeadores"]
 NEWSPIDER_MODULE = "gazette.spiders"
 ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
