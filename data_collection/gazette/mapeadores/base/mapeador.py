@@ -1,120 +1,141 @@
 import csv
-import unicodedata
+import time
+from pathlib import Path
 
-import pkg_resources
 import scrapy
+from unidecode import unidecode
 
 
 class Mapeador(scrapy.Spider):
-
-    """
-    Class base para Mepeadores (Em Processo)
-
-    format_url : link base que sera usado para o mapeamento.
-    @city sera substitudo pelo o nome do estado.
-    @uf sera substitudo pela uf do estado
-
-    Exemplo: https://transparencia.@city.@uf.gov.br/diario
-
-    sep: Define o que sera colado entre os espaço do nome do estado
-
-    preference_state_code : Define UF de pesquisa. Quando não declarada pesquisa todas as Ufs do Brasil. Aceita
-    um valor ou lista de UFs. Por enquanto só maiscula.
-    """
-
-    name = "mapeador"
     custom_settings = {
-        "CONCURRENT_REQUESTS": 100,
+        "RETRY_ENABLED": False,
+        "AUTOTHROTTLE_ENABLED": True,
+        "AUTOTHROTTLE_TARGET_CONCURRENCY": 100,
     }
 
-    format_url = ""
-    sep = "_"
-    preference_state_code = None
-    citys_confirmed = []
-    citys = None
+    name = "mapeador"
+    protocols = ["http", "https"]
+    territories = []
 
     def start_requests(self):
-        self.create_csv()
-        self.citys = self.link_forme()
+        self.read_csv("dados_mapeamento")
+        self.add_column_key()  # add column to fill with search results
 
-        for city in self.citys[:10]:
-            yield scrapy.Request(url=city["link"], callback=self.parse)
+        for i in range(len(self.territories)):
+            self.log(i)
 
-    def parse(self, response, **kwargs):
-        good = next(item for item in self.citys if item["link"] == response.url)
-        self.log(good)
-        self.save_citys(good)
-        self.log(response.url)
-        self.log(f"Fui salvo: {good}")
+            name, state_code = self.format_str(
+                self.territories[i]["name"], self.territories[i]["state_code"]
+            )
+            for protocol_option in self.protocols:
+                for name_option in self.city_name_generator(name):
+                    for url_option in self.urls_pattern(
+                        protocol_option, name_option, state_code
+                    ):
+                        yield scrapy.Request(
+                            url_option, callback=self.parse, cb_kwargs=dict(index=i)
+                        )
 
-    def get_estados(self):
-        territories_file = pkg_resources.resource_filename(
-            "gazette", "resources/territories.csv"
-        )
+        self.save_csv(f"[{self.pattern_name()}] dados_mapeamento")
 
-        with open(territories_file, encoding="utf-8") as csvfile:
+    def parse(self, response, index):
+        if self.validation(response):
+            if response.url not in self.territories[index][self.pattern_name()]:
+                self.territories[index][self.pattern_name()].append(response.url)
+
+            self.territories[index][self.current_status()].append(
+                self.is_current(response)
+            )
+
+        elif response.url not in self.territories[index][self.valid_urls()]:
+            self.territories[index][self.valid_urls()].append(response.url)
+
+    def city_name_generator(self, city_name):
+        combination_list = []
+
+        combination_list.append(self.remove_blankspaces(city_name))  # cityname
+        combination_list.append(self.blankspaces_to_underline(city_name))  # city_name
+        combination_list.append(self.blankspaces_to_hifen(city_name))  # city-name
+        combination_list.append(self.name_abbreviation(city_name))  # cn
+        combination_list += self.name_parts(city_name)  # city | name
+        # combination_list += self.add_pm_to_names(combination_list) #pm + all
+
+        return combination_list
+
+    def add_column_key(self):
+        patternname = self.pattern_name()
+        currentstatus = self.current_status()
+        validurls = self.valid_urls()
+
+        for y in range(len(self.territories)):
+            self.territories[y][patternname] = []
+            self.territories[y][currentstatus] = []
+            self.territories[y][validurls] = []
+
+    def save_csv(self, file_name):
+        file_path = (Path(__file__).parent / f"../../../{file_name}.csv").resolve()
+
+        with open(file_path, "w", newline="") as csvfile:
+            writer = csv.DictWriter(
+                csvfile, fieldnames=list(self.territories[0].keys())
+            )
+            writer.writeheader()
+            for i in range(len(self.territories)):
+                writer.writerow(self.territories[i])
+        csvfile.close()
+
+    def read_csv(self, file_name):
+        if (Path(__file__).parent / f"../../../{file_name}.csv").is_file():
+            file_path = (Path(__file__).parent / f"../../../{file_name}.csv").resolve()
+        else:
+            file_path = (
+                Path(__file__).parent / "../../resources/territories.csv"
+            ).resolve()
+
+        with open(file_path, encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            territories = []
             for row in reader:
-                if (
-                    self.preference_state_code
-                    and row["state_code"] in self.preference_state_code
-                ):
-                    territories.append(row)
-                elif not self.preference_state_code:
-                    territories.append(row)
+                self.territories.append(row)
+        csvfile.close()
 
-            # for territorie in territories:
-            #     self.log(territorie)
-            return territories
+    def log(self, i):
+        if i % 10 == 0:
+            print(f"[{i}/5570] {time.strftime('%H:%M:%S', time.localtime())}")
+        if i % 500 == 0:
+            print("[BACKUP PARCIAL] Salvando dados parciais...")
+            self.save_csv(f"[PARCIAL][{self.pattern_name()}] dados_mapeamento-{i}-5570")
 
-    def link_forme(self):
-        links = []
-        citys = self.get_estados()
-        for city in citys:
-            city_name_clear = self.formatar_city_name(city["name"], sep=self.sep)
-            link = self.format_url
+    # FORMATAÇÕES PARA DOMINIOS
 
-            format_link_clear = {
-                "@city": city_name_clear,
-                "@uf": city["state_code"].lower(),
-            }
+    def format_str(self, name, state_code):
+        name = unidecode(name).strip().lower().replace("-", " ").replace("'", "")
+        state_code = unidecode(state_code).strip().lower()
+        return name, state_code
 
-            for place, replace_ in format_link_clear.items():
-                link = link.replace(place, replace_)
+    def remove_blankspaces(self, name):
+        return name.replace(" ", "")
 
-            city["link"] = link
-            links.append(city)
+    def blankspaces_to_underline(self, name):
+        return name.replace(" ", "_")
 
-        return links
+    def blankspaces_to_hifen(self, name):
+        return name.replace(" ", "-")
 
-    def save_citys(self, city_save):
-        with open(
-            f"gazette/mapeadores/output/{self.name}.csv",
-            "a",
-            newline="",
-            encoding="utf-8",
-        ) as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(city_save.values())
+    def name_parts(self, name):
+        name = name.replace(" da ", " ").replace(" de ", " ").replace(" do ", " ")
+        return name.split()
 
-    def create_csv(self):
-        with open(
-            f"gazette/mapeadores/output/{self.name}.csv",
-            "w",
-            newline="",
-            encoding="utf-8",
-        ) as csvfile:
-            fieldnames = ["id", "name", "state_code", "state", "link"]
-            writer = csv.writer(csvfile)
-            writer.writerow(fieldnames)
+    def name_abbreviation(self, city_name):
+        subnames = city_name.split()
+        abbrev = ""
+        for n in subnames:
+            if n not in ["da", "de", "do"]:
+                abbrev += n[0]
+        return abbrev
 
-    @staticmethod
-    def formatar_city_name(name, sep="-"):
-        x = name.strip().lower()
-        x = unicodedata.normalize("NFD", x)
-        x = x.encode("ascii", "ignore")
-        x = x.decode("utf-8")
-        x = x.replace(" ", sep)
-
-        return x
+    def add_pm_to_names(self, list_names):
+        # pm: prefeitura municipal
+        aux = []
+        for name in list_names:
+            aux.append(f"pm{name}")
+        return aux

@@ -1,11 +1,11 @@
 import pkg_resources
 from decouple import config
 
+DUPEFILTER_CLASS = "scrapy.dupefilters.BaseDupeFilter"
 BOT_NAME = "gazette"
 SPIDER_MODULES = ["gazette.spiders", "gazette.mapeadores"]
 NEWSPIDER_MODULE = "gazette.spiders"
 ROBOTSTXT_OBEY = False
-HTTPCACHE_ENABLED = True
 ITEM_PIPELINES = {
     "gazette.pipelines.GazetteDateFilteringPipeline": 100,
     "gazette.pipelines.DefaultValuesPipeline": 200,
