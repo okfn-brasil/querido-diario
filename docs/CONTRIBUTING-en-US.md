@@ -10,6 +10,7 @@ Already read? So let's go to the specific information of this repository:
     - [Windows](#windows)
 - [Automated code formatting](#automated-code-formatting)
 - [Maintaining](#maintaining)
+    - [Scraper code review](#scraper-code-review)
 
 ## Challenges
 The main challenge of this repository is to have more and more scrapers from websites that publish official gazettes, aiming to reach the 5570 Brazilian municipalities. We use the [City Expansion Board](https://github.com/orgs/okfn-brasil/projects/12/views/13) to organize this challenge progress. Consult it to find relevant tasks you can contribute to.
@@ -72,3 +73,34 @@ If you followed the setup instructions, installing pre-commit hooks, it is possi
 
 # Maintaining
 Maintainers must follow the guidelines in Querido Diário's [Guide for Maintainers](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING-en-US.md#maintaining).
+
+## Scraper code review
+
+To help review a scraper you can use this checklist with the most important items to evaluate in a code:
+
+- **Functionality**
+    - [ ] scraping of all gazettes (no arguments)
+        - [ ] with `start_date` argument
+        - [ ] with `start_date` and end_date arguments
+    - [ ] log without `log_count/ERROR`
+    - [ ] verify collected items via scraping table
+        - [ ] `-o <city_name>.csv`
+    - [ ] corrupted files
+        - [ ] check at least three PDFs: one old, one in the middle of the period, and another more recent
+
+- **Code**
+    - [ ] check if the scraper can use any base scraper
+    - [ ] `class` in Pascal Case style
+    - [ ] use double quotes
+        - [ ] `"example"`
+        - [ ] `"example='text'"`
+    - [ ] `start_date` variable according to the Official Gazette website
+    - [ ] best practices in XPath usage
+        - [ ] avoid unnecessary "backtracks"
+    - [ ] readability: if you had difficulty understanding any code, check if this code can be improved
+    - [ ] code and comments in english
+
+- **Feedback**
+    - [ ] comment on necessary lines
+    - [ ] provide feedback pointing out general issues and reinforcing specific comments
+    - [ ] request the inclusion of the scraper(s) in the `enabled_spiders` file before accepting the pull request

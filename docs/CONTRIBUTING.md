@@ -12,9 +12,10 @@ Já leu? Então vamos às informações específicas deste repositório:
     - [Em Windows](#em-windows)
   - [Formatação automática de código](#formação-automática-de-código)
 - [Mantendo](#mantendo)
+    - [Revisão de raspadores](#revisão-de-raspadores)
 
 ## Desafios
-O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir. 
+O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir.
 
 Para te ajudar a desenvolver, utilize as orientações da página sobre [como escrever um novo raspador](https://docs.queridodiario.ok.org.br/pt-br/latest/escrevendo-um-novo-spider.html) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/).
 
@@ -74,7 +75,7 @@ Siga as instruções referentes À instalação utilizando [Linux](CONTRIBUTING.
 
 
 ## Formação automática de código
-O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado. 
+O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado.
 
 Mas, se você seguiu as orientações para configurar o ambiente de desenvolvimento corretamente, especialmente instalando o `pre-commit`, é possível que você nunca precise corrigir a formatação manualmente. O `pre-commit` fará isso por você, já que executa antes de cada `commit`. Ainda, caso queira verificar todos os arquivos no projeto, use `make format` para evocar as ferramentas.
 
