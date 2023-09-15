@@ -129,3 +129,6 @@ tags
 
 # SQLite database
 querido-diario.db
+
+# asdf (https://asdf-vm.com)
+.tool-versions
