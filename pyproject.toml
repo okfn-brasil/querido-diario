@@ -8,13 +8,28 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-scrapy = "^2.10.1"
-
+awscli = "1.25.90"
+boto3 = "1.24.89"
+click = "^8.1.7"
+chompjs = "^1.2.2"
+dateparser = "^1.1.8"
+itemadapter = "^0.8.0"
+jinja2 = "^3.1.2"
+psycopg2-binary = "^2.9.7"
+python-dateutil = "^2.8.2"
+python-decouple = "^3.8"
+scrapy = "^2.11.0"
+scrapy-zyte-smartproxy = "^2.2.0"
+schematics = "^2.1.1"
+sqlalchemy = "^2.0.20"
+spidermon = {extras = ["monitoring"], version = "^1.20.0"}
+pyyaml = "<5.4"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.1"
-isort = "^5.12.0"
 flake8 = "^6.1.0"
+isort = "^5.12.0"
+pre-commit = "^3.4.0"
 
 [build-system]
 requires = ["poetry-core"]
