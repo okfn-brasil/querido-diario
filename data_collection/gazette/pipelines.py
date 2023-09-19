@@ -98,7 +98,9 @@ class SQLDatabasePipeline:
             gazette_item["file_path"] = file_info["path"]
             gazette_item["file_url"] = file_info["url"]
             gazette_item["file_checksum"] = file_info["checksum"]
-            gazette_item["scraped_at"] = dt.datetime.fromisoformat(gazette_item['scraped_at'][:-1])
+            gazette_item["scraped_at"] = dt.datetime.fromisoformat(
+                gazette_item["scraped_at"][:-1]
+            )
 
             gazette = Gazette(**gazette_item)
             session.add(gazette)
@@ -109,7 +111,7 @@ class SQLDatabasePipeline:
                     f"Something wrong has happened when adding the gazette in the database. "
                     f"Date: {gazette_item['date']}. "
                     f"File Checksum: {gazette_item['file_checksum']}. "
-                    f"Details: {exc.args}\n{gazette_item}\n{type(gazette_item['date'])}"
+                    f"Details: {exc.args}"
                 )
                 session.rollback()
 
