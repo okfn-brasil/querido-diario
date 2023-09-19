@@ -2,8 +2,8 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-        "date": {
-            "description": "Date of the gazzete",
+        "date_string": {
+            "description": "Date to validation",
             "type": "string",
             "format": "date"
         },
@@ -60,7 +60,7 @@
         }
     },
     "required": [
-        "date",
+        "date_string",
         "territory_id",
         "power",
         "scraped_at"

@@ -27,13 +27,17 @@ class DefaultValuesPipeline:
 
     default_field_values = {
         "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
-        "scraped_at": lambda spider: dt.datetime.utcnow(),
+        "scraped_at": lambda spider: dt.datetime.utcnow().isoformat("T") + "Z",
+        "date_string": lambda item: str(item["date"]),
     }
 
     def process_item(self, item, spider):
         for field in self.default_field_values:
             if field not in item:
-                item[field] = self.default_field_values.get(field)(spider)
+                if field == "date_string":
+                    item[field] = self.default_field_values.get(field)(item)
+                else:
+                    item[field] = self.default_field_values.get(field)(spider)
         return item
 
 
@@ -94,6 +98,7 @@ class SQLDatabasePipeline:
             gazette_item["file_path"] = file_info["path"]
             gazette_item["file_url"] = file_info["url"]
             gazette_item["file_checksum"] = file_info["checksum"]
+            gazette_item["scraped_at"] = dt.datetime.fromisoformat(gazette_item['scraped_at'][:-1])
 
             gazette = Gazette(**gazette_item)
             session.add(gazette)
@@ -104,7 +109,7 @@ class SQLDatabasePipeline:
                     f"Something wrong has happened when adding the gazette in the database. "
                     f"Date: {gazette_item['date']}. "
                     f"File Checksum: {gazette_item['file_checksum']}. "
-                    f"Details: {exc.args}"
+                    f"Details: {exc.args}\n{gazette_item}\n{type(gazette_item['date'])}"
                 )
                 session.rollback()
 
