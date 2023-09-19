@@ -23,17 +23,13 @@ class GazetteDateFilteringPipeline:
 
 
 class DefaultValuesPipeline:
-    """Add defaults values field, if not already set in the item"""
-
-    default_field_values = {
-        "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
-        "scraped_at": lambda spider: dt.datetime.utcnow(),
-    }
-
     def process_item(self, item, spider):
-        for field in self.default_field_values:
-            if field not in item:
-                item[field] = self.default_field_values.get(field)(spider)
+        item["territory_id"] = getattr(spider, "TERRITORY_ID")
+
+        # Date manipulation to allow jsonschema to validate correctly
+        item["date"] = str(item["date"])
+        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+
         return item
 
 
