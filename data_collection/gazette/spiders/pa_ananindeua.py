@@ -1,6 +1,9 @@
-from datetime import datetime
+import re
+from calendar import monthrange
+from datetime import date
 
-import dateparser
+from dateparser import parse
+from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -11,37 +14,47 @@ class PaAnanindeuaSpider(BaseGazetteSpider):
     TERRITORY_ID = "1500800"
     name = "pa_ananindeua"
     allowed_domains = ["ananindeua.pa.gov.br"]
-    start_urls = ["http://www.ananindeua.pa.gov.br/diario/inicio/diarios-pdf"]
-    FILE_ELEMENT_CSS = "div#content div div#online_arquivo a::attr(href)"
-    DATE_ELEMENT_CSS = "div#content div div#online_data::text"
+    url_base = "https://www.ananindeua.pa.gov.br/diario_oficial.asp?titulo={}&dataini={}&datafim={}&order=1&go=Buscar&bt_buscar=buscar&num_rows=31&pag=1"
+    start_date = date(2008, 1, 21)
+
+    FILE_ELEMENT_CSS = "div.item_lic div.list-group a.list-group-item::attr(href)"
+    DATE_ELEMENT_CSS = "div.item_lic div.d-flex div.small::text"
+    EDITION_NUMBER_ELEMENT_CSS = "div.item_lic div.item_lic_titulo::text"
+    EDITION_NUMBER_RE = re.compile(r"DIÁRIO Nº (\d+),")
     DATE_FORMAT = "%d/%m/%Y"
 
-    def parse(self, response):
-        # Year ids are not truly sequential, this offset prevent from missing someone
-        offset = 5
-        avaliable_years_ids = datetime.now().year - 2008
-
-        for year_id, month_id in zip(
-            range(1, avaliable_years_ids + offset), range(1, 13)
+    def start_requests(self):
+        initial_date = date(self.start_date.year, self.start_date.month, 1)
+        for monthly_date in rrule(
+            freq=MONTHLY, dtstart=initial_date, until=self.end_date
         ):
-            yield Request(
-                url=f"{response.url}?id={year_id}&mes={month_id}",
-                callback=self.parse_month,
+            month_range = monthrange(monthly_date.year, monthly_date.month)
+            month_start = monthly_date.replace(day=1).strftime(self.DATE_FORMAT)
+            month_end = monthly_date.replace(day=month_range[1]).strftime(
+                self.DATE_FORMAT
             )
+            url = self.url_base.format(monthly_date.year, month_start, month_end)
+            yield Request(url)
 
-    def parse_month(self, response):
+    def parse(self, response):
         file_urls = response.css(self.FILE_ELEMENT_CSS).extract()
         dates = response.css(self.DATE_ELEMENT_CSS).extract()
+        editions = response.css(self.EDITION_NUMBER_ELEMENT_CSS).extract()
 
-        for date_str, file_url in zip(dates, file_urls):
-            date = dateparser.parse(date_str, date_formats=[self.DATE_FORMAT]).date()
+        for edition_str, date_str, file_url in zip(editions, dates, file_urls):
+            date = parse(date_str.split(": ")[1], languages=["pt"]).date()
             url = response.urljoin(file_url)
-
-            yield Gazette(
+            gazette = Gazette(
                 date=date,
                 file_urls=[url],
                 is_extra_edition="extra" in url.lower(),
                 territory_id=self.TERRITORY_ID,
-                scraped_at=datetime.utcnow(),
                 power="executive",
             )
+            # the edition number is not always present.
+            if edition_str:
+                edition_number = self.EDITION_NUMBER_RE.search(edition_str)
+                if edition_number:
+                    gazette["edition_number"] = edition_number.group(1)
+
+            yield gazette
