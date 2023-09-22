@@ -5,7 +5,6 @@ from itemadapter import ItemAdapter
 from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
-from scrapy.http.request import NO_CALLBACK
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
 from scrapy.utils import project
@@ -24,13 +23,17 @@ class GazetteDateFilteringPipeline:
 
 
 class DefaultValuesPipeline:
+    """Add defaults values field, if not already set in the item"""
+
+    default_field_values = {
+        "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
+        "scraped_at": lambda spider: dt.datetime.utcnow(),
+    }
+
     def process_item(self, item, spider):
-        item["territory_id"] = getattr(spider, "TERRITORY_ID")
-
-        # Date manipulation to allow jsonschema to validate correctly
-        item["date"] = str(item["date"])
-        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
-
+        for field in self.default_field_values:
+            if field not in item:
+                item[field] = self.default_field_values.get(field)(spider)
         return item
 
 
@@ -135,10 +138,7 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         """Makes requests from urls and/or lets through ready requests."""
         urls = ItemAdapter(item).get(self.files_urls_field, [])
         download_file_headers = getattr(info.spider, "download_file_headers", {})
-        yield from (
-            Request(u, callback=NO_CALLBACK, headers=download_file_headers)
-            for u in urls
-        )
+        yield from (Request(u, headers=download_file_headers) for u in urls)
 
         requests = ItemAdapter(item).get(self.files_requests_field, [])
         yield from requests
@@ -161,8 +161,10 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         Path to save the files, modified to organize the gazettes in directories.
         The files will be under <territory_id>/<gazette date>/.
         """
+
         filepath = super().file_path(request, response=response, info=info, item=item)
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the territory_id and gazette date.
+        datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
-        return str(Path(item["territory_id"], item["date"], filename))
+        return str(Path(item["territory_id"], datestr, filename))
