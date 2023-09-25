@@ -8,7 +8,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class PeRecifeSpider_2(BaseGazetteSpider):
+class PeRecifeSpider_2020(BaseGazetteSpider):
     """Raspador para as publicações atuais de Recife (PE)
 
     Este raspador cobre o `sistema de publicações atual de Recife (PE)
@@ -27,7 +27,7 @@ class PeRecifeSpider_2(BaseGazetteSpider):
         - `Ambas publicações <https://dome.recife.pe.gov.br/dome/doDia.php?dataEdicao=2022-01-29>`_
     """
 
-    name = "recife_2020"
+    name = "pe_recife_2020"
     TERRITORY_ID = "2611606"
 
     start_date = dt.date(2020, 8, 2)
