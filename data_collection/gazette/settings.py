@@ -1,5 +1,4 @@
-import importlib.resources
-
+import pkg_resources
 from decouple import config
 
 BOT_NAME = "gazette"
@@ -28,7 +27,7 @@ EXTENSIONS = {
 }
 SPIDERMON_ENABLED = config("SPIDERMON_ENABLED", default=True, cast=bool)
 SPIDERMON_VALIDATION_SCHEMAS = [
-    str(importlib.resources.files("gazette") / "resources/gazette_schema.json")
+    pkg_resources.resource_filename("gazette", "resources/gazette_schema.json")
 ]
 
 SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
