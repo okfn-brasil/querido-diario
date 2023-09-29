@@ -8,7 +8,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class PeRecifeSpider_1(BaseGazetteSpider):
+class PeRecifeSpider_2015(BaseGazetteSpider):
     """Recife's (PE) spider for gazettes from 2015 to 2020
 
     This spider is implemented to crawl Recife's `gazette system
@@ -31,7 +31,7 @@ class PeRecifeSpider_1(BaseGazetteSpider):
         - http://200.238.105.211/cadernos/2020/20200616/8-PrefeituradoRecife/PrefeituradoRecife(20200616).pdf
     """
 
-    name = "recife_2015"
+    name = "pe_recife_2015"
     TERRITORY_ID = "2611606"
 
     start_date = dt.date(2015, 4, 30)
