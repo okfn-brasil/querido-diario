@@ -167,4 +167,8 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         # class we replace that with the territory_id and gazette date.
         datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
+
+        if not filename.count(".pdf"):
+            filename = filename + ".pdf"
+
         return str(Path(item["territory_id"], datestr, filename))
