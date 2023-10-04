@@ -1,4 +1,6 @@
 import datetime as dt
+import hashlib
+import re
 from pathlib import Path
 
 from itemadapter import ItemAdapter
@@ -12,6 +14,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import Gazette, initialize_database
+
+SP_RIBEIRAO_PRETO_PDF_FILENAME: re.Pattern[bytes] = re.compile(rb'filename="([^"]+)"')
 
 
 class GazetteDateFilteringPipeline:
@@ -162,9 +166,56 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         The files will be under <territory_id>/<gazette date>/.
         """
 
+        datestr = item["date"].strftime("%Y-%m-%d")
+
+        if response and item["territory_id"] == "3543402":
+            if content_disposition := response.headers.get("Content-Disposition"):
+                if SP_RIBEIRAO_PRETO_PDF_FILENAME.search(content_disposition):
+                    return self.file_path_for_sp_ribeirao_preto(
+                        request,
+                        response=response,
+                        info=info,
+                        item=item,
+                    )
+                else:
+                    info.spider.logger.info(
+                        f"Unable to extract the actual PDF file name for {datestr}"
+                        " entry of territory_id 3543402. Falling back to"
+                        " request.url-based filename calculation"
+                    )
+            else:
+                info.spider.logger.info(
+                    f"Unable to extract Content-Disposition header for {datestr}"
+                    " entry of territory_id 3543402. Falling back to"
+                    " request.url-based filename calculation"
+                )
+
         filepath = super().file_path(request, response=response, info=info, item=item)
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the territory_id and gazette date.
-        datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
+        if item["territory_id"] == "3543402":
+            # For sp_ribeirao_preto, the URL ends with .xhtml but content is a PDF file
+            # We will remove the extension included by FilesPipeline.file_path code
+            filename = Path(filepath).stem
+        return str(Path(item["territory_id"], datestr, filename))
+
+    def file_path_for_sp_ribeirao_preto(self, request, response, info=None, item=None):
+        """
+        sp_ribeirao_preto source requires a FormRequest for the same URL, but
+        the actual filename is in the `Content-Disposition` entry of
+        the response headers.
+
+        We had to customize file_path for this spider due to cases
+        when there are multiple files for the same date.
+        """
+
+        content_disposition: bytes = response.headers["Content-Disposition"]
+        match_: re.Match[bytes] = SP_RIBEIRAO_PRETO_PDF_FILENAME.search(
+            content_disposition
+        )
+        pdf_filename: bytes = match_.group(1)
+
+        datestr: str = item["date"].strftime("%Y-%m-%d")
+        filename: str = hashlib.sha1(pdf_filename).hexdigest()
         return str(Path(item["territory_id"], datestr, filename))
