@@ -80,6 +80,12 @@ class SQLDatabasePipeline:
             "territory_id",
         ]
         gazette_item = {field: item.get(field) for field in fields}
+        gazette_item["date"] = dt.datetime.strptime(
+            gazette_item["date"], "%Y-%m-%d"
+        ).date()
+        gazette_item["scraped_at"] = dt.datetime.strptime(
+            gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
 
         for file_info in item.get("files", []):
             already_downloaded = file_info["status"] == "uptodate"
