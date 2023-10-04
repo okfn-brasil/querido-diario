@@ -28,5 +28,5 @@ run_spider_since:
 
 compile:
 	cd data_collection; \
-	pip-compile --upgrade --no-annotate --no-header --allow-unsafe --generate-hashes requirements.in; \
-	pip-compile --upgrade --no-annotate --no-header --allow-unsafe --generate-hashes requirements-dev.in
+	pip-compile --upgrade --no-annotate --allow-unsafe --generate-hashes requirements.in; \
+	pip-compile --upgrade --no-annotate --allow-unsafe --generate-hashes requirements-dev.in
