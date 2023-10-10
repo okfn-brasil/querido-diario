@@ -3,13 +3,14 @@ from datetime import date
 from gazette.items import Gazette 
 from gazette.spiders.base.doem import DoemGazetteSpider 
 
-class BaTeixeiraDeFreitasSpider(DoemGazetteSpider):
-    TERRITORY_ID = "2931350"
-    name = "ba_teixeira_de_freitas"
-    state_city_url_part = "ba/teixeiradefreitas"
-    start_date = date(2014, 12, 31) 
-    url_base = "http://diario2.teixeiradefreitas.ba.gov.br"
-    
+
+class BaSentoSeSpider(DoemGazetteSpider):
+    TERRITORY_ID = "2930204"
+    name = "ba_sento_se"
+    state_city_url_part = "ba/sentose"
+    start_date = date(2017, 1, 2) 
+    start_urls = "https://doem.org.br/ba/sentose/diarios/"
+
     def parse(self, response): 
      
         edition_links = response.css(".publicacao-item a::attr(href)").getall() 
@@ -22,7 +23,7 @@ class BaTeixeiraDeFreitasSpider(DoemGazetteSpider):
         gazette_date = date.fromisoformat(date_str)
 
         
-        pdf_url = response.css(".btn-download-pdf::attr(href)").get() 
+        pdf_url = response.css(".btn-download-pdf::attr(href)").get()
 
         if pdf_url: 
             yield Gazette(
