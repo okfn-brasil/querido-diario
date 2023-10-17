@@ -8,7 +8,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RnMossoroSpider(BaseGazetteSpider):
     TERRITORY_ID = "2408003"
-    name = "rn_mossoro"
+    name = "rn_mossoro_2023"
     start_date = dt.date(2023, 1, 2)
     allowed_domains = ["dom.mossoro.rn.gov.br"]
     start_urls = ["https://www.dom.mossoro.rn.gov.br/dom/edicoes"]
