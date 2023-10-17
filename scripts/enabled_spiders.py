@@ -93,6 +93,7 @@ SPIDERS = [
     "rj_belford_roxo",
     "rj_nova_iguacu",
     "rj_rio_de_janeiro",
+    "rn_mossoro_2023",
     "rn_natal",
     "rr_boa_vista",
     "rs_caxias_do_sul",
