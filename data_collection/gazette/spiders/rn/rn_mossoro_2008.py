@@ -10,7 +10,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RnMossoroSpider(BaseGazetteSpider):
     TERRITORY_ID = "2408003"
-    name = "rn_mossoro_2008_2022"
+    name = "rn_mossoro_2008"
     allowed_domains = ["jom.mossoro.rn.gov.br"]
     start_date = dt.date(2008, 1, 1)
 
