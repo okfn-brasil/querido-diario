@@ -8,6 +8,7 @@ on:
 
 jobs:
   schedule-jobs:
+    if: github.repository == 'okfn-brasil/querido-diario'
     runs-on: ubuntu-latest
     env:
       SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
