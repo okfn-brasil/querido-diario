@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy_to_scrapy_cloud:
+    if: github.repository == 'okfn-brasil/querido-diario'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
