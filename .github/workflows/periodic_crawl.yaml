@@ -2,8 +2,7 @@ name: Daily execution of Spiders
 
 on:
   schedule:
-    # Execute twice a day at 8AM/6PM (BRT)
-    - cron: "0 11 * * *"
+    # Execute once a day at 6PM (BRT)
     - cron: "0 21 * * *"
 
 jobs:
