@@ -149,6 +149,7 @@ SPIDERS = [
     "sp_sarutaia",
     "sp_sertaozinho",
     "sp_sumare",
+    "sp_suzano",
     "sp_valinhos",
     "sp_vera_cruz",
     "sp_vinhedo",
