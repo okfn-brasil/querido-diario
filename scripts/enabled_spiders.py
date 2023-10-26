@@ -161,6 +161,7 @@ SPIDERS = [
     "sp_monte_alto_2017",
     "sp_mogi_guacu",
     "sp_monte_mor",
+    "sp_nova_luzitania",
     "sp_osasco",
     "sp_ourinhos",
     "sp_parisi",
