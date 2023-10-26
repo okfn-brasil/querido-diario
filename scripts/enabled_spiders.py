@@ -147,6 +147,7 @@ SPIDERS = [
     "sp_jundiai",
     "sp_lagoinha",
     "sp_lavinia",
+    "sp_luiziania",
     "sp_marilia",
     "sp_monte_alto_2017",
     "sp_mogi_guacu",
