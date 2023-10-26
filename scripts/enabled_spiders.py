@@ -157,6 +157,7 @@ SPIDERS = [
     "sp_lavinia",
     "sp_luiziania",
     "sp_marilia",
+    "sp_mira_estrela",
     "sp_monte_alto_2017",
     "sp_mogi_guacu",
     "sp_monte_mor",
