@@ -140,6 +140,7 @@ SPIDERS = [
     "sp_catanduva",
     "sp_coronel_macedo",
     "sp_dracena",
+    "sp_floreal",
     "sp_glicerio",
     "sp_guaracai",
     "sp_guarulhos",
