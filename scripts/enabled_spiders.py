@@ -174,6 +174,7 @@ SPIDERS = [
     "sp_piedade",
     "sp_poloni",
     "sp_planalto",
+    "sp_pontes_gestal",
     "sp_pratania",
     "sp_presidente_epitacio",
     "sp_rio_claro",
