@@ -135,6 +135,7 @@ SPIDERS = [
     "sp_birigui",
     "sp_botucatu",
     "sp_braganca_paulista",
+    "sp_brejo_alegre",
     "sp_campinas",
     "sp_campo_limpo_paulista",
     "sp_catanduva",
