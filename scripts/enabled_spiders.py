@@ -124,6 +124,7 @@ SPIDERS = [
     "sc_joinville",
     "se_nossa_senhora_do_socorro",
     "sp_adolfo",
+    "sp_aguas_de_sao_pedro",
     "sp_alto_alegre",
     "sp_andradina",
     "sp_aparecida",
