@@ -141,6 +141,7 @@ SPIDERS = [
     "sp_campo_limpo_paulista",
     "sp_catanduva",
     "sp_coronel_macedo",
+    "sp_dirce_reis",
     "sp_dracena",
     "sp_floreal",
     "sp_glicerio",
