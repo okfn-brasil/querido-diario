@@ -145,6 +145,7 @@ SPIDERS = [
     "sp_jaboticabal",
     "sp_jau_2023",
     "sp_jundiai",
+    "sp_lagoinha",
     "sp_lavinia",
     "sp_marilia",
     "sp_monte_alto_2017",
