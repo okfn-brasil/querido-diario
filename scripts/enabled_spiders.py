@@ -162,6 +162,7 @@ SPIDERS = [
     "sp_presidente_epitacio",
     "sp_rio_claro",
     "sp_santa_ernestina",
+    "sp_santa_maria_da_serra",
     "sp_salto",
     "sp_santo_andre",
     "sp_santos",
