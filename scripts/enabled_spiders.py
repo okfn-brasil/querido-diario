@@ -182,6 +182,7 @@ SPIDERS = [
     "sp_sao_pedro",
     "sp_sao_roque",
     "sp_sarutaia",
+    "sp_sebastianopolis_do_sul",
     "sp_sertaozinho",
     "sp_sumare",
     "sp_valinhos",
