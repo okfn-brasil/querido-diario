@@ -151,6 +151,7 @@ SPIDERS = [
     "sp_jandira",
     "sp_jaboticabal",
     "sp_jau_2023",
+    "sp_joao_ramalho",
     "sp_jundiai",
     "sp_lagoinha",
     "sp_lavinia",
