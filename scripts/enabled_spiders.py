@@ -193,6 +193,7 @@ SPIDERS = [
     "sp_sertaozinho",
     "sp_sumare",
     "sp_taquaral",
+    "sp_turiuba",
     "sp_valinhos",
     "sp_valparaiso",
     "sp_vera_cruz",
