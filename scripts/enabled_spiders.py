@@ -130,6 +130,7 @@ SPIDERS = [
     "sp_aparecida",
     "sp_aracariguama",
     "sp_aracatuba",
+    "sp_arapei",
     "sp_avare",
     "sp_barao_de_antonina",
     "sp_birigui",
