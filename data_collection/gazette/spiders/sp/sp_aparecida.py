@@ -8,4 +8,4 @@ class SpAparecidaSpider(BaseInstarSpider):
     name = "sp_aparecida"
     allowed_domains = ["aparecida.sp.gov.br"]
     base_url = "https://www.aparecida.sp.gov.br/portal/diario-oficial"
-    start_date = date(2021, 3, 23)
+    start_date = date(2021, 8, 23)
