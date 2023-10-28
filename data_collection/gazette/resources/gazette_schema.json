@@ -35,7 +35,9 @@
             ]
         },
         "scraped_at":{
-            "type": "string"
+            "description": "When the gazzete was scraped",
+            "type": "string",
+            "format": "date-time"
         },
         "files": {
             "type": "array",

@@ -25,3 +25,8 @@ shell:
 
 run_spider_since:
 	cd $(SRC_DIRS) && scrapy crawl -a start_date=$(START_DATE) $(SPIDER)
+
+compile:
+	cd data_collection; \
+	pip-compile --upgrade --no-annotate --allow-unsafe --generate-hashes requirements.in; \
+	pip-compile --upgrade --no-annotate --allow-unsafe --generate-hashes requirements-dev.in
