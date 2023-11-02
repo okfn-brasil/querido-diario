@@ -8,7 +8,6 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class FecamGazetteSpider(BaseGazetteSpider):
-
     URL = "https://www.diariomunicipal.sc.gov.br/site/"
     total_pages = None
 

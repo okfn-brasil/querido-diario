@@ -61,8 +61,10 @@ class ComparisonBetweenSpiderExecutionsMonitor(Monitor):
                 .filter(JobStats.spider == self.data.spider.name)
                 .all()
             )
-            extracted_in_period = sum(
-                [stat.job_stats.get("item_scraped_count", 0) for stat in job_stats]
+            n_scraped_items = self.data.stats.get("item_scraped_count", 0)
+            extracted_in_period = (
+                sum([stat.job_stats.get("item_scraped_count", 0) for stat in job_stats])
+                + n_scraped_items
             )
             self.assertNotEqual(
                 extracted_in_period,
@@ -76,22 +78,29 @@ class CustomSendDiscordMessage(SendDiscordMessage):
         stats = self.data.stats
         n_scraped_items = stats.get("item_scraped_count", 0)
 
+        failures_report = []
+        for result in self.result.monitor_results:
+            if result.status != "FAIL":
+                continue
+            failures_report.append(f"{result.monitor.name}: {result.reason}")
+
         failures = len(self.result.failures)
         emoji = "\U0001F525" if failures > 0 else "\U0001F60E"
 
-        message = "\n".join(
-            [
-                f"*{self.data.spider.name}* {stats['finish_reason']}",
-                f"- Finish time: *{stats['finish_time']}*",
-                f"- Gazettes scraped: *{n_scraped_items}*",
-                f"- {emoji} {failures} failures {emoji}",
-            ]
-        )
-        return message
+        msg_lines = [
+            f"*{self.data.spider.name}* {stats['finish_reason']}",
+            f"- Finish time: *{stats['finish_time']}*",
+            f"- Gazettes scraped: *{n_scraped_items}*",
+            f"- {emoji} {failures} failures {emoji}",
+        ]
+        if failures_report:
+            msg_lines.append("===== FAILURES =====")
+            msg_lines.extend(failures_report)
+
+        return "\n".join(msg_lines)
 
 
 class SpiderCloseMonitorSuite(MonitorSuite):
-
     monitors = [
         ComparisonBetweenSpiderExecutionsMonitor,
         RequestsItemsRatioMonitor,

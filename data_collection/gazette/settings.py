@@ -12,6 +12,9 @@ ITEM_PIPELINES = {
     "spidermon.contrib.scrapy.pipelines.ItemValidationPipeline": 400,
     "gazette.pipelines.SQLDatabasePipeline": 500,
 }
+USER_AGENT = (
+    "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0"
+)
 
 DOWNLOAD_TIMEOUT = 360
 
@@ -42,7 +45,7 @@ QUERIDODIARIO_DATABASE_URL = config(
     "QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db"
 )
 QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO = 5
-QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 5
+QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 7
 
 # These settings are needed only when storing downloaded files
 # in a S3 bucket
@@ -51,3 +54,6 @@ AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="")
 AWS_ENDPOINT_URL = config("AWS_ENDPOINT_URL", default="")
 AWS_REGION_NAME = config("AWS_REGION_NAME", default="")
 FILES_STORE_S3_ACL = config("FILES_STORE_S3_ACL", default="public-read")
+
+DOWNLOADER_MIDDLEWARES = {"scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware": 610}
+ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"

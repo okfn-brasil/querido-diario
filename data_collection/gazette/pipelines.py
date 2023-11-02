@@ -2,10 +2,13 @@ import datetime as dt
 from pathlib import Path
 
 from itemadapter import ItemAdapter
+from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
+from scrapy.http.request import NO_CALLBACK
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
+from scrapy.utils import project
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
@@ -21,17 +24,13 @@ class GazetteDateFilteringPipeline:
 
 
 class DefaultValuesPipeline:
-    """Add defaults values field, if not already set in the item"""
-
-    default_field_values = {
-        "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
-        "scraped_at": lambda spider: dt.datetime.utcnow(),
-    }
-
     def process_item(self, item, spider):
-        for field in self.default_field_values:
-            if field not in item:
-                item[field] = self.default_field_values.get(field)(spider)
+        item["territory_id"] = getattr(spider, "TERRITORY_ID")
+
+        # Date manipulation to allow jsonschema to validate correctly
+        item["date"] = str(item["date"])
+        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+
         return item
 
 
@@ -44,9 +43,25 @@ class SQLDatabasePipeline:
         database_url = crawler.settings.get("QUERIDODIARIO_DATABASE_URL")
         return cls(database_url=database_url)
 
+    def _generate_territory_spider_map(self):
+        settings = project.get_project_settings()
+        spider_loader = spiderloader.SpiderLoader.from_settings(settings)
+        spiders = spider_loader.list()
+        classes = [spider_loader.load(name) for name in spiders]
+
+        mapping = []
+        for spider_class in classes:
+            spider_name = getattr(spider_class, "name", None)
+            territory_id = getattr(spider_class, "TERRITORY_ID", None)
+            date_from = getattr(spider_class, "start_date", None)
+            if all((spider_name, territory_id, date_from)):
+                mapping.append((spider_name, territory_id, date_from))
+        return mapping
+
     def open_spider(self, spider):
         if self.database_url is not None:
-            engine = initialize_database(self.database_url)
+            territory_spider_map = self._generate_territory_spider_map()
+            engine = initialize_database(self.database_url, territory_spider_map)
             self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
@@ -65,6 +80,12 @@ class SQLDatabasePipeline:
             "territory_id",
         ]
         gazette_item = {field: item.get(field) for field in fields}
+        gazette_item["date"] = dt.datetime.strptime(
+            gazette_item["date"], "%Y-%m-%d"
+        ).date()
+        gazette_item["scraped_at"] = dt.datetime.strptime(
+            gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
 
         for file_info in item.get("files", []):
             already_downloaded = file_info["status"] == "uptodate"
@@ -83,14 +104,14 @@ class SQLDatabasePipeline:
                 session.commit()
             except SQLAlchemyError as exc:
                 spider.logger.warning(
-                    f"Something wrong has happened when adding the gazette in the database."
+                    f"Something wrong has happened when adding the gazette in the database. "
                     f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}.",
-                    f"Details: {exc.args}",
+                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Details: {exc.args}"
                 )
                 session.rollback()
-            else:
-                session.close()
+
+        session.close()
 
         return item
 
@@ -120,7 +141,10 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         """Makes requests from urls and/or lets through ready requests."""
         urls = ItemAdapter(item).get(self.files_urls_field, [])
         download_file_headers = getattr(info.spider, "download_file_headers", {})
-        yield from (Request(u, headers=download_file_headers) for u in urls)
+        yield from (
+            Request(u, callback=NO_CALLBACK, headers=download_file_headers)
+            for u in urls
+        )
 
         requests = ItemAdapter(item).get(self.files_requests_field, [])
         yield from requests
@@ -143,10 +167,8 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         Path to save the files, modified to organize the gazettes in directories.
         The files will be under <territory_id>/<gazette date>/.
         """
-
         filepath = super().file_path(request, response=response, info=info, item=item)
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the territory_id and gazette date.
-        datestr = item["date"].strftime("%Y-%m-%d")
         filename = Path(filepath).name
-        return str(Path(item["territory_id"], datestr, filename))
+        return str(Path(item["territory_id"], item["date"], filename))

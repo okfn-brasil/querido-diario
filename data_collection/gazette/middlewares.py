@@ -7,7 +7,6 @@ from scrapy import signals
 
 
 class GazetteSpiderMiddleware:
-
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -51,7 +50,6 @@ class GazetteSpiderMiddleware:
 
 
 class GazetteDownloaderMiddleware:
-
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
