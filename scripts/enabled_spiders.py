@@ -21,6 +21,7 @@ SPIDERS = [
     "ba_cruz_das_almas",
     "ba_esplanada",
     "ba_feira_de_santana",
+    "ba_formosa_do_rio_preto",
     "ba_irara",
     "ba_itaberaba",
     "ba_itamaraju",
