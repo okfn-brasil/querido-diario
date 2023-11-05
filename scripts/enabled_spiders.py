@@ -227,6 +227,7 @@ SPIDERS = [
     "sp_votorantim",
     "sp_votuporanga",
     "to_araguaina",
+    "to_guarai",
     "to_gurupi",
     "to_palmas",
 ]
