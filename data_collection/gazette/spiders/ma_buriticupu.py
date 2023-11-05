@@ -9,4 +9,4 @@ class MaBuriticupu(AdiariosGazetteSpider):
     start_date = datetime.date(2018, 5, 7)
 
     TERRITORY_ID = "2102325"
-    BASE_URL = "http://www.buriticupu.ma.gov.br"
+    BASE_URL = "https://www.buriticupu.ma.gov.br"

@@ -9,4 +9,4 @@ class JuazeiroDoNorte(AdiariosGazetteSpider):
     start_date = datetime.date(2021, 1, 12)
 
     TERRITORY_ID = "2307304"
-    BASE_URL = "http://www.juazeirodonorte.ce.gov.br"
+    BASE_URL = "https://www.juazeirodonorte.ce.gov.br"

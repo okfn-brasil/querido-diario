@@ -15,4 +15,4 @@ class CeCaucaia(AdiariosGazetteSpider):
     start_date = datetime.date(2002, 6, 3)
 
     TERRITORY_ID = "2303709"
-    BASE_URL = "http://www.caucaia.ce.gov.br"
+    BASE_URL = "https://www.caucaia.ce.gov.br"
