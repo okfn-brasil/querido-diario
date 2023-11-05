@@ -69,9 +69,7 @@ class AdiariosGazetteSpider(BaseGazetteSpider):
         """
         Get the last page index from the pagination
         """
-        page_pagination = response.css(".pagination li a::attr(href)").getall()
-        page_numbers = [
-            int(re.search(r"pagina=(\d+)", i).group(1)) for i in page_pagination
-        ]
+        page_pagination = response.css(".pagination li a span::text").getall()
+        page_numbers = [int(i) for i in page_pagination]
         last_page_index = max(page_numbers)
         return last_page_index
