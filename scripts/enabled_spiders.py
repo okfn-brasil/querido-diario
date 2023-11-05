@@ -12,6 +12,7 @@ SPIDERS = [
     "ba_banzae",
     "ba_barreiras",
     "ba_brotas_de_macaubas",
+    "ba_caetite",
     "ba_campo_formoso",
     "ba_canudos",
     "ba_cipo",
