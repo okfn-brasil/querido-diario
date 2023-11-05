@@ -31,7 +31,9 @@ class AdiariosGazetteSpider(BaseGazetteSpider):
             is_extra_edition = bool(
                 re.search(r"complementar|suplementar|extra", text, re.IGNORECASE)
             )
-            power = "legislative" if "legislativo" in text.lower() else "executive"
+
+            title = "".join(element.css("span:first-child::text").getall())
+            power = self.get_power(title)
 
             date = element.css(".calendarioIcon::text").get().strip()
             date = datetime.datetime.strptime(date, "%d/%m/%Y").date()
@@ -73,3 +75,16 @@ class AdiariosGazetteSpider(BaseGazetteSpider):
         page_numbers = [int(i) for i in page_pagination]
         last_page_index = max(page_numbers)
         return last_page_index
+
+    def get_power(self, title):
+        """
+        Get the power of the gazette
+        """
+        normalized_title = title.lower().strip()
+        if normalized_title.endswith("executivo"):
+            power = "executive"
+        elif normalized_title.endswith("legislativo"):
+            power = "legislative"
+        else:
+            power = "executive_legislative"
+        return power
