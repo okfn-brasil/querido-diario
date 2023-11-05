@@ -14,6 +14,7 @@ SPIDERS = [
     "ba_brotas_de_macaubas",
     "ba_campo_formoso",
     "ba_canudos",
+    "ba_cipo",
     "ba_cristopolis",
     "ba_cruz_das_almas",
     "ba_esplanada",
