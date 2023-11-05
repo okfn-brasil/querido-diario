@@ -8,6 +8,7 @@ SPIDERS = [
     "ba_acajutiba",
     "ba_alagoinhas",
     "ba_alcobaca",
+    "ba_angical",
     "ba_banzae",
     "ba_barreiras",
     "ba_brotas_de_macaubas",
