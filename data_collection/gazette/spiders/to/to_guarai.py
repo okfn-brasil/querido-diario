@@ -1,6 +1,6 @@
 import datetime as dt
-import re
 import locale
+import re
 
 import scrapy
 
@@ -29,7 +29,7 @@ class ToGuaraiSpider(BaseGazetteSpider):
     def start_requests(self):
         # Start from main page and navigate
         yield scrapy.Request(
-            f"https://guarai.to.gov.br/portal/category/diario-oficial/",
+            "https://guarai.to.gov.br/portal/category/diario-oficial/",
             callback=self.parse_pages,
         )
 
@@ -51,6 +51,37 @@ class ToGuaraiSpider(BaseGazetteSpider):
                 f"https://guarai.to.gov.br/portal/category/diario-oficial/page/{page}",
             )
 
+    def filter_by_date(self, url):
+        """
+        Example URLs:
+        - https://guarai.to.gov.br/portal/2023/10/24/edicao-ordinaria-1-701-de-24-de-outubro-de-2023/
+        - https://guarai.to.gov.br/portal/2018/07/14/maio-2018/
+        """
+
+        try:
+            # Extract the year, month and day from the url
+            if url.endswith("/"):
+                url = url[:-1]
+
+            url_parts = url.split("/")
+            year = int(url_parts[-4])
+            month = int(url_parts[-3])
+            day = int(url_parts[-2])
+            url_date = dt.date(year, month, day)
+
+            # Check the start and end dates and skip if not matched
+            if self.start_date is not None and url_date < self.start_date:
+                return False
+
+            if self.end_date is not None and url_date > self.end_date:
+                return False
+
+            return True
+
+        except Exception:
+            print(f"Exception when filtering URL by date, removing the url={url}")
+            return False
+
     def parse(self, response):
         # Get the all the unique links to all the specific pages
         # The page duplicates the URLs because of an icon
@@ -59,9 +90,11 @@ class ToGuaraiSpider(BaseGazetteSpider):
         # Filter to find the PDF pages URLs:
         filtered_hrefs = [href for href in hrefs if re.match(DOM_URL_PATTERN, href)]
 
+        # Filter given the start and end date
+        filtered_by_date = list(filter(self.filter_by_date, filtered_hrefs))
+
         # Navigate to each page to download the file
-        for href in filtered_hrefs:
-            print(f"Sending request to {href}")
+        for href in filtered_by_date:
             # Fetch the document URL
             yield scrapy.Request(
                 href,
@@ -106,6 +139,7 @@ class ToGuaraiSpider(BaseGazetteSpider):
                 # Convert date string to date object
                 date_obj = dt.datetime.strptime(date_str, "%d de %B de %Y").date()
 
+                # yield item
                 gazette_item = Gazette(
                     date=date_obj,
                     edition_number=edition_number,
