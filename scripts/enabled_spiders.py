@@ -159,6 +159,7 @@ SPIDERS = [
     "sp_guarulhos",
     "sp_ibitinga",
     "sp_iepe",
+    "sp_igaracu_do_tiete",
     "sp_irapuru",
     "sp_itapeva",
     "sp_itapevi",
