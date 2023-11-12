@@ -10,21 +10,9 @@ class RjNiteroiSpider(BaseGazetteSpider):
     TERRITORY_ID = "3303302"
     name = "rj_niteroi"
     allowed_domains = ["niteroi.rj.gov.br"]
-    start_urls = ["http://www.niteroi.rj.gov.br"]
-    download_url = "http://pgm.niteroi.rj.gov.br/downloads/do/{}/{}/{:02d}.pdf"
-    start_date = None
-    end_date = None
-
-    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
-        self.start_date = dt.date(2003, 7, 1)
-        self.end_date = dt.date.today()
-
-        super(RjNiteroiSpider, self).__init__(start_date, end_date)
-
-        self.logger.debug(
-            "Start date is {date}".format(date=self.start_date.isoformat())
-        )
-        self.logger.debug("End date is {date}".format(date=self.end_date.isoformat()))
+    start_urls = ["https://niteroi.rj.gov.br"]
+    download_url = "https://niteroi.rj.gov.br/wp-content/uploads/do/{}/{}/{:02d}.pdf"
+    start_date = dt.date(2003, 7, 1)
 
     month_names = [
         "01_Jan",
