@@ -27,7 +27,7 @@ class RequestsItemsRatioMonitor(Monitor):
             ratio = n_requests_count / n_scraped_items
             percent = round(ratio * 100, 2)
             allowed_percent = round(max_ratio * 100, 2)
-            self.assertLess(
+            self.assertLessEqual(
                 ratio,
                 max_ratio,
                 msg=f"""{percent}% is greater than the allowed {allowed_percent}%
