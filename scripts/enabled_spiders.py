@@ -72,7 +72,6 @@ SPIDERS = [
     "ma_maranhaozinho",
     "ma_nina_rodrigues",
     "ma_santo_antonio_dos_lopes",
-    "ma_sao_jose_dos_basilios",
     "ma_sao_vicente_ferrer",
     "ma_viana",
     "ma_ze_doca",
