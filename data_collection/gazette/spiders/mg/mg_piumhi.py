@@ -43,4 +43,5 @@ class MgPiumhiSpider(BaseGazetteSpider):
                 edition_number=edition_number,
                 file_urls=file_urls,
                 power="executive",
+                is_extra_edition=False,
             )
