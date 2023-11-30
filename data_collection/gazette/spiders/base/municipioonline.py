@@ -11,8 +11,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class BaseMunicipioOnlineSpider(BaseGazetteSpider):
     custom_settings = {
-        "DOWNLOAD_DELAY": 0.5,
-        "RANDOMIZE_DOWNLOAD_DELAY": True,
+        "DOWNLOAD_DELAY": 1,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 4,
     }
 
     allowed_domains = ["municipioonline.com.br"]
