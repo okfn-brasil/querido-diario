@@ -62,7 +62,6 @@ SPIDERS = [
     "ma_afonso_cunha",
     "ma_aldeias_altas",
     "ma_axixa",
-    "ma_bacuri",
     "ma_boa_vista_do_gurupi",
     "ma_caxias",
     "ma_centro_do_guilherme",
