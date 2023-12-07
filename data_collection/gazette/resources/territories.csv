@@ -426,7 +426,7 @@ id,name,state_code,state
 1500909,Augusto Corrêa,PA,Pará
 3104809,Augusto de Lima,MG,Minas Gerais
 4301503,Augusto Pestana,RS,Rio Grande do Sul
-2401305,Augusto Severo (Campo Grande),RN,Rio Grande do Norte
+2401305,Augusto Severo,RN,Rio Grande do Norte
 4301552,Áurea,RS,Rio Grande do Sul
 2902401,Aurelino Leal,BA,Bahia
 3504206,Auriflama,SP,São Paulo
@@ -2518,7 +2518,7 @@ id,name,state_code,state
 5104906,Jangada,MT,Mato Grosso
 4112207,Janiópolis,PR,Paraná
 3135209,Januária,MG,Minas Gerais
-2405306,Januário Cicco (Boa Saúde),RN,Rio Grande do Norte
+2405306,Januário Cicco,RN,Rio Grande do Norte
 3135308,Japaraíba,MG,Minas Gerais
 2703601,Japaratinga,AL,Alagoas
 2803302,Japaratuba,SE,Sergipe
@@ -2707,7 +2707,7 @@ id,name,state_code,state
 2608750,Lagoa Grande,PE,Pernambuco
 2105963,Lagoa Grande do Maranhão,MA,Maranhão
 2406502,Lagoa Nova,RN,Rio Grande do Norte
-2918803,Lagoa Real,BA,Bahia
+2918753,Lagoa Real,BA,Bahia
 2406601,Lagoa Salgada,RN,Rio Grande do Norte
 5212253,Lagoa Santa,GO,Goiás
 3137601,Lagoa Santa,MG,Minas Gerais
@@ -2718,17 +2718,17 @@ id,name,state_code,state
 2205540,Lagoinha do Piauí,PI,Piauí
 4209409,Laguna,SC,Santa Catarina
 5005251,Laguna Carapã,MS,Mato Grosso do Sul
-2918902,Laje,BA,Bahia
+2918803,Laje,BA,Bahia
 3302304,Laje do Muriaé,RJ,Rio de Janeiro
 4311403,Lajeado,RS,Rio Grande do Sul
 1712009,Lajeado,TO,Tocantins
 4311429,Lajeado do Bugre,RS,Rio Grande do Sul
 4209458,Lajeado Grande,SC,Santa Catarina
 2105989,Lajeado Novo,MA,Maranhão
-2919009,Lajedão,BA,Bahia
-2919058,Lajedinho,BA,Bahia
+2918902,Lajedão,BA,Bahia
+2919009,Lajedinho,BA,Bahia
 2608800,Lajedo,PE,Pernambuco
-2918753,Lajedo do Tabocal,BA,Bahia
+2919058,Lajedo do Tabocal,BA,Bahia
 2406700,Lajes,RN,Rio Grande do Norte
 2406809,Lajes Pintadas,RN,Rio Grande do Norte
 3137700,Lajinha,MG,Minas Gerais
@@ -4489,7 +4489,7 @@ id,name,state_code,state
 4215679,Santa Terezinha,SC,Santa Catarina
 5219704,Santa Terezinha de Goiás,GO,Goiás
 4124053,Santa Terezinha de Itaipu,PR,Paraná
-4215695,Santa Terezinha do Progresso,SC,Santa Catarina
+4215687,Santa Terezinha do Progresso,SC,Santa Catarina
 1720002,Santa Terezinha do Tocantins,TO,Tocantins
 3159803,Santa Vitória,MG,Minas Gerais
 4317301,Santa Vitória do Palmar,RS,Rio Grande do Sul
@@ -4526,7 +4526,7 @@ id,name,state_code,state
 1506807,Santarém,PA,Pará
 1506906,Santarém Novo,PA,Pará
 4317400,Santiago,RS,Rio Grande do Sul
-4215687,Santiago do Sul,SC,Santa Catarina
+4215695,Santiago do Sul,SC,Santa Catarina
 5107263,Santo Afonso,MT,Mato Grosso
 2928604,Santo Amaro,BA,Bahia
 4215703,Santo Amaro da Imperatriz,SC,Santa Catarina
@@ -4602,9 +4602,9 @@ id,name,state_code,state
 2708204,São Brás,AL,Alagoas
 3160900,São Brás do Suaçuí,MG,Minas Gerais
 2209559,São Braz do Piauí,PI,Piauí
-2613107,São Caetano,PE,Pernambuco
 1507102,São Caetano de Odivelas,PA,Pará
 3548807,São Caetano do Sul,SP,São Paulo
+2613107,São Caitano,PE,Pernambuco
 4216008,São Carlos,SC,Santa Catarina
 3548906,São Carlos,SP,São Paulo
 4124608,São Carlos do Ivaí,PR,Paraná
