@@ -27,6 +27,7 @@ id,name,state_code,state
 5100102,Acorizal,MT,Mato Grosso
 1200013,Acrelândia,AC,Acre
 5200134,Acreúna,GO,Goiás
+2400208,Açu,RN,Rio Grande do Norte
 3100500,Açucena,MG,Minas Gerais
 3500105,Adamantina,SP,São Paulo
 5200159,Adelândia,GO,Goiás
@@ -47,8 +48,8 @@ id,name,state_code,state
 3100609,Água Boa,MG,Minas Gerais
 5100201,Água Boa,MT,Mato Grosso
 2700102,Água Branca,AL,Alagoas
-2200202,Água Branca,PI,Piauí
 2500106,Água Branca,PB,Paraíba
+2200202,Água Branca,PI,Piauí
 5000203,Água Clara,MS,Mato Grosso do Sul
 3100708,Água Comprida,MG,Minas Gerais
 4200408,Água Doce,SC,Santa Catarina
@@ -119,6 +120,7 @@ id,name,state_code,state
 1700350,Aliança do Tocantins,TO,Tocantins
 2900900,Almadina,BA,Bahia
 1700400,Almas,TO,Tocantins
+1500503,Almeirim,PA,Pará
 3101706,Almenara,MG,Minas Gerais
 2400604,Almino Afonso,RN,Rio Grande do Norte
 4100400,Almirante Tamandaré,PR,Paraná
@@ -137,8 +139,8 @@ id,name,state_code,state
 3102001,Alterosa,MG,Minas Gerais
 2600807,Altinho,PE,Pernambuco
 3501004,Altinópolis,SP,São Paulo
-4300554,Alto Alegre,RS,Rio Grande do Sul
 1400050,Alto Alegre,RR,Roraima
+4300554,Alto Alegre,RS,Rio Grande do Sul
 3501103,Alto Alegre,SP,São Paulo
 2100436,Alto Alegre do Maranhão,MA,Maranhão
 2100477,Alto Alegre do Pindaré,MA,Maranhão
@@ -154,6 +156,7 @@ id,name,state_code,state
 3153509,Alto Jequitibá,MG,Minas Gerais
 2200301,Alto Longá,PI,Piauí
 5100508,Alto Paraguai,MT,Mato Grosso
+4128625,Alto Paraíso,PR,Paraná
 1100403,Alto Paraíso,RO,Rondônia
 5200605,Alto Paraíso de Goiás,GO,Goiás
 4100608,Alto Paraná,PR,Paraná
@@ -255,8 +258,8 @@ id,name,state_code,state
 2300804,Antonina do Norte,CE,Ceará
 2200806,Antônio Almeida,PI,Piauí
 2901700,Antônio Cardoso,BA,Bahia
-4201208,Antônio Carlos,SC,Santa Catarina
 3102902,Antônio Carlos,MG,Minas Gerais
+4201208,Antônio Carlos,SC,Santa Catarina
 3103009,Antônio Dias,MG,Minas Gerais
 2901809,Antônio Gonçalves,BA,Bahia
 5000906,Antônio João,MS,Mato Grosso do Sul
@@ -264,8 +267,8 @@ id,name,state_code,state
 4101309,Antônio Olinto,PR,Paraná
 4300802,Antônio Prado,RS,Rio Grande do Sul
 3103108,Antônio Prado de Minas,MG,Minas Gerais
-3502507,Aparecida,SP,São Paulo
 2500775,Aparecida,PB,Paraíba
+3502507,Aparecida,SP,São Paulo
 3502606,Aparecida d'Oeste,SP,São Paulo
 5201405,Aparecida de Goiânia,GO,Goiás
 5201454,Aparecida do Rio Doce,GO,Goiás
@@ -298,8 +301,8 @@ id,name,state_code,state
 3502804,Araçatuba,SP,São Paulo
 2902104,Araci,BA,Bahia
 3103306,Aracitaba,MG,Minas Gerais
-2601052,Araçoiaba,PE,Pernambuco
 2301208,Aracoiaba,CE,Ceará
+2601052,Araçoiaba,PE,Pernambuco
 3502903,Araçoiaba da Serra,SP,São Paulo
 3200607,Aracruz,ES,Espírito Santo
 5201603,Araçu,GO,Goiás
@@ -332,8 +335,8 @@ id,name,state_code,state
 4101507,Arapongas,PR,Paraná
 3103751,Araporã,MG,Minas Gerais
 4101606,Arapoti,PR,Paraná
-4101655,Arapuã,PR,Paraná
 3103801,Arapuá,MG,Minas Gerais
+4101655,Arapuã,PR,Paraná
 5101258,Araputanga,MT,Mato Grosso
 4201307,Araquari,SC,Santa Catarina
 2500908,Arara,PB,Paraíba
@@ -385,6 +388,7 @@ id,name,state_code,state
 2301505,Arneiroz,CE,Ceará
 2200905,Aroazes,PI,Piauí
 2501302,Aroeiras,PB,Paraíba
+2200954,Aroeiras do Itaim,PI,Piauí
 2201002,Arraial,PI,Piauí
 3300258,Arraial do Cabo,RJ,Rio de Janeiro
 1702406,Arraias,TO,Tocantins
@@ -419,8 +423,10 @@ id,name,state_code,state
 3504107,Atibaia,SP,São Paulo
 3200706,Atilio Vivacqua,ES,Espírito Santo
 1702554,Augustinópolis,TO,Tocantins
+1500909,Augusto Corrêa,PA,Pará
 3104809,Augusto de Lima,MG,Minas Gerais
 4301503,Augusto Pestana,RS,Rio Grande do Sul
+2401305,Augusto Severo (Campo Grande),RN,Rio Grande do Norte
 4301552,Áurea,RS,Rio Grande do Sul
 2902401,Aurelino Leal,BA,Bahia
 3504206,Auriflama,SP,São Paulo
@@ -462,7 +468,9 @@ id,name,state_code,state
 4202057,Balneário Barra do Sul,SC,Santa Catarina
 4202008,Balneário Camboriú,SC,Santa Catarina
 4202073,Balneário Gaivota,SC,Santa Catarina
+4212809,Balneário Piçarras,SC,Santa Catarina
 4301636,Balneário Pinhal,RS,Rio Grande do Sul
+4220000,Balneário Rincão,SC,Santa Catarina
 4102307,Balsa Nova,PR,Paraná
 3504800,Bálsamo,SP,São Paulo
 2101400,Balsas,MA,Maranhão
@@ -486,8 +494,8 @@ id,name,state_code,state
 5101605,Barão de Melgaço,MT,Mato Grosso
 3105509,Barão de Monte Alto,MG,Minas Gerais
 4301750,Barão do Triunfo,RS,Rio Grande do Sul
-2401453,Baraúna,RN,Rio Grande do Norte
 2501534,Baraúna,PB,Paraíba
+2401453,Baraúna,RN,Rio Grande do Norte
 3105608,Barbacena,MG,Minas Gerais
 2301901,Barbalha,CE,Ceará
 3505104,Barbosa,SP,São Paulo
@@ -497,8 +505,8 @@ id,name,state_code,state
 1300409,Barcelos,AM,Amazonas
 3505203,Bariri,SP,São Paulo
 2902708,Barra,BA,Bahia
-3505302,Barra Bonita,SP,São Paulo
 4202099,Barra Bonita,SC,Santa Catarina
+3505302,Barra Bonita,SP,São Paulo
 2201176,Barra D'Alcântara,PI,Piauí
 2902807,Barra da Estiva,BA,Bahia
 2601300,Barra de Guabiraba,PE,Pernambuco
@@ -528,8 +536,8 @@ id,name,state_code,state
 3105707,Barra Longa,MG,Minas Gerais
 3300407,Barra Mansa,RJ,Rio de Janeiro
 4202107,Barra Velha,SC,Santa Catarina
-4301800,Barracão,RS,Rio Grande do Sul
 4102604,Barracão,PR,Paraná
+4301800,Barracão,RS,Rio Grande do Sul
 2201200,Barras,PI,Piauí
 2301950,Barreira,CE,Ceará
 2903201,Barreiras,BA,Bahia
@@ -540,8 +548,8 @@ id,name,state_code,state
 3505500,Barretos,SP,São Paulo
 3505609,Barrinha,SP,São Paulo
 2302008,Barro,CE,Ceará
-5203203,Barro Alto,GO,Goiás
 2903235,Barro Alto,BA,Bahia
+5203203,Barro Alto,GO,Goiás
 2201408,Barro Duro,PI,Piauí
 2903300,Barro Preto,BA,Bahia
 2903276,Barrocas,BA,Bahia
@@ -575,13 +583,13 @@ id,name,state_code,state
 1501402,Belém,PA,Pará
 2501906,Belém,PB,Paraíba
 2601508,Belém de Maria,PE,Pernambuco
-2601607,Belém do São Francisco,PE,Pernambuco
 2502003,Belém do Brejo do Cruz,PB,Paraíba
 2201572,Belém do Piauí,PI,Piauí
+2601607,Belém do São Francisco,PE,Pernambuco
 3300456,Belford Roxo,RJ,Rio de Janeiro
 3106101,Belmiro Braga,MG,Minas Gerais
-4202156,Belmonte,SC,Santa Catarina
 2903409,Belmonte,BA,Bahia
+4202156,Belmonte,SC,Santa Catarina
 2903508,Belo Campo,BA,Bahia
 3106200,Belo Horizonte,MG,Minas Gerais
 2601706,Belo Jardim,PE,Pernambuco
@@ -633,8 +641,8 @@ id,name,state_code,state
 2502102,Boa Ventura,PB,Paraíba
 4103040,Boa Ventura de São Roque,PR,Paraná
 2302404,Boa Viagem,CE,Ceará
-1400100,Boa Vista,RR,Roraima
 2502151,Boa Vista,PB,Paraíba
+1400100,Boa Vista,RR,Roraima
 4103057,Boa Vista da Aparecida,PR,Paraná
 4302154,Boa Vista das Missões,RS,Rio Grande do Sul
 4302204,Boa Vista do Buricá,RS,Rio Grande do Sul
@@ -646,8 +654,8 @@ id,name,state_code,state
 2903805,Boa Vista do Tupim,BA,Bahia
 2701001,Boca da Mata,AL,Alagoas
 1300706,Boca do Acre,AM,Amazonas
-3506805,Bocaina,SP,São Paulo
 2201804,Bocaina,PI,Piauí
+3506805,Bocaina,SP,São Paulo
 3107208,Bocaina de Minas,MG,Minas Gerais
 4202438,Bocaina do Sul,SC,Santa Catarina
 3107307,Bocaiúva,MG,Minas Gerais
@@ -659,17 +667,17 @@ id,name,state_code,state
 3507001,Boituva,SP,São Paulo
 2602100,Bom Conselho,PE,Pernambuco
 3107406,Bom Despacho,MG,Minas Gerais
-3300506,Bom Jardim,RJ,Rio de Janeiro
 2102002,Bom Jardim,MA,Maranhão
 2602209,Bom Jardim,PE,Pernambuco
+3300506,Bom Jardim,RJ,Rio de Janeiro
 4202503,Bom Jardim da Serra,SC,Santa Catarina
 5203401,Bom Jardim de Goiás,GO,Goiás
 3107505,Bom Jardim de Minas,MG,Minas Gerais
+2502201,Bom Jesus,PB,Paraíba
+2201903,Bom Jesus,PI,Piauí
 2401701,Bom Jesus,RN,Rio Grande do Norte
 4302303,Bom Jesus,RS,Rio Grande do Sul
-2201903,Bom Jesus,PI,Piauí
 4202537,Bom Jesus,SC,Santa Catarina
-2502201,Bom Jesus,PB,Paraíba
 2903904,Bom Jesus da Lapa,BA,Bahia
 3107604,Bom Jesus da Penha,MG,Minas Gerais
 2903953,Bom Jesus da Serra,BA,Bahia
@@ -682,8 +690,8 @@ id,name,state_code,state
 3201100,Bom Jesus do Norte,ES,Espírito Santo
 4202578,Bom Jesus do Oeste,SC,Santa Catarina
 4103156,Bom Jesus do Sul,PR,Paraná
-1703305,Bom Jesus do Tocantins,TO,Tocantins
 1501576,Bom Jesus do Tocantins,PA,Pará
+1703305,Bom Jesus do Tocantins,TO,Tocantins
 3507100,Bom Jesus dos Perdões,SP,São Paulo
 2102077,Bom Lugar,MA,Maranhão
 4302352,Bom Princípio,RS,Rio Grande do Sul
@@ -692,9 +700,9 @@ id,name,state_code,state
 3107901,Bom Repouso,MG,Minas Gerais
 4202602,Bom Retiro,SC,Santa Catarina
 4302402,Bom Retiro do Sul,RS,Rio Grande do Sul
+3108008,Bom Sucesso,MG,Minas Gerais
 2502300,Bom Sucesso,PB,Paraíba
 4103206,Bom Sucesso,PR,Paraná
-3108008,Bom Sucesso,MG,Minas Gerais
 3507159,Bom Sucesso de Itararé,SP,São Paulo
 4103222,Bom Sucesso do Sul,PR,Paraná
 4202453,Bombinhas,SC,Santa Catarina
@@ -705,9 +713,9 @@ id,name,state_code,state
 3108206,Bonfinópolis de Minas,MG,Minas Gerais
 2904001,Boninal,BA,Bahia
 2904050,Bonito,BA,Bahia
+5002209,Bonito,MS,Mato Grosso do Sul
 1501600,Bonito,PA,Pará
 2602308,Bonito,PE,Pernambuco
-5002209,Bonito,MS,Mato Grosso do Sul
 3108255,Bonito de Minas,MG,Minas Gerais
 2502409,Bonito de Santa Fé,PB,Paraíba
 5203575,Bonópolis,GO,Goiás
@@ -752,10 +760,11 @@ id,name,state_code,state
 3507704,Braúna,SP,São Paulo
 3108800,Braúnas,MG,Minas Gerais
 5203609,Brazabrantes,GO,Goiás
+3108909,Brazópolis,MG,Minas Gerais
 2602407,Brejão,PE,Pernambuco
 3201159,Brejetuba,ES,Espírito Santo
-2401800,Brejinho,RN,Rio Grande do Norte
 2602506,Brejinho,PE,Pernambuco
+2401800,Brejinho,RN,Rio Grande do Norte
 1703701,Brejinho de Nazaré,TO,Tocantins
 2102101,Brejo,MA,Maranhão
 3507753,Brejo Alegre,SP,São Paulo
@@ -801,8 +810,8 @@ id,name,state_code,state
 5203962,Buritinópolis,GO,Goiás
 2904753,Buritirama,BA,Bahia
 2102358,Buritirana,MA,Maranhão
-1100452,Buritis,RO,Rondônia
 3109303,Buritis,MG,Minas Gerais
+1100452,Buritis,RO,Rondônia
 3508207,Buritizal,SP,São Paulo
 3109402,Buritizeiro,MG,Minas Gerais
 4302709,Butiá,RS,Rio Grande do Sul
@@ -845,8 +854,8 @@ id,name,state_code,state
 3508603,Cachoeira Paulista,SP,São Paulo
 3300803,Cachoeiras de Macacu,RJ,Rio de Janeiro
 2603108,Cachoeirinha,PE,Pernambuco
-1703826,Cachoeirinha,TO,Tocantins
 4303103,Cachoeirinha,RS,Rio Grande do Sul
+1703826,Cachoeirinha,TO,Tocantins
 3201209,Cachoeiro de Itapemirim,ES,Espírito Santo
 2503407,Cacimba de Areia,PB,Paraíba
 2503506,Cacimba de Dentro,PB,Paraíba
@@ -865,16 +874,16 @@ id,name,state_code,state
 2905206,Caetité,BA,Bahia
 2905305,Cafarnaum,BA,Bahia
 4103404,Cafeara,PR,Paraná
-3508801,Cafelândia,SP,São Paulo
 4103453,Cafelândia,PR,Paraná
+3508801,Cafelândia,SP,São Paulo
 4103479,Cafezal do Sul,PR,Paraná
 3508900,Caiabu,SP,São Paulo
 3110103,Caiana,MG,Minas Gerais
 5204409,Caiapônia,GO,Goiás
 4303301,Caibaté,RS,Rio Grande do Sul
 4203105,Caibi,SC,Santa Catarina
-4303400,Caiçara,RS,Rio Grande do Sul
 2503605,Caiçara,PB,Paraíba
+4303400,Caiçara,RS,Rio Grande do Sul
 2401859,Caiçara do Norte,RN,Rio Grande do Norte
 2401909,Caiçara do Rio do Vento,RN,Rio Grande do Norte
 2402006,Caicó,RN,Rio Grande do Norte
@@ -927,8 +936,8 @@ id,name,state_code,state
 2603504,Camocim de São Félix,PE,Pernambuco
 3110806,Campanário,MG,Minas Gerais
 3110905,Campanha,MG,Minas Gerais
-3111002,Campestre,MG,Minas Gerais
 2701357,Campestre,AL,Alagoas
+3111002,Campestre,MG,Minas Gerais
 4303673,Campestre da Serra,RS,Rio Grande do Sul
 5204607,Campestre de Goiás,GO,Goiás
 2102556,Campestre do Maranhão,MA,Maranhão
@@ -945,8 +954,8 @@ id,name,state_code,state
 2202109,Campinas do Piauí,PI,Piauí
 4303806,Campinas do Sul,RS,Rio Grande do Sul
 5204706,Campinorte,GO,Goiás
-4203303,Campo Alegre,SC,Santa Catarina
 2701407,Campo Alegre,AL,Alagoas
+4203303,Campo Alegre,SC,Santa Catarina
 5204805,Campo Alegre de Goiás,GO,Goiás
 2905909,Campo Alegre de Lourdes,BA,Bahia
 2202117,Campo Alegre do Fidalgo,PI,Piauí
@@ -955,7 +964,6 @@ id,name,state_code,state
 4203402,Campo Belo do Sul,SC,Santa Catarina
 4303905,Campo Bom,RS,Rio Grande do Sul
 4104055,Campo Bonito,PR,Paraná
-2516409,Tacima,PB,Paraíba
 2801009,Campo do Brito,SE,Sergipe
 3111309,Campo do Meio,MG,Minas Gerais
 4104105,Campo do Tenente,PR,Paraná
@@ -967,6 +975,7 @@ id,name,state_code,state
 2202133,Campo Grande do Piauí,PI,Piauí
 4104204,Campo Largo,PR,Paraná
 2202174,Campo Largo do Piauí,PI,Piauí
+5204854,Campo Limpo de Goiás,GO,Goiás
 3509601,Campo Limpo Paulista,SP,São Paulo
 4104253,Campo Magro,PR,Paraná
 2202208,Campo Maior,PI,Piauí
@@ -995,16 +1004,16 @@ id,name,state_code,state
 5102694,Canabrava do Norte,MT,Mato Grosso
 3509908,Cananéia,SP,São Paulo
 2701605,Canapi,AL,Alagoas
-3111804,Canápolis,MG,Minas Gerais
 2906105,Canápolis,BA,Bahia
-5102702,Canarana,MT,Mato Grosso
+3111804,Canápolis,MG,Minas Gerais
 2906204,Canarana,BA,Bahia
+5102702,Canarana,MT,Mato Grosso
 3509957,Canas,SP,São Paulo
 2202251,Canavieira,PI,Piauí
 2906303,Canavieiras,BA,Bahia
 2906402,Candeal,BA,Bahia
-3112000,Candeias,MG,Minas Gerais
 2906501,Candeias,BA,Bahia
+3112000,Candeias,MG,Minas Gerais
 1100809,Candeias do Jamari,RO,Rondônia
 4304200,Candelária,RS,Rio Grande do Sul
 2906600,Candiba,BA,Bahia
@@ -1029,9 +1038,9 @@ id,name,state_code,state
 4203808,Canoinhas,SC,Santa Catarina
 2906808,Cansanção,BA,Bahia
 1400175,Cantá,RR,Roraima
-3301108,Cantagalo,RJ,Rio de Janeiro
 3112059,Cantagalo,MG,Minas Gerais
 4104451,Cantagalo,PR,Paraná
+3301108,Cantagalo,RJ,Rio de Janeiro
 2102705,Cantanhede,MA,Maranhão
 2202307,Canto do Buriti,PI,Piauí
 2906824,Canudos,BA,Bahia
@@ -1046,8 +1055,8 @@ id,name,state_code,state
 4304655,Capão do Cipó,RS,Rio Grande do Sul
 4304663,Capão do Leão,RS,Rio Grande do Sul
 3112109,Caparaó,MG,Minas Gerais
-2801306,Capela,SE,Sergipe
 2701704,Capela,AL,Alagoas
+2801306,Capela,SE,Sergipe
 4304689,Capela de Santana,RS,Rio Grande do Sul
 3510302,Capela do Alto,SP,São Paulo
 2906857,Capela do Alto Alegre,BA,Bahia
@@ -1066,6 +1075,7 @@ id,name,state_code,state
 2202406,Capitão de Campos,PI,Piauí
 3112703,Capitão Enéas,MG,Minas Gerais
 2202455,Capitão Gervásio Oliveira,PI,Piauí
+4104600,Capitão Leônidas Marques,PR,Paraná
 1502301,Capitão Poço,PA,Pará
 3112802,Capitólio,MG,Minas Gerais
 3510401,Capivari,SP,São Paulo
@@ -1089,8 +1099,8 @@ id,name,state_code,state
 3510609,Carapicuíba,SP,São Paulo
 3113404,Caratinga,MG,Minas Gerais
 1301001,Carauari,AM,Amazonas
-2402303,Caraúbas,RN,Rio Grande do Norte
 2504074,Caraúbas,PB,Paraíba
+2402303,Caraúbas,RN,Rio Grande do Norte
 2202539,Caraúbas do Piauí,PI,Piauí
 2906907,Caravelas,BA,Bahia
 4304705,Carazinho,RS,Rio Grande do Sul
@@ -1100,6 +1110,7 @@ id,name,state_code,state
 3301157,Cardoso Moreira,RJ,Rio de Janeiro
 3113602,Careaçu,MG,Minas Gerais
 1301100,Careiro,AM,Amazonas
+1301159,Careiro da Várzea,AM,Amazonas
 3201308,Cariacica,ES,Espírito Santo
 2303006,Caridade,CE,Ceará
 2202554,Caridade do Piauí,PI,Piauí
@@ -1148,8 +1159,8 @@ id,name,state_code,state
 2907202,Casa Nova,BA,Bahia
 4304903,Casca,RS,Rio Grande do Sul
 3115003,Cascalho Rico,MG,Minas Gerais
-4104808,Cascavel,PR,Paraná
 2303501,Cascavel,CE,Ceará
+4104808,Cascavel,PR,Paraná
 1703909,Caseara,TO,Tocantins
 4304952,Caseiros,RS,Rio Grande do Sul
 3301306,Casimiro de Abreu,RJ,Rio de Janeiro
@@ -1195,10 +1206,11 @@ id,name,state_code,state
 2103000,Caxias,MA,Maranhão
 4305108,Caxias do Sul,RS,Rio Grande do Sul
 2202653,Caxingó,PI,Piauí
-3511300,Cedral,SP,São Paulo
+2402600,Ceará-Mirim,RN,Rio Grande do Norte
 2103109,Cedral,MA,Maranhão
-2604304,Cedro,PE,Pernambuco
+3511300,Cedral,SP,São Paulo
 2303808,Cedro,CE,Ceará
+2604304,Cedro,PE,Pernambuco
 2801603,Cedro de São João,SE,Sergipe
 3115607,Cedro do Abaeté,MG,Minas Gerais
 4204152,Celso Ramos,SC,Santa Catarina
@@ -1216,6 +1228,7 @@ id,name,state_code,state
 3511409,Cerqueira César,SP,São Paulo
 3511508,Cerquilho,SP,São Paulo
 4305124,Cerrito,RS,Rio Grande do Sul
+4105201,Cerro Azul,PR,Paraná
 4305132,Cerro Branco,RS,Rio Grande do Sul
 2402709,Cerro Corá,RN,Rio Grande do Norte
 4305157,Cerro Grande,RS,Rio Grande do Sul
@@ -1290,8 +1303,8 @@ id,name,state_code,state
 3201506,Colatina,ES,Espírito Santo
 5103205,Colíder,MT,Mato Grosso
 3512001,Colina,SP,São Paulo
-4305587,Colinas,RS,Rio Grande do Sul
 2103505,Colinas,MA,Maranhão
+4305587,Colinas,RS,Rio Grande do Sul
 5205521,Colinas do Sul,GO,Goiás
 1705508,Colinas do Tocantins,TO,Tocantins
 1716703,Colméia,TO,Tocantins
@@ -1335,8 +1348,8 @@ id,name,state_code,state
 3512308,Conchas,SP,São Paulo
 4204301,Concórdia,SC,Santa Catarina
 1502756,Concórdia do Pará,PA,Pará
-2604601,Condado,PE,Pernambuco
 2504504,Condado,PB,Paraíba
+2604601,Condado,PE,Pernambuco
 2908606,Conde,BA,Bahia
 2504603,Conde,PB,Paraíba
 2908705,Condeúba,BA,Bahia
@@ -1350,7 +1363,9 @@ id,name,state_code,state
 3118106,Congonhas do Norte,MG,Minas Gerais
 4106001,Congonhinhas,PR,Paraná
 3118205,Conquista,MG,Minas Gerais
+5103361,Conquista D'Oeste,MT,Mato Grosso
 3118304,Conselheiro Lafaiete,MG,Minas Gerais
+4106100,Conselheiro Mairinck,PR,Paraná
 3118403,Conselheiro Pena,MG,Minas Gerais
 3118502,Consolação,MG,Minas Gerais
 4305801,Constantina,RS,Rio Grande do Sul
@@ -1424,6 +1439,7 @@ id,name,state_code,state
 4305959,Cotiporã,RS,Rio Grande do Sul
 5103379,Cotriguaçu,MT,Mato Grosso
 3120102,Couto de Magalhães de Minas,MG,Minas Gerais
+1706001,Couto Magalhães,TO,Tocantins
 4305975,Coxilha,RS,Rio Grande do Sul
 5003306,Coxim,MS,Mato Grosso do Sul
 2504850,Coxixola,PB,Paraíba
@@ -1508,6 +1524,7 @@ id,name,state_code,state
 5103437,Curvelândia,MT,Mato Grosso
 3120904,Curvelo,MG,Minas Gerais
 2605103,Custódia,PE,Pernambuco
+1600212,Cutias,AP,Amapá
 5206701,Damianópolis,GO,Goiás
 2505352,Damião,PB,Paraíba
 5206800,Damolândia,GO,Goiás
@@ -1541,6 +1558,7 @@ id,name,state_code,state
 3121605,Diamantina,MG,Minas Gerais
 5103502,Diamantino,MT,Mato Grosso
 1707009,Dianópolis,TO,Tocantins
+2910057,Dias d'Ávila,BA,Bahia
 4306379,Dilermando de Aguiar,RS,Rio Grande do Sul
 3121704,Diogo de Vasconcelos,MG,Minas Gerais
 3121803,Dionísio,MG,Minas Gerais
@@ -1575,6 +1593,7 @@ id,name,state_code,state
 2910107,Dom Basílio,BA,Bahia
 3122470,Dom Bosco,MG,Minas Gerais
 3122504,Dom Cavati,MG,Minas Gerais
+1502939,Dom Eliseu,PA,Pará
 2203404,Dom Expedito Lopes,PI,Piauí
 4306502,Dom Feliciano,RS,Rio Grande do Sul
 2203453,Dom Inocêncio,PI,Piauí
@@ -1624,10 +1643,10 @@ id,name,state_code,state
 5207352,Edealina,GO,Goiás
 5207402,Edéia,GO,Goiás
 1301407,Eirunepé,AM,Amazonas
-3514809,Eldorado,SP,São Paulo
 5003751,Eldorado,MS,Mato Grosso do Sul
-4306767,Eldorado do Sul,RS,Rio Grande do Sul
+3514809,Eldorado,SP,São Paulo
 1502954,Eldorado do Carajás,PA,Pará
+4306767,Eldorado do Sul,RS,Rio Grande do Sul
 2203503,Elesbão Veloso,PI,Piauí
 3514908,Elias Fausto,SP,São Paulo
 2203602,Eliseu Martins,PI,Piauí
@@ -1651,8 +1670,8 @@ id,name,state_code,state
 3301801,Engenheiro Paulo de Frontin,RJ,Rio de Janeiro
 4306924,Engenho Velho,RS,Rio Grande do Sul
 3123858,Entre Folhas,MG,Minas Gerais
-4205175,Entre Rios,SC,Santa Catarina
 2910503,Entre Rios,BA,Bahia
+4205175,Entre Rios,SC,Santa Catarina
 3123908,Entre Rios de Minas,MG,Minas Gerais
 4107538,Entre Rios do Oeste,PR,Paraná
 4306957,Entre Rios do Sul,RS,Rio Grande do Sul
@@ -1740,8 +1759,8 @@ id,name,state_code,state
 2910776,Feira da Mata,BA,Bahia
 2910800,Feira de Santana,BA,Bahia
 2702603,Feira Grande,AL,Alagoas
-2802205,Feira Nova,SE,Sergipe
 2605400,Feira Nova,PE,Pernambuco
+2802205,Feira Nova,SE,Sergipe
 2104073,Feira Nova do Maranhão,MA,Maranhão
 3125408,Felício dos Santos,MG,Minas Gerais
 2403707,Felipe Guerra,RN,Rio Grande do Norte
@@ -1759,12 +1778,15 @@ id,name,state_code,state
 3515608,Fernando Prestes,SP,São Paulo
 3515509,Fernandópolis,SP,São Paulo
 3515657,Fernão,SP,São Paulo
+3515707,Ferraz de Vasconcelos,SP,São Paulo
 1600238,Ferreira Gomes,AP,Amapá
 2605509,Ferreiros,PE,Pernambuco
 3125903,Ferros,MG,Minas Gerais
 3125952,Fervedouro,MG,Minas Gerais
 4107751,Figueira,PR,Paraná
+5003900,Figueirão,MS,Mato Grosso do Sul
 1707652,Figueirópolis,TO,Tocantins
+5103809,Figueirópolis D'Oeste,MT,Mato Grosso
 2910859,Filadélfia,BA,Bahia
 1707702,Filadélfia,TO,Tocantins
 2910909,Firmino Alves,BA,Bahia
@@ -1792,6 +1814,7 @@ id,name,state_code,state
 4205407,Florianópolis,SC,Santa Catarina
 4108106,Flórida,PR,Paraná
 3516002,Flórida Paulista,SP,São Paulo
+3516101,Florínia,SP,São Paulo
 1301605,Fonte Boa,AM,Amazonas
 4308300,Fontoura Xavier,RS,Rio Grande do Sul
 3126109,Formiga,MG,Minas Gerais
@@ -1856,6 +1879,7 @@ id,name,state_code,state
 2404101,Galinhos,RN,Rio Grande do Norte
 4205605,Galvão,SC,Santa Catarina
 2605905,Gameleira,PE,Pernambuco
+5208152,Gameleira de Goiás,GO,Goiás
 3127339,Gameleiras,MG,Minas Gerais
 2911204,Gandu,BA,Bahia
 2606002,Garanhuns,PE,Pernambuco
@@ -1889,6 +1913,7 @@ id,name,state_code,state
 3127354,Glaucilândia,MG,Minas Gerais
 3517109,Glicério,SP,São Paulo
 2911402,Glória,BA,Bahia
+5103957,Glória D'Oeste,MT,Mato Grosso
 5004007,Glória de Dourados,MS,Mato Grosso do Sul
 2606101,Glória do Goitá,PE,Pernambuco
 4309050,Glorinha,RS,Rio Grande do Sul
@@ -1922,6 +1947,7 @@ id,name,state_code,state
 2104552,Governador Edison Lobão,MA,Maranhão
 2104602,Governador Eugênio Barros,MA,Maranhão
 1101005,Governador Jorge Teixeira,RO,Rondônia
+3202256,Governador Lindenberg,ES,Espírito Santo
 2104628,Governador Luiz Rocha,MA,Maranhão
 2911600,Governador Mangabeira,BA,Bahia
 2104651,Governador Newton Bello,MA,Maranhão
@@ -1953,8 +1979,8 @@ id,name,state_code,state
 4309308,Guaíba,RS,Rio Grande do Sul
 3517208,Guaiçara,SP,São Paulo
 3517307,Guaimbê,SP,São Paulo
-3517406,Guaíra,SP,São Paulo
 4108809,Guaíra,PR,Paraná
+3517406,Guaíra,SP,São Paulo
 4108908,Guairaçá,PR,Paraná
 2304954,Guaiúba,CE,Ceará
 1301654,Guajará,AM,Amazonas
@@ -1975,8 +2001,8 @@ id,name,state_code,state
 3517703,Guará,SP,São Paulo
 2506301,Guarabira,PB,Paraíba
 3517802,Guaraçaí,SP,São Paulo
-3517901,Guaraci,SP,São Paulo
 4109203,Guaraci,PR,Paraná
+3517901,Guaraci,SP,São Paulo
 3128204,Guaraciaba,MG,Minas Gerais
 4206405,Guaraciaba,SC,Santa Catarina
 2305001,Guaraciaba do Norte,CE,Ceará
@@ -2043,8 +2069,8 @@ id,name,state_code,state
 3519071,Hortolândia,SP,São Paulo
 2204600,Hugo Napoleão,PI,Piauí
 4309654,Hulha Negra,RS,Rio Grande do Sul
-4309704,Humaitá,RS,Rio Grande do Sul
 1301704,Humaitá,AM,Amazonas
+4309704,Humaitá,RS,Rio Grande do Sul
 2105005,Humberto de Campos,MA,Maranhão
 3519105,Iacanga,SP,São Paulo
 5209903,Iaciara,GO,Goiás
@@ -2059,6 +2085,7 @@ id,name,state_code,state
 3519303,Ibaté,SP,São Paulo
 2703007,Ibateguara,AL,Alagoas
 3202454,Ibatiba,ES,Espírito Santo
+4109757,Ibema,PR,Paraná
 3129400,Ibertioga,MG,Minas Gerais
 3129509,Ibiá,MG,Minas Gerais
 4309803,Ibiaçá,RS,Rio Grande do Sul
@@ -2118,6 +2145,8 @@ id,name,state_code,state
 3130101,Igarapé,MG,Minas Gerais
 2105153,Igarapé do Meio,MA,Maranhão
 2105203,Igarapé Grande,MA,Maranhão
+1503200,Igarapé-Açu,PA,Pará
+1503309,Igarapé-Miri,PA,Pará
 2606804,Igarassu,PE,Pernambuco
 3520202,Igaratá,SP,São Paulo
 3130200,Igaratinga,MG,Minas Gerais
@@ -2127,12 +2156,12 @@ id,name,state_code,state
 3301876,Iguaba Grande,RJ,Rio de Janeiro
 2913507,Iguaí,BA,Bahia
 3520301,Iguape,SP,São Paulo
-2606903,Iguaracy,PE,Pernambuco
 4110003,Iguaraçu,PR,Paraná
+2606903,Iguaracy,PE,Pernambuco
 3130309,Iguatama,MG,Minas Gerais
 5004304,Iguatemi,MS,Mato Grosso do Sul
-4110052,Iguatu,PR,Paraná
 2305506,Iguatu,CE,Ceará
+4110052,Iguatu,PR,Paraná
 3130408,Ijaci,MG,Minas Gerais
 4310207,Ijuí,RS,Rio Grande do Sul
 3520426,Ilha Comprida,SP,São Paulo
@@ -2163,11 +2192,11 @@ id,name,state_code,state
 3130655,Indaiabira,MG,Minas Gerais
 4207502,Indaial,SC,Santa Catarina
 3520509,Indaiatuba,SP,São Paulo
-4310405,Independência,RS,Rio Grande do Sul
 2305605,Independência,CE,Ceará
+4310405,Independência,RS,Rio Grande do Sul
 3520608,Indiana,SP,São Paulo
-4110409,Indianópolis,PR,Paraná
 3130705,Indianópolis,MG,Minas Gerais
+4110409,Indianópolis,PR,Paraná
 3520707,Indiaporã,SP,São Paulo
 5209952,Indiara,GO,Goiás
 2802809,Indiaroba,SE,Sergipe
@@ -2205,6 +2234,8 @@ id,name,state_code,state
 4207601,Ipira,SC,Santa Catarina
 2914000,Ipirá,BA,Bahia
 4110508,Ipiranga,PR,Paraná
+5210158,Ipiranga de Goiás,GO,Goiás
+5104526,Ipiranga do Norte,MT,Mato Grosso
 2204808,Ipiranga do Piauí,PI,Piauí
 4310462,Ipiranga do Sul,RS,Rio Grande do Sul
 1301803,Ipixuna,AM,Amazonas
@@ -2216,6 +2247,7 @@ id,name,state_code,state
 3521200,Iporanga,SP,São Paulo
 2305803,Ipu,CE,Ceará
 3521309,Ipuã,SP,São Paulo
+4207684,Ipuaçu,SC,Santa Catarina
 2607307,Ipubi,PE,Pernambuco
 2404804,Ipueira,RN,Rio Grande do Norte
 2305902,Ipueiras,CE,Ceará
@@ -2238,8 +2270,8 @@ id,name,state_code,state
 3521606,Irapuru,SP,São Paulo
 2914406,Iraquara,BA,Bahia
 2914505,Irará,BA,Bahia
-4207858,Irati,SC,Santa Catarina
 4110706,Irati,PR,Paraná
+4207858,Irati,SC,Santa Catarina
 2306108,Irauçuba,CE,Ceará
 2914604,Irecê,BA,Bahia
 4110805,Iretama,PR,Paraná
@@ -2250,8 +2282,8 @@ id,name,state_code,state
 5210307,Israelândia,GO,Goiás
 4208005,Itá,SC,Santa Catarina
 4310538,Itaara,RS,Rio Grande do Sul
-2802908,Itabaiana,SE,Sergipe
 2506905,Itabaiana,PB,Paraíba
+2802908,Itabaiana,SE,Sergipe
 2803005,Itabaianinha,SE,Sergipe
 2914653,Itabela,BA,Bahia
 3521705,Itaberá,SP,São Paulo
@@ -2259,6 +2291,7 @@ id,name,state_code,state
 5210406,Itaberaí,GO,Goiás
 2803104,Itabi,SE,Sergipe
 3131703,Itabira,MG,Minas Gerais
+3131802,Itabirinha,MG,Minas Gerais
 3131901,Itabirito,MG,Minas Gerais
 3301900,Itaboraí,RJ,Rio de Janeiro
 2914802,Itabuna,BA,Bahia
@@ -2276,6 +2309,7 @@ id,name,state_code,state
 3202702,Itaguaçu,ES,Espírito Santo
 2915353,Itaguaçu da Bahia,BA,Bahia
 3302007,Itaguaí,RJ,Rio de Janeiro
+4110904,Itaguajé,PR,Paraná
 3132206,Itaguara,MG,Minas Gerais
 5210562,Itaguari,GO,Goiás
 5210604,Itaguaru,GO,Goiás
@@ -2301,6 +2335,7 @@ id,name,state_code,state
 3302056,Italva,RJ,Rio de Janeiro
 2915601,Itamaraju,BA,Bahia
 3132503,Itamarandiba,MG,Minas Gerais
+1301951,Itamarati,AM,Amazonas
 3132602,Itamarati de Minas,MG,Minas Gerais
 2915700,Itamari,BA,Bahia
 3132701,Itambacuri,MG,Minas Gerais
@@ -2314,20 +2349,22 @@ id,name,state_code,state
 2915908,Itanagra,BA,Bahia
 3522109,Itanhaém,SP,São Paulo
 3133105,Itanhandu,MG,Minas Gerais
+5104542,Itanhangá,MT,Mato Grosso
 2916005,Itanhém,BA,Bahia
 3133204,Itanhomi,MG,Minas Gerais
 3133303,Itaobim,MG,Minas Gerais
 3522158,Itaóca,SP,São Paulo
 3302106,Itaocara,RJ,Rio de Janeiro
 5210901,Itapaci,GO,Goiás
-2306306,Itapajé,CE,Ceará
 3133402,Itapagipe,MG,Minas Gerais
+2306306,Itapajé,CE,Ceará
 2916104,Itaparica,BA,Bahia
 2916203,Itapé,BA,Bahia
 2916302,Itapebi,BA,Bahia
 3133501,Itapecerica,MG,Minas Gerais
 3522208,Itapecerica da Serra,SP,São Paulo
 2105401,Itapecuru Mirim,MA,Maranhão
+4111209,Itapejara d'Oeste,PR,Paraná
 4208302,Itapema,SC,Santa Catarina
 3202801,Itapemirim,ES,Espírito Santo
 4111258,Itaperuçu,PR,Paraná
@@ -2335,8 +2372,8 @@ id,name,state_code,state
 2607703,Itapetim,PE,Pernambuco
 2916401,Itapetinga,BA,Bahia
 3522307,Itapetininga,SP,São Paulo
-3522406,Itapeva,SP,São Paulo
 3133600,Itapeva,MG,Minas Gerais
+3522406,Itapeva,SP,São Paulo
 3522505,Itapevi,SP,São Paulo
 2916500,Itapicuru,BA,Bahia
 2306405,Itapipoca,CE,Ceará
@@ -2353,8 +2390,8 @@ id,name,state_code,state
 3522703,Itápolis,SP,São Paulo
 5004502,Itaporã,MS,Mato Grosso do Sul
 1711100,Itaporã do Tocantins,TO,Tocantins
-3522802,Itaporanga,SP,São Paulo
 2507002,Itaporanga,PB,Paraíba
+3522802,Itaporanga,SP,São Paulo
 2803203,Itaporanga d'Ajuda,SE,Sergipe
 2507101,Itapororoca,PB,Paraíba
 1101104,Itapuã do Oeste,RO,Rondônia
@@ -2385,6 +2422,7 @@ id,name,state_code,state
 2404903,Itaú,RN,Rio Grande do Norte
 3133758,Itaú de Minas,MG,Minas Gerais
 5104559,Itaúba,MT,Mato Grosso
+1600253,Itaubal,AP,Amapá
 5211404,Itauçu,GO,Goiás
 2205102,Itaueira,PI,Piauí
 3133808,Itaúna,MG,Minas Gerais
@@ -2448,8 +2486,8 @@ id,name,state_code,state
 4310876,Jacuizinho,RS,Rio Grande do Sul
 1503804,Jacundá,PA,Pará
 3524600,Jacupiranga,SP,São Paulo
-4310900,Jacutinga,RS,Rio Grande do Sul
 3134905,Jacutinga,MG,Minas Gerais
+4310900,Jacutinga,RS,Rio Grande do Sul
 4111902,Jaguapitã,PR,Paraná
 2917607,Jaguaquara,BA,Bahia
 3135001,Jaguaraçu,MG,Minas Gerais
@@ -2480,6 +2518,7 @@ id,name,state_code,state
 5104906,Jangada,MT,Mato Grosso
 4112207,Janiópolis,PR,Paraná
 3135209,Januária,MG,Minas Gerais
+2405306,Januário Cicco (Boa Saúde),RN,Rio Grande do Norte
 3135308,Japaraíba,MG,Minas Gerais
 2703601,Japaratinga,AL,Alagoas
 2803302,Japaratuba,SE,Sergipe
@@ -2505,8 +2544,8 @@ id,name,state_code,state
 2205250,Jardim do Mulato,PI,Piauí
 2405702,Jardim do Seridó,RN,Rio Grande do Norte
 4112603,Jardim Olinda,PR,Paraná
-3525102,Jardinópolis,SP,São Paulo
 4208955,Jardinópolis,SC,Santa Catarina
+3525102,Jardinópolis,SP,São Paulo
 4311130,Jari,RS,Rio Grande do Sul
 3525201,Jarinu,SP,São Paulo
 1100114,Jaru,RO,Rondônia
@@ -2563,6 +2602,7 @@ id,name,state_code,state
 2608206,Joaquim Nabuco,PE,Pernambuco
 2205409,Joaquim Pires,PI,Piauí
 4112801,Joaquim Távora,PR,Paraná
+2513653,Joca Claudino,PB,Paraíba
 2205458,Joca Marques,PI,Piauí
 4311155,Jóia,RS,Rio Grande do Sul
 4209102,Joinville,SC,Santa Catarina
@@ -2619,8 +2659,8 @@ id,name,state_code,state
 1503903,Juruti,PA,Pará
 5105200,Juscimeira,MT,Mato Grosso
 2918506,Jussara,BA,Bahia
-4113007,Jussara,PR,Paraná
 5212204,Jussara,GO,Goiás
+4113007,Jussara,PR,Paraná
 2918555,Jussari,BA,Bahia
 2918605,Jussiape,BA,Bahia
 1302306,Jutaí,AM,Amazonas
@@ -2647,12 +2687,12 @@ id,name,state_code,state
 1711902,Lagoa da Confusão,TO,Tocantins
 3137205,Lagoa da Prata,MG,Minas Gerais
 2508208,Lagoa de Dentro,PB,Paraíba
+2608503,Lagoa de Itaenga,PE,Pernambuco
 2406304,Lagoa de Pedras,RN,Rio Grande do Norte
 2205573,Lagoa de São Francisco,PI,Piauí
 2406403,Lagoa de Velhos,RN,Rio Grande do Norte
 2205565,Lagoa do Barro do Piauí,PI,Piauí
 2608453,Lagoa do Carro,PE,Pernambuco
-2608503,Lagoa de Itaenga,PE,Pernambuco
 2105922,Lagoa do Mato,MA,Maranhão
 2608602,Lagoa do Ouro,PE,Pernambuco
 2205581,Lagoa do Piauí,PI,Piauí
@@ -2669,6 +2709,7 @@ id,name,state_code,state
 2406502,Lagoa Nova,RN,Rio Grande do Norte
 2918803,Lagoa Real,BA,Bahia
 2406601,Lagoa Salgada,RN,Rio Grande do Norte
+5212253,Lagoa Santa,GO,Goiás
 3137601,Lagoa Santa,MG,Minas Gerais
 2508307,Lagoa Seca,PB,Paraíba
 4311304,Lagoa Vermelha,RS,Rio Grande do Sul
@@ -2693,6 +2734,7 @@ id,name,state_code,state
 3137700,Lajinha,MG,Minas Gerais
 2919108,Lamarão,BA,Bahia
 3137809,Lambari,MG,Minas Gerais
+5105234,Lambari D'Oeste,MT,Mato Grosso
 3137908,Lamim,MG,Minas Gerais
 2205607,Landri Sales,PI,Piauí
 4113205,Lapa,PR,Paraná
@@ -2763,6 +2805,7 @@ id,name,state_code,state
 3527504,Lucianópolis,SP,São Paulo
 5105309,Luciara,MT,Mato Grosso
 2406908,Lucrécia,RN,Rio Grande do Norte
+3527603,Luís Antônio,SP,São Paulo
 2205706,Luís Correia,PI,Piauí
 2106201,Luís Domingues,MA,Maranhão
 2919553,Luís Eduardo Magalhães,BA,Bahia
@@ -2847,6 +2890,7 @@ id,name,state_code,state
 4114203,Mandaguari,PR,Paraná
 4114302,Mandirituba,PR,Paraná
 3528601,Manduri,SP,São Paulo
+4114351,Manfrinópolis,PR,Paraná
 3139300,Manga,MG,Minas Gerais
 3302601,Mangaratiba,RJ,Rio de Janeiro
 4114401,Mangueirinha,PR,Paraná
@@ -2885,10 +2929,10 @@ id,name,state_code,state
 3528858,Marapoama,SP,São Paulo
 4311791,Maratá,RS,Rio Grande do Sul
 3203320,Marataízes,ES,Espírito Santo
-2920700,Maraú,BA,Bahia
 4311809,Marau,RS,Rio Grande do Sul
-4210506,Maravilha,SC,Santa Catarina
+2920700,Maraú,BA,Bahia
 2704609,Maravilha,AL,Alagoas
+4210506,Maravilha,SC,Santa Catarina
 3139706,Maravilhas,MG,Minas Gerais
 2509057,Marcação,PB,Paraíba
 5105580,Marcelândia,MT,Mato Grosso
@@ -2898,6 +2942,7 @@ id,name,state_code,state
 2307809,Marco,CE,Ceará
 2205953,Marcolândia,PI,Piauí
 2206001,Marcos Parente,PI,Piauí
+4114609,Marechal Cândido Rondon,PR,Paraná
 2704708,Marechal Deodoro,AL,Alagoas
 3203346,Marechal Floriano,ES,Espírito Santo
 1200351,Marechal Thaumaturgo,AC,Acre
@@ -2922,6 +2967,7 @@ id,name,state_code,state
 4115200,Maringá,PR,Paraná
 3529104,Marinópolis,SP,São Paulo
 3140159,Mário Campos,MG,Minas Gerais
+4115309,Mariópolis,PR,Paraná
 4115358,Maripá,PR,Paraná
 3140209,Maripá de Minas,MG,Minas Gerais
 1504422,Marituba,PA,Pará
@@ -2942,8 +2988,8 @@ id,name,state_code,state
 2920908,Mascote,BA,Bahia
 2308005,Massapê,CE,Ceará
 2206050,Massapê do Piauí,PI,Piauí
-4210605,Massaranduba,SC,Santa Catarina
 2509206,Massaranduba,PB,Paraíba
+4210605,Massaranduba,SC,Santa Catarina
 4312104,Mata,RS,Rio Grande do Sul
 2921005,Mata de São João,BA,Bahia
 2705002,Mata Grande,AL,Alagoas
@@ -3003,8 +3049,8 @@ id,name,state_code,state
 3529609,Meridiano,SP,São Paulo
 2308203,Meruoca,CE,Ceará
 3529658,Mesópolis,SP,São Paulo
-3302858,Mesquita,RJ,Rio de Janeiro
 3141702,Mesquita,MG,Minas Gerais
+3302858,Mesquita,RJ,Rio de Janeiro
 2705200,Messias,AL,Alagoas
 2407609,Messias Targino,RN,Rio Grande do Norte
 2206209,Miguel Alves,PI,Piauí
@@ -3049,6 +3095,7 @@ id,name,state_code,state
 3530201,Mirante do Paranapanema,SP,São Paulo
 4116000,Miraselva,PR,Paraná
 3530300,Mirassol,SP,São Paulo
+5105622,Mirassol d'Oeste,MT,Mato Grosso
 3530409,Mirassolândia,SP,São Paulo
 3142254,Miravânia,MG,Minas Gerais
 4210852,Mirim Doce,SC,Santa Catarina
@@ -3067,6 +3114,7 @@ id,name,state_code,state
 5213400,Moiporá,GO,Goiás
 2804102,Moita Bonita,SE,Sergipe
 1504703,Moju,PA,Pará
+1504752,Mojuí dos Campos,PA,Pará
 2308500,Mombaça,CE,Ceará
 3530904,Mombuca,SP,São Paulo
 2106904,Monção,MA,Maranhão
@@ -3099,8 +3147,8 @@ id,name,state_code,state
 4312385,Monte Belo do Sul,RS,Rio Grande do Sul
 4211058,Monte Carlo,SC,Santa Catarina
 3143104,Monte Carmelo,MG,Minas Gerais
-3531605,Monte Castelo,SP,São Paulo
 4211108,Monte Castelo,SC,Santa Catarina
+3531605,Monte Castelo,SP,São Paulo
 2407906,Monte das Gameleiras,RN,Rio Grande do Norte
 1713601,Monte do Carmo,TO,Tocantins
 3143153,Monte Formoso,MG,Minas Gerais
@@ -3125,6 +3173,7 @@ id,name,state_code,state
 3143500,Morada Nova de Minas,MG,Minas Gerais
 2308807,Moraújo,CE,Ceará
 2614303,Moreilândia,PE,Pernambuco
+4116109,Moreira Sales,PR,Paraná
 2609402,Moreno,PE,Pernambuco
 4312427,Mormaço,RS,Rio Grande do Sul
 2921609,Morpará,BA,Bahia
@@ -3167,8 +3216,10 @@ id,name,state_code,state
 5214051,Mundo Novo,GO,Goiás
 5005681,Mundo Novo,MS,Mato Grosso do Sul
 3143807,Munhoz,MG,Minas Gerais
+4116307,Munhoz de Melo,PR,Paraná
 2922201,Muniz Ferreira,BA,Bahia
 3203700,Muniz Freire,ES,Espírito Santo
+2922250,Muquém de São Francisco,BA,Bahia
 3203809,Muqui,ES,Espírito Santo
 3143906,Muriaé,MG,Minas Gerais
 2804300,Muribeca,SE,Sergipe
@@ -3203,6 +3254,7 @@ id,name,state_code,state
 3532405,Nazaré Paulista,SP,São Paulo
 3144508,Nazareno,MG,Minas Gerais
 2510006,Nazarezinho,PB,Paraíba
+2206720,Nazária,PI,Piauí
 5214408,Nazário,GO,Goiás
 2804409,Neópolis,SE,Sergipe
 3144607,Nepomuceno,MG,Minas Gerais
@@ -3242,8 +3294,9 @@ id,name,state_code,state
 4116604,Nova América da Colina,PR,Paraná
 5006200,Nova Andradina,MS,Mato Grosso do Sul
 4312807,Nova Araçá,RS,Rio Grande do Sul
-4116703,Nova Aurora,PR,Paraná
 5214804,Nova Aurora,GO,Goiás
+4116703,Nova Aurora,PR,Paraná
+5106158,Nova Bandeirantes,MT,Mato Grosso
 4312906,Nova Bassano,RS,Rio Grande do Sul
 3144672,Nova Belém,MG,Minas Gerais
 4312955,Nova Boa Vista,RS,Rio Grande do Sul
@@ -3264,10 +3317,11 @@ id,name,state_code,state
 4211405,Nova Erechim,SC,Santa Catarina
 4116901,Nova Esperança,PR,Paraná
 1504950,Nova Esperança do Piriá,PA,Pará
+4116950,Nova Esperança do Sudoeste,PR,Paraná
 4313037,Nova Esperança do Sul,RS,Rio Grande do Sul
 3532900,Nova Europa,SP,São Paulo
-4117008,Nova Fátima,PR,Paraná
 2922730,Nova Fátima,BA,Bahia
+4117008,Nova Fátima,PR,Paraná
 2510105,Nova Floresta,PB,Paraíba
 3303401,Nova Friburgo,RJ,Rio de Janeiro
 5214861,Nova Glória,GO,Goiás
@@ -3296,10 +3350,10 @@ id,name,state_code,state
 5106224,Nova Mutum,MT,Mato Grosso
 5106174,Nova Nazaré,MT,Mato Grosso
 3533403,Nova Odessa,SP,São Paulo
-4117206,Nova Olímpia,PR,Paraná
 5106232,Nova Olímpia,MT,Mato Grosso
-2510204,Nova Olinda,PB,Paraíba
+4117206,Nova Olímpia,PR,Paraná
 2309201,Nova Olinda,CE,Ceará
+2510204,Nova Olinda,PB,Paraíba
 1714880,Nova Olinda,TO,Tocantins
 2107357,Nova Olinda do Maranhão,MA,Maranhão
 1303106,Nova Olinda do Norte,AM,Amazonas
@@ -3332,8 +3386,8 @@ id,name,state_code,state
 3136603,Nova União,MG,Minas Gerais
 1101435,Nova União,RO,Rondônia
 3203908,Nova Venécia,ES,Espírito Santo
-4211603,Nova Veneza,SC,Santa Catarina
 5215009,Nova Veneza,GO,Goiás
+4211603,Nova Veneza,SC,Santa Catarina
 2923001,Nova Viçosa,BA,Bahia
 5106257,Nova Xavantina,MT,Mato Grosso
 3533254,Novais,SP,São Paulo
@@ -3347,9 +3401,9 @@ id,name,state_code,state
 3145307,Novo Cruzeiro,MG,Minas Gerais
 5215231,Novo Gama,GO,Goiás
 4313409,Novo Hamburgo,RS,Rio Grande do Sul
-3533502,Novo Horizonte,SP,São Paulo
-4211652,Novo Horizonte,SC,Santa Catarina
 2923035,Novo Horizonte,BA,Bahia
+4211652,Novo Horizonte,SC,Santa Catarina
+3533502,Novo Horizonte,SP,São Paulo
 5106273,Novo Horizonte do Norte,MT,Mato Grosso
 1100502,Novo Horizonte do Oeste,RO,Rondônia
 5006259,Novo Horizonte do Sul,MS,Mato Grosso do Sul
@@ -3387,6 +3441,7 @@ id,name,state_code,state
 2207108,Olho D'Água do Piauí,PI,Piauí
 2705903,Olho d'Água Grande,AL,Alagoas
 2408409,Olho-d'Água do Borges,RN,Rio Grande do Norte
+3145455,Olhos d'Água,MG,Minas Gerais
 3533908,Olímpia,SP,São Paulo
 3145505,Olímpio Noronha,MG,Minas Gerais
 2609600,Olinda,PE,Pernambuco
@@ -3440,10 +3495,11 @@ id,name,state_code,state
 2923357,Ourolândia,BA,Bahia
 5215504,Ouvidor,GO,Goiás
 3534906,Pacaembu,SP,São Paulo
+1505486,Pacajá,PA,Pará
 2309607,Pacajus,CE,Ceará
 1400456,Pacaraima,RR,Roraima
-2804904,Pacatuba,SE,Sergipe
 2309706,Pacatuba,CE,Ceará
+2804904,Pacatuba,SE,Sergipe
 2107506,Paço do Lumiar,MA,Maranhão
 2309805,Pacoti,CE,Ceará
 2309904,Pacujá,CE,Ceará
@@ -3473,11 +3529,11 @@ id,name,state_code,state
 2610004,Palmares,PE,Pernambuco
 4313656,Palmares do Sul,RS,Rio Grande do Sul
 3535101,Palmares Paulista,SP,São Paulo
-1721000,Palmas,TO,Tocantins
 4117602,Palmas,PR,Paraná
+1721000,Palmas,TO,Tocantins
 2923407,Palmas de Monte Alto,BA,Bahia
-4212056,Palmeira,SC,Santa Catarina
 4117701,Palmeira,PR,Paraná
+4212056,Palmeira,SC,Santa Catarina
 3535200,Palmeira d'Oeste,SP,São Paulo
 4313706,Palmeira das Missões,RS,Rio Grande do Sul
 2207405,Palmeira do Piauí,PI,Piauí
@@ -3522,6 +3578,7 @@ id,name,state_code,state
 2310258,Paraipaba,CE,Ceará
 4212239,Paraíso,SC,Santa Catarina
 3535705,Paraíso,SP,São Paulo
+5006275,Paraíso das Águas,MS,Mato Grosso do Sul
 4118006,Paraíso do Norte,PR,Paraná
 4314027,Paraíso do Sul,RS,Rio Grande do Sul
 1716109,Paraíso do Tocantins,TO,Tocantins
@@ -3529,8 +3586,8 @@ id,name,state_code,state
 2310308,Parambu,CE,Ceará
 2923605,Paramirim,BA,Bahia
 2310407,Paramoti,CE,Ceará
-1716208,Paranã,TO,Tocantins
 2408607,Paraná,RN,Rio Grande do Norte
+1716208,Paranã,TO,Tocantins
 4118105,Paranacity,PR,Paraná
 4118204,Paranaguá,PR,Paraná
 5006309,Paranaíba,MS,Mato Grosso do Sul
@@ -3547,6 +3604,7 @@ id,name,state_code,state
 3536000,Parapuã,SP,São Paulo
 2510659,Parari,PB,Paraíba
 2923704,Paratinga,BA,Bahia
+3303807,Paraty,RJ,Rio de Janeiro
 2408706,Paraú,RN,Rio Grande do Norte
 1505536,Parauapebas,PA,Pará
 5216403,Paraúna,GO,Goiás
@@ -3563,14 +3621,15 @@ id,name,state_code,state
 3536257,Parisi,SP,São Paulo
 2207603,Parnaguá,PI,Piauí
 2207702,Parnaíba,PI,Piauí
-2403251,Parnamirim,RN,Rio Grande do Norte
 2610400,Parnamirim,PE,Pernambuco
+2403251,Parnamirim,RN,Rio Grande do Norte
 2107803,Parnarama,MA,Maranhão
 4314050,Parobé,RS,Rio Grande do Sul
 2409100,Passa e Fica,RN,Rio Grande do Norte
 3147600,Passa Quatro,MG,Minas Gerais
 4314068,Passa Sete,RS,Rio Grande do Sul
 3147709,Passa Tempo,MG,Minas Gerais
+3147808,Passa-Vinte,MG,Minas Gerais
 3147501,Passabém,MG,Minas Gerais
 2510709,Passagem,PB,Paraíba
 2409209,Passagem,RN,Rio Grande do Norte
@@ -3585,6 +3644,7 @@ id,name,state_code,state
 4212270,Passos Maia,SC,Santa Catarina
 2108009,Pastos Bons,MA,Maranhão
 3147956,Patis,MG,Minas Gerais
+4118451,Pato Bragado,PR,Paraná
 4118501,Pato Branco,PR,Paraná
 2510808,Patos,PB,Paraíba
 3148004,Patos de Minas,MG,Minas Gerais
@@ -3595,6 +3655,7 @@ id,name,state_code,state
 2409308,Patu,RN,Rio Grande do Norte
 3303856,Paty do Alferes,RJ,Rio de Janeiro
 2923902,Pau Brasil,BA,Bahia
+1505551,Pau d'Arco,PA,Pará
 1716307,Pau D'Arco,TO,Tocantins
 2207793,Pau D'Arco do Piauí,PI,Piauí
 2409407,Pau dos Ferros,RN,Rio Grande do Norte
@@ -3628,8 +3689,8 @@ id,name,state_code,state
 3148707,Pedra Azul,MG,Minas Gerais
 3536802,Pedra Bela,SP,São Paulo
 3148756,Pedra Bonita,MG,Minas Gerais
-2511004,Pedra Branca,PB,Paraíba
 2310506,Pedra Branca,CE,Ceará
+2511004,Pedra Branca,PB,Paraíba
 1600154,Pedra Branca do Amapari,AP,Amapá
 3148806,Pedra do Anta,MG,Minas Gerais
 3148905,Pedra do Indaiá,MG,Minas Gerais
@@ -3667,6 +3728,7 @@ id,name,state_code,state
 3149408,Pedro Teixeira,MG,Minas Gerais
 2409803,Pedro Velho,RN,Rio Grande do Norte
 1716604,Peixe,TO,Tocantins
+1505601,Peixe-Boi,PA,Pará
 5106422,Peixoto de Azevedo,MT,Mato Grosso
 4314308,Pejuçara,RS,Rio Grande do Sul
 4314407,Pelotas,RS,Rio Grande do Sul
@@ -3692,9 +3754,11 @@ id,name,state_code,state
 2108454,Peritoró,MA,Maranhão
 4118857,Perobal,PR,Paraná
 4118907,Pérola,PR,Paraná
+4119004,Pérola d'Oeste,PR,Paraná
 5216452,Perolândia,GO,Goiás
 3537602,Peruíbe,SP,São Paulo
 3150000,Pescador,MG,Minas Gerais
+4212650,Pescaria Brava,SC,Santa Catarina
 2610905,Pesqueira,PE,Pernambuco
 2611002,Petrolândia,PE,Pernambuco
 4212700,Petrolândia,SC,Santa Catarina
@@ -3721,8 +3785,8 @@ id,name,state_code,state
 2511509,Pilar,PB,Paraíba
 5216908,Pilar de Goiás,GO,Goiás
 3537909,Pilar do Sul,SP,São Paulo
-2410009,Pilões,RN,Rio Grande do Norte
 2511608,Pilões,PB,Paraíba
+2410009,Pilões,RN,Rio Grande do Norte
 2511707,Pilõezinhos,PB,Paraíba
 3150505,Pimenta,MG,Minas Gerais
 1100189,Pimenta Bueno,RO,Rondônia
@@ -3736,16 +3800,17 @@ id,name,state_code,state
 3538105,Pindorama,SP,São Paulo
 1717008,Pindorama do Tocantins,TO,Tocantins
 2310852,Pindoretama,CE,Ceará
+3150539,Pingo-d'Água,MG,Minas Gerais
 4119152,Pinhais,PR,Paraná
 4314456,Pinhal,RS,Rio Grande do Sul
 4314464,Pinhal da Serra,RS,Rio Grande do Sul
 4119251,Pinhal de São Bento,PR,Paraná
 4314472,Pinhal Grande,RS,Rio Grande do Sul
 4119202,Pinhalão,PR,Paraná
-3538204,Pinhalzinho,SP,São Paulo
 4212908,Pinhalzinho,SC,Santa Catarina
-2805208,Pinhão,SE,Sergipe
+3538204,Pinhalzinho,SP,São Paulo
 4119301,Pinhão,PR,Paraná
+2805208,Pinhão,SE,Sergipe
 3303955,Pinheiral,RJ,Rio de Janeiro
 4314498,Pinheirinho do Vale,RS,Rio Grande do Sul
 2108603,Pinheiro,MA,Maranhão
@@ -3753,6 +3818,7 @@ id,name,state_code,state
 4213005,Pinheiro Preto,SC,Santa Catarina
 3204104,Pinheiros,ES,Espírito Santo
 2924652,Pintadas,BA,Bahia
+4314548,Pinto Bandeira,RS,Rio Grande do Sul
 3150570,Pintópolis,MG,Minas Gerais
 2208205,Pio IX,PI,Piauí
 2108702,Pio XII,MA,Maranhão
@@ -3798,8 +3864,8 @@ id,name,state_code,state
 2924801,Piritiba,BA,Bahia
 2511806,Pirpirituba,PB,Paraíba
 4119608,Pitanga,PR,Paraná
-3539509,Pitangueiras,SP,São Paulo
 4119657,Pitangueiras,PR,Paraná
+3539509,Pitangueiras,SP,São Paulo
 3151404,Pitangui,MG,Minas Gerais
 2511905,Pitimbu,PB,Paraíba
 1717503,Pium,TO,Tocantins
@@ -3810,10 +3876,10 @@ id,name,state_code,state
 5217609,Planaltina,GO,Goiás
 4119707,Planaltina do Paraná,PR,Paraná
 2924900,Planaltino,BA,Bahia
+2925006,Planalto,BA,Bahia
+4119806,Planalto,PR,Paraná
 4314704,Planalto,RS,Rio Grande do Sul
 3539608,Planalto,SP,São Paulo
-4119806,Planalto,PR,Paraná
-2925006,Planalto,BA,Bahia
 4213153,Planalto Alegre,SC,Santa Catarina
 5106455,Planalto da Serra,MT,Mato Grosso
 3151602,Planura,MG,Minas Gerais
@@ -3926,6 +3992,7 @@ id,name,state_code,state
 3152600,Pouso Alto,MG,Minas Gerais
 4315131,Pouso Novo,RS,Rio Grande do Sul
 4213708,Pouso Redondo,SC,Santa Catarina
+5107008,Poxoréu,MT,Mato Grosso
 3540853,Pracinha,SP,São Paulo
 1600550,Pracuúba,AP,Amapá
 2925501,Prado,BA,Bahia
@@ -3936,8 +4003,9 @@ id,name,state_code,state
 3541000,Praia Grande,SP,São Paulo
 1718303,Praia Norte,TO,Tocantins
 1506005,Prainha,PA,Pará
-2512200,Prata,PB,Paraíba
+4120358,Pranchita,PR,Paraná
 3152808,Prata,MG,Minas Gerais
+2512200,Prata,PB,Paraíba
 2208601,Prata do Piauí,PI,Piauí
 3541059,Pratânia,SP,São Paulo
 3152907,Pratápolis,MG,Minas Gerais
@@ -3945,6 +4013,7 @@ id,name,state_code,state
 3541109,Presidente Alves,SP,São Paulo
 3153103,Presidente Bernardes,MG,Minas Gerais
 3541208,Presidente Bernardes,SP,São Paulo
+4213906,Presidente Castello Branco,SC,Santa Catarina
 4120408,Presidente Castelo Branco,PR,Paraná
 2925600,Presidente Dutra,BA,Bahia
 2109106,Presidente Dutra,MA,Maranhão
@@ -3952,14 +4021,14 @@ id,name,state_code,state
 1303536,Presidente Figueiredo,AM,Amazonas
 4214003,Presidente Getúlio,SC,Santa Catarina
 2925709,Presidente Jânio Quadros,BA,Bahia
-3153202,Presidente Juscelino,MG,Minas Gerais
 2109205,Presidente Juscelino,MA,Maranhão
+3153202,Presidente Juscelino,MG,Minas Gerais
 3204302,Presidente Kennedy,ES,Espírito Santo
 1718402,Presidente Kennedy,TO,Tocantins
 3153301,Presidente Kubitschek,MG,Minas Gerais
 4315149,Presidente Lucena,RS,Rio Grande do Sul
-1100254,Presidente Médici,RO,Rondônia
 2109239,Presidente Médici,MA,Maranhão
+1100254,Presidente Médici,RO,Rondônia
 4214102,Presidente Nereu,SC,Santa Catarina
 3153400,Presidente Olegário,MG,Minas Gerais
 3541406,Presidente Prudente,SP,São Paulo
@@ -3967,8 +4036,8 @@ id,name,state_code,state
 2925758,Presidente Tancredo Neves,BA,Bahia
 2109304,Presidente Vargas,MA,Maranhão
 3541505,Presidente Venceslau,SP,São Paulo
-2611408,Primavera,PE,Pernambuco
 1506104,Primavera,PA,Pará
+2611408,Primavera,PE,Pernambuco
 1101476,Primavera de Rondônia,RO,Rondônia
 5107040,Primavera do Leste,MT,Mato Grosso
 2109403,Primeira Cruz,MA,Maranhão
@@ -4033,6 +4102,7 @@ id,name,state_code,state
 4121257,Ramilândia,PR,Paraná
 3542206,Rancharia,SP,São Paulo
 4121307,Rancho Alegre,PR,Paraná
+4121356,Rancho Alegre D'Oeste,PR,Paraná
 4214300,Rancho Queimado,SC,Santa Catarina
 2109452,Raposa,MA,Maranhão
 3153905,Raposos,MG,Minas Gerais
@@ -4078,8 +4148,8 @@ id,name,state_code,state
 1718550,Riachinho,TO,Tocantins
 2410702,Riacho da Cruz,RN,Rio Grande do Norte
 2611705,Riacho das Almas,PE,Pernambuco
-2410801,Riacho de Santana,RN,Rio Grande do Norte
 2926400,Riacho de Santana,BA,Bahia
+2410801,Riacho de Santana,RN,Rio Grande do Norte
 2512788,Riacho de Santo Antônio,PB,Paraíba
 2512804,Riacho dos Cavalos,PB,Paraíba
 3154507,Riacho dos Machados,MG,Minas Gerais
@@ -4127,8 +4197,8 @@ id,name,state_code,state
 4122206,Rio Branco do Sul,PR,Paraná
 5007208,Rio Brilhante,MS,Mato Grosso do Sul
 3154903,Rio Casca,MG,Minas Gerais
-3543907,Rio Claro,SP,São Paulo
 3304409,Rio Claro,RJ,Rio de Janeiro
+3543907,Rio Claro,SP,São Paulo
 1100262,Rio Crespo,RO,Rondônia
 1718659,Rio da Conceição,TO,Tocantins
 4214409,Rio das Antas,SC,Santa Catarina
@@ -4158,8 +4228,8 @@ id,name,state_code,state
 3155306,Rio Manso,MG,Minas Gerais
 1506161,Rio Maria,PA,Pará
 4215000,Rio Negrinho,SC,Santa Catarina
-4122305,Rio Negro,PR,Paraná
 5007307,Rio Negro,MS,Mato Grosso do Sul
+4122305,Rio Negro,PR,Paraná
 3155405,Rio Novo,MG,Minas Gerais
 3204401,Rio Novo do Sul,ES,Espírito Santo
 3155504,Rio Paranaíba,MG,Minas Gerais
@@ -4222,8 +4292,8 @@ id,name,state_code,state
 3544509,Rubinéia,SP,São Paulo
 1506195,Rurópolis,PA,Pará
 2311801,Russas,CE,Ceará
-2411106,Ruy Barbosa,RN,Rio Grande do Norte
 2927200,Ruy Barbosa,BA,Bahia
+2411106,Ruy Barbosa,RN,Rio Grande do Norte
 3156700,Sabará,MG,Minas Gerais
 4122701,Sabáudia,PR,Paraná
 3544608,Sabino,SP,São Paulo
@@ -4250,8 +4320,8 @@ id,name,state_code,state
 2311959,Salitre,CE,Ceará
 3545100,Salmourão,SP,São Paulo
 2612307,Saloá,PE,Pernambuco
-3545159,Saltinho,SP,São Paulo
 4215356,Saltinho,SC,Santa Catarina
+3545159,Saltinho,SP,São Paulo
 3545209,Salto,SP,São Paulo
 3157104,Salto da Divisa,MG,Minas Gerais
 3545308,Salto de Pirapora,SP,São Paulo
@@ -4273,15 +4343,17 @@ id,name,state_code,state
 3545506,Sandovalina,SP,São Paulo
 4215455,Sangão,SC,Santa Catarina
 2612406,Sanharó,PE,Pernambuco
+4317103,Sant'Ana do Livramento,RS,Rio Grande do Sul
 3545605,Santa Adélia,SP,São Paulo
 3545704,Santa Albertina,SP,São Paulo
 4123105,Santa Amélia,PR,Paraná
-3157203,Santa Bárbara,MG,Minas Gerais
 2927507,Santa Bárbara,BA,Bahia
+3157203,Santa Bárbara,MG,Minas Gerais
 3545803,Santa Bárbara d'Oeste,SP,São Paulo
 5219100,Santa Bárbara de Goiás,GO,Goiás
 3157252,Santa Bárbara do Leste,MG,Minas Gerais
 3157278,Santa Bárbara do Monte Verde,MG,Minas Gerais
+1506351,Santa Bárbara do Pará,PA,Pará
 4316709,Santa Bárbara do Sul,RS,Rio Grande do Sul
 3157302,Santa Bárbara do Tugúrio,MG,Minas Gerais
 3546009,Santa Branca,SP,São Paulo
@@ -4294,8 +4366,8 @@ id,name,state_code,state
 3546108,Santa Clara d'Oeste,SP,São Paulo
 4316758,Santa Clara do Sul,RS,Rio Grande do Sul
 2513208,Santa Cruz,PB,Paraíba
-2411205,Santa Cruz,RN,Rio Grande do Norte
 2612455,Santa Cruz,PE,Pernambuco
+2411205,Santa Cruz,RN,Rio Grande do Norte
 2927705,Santa Cruz Cabrália,BA,Bahia
 2612471,Santa Cruz da Baixa Verde,PE,Pernambuco
 3546207,Santa Cruz da Conceição,SP,São Paulo
@@ -4304,6 +4376,7 @@ id,name,state_code,state
 3546306,Santa Cruz das Palmeiras,SP,São Paulo
 5219209,Santa Cruz de Goiás,GO,Goiás
 3157336,Santa Cruz de Minas,MG,Minas Gerais
+4123303,Santa Cruz de Monte Castelo,PR,Paraná
 3157377,Santa Cruz de Salinas,MG,Minas Gerais
 1506401,Santa Cruz do Arari,PA,Pará
 2612505,Santa Cruz do Capibaribe,PE,Pernambuco
@@ -4320,34 +4393,35 @@ id,name,state_code,state
 3157609,Santa Fé de Minas,MG,Minas Gerais
 1718865,Santa Fé do Araguaia,TO,Tocantins
 3546603,Santa Fé do Sul,SP,São Paulo
-2209203,Santa Filomena,PI,Piauí
 2612554,Santa Filomena,PE,Pernambuco
+2209203,Santa Filomena,PI,Piauí
 2109759,Santa Filomena do Maranhão,MA,Maranhão
 3546702,Santa Gertrudes,SP,São Paulo
+2109809,Santa Helena,MA,Maranhão
 2513307,Santa Helena,PB,Paraíba
 4123501,Santa Helena,PR,Paraná
 4215554,Santa Helena,SC,Santa Catarina
-2109809,Santa Helena,MA,Maranhão
 5219308,Santa Helena de Goiás,GO,Goiás
 3157658,Santa Helena de Minas,MG,Minas Gerais
 2927903,Santa Inês,BA,Bahia
+2109908,Santa Inês,MA,Maranhão
 2513356,Santa Inês,PB,Paraíba
 4123600,Santa Inês,PR,Paraná
-2109908,Santa Inês,MA,Maranhão
 5219357,Santa Isabel,GO,Goiás
 3546801,Santa Isabel,SP,São Paulo
 4123709,Santa Isabel do Ivaí,PR,Paraná
 1303601,Santa Isabel do Rio Negro,AM,Amazonas
 4123808,Santa Izabel do Oeste,PR,Paraná
+1506500,Santa Izabel do Pará,PA,Pará
 3157708,Santa Juliana,MG,Minas Gerais
 3204500,Santa Leopoldina,ES,Espírito Santo
-3546900,Santa Lúcia,SP,São Paulo
 4123824,Santa Lúcia,PR,Paraná
+3546900,Santa Lúcia,SP,São Paulo
 2209302,Santa Luz,PI,Piauí
 2928059,Santa Luzia,BA,Bahia
-2513406,Santa Luzia,PB,Paraíba
-3157807,Santa Luzia,MG,Minas Gerais
 2110005,Santa Luzia,MA,Maranhão
+3157807,Santa Luzia,MG,Minas Gerais
+2513406,Santa Luzia,PB,Paraíba
 1100296,Santa Luzia D'Oeste,RO,Rondônia
 2806305,Santa Luzia do Itanhy,SE,Sergipe
 2707909,Santa Luzia do Norte,AL,Alagoas
@@ -4376,8 +4450,8 @@ id,name,state_code,state
 4123956,Santa Mônica,PR,Paraná
 2312205,Santa Quitéria,CE,Ceará
 2110104,Santa Quitéria do Maranhão,MA,Maranhão
-2513703,Santa Rita,PB,Paraíba
 2110203,Santa Rita,MA,Maranhão
+2513703,Santa Rita,PB,Paraíba
 3547403,Santa Rita d'Oeste,SP,São Paulo
 3159209,Santa Rita de Caldas,MG,Minas Gerais
 2928406,Santa Rita de Cássia,BA,Bahia
@@ -4395,8 +4469,8 @@ id,name,state_code,state
 4317202,Santa Rosa,RS,Rio Grande do Sul
 3159704,Santa Rosa da Serra,MG,Minas Gerais
 5219506,Santa Rosa de Goiás,GO,Goiás
-2806503,Santa Rosa de Lima,SE,Sergipe
 4215604,Santa Rosa de Lima,SC,Santa Catarina
+2806503,Santa Rosa de Lima,SE,Sergipe
 3547601,Santa Rosa de Viterbo,SP,São Paulo
 2209377,Santa Rosa do Piauí,PI,Piauí
 1200435,Santa Rosa do Purus,AC,Acre
@@ -4404,6 +4478,7 @@ id,name,state_code,state
 1718907,Santa Rosa do Tocantins,TO,Tocantins
 3547650,Santa Salete,SP,São Paulo
 3204609,Santa Teresa,ES,Espírito Santo
+2928505,Santa Teresinha,BA,Bahia
 2513802,Santa Teresinha,PB,Paraíba
 4317251,Santa Tereza,RS,Rio Grande do Sul
 5219605,Santa Tereza de Goiás,GO,Goiás
@@ -4413,18 +4488,20 @@ id,name,state_code,state
 2612802,Santa Terezinha,PE,Pernambuco
 4215679,Santa Terezinha,SC,Santa Catarina
 5219704,Santa Terezinha de Goiás,GO,Goiás
+4124053,Santa Terezinha de Itaipu,PR,Paraná
 4215695,Santa Terezinha do Progresso,SC,Santa Catarina
 1720002,Santa Terezinha do Tocantins,TO,Tocantins
 3159803,Santa Vitória,MG,Minas Gerais
 4317301,Santa Vitória do Palmar,RS,Rio Grande do Sul
 2928000,Santaluz,BA,Bahia
-2928208,Santana,BA,Bahia
 1600600,Santana,AP,Amapá
+2928208,Santana,BA,Bahia
 4317004,Santana da Boa Vista,RS,Rio Grande do Sul
 3547205,Santana da Ponte Pensa,SP,São Paulo
 3158300,Santana da Vargem,MG,Minas Gerais
 3158409,Santana de Cataguases,MG,Minas Gerais
 2513505,Santana de Mangueira,PB,Paraíba
+3547304,Santana de Parnaíba,SP,São Paulo
 3158508,Santana de Pirapama,MG,Minas Gerais
 2312007,Santana do Acaraú,CE,Ceará
 1506708,Santana do Araguaia,PA,Pará
@@ -4447,7 +4524,6 @@ id,name,state_code,state
 3159100,Santana dos Montes,MG,Minas Gerais
 2928307,Santanópolis,BA,Bahia
 1506807,Santarém,PA,Pará
-2513653,Joca Claudino,PB,Paraíba
 1506906,Santarém Novo,PA,Pará
 4317400,Santiago,RS,Rio Grande do Sul
 4215687,Santiago do Sul,SC,Santa Catarina
@@ -4481,6 +4557,8 @@ id,name,state_code,state
 3160207,Santo Antônio do Itambé,MG,Minas Gerais
 3160306,Santo Antônio do Jacinto,MG,Minas Gerais
 3548104,Santo Antônio do Jardim,SP,São Paulo
+5107792,Santo Antônio do Leste,MT,Mato Grosso
+5107800,Santo Antônio do Leverger,MT,Mato Grosso
 3160405,Santo Antônio do Monte,MG,Minas Gerais
 4317558,Santo Antônio do Palma,RS,Rio Grande do Sul
 4124301,Santo Antônio do Paraíso,PR,Paraná
@@ -4521,8 +4599,10 @@ id,name,state_code,state
 3548708,São Bernardo do Campo,SP,São Paulo
 4215901,São Bonifácio,SC,Santa Catarina
 4318002,São Borja,RS,Rio Grande do Sul
+2708204,São Brás,AL,Alagoas
 3160900,São Brás do Suaçuí,MG,Minas Gerais
 2209559,São Braz do Piauí,PI,Piauí
+2613107,São Caetano,PE,Pernambuco
 1507102,São Caetano de Odivelas,PA,Pará
 3548807,São Caetano do Sul,SP,São Paulo
 4216008,São Carlos,SC,Santa Catarina
@@ -4531,8 +4611,10 @@ id,name,state_code,state
 2806701,São Cristóvão,SE,Sergipe
 4216057,São Cristovão do Sul,SC,Santa Catarina
 2928901,São Desidério,BA,Bahia
-4216107,São Domingos,SC,Santa Catarina
 2928950,São Domingos,BA,Bahia
+5219803,São Domingos,GO,Goiás
+2513968,São Domingos,PB,Paraíba
+4216107,São Domingos,SC,Santa Catarina
 2806800,São Domingos,SE,Sergipe
 3160959,São Domingos das Dores,MG,Minas Gerais
 1507151,São Domingos do Araguaia,PA,Pará
@@ -4555,15 +4637,16 @@ id,name,state_code,state
 1507300,São Félix do Xingu,PA,Pará
 2411809,São Fernando,RN,Rio Grande do Norte
 3304805,São Fidélis,RJ,Rio de Janeiro
-3549003,São Francisco,SP,São Paulo
+3161106,São Francisco,MG,Minas Gerais
 2513984,São Francisco,PB,Paraíba
 2806909,São Francisco,SE,Sergipe
-3161106,São Francisco,MG,Minas Gerais
+3549003,São Francisco,SP,São Paulo
 4318101,São Francisco de Assis,RS,Rio Grande do Sul
+2209658,São Francisco de Assis do Piauí,PI,Piauí
 5219902,São Francisco de Goiás,GO,Goiás
 3304755,São Francisco de Itabapoana,RJ,Rio de Janeiro
-4318200,São Francisco de Paula,RS,Rio Grande do Sul
 3161205,São Francisco de Paula,MG,Minas Gerais
+4318200,São Francisco de Paula,RS,Rio Grande do Sul
 3161304,São Francisco de Sales,MG,Minas Gerais
 2110856,São Francisco do Brejão,MA,Maranhão
 2929206,São Francisco do Conde,BA,Bahia
@@ -4574,8 +4657,8 @@ id,name,state_code,state
 1507409,São Francisco do Pará,PA,Pará
 2209708,São Francisco do Piauí,PI,Piauí
 4216206,São Francisco do Sul,SC,Santa Catarina
-4318309,São Gabriel,RS,Rio Grande do Sul
 2929255,São Gabriel,BA,Bahia
+4318309,São Gabriel,RS,Rio Grande do Sul
 1303809,São Gabriel da Cachoeira,AM,Amazonas
 3204708,São Gabriel da Palha,ES,Espírito Santo
 5007695,São Gabriel do Oeste,MS,Mato Grosso do Sul
@@ -4597,10 +4680,10 @@ id,name,state_code,state
 3162104,São Gotardo,MG,Minas Gerais
 4318408,São Jerônimo,RS,Rio Grande do Sul
 4124707,São Jerônimo da Serra,PR,Paraná
-4124806,São João,PR,Paraná
 2613206,São João,PE,Pernambuco
-4216305,São João Batista,SC,Santa Catarina
+4124806,São João,PR,Paraná
 2111003,São João Batista,MA,Maranhão
+4216305,São João Batista,SC,Santa Catarina
 3162203,São João Batista do Glória,MG,Minas Gerais
 5220009,São João d'Aliança,GO,Goiás
 1400506,São João da Baliza,RR,Roraima
@@ -4654,6 +4737,7 @@ id,name,state_code,state
 3162922,São Joaquim de Bicas,MG,Minas Gerais
 2613305,São Joaquim do Monte,PE,Pernambuco
 4318440,São Jorge,RS,Rio Grande do Sul
+4125209,São Jorge d'Oeste,PR,Paraná
 4125308,São Jorge do Ivaí,PR,Paraná
 4125357,São Jorge do Patrocínio,PR,Paraná
 4216602,São José,SC,Santa Catarina
@@ -4721,6 +4805,7 @@ id,name,state_code,state
 3163706,São Lourenço,MG,Minas Gerais
 2613701,São Lourenço da Mata,PE,Pernambuco
 3549953,São Lourenço da Serra,SP,São Paulo
+4216909,São Lourenço do Oeste,SC,Santa Catarina
 2210359,São Lourenço do Piauí,PI,Piauí
 4318804,São Lourenço do Sul,RS,Rio Grande do Sul
 4217006,São Ludgero,SC,Santa Catarina
@@ -4732,13 +4817,14 @@ id,name,state_code,state
 2111409,São Luís Gonzaga do Maranhão,MA,Maranhão
 1400605,São Luiz,RR,Roraima
 5220157,São Luiz do Norte,GO,Goiás
+3550001,São Luiz do Paraitinga,SP,São Paulo
 4318903,São Luiz Gonzaga,RS,Rio Grande do Sul
 2514909,São Mamede,PB,Paraíba
 4125555,São Manoel do Paraná,PR,Paraná
 3550100,São Manuel,SP,São Paulo
 4319000,São Marcos,RS,Rio Grande do Sul
-4217105,São Martinho,SC,Santa Catarina
 4319109,São Martinho,RS,Rio Grande do Sul
+4217105,São Martinho,SC,Santa Catarina
 4319125,São Martinho da Serra,RS,Rio Grande do Sul
 3204906,São Mateus,ES,Espírito Santo
 2111508,São Mateus do Maranhão,MA,Maranhão
@@ -4754,6 +4840,7 @@ id,name,state_code,state
 3163805,São Miguel do Anta,MG,Minas Gerais
 5220207,São Miguel do Araguaia,GO,Goiás
 2210391,São Miguel do Fidalgo,PI,Piauí
+2412559,São Miguel do Gostoso,RN,Rio Grande do Norte
 1507607,São Miguel do Guamá,PA,Pará
 1100320,São Miguel do Guaporé,RO,Rondônia
 4125704,São Miguel do Iguaçu,PR,Paraná
@@ -4769,8 +4856,8 @@ id,name,state_code,state
 4319307,São Paulo das Missões,RS,Rio Grande do Sul
 1303908,São Paulo de Olivença,AM,Amazonas
 2412609,São Paulo do Potengi,RN,Rio Grande do Norte
-3550407,São Pedro,SP,São Paulo
 2412708,São Pedro,RN,Rio Grande do Norte
+3550407,São Pedro,SP,São Paulo
 2111532,São Pedro da Água Branca,MA,Maranhão
 3305208,São Pedro da Aldeia,RJ,Rio de Janeiro
 5107404,São Pedro da Cipa,MT,Mato Grosso
@@ -4804,6 +4891,7 @@ id,name,state_code,state
 3164407,São Sebastião da Bela Vista,MG,Minas Gerais
 1507706,São Sebastião da Boa Vista,PA,Pará
 3550803,São Sebastião da Grama,SP,São Paulo
+3164431,São Sebastião da Vargem Alegre,MG,Minas Gerais
 2515104,São Sebastião de Lagoa de Roça,PB,Paraíba
 3305307,São Sebastião do Alto,RJ,Rio de Janeiro
 3164472,São Sebastião do Anta,MG,Minas Gerais
@@ -4820,32 +4908,35 @@ id,name,state_code,state
 4319604,São Sepé,RS,Rio Grande do Sul
 5220405,São Simão,GO,Goiás
 3550902,São Simão,SP,São Paulo
+3165206,São Thomé das Letras,MG,Minas Gerais
 3165008,São Tiago,MG,Minas Gerais
 3165107,São Tomás de Aquino,MG,Minas Gerais
-2412906,São Tomé,RN,Rio Grande do Norte
 4126108,São Tomé,PR,Paraná
+2412906,São Tomé,RN,Rio Grande do Norte
 4319703,São Valentim,RS,Rio Grande do Sul
 4319711,São Valentim do Sul,RS,Rio Grande do Sul
+1720499,São Valério,TO,Tocantins
 4319737,São Valério do Sul,RS,Rio Grande do Sul
 4319752,São Vendelino,RS,Rio Grande do Sul
-3551009,São Vicente,SP,São Paulo
 2413003,São Vicente,RN,Rio Grande do Norte
+3551009,São Vicente,SP,São Paulo
 3165305,São Vicente de Minas,MG,Minas Gerais
+2515401,São Vicente do Seridó,PB,Paraíba
 4319802,São Vicente do Sul,RS,Rio Grande do Sul
-2613800,São Vicente Ferrer,PE,Pernambuco
 2111706,São Vicente Ferrer,MA,Maranhão
+2613800,São Vicente Ferrer,PE,Pernambuco
 2515302,Sapé,PB,Paraíba
 2929602,Sapeaçu,BA,Bahia
 5107875,Sapezal,MT,Mato Grosso
 4319901,Sapiranga,RS,Rio Grande do Sul
 4126207,Sapopema,PR,Paraná
 3165404,Sapucaí-Mirim,MG,Minas Gerais
-3305406,Sapucaia,RJ,Rio de Janeiro
 1507755,Sapucaia,PA,Pará
+3305406,Sapucaia,RJ,Rio de Janeiro
 4320008,Sapucaia do Sul,RS,Rio Grande do Sul
 3305505,Saquarema,RJ,Rio de Janeiro
-4320107,Sarandi,RS,Rio Grande do Sul
 4126256,Sarandi,PR,Paraná
+4320107,Sarandi,RS,Rio Grande do Sul
 3551108,Sarapuí,SP,São Paulo
 3165503,Sardoá,MG,Minas Gerais
 3551207,Sarutaiá,SP,São Paulo
@@ -4870,6 +4961,7 @@ id,name,state_code,state
 4320305,Selbach,RS,Rio Grande do Sul
 5007802,Selvíria,MS,Mato Grosso do Sul
 3165560,Sem-Peixe,MG,Minas Gerais
+1200500,Sena Madureira,AC,Acre
 2111748,Senador Alexandre Costa,MA,Maranhão
 3165578,Senador Amaral,MG,Minas Gerais
 5220454,Senador Canedo,GO,Goiás
@@ -4879,6 +4971,7 @@ id,name,state_code,state
 2413201,Senador Georgino Avelino,RN,Rio Grande do Norte
 1200450,Senador Guiomard,AC,Acre
 3165800,Senador José Bento,MG,Minas Gerais
+1507805,Senador José Porfírio,PA,Pará
 2111763,Senador La Rocque,MA,Maranhão
 3165909,Senador Modestino Gonçalves,MG,Minas Gerais
 2312700,Senador Pompeu,CE,Ceará
@@ -4894,7 +4987,6 @@ id,name,state_code,state
 2930204,Sento Sé,BA,Bahia
 4320404,Serafina Corrêa,RS,Rio Grande do Sul
 3166303,Sericita,MG,Minas Gerais
-2515401,São Vicente do Seridó,PB,Paraíba
 1101500,Seringueiras,RO,Rondônia
 4320453,Sério,RS,Rio Grande do Sul
 3166402,Seritinga,MG,Minas Gerais
@@ -4940,8 +5032,8 @@ id,name,state_code,state
 4126504,Sertanópolis,PR,Paraná
 4320503,Sertão,RS,Rio Grande do Sul
 4320552,Sertão Santana,RS,Rio Grande do Sul
-3551702,Sertãozinho,SP,São Paulo
 2515930,Sertãozinho,PB,Paraíba
+3551702,Sertãozinho,SP,São Paulo
 3551801,Sete Barras,SP,São Paulo
 4320578,Sete de Setembro,RS,Rio Grande do Sul
 3167202,Sete Lagoas,MG,Minas Gerais
@@ -4976,8 +5068,8 @@ id,name,state_code,state
 5220702,Sítio d'Abadia,GO,Goiás
 2930758,Sítio do Mato,BA,Bahia
 2930766,Sítio do Quinto,BA,Bahia
-2413706,Sítio Novo,RN,Rio Grande do Norte
 2111805,Sítio Novo,MA,Maranhão
+2413706,Sítio Novo,RN,Rio Grande do Norte
 1720804,Sítio Novo do Tocantins,TO,Tocantins
 2930774,Sobradinho,BA,Bahia
 4320701,Sobradinho,RS,Rio Grande do Sul
@@ -5017,8 +5109,8 @@ id,name,state_code,state
 4320859,Tabaí,RS,Rio Grande do Sul
 5107941,Tabaporã,MT,Mato Grosso
 3552601,Tabapuã,SP,São Paulo
-3552700,Tabatinga,SP,São Paulo
 1304062,Tabatinga,AM,Amazonas
+3552700,Tabatinga,SP,São Paulo
 2614600,Tabira,PE,Pernambuco
 3552809,Taboão da Serra,SP,São Paulo
 2930907,Tabocas do Brejo Velho,BA,Bahia
@@ -5028,6 +5120,7 @@ id,name,state_code,state
 2614709,Tacaimbó,PE,Pernambuco
 2614808,Tacaratu,PE,Pernambuco
 3552908,Taciba,SP,São Paulo
+2516409,Tacima,PB,Paraíba
 5007950,Tacuru,MS,Mato Grosso do Sul
 3553005,Taguaí,SP,São Paulo
 1720903,Taguatinga,TO,Tocantins
@@ -5057,8 +5150,8 @@ id,name,state_code,state
 2931103,Tanquinho,BA,Bahia
 3168051,Taparuba,MG,Minas Gerais
 1304104,Tapauá,AM,Amazonas
-4320909,Tapejara,RS,Rio Grande do Sul
 4126801,Tapejara,PR,Paraná
+4320909,Tapejara,RS,Rio Grande do Sul
 4321006,Tapera,RS,Rio Grande do Sul
 2931202,Taperoá,BA,Bahia
 2516508,Taperoá,PB,Paraíba
@@ -5108,8 +5201,8 @@ id,name,state_code,state
 2414159,Tenente Laurentino Cruz,RN,Rio Grande do Norte
 4321402,Tenente Portela,RS,Rio Grande do Sul
 2516755,Tenório,PB,Paraíba
-3554300,Teodoro Sampaio,SP,São Paulo
 2931400,Teodoro Sampaio,BA,Bahia
+3554300,Teodoro Sampaio,SP,São Paulo
 2931509,Teofilândia,BA,Bahia
 3168606,Teófilo Otoni,MG,Minas Gerais
 2931608,Teolândia,BA,Bahia
@@ -5123,8 +5216,8 @@ id,name,state_code,state
 1507961,Terra Alta,PA,Pará
 4127205,Terra Boa,PR,Paraná
 4321436,Terra de Areia,RS,Rio Grande do Sul
-2615201,Terra Nova,PE,Pernambuco
 2931707,Terra Nova,BA,Bahia
+2615201,Terra Nova,PE,Pernambuco
 5108055,Terra Nova do Norte,MT,Mato Grosso
 4127304,Terra Rica,PR,Paraná
 4127403,Terra Roxa,PR,Paraná
@@ -5164,6 +5257,7 @@ id,name,state_code,state
 2807501,Tomar do Geru,SE,Sergipe
 4127809,Tomazina,PR,Paraná
 3169208,Tombos,MG,Minas Gerais
+1508001,Tomé-Açu,PA,Pará
 1304237,Tonantins,AM,Amazonas
 2615409,Toritama,PE,Pernambuco
 5108204,Torixoréu,MT,Mato Grosso
@@ -5173,10 +5267,12 @@ id,name,state_code,state
 3554706,Torrinha,SP,São Paulo
 2414407,Touros,RN,Rio Grande do Norte
 3554755,Trabiju,SP,São Paulo
+1508035,Tracuateua,PA,Pará
 2615508,Tracunhaém,PE,Pernambuco
 2709202,Traipu,AL,Alagoas
 1508050,Trairão,PA,Pará
 2313500,Trairi,CE,Ceará
+3305901,Trajano de Moraes,RJ,Rio de Janeiro
 4321600,Tramandaí,RS,Rio Grande do Sul
 4321626,Travesseiro,RS,Rio Grande do Sul
 2931806,Tremedal,BA,Bahia
@@ -5203,9 +5299,9 @@ id,name,state_code,state
 5221403,Trindade,GO,Goiás
 2615607,Trindade,PE,Pernambuco
 4321956,Trindade do Sul,RS,Rio Grande do Sul
-4322004,Triunfo,RS,Rio Grande do Sul
-2615706,Triunfo,PE,Pernambuco
 2516805,Triunfo,PB,Paraíba
+2615706,Triunfo,PE,Pernambuco
+4322004,Triunfo,RS,Rio Grande do Sul
 2414456,Triunfo Potiguar,RN,Rio Grande do Norte
 2112233,Trizidela do Vale,MA,Maranhão
 5221452,Trombas,GO,Goiás
@@ -5244,8 +5340,8 @@ id,name,state_code,state
 2313559,Tururu,CE,Ceará
 5221502,Turvânia,GO,Goiás
 5221551,Turvelândia,GO,Goiás
-4218806,Turvo,SC,Santa Catarina
 4127965,Turvo,PR,Paraná
+4218806,Turvo,SC,Santa Catarina
 3169802,Turvolândia,MG,Minas Gerais
 2112506,Tutóia,MA,Maranhão
 1304260,Uarini,AM,Amazonas
@@ -5337,8 +5433,8 @@ id,name,state_code,state
 3556354,Vargem,SP,São Paulo
 3170578,Vargem Alegre,MG,Minas Gerais
 3205036,Vargem Alta,ES,Espírito Santo
-4219176,Vargem Bonita,SC,Santa Catarina
 3170602,Vargem Bonita,MG,Minas Gerais
+4219176,Vargem Bonita,SC,Santa Catarina
 2112704,Vargem Grande,MA,Maranhão
 3170651,Vargem Grande do Rio Pardo,MG,Minas Gerais
 3556404,Vargem Grande do Sul,SP,São Paulo
@@ -5348,15 +5444,15 @@ id,name,state_code,state
 3170750,Varjão de Minas,MG,Minas Gerais
 2313955,Varjota,CE,Ceará
 3306156,Varre-Sai,RJ,Rio de Janeiro
-2414704,Várzea,RN,Rio Grande do Norte
 2517100,Várzea,PB,Paraíba
+2414704,Várzea,RN,Rio Grande do Norte
 2314003,Várzea Alegre,CE,Ceará
 2211357,Várzea Branca,PI,Piauí
 3170800,Várzea da Palma,MG,Minas Gerais
 2933059,Várzea da Roça,BA,Bahia
 2933109,Várzea do Poço,BA,Bahia
-2211407,Várzea Grande,PI,Piauí
 5108402,Várzea Grande,MT,Mato Grosso
+2211407,Várzea Grande,PI,Piauí
 2933158,Várzea Nova,BA,Bahia
 3556503,Várzea Paulista,SP,São Paulo
 2933174,Varzedo,BA,Bahia
@@ -5365,13 +5461,14 @@ id,name,state_code,state
 3171006,Vazante,MG,Minas Gerais
 4322608,Venâncio Aires,RS,Rio Grande do Sul
 3205069,Venda Nova do Imigrante,ES,Espírito Santo
+2414753,Venha-Ver,RN,Rio Grande do Norte
 4128534,Ventania,PR,Paraná
 2616001,Venturosa,PE,Pernambuco
 5108501,Vera,MT,Mato Grosso
-3556602,Vera Cruz,SP,São Paulo
-4322707,Vera Cruz,RS,Rio Grande do Sul
 2933208,Vera Cruz,BA,Bahia
 2414803,Vera Cruz,RN,Rio Grande do Norte
+4322707,Vera Cruz,RS,Rio Grande do Sul
+3556602,Vera Cruz,SP,São Paulo
 4128559,Vera Cruz do Oeste,PR,Paraná
 2211506,Vera Mendes,PI,Piauí
 4322806,Veranópolis,RS,Rio Grande do Sul
@@ -5388,15 +5485,15 @@ id,name,state_code,state
 4322855,Vespasiano Corrêa,RS,Rio Grande do Sul
 4322905,Viadutos,RS,Rio Grande do Sul
 4323002,Viamão,RS,Rio Grande do Sul
-2112803,Viana,MA,Maranhão
 3205101,Viana,ES,Espírito Santo
+2112803,Viana,MA,Maranhão
 5222005,Vianópolis,GO,Goiás
 2616308,Vicência,PE,Pernambuco
 4323101,Vicente Dutra,RS,Rio Grande do Sul
 5008404,Vicentina,MS,Mato Grosso do Sul
 5222054,Vicentinópolis,GO,Goiás
-3171303,Viçosa,MG,Minas Gerais
 2709400,Viçosa,AL,Alagoas
+3171303,Viçosa,MG,Minas Gerais
 2414902,Viçosa,RN,Rio Grande do Norte
 2314102,Viçosa do Ceará,CE,Ceará
 4323200,Victor Graeff,RS,Rio Grande do Sul
@@ -5405,6 +5502,7 @@ id,name,state_code,state
 3171402,Vieiras,MG,Minas Gerais
 2517209,Vieirópolis,PB,Paraíba
 1508209,Vigia,PA,Pará
+5105507,Vila Bela da Santíssima Trindade,MT,Mato Grosso
 5222203,Vila Boa,GO,Goiás
 2415008,Vila Flor,RN,Rio Grande do Norte
 4323309,Vila Flores,RS,Rio Grande do Sul
@@ -5471,101 +5569,3 @@ id,name,state_code,state
 3557154,Zacarias,SP,São Paulo
 2114007,Zé Doca,MA,Maranhão
 4219853,Zortéa,SC,Santa Catarina
-1200500,Sena Madureira,AC,Acre
-1301159,Careiro da Várzea,AM,Amazonas
-1301951,Itamarati,AM,Amazonas
-2708204,São Brás,AL,Alagoas
-1600253,Itaubal,AP,Amapá
-1600212,Cutias,AP,Amapá
-5210158,Ipiranga de Goiás,GO,Goiás
-5204854,Campo Limpo de Goiás,GO,Goiás
-5212253,Lagoa Santa,GO,Goiás
-5219803,São Domingos,GO,Goiás
-5208152,Gameleira de Goiás,GO,Goiás
-3202256,Governador Lindenberg,ES,Espírito Santo
-4114351,Manfrinópolis,PR,Paraná
-4116950,Nova Esperança do Sudoeste,PR,Paraná
-4109757,Ibema,PR,Paraná
-4115309,Mariópolis,PR,Paraná
-4125209,São Jorge d'Oeste,PR,Paraná
-4110904,Itaguajé,PR,Paraná
-4116307,Munhoz de Melo,PR,Paraná
-4114609,Marechal Cândido Rondon,PR,Paraná
-4128625,Alto Paraíso,PR,Paraná
-4104600,Capitão Leônidas Marques,PR,Paraná
-4120358,Pranchita,PR,Paraná
-4106100,Conselheiro Mairinck,PR,Paraná
-4123303,Santa Cruz de Monte Castelo,PR,Paraná
-4118451,Pato Bragado,PR,Paraná
-4119004,Pérola d'Oeste,PR,Paraná
-4105201,Cerro Azul,PR,Paraná
-4124053,Santa Terezinha de Itaipu,PR,Paraná
-4116109,Moreira Sales,PR,Paraná
-4111209,Itapejara d'Oeste,PR,Paraná
-4121356,Rancho Alegre D'Oeste,PR,Paraná
-2513968,São Domingos,PB,Paraíba
-1720499,São Valério,TO,Tocantins
-1706001,Couto Magalhães,TO,Tocantins
-1506500,Santa Izabel do Pará,PA,Pará
-1503200,Igarapé-Açu,PA,Pará
-1505551,Pau d'Arco,PA,Pará
-1507805,Senador José Porfírio,PA,Pará
-1502939,Dom Eliseu,PA,Pará
-1500909,Augusto Corrêa,PA,Pará
-1508001,Tomé-Açu,PA,Pará
-1508035,Tracuateua,PA,Pará
-1505601,Peixe-Boi,PA,Pará
-1503309,Igarapé-Miri,PA,Pará
-1500503,Almeirim,PA,Pará
-1505486,Pacajá,PA,Pará
-1506351,Santa Bárbara do Pará,PA,Pará
-2400208,Açu,RN,Rio Grande do Norte
-2402600,Ceará-Mirim,RN,Rio Grande do Norte
-2405306,Januário Cicco (Boa Saúde),RN,Rio Grande do Norte
-2401305,Augusto Severo (Campo Grande),RN,Rio Grande do Norte
-2412559,São Miguel do Gostoso,RN,Rio Grande do Norte
-2414753,Venha-Ver,RN,Rio Grande do Norte
-3303807,Paraty,RJ,Rio de Janeiro
-3305901,Trajano de Moraes,RJ,Rio de Janeiro
-2910057,Dias d'Ávila,BA,Bahia
-2922250,Muquém de São Francisco,BA,Bahia
-2928505,Santa Teresinha,BA,Bahia
-3164431,São Sebastião da Vargem Alegre,MG,Minas Gerais
-3147808,Passa-Vinte,MG,Minas Gerais
-3150539,Pingo-d'Água,MG,Minas Gerais
-3108909,Brazópolis,MG,Minas Gerais
-3131802,Itabirinha,MG,Minas Gerais
-3145455,Olhos d'Água,MG,Minas Gerais
-3165206,São Thomé das Letras,MG,Minas Gerais
-2200954,Aroeiras do Itaim,PI,Piauí
-2206720,Nazária,PI,Piauí
-2209658,São Francisco de Assis do Piauí,PI,Piauí
-3547304,Santana de Parnaíba,SP,São Paulo
-3550001,São Luiz do Paraitinga,SP,São Paulo
-3515707,Ferraz de Vasconcelos,SP,São Paulo
-3527603,Luís Antônio,SP,São Paulo
-3516101,Florínia,SP,São Paulo
-5106158,Nova Bandeirantes,MT,Mato Grosso
-5107800,Santo Antônio do Leverger,MT,Mato Grosso
-5105622,Mirassol d'Oeste,MT,Mato Grosso
-5105234,Lambari D'Oeste,MT,Mato Grosso
-5107008,Poxoréu,MT,Mato Grosso
-5104526,Ipiranga do Norte,MT,Mato Grosso
-5103957,Glória D'Oeste,MT,Mato Grosso
-5104542,Itanhangá,MT,Mato Grosso
-5103809,Figueirópolis D'Oeste,MT,Mato Grosso
-5105507,Vila Bela da Santíssima Trindade,MT,Mato Grosso
-5103361,Conquista D'Oeste,MT,Mato Grosso
-5003900,Figueirão,MS,Mato Grosso do Sul
-4212809,Balneário Piçarras,SC,Santa Catarina
-4216909,São Lourenço do Oeste,SC,Santa Catarina
-4207684,Ipuaçu,SC,Santa Catarina
-4213906,Presidente Castello Branco,SC,Santa Catarina
-2613107,São Caetano,PE,Pernambuco
-4317103,Sant'Ana do Livramento,RS,Rio Grande do Sul
-5107792,Santo Antônio do Leste,MT,Mato Grosso
-4314548,Pinto Bandeira,RS,Rio Grande do Sul
-4220000,Balneário Rincão,SC,Santa Catarina
-4212650,Pescaria Brava,SC,Santa Catarina
-1504752,Mojuí dos Campos,PA,Pará
-5006275,Paraíso das Águas,MS,Mato Grosso do Sul
