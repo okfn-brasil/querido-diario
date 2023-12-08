@@ -101,7 +101,6 @@ SPIDERS = [
     "pa_santana_do_araguaia",
     "pb_joao_pessoa",
     "pe_cabrobo",
-    "pe_jaboatao_dos_guararapes",
     "pe_petrolina",
     "pe_recife_2020",
     "pi_teresina",
