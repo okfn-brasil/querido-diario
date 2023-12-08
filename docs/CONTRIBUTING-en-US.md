@@ -14,7 +14,7 @@ Already read? So let's go to the specific information of this repository:
 ## Challenges
 The main challenge of this repository is to have more and more scrapers from websites that publish official gazettes, aiming to reach the 5570 Brazilian municipalities. We use the [City Expansion Board](https://github.com/orgs/okfn-brasil/projects/12/views/13) to organize this challenge progress. Consult it to find relevant tasks you can contribute to.
 
-To help you develop, use the guidelines on the page about [how to write a new scraper](https://docs.queridodiario.ok.org.br/pt/latest/escrevendo-um-novo-spider.html) available at [Querido Diario's technical documentation](https://docs.queridodiario.ok.org.br/pt/latest/).
+To help you develop, use the guidelines on the page about [how to write a new scraper](https://docs.queridodiario.ok.org.br/en/latest/writing-a-new-spider.html) available at [Querido Diario's technical documentation](https://docs.queridodiario.ok.org.br/en/latest/).
 
 ## How to setup the development environment
 Scrapers are developed using [Python](https://docs.python.org/3/) and [Scrapy](https://scrapy.org) framework. You can check [how to install Python](https://www.python.org/downloads/) on your operating system and learn more about Scrapy [in this tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). With Python on your computer, follow the development environment setup step-by-step:
