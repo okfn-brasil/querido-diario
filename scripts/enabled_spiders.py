@@ -74,7 +74,6 @@ SPIDERS = [
     "ma_sao_vicente_ferrer",
     "ma_viana",
     "ma_ze_doca",
-    "mg_belo_horizonte",
     "mg_betim",
     "mg_campo_belo",
     "mg_candeias",
