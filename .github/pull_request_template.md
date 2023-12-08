@@ -6,7 +6,7 @@ abaixo. **NÃO ABRA** um novo Pull Request antes de completar todos os items aba
 - [ ] Você executou uma extração por período (`start_date` e `end_date` definidos) ao menos uma vez e os dados retornados estavam corretos.
 - [ ] Você verificou que não existe nenhum erro nos logs (`log_count/ERROR` igual a zero).
 - [ ] Você definiu o atributo de classe `start_date` no seu spider com a data do Diário Oficial mais antigo disponível na página da cidade.
-- [ ] Você garantiu que todos os campos que poderiam ser extraídos foram extraídos [de acordo com a documentação](https://docs.queridodiario.ok.org.br/pt/latest/escrevendo-um-novo-spider.html#definicao-de-campos).
+- [ ] Você garantiu que todos os campos que poderiam ser extraídos foram extraídos [de acordo com a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/escrevendo-um-novo-spider.html#definicao-de-campos).
 
 #### Descrição
 
