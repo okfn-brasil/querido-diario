@@ -2,6 +2,7 @@
 # automatically in production
 SPIDERS = [
     "al_maceio",
+    "al_associacao_municipios",
     "am_manaus",
     "ap_macapa",
     "ap_santana",
