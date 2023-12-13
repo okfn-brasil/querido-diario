@@ -1,5 +1,7 @@
 from datetime import date
+
 from gazette.spiders.base.instar import BaseInstarSpider
+
 
 class MgJuatubaSpider(BaseInstarSpider):
     TERRITORY_ID = "3136652"

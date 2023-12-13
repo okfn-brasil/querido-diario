@@ -1,5 +1,7 @@
 from datetime import date
+
 from gazette.spiders.base.instar import BaseInstarSpider
+
 
 class MgCarmoDoRioClaroSpider(BaseInstarSpider):
     TERRITORY_ID = "3114402"
