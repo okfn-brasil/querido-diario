@@ -34,9 +34,8 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
         gazettes = data["data"]
         for gazette in gazettes:
             is_extra_edition = gazette["tipo_edicao"] != "P"
-            one_day = timedelta(days=1)
-            yesterday_datetime = gazette_date - one_day
-            prefix = (yesterday_datetime.strftime("%Y-%m-%d")).replace("-", "")
+
+            prefix = (gazette_date - timedelta(days=1)).strftime("%Y%m%d")
             gazette_hash = gazette["documento_jornal"]["nome_minio"]
             gazette_url = f"https://api-dom.pbh.gov.br/api/v1/documentos/{gazette_hash}/download?prefix={prefix}"
 
