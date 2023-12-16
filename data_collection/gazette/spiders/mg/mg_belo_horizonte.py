@@ -35,7 +35,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
         for gazette in gazettes:
             is_extra_edition = gazette["tipo_edicao"] != "P"
             gazette_hash = gazette["documento_jornal"]["nome_minio"]
-            gazette_url = f"https://api-dom.pbh.gov.br/api/v1/documentos/{gazette_hash}/download?prefix={prefix}"
+            gazette_url = f"https://api-dom.pbh.gov.br/api/v1/documentos/{gazette_hash}/download"
           
             prefix = gazette["prefix"]
             if prefix is not None:
