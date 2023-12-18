@@ -1,6 +1,8 @@
-from datetime import datetime, date
+import datetime as dt
 from urllib.parse import urlencode
+
 import scrapy
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
@@ -9,7 +11,7 @@ class ToParaisoSpider(BaseGazetteSpider):
     TERRITORY_ID = "1716109"
     name = "to_paraiso"
     allowed_domains = ["paraisodotocantins.diarioeletronico.org"]
-    start_date = date(2021, 1, 14)  # First gazette available
+    start_date = dt.date(2021, 1, 14)  # First gazette available
     custom_settings = {
         "MEDIA_ALLOW_REDIRECTS": True,
     }
@@ -20,7 +22,6 @@ class ToParaisoSpider(BaseGazetteSpider):
         url_params = {
             "std": dt_inicial,
             "end": dt_final,
-
         }
         params = urlencode(url_params)
         url = f"https://paraisodotocantins.diarioeletronico.org/edicoes/?{params}"
@@ -46,14 +47,16 @@ class ToParaisoSpider(BaseGazetteSpider):
         day, month_name, year = gazette_text.split(" de ")
         month = self._translate_month(month_name.lower())
         formatted_date = f"{year}-{month}-{day}"
-        return datetime.strptime(str(formatted_date), "%Y-%m-%d").date()
+        return dt.datetime.strptime(str(formatted_date), "%Y-%m-%d").date()
 
     def parse(self, response):
         for gazette in response.css(".table tbody tr"):
             edition_number = gazette.xpath("./th[1]/text()").get()
             raw_gazette_date = gazette.xpath("./th[2]/text()").get()
             gazette_date = self._get_date_from_parent_edition(raw_gazette_date)
-            is_extra_edition = 'Edição Extra' in str(gazette.xpath("./td[@class='download']/p/a/text()").get())
+            is_extra_edition = "Edição Extra" in str(
+                gazette.xpath("./td[@class='download']/p/a/text()").get()
+            )
             gazette_url = gazette.css("a::attr(href)").extract_first()[:-4]
             if is_extra_edition:
                 gazette_url_extra = gazette.css("a::attr(href)").extract()[1]
