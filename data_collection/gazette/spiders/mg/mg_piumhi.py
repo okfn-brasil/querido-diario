@@ -11,13 +11,9 @@ class MgPiumhiSpider(BaseGazetteSpider):
     name = "mg_piumhi"
     TERRITORY_ID = "3151503"
     allowed_domains = ["prefeiturapiumhi.mg.gov.br"]
-    base_url = "https://diario-oficial.prefeiturapiumhi.mg.gov.br/"
     start_date = date(2023, 9, 11)
+    start_urls = ["https://diario-oficial.prefeiturapiumhi.mg.gov.br/"]
 
-    def start_requests(self):
-        yield scrapy.Request(
-            url=f"{self.base_url}",
-        )
 
     def parse(self, response):
         gazettes = response.css(
