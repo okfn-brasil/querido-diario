@@ -20,12 +20,9 @@ class MgPiumhiSpider(BaseGazetteSpider):
             "div.jet-listing-grid__items div.jet-listing-grid__item"
         )
         for gazette in gazettes:
-            raw_date = (
-                gazette.css("div.jet-listing-dynamic-field__content::text")
-                .get()
-                .replace("DATA: ", "")
-            )
-            date = datetime.strptime(raw_date, "%d/%m/%Y").date()
+            gazette_date = gazette.css(
+                "div.jet-listing-dynamic-field__content::text"
+            ).re_first(r"(\d{2}/\d{2}/\d{4})")
 
             if date > self.end_date:
                 continue
