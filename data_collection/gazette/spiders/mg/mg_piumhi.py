@@ -27,7 +27,7 @@ class MgPiumhiSpider(BaseGazetteSpider):
             if date > self.end_date:
                 continue
             elif date < self.start_date:
-                return
+                continue
 
             file_urls = gazette.css("a::attr(href)").getall()
             edition_number = gazette.css("h2::text").re_first(r"\d+")
