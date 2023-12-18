@@ -1,7 +1,6 @@
 from datetime import datetime, date
 from urllib.parse import urlencode
 import scrapy
-from dateutil import parser
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
