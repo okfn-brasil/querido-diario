@@ -5,8 +5,6 @@ import scrapy
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-
-# Create a class for the spider
 class MgPiumhiSpider(BaseGazetteSpider):
     name = "mg_piumhi"
     TERRITORY_ID = "3151503"
