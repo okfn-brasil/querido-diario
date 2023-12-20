@@ -1,9 +1,8 @@
-from datetime import date, datetime
-
-import scrapy
+from datetime import date
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+
 
 class MgPiumhiSpider(BaseGazetteSpider):
     name = "mg_piumhi"
@@ -12,15 +11,14 @@ class MgPiumhiSpider(BaseGazetteSpider):
     start_date = date(2023, 9, 11)
     start_urls = ["https://diario-oficial.prefeiturapiumhi.mg.gov.br/"]
 
-
     def parse(self, response):
         gazettes = response.css(
             "div.jet-listing-grid__items div.jet-listing-grid__item"
         )
         for gazette in gazettes:
-            gazette_date = gazette.css(
-                "div.jet-listing-dynamic-field__content::text"
-            ).re_first(r"(\d{2}/\d{2}/\d{4})")
+            gazette.css("div.jet-listing-dynamic-field__content::text").re_first(
+                r"(\d{2}/\d{2}/\d{4})"
+            )
 
             if date > self.end_date:
                 continue
