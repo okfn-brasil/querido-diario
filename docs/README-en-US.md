@@ -31,7 +31,7 @@ Thank you for considering contributing to Querido Diário! :tada:
 
 You can find how to do it at [CONTRIBUTING-en-US.md](/docs/CONTRIBUTING-en-US.md)!
 
-Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/pt/latest/index.html) to help you.
+Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/en/latest/) to help you.
 
 # Development Environment
 You need to have [Python](https://docs.python.org/3/) (+3.0) and [Scrapy](https://scrapy.org) framework installed.

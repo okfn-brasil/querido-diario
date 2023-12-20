@@ -14,7 +14,7 @@ Já leu? Então vamos às informações específicas deste repositório:
 ## Desafios
 O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir. 
 
-Para te ajudar a desenvolver, utilize as orientações da página sobre [como escrever um novo raspador](https://docs.queridodiario.ok.org.br/pt/latest/escrevendo-um-novo-spider.html) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/pt/latest/).
+Para te ajudar a desenvolver, utilize as orientações da página sobre [como escrever um novo raspador](https://docs.queridodiario.ok.org.br/pt-br/latest/escrevendo-um-novo-spider.html) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/).
 
 ## Como configurar o ambiente de desenvolvimento
 Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir [como instalar Python](https://www.python.org/downloads/) em seu sistema operacional e conhecer mais sobre o Scrapy [neste tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). Com Python em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
