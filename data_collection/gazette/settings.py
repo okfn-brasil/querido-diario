@@ -57,3 +57,5 @@ FILES_STORE_S3_ACL = config("FILES_STORE_S3_ACL", default="public-read")
 
 DOWNLOADER_MIDDLEWARES = {"scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware": 610}
 ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"
+
+COMMANDS_MODULE = "gazette.commands"
