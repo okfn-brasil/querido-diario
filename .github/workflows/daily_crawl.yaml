@@ -1,9 +1,10 @@
-name: Daily execution of Spiders
+name: Daily Crawl of Enabled Spiders
 
 on:
   schedule:
     # Execute once a day at 6PM (BRT)
     - cron: "0 21 * * *"
+  workflow_dispatch:
 
 jobs:
   schedule-jobs:

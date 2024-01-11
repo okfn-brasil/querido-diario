@@ -1,9 +1,10 @@
-name: Weekly execution of Spiders
+name: Monthly Crawl of Enabled Spiders
 
 on:
   schedule:
     # Execute once a month at 8PM (BRT)
     - cron: "0 23 1 * *"
+  workflow_dispatch:
 
 jobs:
   schedule-jobs:
