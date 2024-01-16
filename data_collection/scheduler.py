@@ -1,9 +1,13 @@
 import datetime
 
 import click
-import enabled_spiders
 from decouple import config
 from scrapinghub import ScrapinghubClient
+from sqlalchemy import create_engine, update
+from sqlalchemy.orm import sessionmaker
+
+from gazette.database.models import QueridoDiarioSpider
+from gazette.utils import get_enabled_spiders
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
 
@@ -73,9 +77,9 @@ def schedule_spider(spider_name, start_date, end_date):
     }
 
     job_args = {}
-    if start_date is not None:
+    if start_date:
         job_args["start_date"] = start_date
-    if end_date is not None:
+    if end_date:
         job_args["end_date"] = end_date
 
     spider = project.spiders.get(spider_name)
@@ -83,6 +87,48 @@ def schedule_spider(spider_name, start_date, end_date):
         job_settings=job_settings,
         job_args=job_args,
     )
+
+
+@cli.command()
+@click.option(
+    "--spider_name",
+    required=True,
+    help="Spider name",
+)
+def enable_spider(spider_name):
+    engine = create_engine(config("QUERIDODIARIO_DATABASE_URL"))
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    stmt = (
+        update(QueridoDiarioSpider)
+        .where(QueridoDiarioSpider.spider_name == spider_name)
+        .values(enabled=True)
+    )
+
+    session.execute(stmt)
+    session.commit()
+
+
+@cli.command()
+@click.option(
+    "--spider_name",
+    required=True,
+    help="Spider name",
+)
+def disable_spider(spider_name):
+    engine = create_engine(config("QUERIDODIARIO_DATABASE_URL"))
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    stmt = (
+        update(QueridoDiarioSpider)
+        .where(QueridoDiarioSpider.spider_name == spider_name)
+        .values(enabled=False)
+    )
+
+    session.execute(stmt)
+    session.commit()
 
 
 @cli.command()
@@ -106,7 +152,9 @@ def schedule_job(start_date, full, spider_name):
 
 @cli.command()
 def schedule_enabled_spiders():
-    for spider_name in enabled_spiders.SPIDERS:
+    for spider_name in get_enabled_spiders(
+        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=YESTERDAY
+    ):
         _schedule_job(start_date=YESTERDAY, full=False, spider_name=spider_name)
 
 
@@ -116,7 +164,9 @@ def last_month_schedule_enabled_spiders():
     # day as the physical one (sometimes it take more than two days and other weeks)
     # so running this command will ensure that we get the data of the latest month
     start_date = datetime.date.today() - datetime.timedelta(days=31)
-    for spider_name in enabled_spiders.SPIDERS:
+    for spider_name in get_enabled_spiders(
+        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start_date
+    ):
         _schedule_job(start_date=start_date, full=False, spider_name=spider_name)
 
 
@@ -126,7 +176,9 @@ def last_month_schedule_enabled_spiders():
 )
 @cli.command()
 def schedule_all_spiders_by_date(start_date):
-    for spider_name in enabled_spiders.SPIDERS:
+    for spider_name in get_enabled_spiders(
+        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start_date
+    ):
         _schedule_job(start_date, full=False, spider_name=spider_name)
 
 

@@ -1,20 +1,13 @@
-name: Schedule Spider Crawl - Date Range
+name: Daily Crawl of Enabled Spiders
 
 on:
+  schedule:
+    # Execute once a day at 6PM (BRT)
+    - cron: "0 21 * * *"
   workflow_dispatch:
-    inputs:
-      spider_name:
-        description: 'Spider to be scheduled'
-        required: true
-      start_date:
-        description: 'Start date (YYYY-MM-DD)'
-        required: true
-      end_date:
-        description: 'End date (YYYY-MM-DD)'
-        required: true
 
 jobs:
-  schedule:
+  schedule-jobs:
     runs-on: ubuntu-latest
     env:
       SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
@@ -36,5 +29,8 @@ jobs:
     - name: Prepare environment
       run: |
         python -m pip install --upgrade pip
-        pip install click python-decouple scrapinghub
-        python scripts/scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }} --end_date=${{ github.event.inputs.end_date }}
+        pip install click python-decouple scrapinghub SQLAlchemy psycopg2
+    - name: Schedule jobs
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-enabled-spiders
