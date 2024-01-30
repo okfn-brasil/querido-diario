@@ -3,6 +3,7 @@ boto3==1.24.89
 click
 chompjs
 dateparser
+filetype
 itemadapter
 jinja2
 psycopg2-binary
