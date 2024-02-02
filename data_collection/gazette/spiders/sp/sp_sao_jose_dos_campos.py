@@ -1,57 +1,39 @@
-import dateparser
-from scrapy import FormRequest
+from datetime import date, datetime
+
+from dateutil.rrule import DAILY, rrule
+from scrapy.http import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpSaoJoseDosCamposSpider(BaseGazetteSpider):
-    TERRITORY_ID = "3549904"
-
-    GAZETTE_NAME_CSS = "td:last-child a::text"
-    GAZETTE_URL_CSS = "td:last-child a::attr(href)"
-    GAZETTE_DATE_CSS = "td:nth-child(2)::text"
-    NEXT_PAGE_LINK_CSS = ".paginador_anterior_proxima a"
-    JAVASCRIPT_POSTBACK_REGEX = r"javascript:__doPostBack\('(.*)',''\)"
-
-    allowed_domains = ["servicos2.sjc.sp.gov.br"]
     name = "sp_sao_jose_dos_campos"
-    start_urls = [
-        "http://servicos2.sjc.sp.gov.br/servicos/portal_da_transparencia/boletim_municipio.aspx"
-    ]
+    TERRITORY_ID = "3549904"
+    allowed_domains = ["diariodomunicipio.sjc.sp.gov.br"]
+    api_url = "https://diariodomunicipio.sjc.sp.gov.br/apifront/portal/edicoes/edicoes_from_data/"
+    start_date = date(2015, 8, 7)
+
+    def start_requests(self):
+        for daily_date in rrule(
+            freq=DAILY, dtstart=self.start_date, until=self.end_date
+        ):
+            url = f'{self.api_url}{daily_date.strftime("%Y-%m-%d")}.json'
+
+            yield Request(url)
 
     def parse(self, response):
-        for element in response.css("#corpo table tr"):
-            if element.css("th").extract():
-                continue
-
-            date = element.css(self.GAZETTE_DATE_CSS).extract_first()
-            date = dateparser.parse(date, languages=["pt"]).date()
-            url = element.css(self.GAZETTE_URL_CSS).extract_first()
-            gazette_title = element.css(self.GAZETTE_NAME_CSS).extract_first()
-            is_extra = "Extra" in gazette_title
-
+        data = response.json()
+        if data["erro"]:
+            return
+        for gazzete in data["itens"]:
             yield Gazette(
-                date=date,
-                file_urls=[url],
-                is_extra_edition=is_extra,
+                date=datetime.strptime(gazzete["data"], "%d/%m/%Y").date(),
+                edition_number=gazzete["numero"],
+                is_extra_edition=gazzete["suplemento"] != 0
+                and gazzete["suplemento"] != "",
                 power="executive_legislative",
-            )
-
-        for element in response.css(self.NEXT_PAGE_LINK_CSS):
-            if not element.css("a::text").extract_first() == "Próxima":
-                continue
-
-            event_target = element.css("a::attr(href)")
-            event_target = event_target.re(self.JAVASCRIPT_POSTBACK_REGEX).pop()
-
-            yield FormRequest.from_response(
-                response,
-                callback=self.parse,
-                formname="aspnetForm",
-                formxpath="//form[@id='aspnetForm']",
-                formdata={"__EVENTARGUMENT": "", "__EVENTTARGET": event_target},
-                dont_click=True,
-                dont_filter=True,
-                method="POST",
+                file_urls=[
+                    f'https://diariodomunicipio.sjc.sp.gov.br/portal/edicoes/download/{gazzete["id"]}'
+                ],
             )
