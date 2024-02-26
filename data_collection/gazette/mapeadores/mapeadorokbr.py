@@ -5,7 +5,7 @@ class MapeadorOKBR(Mapeador):
     name = "mapeadorokbr"
 
     custom_settings = {
-        "CONCURRENT_REQUESTS_PER_DOMAIN": 30,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 16,
         "RETRY_ENABLED": False,
         "DOWNLOAD_DELAY": 1,
     }

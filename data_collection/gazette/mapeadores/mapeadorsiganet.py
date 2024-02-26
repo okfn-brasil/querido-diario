@@ -7,8 +7,9 @@ class MapeadorSiganet(Mapeador):
     name = "mapeadorsiganet"
 
     custom_settings = {
-        "CONCURRENT_REQUESTS": 50,
+        "CONCURRENT_REQUESTS": 25,
         "RETRY_ENABLED": False,
+        "DOWNLOAD_DELAY": 0.2,
     }
 
     def pattern_name(self):
