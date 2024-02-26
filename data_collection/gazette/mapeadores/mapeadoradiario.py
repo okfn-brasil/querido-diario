@@ -28,6 +28,7 @@ class MapeadorAdiario(Mapeador):
             f"{protocol}://www.{city}.{state_code}.gov.br/diariooficial.php",
             f"{protocol}://transparencia.{city}.{state_code}.gov.br/jornal.php",
             f"{protocol}://www.{city}.{state_code}.gov.br/diario.php",
+            f"{protocol}://www.{city}.{state_code}.gov.br/diariolista.php",
         ]
 
         return lista
@@ -44,7 +45,7 @@ class MapeadorAdiario(Mapeador):
             else:
                 return "verificar"
 
-        elif "diario.php" in response.url:
+        elif "diario.php" in response.url or "diariolista.php" in response.url:
             rawdate = response.xpath(
                 '//*[@id="ancora"]/section[2]/div/div/div[3]/div/div[2]/div/a/h4/div/div/text()'
             ).get()

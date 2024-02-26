@@ -34,7 +34,8 @@ class MapeadorSaiio(Mapeador):
     def validation(self, response):
         if "imap.org.br" in response.text:
             if "Nenhuma Edição Encontrada" not in response.text:
-                return True
+                if "Prefeitura Municipal" in response.text:
+                    return True
         return False
 
     def is_current(self, response):
