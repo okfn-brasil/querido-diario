@@ -10,11 +10,13 @@ class MapeadorContecn(Mapeador):
     def valid_urls(self):
         return "vCONTECN"
 
+    def current_status(self):
+        return "CONTECN_status"
+
     def urls_pattern(self, protocol, city, state_code):
         # casos conhecidos
         # https://sandolandia.to.gov.br/diario-eletronico/
         # https://babaculandia.to.gov.br/diario-municipal
-        # https://diariosantamariatocantins.com.br/  #TODO: esse layout de url não está na lista
 
         lista = [
             f"{protocol}://www.{city}.{state_code}.gov.br/diario-eletronico",
@@ -27,3 +29,13 @@ class MapeadorContecn(Mapeador):
             if "Municipio ainda não possui" not in response.text:
                 return True
         return False
+
+    def is_current(self, response):
+        raw = response.xpath('//*[@class="media-body"]/h3/a').get()
+
+        if raw is None:
+            return "vazio"
+        elif "2024" in raw:
+            return "atual"
+        elif "de 20" in raw or "de 19" in raw:
+            return "descontinuado"
