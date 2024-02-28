@@ -4,11 +4,19 @@ from gazette.mapeadores.base.mapeador import Mapeador
 class MapeadorDioenet(Mapeador):
     name = "mapeadordioenet"
 
+    custom_settings = {
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 25,
+        "RETRY_ENABLED": False,
+    }
+
     def pattern_name(self):
         return "DIOENET"
 
     def valid_urls(self):
         return "vDIOENET"
+
+    def current_status(self):
+        return "DIOENET_status"
 
     def urls_pattern(self, protocol, city, state_code):
         # casos conhecidos
@@ -25,3 +33,15 @@ class MapeadorDioenet(Mapeador):
             if "Sem registros encontrados" not in response.text:
                 return True
         return False
+
+    def is_current(self, response):
+        raw = response.xpath('//*[@class="col-one"]/h3/text()').get()
+
+        if raw is None:
+            return "verificar"
+        elif "2024" in raw:
+            return "atual"
+        elif "/20" in raw or "/19" in raw:
+            return "descontinuado"
+        else:
+            return "vazio"

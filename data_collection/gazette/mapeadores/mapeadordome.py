@@ -10,6 +10,9 @@ class MapeadorDome(Mapeador):
     def valid_urls(self):
         return "vDOME"
 
+    def current_status(self):
+        return "DOME_status"
+
     def urls_pattern(self, protocol, city, state_code):
         # casos conhecidos
         # http://diariooficial.conceicaodotocantins.to.gov.br/
@@ -22,3 +25,6 @@ class MapeadorDome(Mapeador):
         if "DOMe" in response.text:
             return True
         return False
+
+    def is_current(self, response):
+        pass

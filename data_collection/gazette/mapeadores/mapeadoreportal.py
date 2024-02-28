@@ -4,11 +4,6 @@ from gazette.mapeadores.base.mapeador import Mapeador
 class MapeadorEPortal(Mapeador):
     name = "mapeadoreportal"
 
-    custom_settings = {
-        "CONCURRENT_REQUESTS": 100,
-        "RETRY_ENABLED": False,
-    }
-
     def pattern_name(self):
         return "EPORTAL"
 
@@ -28,7 +23,7 @@ class MapeadorEPortal(Mapeador):
     def validation(self, response):
         if "Termos de uso |" in response.text:
             if "Mantido por" in response.text:
-                if "pratica-logo" in response.text:
+                if "pratica-logo" in response.text or "dkc-logo" in response.text:
                     return True
         return False
 

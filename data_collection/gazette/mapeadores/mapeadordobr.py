@@ -10,6 +10,9 @@ class MapeadorDOBR(Mapeador):
     def valid_urls(self):
         return "vDOBR"
 
+    def current_status(self):
+        return "DOBR_status"
+
     def urls_pattern(self, protocol, city, state_code):
         # casos conhecidos
         # https://tocantinia.diariooficialbr.com.br/
@@ -26,3 +29,17 @@ class MapeadorDOBR(Mapeador):
         if "ooka.com.br" in response.text:
             return True
         return False
+
+    def is_current(self, response):
+        raw = response.xpath(
+            '//*[@class="pr-0 mb-8 text-base text-black-700 sm:text-lg xl:text-xl"]/text()'
+        ).get()
+
+        if raw is None:
+            return "verificar"
+        elif "2024" in raw:
+            return "atual"
+        elif "20" in raw or "19" in raw:
+            return "descontinuado"
+        else:
+            return "vazio"
