@@ -40,7 +40,7 @@ class MapeadorCR2(Mapeador):
         raw = response.xpath('//*[@class="month"]').get()
         if raw is None:
             current = "verificar"
-        elif "/2024" in raw:
+        elif "/2024" in raw or ", 2024" in raw:
             current = "atual"
         elif "/20" in raw or "/19" in raw:
             current = "descontinuado"
