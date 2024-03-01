@@ -17,8 +17,12 @@ class MapeadorSistB(Mapeador):
         # casos conhecidos
         # https://transparencia.altoalegredomaranhao.ma.gov.br/diario
         # https://transparencia.santaluzia.ma.gov.br/diario
+        # https://bacuri.diariomunicipal.net.br/
 
-        lista = [f"{protocol}://transparencia.{city}.{state_code}.gov.br/diario"]
+        lista = [
+            f"{protocol}://transparencia.{city}.{state_code}.gov.br/diario",
+            f"{protocol}://{city}.diariomunicipal.net.br/",
+        ]
         return lista
 
     def validation(self, response):

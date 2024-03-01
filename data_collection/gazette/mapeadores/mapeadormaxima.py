@@ -19,6 +19,7 @@ class MapeadorMaxima(Mapeador):
         # https://boqueirao.pb.gov.br/publicacoes/jornal-oficial
         # https://caturite.pb.gov.br/publicacoes/diario-oficial
         # https://barradesantarosa.pb.gov.br/publicacoes/mensario-oficial
+        # https://esperanca.pb.gov.br/publicacoes/quinzenarios
 
         lista = [
             f"{protocol}://{city}.{state_code}.gov.br/publicacoes/boletim-oficial",
@@ -26,12 +27,13 @@ class MapeadorMaxima(Mapeador):
             f"{protocol}://{city}.{state_code}.gov.br/publicacoes/diario-oficial",
             f"{protocol}://{city}.{state_code}.gov.br/publicacoes/semanario-oficial",
             f"{protocol}://{city}.{state_code}.gov.br/publicacoes/mensario-oficial",
+            f"{protocol}://{city}.{state_code}.gov.br/publicacoes/quinzenarios",
         ]
         return lista
 
     def validation(self, response):
         if "maxima.inf.br" in response.text:
-            if "oficial" in response.url:
+            if "oficial" in response.url or "quinzenarios" in response.url:
                 if "Nenhum resultado" not in response.text:
                     return True
         return False
