@@ -15,7 +15,9 @@ class MapeadorIweb(Mapeador):
         # https://www.caboverde.mg.gov.br/
         # https://www.muzambinho.mg.gov.br/
 
-        return [f"{protocol}://www.{city}.{state_code}.gov.br"]
+        return [
+            f"{protocol}://www.{city}.{state_code}.gov.br/transparencia/diario-oficial-eletronico"
+        ]
 
     def validation(self, response):
         if "Invicta Web" in response.text:

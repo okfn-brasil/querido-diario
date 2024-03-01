@@ -34,7 +34,7 @@ class MapeadorAdiario(Mapeador):
         return lista
 
     def validation(self, response):
-        if "assesi.com.br" in response.text:
+        if "assesi.com.br" in response.text or "siasp.com.br" in response.text:
             return True
         return False
 

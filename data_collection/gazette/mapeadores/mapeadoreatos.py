@@ -21,6 +21,8 @@ class MapeadorEatos(Mapeador):
         # https://publicacoesmunicipais.com.br:8443/api/acts/guamiranga/1
         # https://publicacoesmunicipais.com.br:8443/api/acts/ilhacomprida/1
 
+        # novo formato : https://api.publicacoesmunicipais.com.br/api/v1/acts/araras/2295
+
         return [
             f"{protocol}://publicacoesmunicipais.com.br:8443/api/acts/{city}/1",
             f"{protocol}://publicacoesmunicipais.com.br:8443/api/acts/{city}/10",

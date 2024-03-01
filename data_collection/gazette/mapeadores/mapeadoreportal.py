@@ -17,14 +17,21 @@ class MapeadorEPortal(Mapeador):
         # casos conhecidos
         # https://www.riodosbois.to.gov.br/diariooficial
         # https://www.piraque.to.gov.br/diariooficial
+        # https://diario.augustinopolis.to.gov.br/
 
-        return [f"{protocol}://www.{city}.{state_code}.gov.br/diariooficial"]
+        return [
+            f"{protocol}://www.{city}.{state_code}.gov.br/diariooficial",
+            f"{protocol}://diario.{city}.{state_code}.gov.br/",
+        ]
 
     def validation(self, response):
-        if "Termos de uso |" in response.text:
-            if "Mantido por" in response.text:
-                if "pratica-logo" in response.text or "dkc-logo" in response.text:
-                    return True
+        if (
+            "pratica-logo" in response.text
+            or "dkc-logo" in response.text
+            or "vale-solucoes" in response.text
+        ):
+            if not response.xpath('//*[@class="main_last_edition"]').get() is None:
+                return True
         return False
 
     def is_current(self, response):
