@@ -2,16 +2,16 @@ from gazette.mapeadores.base.mapeador import Mapeador
 
 
 class MapeadorSistB(Mapeador):
-    name = "mapeadorsistb"
+    name = "mapeadortransparenciamara"
 
     def pattern_name(self):
-        return "SISTB"
+        return "TRANSPARENCIAMARA"
 
     def valid_urls(self):
-        return "vSISTB"
+        return "vTRANSPARENCIAMARA"
 
     def current_status(self):
-        return "SISTB_status"
+        return "TRANSPARENCIAMARA_status"
 
     def urls_pattern(self, protocol, city, state_code):
         # casos conhecidos
