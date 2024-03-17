@@ -8,4 +8,4 @@ class MgJuatubaSpider(BaseInstarSpider):
     name = "mg_juatuba"
     allowed_domains = ["juatuba.mg.gov.br"]
     base_url = "https://www.juatuba.mg.gov.br/portal/diario-oficial"
-    start_date = date(2021, 8, 15)
+    start_date = date(2016, 1, 5)
