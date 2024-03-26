@@ -86,6 +86,7 @@ scrapy crawl <nome_do_raspador> -a end_date=<AAAA-MM-DD>
 
 * **Arquivo de log**   
 É possível enviar o log da raspagem para um arquivo ao invés de deixá-lo no terminal. Isto é particularmente útil quando se desenvolve um raspador que apresenta problemas e você quer enviar o arquivo de log no seu PR para obter ajuda. Para isso, use a flag de configuração `-s` seguida de:
+
 `LOG_FILE=log_<nome_do_municipio>.txt`: definirá o arquivo para armazenar as mensagens de log.
 ```console
 scrapy crawl <nome_do_raspador> -s LOG_FILE=log_<nome_do_municipio>.txt

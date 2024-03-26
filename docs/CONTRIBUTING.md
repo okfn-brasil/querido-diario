@@ -12,9 +12,10 @@ Já leu? Então vamos às informações específicas deste repositório:
     - [Em Windows](#em-windows)
   - [Formatação automática de código](#formação-automática-de-código)
 - [Mantendo](#mantendo)
+    - [Revisão de raspadores](#revisão-de-raspadores)
 
 ## Desafios
-O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir. 
+O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir.
 
 Para te ajudar a desenvolver, utilize as orientações da página sobre [como escrever um novo raspador](https://docs.queridodiario.ok.org.br/pt-br/latest/escrevendo-um-novo-spider.html) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/).
 
@@ -74,7 +75,7 @@ Siga as instruções referentes À instalação utilizando [Linux](CONTRIBUTING.
 
 
 ## Formação automática de código
-O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado. 
+O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado.
 
 Mas, se você seguiu as orientações para configurar o ambiente de desenvolvimento corretamente, especialmente instalando o `pre-commit`, é possível que você nunca precise corrigir a formatação manualmente. O `pre-commit` fará isso por você, já que executa antes de cada `commit`. Ainda, caso queira verificar todos os arquivos no projeto, use `make format` para evocar as ferramentas.
 
@@ -82,3 +83,14 @@ _Observação_: `make` não é disponibilizado nativamente em Windows, sendo nec
 
 # Mantendo
 As pessoas mantenedoras devem seguir as diretrizes do [Guia para Mantenedoras](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#mantendo) do Querido Diário.
+
+## Revisão de raspadores
+
+Toda vez que uma PR para raspadores é aberta, a [lista de validações](https://github.com/okfn-brasil/querido-diario/blob/main/.github/pull_request_template.md) é acionada. É esperado que a pessoa contribuidora faça todas as verificações contidas na checklist, mas também é responsabilidade da pessoa revisora conferir os itens.
+
+A checklist já cobre aspectos mais objetivos como o modelo do código, os campos obrigatórios e os arquivos de coleta-teste. Entretanto, outros aspectos devem ser levados em consideração na interação de revisão. Exemplos:
+
+- Padrão de código Python quanto ao uso de aspas duplas (`"exemplo"` / `"exemplo='texto'"`)
+- Boas práticas no uso do XPath ou seletores evitando "voltas" desnecessárias
+- Legibilidade: se você teve dificuldade para entender algum trecho, verifique se este código pode ser melhorado
+- Pense a interação de revisão como uma progressão da evolução da pessoa contribuidora junto ao projeto, dando *feedbacks* como comentários nas linhas necessárias e apontando questões gerais ou reforçando questões pontuais.

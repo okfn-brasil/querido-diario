@@ -10,6 +10,7 @@ Already read? So let's go to the specific information of this repository:
     - [Windows](#windows)
 - [Automated code formatting](#automated-code-formatting)
 - [Maintaining](#maintaining)
+    - [Scraper code review](#scraper-code-review)
 
 ## Challenges
 The main challenge of this repository is to have more and more scrapers from websites that publish official gazettes, aiming to reach the 5570 Brazilian municipalities. We use the [City Expansion Board](https://github.com/orgs/okfn-brasil/projects/12/views/13) to organize this challenge progress. Consult it to find relevant tasks you can contribute to.
@@ -72,3 +73,14 @@ If you followed the setup instructions, installing pre-commit hooks, it is possi
 
 # Maintaining
 Maintainers must follow the guidelines in Querido Diário's [Guide for Maintainers](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING-en-US.md#maintaining).
+
+## Scraper code review
+
+Every time a PR for scrapers is opened, the [validation list](https://github.com/okfn-brasil/querido-diario/blob/main/.github/pull_request_template.md) is triggered. The contributing person is expected to carry out all the checks contained in the checklist, but it is also reviewer's responsibility to check them too.
+
+The checklist already covers more objective aspects such as the code model, mandatory fields and test collection files. However, other aspects must be taken into consideration in the review interaction. Examples:
+
+- Python code standard regarding the use of double quotes (`"example"` / `"example='texto'"`)
+- Good practices in using XPath or selectors, avoiding unnecessary "turns"
+- Readability: if you had difficulty understanding a section, check if this code can be improved
+- Think review's interaction as a progression in the evolution of the person contributing to the project, giving *feedback* as comments on the necessary lines and pointing out general issues or reinforcing specific issues.
