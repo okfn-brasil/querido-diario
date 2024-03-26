@@ -46,13 +46,26 @@ pre-commit install
 _Atenção:_ Estas etapas precisam ser executadas apenas na primeira vez que interagir com o projeto durante a preparação do ambiente. Depois disso, basta ativar o ambiente virtual (passo 3) cada vez que for utilizar ou contribuir com o repositório.
 
 ### Em Windows
-As instruções a seguir foram experimentadas em Windows 10. 
-1. [Instale o Microsoft Visual Build Tools](https://visualstudio.microsoft.com/downloads/). Ao iniciar a instalação, você precisa selecionar `C++ build tools` na aba de carregamento e também `Windows 10 SDK` e `MSVC v142 - VS 2019 C++ x64/x86 build tools` na aba de componentes individuais.
+
+#### Pelo terminal do Windows
+As instruções a seguir foram experimentadas em Windows 10 e 11. Lembre-se que caso deseje realizar uma integração com o repositório [querido-diario-data-processing](https://github.com/okfn-brasil/querido-diario-data-processing) é preferível que a sua configuração de ambiente seja feita [utilizando WSL](CONTRIBUTING.md#utilizando-wsl).
+
+1. Instale o [Visual Studio Comunidade](https://visualstudio.microsoft.com/pt-br/downloads/) . Ao abrir o terminal do instalado do Visual Studio, antes de instalar, você precisa selecionar na aba de  **Componentes Individuais** "SDK do Windows 10" ou "11" (a depender do seu sistema) e "Ferramentas de build do MSVC v143 - VS 2022 C++ x64/x86 (v14.32-17.4)". Note que muitas vezes as versões Windows 10 SDK e MSVC v142 - VS 2019 C++ x64/x86 build tools serão atualizadas, portanto procure por itens similares em Componentes individuais para realizar a instalação (ou seja, mais novos e compatíveis com o seu sitema). Em **Cargas de Trabalho**, selecione “Desenvolvimento para desktop com C++”. Instale as atualizações, feche o aplicativo e siga os próximos passos.
+
 2. Siga todos os [passos usados no Linux](#em-linux), com exceção do item 3. Nele, o comando deve ser:
 ```console
 .venv/Scripts/activate.bat
 ```
 _Observação_: Nos comandos em Windows, o sentido da barra (`/` ou `\`) pode variar a depender da utilização de [WSL](https://learn.microsoft.com/pt-br/windows/wsl/about).
+
+#### Utilizando WSL
+
+Abra um novo terminal do Ubuntu e faça o clone do repositório forked do [querido-diario](https://github.com/okfn-brasil/querido-diario). 
+
+Siga as instruções referentes À instalação utilizando [Linux](CONTRIBUTING.md#em-linux).
+
+[Este tutorial](https://github.com/Luisa-Coelho/qd-data-processing/blob/readme_update/wsl_windows.md) vai te ajudar na instalação e configuração do WSL na sua máquina Windows.
+
 
 ## Formação automática de código
 O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado. 

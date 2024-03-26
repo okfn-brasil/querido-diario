@@ -1,4 +1,4 @@
-**Português (BR)** | [English (US)](/docs/README-en-US.md) 
+**Português (BR)** | [English (US)](/docs/README-en-US.md)
 
 <p align="center">
   <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./images/querido-diario-logo.png" width="200">

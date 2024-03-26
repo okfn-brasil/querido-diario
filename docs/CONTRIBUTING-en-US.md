@@ -46,13 +46,24 @@ pre-commit install
 _Attention:_ These steps need to be executed only the first time you interact with the project during the environment setup. After that, just activate the virtual environment (step 3) every time you use or contribute to the repository.
 
 ### Windows
-The following instructions were tried on Windows 10.
-1. [Install Microsoft Visual Build Tools](https://visualstudio.microsoft.com/downloads/). When starting the installation, you need to select `C++ build tools` in the loading tab and also `Windows 10 SDK` and `MSVC v142 - VS 2019 C++ x64/x86 build tools` in the individual components tab.
+#### Using Windows terminal
+The following instructions were tried on Windows 10 and 11. Remember that if you want to integrate with the [querido-diario-data-processing](https://github.com/okfn-brasil/querido-diario- data-processing) it is preferable that your environment configuration is done [using WSL](CONTRIBUTING.md#using-wsl).
+
+1. Install [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/downloads/). Before the installation, you need to select in the **Individual Components** tab "Windows 10 SDK" or "11" (depending on your system) and "MSVC v143 build tools - VS 2022 C++ x64/x86 ( v14.32-17.4)". Note that Windows 10 SDK and MSVC v142 - VS 2019 C++ x64/x86 build tools versions will often be updated, so look for similar items under Individual Components to perform the installation (i.e. newer and compatible with your system). Under **Workloads**, select “Desktop development with C++”. Install the updates, close the application and follow the next steps.
+
 2. Follow all [steps used in Linux](#linux), except for item 3. In it, the command should be:
 ```console
 .venv/Scripts/activate.bat
 ```
 _Note_: In Windows commands, the direction of the slash (`/` or `\`) may vary depending on the use of [WSL](https://learn.microsoft.com/en-us/windows/wsl/about).
+
+#### Using WSL
+
+Open a new Ubuntu terminal and clone the forked [querido-diario](https://github.com/okfn-brasil/querido-diario) repository 
+
+Follow the instructions regarding installation using [Linux](CONTRIBUTING.md#em-linux).
+
+[This tutorial](https://github.com/Luisa-Coelho/qd-data-processing/blob/readme_update/wsl_windows.md) will help you install and configure WSL on your Windows machine.
 
 ## Automated code formatting
 Project uses [Black](https://github.com/psf/black) as an automated tool to format and check code style and [isort](https://github.com/pycqa/isort) to sort the imports. CI will fail if your code are not correctly formatted according these tools.
