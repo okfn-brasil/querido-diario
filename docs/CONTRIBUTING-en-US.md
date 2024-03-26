@@ -76,31 +76,11 @@ Maintainers must follow the guidelines in Querido Diário's [Guide for Maintaine
 
 ## Scraper code review
 
-To help review a scraper you can use this checklist with the most important items to evaluate in a code:
+Every time a PR for scrapers is opened, the [validation list](https://github.com/okfn-brasil/querido-diario/blob/main/.github/pull_request_template.md) is triggered. The contributing person is expected to carry out all the checks contained in the checklist, but it is also reviewer's responsibility to check them too.
 
-- **Functionality**
-    - [ ] scraping of all gazettes (no arguments)
-        - [ ] with `start_date` argument
-        - [ ] with `start_date` and end_date arguments
-    - [ ] log without `log_count/ERROR`
-    - [ ] verify collected items via scraping table
-        - [ ] `-o <city_name>.csv`
-    - [ ] corrupted files
-        - [ ] check at least three PDFs: one old, one in the middle of the period, and another more recent
+The checklist already covers more objective aspects such as the code model, mandatory fields and test collection files. However, other aspects must be taken into consideration in the review interaction. Examples:
 
-- **Code**
-    - [ ] check if the scraper can use any base scraper
-    - [ ] `class` in Pascal Case style
-    - [ ] use double quotes
-        - [ ] `"example"`
-        - [ ] `"example='text'"`
-    - [ ] `start_date` variable according to the Official Gazette website
-    - [ ] best practices in XPath usage
-        - [ ] avoid unnecessary "backtracks"
-    - [ ] readability: if you had difficulty understanding any code, check if this code can be improved
-    - [ ] code and comments in english
-
-- **Feedback**
-    - [ ] comment on necessary lines
-    - [ ] provide feedback pointing out general issues and reinforcing specific comments
-    - [ ] request the inclusion of the scraper(s) in the `enabled_spiders` file before accepting the pull request
+- Python code standard regarding the use of double quotes (`"example"` / `"example='texto'"`)
+- Good practices in using XPath or selectors, avoiding unnecessary "turns"
+- Readability: if you had difficulty understanding a section, check if this code can be improved
+- Think review's interaction as a progression in the evolution of the person contributing to the project, giving *feedback* as comments on the necessary lines and pointing out general issues or reinforcing specific issues.

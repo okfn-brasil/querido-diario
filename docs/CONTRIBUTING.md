@@ -83,3 +83,14 @@ _Observação_: `make` não é disponibilizado nativamente em Windows, sendo nec
 
 # Mantendo
 As pessoas mantenedoras devem seguir as diretrizes do [Guia para Mantenedoras](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#mantendo) do Querido Diário.
+
+## Revisão de raspadores
+
+Toda vez que uma PR para raspadores é aberta, a [lista de validações](https://github.com/okfn-brasil/querido-diario/blob/main/.github/pull_request_template.md) é acionada. É esperado que a pessoa contribuidora faça todas as verificações contidas na checklist, mas também é responsabilidade da pessoa revisora conferir os itens.
+
+A checklist já cobre aspectos mais objetivos como o modelo do código, os campos obrigatórios e os arquivos de coleta-teste. Entretanto, outros aspectos devem ser levados em consideração na interação de revisão. Exemplos:
+
+- Padrão de código Python quanto ao uso de aspas duplas (`"exemplo"` / `"exemplo='texto'"`)
+- Boas práticas no uso do XPath ou seletores evitando "voltas" desnecessárias
+- Legibilidade: se você teve dificuldade para entender algum trecho, verifique se este código pode ser melhorado
+- Pense a interação de revisão como uma progressão da evolução da pessoa contribuidora junto ao projeto, dando *feedbacks* como comentários nas linhas necessárias e apontando questões gerais ou reforçando questões pontuais.
