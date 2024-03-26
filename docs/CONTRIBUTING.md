@@ -4,10 +4,12 @@
 O Querido Diário possui um [Guia para Contribuição](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#contribuindo) principal que é relevante para todos os seus repositórios. Este guia traz informações gerais sobre como interagir com o projeto, o código de conduta que você adere ao contribuir, a lista de repositórios do ecossistema e as primeiras ações que você pode tomar. Recomendamos sua leitura antes de continuar.
 
 Já leu? Então vamos às informações específicas deste repositório:
-- [Contribuindo](#contribuindo)
-  - [Desafios](#desafios)
-  - [Metas do Repositório](#metas-do-repositório)
-  - [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
+- [Desafios](#desafios)
+- [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
+- [Desafios](#desafios)
+    - [Labels](#labels)
+    - [Metas do Repositório](#metas-do-repositório)
+- [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
     - [Em Linux](#em-linux)
     - [Em Windows](#em-windows)
   - [Formatação automática de código](#formação-automática-de-código)
@@ -17,11 +19,16 @@ Já leu? Então vamos às informações específicas deste repositório:
 ## Desafios
 O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir.
 
-Para te ajudar a desenvolver, utilize as orientações da página sobre [como escrever um novo raspador](https://docs.queridodiario.ok.org.br/pt-br/latest/escrevendo-um-novo-spider.html) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/).
+Para te ajudar a desenvolver, utilize as orientações da página ["contrbuindo com raspadores"](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#contribuindo-com-raspadores) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/).
 
-## Metas do Repositório
 
+### Labels
+As issues são marcadas com etiquetas, um recurso que serve para classificar issues de mesmo tipo, sinalizar se há algum empecilho ou direcionar a comunidade para tarefas mais do perfil delas. No geral, adotamos *labels* comuns a outros projetos de código aberto como "docs", "bug", "dependencies", mas também temos algumas específicas. Veja quais são na seção de [labels](https://github.com/okfn-brasil/querido-diario/labels)
+
+
+### Metas do Repositório
 Para garantir que nossos esforços estejam alinhados e focados em objetivos claros, definimos metas para o desenvolvimento e expansão do projeto. Estas metas são revisadas e atualizadas regularmente, refletindo as prioridades e os desafios que enfrentamos. Convidamos as pessoas contribuidoras a se familiarizarem com estas metas, disponíveis em nosso [Quadro de Metas](https://github.com/okfn-brasil/querido-diario/milestones). Sua contribuição pode ser ainda mais valiosa quando alinhada com estas direções.
+
 
 ## Como configurar o ambiente de desenvolvimento
 Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir [como instalar Python](https://www.python.org/downloads/) em seu sistema operacional e conhecer mais sobre o Scrapy [neste tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). Com Python em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
