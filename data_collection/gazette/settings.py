@@ -16,6 +16,8 @@ USER_AGENT = (
     "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0"
 )
 
+TEMPLATES_DIR = "templates"
+
 DOWNLOAD_TIMEOUT = 360
 
 FILES_STORE = config("FILES_STORE", default="data")

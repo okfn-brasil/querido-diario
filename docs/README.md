@@ -13,6 +13,7 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 # Sumário
 - [Como contribuir](#como-contribuir)
 - [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
+- [Template para raspadores](#template-para-raspadores)
 - [Como executar](#como-executar)
   - [Dicas de execução](#dicas-de-execução)
 - [Solução de problemas](#solução-de-problemas)
@@ -47,6 +48,21 @@ pre-commit install
 ```
 
 > A configuração em outros sistemas operacionais está disponível em ["como configurar o ambiente de desenvolvimento"](/docs/CONTRIBUTING.md#como-configurar-o-ambiente-de-desenvolvimento), incluindo mais detalhes para quem deseja contribuir com o desenvolvimento do repositório.
+
+# Template para raspadores
+
+Ao invés de começar um arquivo de raspador do zero, você pode inicializar um arquivo de código de raspador já no padrão do Querido Diário, a partir de um template. Para isso, faça: 
+
+1. Vá para o diretório `data_collection`:
+```console
+cd data_collection
+```
+2. Acione o template:
+```console
+scrapy genspider -t qdtemplate <uf_nome_do_municipio> <https://sitedomunicipio...>
+```
+
+Um arquivo `uf_nome_do_municipio.py` será criado no diretório `spiders`, com alguns campos já preenchidos. O diretório é organizado por UF, lembre-se de mover o arquivo para o diretório adequado.
 
 # Como executar
 Para experimentar a execução de um raspador já integrado ao projeto ou testar o que esteja desenvolvendo, siga os comandos: 
