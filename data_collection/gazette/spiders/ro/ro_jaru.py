@@ -4,6 +4,8 @@ from gazette.spiders.base.dionet import DionetGazetteSpider
 
 
 class RoJaruSpider(DionetGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "1100114"
     name = "ro_jaru"
     allowed_domains = ["doe.jaru.ro.gov.br"]
