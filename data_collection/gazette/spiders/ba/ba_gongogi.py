@@ -8,5 +8,5 @@ class BaGongogiSpider(ImprensaOficialSpider):
     allowed_domains = ["pmgongogiba.imprensaoficial.org"]
     start_date = date(2020, 2, 1)
     end_date = date(2020, 12, 30)
-    url_base = "http://pmgongogiba.imprensaoficial.org/{}"
+    city_domain = "http://pmgongogiba.imprensaoficial.org"
     TERRITORY_ID = "2911501"

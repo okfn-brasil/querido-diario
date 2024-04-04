@@ -16,14 +16,15 @@ class ImprensaOficialSpider(BaseGazetteSpider):
             freq=MONTHLY, dtstart=initial_date, until=self.end_date
         ):
             year_month = monthly_date.strftime("%Y/%m/")  # like 2015/01
-            yield scrapy.Request(
-                self.url_base.format(year_month), callback=self.extract_gazette_links
-            )
+            url = f"{self.city_domain}/{year_month}"
+
+            yield scrapy.Request(url, callback=self.extract_gazette_links)
 
     def extract_gazette_links(self, response):
         for gazette_link in response.css("h2 a::attr(href)").getall():
             raw_gazette_date = re.search(r"\d{4}/\d{2}/\d{2}", gazette_link).group()
             gazette_date = datetime.strptime(raw_gazette_date, "%Y/%m/%d").date()
+
             if gazette_date < self.start_date:
                 return
             yield scrapy.Request(gazette_link)
@@ -32,6 +33,7 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         another_page = response.xpath(
             ".//a[contains(text(), 'Publicações mais antigas')]/@href"
         ).get()
+
         if another_page:
             yield scrapy.Request(another_page, callback=self.extract_gazette_links)
 
