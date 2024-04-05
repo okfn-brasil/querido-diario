@@ -7,5 +7,5 @@ class BaXiqueXiqueSpider(ImprensaOficialSpider):
     name = "ba_xique_xique"
     allowed_domains = ["pmxiquexiqueba.imprensaoficial.org"]
     start_date = date(2017, 1, 1)
-    url_base = "http://pmxiquexiqueba.imprensaoficial.org/{}"
+    city_domain = "http://pmxiquexiqueba.imprensaoficial.org"
     TERRITORY_ID = "2933604"

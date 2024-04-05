@@ -8,5 +8,5 @@ class BaJaguarariSpider(ImprensaOficialSpider):
     allowed_domains = ["pmjaguarariba.imprensaoficial.org"]
     start_date = date(2019, 10, 1)
     end_date = date(2020, 12, 31)
-    url_base = "http://pmjaguarariba.imprensaoficial.org/{}"
+    city_domain = "http://pmjaguarariba.imprensaoficial.org"
     TERRITORY_ID = "2917706"
