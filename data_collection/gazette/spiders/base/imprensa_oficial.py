@@ -21,7 +21,9 @@ class ImprensaOficialSpider(BaseGazetteSpider):
             yield scrapy.Request(url, callback=self.extract_gazette_links)
 
     def extract_gazette_links(self, response):
-        for gazette_link in response.css("h2 a::attr(href)").getall():
+        links = response.css("h2 a::attr(href)").getall()
+
+        for gazette_link in links:
             raw_gazette_date = re.search(r"\d{4}/\d{2}/\d{2}", gazette_link).group()
             gazette_date = datetime.strptime(raw_gazette_date, "%Y/%m/%d").date()
 
@@ -41,10 +43,12 @@ class ImprensaOficialSpider(BaseGazetteSpider):
         file_url = response.css(
             "div.entry-content a[href*='baixar.php?arquivo=']::attr(href)"
         ).get()
+
         if not file_url:  # older dates
             file_url = response.css(
                 "div.entry-content a[title='Baixar Diário']::attr(href)"
             ).get()
+
         gazette_date = response.css("span.posted-on a time::attr(datetime)").get()
         gazette_date = datetime.strptime(gazette_date, "%Y-%m-%dT%H:%M:%S%z").date()
 
