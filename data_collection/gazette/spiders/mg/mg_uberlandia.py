@@ -10,6 +10,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class MgUberlandiaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "3170206"
     name = "mg_uberlandia"
     start_date = datetime.date(2005, 1, 3)
