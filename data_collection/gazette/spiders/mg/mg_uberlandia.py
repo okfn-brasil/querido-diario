@@ -1,4 +1,5 @@
 import datetime
+import re
 
 import dateparser
 import scrapy
@@ -10,11 +11,14 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class MgUberlandiaSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
-
     TERRITORY_ID = "3170206"
     name = "mg_uberlandia"
     start_date = datetime.date(2005, 1, 3)
+    allowed_domains = ["uberlandia.mg.gov.br"]
+
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+    }
 
     def start_requests(self):
         first_day_of_start_date_month = datetime.date(
@@ -54,15 +58,28 @@ class MgUberlandiaSpider(BaseGazetteSpider):
             edition_number = edition.re_first(r"(\d+)")
             is_extra_edition = bool(edition.re(r"\d+.*?([A-Za-z]+)"))
 
-            gazette_url = gazette.css("a::attr(href)").get()
+            intermediary_page_url = gazette.css("a::attr(href)").get()
 
-            yield Gazette(
-                date=gazette_date,
-                edition_number=edition_number,
-                is_extra_edition=is_extra_edition,
-                file_urls=[gazette_url],
-                power="executive",
+            gazette_item = {
+                "date": gazette_date,
+                "edition_number": edition_number,
+                "is_extra_edition": is_extra_edition,
+            }
+
+            yield scrapy.Request(
+                intermediary_page_url,
+                callback=self.intermediary_page,
+                cb_kwargs={"gazette_item": gazette_item},
             )
 
         for page_url in response.css("nav a.page-numbers::attr(href)").getall():
             yield scrapy.Request(page_url)
+
+    def intermediary_page(self, response, gazette_item):
+        gazette_url = re.search(r'location="(.*)";', response.text).group(1)
+
+        yield Gazette(
+            **gazette_item,
+            file_urls=[gazette_url],
+            power="executive",
+        )
