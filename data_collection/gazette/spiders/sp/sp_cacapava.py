@@ -1,4 +1,3 @@
-import re
 from datetime import date, datetime
 
 from scrapy.http import Request
