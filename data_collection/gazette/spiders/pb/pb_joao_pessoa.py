@@ -13,8 +13,6 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
     start_urls = ["https://www.joaopessoa.pb.gov.br/doe-jp/"]
 
     def parse(self, response):
-        follow_next_page = True
-
         gazettes = response.css("h4.card-title")
         for gazette in gazettes:
             gazette_url = gazette.xpath(".//following-sibling::a/@href").get()
@@ -28,18 +26,18 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
                 raw_gazette_date, "%d/%m/%Y"
             ).date()
 
-            if gazette_date >= self.start_date and gazette_date <= self.end_date:
-                yield Gazette(
-                    date=gazette_date,
-                    edition_number=edition_number,
-                    file_urls=[gazette_url],
-                    power="executive_legislative",
-                )
+            if gazette_date > self.end_date:
+                continue
+            elif gazette_date < self.start_date:
+                return
 
-            if gazette_date < self.start_date:
-                follow_next_page = False
-                break
+            yield Gazette(
+                date=gazette_date,
+                edition_number=edition_number,
+                file_urls=[gazette_url],
+                power="executive_legislative",
+            )
 
         next_page_url = response.css("a.next::attr(href)").get()
-        if follow_next_page and next_page_url:
+        if next_page_url:
             yield scrapy.Request(next_page_url)
