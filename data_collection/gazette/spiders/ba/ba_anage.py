@@ -8,4 +8,4 @@ class BaAnageSpider(SaiGazetteSpider):
     name = "ba_anage"
     start_date = dt.date(2017, 1, 12)
     allowed_domains = ["anage.ba.gov.br"]
-    base_url = "https://www.anage.ba.gov.br/site/diariooficial"
+    base_url = "https://anage.ba.gov.br"

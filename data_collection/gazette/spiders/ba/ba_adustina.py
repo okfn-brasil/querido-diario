@@ -8,4 +8,4 @@ class BaAdustinaSpider(SaiGazetteSpider):
     name = "ba_adustina"
     start_date = dt.date(2017, 1, 3)
     allowed_domains = ["adustina.ba.gov.br"]
-    base_url = "https://www.adustina.ba.gov.br/site/diariooficial"
+    base_url = "https://adustina.ba.gov.br"

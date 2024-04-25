@@ -8,4 +8,4 @@ class BaAlmadinaSpider(SaiGazetteSpider):
     name = "ba_almadina"
     start_date = dt.date(2005, 1, 3)
     allowed_domains = ["almadina.ba.gov.br"]
-    base_url = "https://www.almadina.ba.gov.br/site/diariooficial"
+    base_url = "https://www.almadina.ba.gov.br"
