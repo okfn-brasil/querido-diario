@@ -8,4 +8,4 @@ class BaAndorinhaSpider(SaiGazetteSpider):
     name = "ba_andorinha"
     start_date = dt.date(2013, 1, 2)
     allowed_domains = ["adorinha.ba.gov.br"]
-    base_url = "https://adorinha.ba.gov.br"
+    base_url = "https://www.andorinha.ba.gov.br/site/diariooficial"
