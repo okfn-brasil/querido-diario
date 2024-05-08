@@ -14,7 +14,6 @@ class DospGazetteSpider(BaseGazetteSpider):
     start_date = None
 
     allowed_domains = ["dosp.com.br"]
-    end_date = datetime.today().date()
 
     def start_requests(self):
         yield scrapy.Request(f"https://dosp.com.br/api/index.php/dioe.js/{self.code}")
