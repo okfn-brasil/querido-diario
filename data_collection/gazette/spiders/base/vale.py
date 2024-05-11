@@ -1,8 +1,8 @@
-from datetime import date
 from re import findall
 
 import scrapy
 import scrapy.resolver
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -35,26 +35,9 @@ class ValeGazetteSpider(BaseGazetteSpider):
         return url
 
     def _get_gazette_date(self, gazette):
-        MONTHS = {
-            "janeiro": "01",
-            "fevereiro": "02",
-            "março": "03",
-            "abril": "04",
-            "maio": "05",
-            "junho": "06",
-            "julho": "07",
-            "agosto": "08",
-            "setembro": "09",
-            "outubro": "10",
-            "novembro": "11",
-            "dezembro": "12",
-        }
-
-        website_date_text = gazette.xpath(
-            './/*[contains(text(), "Publicado")]/text()'
-        ).get()
-        [day, month, year] = findall(r", (.*) de (.*) de (.*)", website_date_text)[0]
-        datetime_date = date(int(year), int(MONTHS[month]), int(day))
+        publish_date = gazette.xpath('.//*[contains(text(), "Publicado")]/text()').get()
+        website_date = publish_date.split(",")[1]
+        datetime_date = parse(website_date, languages=["pt"]).date()
         return datetime_date
 
     def parse(self, response):
