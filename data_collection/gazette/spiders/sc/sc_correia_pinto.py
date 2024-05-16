@@ -1,7 +1,0 @@
-from gazette.spiders.base.fecam import FecamGazetteSpider
-
-
-class ScCorreiaPintoSpider(FecamGazetteSpider):
-    name = "sc_correia_pinto"
-    FECAM_QUERY = "cod_entidade:77"
-    TERRITORY_ID = "4204558"
