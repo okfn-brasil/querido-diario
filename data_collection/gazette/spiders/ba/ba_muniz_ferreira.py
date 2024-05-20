@@ -7,6 +7,6 @@ class BaMunizFerreiraSpider(ImprensaOficialSpider):
     name = "ba_muniz_ferreira"
     allowed_domains = ["pmmunizferreiraba.imprensaoficial.org"]
     start_date = date(2014, 12, 1)
-    end_date = date(2021, 1, 19)
+    end_date = date(2022, 9, 27)
     city_domain = "http://pmmunizferreiraba.imprensaoficial.org"
     TERRITORY_ID = "2922201"
