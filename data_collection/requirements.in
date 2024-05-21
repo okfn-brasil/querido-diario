@@ -13,3 +13,4 @@ scrapy
 scrapy-zyte-smartproxy
 SQLAlchemy
 spidermon
+w3lib
