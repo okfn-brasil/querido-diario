@@ -13,4 +13,4 @@ class GoAnapolisSpider(NucleoGovGazetteSpider):
         "https://dom.anapolis.go.gov.br/api/diarios?data={}&calendar=true&situacao=2"
     )
 
-    start_date = dt.date(2010, 6, 1)
+    start_date = dt.date(2010, 5, 31)
