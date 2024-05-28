@@ -4,7 +4,7 @@ from gazette.spiders.base.nucleogov import NucleoGovGazetteSpider
 
 
 class GoValparaisoDeGoiasSpider(NucleoGovGazetteSpider):
-    name = "go_valparaisodegoias"
+    name = "go_valparaiso_de_goias"
     TERRITORY_ID = "5221858"
     allowed_domains = [
         "diariooficial.valparaisodegoias.go.gov.br",
