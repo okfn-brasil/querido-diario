@@ -49,19 +49,19 @@ def load_territories(engine):
     logger.info("Populating 'territories' table - Done!")
 
 
-def get_new_spiders(session, territory_spider_map):
+def get_new_or_modified_spiders(session, territory_spider_map):
     registered_spiders = session.query(QueridoDiarioSpider).all()
     registered_spiders_set = {
         (spider.spider_name, territory.id, spider.date_from)
         for spider in registered_spiders
         for territory in spider.territories
     }
-    only_new_spiders = [
+    only_new_or_modified_spiders = [
         spider_info
         for spider_info in territory_spider_map
         if spider_info not in registered_spiders_set
     ]
-    return only_new_spiders
+    return only_new_or_modified_spiders
 
 
 def load_spiders(engine, territory_spider_map):
@@ -69,8 +69,8 @@ def load_spiders(engine, territory_spider_map):
     session = Session()
 
     table_is_populated = session.query(QueridoDiarioSpider).count() > 0
-    new_spiders = (
-        get_new_spiders(session, territory_spider_map)
+    spiders_to_persist = (
+        get_new_or_modified_spiders(session, territory_spider_map)
         if table_is_populated
         else territory_spider_map
     )
@@ -80,12 +80,11 @@ def load_spiders(engine, territory_spider_map):
     territories = session.query(Territory).all()
     territory_map = {t.id: t for t in territories}
 
-    spiders = []
-    for info in new_spiders:
+    for info in spiders_to_persist:
         spider_name, territory_id, date_from = info
         territory = territory_map.get(territory_id)
         if territory is not None:
-            spiders.append(
+            session.merge(
                 QueridoDiarioSpider(
                     spider_name=spider_name,
                     date_from=date_from,
@@ -93,7 +92,6 @@ def load_spiders(engine, territory_spider_map):
                 )
             )
 
-    session.add_all(spiders)
     session.commit()
     logger.info("Populating 'querido_diario_spider' table - Done!")
 
