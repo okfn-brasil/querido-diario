@@ -8,6 +8,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class AmManausSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     name = "am_manaus"
     allowed_domains = ["dom.manaus.am.gov.br"]
     start_date = datetime.date(2000, 4, 3)
