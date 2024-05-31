@@ -6,5 +6,5 @@ from gazette.spiders.base.doem import DoemGazetteSpider
 class BaItaberabaSpider(DoemGazetteSpider):
     TERRITORY_ID = "2914703"
     name = "ba_itaberaba"
-    start_date = date(2022, 7, 4)
     state_city_url_part = "ba/itaberaba"
+    start_date = date(2022, 7, 4)
