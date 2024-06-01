@@ -7,4 +7,4 @@ class BaAlcobacaSpider(DoemGazetteSpider):
     TERRITORY_ID = "2900801"
     name = "ba_alcobaca"
     state_city_url_part = "ba/alcobaca"
-    start_date = date(2012, 1, 2)
+    start_date = date(2017, 3, 3)

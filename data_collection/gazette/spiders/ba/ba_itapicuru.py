@@ -7,4 +7,4 @@ class BaItapicuruSpider(DoemGazetteSpider):
     TERRITORY_ID = "2916500"
     name = "ba_itapicuru"
     state_city_url_part = "ba/itapicuru"
-    start_date = date(2014, 1, 2)
+    start_date = date(2021, 1, 4)
