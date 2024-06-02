@@ -1,7 +1,5 @@
 import datetime as dt
-from os import PathLike
 from pathlib import Path
-from typing import Union
 
 import filetype
 from itemadapter import ItemAdapter
@@ -9,7 +7,7 @@ from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.http.request import NO_CALLBACK
-from scrapy.pipelines.files import FilesPipeline, FSFilesStore
+from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
 from scrapy.utils import project
 from sqlalchemy.exc import SQLAlchemyError
@@ -131,8 +129,6 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
     DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
 
     def __init__(self, *args, settings=None, **kwargs):
-        self.STORE_SCHEMES[""] = QueridoDiarioFSFilesStore
-        self.STORE_SCHEMES["file"] = QueridoDiarioFSFilesStore
         super().__init__(*args, settings=settings, **kwargs)
 
         if isinstance(settings, dict) or settings is None:
@@ -169,8 +165,9 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
 
     def file_path(self, request, response=None, info=None, item=None):
         """
-        Path to save the files, modified to organize the gazettes in directories.
-        The files will be under <territory_id>/<gazette date>/.
+        Path to save the files, modified to organize the gazettes in directories
+        and with the right file extension added.
+        The files will be under <territory_id>/<gazette date>/<filename>.
         """
         filepath = Path(
             super().file_path(request, response=response, info=info, item=item)
@@ -179,40 +176,23 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         # class we replace that with the territory_id and gazette date.
         filename = filepath.name
 
-        if not filepath.suffix and response is not None:
-            extension = self._detect_extension(response)
-            if extension:
-                filename += f".{extension}"
+        if response is not None and not filepath.suffix:
+            filename = self._get_filename_with_extension(filename, response)
 
         return str(Path(item["territory_id"], item["date"], filename))
 
-    def _detect_extension(self, response):
-        """Checks file extension from file header if possible"""
-        max_file_header_size = 261
-        file_kind = filetype.guess(response.body[:max_file_header_size])
-        if file_kind is None:
-            # logger.warning(f"Unable to guess the file type from downloaded file {response}!")
-            return ""
+    def _get_filename_with_extension(self, filename, response):
+        # The majority of the Gazettes are PDF files, so we can check it
+        # faster validating document Content-Type before using a more costly
+        # check with filetype library
+        file_extension = (
+            ".pdf" if response.headers.get("Content-Type") == b"application/pdf" else ""
+        )
 
-        return file_kind.extension
+        if not file_extension:
+            # Checks file extension from file header if possible
+            max_file_header_size = 261
+            file_kind = filetype.guess(response.body[:max_file_header_size])
+            file_extension = f".{file_kind.extension}" if file_kind is not None else ""
 
-
-class QueridoDiarioFSFilesStore(FSFilesStore):
-    def __init__(self, basedir: Union[str, PathLike]):
-        super().__init__(basedir)
-
-    def stat_file(self, path: Union[str, PathLike], info):
-        path_obj = Path(path)
-        if path_obj.suffix:
-            return super().stat_file(path, info)
-
-        path_with_ext = self._find_file(path_obj)
-        return super().stat_file(path_with_ext, info)
-
-    def _find_file(self, path):
-        """Finds a file with extension from a file path without extension"""
-        absolute_path = Path(self.basedir, path)
-        files = [p for p in absolute_path.parent.glob(f"{path.name}.*")]
-        if len(files) > 0:
-            return Path(path.parent, files[0].name)
-        return path
+        return f"{filename}{file_extension}"
