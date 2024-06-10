@@ -8,9 +8,10 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RnPauDosFerrosSpider(BaseGazetteSpider):
-    name = "rn_pau_dos_ferros"
+    name = "rn_pau_dos_ferros_2017"
     allowed_domains = ["paudosferros.rn.gov.br"]
     start_date = datetime.date(2017, 1, 2)
+    end_date = datetime.date(2022, 9, 28)
     TERRITORY_ID = "2409407"
     start_urls = ["https://paudosferros.rn.gov.br/publicacoes.php?grupo=&cat=11"]
 
