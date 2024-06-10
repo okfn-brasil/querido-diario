@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 
 from gazette.spiders.base.instar import BaseInstarSpider
 
@@ -8,4 +8,4 @@ class SpMariliaSpider(BaseInstarSpider):
     name = "sp_marilia"
     allowed_domains = ["marilia.sp.gov.br"]
     base_url = "https://www.marilia.sp.gov.br/portal/diario-oficial"
-    start_date = datetime.date(2005, 1, 31)
+    start_date = date(2005, 1, 31)
