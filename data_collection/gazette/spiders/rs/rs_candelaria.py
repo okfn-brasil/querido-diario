@@ -7,4 +7,4 @@ class RsCandelariaSpider(BaseAtendeV2Spider):
     TERRITORY_ID = "4304200"
     name = "rs_candelaria"
     city_subdomain = "candelaria"
-    start_date = date(2023, 5, 7)
+    start_date = date(2019, 5, 7)
