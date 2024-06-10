@@ -8,4 +8,4 @@ class SpSarutaiaSpider(BaseInstarSpider):
     name = "sp_sarutaia"
     allowed_domains = ["sarutaia.sp.gov.br"]
     base_url = "https://www.sarutaia.sp.gov.br/portal/diario-oficial"
-    start_date = date(2020, 3, 27)
+    start_date = date(2020, 3, 13)
