@@ -11,3 +11,4 @@ class BaCandeiasSpider(BaseBrTransparenciaSpider):
     start_date = date(2022, 12, 29)
     br_tranparencia_entity = "63147391-dcb2-4d6c-9c5a-c4483a9d8306"
     br_tranparencia_code = "CODE_ENT_CM207"
+    power = "legislative"

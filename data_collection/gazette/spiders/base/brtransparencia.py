@@ -14,6 +14,7 @@ class BaseBrTransparenciaSpider(BaseGazetteSpider):
     start_urls = [""]
     br_tranparencia_entity = ""
     br_tranparencia_code = ""
+    power = "executive"
 
     def start_requests(self):
         api_url = f"https://api.brtransparencia.com.br/api/diariooficial/filtro/{self.br_tranparencia_entity}/{self.br_tranparencia_code}/{self.start_date}/{self.end_date}/-1/-1"
@@ -38,5 +39,5 @@ class BaseBrTransparenciaSpider(BaseGazetteSpider):
                 date=edition_date,
                 file_urls=urls,
                 is_extra_edition=extra_edition,
-                power="executive_legislative",
+                power=self.power,
             )
