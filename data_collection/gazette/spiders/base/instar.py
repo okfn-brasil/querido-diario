@@ -13,14 +13,8 @@ class BaseInstarSpider(BaseGazetteSpider):
         start_date = self.start_date.strftime("%d-%m-%Y")
         end_date = self.end_date.strftime("%d-%m-%Y")
 
-        start_url = "{base_url}/{page}/{start_date}/{end_date}/0/0/0".format(
-            **{
-                "base_url": self.base_url,
-                "page": page,
-                "start_date": start_date,
-                "end_date": end_date,
-            }
-        )
+        start_url = f"{self.base_url}/{page}/{start_date}/{end_date}/0/0/"
+
         yield scrapy.Request(
             start_url,
             cb_kwargs={"page": page, "start_date": start_date, "end_date": end_date},
@@ -34,15 +28,9 @@ class BaseInstarSpider(BaseGazetteSpider):
 
             for next_page in range(2, total_pages + 1):
                 next_page_url = (
-                    "{base_url}/{page}/{start_date}/{end_date}/0/0/0".format(
-                        **{
-                            "base_url": self.base_url,
-                            "page": next_page,
-                            "start_date": start_date,
-                            "end_date": end_date,
-                        }
-                    )
+                    f"{self.base_url}/{next_page}/{start_date}/{end_date}/0/0/"
                 )
+
                 yield scrapy.Request(
                     next_page_url,
                     cb_kwargs={
