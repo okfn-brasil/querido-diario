@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 
 from gazette.spiders.base.instar import BaseInstarSpider
 
@@ -8,4 +8,4 @@ class MsInocenciaSpider(BaseInstarSpider):
     name = "ms_inocencia"
     allowed_domains = ["inocencia.ms.gov.br"]
     base_url = "https://www.inocencia.ms.gov.br/portal/diario-oficial"
-    start_date = datetime.date(2013, 10, 17)  # edition_number 01
+    start_date = date(2013, 10, 17)

@@ -7,7 +7,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class BaseAtendeL2Spider(BaseGazetteSpider):
+class BaseAtendeV2Spider(BaseGazetteSpider):
     """
     Base spider for Gazettes that are available from cities listed on
     https://{city_subdomain}.atende.net

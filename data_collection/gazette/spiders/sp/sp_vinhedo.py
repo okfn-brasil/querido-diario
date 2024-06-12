@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 
 from gazette.spiders.base.instar import BaseInstarSpider
 
@@ -8,4 +8,4 @@ class SpVinhedoSpider(BaseInstarSpider):
     name = "sp_vinhedo"
     allowed_domains = ["vinhedo.sp.gov.br"]
     base_url = "https://www.vinhedo.sp.gov.br/portal/diario-oficial"
-    start_date = datetime.date(2010, 12, 9)
+    start_date = date(2010, 12, 9)
