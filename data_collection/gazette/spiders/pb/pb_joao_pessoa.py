@@ -7,6 +7,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class PbJoaoPessoaSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     name = "pb_joao_pessoa"
     TERRITORY_ID = "2507507"
     start_date = datetime.date(2022, 3, 28)
