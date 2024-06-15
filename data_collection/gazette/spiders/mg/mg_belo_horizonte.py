@@ -2,6 +2,7 @@ import datetime
 from urllib.parse import urlencode
 
 import scrapy
+import w3lib.url
 from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
@@ -33,11 +34,16 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
         gazettes = data["data"]
         for gazette in gazettes:
             is_extra_edition = gazette["tipo_edicao"] != "P"
-
             gazette_hash = gazette["documento_jornal"]["nome_minio"]
             gazette_url = (
                 f"https://api-dom.pbh.gov.br/api/v1/documentos/{gazette_hash}/download"
             )
+
+            prefix = gazette["documento_jornal"]["prefix"]
+            if prefix is not None:
+                gazette_url = w3lib.url.add_or_replace_parameter(
+                    gazette_url, "prefix", prefix
+                )
 
             yield Gazette(
                 date=gazette_date,

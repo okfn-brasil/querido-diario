@@ -12,7 +12,6 @@ from gazette.spiders.base import BaseGazetteSpider
 class ScFlorianopolisSpider(BaseGazetteSpider):
     name = "sc_florianopolis"
     TERRITORY_ID = "4205407"
-
     start_date = date(2009, 6, 1)
 
     def start_requests(self):
@@ -25,7 +24,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
         for year, month in periods_of_interest:
             data = dict(ano=str(year), mes=str(month), passo="1", enviar="")
             yield FormRequest(
-                "http://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial",
+                "https://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial",
                 formdata=data,
             )
 
@@ -42,14 +41,16 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
             yield Gazette(
                 date=gazette_date,
                 edition_number=gazette_edition_number,
-                file_urls=(url,),
+                file_urls=[
+                    url,
+                ],
                 is_extra_edition=self.is_extra(link),
                 power="executive_legislative",
             )
 
     @staticmethod
     def get_pdf_url(response, link):
-        relative_url = link.css("::attr(href)").extract_first()
+        relative_url = link.css("::attr(href)").get()
         if not relative_url.lower().endswith(".pdf"):
             return None
 
@@ -57,7 +58,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
 
     @staticmethod
     def get_date(link):
-        text = " ".join(link.css("::text").extract())
+        text = " ".join(link.css("::text").getall())
         pattern = r"\d{1,2}\s+de\s+\w+\s+de\s+\d{4}"
         match = re.search(pattern, text)
         if not match:
@@ -67,5 +68,5 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
 
     @staticmethod
     def is_extra(link):
-        text = " ".join(link.css("::text").extract())
+        text = " ".join(link.css("::text").getall())
         return "extra" in text.lower()
