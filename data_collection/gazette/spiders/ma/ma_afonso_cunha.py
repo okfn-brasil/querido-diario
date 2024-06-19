@@ -4,6 +4,8 @@ from gazette.spiders.base.siganet import BaseSiganetSpider
 
 
 class MaAfonsoCunha(BaseSiganetSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "2100105"
     name = "ma_afonso_cunha"
     start_date = datetime.date(2020, 7, 30)

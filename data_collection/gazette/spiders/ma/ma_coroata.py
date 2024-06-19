@@ -8,4 +8,4 @@ class MaCoroata(BaseSiganetSpider):
     name = "ma_coroata"
     start_date = datetime.date(2017, 7, 28)
     allowed_domains = ["coroata.ma.gov.br"]
-    BASE_URL = "https://coroata.ma.gov.br/diario/diario/"
+    BASE_URL = "https://coroata.ma.gov.br/diario/diario"
