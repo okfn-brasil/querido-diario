@@ -3,7 +3,9 @@ import datetime
 from gazette.spiders.base.siganet import BaseSiganetSpider
 
 
-class MaMaranhaozinho(BaseSiganetSpider):
+class MaMaranhaozinhoSpider(BaseSiganetSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "2106375"
     name = "ma_maranhaozinho"
     start_date = datetime.date(2021, 1, 26)
