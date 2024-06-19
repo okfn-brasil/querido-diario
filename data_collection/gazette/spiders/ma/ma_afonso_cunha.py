@@ -3,7 +3,7 @@ import datetime
 from gazette.spiders.base.siganet import BaseSiganetSpider
 
 
-class MaAfonsoCunha(BaseSiganetSpider):
+class MaAfonsoCunhaSpider(BaseSiganetSpider):
     zyte_smartproxy_enabled = True
 
     TERRITORY_ID = "2100105"
