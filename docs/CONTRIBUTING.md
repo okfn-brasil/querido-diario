@@ -1,7 +1,7 @@
 **Português (BR)** | [English (US)](/docs/CONTRIBUTING-en-US.md)
 
 # Contribuindo
-O Querido Diário possui um [Guia para Contribuição](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#contribuindo) principal que é relevante para todos os seus repositórios. Este guia traz informações gerais sobre como interagir com o projeto, o código de conduta que você adere ao contribuir, a lista de repositórios do ecossistema e as primeiras ações que você pode tomar. Recomendamos sua leitura antes de continuar.
+O Querido Diário possui um [Guia para Contribuição](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#contribuindo) principal que é relevante para todos os seus repositórios. Este guia traz informações gerais sobre como interagir com o projeto, o código de conduta que você adere ao contribuir, a lista de repositórios do ecossistema e as primeiras ações que você pode tomar. Recomendamos sua leitura antes de continuar.
 
 Já leu? Então vamos às informações específicas deste repositório:
 - [Desafios](#desafios)
@@ -89,7 +89,7 @@ Mas, se você seguiu as orientações para configurar o ambiente de desenvolvime
 _Observação_: `make` não é disponibilizado nativamente em Windows, sendo necessário instalá-lo para a utilização sugerida.
 
 # Mantendo
-As pessoas mantenedoras devem seguir as diretrizes do [Guia para Mantenedoras](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#mantendo) do Querido Diário.
+As pessoas mantenedoras devem seguir as diretrizes do [Guia para Mantenedoras](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#mantendo) do Querido Diário.
 
 ## Revisão de raspadores
 
