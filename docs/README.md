@@ -6,7 +6,7 @@
 </p>
 
 # Querido Diário
-Dentro do [ecossistema do Querido Diário](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#ecossistema), este repositório é o responsável pela tarefa de **raspagem dos sites publicadores de diários oficiais**.
+Dentro do [ecossistema do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#ecossistema-do-querido-diario), este repositório é o responsável pela tarefa de **raspagem dos sites publicadores de diários oficiais**.
 
 Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia) e a [história](https://queridodiario.ok.org.br/sobre) do projeto no [site do Querido Diário](https://queridodiario.ok.org.br)
 
