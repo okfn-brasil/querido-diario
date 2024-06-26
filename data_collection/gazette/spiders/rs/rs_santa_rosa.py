@@ -7,4 +7,4 @@ class RsSantaRosaSpider(BaseAtendeV2Spider):
     TERRITORY_ID = "4317202"
     name = "rs_santa_rosa"
     city_subdomain = "santarosa"
-    start_date = date(2022, 8, 23)
+    start_date = date(2024, 5, 17)

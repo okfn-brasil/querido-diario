@@ -7,4 +7,4 @@ class RsHorizontinaSpider(BaseAtendeV2Spider):
     TERRITORY_ID = "4309605"
     name = "rs_horizontina"
     city_subdomain = "horizontina"
-    start_date = date(2016, 6, 15)
+    start_date = date(2024, 5, 17)

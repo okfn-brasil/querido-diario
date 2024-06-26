@@ -8,4 +8,4 @@ class SpLaviniaSpider(BaseInstarSpider):
     name = "sp_lavinia"
     allowed_domains = ["lavinia.sp.gov.br"]
     base_url = "https://www.lavinia.sp.gov.br/portal/diario-oficial"
-    start_date = date(2018, 8, 2)
+    start_date = date(2019, 2, 21)
