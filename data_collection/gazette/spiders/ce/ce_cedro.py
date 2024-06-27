@@ -8,4 +8,4 @@ class CeCedroSpider(BaseAdiariosV1Spider):
     name = "ce_cedro"
     allowed_domains = ["cedro.ce.gov.br"]
     BASE_URL = "https://www.cedro.ce.gov.br"
-    start_date = date(202, 6, 7)
+    start_date = date(2018, 1, 1)
