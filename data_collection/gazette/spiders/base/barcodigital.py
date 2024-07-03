@@ -30,8 +30,15 @@ class BarcoDigitalSpider(BaseGazetteSpider):
     def parse(self, response):
         for documents in response.json().values():
             for document in documents:
+                document_date = datetime.strptime(
+                    document.get("data"), "%Y-%m-%d"
+                ).date()
+
+                if document_date > self.end_date:
+                    continue
+
                 yield Gazette(
-                    date=datetime.strptime(document.get("data"), "%Y-%m-%d").date(),
+                    date=document_date,
                     edition_number=document.get("edicao"),
                     is_extra_edition=document.get("tipo_edicao_id")
                     != self.EDITION_TYPE_NORMAL,
