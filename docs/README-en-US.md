@@ -6,7 +6,7 @@
 </p>
 
 # Querido Diário
-Within the [Querido Diário ecosystem](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING-en-US.md#ecosystem), this repository is responsible for **scraping official gazettes publishing sites**
+Within the [Querido Diário ecosystem](https://docs.queridodiario.ok.org.br/en/latest/contributing/contribution-guide.html#ecosystem), this repository is responsible for **scraping official gazettes publishing sites**
 
 Find out more about [technologies](https://queridodiario.ok.org.br/tecnologia) and [history](https://queridodiario.ok.org.br/sobre) of the project on the [Querido Diário website](https://queridodiario.ok.org.br)
 

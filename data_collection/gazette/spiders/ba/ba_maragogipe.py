@@ -4,7 +4,7 @@ from gazette.spiders.base.sai import SaiGazetteSpider
 
 
 class BaMaragogipeSpider(SaiGazetteSpider):
-    TERRITORY_ID = "2704500"
+    TERRITORY_ID = "2920601"
     name = "ba_maragogipe"
     start_date = dt.date(2011, 2, 2)
     allowed_domains = ["sai.io.org.br"]

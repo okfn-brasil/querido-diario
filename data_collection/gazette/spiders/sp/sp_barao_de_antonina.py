@@ -3,7 +3,7 @@ from datetime import date
 from gazette.spiders.base.instar import BaseInstarSpider
 
 
-class SpBaraodeAntoninaSpider(BaseInstarSpider):
+class SpBaraoDeAntoninaSpider(BaseInstarSpider):
     TERRITORY_ID = "3505005"
     name = "sp_barao_de_antonina"
     allowed_domains = ["baraodeantonina.sp.gov.br"]

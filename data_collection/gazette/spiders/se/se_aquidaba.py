@@ -6,6 +6,6 @@ from gazette.spiders.base.municipioonline import BaseMunicipioOnlineSpider
 class SeAquidabaSpider(BaseMunicipioOnlineSpider):
     TERRITORY_ID = "2800209"
     name = "se_aquidaba"
-    start_date = date(2017, 2, 16)
     url_uf = "se"
     url_city = "aquidaba"
+    start_date = date(2017, 2, 16)
