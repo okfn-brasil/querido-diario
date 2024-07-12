@@ -11,7 +11,7 @@ class RnMossoroSpider(BaseGazetteSpider):
     name = "rn_mossoro_2023"
     start_date = dt.date(2023, 1, 2)
     allowed_domains = ["dom.mossoro.rn.gov.br"]
-    start_urls = ["https://www.dom.mossoro.rn.gov.br/dom/edicoes"]
+    start_urls = ["https://dom.mossoro.rn.gov.br/dom/edicoes"]
 
     def parse(self, response):
         for edition in response.css("div.edicoes-list div.col-md-3"):

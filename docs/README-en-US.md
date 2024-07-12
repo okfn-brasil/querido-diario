@@ -1,4 +1,4 @@
-**English (US)** | [Português (BR)](/docs/README.md) 
+**English (US)** | [Português (BR)](/docs/README.md)
 
 <p align="center">
   <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./images/querido-diario-logo.png" width="200">
@@ -6,7 +6,7 @@
 </p>
 
 # Querido Diário
-Within the [Querido Diário ecosystem](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING-en-US.md#ecosystem), this repository is responsible for **scraping official gazettes publishing sites**
+Within the [Querido Diário ecosystem](https://docs.queridodiario.ok.org.br/en/latest/contributing/contribution-guide.html#ecosystem), this repository is responsible for **scraping official gazettes publishing sites**
 
 Find out more about [technologies](https://queridodiario.ok.org.br/tecnologia) and [history](https://queridodiario.ok.org.br/sobre) of the project on the [Querido Diário website](https://queridodiario.ok.org.br)
 
@@ -31,7 +31,7 @@ Thank you for considering contributing to Querido Diário! :tada:
 
 You can find how to do it at [CONTRIBUTING-en-US.md](/docs/CONTRIBUTING-en-US.md)!
 
-Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/pt/latest/index.html) to help you.
+Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/en/latest/) to help you.
 
 # Development Environment
 You need to have [Python](https://docs.python.org/3/) (+3.0) and [Scrapy](https://scrapy.org) framework installed.
