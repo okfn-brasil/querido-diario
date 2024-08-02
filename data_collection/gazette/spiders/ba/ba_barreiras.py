@@ -1,5 +1,6 @@
 import datetime as dt
 import re
+from urllib.parse import urlparse, urlunparse
 
 import scrapy
 from dateutil.rrule import YEARLY, rrule
@@ -53,8 +54,13 @@ class BaBarreirasSpider(BaseGazetteSpider):
 
             yield Gazette(
                 power="executive",
-                file_urls=[link],
+                file_urls=[self._url_fix(link)],
                 date=gazette_date,
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
             )
+
+    def _url_fix(self, link):
+        link = urlparse(link)
+        link = link._replace(scheme="https")
+        return urlunparse(link)
