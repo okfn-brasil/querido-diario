@@ -25,7 +25,8 @@ class BaseAplusSpider(BaseGazetteSpider):
                 gazette.xpath("./td[2]/text()").get(), "%d/%m/%Y"
             ).date()
             gazette_url = gazette.css("td a::attr(href)").get()
-            edition_number = gazette.xpath("./td[1]/text()").get()
+            edition_number = self._get_edition_number(gazette)
+
             is_extra_edition = re.search(r"-\d+$", edition_number) is not None
 
             yield Gazette(
@@ -35,3 +36,12 @@ class BaseAplusSpider(BaseGazetteSpider):
                 is_extra_edition=is_extra_edition,
                 power="executive",
             )
+
+    def _get_edition_number(self, gazette):
+        raw = gazette.xpath("./td[1]/text()").get()
+        edition_number_match = re.search(r"(\d+)/", raw)
+
+        if edition_number_match is None:
+            return ""
+        else:
+            return edition_number_match.group(1)
