@@ -36,6 +36,8 @@ class BarcoDigitalSpider(BaseGazetteSpider):
 
                 if document_date > self.end_date:
                     continue
+                elif document_date < self.start_date:
+                    return
 
                 yield Gazette(
                     date=document_date,
