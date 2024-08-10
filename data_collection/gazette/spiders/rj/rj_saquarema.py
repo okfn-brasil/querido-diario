@@ -4,7 +4,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class UFMunicipioSpider(BaseGazetteSpider):
+class RjSaquaremaSpider(BaseGazetteSpider):
     name = "rj_saquarema"
     TERRITORY_ID = "3305505"
     allowed_domains = ["saquarema.rj.gov.br"]
