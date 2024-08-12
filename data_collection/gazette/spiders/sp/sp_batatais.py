@@ -1,7 +1,7 @@
 import re
-import scrapy
-
 from datetime import datetime
+
+import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class SpBatataisSpider(BaseGazetteSpider):
     name = "sp_batatais"
-    TERRITORY_ID = ""
+    TERRITORY_ID = "3505906"
     allowed_domains = ["www.batatais.sp.gov.br"]
     start_urls = ["https://www.batatais.sp.gov.br/diario-oficial"]
     start_date = datetime(2021, 10, 27).date()
@@ -19,23 +19,19 @@ class SpBatataisSpider(BaseGazetteSpider):
 
         start_url = f"{self.start_urls[0]}?p={page}"
 
-        yield scrapy.Request(
-            start_url,
-            cb_kwargs={"page": page}
-        )
+        yield scrapy.Request(start_url, cb_kwargs={"page": page})
 
     def _pagination_requests(self, response, page):
         if page == 1:
-            pages = response.xpath("/html/body/main/section[2]/div/div/div[2]/nav/ul/li/a/text()")
+            pages = response.xpath(
+                "/html/body/main/section[2]/div/div/div[2]/nav/ul/li/a/text()"
+            )
             last_page = int(pages[-1].get())
 
             for next_page in range(2, last_page + 1):
                 next_page_url = f"{self.start_urls[0]}?p={next_page}"
 
-                yield scrapy.Request(
-                    next_page_url,
-                    cb_kwargs={"page": page}
-                )
+                yield scrapy.Request(next_page_url, cb_kwargs={"page": page})
 
     def parse(self, response, page):
         gazettes_xpath = "/html/body/main/section[2]/div/div/div[2]/div"
@@ -54,7 +50,9 @@ class SpBatataisSpider(BaseGazetteSpider):
 
             edition_number = edition_number_regex.search(edition_description).group()
 
-            edition_date = datetime.strptime(edition[1].get().split()[-1], "%d/%m/%Y").date()
+            edition_date = datetime.strptime(
+                edition[1].get().split()[-1], "%d/%m/%Y"
+            ).date()
             edition_file = gazette.xpath("div[@class='card-buttons']/a/@href").get()
 
             yield Gazette(
