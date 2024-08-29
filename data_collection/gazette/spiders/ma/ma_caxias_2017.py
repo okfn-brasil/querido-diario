@@ -15,9 +15,10 @@ class MaCaxiasSpider(BaseGazetteSpider):
     Por exemplo, no dia 25/05/2017 os dois documentos publicados têm checksum igual.
     """
 
-    name = "ma_caxias"
+    name = "ma_caxias_2017"
     allowed_domains = ["caxias.ma.gov.br"]
     start_date = date(2017, 3, 6)
+    end_date = date(2024, 6, 21)
     TERRITORY_ID = "2103000"
     BASE_URL = "https://caxias.ma.gov.br/diario-oficial-do-municipio"
     DATE_FORMAT = "%d/%m/%Y"

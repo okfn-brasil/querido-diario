@@ -1,11 +1,10 @@
 from datetime import date
 
-from gazette.spiders.base.instar import BaseInstarSpider
+from gazette.spiders.base.dosp import DospGazetteSpider
 
 
-class SpBotucatuSpider(BaseInstarSpider):
+class SpBotucatuSpider(DospGazetteSpider):
     TERRITORY_ID = "3507506"
     name = "sp_botucatu"
-    allowed_domains = ["botucatu.sp.gov.br"]
-    base_url = "https://www.botucatu.sp.gov.br/portal/diario-oficial"
+    code = 4734
     start_date = date(2000, 1, 6)

@@ -46,7 +46,7 @@ class DoemGazetteSpider(BaseGazetteSpider):
             date = self.get_gazette_date(gazette_box)
             edition_number = self.get_edition_number(gazette_box)
 
-            if self.start_date < date < self.end_date:
+            if self.start_date <= date <= self.end_date:
                 yield Gazette(
                     date=date,
                     file_urls=[file_url],

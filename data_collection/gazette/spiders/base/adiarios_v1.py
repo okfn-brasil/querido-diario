@@ -38,12 +38,19 @@ class BaseAdiariosV1Spider(BaseGazetteSpider):
             date = datetime.strptime(date, "%d/%m/%Y").date()
 
             text = element.css("span strong::text").get()
-            edition_number = re.search(r":\s*(\d+).*/", text).group(1)
+
+            try:
+                edition_number = re.search(r":\s*(\d+).*/", text).group(1)
+            except AttributeError:
+                edition_number = ""
 
             title = element.css("span::text").getall()[1]
             is_extra_edition = bool(
                 re.search(
                     r"complementar|suplementar|extra|especial", title, re.IGNORECASE
+                )
+                or re.search(
+                    r"complementar|suplementar|extra|especial", text, re.IGNORECASE
                 )
             )
             power = self.get_power(title)

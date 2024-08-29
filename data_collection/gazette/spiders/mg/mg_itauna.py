@@ -8,4 +8,4 @@ class MgItaunaSpider(BaseInstarSpider):
     name = "mg_itauna"
     allowed_domains = ["itauna.mg.gov.br"]
     base_url = "https://www.itauna.mg.gov.br/portal/diario-oficial"
-    start_date = date(2013, 6, 20)  # edition_number 907
+    start_date = date(2013, 6, 20)
