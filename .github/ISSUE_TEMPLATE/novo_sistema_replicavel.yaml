@@ -12,11 +12,10 @@ body:
     id: replicated-systems
     attributes:
       label: Municípios replicados
-      description: Adicione 3 URLs de sites dos diários de prefeituras que utilizam o sistema.
+      description: Adicione, no mínimo, 2 URLs de sites dos diários de prefeituras que utilizam o sistema.
       value: |
         1.
         2.
-        3.
       render: bash
     validations:
       required: true
@@ -24,7 +23,7 @@ body:
     id: publication-format
     attributes:
       label: Formato da publicação
-      description: Verifique nos 3 municípios o(s) formato(s) dos diários oficiais publicados. Selecione as opções que se aplicam
+      description: Verifique nos 2 municípios o(s) formato(s) dos diários oficiais publicados. Selecione as opções que se aplicam
       multiple: true
       options:
         - Os diários oficiais são publicados em PDF (texto)
@@ -51,5 +50,5 @@ body:
     attributes:
       label: Não existe uma issue aberta sobre isso
       options:
-        - label: Eu verifiquei e não existe uma issue aberta ou marcada com <a href='https://github.com/okfn-brasil/querido-diario/issues?q=label%3Aincompatible+is%3Aclosed'>*incompatible*</a> para o mesmo sistema.
+        - label: Eu verifiquei e não existe uma <a href='https://github.com/okfn-brasil/querido-diario/issues'>issue aberta</a> ou marcada com <a href='https://github.com/okfn-brasil/querido-diario/issues?q=label%3Aincompatible+is%3Aclosed'>*incompatible*</a> para o mesmo sistema.
           required: true

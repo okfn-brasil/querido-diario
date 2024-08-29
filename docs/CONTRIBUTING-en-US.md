@@ -1,7 +1,7 @@
 **English (US)** | [Português (BR)](/docs/CONTRIBUTING.md)
 
 # Contributing
-Querido Diário has a [Guide for Contributing](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#contribuindo) that is relevant to all of its repositories. The guide provides general information about how to interact with the project, the code of conduct you adhere to when contributing, the list of ecosystem repositories and the first actions you can take. We recommend reading it before continuing.
+Querido Diário has a [Contribution Guide](https://docs.queridodiario.ok.org.br/en/latest/contributing/contribution-guide.html#contributing) that is relevant to all of its repositories. The guide provides general information about how to interact with the project, the code of conduct you adhere to when contributing, the list of ecosystem repositories and the first actions you can take. We recommend reading it before continuing.
 
 Already read? So let's go to the specific information of this repository:
 - [Challenges](#challenges)
@@ -72,7 +72,7 @@ Project uses [Black](https://github.com/psf/black) as an automated tool to forma
 If you followed the setup instructions, installing pre-commit hooks, it is possible that you will never need to run these tools manually, as they will be execute before each commit. However, if you want to run them in all files in the project, you have `make format` command that will call these tools.
 
 # Maintaining
-Maintainers must follow the guidelines in Querido Diário's [Guide for Maintainers](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING-en-US.md#maintaining).
+Maintainers must follow the guidelines in Querido Diário's [Guide for Maintainers](https://docs.queridodiario.ok.org.br/en/latest/contributing/contribution-guide.html#maintaining).
 
 ## Scraper code review
 
