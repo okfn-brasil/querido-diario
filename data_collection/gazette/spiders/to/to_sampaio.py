@@ -8,6 +8,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class ToSampaioSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "1718808"
     name = "to_sampaio"
     allowed_domains = ["sampaio.to.gov.br"]
