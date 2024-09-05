@@ -1,4 +1,3 @@
-import re
 from datetime import date, datetime as dt
 
 import scrapy
@@ -14,16 +13,13 @@ class RjAngraDosReisSpider(BaseGazetteSpider):
     start_date = date(2005, 3, 11)
 
     def start_requests(self):
-        start_year = int(self.start_date.strftime("%Y"))
-        end_year = int(self.end_date.strftime("%Y"))
-
-        for year in range(end_year, (start_year - 1), -1):
+        for year in range(self.start_date.year, self.end_date.year + 1):
             yield scrapy.Request(
                 f"https://angra.rj.gov.br/boletim-oficial.asp?vAno={year}"
             )
 
     def parse(self, response):
-        for tr in response.xpath("//tr")[1:]:
+        for tr in response.xpath("//article//tr")[1:]:
             raw_gazette_date = tr.xpath("./td/strong/text()").get()
             gazette_date = dt.strptime(raw_gazette_date, "%d/%m/%Y").date()
             if gazette_date > self.end_date:
@@ -31,13 +27,15 @@ class RjAngraDosReisSpider(BaseGazetteSpider):
             if gazette_date < self.start_date:
                 return
 
-            raw_gazette_edition = tr.xpath("./td/text()")[0].get()
-            match = re.search(r"\d+", raw_gazette_edition)
-            gazette_edition_number = "" if match is None else match.group(0)
-            is_extra_edition = "EXTRA" in raw_gazette_edition.upper()
+            raw_gazette_edition = tr.xpath("./td/text()")
+            gazette_edition_number = raw_gazette_edition.re_first(r"\d+") or ""
 
             url_subdir = tr.xpath(".//a/@href").get()
             gazette_url = response.urljoin(url_subdir)
+
+            is_extra_edition = (
+                "EXTRA" in (raw_gazette_edition.get() + url_subdir).upper()
+            )
 
             yield Gazette(
                 date=gazette_date,
