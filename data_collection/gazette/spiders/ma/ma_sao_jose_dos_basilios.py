@@ -53,6 +53,6 @@ class MaSaoJoseDosBasiliosSpider(BaseGazetteSpider):
                 power="executive_legislative",
             )
 
-            next_page_url = response.css("a.page-link[rel='next']::attr(href)").get()
-            if next_page_url:
-                yield scrapy.Request(url=next_page_url)
+        next_page_url = response.css("a.page-link[rel='next']::attr(href)").get()
+        if next_page_url:
+            yield scrapy.Request(url=next_page_url)
