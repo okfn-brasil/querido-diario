@@ -11,6 +11,7 @@ class PiParnaibaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2207702"
 
     name = "pi_parnaiba"
+    allowed_domains = ["dom.parnaiba.pi.gov.br"]
     start_urls = ["http://dom.parnaiba.pi.gov.br"]
     start_date = date(2017, 8, 1)
 
