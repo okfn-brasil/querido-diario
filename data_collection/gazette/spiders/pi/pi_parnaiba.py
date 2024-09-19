@@ -22,7 +22,7 @@ class PiParnaibaSpider(BaseGazetteSpider):
             is_extra_edition = "extra" in filename.lower()
             yield Gazette(
                 date=datetime.strptime(date, "%d-%m-%Y").date(),
-                file_urls=self.start_urls[0] + file_path,
+                file_urls=[self.start_urls[0] + file_path],
                 edition_number=edition,
                 is_extra_edition=is_extra_edition,
                 territory_id=self.TERRITORY_ID,
