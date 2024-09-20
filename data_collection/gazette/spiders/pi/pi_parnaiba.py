@@ -17,11 +17,16 @@ class PiParnaibaSpider(BaseGazetteSpider):
 
     def parse_page(self, response: HtmlResponse):
         for entry in response.css(".table-diario tbody > tr"):
-            edition, date, filename = entry.xpath("./td/text()").extract()
+            edition, gazzete_date, filename = entry.xpath("./td/text()").extract()
+            gazzete_date = datetime.strptime(gazzete_date, "%d-%m-%Y").date()
+
+            if not self.start_date <= gazzete_date <= self.end_date:
+                continue
+
             file_path = entry.xpath("./td/a/@href").extract_first()
             is_extra_edition = "extra" in filename.lower()
             yield Gazette(
-                date=datetime.strptime(date, "%d-%m-%Y").date(),
+                date=gazzete_date,
                 file_urls=[self.start_urls[0] + file_path],
                 edition_number=edition,
                 is_extra_edition=is_extra_edition,
