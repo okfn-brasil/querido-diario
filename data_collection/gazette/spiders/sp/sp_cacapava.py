@@ -38,5 +38,6 @@ class SpCacapavaSpider(BaseGazetteSpider):
                 edition_number=edition_number,
                 is_extra_edition=False,
                 power="executive_legislative",
+                territory_id=self.TERRITORY_ID,
                 file_urls=gazette_url,
             )
