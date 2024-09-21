@@ -31,12 +31,12 @@ class SpCacapavaSpider(BaseGazetteSpider):
             edition_number = gazette.css("h3::text").re_first(r"Edição nº (\d+)")
             gazette_raw_date = gazette.css("p::text").re_first(r"\d{2}/\d{2}/\d{4}")
             gazette_date = datetime.strptime(gazette_raw_date, "%d/%m/%Y").date()
-            gazette_url = gazette.css("a::attr(href)")
+            gazette_url = gazette.css("a::attr(href)").extract()
 
             yield Gazette(
                 date=gazette_date,
                 edition_number=edition_number,
                 is_extra_edition=False,
                 power="executive_legislative",
-                file_urls=[gazette_url],
+                file_urls=gazette_url,
             )
