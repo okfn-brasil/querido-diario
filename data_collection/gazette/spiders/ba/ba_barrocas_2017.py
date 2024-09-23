@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.doem import DoemGazetteSpider
+from gazette.spiders.base.doem import BaseDoemSpider
 
 
-class BaBarrocasSpider(DoemGazetteSpider):
+class BaBarrocasSpider(BaseDoemSpider):
     TERRITORY_ID = "2903276"
     name = "ba_barrocas_2017"
     state_city_url_part = "ba/barrocas"
