@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dioenet import DioenetGazetteSpider
+from gazette.spiders.base.dioenet import BaseDioenetSpider
 
 
-class RjSumidouroSpider(DioenetGazetteSpider):
+class RjSumidouroSpider(BaseDioenetSpider):
     TERRITORY_ID = "3305703"
     name = "rj_sumidouro"
     start_date = date(2021, 7, 26)
