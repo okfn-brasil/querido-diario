@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dionet import DionetGazetteSpider
+from gazette.spiders.base.dionet import BaseDionetSpider
 
 
-class RoJaruSpider(DionetGazetteSpider):
+class RoJaruSpider(BaseDionetSpider):
     zyte_smartproxy_enabled = True
 
     TERRITORY_ID = "1100114"
