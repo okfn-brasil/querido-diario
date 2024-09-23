@@ -7,7 +7,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class BarcoDigitalSpider(BaseGazetteSpider):
+class BaseBarcoDigitalSpider(BaseGazetteSpider):
     EDITION_TYPE_NORMAL = 1
     EDITION_TYPE_EXTRA = 2
     EDITION_TYPE_SUPPLEMENT = 3

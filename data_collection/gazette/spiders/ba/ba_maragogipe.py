@@ -1,9 +1,9 @@
 import datetime as dt
 
-from gazette.spiders.base.sai import SaiGazetteSpider
+from gazette.spiders.base.sai import BaseSaiSpider
 
 
-class BaMaragogipeSpider(SaiGazetteSpider):
+class BaMaragogipeSpider(BaseSaiSpider):
     TERRITORY_ID = "2920601"
     name = "ba_maragogipe"
     start_date = dt.date(2011, 2, 2)

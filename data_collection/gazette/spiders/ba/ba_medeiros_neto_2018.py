@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.doem import DoemGazetteSpider
+from gazette.spiders.base.doem import BaseDoemSpider
 
 
-class BaMedeirosNetoSpider(DoemGazetteSpider):
+class BaMedeirosNetoSpider(BaseDoemSpider):
     TERRITORY_ID = "2921104"
     name = "ba_medeiros_neto_2018"
     start_date = date(2018, 1, 9)

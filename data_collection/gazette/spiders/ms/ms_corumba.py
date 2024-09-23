@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dionet import DionetGazetteSpider
+from gazette.spiders.base.dionet import BaseDionetSpider
 
 
-class MsCorumba(DionetGazetteSpider):
+class MsCorumba(BaseDionetSpider):
     TERRITORY_ID = "5003207"
     name = "ms_corumba"
     allowed_domains = ["do.corumba.ms.gov.br"]

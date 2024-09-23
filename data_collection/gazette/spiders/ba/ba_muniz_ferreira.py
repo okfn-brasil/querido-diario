@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.imprensa_oficial import ImprensaOficialSpider
+from gazette.spiders.base.imprensa_oficial import BaseImprensaOficialSpider
 
 
-class BaMunizFerreiraSpider(ImprensaOficialSpider):
+class BaMunizFerreiraSpider(BaseImprensaOficialSpider):
     name = "ba_muniz_ferreira"
     allowed_domains = ["pmmunizferreiraba.imprensaoficial.org"]
     start_date = date(2014, 12, 1)

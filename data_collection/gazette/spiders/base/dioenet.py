@@ -10,7 +10,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class DioenetGazetteSpider(BaseGazetteSpider):
+class BaseDioenetSpider(BaseGazetteSpider):
     """
     Base spider for all cities listed on https://plenussistemas.dioenet.com.br
     """

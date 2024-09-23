@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dosp import DospGazetteSpider
+from gazette.spiders.base.dosp import BaseDospSpider
 
 
-class MgUberabaSpider(DospGazetteSpider):
+class MgUberabaSpider(BaseDospSpider):
     TERRITORY_ID = "3170107"
     name = "mg_uberaba_2021"
     code = 2364
