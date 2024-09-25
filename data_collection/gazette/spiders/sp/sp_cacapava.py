@@ -1,6 +1,7 @@
 from datetime import date, datetime
+from urllib.parse import parse_qsl, urlencode, urlparse
 
-from scrapy.http import Request
+from scrapy.http import HtmlResponse, Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -19,14 +20,13 @@ class SpCacapavaSpider(BaseGazetteSpider):
         url = f"https://cacapava.sp.gov.br/diario-oficial?dataDe={data_de}&dataAte={data_ate}"
         yield Request(url)
 
-    def parse(self, response):
-        num_pages = int(
-            response.css(".pagination__label::text").re_first(r"\/ (\d+)") or "1"
-        )
-        if num_pages > 1:
-            for page in range(1, num_pages + 1):
-                yield Request(f"{response.url}&pagina={page}")
+    def pagination_url(self, url: str, page: str):
+        url_parsed = urlparse(url)
+        url_query = dict(parse_qsl(url_parsed.query))
+        url_query.update({"pagina": page})
+        return url_parsed._replace(query=urlencode(url_query)).geturl()
 
+    def parse(self, response: HtmlResponse):
         for gazette in response.css(".list-item__info"):
             edition_number = gazette.css("h3::text").re_first(r"Edição nº (\d+)")
             gazette_raw_date = gazette.css("p::text").re_first(r"\d{2}/\d{2}/\d{4}")
@@ -40,3 +40,7 @@ class SpCacapavaSpider(BaseGazetteSpider):
                 power="executive_legislative",
                 file_urls=[gazette_url],
             )
+
+        pages = response.css(".pagination__select option::text").getall()
+        for page in pages[1:]:
+            yield Request(self.pagination_url(response.url, page))
