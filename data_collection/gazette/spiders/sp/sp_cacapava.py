@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from urllib.parse import parse_qsl, urlencode, urlparse
 
-from scrapy.http import HtmlResponse, Request
+from scrapy.http import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -26,7 +26,7 @@ class SpCacapavaSpider(BaseGazetteSpider):
         url_query.update({"pagina": page})
         return url_parsed._replace(query=urlencode(url_query)).geturl()
 
-    def parse(self, response: HtmlResponse):
+    def parse(self, response):
         for gazette in response.css(".list-item__info"):
             edition_number = gazette.css("h3::text").re_first(r"Edição nº (\d+)")
             gazette_raw_date = gazette.css("p::text").re_first(r"\d{2}/\d{2}/\d{4}")
