@@ -1,7 +1,6 @@
 from datetime import date, datetime
 
 from scrapy import Request
-from scrapy.http.response.html import HtmlResponse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -15,15 +14,15 @@ class PiParnaibaSpider(BaseGazetteSpider):
     start_urls = ["http://dom.parnaiba.pi.gov.br/"]
     start_date = date(2017, 8, 1)
 
-    def parse_page(self, response: HtmlResponse):
+    def parse_page(self, response):
         for entry in response.css(".table-diario tbody > tr"):
-            edition, gazzete_date, filename = entry.xpath("./td/text()").extract()
+            edition, gazzete_date, filename = entry.xpath("./td/text()").getall()
             gazzete_date = datetime.strptime(gazzete_date, "%d-%m-%Y").date()
 
             if not self.start_date <= gazzete_date <= self.end_date:
                 continue
 
-            file_path = entry.xpath("./td/a/@href").extract_first()
+            file_path = entry.xpath("./td/a/@href").get()
             is_extra_edition = "extra" in filename.lower()
             yield Gazette(
                 date=gazzete_date,
@@ -34,7 +33,7 @@ class PiParnaibaSpider(BaseGazetteSpider):
                 power="executive",
             )
 
-    def parse(self, response: HtmlResponse):
+    def parse(self, response):
         pages_urls = response.xpath("//ul[@class='pagination']//a/@href")
-        for url in pages_urls.extract():
+        for url in pages_urls.getall():
             yield Request(url, callback=self.parse_page)
