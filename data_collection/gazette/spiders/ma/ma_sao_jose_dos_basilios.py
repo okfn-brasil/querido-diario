@@ -27,7 +27,7 @@ class MaSaoJoseDosBasiliosSpider(BaseGazetteSpider):
 
         for gazette_box in gazette_boxes:
             edition_number = (
-                gazette_boxes.css("td:nth-child(1) a::text")
+                gazette_box.css("td:nth-child(1) a::text")
                 .get()
                 .strip()
                 .split(" ")[3]
@@ -35,7 +35,7 @@ class MaSaoJoseDosBasiliosSpider(BaseGazetteSpider):
             )
 
             date = dateparser.parse(
-                gazette_boxes.css("td:nth-child(3)::text").get().strip().split(",")[1],
+                gazette_box.css("td:nth-child(3)::text").get().strip().split(",")[1],
                 languages=["pt"],
             ).date()
 
