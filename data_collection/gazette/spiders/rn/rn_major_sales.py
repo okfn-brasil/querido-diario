@@ -8,4 +8,4 @@ class RnMajorSalesSpider(BaseAdiariosV1Spider):
     name = "rn_major_sales"
     allowed_domains = ["majorsales.rn.gov.br"]
     BASE_URL = "https://www.majorsales.rn.gov.br"
-    start_date = date(202, 8, 4)
+    start_date = date(2016, 7, 29)
