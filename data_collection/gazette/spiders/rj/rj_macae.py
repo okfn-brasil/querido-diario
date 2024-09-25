@@ -31,7 +31,9 @@ class RjMacaeSpider(BaseGazetteSpider):
             gazette_edition = data["edicao"]
             gazette_edition_number = re.search(r"\d+", gazette_edition).group(0)
 
-            raw_gazette_date = data["publicacao"][0:10]
+            raw_gazette_date = re.search(
+                r"\d{2}\/\d{2}\/\d{4}", data["publicacao"]
+            ).group()
             gazette_date = dt.strptime(raw_gazette_date, "%d/%m/%Y").date()
 
             gazette_item = {
