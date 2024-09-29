@@ -1,9 +1,9 @@
 import datetime
 
-from gazette.spiders.base.sigpub import SigpubGazetteSpider
+from gazette.spiders.base.sigpub import BaseSigpubSpider
 
 
-class AlAssociacaoMunicipiosSpider(SigpubGazetteSpider):
+class AlAssociacaoMunicipiosSpider(BaseSigpubSpider):
     name = "al_associacao_municipios"
     TERRITORY_ID = "2700000"
     CALENDAR_URL = "https://www.diariomunicipal.com.br/ama/"

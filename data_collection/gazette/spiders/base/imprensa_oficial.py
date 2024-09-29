@@ -8,7 +8,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class ImprensaOficialSpider(BaseGazetteSpider):
+class BaseImprensaOficialSpider(BaseGazetteSpider):
     def start_requests(self):
         initial_date = date(self.start_date.year, self.start_date.month, 1)
 

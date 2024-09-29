@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.barcodigital import BarcoDigitalSpider
+from gazette.spiders.base.barcodigital import BaseBarcoDigitalSpider
 
 
-class ToLagoaDeTocatinsSpider(BarcoDigitalSpider):
+class ToLagoaDeTocatinsSpider(BaseBarcoDigitalSpider):
     name = "to_lagoa_de_tocantins"
     TERRITORY_ID = "1711951"
     allowed_domains = ["api-lagoadotocantins.barcodigital.com.br"]

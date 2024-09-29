@@ -7,7 +7,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class AdminLTEGazetteSpider(BaseGazetteSpider):
+class BaseAdminLteSpider(BaseGazetteSpider):
     """
     Base spider for cities using the Framework AdminLTE as design system.
     """

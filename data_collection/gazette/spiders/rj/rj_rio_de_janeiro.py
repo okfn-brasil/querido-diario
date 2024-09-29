@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dionet import DionetGazetteSpider
+from gazette.spiders.base.dionet import BaseDionetSpider
 
 
-class RjRioDeJaneiroSpider(DionetGazetteSpider):
+class RjRioDeJaneiroSpider(BaseDionetSpider):
     TERRITORY_ID = "3304557"
     name = "rj_rio_de_janeiro"
     allowed_domains = ["doweb.rio.rj.gov.br"]

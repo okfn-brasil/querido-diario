@@ -5,7 +5,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class DionetGazetteSpider(BaseGazetteSpider):
+class BaseDionetSpider(BaseGazetteSpider):
     """
     Base Spider for all cities using IONEWS' DIONET product
 

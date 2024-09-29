@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.sai import SaiGazetteSpider
+from gazette.spiders.base.sai import BaseSaiSpider
 
 
-class BaLauroDeFreitasSpider(SaiGazetteSpider):
+class BaLauroDeFreitasSpider(BaseSaiSpider):
     TERRITORY_ID = "2919207"
     name = "ba_lauro_de_freitas"
     allowed_domains = ["sai.io.org.br"]

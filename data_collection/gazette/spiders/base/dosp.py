@@ -8,7 +8,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class DospGazetteSpider(BaseGazetteSpider):
+class BaseDospSpider(BaseGazetteSpider):
     # Must be defined into child classes
     code = None
     start_date = None
