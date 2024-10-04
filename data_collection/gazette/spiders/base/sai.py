@@ -5,7 +5,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class SaiGazetteSpider(BaseGazetteSpider):
+class BaseSaiSpider(BaseGazetteSpider):
     """
     Base Spider for all cases with use SAI (Serviço de Acesso a Informação)
     Read more in https://imap.org.br/sistemas/sai/

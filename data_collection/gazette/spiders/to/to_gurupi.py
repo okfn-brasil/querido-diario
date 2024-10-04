@@ -1,9 +1,9 @@
 import datetime
 
-from gazette.spiders.base.adminlte import AdminLTEGazetteSpider
+from gazette.spiders.base.adminlte import BaseAdminLteSpider
 
 
-class ToGurupiSpider(AdminLTEGazetteSpider):
+class ToGurupiSpider(BaseAdminLteSpider):
     TERRITORY_ID = "1709500"
     name = "to_gurupi"
     allowed_domains = ["diariooficial.gurupi.to.gov.br"]

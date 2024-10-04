@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dioenet import DioenetGazetteSpider
+from gazette.spiders.base.dioenet import BaseDioenetSpider
 
 
-class RjNovaFriburgoSpider(DioenetGazetteSpider):
+class RjNovaFriburgoSpider(BaseDioenetSpider):
     TERRITORY_ID = "3303401"
     name = "rj_nova_friburgo"
     start_date = date(2019, 10, 17)

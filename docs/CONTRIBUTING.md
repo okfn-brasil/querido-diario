@@ -4,11 +4,11 @@
 O Querido Diário possui um [Guia para Contribuição](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#contribuindo) principal que é relevante para todos os seus repositórios. Este guia traz informações gerais sobre como interagir com o projeto, o código de conduta que você adere ao contribuir, a lista de repositórios do ecossistema e as primeiras ações que você pode tomar. Recomendamos sua leitura antes de continuar.
 
 Já leu? Então vamos às informações específicas deste repositório:
+- [Estrutura](#estrutura)
 - [Desafios](#desafios)
-- [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
-- [Desafios](#desafios)
-    - [Labels](#labels)
-    - [Metas do Repositório](#metas-do-repositório)
+    - [Labels e Milestones](#labels-e-milestones)
+    - [Prioridades](#prioridades)
+- [Como escolher uma issue para fazer](#como-escolher-uma-issue-para-fazer)
 - [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
     - [Em Linux](#em-linux)
     - [Em Windows](#em-windows)
@@ -16,19 +16,86 @@ Já leu? Então vamos às informações específicas deste repositório:
 - [Mantendo](#mantendo)
     - [Revisão de raspadores](#revisão-de-raspadores)
 
+## Estrutura
+
+Uma breve descrição da estrutura do repositório:
+
+| **Diretório** | **Descrição** |
+| ------------- | ------------- |
+| [`.github`](/.github) | Diretório com configurações do repositório para o GitHub |
+| [`.github/workflows`](/.github/workflows) | Configurações das GitHub Actions do repositório (fluxos de raspagens, deploy em produção, etc) |
+| [`docs`](/docs) | Diretório de arquivos de documentação do repositório (README, CONTRIBUTING, etc) |
+| [`templates/spiders`](/data_collection/templates/spiders) | Diretório para templates de spiders pré-configurados no formato padrão do repositório |
+| [`data_collection`](/data_collection) | Diretório para projeto Scrapy de coleta de dados adaptado para as necessidades do Querido Diário |
+| [`data_collection/gazette/database`](/data_collection/gazette/database) | Diretório para o modelo de banco de dados |
+| [`data_collection/gazette/resources`](/data_collection/gazette/resources) | Diretório para recursos adicionais: tabela de códigos IBGE dos municípios e esquema para validação dos dados de coleta |
+| [`data_collection/gazette/spiders`](/data_collection/gazette/spiders) | Diretório para as spiders dos municípios organizado por estado |
+| [`data_collection/gazette/spiders/base`](/data_collection/gazette/spiders/base) | Diretório de spiders base para [padrões identificados em sites](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/lista-sistemas-replicaveis.html) |
+
 ## Desafios
-O principal desafio deste repositório é ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar o progresso do desafio. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir.
+O principal desafio aqui é o de ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar as tarefas mais visualmente. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir.
 
-Para te ajudar a desenvolver, utilize as orientações da página ["contrbuindo com raspadores"](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#contribuindo-com-raspadores) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/).
+Para te ajudar a desenvolver, utilize as orientações da página ["raspadores"](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html) disponível na [documentação técnica do Querido Diário](https://docs.queridodiario.ok.org.br/).
+
+### Labels e Milestones
+As *issues* são marcadas com etiquetas (*labels*) e/ou agrupadas em metas (*milestones*), um recurso que serve para classificá-las quanto ao tipo, destacando diferentes aspectos de interesse que podem ter. Navegar na seção de [labels](https://github.com/okfn-brasil/querido-diario/labels) e [milestones](https://github.com/okfn-brasil/querido-diario/milestones) facilita para encontrar uma *issues* mais do perfil do que gostaria de fazer. 
+
+### Prioridades
+Para garantir que nossos esforços estejam alinhados e focados em objetivos claros, definimos prioridades para o
+repositório. Nós endereçamos as *issues* e a fila de revisões seguindo esses critérios. Sua contribuição pode ser ainda mais valiosa quando alinhada com as prioridades.
+
+| Prioridade | Descrição | Onde encontrar | 
+| ---------- | --------- | -------------- |
+| 1 | Manutenção de raspadores em produção | [`maintenance`](https://github.com/okfn-brasil/querido-diario/labels/maintenance) |
+| 2 | Adição de raspadores para municípios solicitados por alguma organização parceira | podem ser marcadas com [`priority`](https://github.com/okfn-brasil/querido-diario/labels/priority) |
+| 3 | Implementação de melhorias estruturais no repositório | [`enhancement`](https://github.com/okfn-brasil/querido-diario/labels/enhancement) |
+| 4 | Adição de spider base | [`spider-base`](https://github.com/okfn-brasil/querido-diario/labels/spider-base) |
+| 5 | Adição de raspador para município que é capital | [`capitais`](https://github.com/okfn-brasil/querido-diario/milestone/2) |
+| 6 | Adição de raspador para município da Amazônia Legal | [`100 cidades da Amazônia Legal`](https://github.com/okfn-brasil/querido-diario/milestone/5) |
+| 7 | Adição de raspador para município que é populoso | [`100 cidades populosas`](https://github.com/okfn-brasil/querido-diario/milestone/4) |
+| 8 | Adição de raspador não associado às metas | sem *label* |
 
 
-### Labels
-As issues são marcadas com etiquetas, um recurso que serve para classificar issues de mesmo tipo, sinalizar se há algum empecilho ou direcionar a comunidade para tarefas mais do perfil delas. No geral, adotamos *labels* comuns a outros projetos de código aberto como "docs", "bug", "dependencies", mas também temos algumas específicas. Veja quais são na seção de [labels](https://github.com/okfn-brasil/querido-diario/labels)
+## Como escolher uma issue para fazer
+O repositório tem tarefas bem delimitadas e, no geral, bem isoladas entre si. Isso é uma vantagem: permite à comunidade contribuidora ter boas opções de tarefas, com diferentes dificuldades, cobrindo de pessoas iniciantes às mais experientes. 
 
+Por isso, esta seção traz os tipos de raspadores do repositório, suas complexidades, quais etiquetas são usadas neles e quais seções da documentação serão mais necessárias para fazê-los.
 
-### Metas do Repositório
-Para garantir que nossos esforços estejam alinhados e focados em objetivos claros, definimos metas para o desenvolvimento e expansão do projeto. Estas metas são revisadas e atualizadas regularmente, refletindo as prioridades e os desafios que enfrentamos. Convidamos as pessoas contribuidoras a se familiarizarem com estas metas, disponíveis em nosso [Quadro de Metas](https://github.com/okfn-brasil/querido-diario/milestones). Sua contribuição pode ser ainda mais valiosa quando alinhada com estas direções.
+**Mas antes...** A seguir, você terá a progressão da complexidade das tarefas do repositório, do básico ao avançado. Coisa que, em outras palavras, é quase como uma jornada guiada. Se você se propor a vivê-la, pode ter uma experiência interessante de crescimento técnico ;) 
 
+1. Para município replicado 
+- Não há complexidade, pois envolve apenas criar e preencher [arquivos simples seguindo um padrão](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#ufmunicipiospider-para-uma-basesistemaspider-generica)
+    - Uma vez que não tem complexidade no código em si, a tarefa possibilita experienciar o básico (usar do git/GitHub, fazer a configuração do ambiente, rodar um raspador, conhecer o básico do *log*, etc), além do gostinho de ter uma contribuição feita sem muito estresse.
+- Onde encontrar essas tarefas? Elas são listas de municípios marcados com "boa primeira tarefa" ([`good first issue`](https://github.com/okfn-brasil/querido-diario/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+-label%3Aon-hold))
+    - É uma modalidade de contribuição tão simples que, para valer o tempo de desenvolvimento e revisão, solicitamos que sejam enviados de 5 a 10 municípios por *pull request*. Deixe um comentário na *issue* avisando quais daquela lista vai fazer.
+- Seções úteis da documentação:
+    - Para fazer um raspador: [As classes BaseSistemaSpider](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#as-classes-basesistemaspider)
+    - Para executar um raspador: [Executando raspadores](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#executando-raspadores)
+    - Para validar uma coleta: [Validando raspagens](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#validando-raspagens)
+
+2. Para município individual
+- No caso anterior, o "grosso" do código de raspagem já estava implementado e o novo raspador apenas complementa com alguns dados, por isso era tão simples. Porém, agora nesses casos, deve-se ser implementada toda a lógica de raspagem.
+    - Será necessário exercitar conhecimentos como inspeção de páginas, uso de seletores e expressões regulares. 
+- A dificuldade varia muito dependendo de como é o site a ser raspado e as barreiras que precisam ser superadas pelo raspador.
+    - A grosso modo, pode-se dizer que os casos menos complexos é quando todos os diários são exibidos de uma vez em uma mesma página ou há uma paginação simples. A partir disso, a complexidade vai aumentando conforme uma ou mais barreiras vão aparecendo.
+- Onde encontrar essas tarefas? Elas são marcadas com [`spider`](https://github.com/okfn-brasil/querido-diario/labels/spider) e também com o nível estimado de dificuldade: [`dificuldade:baixa`](https://github.com/okfn-brasil/querido-diario/labels/dificuldade%3Abaixa), [`dificuldade:media`](https://github.com/okfn-brasil/querido-diario/labels/dificuldade%3Amedia) e [`dificuldade:alta`](https://github.com/okfn-brasil/querido-diario/labels/dificuldade%3Aalta)
+- Seções úteis da documentação:
+    - [As classes UFMunicipioSpider](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#as-classes-ufmunicipiospider): todas as partes que o raspador deve ter e um modelo para o código
+    - [Desenvolvendo raspadores](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#desenvolvendo-raspadores): as diretrizes de desenvolvimento e como superar algumas barreiras comuns em sites
+    - [Fluxo de execução do Scrapy](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#fluxo-de-execucao): a ordem que o Scrapy aciona módulos de código quando uma raspagem é executada
+
+3. Para sistema replicável 
+- Se no caso 1 a tarefa era simples por usar um código já implementado, aqui o desafio é justamente criar esse código generalizado para o padrão do sistema que outros raspadores vão poder usar
+    - Por isso, é considerada uma tarefa mais complexa: é um exercício de abstração, adiciona mais linhas de código e afeta múltiplos raspadores.
+    - Mas também é a mais impactante: cada padrão integrado permite integrar [dezenas de municípios](https://github.com/okfn-brasil/querido-diario/issues?q=is%3Aissue+is%3Aopen+label%3Aepic), aumentando a cobertura do Querido Diário rapidamente. 
+- Assim como o caso 2, a dificuldade varia muito e pelos mesmos motivos: depende das barreiras a serem superadas no site. 
+- Onde encontrar essas tarefas? Elas são marcadas com [`spider-base`](https://github.com/okfn-brasil/querido-diario/labels/spider-base)
+- Seções úteis da documentação:
+    - À essa altura, uma pessoa já entrou em contato com toda a [documentação sobre raspadores](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html) que deverá ser usada aqui, também.
+
+### Contribua com revisão
+
+Ao já ter desenvolvido todos os tipos de raspadores acima, experimente seguir contribuindo com o repositório por meio de revisões.
 
 ## Como configurar o ambiente de desenvolvimento
 Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir [como instalar Python](https://www.python.org/downloads/) em seu sistema operacional e conhecer mais sobre o Scrapy [neste tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). Com Python em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
