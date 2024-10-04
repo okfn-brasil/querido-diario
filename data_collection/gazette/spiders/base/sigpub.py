@@ -8,7 +8,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class SigpubGazetteSpider(BaseGazetteSpider):
+class BaseSigpubSpider(BaseGazetteSpider):
     """www.diariomunicipal.com.br (Sigpub) base spider
 
     Documents obtained by this kind of spider are text-PDFs with many cities in it.

@@ -8,6 +8,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseInstarSpider(BaseGazetteSpider):
+    power = "executive_legislative"
+
     def start_requests(self):
         page = 1
         start_date = self.start_date.strftime("%d-%m-%Y")
@@ -58,7 +60,7 @@ class BaseInstarSpider(BaseGazetteSpider):
                 date=gazette_date,
                 edition_number=edition_number,
                 is_extra_edition=False,
-                power="executive_legislative",
+                power=self.power,
             )
 
             yield scrapy.Request(

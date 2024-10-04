@@ -1,9 +1,9 @@
 import datetime
 
-from gazette.spiders.base.adminlte import AdminLTEGazetteSpider
+from gazette.spiders.base.adminlte import BaseAdminLteSpider
 
 
-class PaSantanaDoAraguaiaSpider(AdminLTEGazetteSpider):
+class PaSantanaDoAraguaiaSpider(BaseAdminLteSpider):
     TERRITORY_ID = "1506708"
     name = "pa_santana_do_araguaia"
     allowed_domains = ["diariooficial.pmsaraguaia.pa.gov.br"]
