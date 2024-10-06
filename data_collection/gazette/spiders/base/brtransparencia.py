@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 from scrapy import Request
@@ -10,16 +11,50 @@ from gazette.spiders.base import BaseGazetteSpider
 class BaseBrTransparenciaSpider(BaseGazetteSpider):
     name = ""
     TERRITORY_ID = ""
-    allowed_domains = [""]
+    allowed_domains = []
     start_urls = [""]
-    br_tranparencia_entity = ""
-    br_tranparencia_code = ""
     power = "executive"
 
-    def start_requests(self):
-        api_url = f"https://api.brtransparencia.com.br/api/diariooficial/filtro/{self.br_tranparencia_entity}/{self.br_tranparencia_code}/{self.start_date}/{self.end_date}/-1/-1"
+    def _extract_entity_code(self, response):
+        response_text = response.text
+        try:
+            intermediate_response_entity = re.search(
+                r'var entity="[\d\w\-]+"',
+                response_text,
+                re.IGNORECASE,
+            ).group()
+            response_entity = (
+                re.search(
+                    r'"[\d\w\-]+"',
+                    intermediate_response_entity,
+                )
+                .group()
+                .replace('"', "")
+            )
+        except AttributeError as exc:
+            raise AttributeError("Was not possible to extract the entity code") from exc
+        try:
+            intermediate_response_code = re.search(
+                r'var code="[\d\w\-]+"',
+                response_text,
+                re.IGNORECASE,
+            ).group()
+            response_code = (
+                re.search(r'"[\d\w\-]+"', intermediate_response_code)
+                .group()
+                .replace('"', "")
+            )
+        except AttributeError as exc:
+            raise AttributeError("Was not possible to extract the code") from exc
 
+        api_url = f"https://api.brtransparencia.com.br/api/diariooficial/filtro/{response_entity}/{response_code}/{self.start_date}/{self.end_date}/-1/-1"
         yield Request(api_url)
+
+    def start_requests(self):
+        # getting the entity and code from inner JS Content file
+        url = self.start_urls[0].replace("/diario.html", "/js/content.js")
+
+        yield Request(url, callback=self._extract_entity_code)
 
     def parse(self, response):
         for entry in response.json():
