@@ -15,34 +15,24 @@ class BaseBrTransparenciaSpider(BaseGazetteSpider):
     start_urls = [""]
     power = "executive"
 
+    def _extract_code_from_response_text(self, response_text, field="entity"):
+        return re.search(
+            rf'var {field}(\ )*=(\ )*["|\'](.+?)["|\']',
+            response_text,
+            re.IGNORECASE,
+        ).groups()[2]
+
     def _extract_entity_code(self, response):
         response_text = response.text
         try:
-            intermediate_response_entity = re.search(
-                r'var entity="[\d\w\-]+"',
-                response_text,
-                re.IGNORECASE,
-            ).group()
-            response_entity = (
-                re.search(
-                    r'"[\d\w\-]+"',
-                    intermediate_response_entity,
-                )
-                .group()
-                .replace('"', "")
+            response_entity = self._extract_code_from_response_text(
+                response_text, field="entity"
             )
         except AttributeError as exc:
             raise AttributeError("Was not possible to extract the entity code") from exc
         try:
-            intermediate_response_code = re.search(
-                r'var code="[\d\w\-]+"',
-                response_text,
-                re.IGNORECASE,
-            ).group()
-            response_code = (
-                re.search(r'"[\d\w\-]+"', intermediate_response_code)
-                .group()
-                .replace('"', "")
+            response_code = self._extract_code_from_response_text(
+                response_text, field="code"
             )
         except AttributeError as exc:
             raise AttributeError("Was not possible to extract the code") from exc
