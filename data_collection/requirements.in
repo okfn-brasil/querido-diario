@@ -1,4 +1,5 @@
 awscli==1.25.90
+beautifulsoup4
 boto3==1.24.89
 click
 chompjs
