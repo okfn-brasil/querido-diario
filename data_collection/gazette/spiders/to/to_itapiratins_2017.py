@@ -5,7 +5,7 @@ from gazette.spiders.base.diariooficialbr import BaseDiarioOficialBRSpider
 
 class ToItapiratinsSpider(BaseDiarioOficialBRSpider):
     TERRITORY_ID = "1710904"
-    name = "to_itapiratins"
+    name = "to_itapiratins_2017"
     allowed_domains = ["itapiratins.diariooficialbr.com.br"]
     BASE_URL = "https://itapiratins.diariooficialbr.com.br"
     start_date = date(2017, 4, 3)
