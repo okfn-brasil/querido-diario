@@ -1,6 +1,7 @@
 import datetime as dt
 
-import scrapy
+from dateutil.rrule import DAILY, rrule
+from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -10,10 +11,8 @@ class RjNiteroiSpider(BaseGazetteSpider):
     TERRITORY_ID = "3303302"
     name = "rj_niteroi"
     allowed_domains = ["niteroi.rj.gov.br"]
-    start_urls = ["http://www.niteroi.rj.gov.br"]
-    download_url = "http://www.niteroi.rj.gov.br/wp-content/uploads/do/{}/{}/{:02d}.pdf"
+    BASE_URL = "https://diariooficial.niteroi.rj.gov.br"
     start_date = dt.date(2003, 7, 1)
-    end_date = dt.date.today()
 
     month_names = [
         "01_Jan",
@@ -30,24 +29,21 @@ class RjNiteroiSpider(BaseGazetteSpider):
         "12_Dez",
     ]
 
-    def parse(self, response):
-        parsing_date = self.end_date
+    def start_requests(self):
+        for date in rrule(DAILY, dtstart=self.start_date, until=self.end_date):
+            month = self.month_names[date.month - 1]
+            year = date.year
+            day = date.day
 
-        while parsing_date >= self.start_date:
-            month = self.month_names[parsing_date.month - 1]
-            url = self.download_url.format(parsing_date.year, month, parsing_date.day)
-            yield scrapy.Request(
-                url,
-                method="HEAD",
-                callback=self.parse_valid_gazette_file,
-                cb_kwargs={"gazette_date": parsing_date},
+            yield Request(
+                f"{self.BASE_URL}/do/{year}/{month}/{day:02d}.pdf",
+                cb_kwargs={"gazette_date": date.date()},
             )
-            parsing_date = parsing_date - dt.timedelta(days=1)
 
-    def parse_valid_gazette_file(self, response, gazette_date):
+    def parse(self, response, gazette_date):
         yield Gazette(
             date=gazette_date,
-            file_urls=[response.url],
             is_extra_edition=False,
+            file_urls=[response.url],
             power="executive",
         )
