@@ -1,4 +1,5 @@
 import datetime as dt
+from dateutil import rrule
 
 import scrapy
 
@@ -7,14 +8,21 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RjNiteroiSpider(BaseGazetteSpider):
+    """
+    Spider para coletar diários oficiais do município de Niterói-RJ.
+
+    A spider coleta arquivos PDF de diários oficiais no site do Diário Oficial de Niterói
+    e armazena informações como a data e o URL dos arquivos.
+    """
+
     TERRITORY_ID = "3303302"
     name = "rj_niteroi"
-    allowed_domains = ["niteroi.rj.gov.br"]
-    start_urls = ["http://www.niteroi.rj.gov.br"]
-    download_url = "http://www.niteroi.rj.gov.br/wp-content/uploads/do/{}/{}/{:02d}.pdf"
-    start_date = dt.date(2003, 7, 1)
+    allowed_domains = ["diariooficial.niteroi.rj.gov.br"]
+    download_url = "https://diariooficial.niteroi.rj.gov.br/do/{}/{}/{}.pdf"
+    start_date = dt.date(2024, 7, 1)
     end_date = dt.date.today()
 
+    # Mapeamento de nomes dos meses
     month_names = [
         "01_Jan",
         "02_Fev",
@@ -30,24 +38,31 @@ class RjNiteroiSpider(BaseGazetteSpider):
         "12_Dez",
     ]
 
-    def parse(self, response):
-        parsing_date = self.end_date
-
-        while parsing_date >= self.start_date:
-            month = self.month_names[parsing_date.month - 1]
-            url = self.download_url.format(parsing_date.year, month, parsing_date.day)
+    def start_requests(self):
+        """
+        Gera as requests a partir da data inicial até a data final (hoje).
+        O uso do `rrule` facilita a iteração de dias.
+        """
+        for date in rrule.rrule(
+            rrule.DAILY, dtstart=self.start_date, until=self.end_date
+        ):
+            month_name = self.month_names[date.month - 1]
+            url = self.download_url.format(date.year, month_name, f"{date.day:02d}")
             yield scrapy.Request(
                 url,
                 method="HEAD",
                 callback=self.parse_valid_gazette_file,
-                cb_kwargs={"gazette_date": parsing_date},
+                cb_kwargs={"gazette_date": date.date()},
             )
-            parsing_date = parsing_date - dt.timedelta(days=1)
 
     def parse_valid_gazette_file(self, response, gazette_date):
-        yield Gazette(
-            date=gazette_date,
-            file_urls=[response.url],
-            is_extra_edition=False,
-            power="executive",
-        )
+        """
+        Verifica se o arquivo existe e gera o item do diário oficial.
+        """
+        if response.status == 200:
+            yield Gazette(
+                date=gazette_date,
+                file_urls=[response.url],
+                is_extra_edition=False,
+                power="executive",
+            )
