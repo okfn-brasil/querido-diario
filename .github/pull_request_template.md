@@ -19,9 +19,9 @@ Marque apenas um dos itens a seguir:
 - [ ] Uma coleta-teste **completa** foi feita. Os arquivos de `.log` e `.csv` deste teste estão anexados na PR.
 
 #### Verificações
-- [ ] Eu experimentei abrir alguns arquivos de diários oficiais coletados pelo meu raspador e verifiquei eles [conforme a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#diarios-oficiais-coletados) não encontrando problemas.
-- [ ] Eu verifiquei os arquivos `.csv` gerados pela minha coleta [conforme a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#arquivos-auxiliares) não encontrando problemas.
-- [ ] Eu verifiquei os arquivos de `.log` gerados pela minha coleta [conforme a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#arquivos-auxiliares) não encontrando problemas.
+- [ ] Eu experimentei abrir alguns arquivos de diários oficiais coletados pelo meu raspador e verifiquei eles [conforme a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#diarios-oficiais-data-collection-data) não encontrando problemas.
+- [ ] Eu verifiquei os arquivos `.csv` gerados pela minha coleta [conforme a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#tabela-da-coleta-arquivo-csv) não encontrando problemas.
+- [ ] Eu verifiquei os arquivos de `.log` gerados pela minha coleta [conforme a documentação](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#log-arquivo-log) não encontrando problemas.
 
 #### Descrição
 
