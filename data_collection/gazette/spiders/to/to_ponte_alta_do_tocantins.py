@@ -3,7 +3,7 @@ from datetime import date
 from gazette.spiders.base.barcodigital import BaseBarcoDigitalSpider
 
 
-class toPonteAltaDoTocantins(BaseBarcoDigitalSpider):
+class ToPonteAltaDoTocantins(BaseBarcoDigitalSpider):
     name = "to_ponte_alta_do_tocantins"
     TERRITORY_ID = "1717909"
     allowed_domains = ["api-ponte.barcodigital.com.br"]
