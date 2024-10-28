@@ -9,4 +9,4 @@ class toPonteAltaDoTocantins(BaseBarcoDigitalSpider):
     allowed_domains = ["api-ponte.barcodigital.com.br"]
     base_url = "https://api-ponte.barcodigital.com.br"
 
-    start_date = date(year=2021, month=4, day=30)
+    start_date = date(2021, 4, 30)
