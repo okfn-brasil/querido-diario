@@ -3,9 +3,9 @@ from datetime import date
 from gazette.spiders.base.barcodigital import BaseBarcoDigitalSpider
 
 
-class ToBrejinhoDeNazare(BaseBarcoDigitalSpider):
-    name = "to_brejinho_de_nazare"
-    TERRITORY_ID = "1703701"
+class ToNazare(BaseBarcoDigitalSpider):
+    name = "to_nazare"
+    TERRITORY_ID = "1714302"
     allowed_domains = ["api-nazare.barcodigital.com.br"]
     base_url = "https://api-nazare.barcodigital.com.br"
 
