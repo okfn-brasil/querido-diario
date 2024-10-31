@@ -1,23 +1,13 @@
-# Importando bibliotecas padrão
 import datetime as dt
+
+import scrapy
 from dateutil import rrule
 
-# Importando bibliotecas de terceiros
-import scrapy
-
-# Importando módulos locais do projeto
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class AmAssociacaoMunicipiosSpider(BaseGazetteSpider):
-    """
-    Spider para coletar diários oficiais do município de Niterói-RJ.
-
-    A spider coleta arquivos PDF de diários oficiais no site do Diário Oficial de Niterói
-    e armazena informações como a data e o URL dos arquivos.
-    """
-
     TERRITORY_ID = "1300000"
     name = "am_associacao_municipios"
     allowed_domains = ["https://diariomunicipalaam.org.br/"]
@@ -26,9 +16,6 @@ class AmAssociacaoMunicipiosSpider(BaseGazetteSpider):
     end_date = dt.date.today()
 
     def start_requests(self):
-        """
-        Gera as requests a partir da data inicial até a data final (hoje).
-        """
         for date in rrule.rrule(
             rrule.DAILY, dtstart=self.start_date, until=self.end_date
         ):
@@ -42,9 +29,6 @@ class AmAssociacaoMunicipiosSpider(BaseGazetteSpider):
             )
 
     def parse_valid_gazette_file(self, response, gazette_date):
-        """
-        Verifica se o arquivo existe e gera o item do diário oficial.
-        """
         if response.status == 200:
             yield Gazette(
                 date=gazette_date,
