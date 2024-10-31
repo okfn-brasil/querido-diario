@@ -15,7 +15,7 @@ on:
         required: true
 
 jobs:
-  update_status:
+  update-status:
     runs-on: ubuntu-latest
     env:
       QUERIDODIARIO_DATABASE_URL: ${{ secrets.QUERIDODIARIO_DATABASE_URL }}

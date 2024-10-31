@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy_to_scrapy_cloud:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
