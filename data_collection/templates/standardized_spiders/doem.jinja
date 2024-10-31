@@ -1,0 +1,10 @@
+from datetime import date
+
+from gazette.spiders.base.doem import BaseDoemSpider
+
+
+class {{ class_name }}Spider(BaseDoemSpider):
+    TERRITORY_ID = "{{ territory_id }}"
+    name = "{{ spider_name }}"
+    state_city_url_part = "{{ state_city_url_part }}"
+    start_date = date({{ date_from }})
