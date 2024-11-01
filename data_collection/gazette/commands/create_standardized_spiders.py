@@ -6,7 +6,7 @@ from urllib.parse import urlparse, urlunparse
 from jinja2 import Environment, FileSystemLoader
 from unidecode import unidecode
 
-source_file = r"../resources/cities_mapping.csv"
+source_file = r"../resources/cities_mapped.csv"
 templates_dir = r"../../templates/standardized_spiders"
 output_dir = r"../spiders/"
 
