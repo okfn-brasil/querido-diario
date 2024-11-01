@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  schedule-jobs:
+  monthly-crawl:
     runs-on: ubuntu-latest
     env:
       SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}

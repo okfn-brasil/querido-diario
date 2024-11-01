@@ -14,7 +14,7 @@ on:
         required: false
 
 jobs:
-  schedule:
+  full-crawl:
     runs-on: ubuntu-latest
     env:
       SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
