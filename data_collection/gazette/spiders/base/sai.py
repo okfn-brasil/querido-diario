@@ -1,3 +1,5 @@
+from datetime import date
+
 import scrapy
 from dateutil.parser import parse as dt_parse
 
@@ -23,8 +25,10 @@ class BaseSaiSpider(BaseGazetteSpider):
         Must be get into execution from website
     """
 
-    base_url = None
-    start_date = None
+    base_url: str
+    start_date: date
+
+    custom_settings = {"DOWNLOAD_DELAY": 1.5}
 
     @property
     def _site_url(self):
