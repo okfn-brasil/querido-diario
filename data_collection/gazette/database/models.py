@@ -112,7 +112,7 @@ class Gazette(DeclarativeBase):
     is_extra_edition = Column(Boolean)
     power = Column(String)
     scraped_file_checksum = Column(String)
-    file_path = Column(String)
+    scraped_file_path = Column(String)
     file_url = Column(String)
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
