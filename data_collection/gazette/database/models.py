@@ -116,7 +116,6 @@ class Gazette(DeclarativeBase):
     scraped_url = Column(String)
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
-    processed = Column(Boolean, default=False)
 
     public_entity = relationship("PublicEntity", back_populates="scraped_gazettes")
     public_entity_id = Column(String, ForeignKey("public_entities.id"))
