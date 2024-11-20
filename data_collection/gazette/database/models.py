@@ -106,6 +106,10 @@ def initialize_database(database_url, entity_spider_map):
 
 class Gazette(DeclarativeBase):
     __tablename__ = "scraped_gazettes"
+    __table_args__ = (
+        UniqueConstraint("public_entity_id", "date", "scraped_file_checksum"),
+    )
+
     id = Column(Integer, primary_key=True)
     date = Column(Date)
     edition_number = Column(String)
@@ -116,11 +120,19 @@ class Gazette(DeclarativeBase):
     scraped_url = Column(String)
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
+    act_category = Column(String)
+    publishing_body = Column(String)
+    document = Column(String)
+    document_sequence = Column(Integer)
+    granularity = Column(String)
+    file_extension = Column(String)
+    hash_commit = Column(String)
+    metadata_id = Column(Integer)  # ForeignKey("metadata.id"))
 
     public_entity = relationship("PublicEntity", back_populates="scraped_gazettes")
     public_entity_id = Column(String, ForeignKey("public_entities.id"))
-
-    __table_args__ = (UniqueConstraint("public_entity_id", "date", "scraped_file_checksum"),)
+    spider = relationship("QueridoDiarioSpider", back_populates="scraped_gazettes")
+    spider_name = Column(String, ForeignKey("querido_diario_spiders.spider_name"))
 
 
 entity_spider_map = Table(
@@ -170,3 +182,7 @@ class QueridoDiarioSpider(DeclarativeBase):
     )
 
     public_entities = relationship("PublicEntity", secondary=entity_spider_map)
+
+    scraped_gazettes = relationship(
+        "Gazette", order_by=Gazette.spider_name, back_populates="spider"
+    )
