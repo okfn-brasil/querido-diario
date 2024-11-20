@@ -4,7 +4,7 @@ import scrapy
 class Gazette(scrapy.Item):
     date = scrapy.Field()
     edition_number = scrapy.Field()
-    file_checksum = scrapy.Field()
+    scraped_file_checksum = scrapy.Field()
     file_path = scrapy.Field()
     file_url = scrapy.Field()
     file_requests = scrapy.Field()

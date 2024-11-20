@@ -111,7 +111,7 @@ class Gazette(DeclarativeBase):
     edition_number = Column(String)
     is_extra_edition = Column(Boolean)
     power = Column(String)
-    file_checksum = Column(String)
+    scraped_file_checksum = Column(String)
     file_path = Column(String)
     file_url = Column(String)
     scraped_at = Column(DateTime)
@@ -121,9 +121,7 @@ class Gazette(DeclarativeBase):
     public_entity = relationship("PublicEntity", back_populates="scraped_gazettes")
     public_entity_id = Column(String, ForeignKey("public_entities.id"))
 
-    __table_args__ = (
-        UniqueConstraint("public_entity_id", "date", "file_checksum"),
-    )
+    __table_args__ = (UniqueConstraint("public_entity_id", "date", "scraped_file_checksum"),)
 
 
 entity_spider_map = Table(
