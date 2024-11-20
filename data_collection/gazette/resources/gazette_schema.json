@@ -3,7 +3,7 @@
     "type": "object",
     "properties": {
         "date": {
-            "description": "Date of the gazzete",
+            "description": "Date of the gazette",
             "type": "string",
             "format": "date"
         },
@@ -19,8 +19,12 @@
                 "type": "string"
             }
         },
+        "edition_number": {
+            "description": "Publication edition number of the gazette",
+            "type": "string"
+        },
         "is_extra_edition": {
-            "description": "Determines if the edition of the gazzete is extra or not",
+            "description": "Determines if the edition of the gazette is extra or not",
             "type": "boolean"
         },
         "public_entity_id": {
@@ -34,10 +38,36 @@
                 "executive_legislative"
             ]
         },
-        "scraped_at":{
-            "description": "When the gazzete was scraped",
+        "scraped_at": {
+            "description": "When the gazette was scraped",
             "type": "string",
             "format": "date-time"
+        },
+        "act_category": {
+            "description": "...",
+            "type": "string"
+        },
+        "publishing_body": {
+            "description": "...",
+            "type": "string"
+        },
+        "document": {
+            "description": "...",
+            "type": "string"
+        },
+        "document_sequence": {
+            "description": "...",
+            "type": "integer"
+        },
+        "granularity": {
+            "description": "...",
+            "type": "string",
+            "enum": [
+                "act",
+                "section",
+                "individual",
+                "aggregate"
+            ]
         },
         "files": {
             "type": "array",
@@ -65,6 +95,7 @@
         "date",
         "public_entity_id",
         "power",
+        "granularity",
         "scraped_at"
     ],
     "anyOf": [

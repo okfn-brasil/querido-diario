@@ -20,3 +20,4 @@ class Gazette(scrapy.Item):
     document = scrapy.Field()
     document_sequence = scrapy.Field()
     granularity = scrapy.Field()
+    spider_name = scrapy.Field()

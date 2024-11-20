@@ -27,6 +27,7 @@ class GazetteDateFilteringPipeline:
 class DefaultValuesPipeline:
     def process_item(self, item, spider):
         item["public_entity_id"] = getattr(spider, "PUBLIC_ENTITY_ID")
+        item["spider_name"] = getattr(spider, "name")
 
         # Date manipulation to allow jsonschema to validate correctly
         item["date"] = str(item["date"])
@@ -79,6 +80,12 @@ class SQLDatabasePipeline:
             "power",
             "scraped_at",
             "public_entity_id",
+            "act_category",
+            "publishing_body",
+            "document",
+            "document_sequence",
+            "granularity",
+            "spider_name",
         ]
         gazette_item = {field: item.get(field) for field in fields}
         gazette_item["date"] = dt.datetime.strptime(
