@@ -12,7 +12,6 @@ from sqlalchemy import (
     Integer,
     String,
     Table,
-    Text,
     UniqueConstraint,
     create_engine,
 )
@@ -108,7 +107,6 @@ def initialize_database(database_url, entity_spider_map):
 class Gazette(DeclarativeBase):
     __tablename__ = "scraped_gazettes"
     id = Column(Integer, primary_key=True)
-    source_text = Column(Text)
     date = Column(Date)
     edition_number = Column(String)
     is_extra_edition = Column(Boolean)
