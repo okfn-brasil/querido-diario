@@ -97,7 +97,7 @@ class SQLDatabasePipeline:
 
             gazette_item["file_path"] = file_info["path"]
             gazette_item["file_url"] = file_info["url"]
-            gazette_item["file_checksum"] = file_info["checksum"]
+            gazette_item["scraped_file_checksum"] = file_info["checksum"]
 
             gazette = Gazette(**gazette_item)
             session.add(gazette)
@@ -107,7 +107,7 @@ class SQLDatabasePipeline:
                 spider.logger.warning(
                     f"Something wrong has happened when adding the gazette in the database. "
                     f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Scraped File Checksum: {gazette_item['scraped_file_checksum']}. "
                     f"Details: {exc.args}"
                 )
                 session.rollback()
