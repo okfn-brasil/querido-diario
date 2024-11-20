@@ -73,7 +73,6 @@ class SQLDatabasePipeline:
         session = self.Session()
 
         fields = [
-            "source_text",
             "date",
             "edition_number",
             "is_extra_edition",
