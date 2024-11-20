@@ -23,7 +23,7 @@
             "description": "Determines if the edition of the gazzete is extra or not",
             "type": "boolean"
         },
-        "territory_id": {
+        "public_entity_id": {
             "type": "string"
         },
         "power": {
@@ -63,7 +63,7 @@
     },
     "required": [
         "date",
-        "territory_id",
+        "public_entity_id",
         "power",
         "scraped_at"
     ],

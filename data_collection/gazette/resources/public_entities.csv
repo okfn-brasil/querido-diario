@@ -1,4 +1,4 @@
-entity_id,acronym,name,federal_unity,scope,category,slug
+id,acronym,name,federal_unity,scope,category,slug
 5200050,,Abadia de Goiás,GO,municipal,municipality,temp
 3100104,,Abadia dos Dourados,MG,municipal,municipality,temp
 5200100,,Abadiânia,GO,municipal,municipality,temp
