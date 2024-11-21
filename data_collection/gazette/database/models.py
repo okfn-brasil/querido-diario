@@ -81,12 +81,13 @@ def load_spiders(engine, entity_spider_map):
     entity_map = {t.id: t for t in public_entities}
 
     for info in spiders_to_persist:
-        spider_name, id, date_from = info
+        spider_name, website_url, id, date_from = info
         entity = entity_map.get(id)
         if entity is not None:
             session.merge(
                 QueridoDiarioSpider(
                     spider_name=spider_name,
+                    website_url=website_url,
                     date_from=date_from,
                     public_entities=[entity],
                 )
