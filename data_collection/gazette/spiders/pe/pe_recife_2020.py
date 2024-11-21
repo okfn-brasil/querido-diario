@@ -109,6 +109,11 @@ class PeRecifeSpider_2020(BaseGazetteSpider):
             ),
             is_extra_edition=is_extra_edition,
             power="executive_legislative",
+            granularity="individual",
+            act_category="",
+            publishing_body="",
+            document="",
+            document_sequence=0,
         )
 
     def _clean_zfill(self, string_number):
