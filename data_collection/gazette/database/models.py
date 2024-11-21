@@ -154,19 +154,23 @@ class QueridoDiarioSpider(DeclarativeBase):
 
     spider_name = Column(
         String,
-        doc="As defined in 'name' attribute of each Spider class.",
+        doc="As defined in 'name' attribute of each spider class.",
         primary_key=True,
     )
-    date_from = Column(Date, doc="Initial date this Spider is able to gather data.")
+    website_url = Column(
+        String,
+        doc="As defined in 'user_website' attribute of each spider class.",
+    )
+    date_from = Column(Date, doc="Initial date this spider is able to gather data.")
     date_to = Column(
         Date,
-        doc="Final date this Spider is able to gather data ('null' if able to gather data in current day)",
+        doc="Final date this spider is able to gather data ('null' if able to gather data in current day)",
         nullable=True,
     )
     enabled = Column(
         Boolean,
         default=False,
-        doc="Flag to enable/disable Spider to be executed in production.",
+        doc="Flag to enable/disable spider to be executed in production.",
     )
 
     public_entities = relationship("PublicEntity", secondary=entity_spider_map)
