@@ -102,6 +102,7 @@ class SQLDatabasePipeline:
                 # files that were already downloaded before
                 continue
 
+            gazette_item["file_extension"] = Path(file_info["path"]).suffix[1:]
             gazette_item["scraped_file_path"] = file_info["path"]
             gazette_item["scraped_url"] = file_info["url"]
             gazette_item["scraped_file_checksum"] = file_info["checksum"]
