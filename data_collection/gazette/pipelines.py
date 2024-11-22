@@ -181,14 +181,18 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         )
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the public_entity_id and gazette date.
-        filename = filepath.name
+        file_extension = filepath.suffix
 
-        if response is not None and not filepath.suffix:
-            filename = self._get_filename_with_extension(filename, response)
+        if response is not None and not file_extension:
+            file_extension = self._get_file_extension(response)
+
+        filename = (
+            f'{item["date"]}_{item["spider_name"]}_{filepath.stem}{file_extension}'
+        )
 
         return str(Path(item["public_entity_id"], item["date"], filename))
 
-    def _get_filename_with_extension(self, filename, response):
+    def _get_file_extension(self, response):
         # The majority of the Gazettes are PDF files, so we can check it
         # faster validating document Content-Type before using a more costly
         # check with filetype library
@@ -202,4 +206,4 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
             file_kind = filetype.guess(response.body[:max_file_header_size])
             file_extension = f".{file_kind.extension}" if file_kind is not None else ""
 
-        return f"{filename}{file_extension}"
+        return file_extension
