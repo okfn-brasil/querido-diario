@@ -39,4 +39,10 @@ class BaseDospSpider(BaseGazetteSpider):
                     ],
                     is_extra_edition=diarios["flag_extra"] > 0,
                     power="executive",
+                    granularity="individual",
+                    act_category="",
+                    publishing_body="",
+                    document="",
+                    document_sequence=0,
                 )
+                # mesma discussão que está em pe_recife
