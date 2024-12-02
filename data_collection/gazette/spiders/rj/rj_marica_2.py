@@ -8,7 +8,7 @@ class UFMunicipioSpider(BaseGazetteSpider):
     name = "rj_marica_2"
     TERRITORY_ID = ""
     allowed_domains = ["www.marica.rj.gov.br"]
-    start_urls = ["https://www.marica.rj.gov.br/jornal-oficial-ma"]
+    start_urls = ["https://www.marica.rj.gov.br/jornal-oficial-marica"]
     start_date = date()
 
     def parse(self, response):
