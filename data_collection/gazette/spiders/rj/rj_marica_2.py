@@ -6,7 +6,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class UFMunicipioSpider(BaseGazetteSpider):
     name = "rj_marica_2"
-    TERRITORY_ID = ""
+    TERRITORY_ID = "3302700"
     allowed_domains = ["www.marica.rj.gov.br"]
     start_urls = ["https://www.marica.rj.gov.br/jornal-oficial-marica"]
     start_date = date()
