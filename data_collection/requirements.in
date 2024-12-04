@@ -1,0 +1,17 @@
+awscli==1.25.90
+boto3==1.24.89
+click
+chompjs
+dateparser
+filetype
+itemadapter
+jinja2
+psycopg2-binary
+pyyaml==5.3.1
+python-dateutil
+python-decouple
+scrapy
+scrapy-zyte-smartproxy
+SQLAlchemy
+spidermon
+w3lib

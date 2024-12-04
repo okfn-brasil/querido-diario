@@ -1,0 +1,49 @@
+name: Schedule Spider Crawl
+
+on:
+  workflow_dispatch:
+    inputs:
+      spider_name:
+        description: 'Spider to be scheduled'
+        required: true
+      start_date:
+        description: 'Start date (YYYY-MM-DD)'
+        required: false
+      end_date:
+        description: 'End date (YYYY-MM-DD)'
+        required: false
+
+jobs:
+  full-crawl:
+    runs-on: ubuntu-latest
+    env:
+      SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
+      SCRAPY_CLOUD_PROJECT_ID: ${{ secrets.SCRAPY_CLOUD_PROJECT_ID }}
+      FILES_STORE: ${{ secrets.FILES_STORE }}
+      QUERIDODIARIO_DATABASE_URL: ${{ secrets.QUERIDODIARIO_DATABASE_URL }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
+      AWS_REGION_NAME: ${{ secrets.AWS_REGION_NAME }}
+      SPIDERMON_DISCORD_FAKE: ${{ secrets.SPIDERMON_DISCORD_FAKE }}
+      SPIDERMON_DISCORD_WEBHOOK_URL: ${{ secrets.SPIDERMON_DISCORD_WEBHOOK_URL }}
+      ZYTE_SMARTPROXY_APIKEY: ${{ secrets.ZYTE_SMARTPROXY_APIKEY }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    - name: Prepare environment
+      run: |
+        python -m pip install --upgrade pip
+        pip install click python-decouple scrapinghub SQLAlchemy psycopg2
+    - name: Schedule full crawl
+      if: ${{ !github.event.inputs.start_date }}
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }}
+    - name: Schedule partial crawl
+      if: ${{ github.event.inputs.start_date }}
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }} --end_date=${{ github.event.inputs.end_date }}

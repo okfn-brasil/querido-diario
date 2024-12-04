@@ -1,0 +1,41 @@
+name: Revisão retroativa
+description: Dar manutenção em código legado de raspadores no repositório
+title: "[Revisão retroativa]: <MUNICÍPIO-UF>"
+labels: ["refactor"]
+body: 
+  - type: dropdown
+    id: goal
+    attributes:
+      label: Objetivo da Issue
+      description: Selecione a opção abaixo
+      multiple: false
+      options:
+        - Neste repositório, há muitos códigos de raspadores que foram desenvolvidos no começo do projeto e não estão sendo usados. Para passar a usar o raspador deste município, é necessário testar para verificar se segue funcionando e revisá-lo caso não esteja. Consulte a <a href='https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html'>documentação</a> para te ajudar.
+    validations:
+      required: true
+  - type: input
+    id: replicable-system
+    attributes:
+      label: URL
+      description: URL do arquivo de código do raspador
+    validations:
+      required: true
+  - type: dropdown
+    id: replicated-systems
+    attributes:
+      label: É um município replicado?
+      description: Verifique a lista de imports presente nas primeiras linhas do código.
+      multiple: false
+      options:
+        - Não, o código utiliza BaseGazetteSpider. 
+        - Sim, o código utiliza outro GazetteSpider que não o Base. 
+    validations:
+      required: true
+  - type: input
+    id: publishing-time
+    attributes:
+      label: Período de publicação
+      description: Época de disponibilização dos diários no site que o código usa
+      placeholder: ex. mês/ano até atualmente; de 2016 à 2020
+    validations:
+      required: true
