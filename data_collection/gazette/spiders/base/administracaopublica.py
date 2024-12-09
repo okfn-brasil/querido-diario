@@ -33,7 +33,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
             )
 
     def parse(self, response: Response, **kwargs: Any) -> Any:
-        gazettes = response.css(".diario_item_diario__g9Qfw")
+        gazettes = response.css('[class*="diario_item_diario__"]')
         for gazzete in gazettes:
             href = gazzete.css('[class*="generics_button_baixar__"]::attr(href)').get()
             if href is None:
