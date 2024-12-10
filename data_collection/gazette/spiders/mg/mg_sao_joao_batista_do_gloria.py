@@ -8,5 +8,5 @@ class UFMunicipioSpider(Base_RgSites):
     TERRITORY_ID = "3162203"
     allowed_domains = ["www.gloria.mg.gov.br"]
     start_urls = ["https://www.gloria.mg.gov.br/diario-oficial"]
-    start_date = date(2024, 10, 1)
-    end_date = date(2024, 12, 10)
+    start_date = date(2019, 1, 3)
+    # end_date = date(2024, 12, 10)

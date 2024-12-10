@@ -22,7 +22,7 @@ class Base_RgSites(BaseGazetteSpider):
         for year in years:
             ano = year.css("::attr(id)").get()
             ano = ano.replace("tab_", "")
-            if int(ano) < self.start_date.year:
+            if int(ano) > self.end_date.year:
                 continue
             months = year.css(
                 "div.panel.panel-primary.rg-border-radius-none"
@@ -42,12 +42,12 @@ class Base_RgSites(BaseGazetteSpider):
                     )
                     data = dt.strptime(data, "%d/%m/%Y").date()
                     if (
-                        int(ano) == self.start_date.year
+                        int(ano) == self.end_date.year
                         and data.month < self.start_date.month
                     ):
                         break
                     if data > self.end_date:
-                        return
+                        break
                     if data < self.start_date:
                         continue
                     yield Gazette(
