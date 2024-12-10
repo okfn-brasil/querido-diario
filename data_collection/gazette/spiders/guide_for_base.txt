@@ -1,0 +1,15 @@
+products = products = response.css('div[role="tabpanel"]') #retorna vetor com os elementos separados por ano
+
+products = products[0] #seleciona o primeiro elemento
+
+month = products.css('div.panel.panel-primary.rg-border-radius-none') #retorna vetor com os elementos separados por meses do ano selecionado
+
+ano = products.css('::attr(id)').get() #retorna qual é o ano (para comparação)
+
+pdf-link = products.css('a[data-toggle="modal-pdf"]::attr(href)').getall() ou get() #retorna o link do pdf
+
+edição = products.css('a[data-toggle="modal-pdf"]::text').get() ou .getall() #retorna a edição
+
+data  = products.css('span.visible-xs-inline-block::text').getall() ou get() #retorna a data
+
+href="https://www.cantagalo.rj.gov.br/docs/contas_publicas/DOE-Edicao-1406___2024.pdf?1733772325"
