@@ -1,4 +1,4 @@
-products = products = response.css('div[role="tabpanel"]') #retorna vetor com os elementos separados por ano
+products = response.css('div[role="tabpanel"]') #retorna vetor com os elementos separados por ano
 
 products = products[0] #seleciona o primeiro elemento
 

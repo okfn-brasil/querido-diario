@@ -72,3 +72,6 @@ class RjMaricaSpider(BaseGazetteSpider):
                 power="executive_legislative",
                 is_extra_edition="jom-especial" in response.url
             )
+
+
+# tab_2023
