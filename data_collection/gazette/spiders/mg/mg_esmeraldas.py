@@ -8,5 +8,4 @@ class UFMunicipioSpider(Base_RgSites):
     TERRITORY_ID = "3124104"
     allowed_domains = ["www.esmeraldas.mg.gov.br"]
     start_urls = ["https://www.esmeraldas.mg.gov.br/diario-oficial-eletronico"]
-    start_date = date(2024, 12, 9)
-    # end_date = date(2021, 12, 10)
+    start_date = date(2024, 10, 9)

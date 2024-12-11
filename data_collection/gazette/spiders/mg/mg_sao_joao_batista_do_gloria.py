@@ -9,4 +9,3 @@ class UFMunicipioSpider(Base_RgSites):
     allowed_domains = ["www.gloria.mg.gov.br"]
     start_urls = ["https://www.gloria.mg.gov.br/diario-oficial"]
     start_date = date(2019, 1, 3)
-    # end_date = date(2024, 12, 10)

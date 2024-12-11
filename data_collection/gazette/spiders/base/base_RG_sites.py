@@ -16,13 +16,15 @@ class Base_RgSites(BaseGazetteSpider):
         )
 
     def parse(self, response):
+        self.end_date
         years = response.css(
             'div[role="tabpanel"]'
         )  # retorna vetor com os elementos separados por ano
+        years.reverse()
         for year in years:
             ano = year.css("::attr(id)").get()
             ano = ano.replace("tab_", "")
-            if int(ano) > self.end_date.year:
+            if int(ano) < self.start_date.year:
                 continue
             months = year.css(
                 "div.panel.panel-primary.rg-border-radius-none"
@@ -42,21 +44,24 @@ class Base_RgSites(BaseGazetteSpider):
                     )
                     data = dt.strptime(data, "%d/%m/%Y").date()
                     if (
-                        int(ano) == self.end_date.year
+                        int(ano) == self.start_date.year
                         and data.month < self.start_date.month
                     ):
                         break
-                    if data > self.end_date:
-                        break
+
                     if data < self.start_date:
                         continue
-                    yield Gazette(
-                        date=data,  # dt.strptime(raw_gazette_date, "%d/%m/%Y").date()
-                        edition_number=edicao,
-                        is_extra_edition=False,
-                        file_urls=[url_pdf],
-                        power="executive",
-                    )
+
+                    if data > self.end_date:
+                        return
+                    else:
+                        yield Gazette(
+                            date=data,  # dt.strptime(raw_gazette_date, "%d/%m/%Y").date()
+                            edition_number=edicao,
+                            is_extra_edition=False,
+                            file_urls=[url_pdf],
+                            power="executive",
+                        )
 
         # Lógica de extração de metadados
 

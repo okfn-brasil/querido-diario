@@ -9,4 +9,3 @@ class UFMunicipioSpider(Base_RgSites):
     allowed_domains = ["www.cantagalo.rj.gov.br"]
     start_urls = ["https://www.cantagalo.rj.gov.br/transparencia/diario-oficial"]
     start_date = date(2018, 3, 26)
-    # end_date = date(2024, 12, 10)
