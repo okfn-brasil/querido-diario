@@ -34,7 +34,8 @@ class BaseDetoSpider(BaseGazetteSpider):
           - pode configurar uma quantidade acima do máximo descrito na UI
         - opc=muda_rec_linhas, parm=11
           - carrega uma página de itens a partir do 11º item,
-          - retorna JSON se o Content-Type application/x-www-form-urlencoded, HTML senão
+          - retorna JSON se o Content-Type application/x-www-form-urlencoded
+            - Sem o Header, HTML é retornado mas não obedece a paginação e sempre retorna a primeira página
         - opc=rec, parm=11
           - igual à 'muda_rec_linhas'
     """
@@ -70,7 +71,7 @@ class BaseDetoSpider(BaseGazetteSpider):
         """
 
         # O rodapé pego aqui só está disponível na primeira requisição de tabela, que retorna html.
-        # As requisições para as próximas paginas retornam json, com html dentro, e estas não tem o rodapé.
+        # As requisições para as próximas paginas retornam json, com html dentro, e este não tem o rodapé.
         # Calculamos a quantidade total de itens e páginas para poder gerenciar o consumo das páginas nós mesmos
         if self.total_pages_count is None:
             table_foot = response.xpath(
@@ -88,9 +89,9 @@ class BaseDetoSpider(BaseGazetteSpider):
                 '//form[@name="form_ajax_redir_1"]//input[@name="script_case_session"]/@value'
             ).get()
 
-        # Caso a chamada atual venha de uma opc == rec, o response é um JSON
-        # Então, normalizo o response para que se comporte como se este fosse um response html,
-        # ou seja, .xpath, etc, existem em response
+        # Em algumas chamadas (todas além da primeira), o response é um JSON
+        # Então, normalizo o objeto response para que se comporte como se este fosse um response derivado de html,
+        # ou seja, response.xpath, etc, estão disponíveis
         if has_json_response:
             # Encontra o html que está perdido dentro do JSON.
             # Está dentro do array setValue. O item com field == sc_grid_body tem como value o html
@@ -115,11 +116,11 @@ class BaseDetoSpider(BaseGazetteSpider):
         """
         self.pages_consumed = self.pages_consumed + 1
 
-        # Cada linha tem um link cujo href contem parametros para abrir o modal
+        # Cada linha tem um link cujo href contem parâmetros para abrir o modal
         lines = response.xpath('//tr[starts-with(@id, "SC_ancor")]').getall()
 
         # O href é uma chamada dum método JS. Precisamos do terceiro parâmetro para passar na próxima requisição.
-        # Este parametro tem um sufixo hexadecimal
+        # Este parâmetro tem um sufixo hexadecimal
         for line in lines:
             modal_param_search = re.search(
                 r"(@SC_par@\d+?@SC_par@diarioeletronico_grid_cliente@SC_par@.+?)'", line
@@ -210,11 +211,11 @@ class BaseDetoSpider(BaseGazetteSpider):
             '//form[@name="F1"]//input[@name="script_case_init"]/@value'
         ).get()
 
-        self.logger.info(f"form_client response head {response.text[:100]}")
+        self.logger.info(f"form_client response head {response.text[:500]}")
 
         doc_href = response.xpath('//div[@id="id_sc_loaded_anexo"]//a/@href').get()
 
-        # Extraia o segundo parâmetro da chamada JavaScript
+        # O segundo parâmetro da chamada JavaScript tem o nome do arquivo que será usado na requisição
         doc_name = None
         if doc_href:
             match = re.search(r"'documento_db', '(.+?)'", doc_href)
