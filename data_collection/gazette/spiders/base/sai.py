@@ -1,3 +1,5 @@
+from datetime import date
+
 import scrapy
 from dateutil.parser import parse as dt_parse
 
@@ -5,7 +7,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class SaiGazetteSpider(BaseGazetteSpider):
+class BaseSaiSpider(BaseGazetteSpider):
     """
     Base Spider for all cases with use SAI (Serviço de Acesso a Informação)
     Read more in https://imap.org.br/sistemas/sai/
@@ -23,8 +25,10 @@ class SaiGazetteSpider(BaseGazetteSpider):
         Must be get into execution from website
     """
 
-    base_url = None
-    start_date = None
+    base_url: str
+    start_date: date
+
+    custom_settings = {"DOWNLOAD_DELAY": 1.5}
 
     @property
     def _site_url(self):

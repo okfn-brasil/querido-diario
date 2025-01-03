@@ -6,7 +6,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class DoemGazetteSpider(BaseGazetteSpider):
+class BaseDoemSpider(BaseGazetteSpider):
     """
     Base spider for all cities listed on https://doem.org.br
     """

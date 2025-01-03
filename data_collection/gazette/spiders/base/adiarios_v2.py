@@ -8,6 +8,11 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseAdiariosV2Spider(BaseGazetteSpider):
+    """
+    This base class deals with 'Layout 2' gazette pages, usually requested
+    from https://{city_website}/jornal.php
+    """
+
     def start_requests(self):
         start_date = self.start_date.strftime("%d/%m/%Y")
         end_date = self.end_date.strftime("%d/%m/%Y")

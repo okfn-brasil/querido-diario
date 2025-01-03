@@ -7,13 +7,13 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class AdminLTEGazetteSpider(BaseGazetteSpider):
+class BaseAdminLteSpider(BaseGazetteSpider):
     """
     Base spider for cities using the Framework AdminLTE as design system.
     """
 
     def start_requests(self):
-        url = f"http://diariooficial.{self.city_domain}/pesquisa/"
+        url = f"https://diariooficial.{self.city_domain}/pesquisa/"
 
         start_date = self.start_date.strftime("%Y-%m-%d")
         end_date = self.end_date.strftime("%Y-%m-%d")

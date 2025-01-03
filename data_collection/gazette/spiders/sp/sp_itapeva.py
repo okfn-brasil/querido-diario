@@ -1,9 +1,9 @@
 from datetime import date
 
-from gazette.spiders.base.dosp import DospGazetteSpider
+from gazette.spiders.base.dosp import BaseDospSpider
 
 
-class SpItapevaSpider(DospGazetteSpider):
+class SpItapevaSpider(BaseDospSpider):
     TERRITORY_ID = "3522406"
     name = "sp_itapeva"
     code = 4907
