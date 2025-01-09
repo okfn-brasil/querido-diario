@@ -11,6 +11,8 @@ from gazette.spiders.base import BaseGazetteSpider
 class BaseModernizacaoSpider(BaseGazetteSpider):
     power = "executive_legislative"
     ver_subpath = "ver20230623"
+    filter_endpoint = "diario_oficial_get"
+    edition_endpoint = "WEB-ObterAnexo.rule"
 
     custom_settings = {
         "CONCURRENT_REQUESTS": 4,
@@ -19,7 +21,7 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
 
     def start_requests(self):
         domain = self.allowed_domains[0]
-        base_url = f"https://{domain}/diario_oficial_get.php"
+        base_url = f"https://{domain}/{self.filter_endpoint}.php"
         initial_date = date(self.start_date.year, self.start_date.month, 1)
 
         for monthly_date in rrule(
@@ -29,20 +31,19 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
             yield scrapy.FormRequest(
                 method="GET",
                 url=base_url,
-                formdata={"mesano": month_year},
+                formdata={"mes_ano": month_year},
             )
 
     def parse(self, response):
         for gazette_data in response.json():
             raw_gazette_date = gazette_data["Data_Formatada"]
-            raw_gazette_date
             gazette_date = datetime.strptime(raw_gazette_date, "%d/%m/%Y").date()
             if not self.start_date <= gazette_date <= self.end_date:
                 continue
 
             gazette_code = gazette_data["Codigo_ANEXO"]
             gazette_url = response.urljoin(
-                f"{self.ver_subpath}/WEB-ObterAnexo.rule?sys=LAI&codigo={gazette_code}"
+                f"{self.ver_subpath}/{self.edition_endpoint}?sys=LAI&codigo={gazette_code}"
             )
 
             raw_edition_number = gazette_data["ANEXO"]

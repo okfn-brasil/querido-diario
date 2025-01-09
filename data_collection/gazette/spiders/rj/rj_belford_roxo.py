@@ -9,3 +9,5 @@ class RjBelfordRoxoSpider(BaseModernizacaoSpider):
     allowed_domains = ["transparencia.prefeituradebelfordroxo.rj.gov.br"]
     start_date = date(2019, 1, 2)
     power = "executive"
+    edition_endpoint = "WEB-ObterAnexomaior.rule"
+    filter_endpoint = "diario_oficial_getmaior"
