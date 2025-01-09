@@ -15,7 +15,7 @@ class RjMacaeSpider(BaseGazetteSpider):
 
     def start_requests(self):
         yield scrapy.FormRequest(
-            url="https://sistemas.macae.rj.gov.br:840/diariooficial/index/listarajax",
+            url="https://do.macae.rj.gov.br/index/listarajax",
             method="POST",
             formdata={
                 "periodode": self.start_date.strftime("%d/%m/%Y"),
@@ -26,10 +26,10 @@ class RjMacaeSpider(BaseGazetteSpider):
     def parse(self, response):
         for data in response.json()["data"]:
             gazette_code = data["DT_RowId"]
-            gazette_url = f"https://sistemas.macae.rj.gov.br:840/diariooficial/index/download?id={gazette_code}"
+            gazette_url = f"https://do.macae.rj.gov.br/index/downloadanexo?idmodel={gazette_code}&campo=txarquivo"
 
             gazette_edition = data["edicao"]
-            gazette_edition_number = re.search(r"\d+", gazette_edition).group(0)
+            gazette_edition_number = re.search(r"\d+", gazette_edition).group()
 
             raw_gazette_date = re.search(
                 r"\d{2}\/\d{2}\/\d{4}", data["publicacao"]
