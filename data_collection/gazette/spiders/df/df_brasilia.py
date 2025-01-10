@@ -1,10 +1,10 @@
 import datetime
 import re
+from urllib.parse import parse_qs, unquote, urlparse
 
+import dateutil.parser
 from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
-import dateutil.parser
-from urllib.parse import urlparse,parse_qs,unquote
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -38,7 +38,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     name = "df_brasilia"
     allowed_domains = ["dodf.df.gov.br"]
     start_date = datetime.date(1967, 12, 25)
-    
+
     BASE_URL = "https://dodf.df.gov.br/dodf/jornal/pastas"
 
     def start_requests(self):
@@ -61,13 +61,15 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         month, year = response.meta["month"], response.meta["year"]
         gazette_days = response.css(".lista-arquivos a::attr(href)").getall()
         for url in gazette_days:
-            date = unquote(url.split('/')[-1])
+            date = unquote(url.split("/")[-1])
 
             if date is None:
                 continue
 
             try:
-                date_parsed = dateutil.parser.parse(date, dayfirst=True).date() #.strftime('%d-%m-%Y') 
+                date_parsed = dateutil.parser.parse(
+                    date, dayfirst=True
+                ).date()  # .strftime('%d-%m-%Y')
                 valid_date = True
             except dateutil.parser._parser.ParserError as ex:
                 date_parsed = ex
@@ -79,13 +81,15 @@ class DfBrasiliaSpider(BaseGazetteSpider):
                 if date < self.start_date:
                     continue
 
-                yield Request(url, meta={"date_route":date_parsed}, callback=self.parse_gazette)
+                yield Request(
+                    url, meta={"date_route": date_parsed}, callback=self.parse_gazette
+                )
 
     def parse_gazette(self, response):
         """Parses list of documents to request each one for the date."""
         DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
         PDF_URL = "https://dodf.df.gov.br/dodf/jornal/visualizar-pdf?{}"
-        
+
         gazette_editions = response.css(".lista-arquivos a::attr(href)").getall()
         if not gazette_editions:
             self.logger.warning(f"Document not found in {response.url}")
@@ -93,18 +97,19 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
         for url_edition in gazette_editions:
             query_edition = urlparse(url_edition).query
-            pdfname = parse_qs(query_edition)['arquivo'][0]
+            pdfname = parse_qs(query_edition)["arquivo"][0]
             try:
                 date_pdfname = re.search(DATE_REGEX, pdfname).group()
                 date_parsed = parse(date_pdfname, settings={"DATE_ORDER": "DMY"}).date()
             except:
                 date_parsed = response.meta["date_route"]
 
-            edition_number = [chunck for chunck in pdfname.split(' ') if chunck.isnumeric()][0]
+            edition_number = [
+                chunck for chunck in pdfname.split(" ") if chunck.isnumeric()
+            ][0]
             is_extra_edition = "EXTRA" in pdfname
             is_supplement_edition = "SUPLEMENTO" in pdfname
             file_urls = [PDF_URL.format(query_edition)]
-
 
             yield Gazette(
                 date=date_parsed,
@@ -112,5 +117,5 @@ class DfBrasiliaSpider(BaseGazetteSpider):
                 is_extra_edition=is_extra_edition,
                 s_supplement_edition=s_supplement_edition,
                 power="executive",
-                file_urls=file_urls
+                file_urls=file_urls,
             )
