@@ -1,8 +1,6 @@
 import datetime
-import re
-from urllib.parse import parse_qs, unquote, urlparse
+from urllib.parse import parse_qs, urlparse
 
-import dateutil.parser
 from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
@@ -39,7 +37,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     allowed_domains = ["dodf.df.gov.br"]
     start_date = datetime.date(1967, 12, 25)
 
-    BASE_URL = "https://dodf.df.gov.br/dodf/jornal/pastas"
+    BASE_URL = "https://dodf.df.gov.br"
 
     def start_requests(self):
         months_by_year = [
@@ -51,71 +49,42 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         for month, year in months_by_year:
             month_value = MONTH_MAP.get(month)
             yield Request(
-                f"{self.BASE_URL}?pasta={year}/{month_value}",
-                meta={"month": month_value, "year": year},
+                f"{self.BASE_URL}/dodf/jornal/pastas?pasta={year}/{month_value}",
                 callback=self.parse_month,
             )
 
     def parse_month(self, response):
         """Parses available dates to request a list of documents for each date."""
-        month, year = response.meta["month"], response.meta["year"]
-        gazette_days = response.css(".lista-arquivos a::attr(href)").getall()
-        for url in gazette_days:
-            date = unquote(url.split("/")[-1])
+        gazette_days_url = response.css(".lista-arquivos a::attr(href)").getall()
 
-            if date is None:
-                continue
+        for url in gazette_days_url:
+            date = url.split("/")[-1]
+            date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
 
-            try:
-                date_parsed = dateutil.parser.parse(
-                    date, dayfirst=True
-                ).date()  # .strftime('%d-%m-%Y')
-                valid_date = True
-            except dateutil.parser._parser.ParserError as ex:
-                date_parsed = ex
-                valid_date = False
-
-            if valid_date:
-                date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
-
-                if date < self.start_date:
-                    continue
-
+            if self.start_date <= date <= self.end_date:
                 yield Request(
-                    url, meta={"date_route": date_parsed}, callback=self.parse_gazette
+                    urlparse(url)._replace(scheme="https").geturl(),
+                    callback=self.parse_gazette,
+                    cb_kwargs={"date": date},
                 )
 
-    def parse_gazette(self, response):
+    def parse_gazette(self, response, date):
         """Parses list of documents to request each one for the date."""
-        DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
-        PDF_URL = "https://dodf.df.gov.br/dodf/jornal/visualizar-pdf?{}"
-
         gazette_editions = response.css(".lista-arquivos a::attr(href)").getall()
+
         if not gazette_editions:
-            self.logger.warning(f"Document not found in {response.url}")
             return
 
         for url_edition in gazette_editions:
-            query_edition = urlparse(url_edition).query
-            pdfname = parse_qs(query_edition)["arquivo"][0]
-            try:
-                date_pdfname = re.search(DATE_REGEX, pdfname).group()
-                date_parsed = parse(date_pdfname, settings={"DATE_ORDER": "DMY"}).date()
-            except:
-                date_parsed = response.meta["date_route"]
-
-            edition_number = [
-                chunck for chunck in pdfname.split(" ") if chunck.isnumeric()
-            ][0]
-            is_extra_edition = "EXTRA" in pdfname
-            is_supplement_edition = "SUPLEMENTO" in pdfname
-            file_urls = [PDF_URL.format(query_edition)]
+            gazette_name = parse_qs(urlparse(url_edition).query)["arquivo"][0]
+            edition_number = gazette_name.split()[1]
+            is_extra_edition = "extra" in gazette_name.lower()
+            gazette_url = f"{self.BASE_URL}{url_edition}"
 
             yield Gazette(
-                date=date_parsed,
+                date=date,
                 edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
-                s_supplement_edition=s_supplement_edition,
                 power="executive",
-                file_urls=file_urls,
+                file_urls=[gazette_url],
             )
