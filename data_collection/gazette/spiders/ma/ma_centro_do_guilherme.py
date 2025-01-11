@@ -1,13 +1,12 @@
 import datetime
 
-from gazette.spiders.base.siganet import BaseSiganetSpider
+from gazette.spiders.base.aratext import BaseAratextSpider
 
 
-class MaCentroDoGuilhermeSpider(BaseSiganetSpider):
-    zyte_smartproxy_enabled = True
-
+class MaCentroDoGuilhermeSpider(BaseAratextSpider):
     TERRITORY_ID = "2103158"
     name = "ma_centro_do_guilherme"
-    start_date = datetime.date(2021, 3, 12)
-    allowed_domains = ["transparencia.centrodoguilherme.ma.gov.br"]
-    BASE_URL = "https://transparencia.centrodoguilherme.ma.gov.br/acessoInformacao/diario/diario"
+    start_date = datetime.date(2024, 1, 4)
+    power = "executive"
+    allowed_domains = ["centrodoguilherme.ma.gov.br"]
+    start_urls = ["https://centrodoguilherme.ma.gov.br/diariooficial"]
