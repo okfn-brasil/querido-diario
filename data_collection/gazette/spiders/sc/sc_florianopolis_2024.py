@@ -44,6 +44,6 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
                     power="executive_legislative",
                     file_urls=[edition_url],
                 )
-
-        if edition_date > self.start_date:
+        last_page = "next disabled" in response.url
+        if edition_date > self.start_date and not last_page:
             yield self._requests(page + 1)
