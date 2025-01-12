@@ -21,19 +21,20 @@ class SeAracajuSpider(BaseGazetteSpider):
             "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp",
             meta={"cookiejar": cookiejar} if cookiejar is not None else {},
             dont_filter=True,
+            callback=self.make_mandatory_post_request,
         )
 
-    def parse(self, response):
+    def make_mandatory_post_request(self, response):
         mesano_param = response.css("[value=mesano]::attr(name)").get()
         yield scrapy.FormRequest.from_response(
             response,
             formdata={mesano_param: "mesano"},
-            callback=self.parse_search_by_month_and_year,
+            callback=self.start_session_ids,
             dont_filter=True,
             meta={"cookiejar": response.meta.get("cookiejar")},
         )
 
-    def parse_search_by_month_and_year(self, response):
+    def start_session_ids(self, response):
         if not response.meta.get("cookiejar", False):
             rule_start_date = datetime.date(
                 self.start_date.year, self.start_date.month, 1
