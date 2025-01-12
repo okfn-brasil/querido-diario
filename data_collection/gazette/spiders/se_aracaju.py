@@ -33,20 +33,38 @@ class SeAracajuSpider(BaseGazetteSpider):
             meta={"cookiejar": response.meta.get("cookiejar")},
         )
 
-    def make_year_month_request(self, response, formdata=None):
-        container_id = response.css("select::attr(onchange)").re_first(
-            r"containerId\':\'(.+)\'"
-        )
-        mes_param = response.xpath(
-            "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select/@name"
-        ).get()
-        ano_param = response.xpath(
-            "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@name"
-        ).get()
-        search_button_param = response.css(".botaoCadastrarPesq::attr(id)").get()
+    def parse_search_by_month_and_year(self, response):
+        if not response.meta.get("cookiejar", False):
+            rule_start_date = datetime.date(
+                self.start_date.year, self.start_date.month, 1
+            )
+            date_list = list(
+                rrule(freq=MONTHLY, dtstart=rule_start_date, until=self.end_date)
+            )
+            for date in date_list:
+                yield from self.start_requests(
+                    cookiejar=(
+                        date.year,
+                        date.month,
+                    )
+                )
+        else:
+            yield self.make_year_month_request(response)
 
+    def make_year_month_request(self, response, formdata=None):
         year, month = cookiejar = response.meta.get("cookiejar")
         if not formdata:
+            container_id = response.css("select::attr(onchange)").re_first(
+                r"containerId\':\'(.+)\'"
+            )
+            mes_param = response.xpath(
+                "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select/@name"
+            ).get()
+            ano_param = response.xpath(
+                "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@name"
+            ).get()
+            search_button_param = response.css(".botaoCadastrarPesq::attr(id)").get()
+
             # request the first page for the pair (year, month)
             return scrapy.FormRequest.from_response(
                 response,
@@ -67,24 +85,6 @@ class SeAracajuSpider(BaseGazetteSpider):
                 meta={"cookiejar": cookiejar},
                 callback=self.parse_page_result,
             )
-
-    def parse_search_by_month_and_year(self, response):
-        if not response.meta.get("cookiejar", False):
-            rule_start_date = datetime.date(
-                self.start_date.year, self.start_date.month, 1
-            )
-            date_list = list(
-                rrule(freq=MONTHLY, dtstart=rule_start_date, until=self.end_date)
-            )
-            for date in date_list:
-                yield from self.start_requests(
-                    cookiejar=(
-                        date.year,
-                        date.month,
-                    )
-                )
-        else:
-            yield self.make_year_month_request(response)
 
     def parse_page_result(self, response):
         page = Selector(response.text)
