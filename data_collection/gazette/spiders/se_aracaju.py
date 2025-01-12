@@ -33,7 +33,7 @@ class SeAracajuSpider(BaseGazetteSpider):
             meta={"cookiejar": response.meta.get("cookiejar")},
         )
 
-    def _make_year_month_request(self, response, formdata=None):
+    def make_year_month_request(self, response, formdata=None):
         container_id = response.css("select::attr(onchange)").re_first(
             r"containerId\':\'(.+)\'"
         )
@@ -84,7 +84,7 @@ class SeAracajuSpider(BaseGazetteSpider):
                     )
                 )
         else:
-            yield self._make_year_month_request(response)
+            yield self.make_year_month_request(response)
 
     def parse_page_result(self, response):
         page = Selector(response.text)
@@ -96,14 +96,19 @@ class SeAracajuSpider(BaseGazetteSpider):
             if gazette_number is None:
                 continue
 
-            gazette_date = gazette.css(".rich-panel-header::text").get()
+            raw_date = gazette.css(".rich-panel-header::text").get()
+            gazette_date = datetime.datetime.strptime(raw_date, "%d/%m/%Y").date()
+
             file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}.pdf"
-            yield Gazette(
-                date=datetime.datetime.strptime(gazette_date, "%d/%m/%Y").date(),
-                is_extra_edition=False,
-                file_urls=[file_url],
-                power="executive",
-            )
+
+            if self.start_date <= gazette_date <= self.end_date:
+                yield Gazette(
+                    date=gazette_date,
+                    edition_number=gazette_number,
+                    is_extra_edition=False,
+                    file_urls=[file_url],
+                    power="executive_legislative",
+                )
 
         next_page_param = page.css(".rich-datascr::attr(id)").get()
         next_page = page.css(".rich-datascr-act + .rich-datascr-inact::text").get()
@@ -114,4 +119,4 @@ class SeAracajuSpider(BaseGazetteSpider):
                 next_page_param: next_page,
                 "AJAX:EVENTS_COUNT": "1",
             }
-            yield self._make_year_month_request(response, formdata)
+            yield self.make_year_month_request(response, formdata)
