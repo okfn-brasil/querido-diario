@@ -1,6 +1,6 @@
 from datetime import date, datetime as dt
 
-from dateutil.rrule import MONTHLY, rrule, rruleset
+from dateutil.rrule import MONTHLY, YEARLY, rrule, rruleset
 from scrapy import FormRequest, Request
 
 from gazette.items import Gazette
@@ -30,14 +30,12 @@ class EsVitoriaSpider(BaseGazetteSpider):
         )
 
     def make_year_request(self, response):
-        monthly_dates = rruleset()
-        monthly_dates.rrule(
-            rrule(MONTHLY, dtstart=self.start_date, until=self.end_date, bymonthday=[1])
-        )
-        monthly_dates.rdate(dt(self.start_date.year, self.start_date.month, 1))
-
-        for monthly_date in monthly_dates:
-            formdata = {self.FORM_PARAM_YEAR: str(monthly_date.year)}
+        for yearly_date in self._dates_of_interest(YEARLY):
+            formdata = {
+                self.FORM_PARAM_YEAR: str(yearly_date.year),
+                "__EVENTTARGET": self.FORM_PARAM_YEAR,
+                "__EVENTARGUMENT": "",
+            }
 
             yield FormRequest.from_response(
                 response,
@@ -45,25 +43,28 @@ class EsVitoriaSpider(BaseGazetteSpider):
                 callback=self.make_month_request,
                 # We are isolating cookiejar in (year, month) combination
                 # to avoid interference between concurrent requests
-                meta={"cookiejar": (monthly_date.year, monthly_date.month)},
+                meta={"cookiejar": (yearly_date.year)},
             )
 
     def make_month_request(self, response):
-        year, month = response.meta.get("cookiejar")
+        year = response.meta.get("cookiejar")
 
-        formdata = {
-            self.FORM_PARAM_YEAR: str(year),
-            self.FORM_PARAM_MONTH: str(month),
-            "__EVENTTARGET": self.FORM_PARAM_MONTH,
-            "__EVENTARGUMENT": "",
-        }
+        for monthly_date in self._dates_of_interest(MONTHLY):
+            if dt(year, 1, 1) <= monthly_date <= dt(year, 12, 31):
 
-        yield FormRequest.from_response(
-            response,
-            formdata=formdata,
-            callback=self.parse_editions_list,
-            meta={"cookiejar": response.meta.get("cookiejar")},
-        )
+                formdata = {
+                    self.FORM_PARAM_YEAR: str(monthly_date.year),
+                    self.FORM_PARAM_MONTH: str(monthly_date.month),
+                    "__EVENTTARGET": self.FORM_PARAM_MONTH,
+                    "__EVENTARGUMENT": "",
+                }
+
+                yield FormRequest.from_response(
+                    response,
+                    formdata=formdata,
+                    callback=self.parse_editions_list,
+                    meta={"cookiejar": (monthly_date.year, monthly_date.month)},
+                )
 
     def parse_editions_list(self, response, current_page=1):
         for row in response.xpath("//tbody//td/a[1]"):
@@ -100,3 +101,9 @@ class EsVitoriaSpider(BaseGazetteSpider):
                     cb_kwargs={"current_page": next_page},
                     meta={"cookiejar": response.meta.get("cookiejar")},
                 )
+
+    def _dates_of_interest(self, recurrence):
+        dates = rruleset()
+        dates.rrule(rrule(recurrence, dtstart=self.start_date, until=self.end_date, bymonthday=[1]))
+        dates.rdate(dt(self.start_date.year, self.start_date.month, 1))
+        return dates
