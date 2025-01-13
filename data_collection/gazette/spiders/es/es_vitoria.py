@@ -93,44 +93,25 @@ class EsVitoriaSpider(BaseGazetteSpider):
 
     def parse_editions_list(self, response, current_page=1):
         for row in response.xpath("//tbody//td/a[1]"):
-            raw_string = row.css("span::text")[0].get()
-            date_string_from_text = raw_string.split()[-1]
-            gazette_date = self._parse_date(date_string_from_text)
+            raw_date = row.css("span::text")[0].get().split()[-1]
+            gazette_date = datetime.strptime(raw_date, "%d/%m/%Y").date()
 
-            if not gazette_date:
-                self.logger.warning(
-                    f"No valid date could be extracted from '{raw_string}'"
+            if self.start_date <= gazette_date <= self.end_date:
+                url = response.urljoin(row.css("a").attrib["href"])
+                
+                yield Gazette(
+                    date=gazette_date,
+                    edition_number="",
+                    is_extra_edition=False,
+                    file_urls=[url],
+                    power="executive",
                 )
-                continue
-
-            if gazette_date > self.end_date:
-                continue
-            elif gazette_date < self.start_date:
-                return
-
-            if gazette_date.timetuple()[:2] != current_year_month:
-                self.logger.warning(
-                    f"Found {gazette_date.isoformat()} gazette while querying"
-                    f" for {current_year_month[0]}-{current_year_month[1]:02}"
-                    f" period. Skipping..."
-                )
-                continue
-
-            url = response.urljoin(row.attrib["href"])
-
-            file_urls = self.data_by_monthly_date_by_date.setdefault(
-                current_year_month, {}
-            ).setdefault(gazette_date, [])
-
-            if url not in file_urls:
-                # We use this strategy to avoid duplicates while maintaining row order
-                file_urls.append(url)
-
-        number_of_pages = len(
-            response.xpath("//ul[contains(@class, 'pagination')]/li").getall()
-        )
-
-        if current_page < number_of_pages:
+        
+        has_next_page = response.css(".pagination li")[-1].css("a::text").get() is not None        
+        if has_next_page:
+            next_page = current_page + 1
+            year, month = response.meta.get("cookiejar")
+            
             formdata = {
                 "__EVENTARGUMENT": f"Page${next_page}",
                 "__EVENTTARGET": "ctl00$conteudo$ucPesquisarDiarioOficial$grdArquivos",
@@ -142,28 +123,6 @@ class EsVitoriaSpider(BaseGazetteSpider):
                 response,
                 formdata=formdata,
                 callback=self.parse_editions_list,
-                cb_kwargs={
-                    "current_year_month": current_year_month,
-                    "current_page": current_page + 1,
-                },
-                # We keep using the same cookiejar for the name_year_month combination
-                # because, if we don't, it can interfere with the paging data for
-                # a different name_year_month combination
-                meta={"cookiejar": f"{self.name}_{year}_{month}"},
+                cb_kwargs={"current_page": next_page},
+                meta={"cookiejar": response.meta.get("cookiejar")},
             )
-        else:
-            # After all the entries of the queried year-month period were collected,
-            # we finally yield the Gazette per date within that month
-            current_year_month_data = self.data_by_monthly_date_by_date.get(
-                current_year_month, {}
-            )
-            for gazette_date, file_urls in current_year_month_data.items():
-                yield Gazette(
-                    date=gazette_date,
-                    is_extra_edition=False,
-                    file_urls=file_urls,
-                    power="executive",
-                )
-
-    def _parse_date(self, raw_date):
-        return datetime.strptime(raw_date, "%d/%m/%Y").date()
