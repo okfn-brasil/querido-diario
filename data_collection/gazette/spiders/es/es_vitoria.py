@@ -9,7 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class EsVitoriaSpider(BaseGazetteSpider):
     name = "es_vitoria"
-    TERRITORY_ID = "3205309"    
+    TERRITORY_ID = "3205309"
     allowed_domains = ["diariooficial.vitoria.es.gov.br"]
     start_date = date(2014, 7, 21)
 
@@ -25,8 +25,9 @@ class EsVitoriaSpider(BaseGazetteSpider):
         "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408, 429, 406],
     }
 
-    FORM_PARAM_YEAR = None
-    FORM_PARAM_MONTH = None
+    FORM_PARAM_YEAR = "ctl00$conteudo$ucPesquisarDiarioOficial$ddlAno"
+    FORM_PARAM_MONTH = "ctl00$conteudo$ucPesquisarDiarioOficial$ddlMes"
+    FORM_PARAM_PAGINATION = "ctl00$conteudo$ucPesquisarDiarioOficial$grdArquivos"
 
     def start_requests(self):
         yield Request(
@@ -35,8 +36,6 @@ class EsVitoriaSpider(BaseGazetteSpider):
         )
 
     def make_year_request(self, response):
-        self.set_form_params(response)     
-
         monthly_dates = rruleset()
         monthly_dates.rrule(
             rrule(MONTHLY, dtstart=self.start_date, until=self.end_date, bymonthday=[1])
@@ -54,14 +53,6 @@ class EsVitoriaSpider(BaseGazetteSpider):
                 # to avoid interference between concurrent requests
                 meta={"cookiejar": (monthly_date.year, monthly_date.month)},
             )
-
-    def set_form_params(self, response):
-        year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
-        self.FORM_PARAM_YEAR = year_select.attrib["name"]
-
-        month_select = response.xpath("//select[contains(@id, 'ddlMes')]")
-        self.FORM_PARAM_MONTH = month_select.attrib["name"]
-
 
     def make_month_request(self, response):
         year, month = response.meta.get("cookiejar")
