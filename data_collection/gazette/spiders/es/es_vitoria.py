@@ -9,10 +9,9 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class EsVitoriaSpider(BaseGazetteSpider):
     name = "es_vitoria"
-    TERRITORY_ID = "3205309"
-    start_date = date(2014, 7, 21)
-
+    TERRITORY_ID = "3205309"    
     allowed_domains = ["diariooficial.vitoria.es.gov.br"]
+    start_date = date(2014, 7, 21)
 
     # When there are too many requests, the server may return
     # an HTTP 406 status code when trying to download a PDF file
@@ -30,19 +29,12 @@ class EsVitoriaSpider(BaseGazetteSpider):
     FORM_PARAM_MONTH = None
 
     def start_requests(self):
-        self.data_by_monthly_date_by_date = {}
-
-        today = date.today()
-        year = today.year
-        month = today.month
-
         yield Request(
             "https://diariooficial.vitoria.es.gov.br/",
             callback=self.make_year_request,
-            meta={"cookiejar": f"{self.name}_{year}_{month}"},  # é necessário?
         )
 
-    def make_year_request(self, response):   
+    def make_year_request(self, response):
         self.set_form_params(response)     
 
         monthly_dates = rruleset()
@@ -52,10 +44,7 @@ class EsVitoriaSpider(BaseGazetteSpider):
         monthly_dates.rdate(date(self.start_date.year, self.start_date.month, 1))
 
         for monthly_date in monthly_dates:
-            
-            formdata={
-                self.FORM_PARAM_YEAR: str(monthly_date.year)
-            }
+            formdata = {self.FORM_PARAM_YEAR: str(monthly_date.year)}
 
             yield FormRequest.from_response(
                 response,
@@ -74,14 +63,14 @@ class EsVitoriaSpider(BaseGazetteSpider):
         self.FORM_PARAM_MONTH = month_select.attrib["name"]
 
 
-    def make_month_request(self, response):       
+    def make_month_request(self, response):
         year, month = response.meta.get("cookiejar")
 
         formdata = {
-            "__EVENTTARGET": self.FORM_PARAM_MONTH,
-            "__EVENTARGUMENT": "",
             self.FORM_PARAM_YEAR: str(year),
             self.FORM_PARAM_MONTH: str(month),
+            "__EVENTTARGET": self.FORM_PARAM_MONTH,
+            "__EVENTARGUMENT": "",
         }
 
         yield FormRequest.from_response(
@@ -98,7 +87,7 @@ class EsVitoriaSpider(BaseGazetteSpider):
 
             if self.start_date <= gazette_date <= self.end_date:
                 url = response.urljoin(row.css("a").attrib["href"])
-                
+
                 yield Gazette(
                     date=gazette_date,
                     edition_number="",
@@ -106,17 +95,19 @@ class EsVitoriaSpider(BaseGazetteSpider):
                     file_urls=[url],
                     power="executive",
                 )
-        
-        has_next_page = response.css(".pagination li")[-1].css("a::text").get() is not None        
+
+        has_next_page = (
+            response.css(".pagination li")[-1].css("a::text").get() is not None
+        )
         if has_next_page:
             next_page = current_page + 1
             year, month = response.meta.get("cookiejar")
-            
+
             formdata = {
-                "__EVENTARGUMENT": f"Page${next_page}",
-                "__EVENTTARGET": "ctl00$conteudo$ucPesquisarDiarioOficial$grdArquivos",
                 self.FORM_PARAM_YEAR: str(year),
                 self.FORM_PARAM_MONTH: str(month),
+                "__EVENTTARGET": self.FORM_PARAM_PAGINATION,
+                "__EVENTARGUMENT": f"Page${next_page}",
             }
 
             yield FormRequest.from_response(
