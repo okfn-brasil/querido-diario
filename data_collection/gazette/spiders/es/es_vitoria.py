@@ -25,47 +25,22 @@ class EsVitoriaSpider(BaseGazetteSpider):
         "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408, 429, 406],
     }
 
-    def __init__(self, *args, **kwargs):
-        super(EsVitoriaSpider, self).__init__(*args, **kwargs)
-
-        # Period queried for gazette source is based on specific year-month
-        # Within a queried period, it has a paging mechanism that can spread multiple files of the same date
-        # We collect all the entries for the year-month period to then generate the gazette entries
-
-        # Considering the above descrition, we use a dict named `data_by_monthly_date_by_date`
-        # with its keys composed by a 2-tuple
-        #     - year
-        #     - month
-        # and its items is another nested dict composed by
-        #     - gazette_date
-        # and its items is a list of str representing the URL of the collected files for that date
-
-        # e.g.
-        # data_by_monthly_date_by_date = {
-        #     (2022, 12): {
-        #         date(2022, 12, 2): [
-        #             "https://diariooficial.vitoria.es.gov.br/ExibirArquivo.aspx"
-        #             "?qs=nnmrXIDe5L4hR81FZwDXlD95Q%2fWHOCtXgeCw%2fnRIrFMxQA7S5mwuf0RM3mOCPGtiwqKwtsQd8WTWmli6Dukj2duE%2bcjGeiOYdOhFAaD2d4lajnB7Bs8eXyta5UTj79FJ",
-        #             "https://diariooficial.vitoria.es.gov.br/ExibirArquivo.aspx"
-        #             "?qs=nnmrXIDe5L4hR81FZwDXlD95Q%2fWHOCtXgeCw%2fnRIrFMxQA7S5mwuf0RM3mOCPGtiwqKwtsQd8WTWmli6Dukj2duE%2bcjGeiOY4xkUuS2BQabum9G9l8gOaMHLbesi83TO",
-        #         ]
-        #     }
-        # }
-
-        self.data_by_monthly_date_by_date = {}
+    data_by_monthly_date_by_date = None
 
     def start_requests(self):
+        self.data_by_monthly_date_by_date = {}
+
         today = date.today()
         year = today.year
         month = today.month
 
         yield Request(
             "https://diariooficial.vitoria.es.gov.br/",
-            callback=self.initial_parse,
-            meta={"cookiejar": f"{self.name}_{year}_{month}"},
+            callback=self.make_year_request,
+            meta={"cookiejar": f"{self.name}_{year}_{month}"},  # é necessário?
         )
 
-    def initial_parse(self, response):
+    def make_year_request(self, response):
         year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
         year_formkey = year_select.attrib["name"]
         years_available = map(int, year_select.xpath("./option/@value").getall())
