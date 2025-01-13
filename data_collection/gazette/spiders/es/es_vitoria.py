@@ -5,8 +5,6 @@ from scrapy import FormRequest, Request
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-BASE_URL = "https://diariooficial.vitoria.es.gov.br/"
-
 
 class EsVitoriaSpider(BaseGazetteSpider):
     name = "es_vitoria"
@@ -57,14 +55,12 @@ class EsVitoriaSpider(BaseGazetteSpider):
         self.data_by_monthly_date_by_date = {}
 
     def start_requests(self):
-        url = BASE_URL
-
         today = date.today()
         year = today.year
         month = today.month
 
         yield Request(
-            url=url,
+            "https://diariooficial.vitoria.es.gov.br/",
             callback=self.initial_parse,
             meta={"cookiejar": f"{self.name}_{year}_{month}"},
         )
@@ -157,10 +153,8 @@ class EsVitoriaSpider(BaseGazetteSpider):
 
         year, month = current_year_month
 
-        for row in response.xpath(
-            "//ancestor::a[span[contains(@id, '_grdArquivos_')]]"
-        ):
-            raw_string = row.xpath("./span/text()").get()
+        for row in response.xpath("//tbody//td/a[1]"):
+            raw_string = row.css("span::text")[0].get()
             date_string_from_text = raw_string.split()[-1]
             gazette_date = self._parse_date(date_string_from_text)
 
