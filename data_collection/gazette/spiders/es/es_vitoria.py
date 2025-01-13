@@ -16,7 +16,6 @@ class EsVitoriaSpider(BaseGazetteSpider):
     custom_settings = {
         "DOWNLOAD_DELAY": 0.3,
         "RANDOMIZE_DOWNLOAD_DELAY": True,
-        "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408, 429, 406],
     }
 
     FORM_PARAM_YEAR = "ctl00$conteudo$ucPesquisarDiarioOficial$ddlAno"
@@ -51,12 +50,9 @@ class EsVitoriaSpider(BaseGazetteSpider):
 
         for monthly_date in self._dates_of_interest(MONTHLY):
             if dt(year, 1, 1) <= monthly_date <= dt(year, 12, 31):
-
                 formdata = {
-                    self.FORM_PARAM_YEAR: str(monthly_date.year),
                     self.FORM_PARAM_MONTH: str(monthly_date.month),
                     "__EVENTTARGET": self.FORM_PARAM_MONTH,
-                    "__EVENTARGUMENT": "",
                 }
 
                 yield FormRequest.from_response(
@@ -85,11 +81,8 @@ class EsVitoriaSpider(BaseGazetteSpider):
         if "pagination" in response.text:
             if response.css(".pagination li")[-1].css("a::text").get():
                 next_page = current_page + 1
-                year, month = response.meta.get("cookiejar")
 
                 formdata = {
-                    self.FORM_PARAM_YEAR: str(year),
-                    self.FORM_PARAM_MONTH: str(month),
                     "__EVENTTARGET": self.FORM_PARAM_PAGINATION,
                     "__EVENTARGUMENT": f"Page${next_page}",
                 }
@@ -104,6 +97,10 @@ class EsVitoriaSpider(BaseGazetteSpider):
 
     def _dates_of_interest(self, recurrence):
         dates = rruleset()
-        dates.rrule(rrule(recurrence, dtstart=self.start_date, until=self.end_date, bymonthday=[1]))
+        dates.rrule(
+            rrule(
+                recurrence, dtstart=self.start_date, until=self.end_date, bymonthday=[1]
+            )
+        )
         dates.rdate(dt(self.start_date.year, self.start_date.month, 1))
         return dates
