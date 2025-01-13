@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+from dateutil.rrule import MONTHLY, rrule, rruleset
 from scrapy import FormRequest, Request
 
 from gazette.items import Gazette
@@ -43,83 +44,47 @@ class EsVitoriaSpider(BaseGazetteSpider):
     def make_year_request(self, response):
         year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
         year_formkey = year_select.attrib["name"]
-        years_available = map(int, year_select.xpath("./option/@value").getall())
-        chosen_year = int(
-            year_select.xpath("./option[contains(@selected, 'selected')]/@value").get()
+
+        monthly_dates = rruleset()
+        monthly_dates.rrule(
+            rrule(MONTHLY, dtstart=self.start_date, until=self.end_date, bymonthday=[1])
         )
+        monthly_dates.rdate(date(self.start_date.year, self.start_date.month, 1))
 
-        for year in years_available:
-            if year < self.start_date.year or self.end_date.year < year:
-                continue
-
-            if year == chosen_year:
-                yield from self.parse_year(response, year)
-                continue
-
+        for monthly_date in monthly_dates:
             yield FormRequest.from_response(
                 response,
-                formdata={year_formkey: str(year)},
-                callback=self.parse_year,
-                cb_kwargs={"year": year},
-                # We are isolating cookiejar per name-year-month combination
+                formdata={year_formkey: str(monthly_date.year)},
+                callback=self.make_month_request,
+                # We are isolating cookiejar like (year, month) combination
                 # to avoid interference between concurrent requests
-                # Whenever we request a past year, it sets the month to December
-                meta={"cookiejar": f"{self.name}_{year}_12"},
+                meta={"cookiejar": (monthly_date.year, monthly_date.month)},
             )
 
-    def parse_year(self, response, year):
+    def make_month_request(self, response):
         year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
         year_formkey = year_select.attrib["name"]
 
         month_select = response.xpath("//select[contains(@id, 'ddlMes')]")
         month_formkey = month_select.attrib["name"]
 
-        chosen_month = int(
-            month_select.xpath("./option[contains(@selected, 'selected')]/@value").get()
+        year, month = response.meta.get("cookiejar")
+
+        formdata = {
+            "__EVENTTARGET": month_formkey,
+            "__EVENTARGUMENT": "",
+            year_formkey: str(year),
+            month_formkey: str(month),
+        }
+
+        yield FormRequest.from_response(
+            response,
+            formdata=formdata,
+            callback=self.parse_editions_list,
+            meta={"cookiejar": response.meta.get("cookiejar")},
         )
 
-        first_day_of_start_date_month = date(
-            self.start_date.year, self.start_date.month, 1
-        )
-
-        for month in range(1, 13):
-            first_day_of_month = date(year, month, 1)
-            if (
-                first_day_of_month < first_day_of_start_date_month
-                or self.end_date < first_day_of_month
-            ):
-                continue
-
-            current_year_month = (year, month)
-
-            if month == chosen_month:
-                yield from self.parse_editions_list(response, current_year_month)
-                continue
-
-            formdata = {
-                "__EVENTTARGET": month_formkey,
-                "__EVENTARGUMENT": "",
-                year_formkey: str(year),
-                month_formkey: str(month),
-            }
-            yield FormRequest.from_response(
-                response,
-                formdata=formdata,
-                callback=self.parse_editions_list,
-                cb_kwargs={
-                    "current_year_month": current_year_month,
-                },
-                # We are isolating cookiejar per name-year-month combination
-                # to avoid interference between concurrent requests
-                meta={"cookiejar": f"{self.name}_{year}_{month}"},
-            )
-
-    def parse_editions_list(
-        self,
-        response,
-        current_year_month,  # (year, month)
-        current_page=1,
-    ):
+    def parse_editions_list(self, response, current_page=1):
         year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
         year_formkey = year_select.attrib["name"]
 
