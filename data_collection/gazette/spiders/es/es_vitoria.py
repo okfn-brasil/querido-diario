@@ -26,7 +26,8 @@ class EsVitoriaSpider(BaseGazetteSpider):
         "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408, 429, 406],
     }
 
-    data_by_monthly_date_by_date = None
+    FORM_PARAM_YEAR = None
+    FORM_PARAM_MONTH = None
 
     def start_requests(self):
         self.data_by_monthly_date_by_date = {}
@@ -41,9 +42,8 @@ class EsVitoriaSpider(BaseGazetteSpider):
             meta={"cookiejar": f"{self.name}_{year}_{month}"},  # é necessário?
         )
 
-    def make_year_request(self, response):
-        year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
-        year_formkey = year_select.attrib["name"]
+    def make_year_request(self, response):   
+        self.set_form_params(response)     
 
         monthly_dates = rruleset()
         monthly_dates.rrule(
@@ -52,29 +52,36 @@ class EsVitoriaSpider(BaseGazetteSpider):
         monthly_dates.rdate(date(self.start_date.year, self.start_date.month, 1))
 
         for monthly_date in monthly_dates:
+            
+            formdata={
+                self.FORM_PARAM_YEAR: str(monthly_date.year)
+            }
+
             yield FormRequest.from_response(
                 response,
-                formdata={year_formkey: str(monthly_date.year)},
+                formdata=formdata,
                 callback=self.make_month_request,
                 # We are isolating cookiejar like (year, month) combination
                 # to avoid interference between concurrent requests
                 meta={"cookiejar": (monthly_date.year, monthly_date.month)},
             )
 
-    def make_month_request(self, response):
+    def set_form_params(self, response):
         year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
-        year_formkey = year_select.attrib["name"]
+        self.FORM_PARAM_YEAR = year_select.attrib["name"]
 
         month_select = response.xpath("//select[contains(@id, 'ddlMes')]")
-        month_formkey = month_select.attrib["name"]
+        self.FORM_PARAM_MONTH = month_select.attrib["name"]
 
+
+    def make_month_request(self, response):       
         year, month = response.meta.get("cookiejar")
 
         formdata = {
-            "__EVENTTARGET": month_formkey,
+            "__EVENTTARGET": self.FORM_PARAM_MONTH,
             "__EVENTARGUMENT": "",
-            year_formkey: str(year),
-            month_formkey: str(month),
+            self.FORM_PARAM_YEAR: str(year),
+            self.FORM_PARAM_MONTH: str(month),
         }
 
         yield FormRequest.from_response(
@@ -85,14 +92,6 @@ class EsVitoriaSpider(BaseGazetteSpider):
         )
 
     def parse_editions_list(self, response, current_page=1):
-        year_select = response.xpath("//select[contains(@id, 'ddlAno')]")
-        year_formkey = year_select.attrib["name"]
-
-        month_select = response.xpath("//select[contains(@id, 'ddlMes')]")
-        month_formkey = month_select.attrib["name"]
-
-        year, month = current_year_month
-
         for row in response.xpath("//tbody//td/a[1]"):
             raw_string = row.css("span::text")[0].get()
             date_string_from_text = raw_string.split()[-1]
@@ -133,10 +132,10 @@ class EsVitoriaSpider(BaseGazetteSpider):
 
         if current_page < number_of_pages:
             formdata = {
-                "__EVENTARGUMENT": f"Page${current_page + 1}",
+                "__EVENTARGUMENT": f"Page${next_page}",
                 "__EVENTTARGET": "ctl00$conteudo$ucPesquisarDiarioOficial$grdArquivos",
-                year_formkey: str(year),
-                month_formkey: str(month),
+                self.FORM_PARAM_YEAR: str(year),
+                self.FORM_PARAM_MONTH: str(month),
             }
 
             yield FormRequest.from_response(
