@@ -11,7 +11,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
     """
     Base spider for cities using the https://administracaopublica.com.br/diario-oficial?token= plataform.
-    Gazzetes are also avaiable in http://www.transparenciadministrativa.com.br/diario/diariov2.xhtml?token=.
+    Gazettes are also available in http://www.transparenciadministrativa.com.br/diario/diariov2.xhtml?token=.
     """
 
     allowed_domains = ["administracaopublica.com.br"]
@@ -23,19 +23,19 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
         dates.append(self.end_date)
 
         for i in range(len(dates) - 1):
-            de = dates[i].strftime("%Y-%m-%d")
-            ate = dates[i + 1].strftime("%Y-%m-%d")
+            start = dates[i].strftime("%Y-%m-%d")
+            end = dates[i + 1].strftime("%Y-%m-%d")
             yield Request(
-                f"https://administracaopublica.com.br/diario-oficial?token={self.token}&de={de}&ate={ate}"
+                f"https://administracaopublica.com.br/diario-oficial?token={self.token}&de={start}&ate={end}"
             )
 
     def parse(self, response):
         gazettes = response.css('[class*="diario_item_diario__"]')
-        for gazzete in gazettes:
-            href = gazzete.css('[class*="generics_button_baixar__"]::attr(href)').get()
+        for gazette in gazettes:
+            href = gazette.css('[class*="generics_button_baixar__"]::attr(href)').get()
             if href is None:
                 continue
-            pattern = gazzete.css("::text").extract()
+            pattern = gazette.css("::text").extract()
             match pattern:
                 case [edition, power, date, _]:
                     pass
