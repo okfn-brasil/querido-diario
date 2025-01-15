@@ -20,7 +20,9 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
         dates = list(
             rrule(freq=DAILY, interval=20, dtstart=self.start_date, until=self.end_date)
         )
-        dates.append(self.end_date)
+        dt_end_date = dt(self.end_date.year, self.end_date.month, self.end_date.day)
+        if dt_end_date not in dates:
+            dates.append(dt_end_date)
 
         for i in range(len(dates) - 1):
             start = dates[i].strftime("%Y-%m-%d")
