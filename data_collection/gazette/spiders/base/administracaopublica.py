@@ -39,15 +39,16 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
                     '[class*="generics_button_baixar__"]::attr(href)'
                 ).get()
                 pattern = gazette.css("::text").getall()
-            match pattern:
-                case [edition, power, date, _]:
-                    pass
-                case [edition, date, _]:
-                    power = ""
-            power_dict = {
-                "EXECUTIVO": "executive",
-                "LEGISLATIVO": "legislative",
-            }
+
+                match pattern:
+                    case [edition, empty, power, date, download]:
+                        pass
+                    case [edition, empty, date, download]:
+                        power = ""
+                power_dict = {
+                    "EXECUTIVO": "executive",
+                    "LEGISLATIVO": "legislative",
+                }
             yield Gazette(
                 edition_number=re.findall(r"\s*(\d+\/\d+)\s*", edition),
                 date=datetime.strptime(date, "%d/%m/%Y").date(),
