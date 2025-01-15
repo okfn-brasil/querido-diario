@@ -18,7 +18,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
 
     def start_requests(self):
         dates = list(
-            rrule(freq=DAILY, interval=20, dtstart=self.start_date, until=self.end_date)
+            rrule(freq=DAILY, interval=10, dtstart=self.start_date, until=self.end_date)
         )
         dt_end_date = dt(self.end_date.year, self.end_date.month, self.end_date.day)
         if dt_end_date not in dates:
