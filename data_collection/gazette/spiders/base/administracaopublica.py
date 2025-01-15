@@ -1,10 +1,8 @@
 import re
-from datetime import datetime
-from typing import Any
+from datetime import datetime as dt
 
 from dateutil.rrule import DAILY, rrule
 from scrapy import Request
-from scrapy.http import Response
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -16,7 +14,6 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
     Gazzetes are also avaiable in http://www.transparenciadministrativa.com.br/diario/diariov2.xhtml?token=.
     """
 
-    token: str
     allowed_domains = ["administracaopublica.com.br"]
 
     def start_requests(self):
@@ -32,7 +29,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
                 f"https://administracaopublica.com.br/diario-oficial?token={self.token}&de={de}&ate={ate}"
             )
 
-    def parse(self, response: Response, **kwargs: Any) -> Any:
+    def parse(self, response):
         gazettes = response.css('[class*="diario_item_diario__"]')
         for gazzete in gazettes:
             href = gazzete.css('[class*="generics_button_baixar__"]::attr(href)').get()
