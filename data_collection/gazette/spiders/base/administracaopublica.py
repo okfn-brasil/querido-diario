@@ -34,10 +34,11 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
     def parse(self, response):
         gazettes = response.css('[class*="diario_item_diario__"]')
         for gazette in gazettes:
-            href = gazette.css('[class*="generics_button_baixar__"]::attr(href)').get()
-            if href is None:
-                continue
-            pattern = gazette.css("::text").extract()
+            if not "Nenhum resultado encontrado" in response.text:
+                href = gazette.css(
+                    '[class*="generics_button_baixar__"]::attr(href)'
+                ).get()
+                pattern = gazette.css("::text").getall()
             match pattern:
                 case [edition, power, date, _]:
                     pass
