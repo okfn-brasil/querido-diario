@@ -28,7 +28,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
             start = dates[i].strftime("%Y-%m-%d")
             end = dates[i + 1].strftime("%Y-%m-%d")
             yield Request(
-                f"https://administracaopublica.com.br/diario-oficial?token={self.token}&de={start}&ate={end}"
+                f"https://www.administracaopublica.com.br/diario-oficial?token={self.token}&de={start}&ate={end}"
             )
 
     def parse(self, response):
@@ -51,7 +51,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
             yield Gazette(
                 edition_number=re.findall(r"\s*(\d+\/\d+)\s*", edition),
                 date=datetime.strptime(date, "%d/%m/%Y").date(),
-                file_urls=[f"https://administracaopublica.com.br{href}"],
+                file_urls=[f"https://www.administracaopublica.com.br{href}"],
                 is_extra_edition=power == "EXTRA",
                 power=power_dict.get(power, "executive_legislative"),
             )
