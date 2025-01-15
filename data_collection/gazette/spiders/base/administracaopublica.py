@@ -49,10 +49,10 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
                     "EXECUTIVO": "executive",
                     "LEGISLATIVO": "legislative",
                 }
-            yield Gazette(
-                edition_number=re.findall(r"\s*(\d+\/\d+)\s*", edition),
-                date=datetime.strptime(date, "%d/%m/%Y").date(),
-                file_urls=[f"https://www.administracaopublica.com.br{href}"],
-                is_extra_edition=power == "EXTRA",
-                power=power_dict.get(power, "executive_legislative"),
-            )
+                yield Gazette(
+                    edition_number=re.search(r"(\d+)/", edition).group(1),
+                    date=dt.strptime(date, "%d/%m/%Y").date(),
+                    file_urls=[f"https://www.administracaopublica.com.br{href}"],
+                    is_extra_edition=power == "EXTRA",
+                    power=power_dict.get(power, "executive_legislative"),
+                )
