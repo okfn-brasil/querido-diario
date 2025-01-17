@@ -26,9 +26,19 @@ class SeAracajuSpider(BaseGazetteSpider):
 
     def make_mandatory_post_request(self, response):
         mesano_param = response.css("[value=mesano]::attr(name)").get()
+
+        formdata = {
+            # "AJAXREQUEST": "j_id_jsp_1760165330_0",
+            # "formPesquisarDiario": "formPesquisarDiario",
+            mesano_param: "mesano",
+            # "formPesquisarDiario:pesquisa": "",
+            # "javax.faces.ViewState": "j_id1",
+            # "formPesquisarDiario:j_id_jsp_1760165330_9": "formPesquisarDiario:j_id_jsp_1760165330_9"
+        }
+
         yield scrapy.FormRequest.from_response(
             response,
-            formdata={mesano_param: "mesano"},
+            formdata=formdata,
             callback=self.start_session_ids,
             dont_filter=True,
             meta={"cookiejar": response.meta.get("cookiejar")},
@@ -50,14 +60,56 @@ class SeAracajuSpider(BaseGazetteSpider):
                     )
                 )
         else:
-            yield self.make_year_month_request(response)
+            yield self.make_year_request(response)
+
+    def make_year_request(self, response):
+        self.save_file(response.text, "requisicao_1")
+
+        year, month = cookiejar = response.meta.get("cookiejar")
+
+        container_id = response.css("select::attr(onchange)").re_first(
+            r"containerId\':\'(.+)\'"
+        )
+        mesano_param = response.css("[value=mesano]::attr(name)").get()
+
+        mes_select = response.xpath(
+            "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select"
+        )
+        mes_param = mes_select.xpath("./@name").get()
+        mes_value = mes_select.xpath("./option[1]/@value").get()
+
+        ano_param = response.xpath(
+            "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@name"
+        ).get()
+
+        years_param = "formPesquisarDiario:j_id_jsp_1760165330_28"
+
+        return scrapy.FormRequest.from_response(
+            response,
+            formdata={
+                "AJAXREQUEST": container_id,
+                # "formPesquisarDiario": "formPesquisarDiario",
+                # mesano_param: "mesano",
+                mes_param: mes_value,
+                # mes_param: str(month),
+                ano_param: str(year),
+                # javax.faces.ViewState: j_id1
+                years_param: years_param,
+            },
+            dont_filter=True,
+            meta={"cookiejar": cookiejar},
+            callback=self.make_year_month_request,
+        )
 
     def make_year_month_request(self, response, formdata=None):
+        self.save_file(response.text, "requisicao_2")
+
         year, month = cookiejar = response.meta.get("cookiejar")
         if not formdata:
             container_id = response.css("select::attr(onchange)").re_first(
                 r"containerId\':\'(.+)\'"
             )
+            mesano_param = response.css("[value=mesano]::attr(name)").get()
             mes_param = response.xpath(
                 "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select/@name"
             ).get()
@@ -66,15 +118,21 @@ class SeAracajuSpider(BaseGazetteSpider):
             ).get()
             search_button_param = response.css(".botaoCadastrarPesq::attr(id)").get()
 
+            formdata = {
+                "AJAXREQUEST": container_id,
+                # "formPesquisarDiario": "formPesquisarDiario",
+                # mesano_param: "mesano",
+                mes_param: str(month),
+                ano_param: str(year),
+                # "javax.faces.ViewState": "j_id2",
+                search_button_param: search_button_param,
+            }
+
             # request the first page for the pair (year, month)
             return scrapy.FormRequest.from_response(
                 response,
-                formdata={
-                    "AJAXREQUEST": container_id,
-                    ano_param: str(year),
-                    mes_param: str(month),
-                    search_button_param: search_button_param,
-                },
+                formdata=formdata,
+                dont_filter=True,
                 meta={"cookiejar": cookiejar},
                 callback=self.parse_page_result,
             )
@@ -88,6 +146,8 @@ class SeAracajuSpider(BaseGazetteSpider):
             )
 
     def parse_page_result(self, response):
+        self.save_file(response.text, f"requisicao_3")
+
         page = Selector(response.text)
         page.remove_namespaces()
 
@@ -121,3 +181,8 @@ class SeAracajuSpider(BaseGazetteSpider):
                 "AJAX:EVENTS_COUNT": "1",
             }
             yield self.make_year_month_request(response, formdata)
+
+    def save_file(self, dados, nome_arquivo):
+        with open(f"{nome_arquivo}.html", "w") as f:
+            f.write(dados)
+            f.close()
