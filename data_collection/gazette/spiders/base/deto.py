@@ -42,7 +42,6 @@ class BaseDetoSpider(BaseGazetteSpider):
 
     page_size = 10
     custom_settings = {"DOWNLOAD_DELAY": 1.0}
-    pages_consumed = 0
     total_pages_count = None
     script_case_session = None
 
@@ -59,7 +58,7 @@ class BaseDetoSpider(BaseGazetteSpider):
             callback=self.parse_table,
         )
 
-    def parse_table(self, response, has_json_response=False):
+    def parse_table(self, response, has_json_response=False, pages_consumed=0):
         """
         Interpreta uma tabela (página) de diários oficiais, contendo <tam. de página> linhas com links para abertura
         de um modal.
@@ -99,16 +98,16 @@ class BaseDetoSpider(BaseGazetteSpider):
 
         yield from self.consume_table_items(response)
 
-        yield from self.maybe_request_next_page()
+        pages_consumed = pages_consumed + 1
+
+        yield from self.maybe_request_next_page(pages_consumed)
 
     def consume_table_items(self, response):
         """
         Chamado pelo parse_table para identificar todos os links da tabela e gerar uma requisição para cada.
         A requisição na UI abre um modal com links para os documentos.
         """
-        self.pages_consumed = self.pages_consumed + 1
-
-        # Cada linha tem um link cujo href contem parâmetros para abrir o modal
+        # Cada linha tem um link cujo href contem parâmetros para a requisição do conteúdo do modal
         lines = response.xpath('//tr[starts-with(@id, "SC_ancor")]').getall()
 
         for line in lines:
@@ -155,7 +154,7 @@ class BaseDetoSpider(BaseGazetteSpider):
                 cb_kwargs=item_params,
             )
 
-    def maybe_request_next_page(self):
+    def maybe_request_next_page(self, pages_consumed):
         """
         Chamado pelo parse_table para identificar se existem mais páginas a serem consumidas, gerando uma requisição
         para obter a próxima tabela caso exista.
@@ -164,14 +163,14 @@ class BaseDetoSpider(BaseGazetteSpider):
         """
         has_next_page = False
 
-        if self.pages_consumed <= self.total_pages_count:
+        if pages_consumed <= self.total_pages_count:
             has_next_page = True
 
-        if self.pages_consumed >= 5:
+        if pages_consumed >= 3:
             has_next_page = False
 
         if has_next_page:
-            next_page_start = self.pages_consumed * self.page_size + 1
+            next_page_start = pages_consumed * self.page_size + 1
 
             data = {
                 "nmgp_opcao": "ajax_navigate",
@@ -184,7 +183,7 @@ class BaseDetoSpider(BaseGazetteSpider):
                 url=f"{self.BASE_URL}/diarioeletronico_grid_cliente/",
                 formdata=data,
                 callback=self.parse_table,
-                cb_kwargs={"has_json_response": True},
+                cb_kwargs={"has_json_response": True, "pages_consumed": pages_consumed},
             )
 
     def parse_modal_items(self, response, doc_date, doc_edition):
@@ -203,6 +202,8 @@ class BaseDetoSpider(BaseGazetteSpider):
             )
             self.logger.error("Abortando.")
             return
+
+        self.logger.info(f"Interpretando modal da edição {doc_edition}.")
 
         # Extrai o href do link dentro do <div id="id_sc_loaded_anexo">
         script_case_init = response.xpath(
@@ -236,3 +237,9 @@ class BaseDetoSpider(BaseGazetteSpider):
             file_urls=[gazette_url],
             power="executive",
         )
+
+    def extract_total_items_count(self, response):
+        raise NotImplementedError("Implementar na subclasse!")
+
+    def extract_modal_params(self, line):
+        raise NotImplementedError("Implementar na subclasse!")
