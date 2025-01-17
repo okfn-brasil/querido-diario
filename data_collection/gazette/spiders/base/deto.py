@@ -24,14 +24,13 @@ class BaseDetoSpider(BaseGazetteSpider):
       - Os POSTs tem parâmetros no body. Os GETs tem parâmetros no hash
       - Umas retornam HTML, e outros, um JSON com diversos itens, que assumo servirem para gerenciar o estado do JS.
         - No JSON, HTML é retornado no array 'setValue'. Este tem itens com 'field' e 'value'. O item com
-        'field' == 'sc_grid_body' tem a string HTML que será substituída no DOM como 'value'.
+        'field' == 'sc_grid_body' tem a string HTML, que será substituída no DOM.
       - O tipo do retorno de cada endpoint muda de acordo com parâmetros e eu não investiguei todas as possibilidades.
         - As relevantes são listadas abaixo
       - 'opc' e 'parm' são os dois parâmetros principais. Seus valores definem o que será retornado pelo backend:
         - opc=muda_qt_linhas, parm=11
           - retorna HTML
           - atualiza o tamanho da página para 11 itens e retorna a página atual com esta quantidade
-          - pode configurar uma quantidade acima do máximo descrito na UI
         - opc=muda_rec_linhas, parm=11
           - carrega uma página de itens a partir do 11º item,
           - retorna JSON se o Content-Type for application/x-www-form-urlencoded
@@ -66,34 +65,25 @@ class BaseDetoSpider(BaseGazetteSpider):
         se existir.
         'has_json_response' indica o retorno esperado da requisição (html ou json), sendo que ela muda conforme
         o endpoint usado. O content-type retornado pelo backend não pode ser confiado.
+        'pages_consumed' conta a quantidade de páginas consumidas, lidas por este método.
         """
 
-        # O rodapé pego aqui só está disponível na primeira requisição de tabela, que retorna html.
-        # As requisições para as próximas paginas retornam json, com html dentro, e este não tem o rodapé.
+        # O rodapé é lido aqui somente uma vez para pegar a quantidade total de itens.
         # Calculamos a quantidade total de itens e páginas para poder gerenciar o consumo das páginas nós mesmos
         if self.total_pages_count is None:
             self.total_pages_count = self.extract_total_items_count(response)
 
-        # Este valor é usado em requisições seguintes. Pegamos ele aqui na primeira requisição
-        # if self.script_case_session is None:
-        #     self.script_case_session = response.xpath(
-        #         '//form[@name="form_ajax_redir_1"]//input[@name="script_case_session"]/@value'
-        #     ).get()
-
-        # Em algumas chamadas (todas além da primeira), o response é um JSON
-        # Então, normalizo o objeto response para que se comporte como se este fosse um response derivado de html,
-        # ou seja, response.xpath, etc, estão disponíveis
+        # Em todas as chamadas além da primeira, o response é um JSON e portanto o `response` não pode ser usado
+        # da forma esperada. Então, normalizo-o para que se comporte da forma esperada,
+        # como se este fosse derivado de html, ou seja, `response.xpath`, etc, estão disponíveis
         if has_json_response:
             # Encontra o html que está perdido dentro do JSON.
-            # Está dentro do array setValue. O item com field == sc_grid_body tem como value o html
-            html_text = next(
-                (
-                    item["value"]
-                    for item in response.json()["setValue"]
-                    if item["field"] == "sc_grid_body"
-                ),
-                None,
-            )
+            # Está dentro do array setValue. O item com field == sc_grid_body tem o html
+            html_text = None
+            for item in response.json()["setValue"]:
+                if item["field"] == "sc_grid_body":
+                    html_text = item["value"]
+
             response = Selector(text=html_text)
 
         yield from self.consume_table_items(response)
@@ -141,7 +131,6 @@ class BaseDetoSpider(BaseGazetteSpider):
 
             modal_url = (
                 f"{self.BASE_URL}/diarioeletronico_form_cliente/?"
-                # f"script_case_session={self.script_case_session}&"
                 f"nmgp_outra_jan=true&"
                 f"nmgp_url_saida=modal&"
                 f"SC_lig_apl_orig=diarioeletronico_grid_cliente&"
