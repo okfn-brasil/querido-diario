@@ -25,20 +25,10 @@ class SeAracajuSpider(BaseGazetteSpider):
         )
 
     def make_mandatory_post_request(self, response):
-        mesano_param = response.css("[value=mesano]::attr(name)").get()
-
-        formdata = {
-            # "AJAXREQUEST": "j_id_jsp_1760165330_0",
-            # "formPesquisarDiario": "formPesquisarDiario",
-            mesano_param: "mesano",
-            # "formPesquisarDiario:pesquisa": "",
-            # "javax.faces.ViewState": "j_id1",
-            # "formPesquisarDiario:j_id_jsp_1760165330_9": "formPesquisarDiario:j_id_jsp_1760165330_9"
-        }
-
+        search_option_field = response.css("[value=mesano]::attr(name)").get()
         yield scrapy.FormRequest.from_response(
             response,
-            formdata=formdata,
+            formdata={search_option_field: "mesano"},
             callback=self.start_session_ids,
             dont_filter=True,
             meta={"cookiejar": response.meta.get("cookiejar")},
@@ -63,8 +53,6 @@ class SeAracajuSpider(BaseGazetteSpider):
             yield self.make_year_request(response)
 
     def make_year_request(self, response):
-        self.save_file(response.text, "requisicao_1")
-
         year, month = cookiejar = response.meta.get("cookiejar")
 
         container_id = response.css("select::attr(onchange)").re_first(
@@ -82,72 +70,42 @@ class SeAracajuSpider(BaseGazetteSpider):
             "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@name"
         ).get()
 
-        years_param = "formPesquisarDiario:j_id_jsp_1760165330_28"
+        ano_search_param = response.xpath(
+            "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@onchange"
+        ).re_first(r"formPesquisarDiario:j_id_jsp_[\d_]+")
+
+        formdata = {
+            "AJAXREQUEST": container_id,
+            "formPesquisarDiario": "formPesquisarDiario",
+            mesano_param: "mesano",
+            mes_param: mes_value,
+            # mes_param: str(month),
+            ano_param: str(year),
+            ano_search_param: ano_search_param,
+        }
 
         return scrapy.FormRequest.from_response(
             response,
-            formdata={
-                "AJAXREQUEST": container_id,
-                # "formPesquisarDiario": "formPesquisarDiario",
-                # mesano_param: "mesano",
-                mes_param: mes_value,
-                # mes_param: str(month),
-                ano_param: str(year),
-                # javax.faces.ViewState: j_id1
-                years_param: years_param,
-            },
+            formdata=formdata,
             dont_filter=True,
             meta={"cookiejar": cookiejar},
             callback=self.make_year_month_request,
+            cb_kwargs={"month_field": month_field, "year_search_field": year_search_field},
         )
 
-    def make_year_month_request(self, response, formdata=None):
-        self.save_file(response.text, "requisicao_2")
-
+    def make_year_month_request(
+        self, response, formdata=None, month_field=None, year_search_field=None
+    ):
         year, month = cookiejar = response.meta.get("cookiejar")
         if not formdata:
-            container_id = response.css("select::attr(onchange)").re_first(
-                r"containerId\':\'(.+)\'"
-            )
-            mesano_param = response.css("[value=mesano]::attr(name)").get()
-            mes_param = response.xpath(
-                "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select/@name"
-            ).get()
-            ano_param = response.xpath(
-                "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@name"
-            ).get()
-            search_button_param = response.css(".botaoCadastrarPesq::attr(id)").get()
+            search_button_field = response.css(".botaoCadastrarPesq::attr(id)").get()
 
-            formdata = {
-                "AJAXREQUEST": container_id,
-                # "formPesquisarDiario": "formPesquisarDiario",
-                # mesano_param: "mesano",
-                mes_param: str(month),
-                ano_param: str(year),
-                # "javax.faces.ViewState": "j_id2",
-                search_button_param: search_button_param,
-            }
-
-            # request the first page for the pair (year, month)
-            return scrapy.FormRequest.from_response(
-                response,
-                formdata=formdata,
-                dont_filter=True,
-                meta={"cookiejar": cookiejar},
-                callback=self.parse_page_result,
-            )
-        else:
-            # request the next page from the pagination widget
-            return scrapy.FormRequest(
-                response.url,
-                formdata=formdata,
-                meta={"cookiejar": cookiejar},
-                callback=self.parse_page_result,
-            )
+            formdata = dict(parse_qsl(response.request.body.decode()))
+            del formdata[year_search_field]
+            formdata[search_button_field] = search_button_field
+            formdata[month_field] = str(response.meta.get("cookiejar")[1])
 
     def parse_page_result(self, response):
-        self.save_file(response.text, f"requisicao_3")
-
         page = Selector(response.text)
         page.remove_namespaces()
 
@@ -171,18 +129,14 @@ class SeAracajuSpider(BaseGazetteSpider):
                     power="executive_legislative",
                 )
 
-        next_page_param = page.css(".rich-datascr::attr(id)").get()
+        next_page_field = page.css(".rich-datascr::attr(id)").get()
         next_page = page.css(".rich-datascr-act + .rich-datascr-inact::text").get()
-        if next_page_param and next_page:
+        if next_page_field and next_page:
             last_formdata = dict(parse_qsl(response.request.body.decode()))
             formdata = {
                 **last_formdata,
-                next_page_param: next_page,
+                next_page_field: next_page,
+                "ajaxSingle": next_page_field,
                 "AJAX:EVENTS_COUNT": "1",
             }
             yield self.make_year_month_request(response, formdata)
-
-    def save_file(self, dados, nome_arquivo):
-        with open(f"{nome_arquivo}.html", "w") as f:
-            f.write(dados)
-            f.close()
