@@ -1,3 +1,4 @@
+import ast
 import datetime
 from urllib.parse import parse_qsl
 
@@ -53,57 +54,59 @@ class SeAracajuSpider(BaseGazetteSpider):
             yield self.make_year_request(response)
 
     def make_year_request(self, response):
-        year, month = cookiejar = response.meta.get("cookiejar")
+        month_select = response.css("select")[0]
+        month_field = month_select.attrib["name"]
+        month_value = month_select.css("option").attrib["value"]
 
-        container_id = response.css("select::attr(onchange)").re_first(
-            r"containerId\':\'(.+)\'"
-        )
-        mesano_param = response.css("[value=mesano]::attr(name)").get()
+        year_select = response.css("select")[1]
+        year_field = year_select.attrib["name"]
+        year_params_string = year_select.css("::attr(onchange)").re_first(r"{.+}")
+        year_params = ast.literal_eval(year_params_string)
+        year_search_field = year_params["similarityGroupingId"]
 
-        mes_select = response.xpath(
-            "//td[contains(./span//text(), 'Mês')]/following-sibling::td//select"
-        )
-        mes_param = mes_select.xpath("./@name").get()
-        mes_value = mes_select.xpath("./option[1]/@value").get()
-
-        ano_param = response.xpath(
-            "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@name"
-        ).get()
-
-        ano_search_param = response.xpath(
-            "//td[contains(./span//text(), 'Ano')]/following-sibling::td//select/@onchange"
-        ).re_first(r"formPesquisarDiario:j_id_jsp_[\d_]+")
+        ajaxrequest_value = year_params["containerId"]
+        general_field = year_field.split(":")[0]
+        search_option_field = response.css("[value=mesano]::attr(name)").get()
 
         formdata = {
-            "AJAXREQUEST": container_id,
-            "formPesquisarDiario": "formPesquisarDiario",
-            mesano_param: "mesano",
-            mes_param: mes_value,
-            # mes_param: str(month),
-            ano_param: str(year),
-            ano_search_param: ano_search_param,
+            "AJAXREQUEST": ajaxrequest_value,
+            general_field: general_field,
+            search_option_field: "mesano",
+            month_field: month_value,
+            year_field: str(response.meta.get("cookiejar")[0]),
+            year_search_field: year_search_field,
         }
 
         return scrapy.FormRequest.from_response(
             response,
             formdata=formdata,
             dont_filter=True,
-            meta={"cookiejar": cookiejar},
+            meta={"cookiejar": response.meta.get("cookiejar")},
             callback=self.make_year_month_request,
-            cb_kwargs={"month_field": month_field, "year_search_field": year_search_field},
+            cb_kwargs={
+                "month_field": month_field,
+                "year_search_field": year_search_field,
+            },
         )
 
     def make_year_month_request(
         self, response, formdata=None, month_field=None, year_search_field=None
     ):
-        year, month = cookiejar = response.meta.get("cookiejar")
-        if not formdata:
+        if not formdata:  # request the first page for the pair (year, month)
             search_button_field = response.css(".botaoCadastrarPesq::attr(id)").get()
 
             formdata = dict(parse_qsl(response.request.body.decode()))
             del formdata[year_search_field]
             formdata[search_button_field] = search_button_field
             formdata[month_field] = str(response.meta.get("cookiejar")[1])
+
+        return scrapy.FormRequest(
+            response.url,
+            formdata=formdata,
+            dont_filter=True,
+            meta={"cookiejar": response.meta.get("cookiejar")},
+            callback=self.parse_page_result,
+        )
 
     def parse_page_result(self, response):
         page = Selector(response.text)
