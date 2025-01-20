@@ -15,7 +15,7 @@ class SeAracajuSpider(BaseGazetteSpider):
     name = "se_aracaju"
     start_date = datetime.date(1991, 7, 1)
 
-    custom_settings = {"CONCURRENT_REQUESTS": 12}
+    custom_settings = {"CONCURRENT_REQUESTS_PER_DOMAIN": 12}
 
     def start_requests(self, cookiejar=None):
         yield scrapy.Request(
@@ -113,24 +113,28 @@ class SeAracajuSpider(BaseGazetteSpider):
         page.remove_namespaces()
 
         for gazette in page.css(".rich-table-cell"):
-            gazette.remove_namespaces()
-            gazette_number = gazette.xpath(".//table//td/text()").get()
-            if gazette_number is None:
-                continue
-
             raw_date = gazette.css(".rich-panel-header::text").get()
-            gazette_date = datetime.datetime.strptime(raw_date, "%d/%m/%Y").date()
+            if raw_date is not None:
+                gazette_date = datetime.datetime.strptime(raw_date, "%d/%m/%Y").date()
+                gazette_number = gazette.xpath(".//table//td/text()").get()
 
-            file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}.pdf"
+                if self.start_date <= gazette_date <= self.end_date:
+                    # some daily boxes has more than one edition
+                    for raw_info in gazette.css("table tbody .label::text")[1:]:
+                        if "Suplementar" in raw_info.get():
+                            is_extra_edition = True
+                            file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}S.pdf"
+                        else:
+                            is_extra_edition = False
+                            file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}.pdf"
 
-            if self.start_date <= gazette_date <= self.end_date:
-                yield Gazette(
-                    date=gazette_date,
-                    edition_number=gazette_number,
-                    is_extra_edition=False,
-                    file_urls=[file_url],
-                    power="executive_legislative",
-                )
+                        yield Gazette(
+                            date=gazette_date,
+                            edition_number=gazette_number,
+                            is_extra_edition=is_extra_edition,
+                            file_urls=[file_url],
+                            power="executive_legislative",
+                        )
 
         next_page_field = page.css(".rich-datascr::attr(id)").get()
         next_page = page.css(".rich-datascr-act + .rich-datascr-inact::text").get()
