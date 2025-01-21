@@ -37,6 +37,21 @@ class BaseDetoSpider(BaseGazetteSpider):
             - Senão, HTML é retornado mas não obedece a paginação e sempre retorna a primeira página
         - opc=rec, parm=11
           - igual à 'muda_rec_linhas'
+
+    Em resumo, o fluxo aqui acontece assim:
+    1. Um POST é feito para `diarioeletronico_grid_cliente` para obter HTML com uma tabela de links para cada dia
+    2. O resultado é enviado para `parse_table`, que chama dois métodos para consumir a tabela e a próxima página
+    3. `consume_table_items` é chamado com os itens da tabela para consumí-los, e `maybe_request_next_page` é chamado
+    para decidir se uma próxima página deve ser obtida
+    4. `consume_table_items` extrai links de cada linha e faz um GET para `diarioeletronico_form_cliente` para obter
+    a lista de diários daquele dia
+    5. O resultado é enviado para `parse_modal_items`. "modal" porque o link abre um modal na UI
+    6. `parse_modal_items` extrai os links para `diarioeletronico_form_cliente_doc` da lista de diários do dia e
+    cria um Gazette para cada
+    7. `maybe_request_next_page` decide se a próxima página deve ser requisitada baseado na quantidade de
+    páginas/itens consumidos
+    8. Caso positivo, um POST é feito para `diarioeletronico_grid_cliente` e o resultado vai para `parse_table`,
+    reiniciando o ciclo no item 2
     """
 
     page_size = 10
@@ -155,7 +170,7 @@ class BaseDetoSpider(BaseGazetteSpider):
         if pages_consumed <= self.total_pages_count:
             has_next_page = True
 
-        if pages_consumed >= 3:
+        if pages_consumed >= 2:
             has_next_page = False
 
         if has_next_page:
