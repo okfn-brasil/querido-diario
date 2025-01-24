@@ -101,13 +101,9 @@ class BaseDetoSpider(BaseGazetteSpider):
 
             response = Selector(text=html_text)
 
-        yield from self.consume_table_items(response)
+        yield from self.consume_table_items(response, pages_consumed)
 
-        pages_consumed = pages_consumed + 1
-
-        yield from self.maybe_request_next_page(pages_consumed)
-
-    def consume_table_items(self, response):
+    def consume_table_items(self, response, pages_consumed):
         """
         Chamado pelo parse_table para identificar todos os links da tabela e gerar uma requisição para cada.
         A requisição na UI abre um modal com links para os documentos.
@@ -115,6 +111,10 @@ class BaseDetoSpider(BaseGazetteSpider):
         # Cada linha tem um link cujo href contem parâmetros para a requisição do conteúdo do modal
         lines = response.xpath('//tr[starts-with(@id, "SC_ancor")]').getall()
 
+        # Impede raspagem da próxima página se algum item com data menor que `self.start_date` apareça na tabela
+        should_crawl_next_page = True
+
+        # Raspa cada item da tabela e potencialmente impede que a próxima página seja raspada
         for line in lines:
             # O href é uma chamada dum método JS. Precisamos do terceiro parâmetro para passar na próxima requisição.
             # Este parâmetro tem um sufixo hexadecimal
@@ -130,6 +130,17 @@ class BaseDetoSpider(BaseGazetteSpider):
                 .get()
             )
             doc_date = datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
+
+            if doc_date < self.start_date or doc_date > self.end_date:
+                self.logger.info(f"Pulando item com data ({date_str}) além de limites")
+
+                if doc_date < self.start_date:
+                    self.logger.info(
+                        f"Detectado item com data ({date_str}) além de start_date. Pulando próxima página"
+                    )
+                    should_crawl_next_page = False
+
+                continue
 
             # Extrai o número da edição
             doc_edition = (
@@ -158,7 +169,11 @@ class BaseDetoSpider(BaseGazetteSpider):
                 cb_kwargs=item_params,
             )
 
-    def maybe_request_next_page(self, pages_consumed):
+        if should_crawl_next_page:
+            pages_consumed = pages_consumed + 1
+            yield from self.maybe_crawl_next_page(pages_consumed)
+
+    def maybe_crawl_next_page(self, pages_consumed):
         """
         Chamado pelo parse_table para identificar se existem mais páginas a serem consumidas, gerando uma requisição
         para obter a próxima tabela caso exista.
