@@ -214,33 +214,45 @@ class BaseDetoSpider(BaseGazetteSpider):
             '//form[@name="F1"]//input[@name="script_case_init"]/@value'
         ).get()
 
-        doc_href = response.xpath('//div[@id="id_sc_loaded_anexo"]//a/@href').get()
+        # No caso de edições extras podemos ter 1 ou mais links.
+        # Pega a lista de hrefs e texts (innerHtml) deles.
+        # Do href é extraído o nome do arquivo a ser usado na requisição.
+        # Do text é definido se o diário é uma adição extra.
+        link_hrefs = response.xpath('//div[@id="id_sc_loaded_anexo"]//a/@href').getall()
+        link_texts = response.xpath(
+            '//div[@id="id_sc_loaded_anexo"]//a/text()'
+        ).getall()
 
-        # Este href também é uma chamada JS.
-        # O segundo parâmetro tem o nome do arquivo que será usado na requisição
-        doc_name = None
-        if doc_href:
-            match = re.search(r"'documento_db', '(.+?)'", doc_href)
-            if match:
-                doc_name = match.group(1)
+        for i, href in enumerate(link_hrefs):
+            # O segundo parâmetro tem o nome do arquivo que será usado na requisição
+            doc_name_match = re.search(r"'documento_db', '(.+?)'", href)
 
-        is_extra_edition = False
+            if not doc_name_match:
+                continue
 
-        gazette_url = (
-            f"{self.BASE_URL}/diarioeletronico_form_cliente/diarioeletronico_form_cliente_doc.php?"
-            f"script_case_init={script_case_init}"
-            f"&nm_cod_doc=documento_db"
-            f"&nm_nome_doc={doc_name}"
-            f"&nm_cod_apl=diarioeletronico_form_cliente"
-        )
+            doc_name = doc_name_match.group(1)
 
-        yield Gazette(
-            date=doc_date,
-            edition_number=doc_edition,
-            is_extra_edition=is_extra_edition,
-            file_urls=[gazette_url],
-            power="executive",
-        )
+            is_extra_edition = False
+
+            # Acessa o text respectivo ao href para definir se é edição extra
+            if "COMPLEMENTAR" in link_texts[i]:
+                is_extra_edition = True
+
+            url = (
+                f"{self.BASE_URL}/diarioeletronico_form_cliente/diarioeletronico_form_cliente_doc.php?"
+                f"script_case_init={script_case_init}"
+                f"&nm_cod_doc=documento_db"
+                f"&nm_nome_doc={doc_name}"
+                f"&nm_cod_apl=diarioeletronico_form_cliente"
+            )
+
+            yield Gazette(
+                date=doc_date,
+                edition_number=doc_edition,
+                is_extra_edition=is_extra_edition,
+                file_urls=[url],
+                power="executive",
+            )
 
     def extract_total_items_count(self, response):
         raise NotImplementedError("Implementar na subclasse!")
