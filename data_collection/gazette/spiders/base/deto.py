@@ -88,9 +88,9 @@ class BaseDetoSpider(BaseGazetteSpider):
         if self.total_pages_count is None:
             self.total_pages_count = self.extract_total_items_count(response)
 
-        # Em todas as chamadas além da primeira, o response é um JSON e portanto o `response` não pode ser usado
-        # da forma esperada. Então, normalizo-o para que se comporte da forma esperada,
-        # como se este fosse derivado de html, ou seja, `response.xpath`, etc, estão disponíveis
+        # Em todas as chamadas além da primeira, a resposta é um JSON e portanto o seletores esperados do `response`
+        # (.xpath, .css) não estão disponíveis.
+        # Então, faço o `response` ser um `Selector` para tê-los de volta onde esperado.
         if has_json_response:
             # Encontra o html que está perdido dentro do JSON.
             # Está dentro do array setValue. O item com field == sc_grid_body tem o html
@@ -131,9 +131,12 @@ class BaseDetoSpider(BaseGazetteSpider):
             )
             doc_date = datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
 
+            # Se data fora dos limites, pula item
             if doc_date < self.start_date or doc_date > self.end_date:
                 self.logger.info(f"Pulando item com data ({date_str}) além de limites")
 
+                # Considerando ordenação por data DESC, se data menor que start_date, não existem mais itens
+                # dentro dos limites. Pula página
                 if doc_date < self.start_date:
                     self.logger.info(
                         f"Detectado item com data ({date_str}) além de start_date. Pulando próxima página"
