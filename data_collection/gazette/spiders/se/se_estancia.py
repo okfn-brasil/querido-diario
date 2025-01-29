@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class SeEstanciaSpider(BaseSaiSpider):
+class SeEstanciaSpider(BaseDiofSpider):
     TERRITORY_ID = "2802106"
     name = "se_estancia"
-    allowed_domains = ["estancia.se.gov.br"]
-    base_url = "https://www.estancia.se.gov.br"
+    website = "https://diario.estancia.se.gov.br"
     start_date = date(2016, 4, 28)
+    power = "executive"
