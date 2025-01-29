@@ -33,10 +33,19 @@ class BaseDiofSpider(BaseGazetteSpider):
 
     api_url = "https://diof.io.org.br/api"
 
-    def start_requests(self):
-        self._set_allowed_domains()
+    def __init__(self, *args, **kwargs):
+        super(BaseDiofSpider, self).__init__(*args, **kwargs)
 
-        if "sai.io" or "dom.imap" in self.website:
+        domains = {
+            "sai.io.org.br",
+            "dom.imap.org.br",
+            "diof.io.org.br",
+            urlparse(self.website).netloc,
+        }
+        self.allowed_domains = list(domains)
+
+    def start_requests(self):
+        if "sai.io" in self.website or "dom.imap" in self.website:
             yield Request(
                 self.website,
                 callback=self.interval_request,
@@ -125,15 +134,6 @@ class BaseDiofSpider(BaseGazetteSpider):
             metadata["file_urls"] = [optional_url]
 
         yield Gazette(**metadata)
-
-    def _set_allowed_domains(self):
-        domains = {
-            "sai.io.org.br",
-            "dom.imap.org.br",
-            "diof.io.org.br",
-            urlparse(self.website).netloc,
-        }
-        self.allowed_domains = list(domains)
 
     def _get_client_id(self, response):
         if "sai.io" in response.url:
