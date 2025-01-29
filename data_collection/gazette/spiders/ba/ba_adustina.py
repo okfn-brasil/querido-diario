@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class BaAdustinaSpider(BaseSaiSpider):
+class BaAdustinaSpider(BaseDiofSpider):
     TERRITORY_ID = "2900355"
     name = "ba_adustina"
-    allowed_domains = ["adustina.ba.gov.br"]
-    base_url = "https://www.adustina.ba.gov.br"
+    website = "https://diario.adustina.ba.gov.br"
     start_date = date(2017, 1, 3)
+    power = "executive"
