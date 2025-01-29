@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class BaSantaLuziaSpider(BaseSaiSpider):
+class BaSantaLuziaSpider(BaseDiofSpider):
     TERRITORY_ID = "2928059"
     name = "ba_santa_luzia_2024"
-    allowed_domains = ["santaluzia.ba.gov.br"]
-    base_url = "https://www.santaluzia.ba.gov.br"
+    website = "https://diario.santaluzia.ba.gov.br"
     start_date = date(2024, 1, 5)
+    power = "executive"

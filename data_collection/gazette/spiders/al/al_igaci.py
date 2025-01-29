@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class AlIgaciSpider(BaseSaiSpider):
+class AlIgaciSpider(BaseDiofSpider):
     TERRITORY_ID = "2703106"
     name = "al_igaci"
-    allowed_domains = ["igaci.al.gov.br"]
-    base_url = "https://www.igaci.al.gov.br"
+    website = "https://diario.igaci.al.gov.br"
     start_date = date(2015, 7, 17)
+    power = "executive"

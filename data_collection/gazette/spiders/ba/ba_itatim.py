@@ -1,11 +1,11 @@
-import datetime as dt
+from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class BaMaragogipeSpider(BaseSaiSpider):
+class BaMaragogipeSpider(BaseDiofSpider):
     TERRITORY_ID = "2916856"
     name = "ba_itatim"
-    start_date = dt.date(2009, 1, 1)
-    allowed_domains = ["sai.io.org.br", "www.itatim.ba.gov.br"]
-    base_url = "https://www.itatim.ba.gov.br"
+    website = "https://diario.itatim.ba.gov.br"
+    start_date = date(2009, 1, 1)
+    power = "executive"

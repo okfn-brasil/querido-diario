@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class BaAbareSpider(BaseSaiSpider):
+class BaAbareSpider(BaseDiofSpider):
     TERRITORY_ID = "2900207"
     name = "ba_abare"
-    allowed_domains = ["sai.io.org.br"]
-    base_url = "https://sai.io.org.br/ba/abare"
+    website = "https://sai.io.org.br/ba/abare/site/diariooficial"
     start_date = date(2007, 1, 9)
+    power = "executive"
