@@ -25,6 +25,7 @@ class BaseDiofSpider(BaseGazetteSpider):
         e.g:
             - https://diario.igaci.al.gov.br
             - https://sai.io.org.br/ba/abare/site/diariooficial
+            - https://dom.imap.org.br/sitesMunicipios/imprensaOficial.cfm?varCodigo=219
     """
 
     custom_settings = {"DOWNLOAD_DELAY": 0.5}
@@ -35,7 +36,7 @@ class BaseDiofSpider(BaseGazetteSpider):
     def start_requests(self):
         self._set_allowed_domains()
 
-        if "sai.io.org.br" in self.website:
+        if "sai.io" or "dom.imap" in self.website:
             yield Request(
                 self.website,
                 callback=self.interval_request,
@@ -126,14 +127,21 @@ class BaseDiofSpider(BaseGazetteSpider):
         yield Gazette(**metadata)
 
     def _set_allowed_domains(self):
-        domains = {"sai.io.org.br", "diof.io.org.br", urlparse(self.website).netloc}
+        domains = {
+            "sai.io.org.br",
+            "dom.imap.org.br",
+            "diof.io.org.br",
+            urlparse(self.website).netloc,
+        }
         self.allowed_domains = list(domains)
 
     def _get_client_id(self, response):
-        if "sai.io.org.br" in response.url:
+        if "sai.io" in response.url:
             self.client_id = re.search(
                 r"\d+", response.css("iframe").attrib["src"]
             ).group()
+        elif "dom.imap" in response.url:
+            self.client_id = re.search(r"varCodigo=(\d+)", response.url).group(1)
         else:
             self.client_id = response.json()["cod_cliente"]
 
