@@ -7,7 +7,11 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
+<<<<<<< HEAD
 class BaseRgSitesSpider(BaseGazetteSpider):
+=======
+class BaseRgSites(BaseGazetteSpider):
+>>>>>>> 2d239c1 (Cria spider base rgsites #1245)
     def start_requests(self):
         yield scrapy.Request(self.BASE_URL)
 
