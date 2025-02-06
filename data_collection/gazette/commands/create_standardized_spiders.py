@@ -39,6 +39,8 @@ class SpiderFileMaker:
         pattern = self.entry["pattern"]
         if pattern == "adiarios_v1":
             self.set_adiarios_v1()
+        elif pattern == "adiarios_v2":
+            self.set_adiarios_v2()
         elif pattern == "doem":
             self.set_doem()
 
@@ -53,6 +55,14 @@ class SpiderFileMaker:
 
     def set_adiarios_v1(self):
         self.template_file = "adiarios_v1.jinja"
+
+        parsed_url = urlparse(self.entry["url"])
+        replacements = {"path": "", "params": "", "query": "", "fragment": ""}
+        self.attributes["base_url"] = urlunparse(parsed_url._replace(**replacements))
+        self.attributes["domain"] = parsed_url.netloc.replace("www.", "")
+
+    def set_adiarios_v2(self):
+        self.template_file = "adiarios_v2.jinja"
 
         parsed_url = urlparse(self.entry["url"])
         replacements = {"path": "", "params": "", "query": "", "fragment": ""}
