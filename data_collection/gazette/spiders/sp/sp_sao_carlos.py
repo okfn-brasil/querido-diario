@@ -3,10 +3,8 @@ import locale
 import logging
 import re
 
-import bs4
 from dateutil.relativedelta import relativedelta
 from scrapy import Request
-from scrapy.http import Response
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -20,6 +18,11 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
     allowed_domains = ["saocarlos.sp.gov.br"]
     base_url = "http://www.saocarlos.sp.gov.br"
     start_date = datetime.date(2009, 5, 10)
+
+    already_seen = set()
+
+    class EndDateReached(Exception):
+        pass
 
     def start_requests(self):
         year_diff = self.end_date.year - self.start_date.year
@@ -37,7 +40,7 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         except locale.Error:
             locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
 
-        def get_url(date_of_interest: datetime):
+        def get_url(date_of_interest):
             year = date_of_interest.year
             month = date_of_interest.strftime("%B").lower().replace("ç", "c")
             return f"{self.base_url}/index.php/diario-oficial-{year}/diario-oficial-{month}-{year}.html"
@@ -45,39 +48,28 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         urls = map(get_url, dates_of_interest)
         yield from map(Request, urls)
 
-    def find_gazette_rows(self, response: Response):
-        soup = bs4.BeautifulSoup(response.text, "html.parser")
-
-        gazette_table = soup.find(
-            "table",
-            style=re.compile(r"(border-color: #dfdfe1|rgb\(223, 223, 225\))"),
-            recursive=True,
+    def find_gazette_rows(self, response):
+        # Until May 2013, there was a single table with many rows
+        rows_source = response.xpath(
+            '//table[re:test(@style, "border-color: #dfdfe1|rgb\\(223, 223, 225\\)")]'
         )
-        if gazette_table:
-            gazette_rows = gazette_table.find_all("tr")
-            return gazette_rows
 
-        # They decided to split the table into multiple single-row tables at some point
-        gazette_tables = soup.find_all(
-            "table",
-            width=620,
-            recursive=True,
-        )
-        if gazette_tables:
-            gazette_rows = [table.find("tr") for table in gazette_tables]
+        # From May 2013 onwards, they split the table into multiple single-row tables
+        if len(rows_source) == 0:
+            rows_source = response.xpath('//table[@width="620"]')
+
+        if len(rows_source) > 0:
+            gazette_rows = rows_source.xpath(".//tr")
             return gazette_rows
 
         logger.error("Could not find gazette data")
 
-    class EndDateReached(Exception):
-        pass
-
-    def parse(self, response: Response):
+    def parse(self, response):
         gazette_rows = self.find_gazette_rows(response)
 
         for index, gazette_row in enumerate(gazette_rows):
             # Sometimes there are empty rows
-            has_no_content = gazette_row is None or len(gazette_row.contents) == 1
+            has_no_content = gazette_row is None
             if has_no_content:
                 logger.warning(f"Empty row at index {index}")
                 continue
@@ -107,17 +99,16 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         matched = re.search(pattern, text)
         return matched
 
-    already_seen = set()
-
-    def parse_gazette_row(self, gazette_row: bs4.Tag):
-        matched = self.get_default_match(gazette_row.text)
+    def parse_gazette_row(self, gazette_row):
+        gazette_text = gazette_row.get()
+        matched = self.get_default_match(gazette_text)
 
         if not matched:
-            matched = self.get_out_of_order_match(gazette_row.text)
+            matched = self.get_out_of_order_match(gazette_text)
 
         if not matched:
             logger.error(
-                "Gazzette text does not match any known patterns", gazette_row.text
+                "Gazzette text does not match any known patterns", gazette_text
             )
             return None
 
@@ -136,9 +127,10 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         if date > self.end_date:
             raise self.EndDateReached(f"End date reached: {date}")
 
-        extra = "(extra)" in gazette_row.text
+        extra = "(extra)" in gazette_text
 
-        file_url = gazette_row.find("a").get("href")
+        file_url = gazette_row.xpath(".//a/@href").get()
+
         if not file_url.startswith("http"):
             file_url = f"{self.base_url}{file_url}"
 
