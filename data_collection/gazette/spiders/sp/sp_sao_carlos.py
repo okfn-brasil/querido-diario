@@ -17,7 +17,7 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
     TERRITORY_ID = "3548906"
     allowed_domains = ["saocarlos.sp.gov.br"]
     base_url = "http://www.saocarlos.sp.gov.br"
-    start_date = datetime.date(2009, 5, 10)
+    start_date = datetime.date(2009, 6, 11)
 
     already_seen = set()
 
