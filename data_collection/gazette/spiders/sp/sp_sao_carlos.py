@@ -40,13 +40,14 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         except locale.Error:
             locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
 
-        def get_url(date_of_interest):
+        def get_url_and_year(date_of_interest):
             year = date_of_interest.year
             month = date_of_interest.strftime("%B").lower().replace("ç", "c")
-            return f"{self.base_url}/index.php/diario-oficial-{year}/diario-oficial-{month}-{year}.html"
+            url = f"{self.base_url}/index.php/diario-oficial-{year}/diario-oficial-{month}-{year}.html"
+            return url, year
 
-        urls = map(get_url, dates_of_interest)
-        yield from map(Request, urls)
+        for url, year in map(get_url_and_year, dates_of_interest):
+            yield Request(url, cb_kwargs=dict(year=year))
 
     def find_gazette_rows(self, response):
         # Until May 2013, there was a single table with many rows
@@ -64,8 +65,14 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
 
         logger.error("Could not find gazette data")
 
-    def parse(self, response):
+    def parse(self, response, year):
         gazette_rows = self.find_gazette_rows(response)
+
+        # Until 2012, the rows where ordered by date DESC, after it, ASC
+        # This is necessary for the logic in parse_gazette_row that skips or ends the scraping
+        date_order = "asc"
+        if year <= 2012:
+            date_order = "desc"
 
         for index, gazette_row in enumerate(gazette_rows):
             # Sometimes there are empty rows
@@ -75,7 +82,7 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
                 continue
 
             try:
-                gazette = self.parse_gazette_row(gazette_row)
+                gazette = self.parse_gazette_row(gazette_row, date_order)
                 if gazette:
                     yield gazette
             except self.EndDateReached:
@@ -99,7 +106,7 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         matched = re.search(pattern, text)
         return matched
 
-    def parse_gazette_row(self, gazette_row):
+    def parse_gazette_row(self, gazette_row, date_order):
         gazette_text = gazette_row.get()
         matched = self.get_default_match(gazette_text)
 
@@ -115,17 +122,27 @@ class SpSaoCarlosSpider(BaseGazetteSpider):
         edition_number = matched.group(1)
         if edition_number in self.already_seen:
             raise ValueError(f"Duplicate edition number: {edition_number}")
+
         self.already_seen.add(edition_number)
         day = matched.group(2)
         month = matched.group(3)
         year = matched.group(4)
         date = datetime.datetime.strptime(f"{day} {month} {year}", "%d %B %Y").date()
 
-        if date < self.start_date:
-            return None
+        # Skips or ends the scraping depending on the order the rows are displayed
+        if date_order == "asc":
+            if date < self.start_date:
+                return None
 
-        if date > self.end_date:
-            raise self.EndDateReached(f"End date reached: {date}")
+            if date > self.end_date:
+                raise self.EndDateReached(f"End date reached: {date}")
+
+        elif date_order == "desc":
+            if date > self.end_date:
+                return None
+
+            if date < self.start_date:
+                raise self.EndDateReached(f"End date reached: {date}")
 
         extra = "(extra)" in gazette_text
 
