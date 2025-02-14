@@ -1,13 +1,12 @@
 from datetime import date
 
-from gazette.spiders.base.modernizacao import BaseModernizacaoSpider
+from gazette.spiders.base.instar import BaseInstarSpider
 
 
-class RjBelfordRoxoSpider(BaseModernizacaoSpider):
+class RjBelfordRoxoSpider(BaseInstarSpider):
     TERRITORY_ID = "3300456"
     name = "rj_belford_roxo"
-    allowed_domains = ["transparencia.prefeituradebelfordroxo.rj.gov.br"]
+    allowed_domains = ["belfordr.instartecnologia.com.br"]
     start_date = date(2019, 1, 2)
     power = "executive"
-    edition_endpoint = "WEB-ObterAnexomaior.rule"
-    filter_endpoint = "diario_oficial_getmaior"
+    base_url = "https://www.belfordr.instartecnologia.com.br/portal/diario-oficial"
