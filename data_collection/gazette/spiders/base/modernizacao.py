@@ -29,17 +29,18 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
         ):
             month_year = monthly_date.strftime("%m/%Y").lstrip("0")
             yield scrapy.FormRequest(
-                method="GET",
                 url=base_url,
-                formdata={"mes_ano": month_year},
+                formdata={"mesano": month_year},
             )
 
     def parse(self, response):
         for gazette_data in response.json():
             raw_gazette_date = gazette_data["Data_Formatada"]
             gazette_date = datetime.strptime(raw_gazette_date, "%d/%m/%Y").date()
-            if not self.start_date <= gazette_date <= self.end_date:
+            if gazette_date > self.end_date:
                 continue
+            if gazette_date < self.start_date:
+                return
 
             gazette_code = gazette_data["Codigo_ANEXO"]
             gazette_url = response.urljoin(
@@ -58,22 +59,10 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
                 re.search(r"extra|supl|ee|esp", raw_edition_number, re.IGNORECASE)
             )
 
-            yield scrapy.Request(
-                gazette_url,
-                method="GET",
-                callback=self.parse_valid_gazette_file,
-                cb_kwargs={
-                    "gazette": Gazette(
-                        date=gazette_date,
-                        edition_number=gazette_edition_number,
-                        file_urls=[gazette_url],
-                        is_extra_edition=is_extra_edition,
-                        power=self.power,
-                    )
-                },
+            yield Gazette(
+                date=gazette_date,
+                edition_number=gazette_edition_number,
+                file_urls=[gazette_url],
+                is_extra_edition=is_extra_edition,
+                power=self.power,
             )
-
-    def parse_valid_gazette_file(self, response, gazette):
-        # o header so possui Content-Length quando o PDF esta indisponivel
-        if not response.headers.getlist("Content-Length"):
-            yield gazette
