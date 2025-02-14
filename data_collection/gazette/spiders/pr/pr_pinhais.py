@@ -3,7 +3,7 @@ from datetime import date
 from gazette.spiders.base.atende_v2 import BaseAtendeV2Spider
 
 
-class PrCampoMouraoSpider(BaseAtendeV2Spider):
+class PrPinhaisSpider(BaseAtendeV2Spider):
     TERRITORY_ID = "4119152"
     name = "pr_pinhais"
     city_subdomain = "pinhais"
