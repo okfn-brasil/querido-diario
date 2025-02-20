@@ -32,7 +32,7 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
     """
 
     name = "pe_recife_2015"
-    TERRITORY_ID = "2611606"
+    PUBLIC_ENTITY_ID = "2611606"
 
     start_date = dt.date(2015, 4, 30)
     end_date = dt.date(2020, 8, 1)

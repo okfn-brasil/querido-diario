@@ -17,8 +17,8 @@ class BaseGazetteSpider(scrapy.Spider):
     def __init__(self, start_date="", end_date="", *args, **kwargs):
         super(BaseGazetteSpider, self).__init__(*args, **kwargs)
 
-        if not hasattr(self, "TERRITORY_ID"):
-            raise NotConfigured("Please set a value for `TERRITORY_ID`")
+        if not hasattr(self, "PUBLIC_ENTITY_ID"):
+            raise NotConfigured("Please set a value for `PUBLIC_ENTITY_ID`")
 
         if start_date:
             try:

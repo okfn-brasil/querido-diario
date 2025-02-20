@@ -2,6 +2,9 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
+        "public_entity_id": {
+            "type": "string"
+        },
         "date": {
             "description": "Date of the gazzete",
             "type": "string",
@@ -23,7 +26,20 @@
             "description": "Determines if the edition of the gazzete is extra or not",
             "type": "boolean"
         },
-        "territory_id": {
+        "act_category": {
+            "description": "Category of oficial act",
+            "type": "string"
+        },
+        "publishing_body": {
+            "description": "Department responsible for publishing the document",
+            "type": "string"
+        },
+        "document_code": {
+            "description": "Code to reference a document",
+            "type": "string"
+        },
+        "document_page": {
+            "description": "Value corresponding to the page of a document",
             "type": "string"
         },
         "power": {
@@ -63,7 +79,7 @@
     },
     "required": [
         "date",
-        "territory_id",
+        "public_entity_id",
         "power",
         "scraped_at"
     ],
