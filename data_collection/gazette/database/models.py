@@ -136,6 +136,7 @@ class Territory(DeclarativeBase):
     id = Column(String, primary_key=True)
     slug = Column(String)
     nome = Column(String)
+    unidade_federativa = Column(String)
     state_code = Column(String)
     state = Column(String)
     gazettes = relationship("Gazette", order_by=Gazette.id, back_populates="territory")
