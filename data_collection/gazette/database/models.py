@@ -106,7 +106,9 @@ def initialize_database(database_url, public_entity_spider_map):
 
 class Gazette(DeclarativeBase):
     __tablename__ = "gazettes"
-    __table_args__ = (UniqueConstraint("entidade_publica_id", "data", "file_checksum"),)
+    __table_args__ = (
+        UniqueConstraint("entidade_publica_id", "data", "checksum_arquivo_coletado"),
+    )
 
     public_entity = relationship("PublicEntity", back_populates="public_entities")
 
@@ -122,7 +124,7 @@ class Gazette(DeclarativeBase):
     paginacao_documento = Column(String)
     granularidade = Column(String)
     url_arquivo_coletado = Column(String)
-    file_checksum = Column(String)
+    checksum_arquivo_coletado = Column(String)
     file_path = Column(String)
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
