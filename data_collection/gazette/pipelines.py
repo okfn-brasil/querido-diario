@@ -54,9 +54,12 @@ class SQLDatabasePipeline:
         for spider_class in classes:
             spider_name = getattr(spider_class, "name", None)
             public_entity_id = getattr(spider_class, "PUBLIC_ENTITY_ID", None)
+            gazettes_page_url = getattr(spider_class, "GAZETTES_PAGE_URL", None)
             date_from = getattr(spider_class, "start_date", None)
-            if all((spider_name, public_entity_id, date_from)):
-                mapping.append((spider_name, public_entity_id, date_from))
+            if all((spider_name, public_entity_id, gazettes_page_url, date_from)):
+                mapping.append(
+                    (spider_name, public_entity_id, gazettes_page_url, date_from)
+                )
         return mapping
 
     def open_spider(self, spider):

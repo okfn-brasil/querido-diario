@@ -32,6 +32,7 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
     """
 
     name = "pe_recife_2015"
+    GAZETTES_PAGE_URL = "https://www.cepe.com.br/prefeituradiario"
     PUBLIC_ENTITY_ID = "2611606"
 
     start_date = dt.date(2015, 4, 30)

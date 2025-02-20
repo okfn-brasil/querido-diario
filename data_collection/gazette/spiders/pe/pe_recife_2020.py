@@ -28,6 +28,7 @@ class PeRecifeSpider_2020(BaseGazetteSpider):
     """
 
     name = "pe_recife_2020"
+    GAZETTES_PAGE_URL = "https://dome.recife.pe.gov.br/dome"
     PUBLIC_ENTITY_ID = "2611606"
 
     start_date = dt.date(2020, 8, 2)
