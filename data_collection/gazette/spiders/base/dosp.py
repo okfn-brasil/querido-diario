@@ -38,5 +38,5 @@ class BaseDospSpider(BaseGazetteSpider):
                         f"https://dosp.com.br/exibe_do.php?i={code_link}.pdf",
                     ],
                     is_extra_edition=diarios["flag_extra"] > 0,
-                    power="executive",
+                    power="executivo",
                 )

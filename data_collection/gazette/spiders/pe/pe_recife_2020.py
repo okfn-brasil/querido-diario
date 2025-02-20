@@ -108,7 +108,7 @@ class PeRecifeSpider_2020(BaseGazetteSpider):
                 re.search(r"Recife (\d+) Edição", title).group(1)
             ),
             is_extra_edition=is_extra_edition,
-            power="executive_legislative",
+            power="executivo_legislativo",
         )
 
     def _clean_zfill(self, string_number):
