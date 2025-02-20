@@ -135,7 +135,7 @@ class Territory(DeclarativeBase):
     __tablename__ = "territories"
     id = Column(String, primary_key=True)
     slug = Column(String)
-    name = Column(String)
+    nome = Column(String)
     state_code = Column(String)
     state = Column(String)
     gazettes = relationship("Gazette", order_by=Gazette.id, back_populates="territory")
