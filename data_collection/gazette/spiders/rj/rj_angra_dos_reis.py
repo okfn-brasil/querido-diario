@@ -11,31 +11,24 @@ class RjAngraDosReisSpider(BaseGazetteSpider):
     TERRITORY_ID = "3300100"
     allowed_domains = ["angra.rj.gov.br"]
     start_date = date(2005, 3, 11)
-
-    def start_requests(self):
-        for year in range(self.start_date.year, self.end_date.year + 1):
-            yield scrapy.Request(
-                f"https://angra.rj.gov.br/boletim-oficial.asp?vAno={year}"
-            )
+    start_urls = ["https://angra.rj.gov.br/boletim-oficial"]
 
     def parse(self, response):
         for tr in response.xpath("//article//tr")[1:]:
-            raw_gazette_date = tr.xpath("./td/strong/text()").get()
+            raw_gazette_date = tr.xpath("./td[1]/text()").get()
             gazette_date = dt.strptime(raw_gazette_date, "%d/%m/%Y").date()
             if gazette_date > self.end_date:
                 continue
             if gazette_date < self.start_date:
                 return
 
-            raw_gazette_edition = tr.xpath("./td/text()")
-            gazette_edition_number = raw_gazette_edition.re_first(r"\d+") or ""
+            gazette_edition_number = tr.xpath("./td[3]/text()").get()
 
             url_subdir = tr.xpath(".//a/@href").get()
             gazette_url = response.urljoin(url_subdir)
 
-            is_extra_edition = (
-                "EXTRA" in (raw_gazette_edition.get() + url_subdir).upper()
-            )
+            gazette_type = tr.xpath("./td[4]/text()").get()
+            is_extra_edition = "EXTRA" in f"{gazette_type}{url_subdir}".upper()
 
             yield Gazette(
                 date=gazette_date,
@@ -44,3 +37,7 @@ class RjAngraDosReisSpider(BaseGazetteSpider):
                 file_urls=[gazette_url],
                 power="executive_legislative",
             )
+
+        next_page = response.xpath("//ul[@class='pagination']/li[last()]/a/@href").get()
+        if next_page:
+            yield scrapy.Request(next_page)
