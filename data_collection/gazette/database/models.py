@@ -52,7 +52,7 @@ def load_public_entity(engine):
 def get_new_or_modified_spiders(session, public_entity_spider_map):
     registered_spiders = session.query(QueridoDiarioSpider).all()
     registered_spiders_set = {
-        (spider.spider_name, public_entity.id, spider.date_from)
+        (spider.spider_name, public_entity.id, spider.data_inicial)
         for spider in registered_spiders
         for public_entity in spider.public_entities
     }
@@ -87,7 +87,7 @@ def load_spiders(engine, public_entity_spider_map):
             session.merge(
                 QueridoDiarioSpider(
                     spider_name=spider_name,
-                    date_from=date_from,
+                    data_inicial=date_from,
                     public_entities=[public_entity],
                 )
             )
@@ -158,7 +158,7 @@ class QueridoDiarioSpider(DeclarativeBase):
         doc="As defined in 'name' attribute of each Spider class.",
         primary_key=True,
     )
-    date_from = Column(Date, doc="Initial date this Spider is able to gather data.")
+    data_inicial = Column(Date, doc="Initial date this Spider is able to gather data.")
     data_final = Column(
         Date,
         doc="Final date this Spider is able to gather data ('null' if able to gather data in current day)",
