@@ -126,6 +126,7 @@ class Gazette(DeclarativeBase):
     checksum_arquivo_coletado = Column(String)
     caminho_arquivo_coletado = Column(String)
     hora_coleta = Column(DateTime)
+    id_metadados = Column(Integer)  # ForeignKey("metadata.id"))
 
 
 public_entity_spider_map = Table(
