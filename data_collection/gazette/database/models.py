@@ -126,7 +126,7 @@ class Gazette(DeclarativeBase):
     url_arquivo_coletado = Column(String)
     checksum_arquivo_coletado = Column(String)
     caminho_arquivo_coletado = Column(String)
-    scraped_at = Column(DateTime)
+    hora_coleta = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     processed = Column(Boolean, default=False)
 

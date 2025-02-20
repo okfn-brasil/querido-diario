@@ -74,25 +74,21 @@ class SQLDatabasePipeline:
 
         session = self.Session()
 
-        fields = [
-            "scraped_at",
-        ]
-        gazette_item = {field: item.get(field) for field in fields}
-
-        gazette_item["entidade_publica_id"] = item["public_entity_id"]
-        gazette_item["poder"] = item["power"]
-        gazette_item["numero_edicao"] = item["edition_number"]
-        gazette_item["edicao_extra"] = item["is_extra_edition"]
-        gazette_item["categoria_ato"] = item["act_category"]
-        gazette_item["orgao_publicador"] = item["publishing_body"]
-        gazette_item["codigo_documento"] = item["document_code"]
-        gazette_item["paginacao_documento"] = item["document_page"]
-        gazette_item["granularidade"] = item["granularity"]
-
-        gazette_item["data"] = datetime.strptime(item["date"], "%Y-%m-%d").date()
-        gazette_item["scraped_at"] = datetime.strptime(
-            gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
-        )
+        gazette_item = {
+            "entidade_publica_id": item["public_entity_id"],
+            "poder": item["power"],
+            "numero_edicao": item["edition_number"],
+            "edicao_extra": item["is_extra_edition"],
+            "categoria_ato": item["act_category"],
+            "orgao_publicador": item["publishing_body"],
+            "codigo_documento": item["document_code"],
+            "paginacao_documento": item["document_page"],
+            "granularidade": item["granularity"],
+            "data": datetime.strptime(item["date"], "%Y-%m-%d").date(),
+            "hora_coleta": datetime.strptime(
+                item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+            ),
+        }
 
         for file_info in item.get("files", []):
             already_downloaded = file_info["status"] == "uptodate"
