@@ -12,7 +12,6 @@ from sqlalchemy import (
     Integer,
     String,
     Table,
-    Text,
     UniqueConstraint,
     create_engine,
 )
@@ -109,8 +108,10 @@ class Gazette(DeclarativeBase):
     __tablename__ = "gazettes"
     __table_args__ = (UniqueConstraint("entidade_publica_id", "date", "file_checksum"),)
 
+    public_entity = relationship("PublicEntity", back_populates="public_entities")
+
     id = Column(Integer, primary_key=True)
-    source_text = Column(Text)
+    entidade_publica_id = Column(String, ForeignKey("entidades_publicas.id"))
     date = Column(Date)
     edition_number = Column(String)
     is_extra_edition = Column(Boolean)
@@ -121,9 +122,6 @@ class Gazette(DeclarativeBase):
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     processed = Column(Boolean, default=False)
-
-    public_entity = relationship("PublicEntity", back_populates="public_entities")
-    entidade_publica_id = Column(String, ForeignKey("entidades_publicas.id"))
 
 
 public_entity_spider_map = Table(
@@ -137,6 +135,10 @@ public_entity_spider_map = Table(
 class PublicEntity(DeclarativeBase):
     __tablename__ = "entidades_publicas"
 
+    public_entities = relationship(
+        "Gazette", order_by=Gazette.id, back_populates="public_entity"
+    )
+
     id = Column(String, primary_key=True)
     slug = Column(String)
     nome = Column(String)
@@ -144,13 +146,11 @@ class PublicEntity(DeclarativeBase):
     regiao = Column(String)
     categoria = Column(String)
 
-    public_entities = relationship(
-        "Gazette", order_by=Gazette.id, back_populates="public_entity"
-    )
-
 
 class Spiders(DeclarativeBase):
     __tablename__ = "raspadores"
+
+    public_entities = relationship("PublicEntity", secondary=public_entity_spider_map)
 
     nome = Column(
         String,
@@ -171,5 +171,3 @@ class Spiders(DeclarativeBase):
         default=False,
         doc="Flag to enable/disable Spider to be executed in production.",
     )
-
-    public_entities = relationship("PublicEntity", secondary=public_entity_spider_map)
