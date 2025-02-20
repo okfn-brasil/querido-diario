@@ -74,6 +74,8 @@ class BaseSigpubSpider(BaseGazetteSpider):
                 edition_number=edition.get("numero_edicao", ""),
                 act_category="",
                 publishing_body="",
+                document_code="",
+                document_page="",
             )
 
     def available_dates_form_fields(self):

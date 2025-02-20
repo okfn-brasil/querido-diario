@@ -118,6 +118,8 @@ class Gazette(DeclarativeBase):
     edicao_extra = Column(Boolean)
     categoria_ato = Column(String)
     orgao_publicador = Column(String)
+    codigo_documento = Column(String)
+    paginacao_documento = Column(String)
     file_checksum = Column(String)
     file_path = Column(String)
     file_url = Column(String)

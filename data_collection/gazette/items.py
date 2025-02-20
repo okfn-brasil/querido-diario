@@ -13,6 +13,8 @@ class Gazette(scrapy.Item):
     power = scrapy.Field()
     act_category = scrapy.Field()
     publishing_body = scrapy.Field()
+    document_code = scrapy.Field()
+    document_page = scrapy.Field()
     scraped_at = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()

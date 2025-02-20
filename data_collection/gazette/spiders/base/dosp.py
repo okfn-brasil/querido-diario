@@ -41,4 +41,6 @@ class BaseDospSpider(BaseGazetteSpider):
                     power="executivo",
                     act_category="",
                     publishing_body="",
+                    document_code="",
+                    document_page="",
                 )

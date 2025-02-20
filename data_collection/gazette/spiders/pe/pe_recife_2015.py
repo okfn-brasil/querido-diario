@@ -76,6 +76,8 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
                 power="executivo_legislativo",
                 act_category="",
                 publishing_body="",
+                document_code="",
+                document_page="",
             )
 
     def _find_recife_editions(self, text):

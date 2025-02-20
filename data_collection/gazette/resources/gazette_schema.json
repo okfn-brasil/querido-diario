@@ -50,6 +50,14 @@
             "description": "Department responsible for publishing the document",
             "type": "string"
         },
+        "document_code": {
+            "description": "Code to reference a document",
+            "type": "string"
+        },
+        "document_page": {
+            "description": "Value corresponding to the page of a document",
+            "type": "string"
+        },
         "power": {
             "type": "string",
             "enum": [
