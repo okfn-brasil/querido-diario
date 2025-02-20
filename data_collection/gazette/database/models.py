@@ -52,7 +52,7 @@ def load_public_entity(engine):
 def get_new_or_modified_spiders(session, public_entity_spider_map):
     registered_spiders = session.query(QueridoDiarioSpider).all()
     registered_spiders_set = {
-        (spider.spider_name, public_entity.id, spider.data_inicial)
+        (spider.nome, public_entity.id, spider.data_inicial)
         for spider in registered_spiders
         for public_entity in spider.public_entities
     }
@@ -86,7 +86,7 @@ def load_spiders(engine, public_entity_spider_map):
         if public_entity is not None:
             session.merge(
                 QueridoDiarioSpider(
-                    spider_name=spider_name,
+                    nome=spider_name,
                     data_inicial=date_from,
                     public_entities=[public_entity],
                 )
@@ -130,7 +130,7 @@ class Gazette(DeclarativeBase):
 public_entity_spider_map = Table(
     "public_entity_spider_map",
     DeclarativeBase.metadata,
-    Column("spider_name", ForeignKey("querido_diario_spiders.spider_name")),
+    Column("raspador", ForeignKey("querido_diario_spiders.nome")),
     Column("entidades_publicas_id", ForeignKey("entidades_publicas.id")),
 )
 
@@ -153,7 +153,7 @@ class PublicEntity(DeclarativeBase):
 class QueridoDiarioSpider(DeclarativeBase):
     __tablename__ = "querido_diario_spiders"
 
-    spider_name = Column(
+    nome = Column(
         String,
         doc="As defined in 'name' attribute of each Spider class.",
         primary_key=True,

@@ -21,4 +21,4 @@ def get_enabled_spiders(*, database_url, start_date=None, end_date=None):
 
     result = session.execute(stmt)
     for spider in result.scalars():
-        yield spider.spider_name
+        yield spider.nome
