@@ -74,6 +74,7 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
                 file_urls=[url],
                 is_extra_edition=self._is_extra(edition),
                 power="executivo_legislativo",
+                act_category="",
             )
 
     def _find_recife_editions(self, text):

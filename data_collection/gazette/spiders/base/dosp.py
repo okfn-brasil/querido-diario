@@ -39,4 +39,5 @@ class BaseDospSpider(BaseGazetteSpider):
                     ],
                     is_extra_edition=diarios["flag_extra"] > 0,
                     power="executivo",
+                    act_category="",
                 )

@@ -11,6 +11,7 @@ class Gazette(scrapy.Item):
     is_extra_edition = scrapy.Field()
     public_entity_id = scrapy.Field()
     power = scrapy.Field()
+    act_category = scrapy.Field()
     scraped_at = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
