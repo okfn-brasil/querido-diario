@@ -6,7 +6,7 @@ from scrapinghub import ScrapinghubClient
 from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 
-from gazette.database.models import QueridoDiarioSpider
+from gazette.database.models import Spiders
 from gazette.utils import get_enabled_spiders
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
@@ -100,11 +100,7 @@ def enable_spider(spider_name):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    stmt = (
-        update(QueridoDiarioSpider)
-        .where(QueridoDiarioSpider.nome == spider_name)
-        .values(ativo=True)
-    )
+    stmt = update(Spiders).where(Spiders.nome == spider_name).values(ativo=True)
 
     session.execute(stmt)
     session.commit()
@@ -121,11 +117,7 @@ def disable_spider(spider_name):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    stmt = (
-        update(QueridoDiarioSpider)
-        .where(QueridoDiarioSpider.nome == spider_name)
-        .values(ativo=False)
-    )
+    stmt = update(Spiders).where(Spiders.nome == spider_name).values(ativo=False)
 
     session.execute(stmt)
     session.commit()

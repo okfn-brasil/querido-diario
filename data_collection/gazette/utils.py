@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 
-from gazette.database.models import QueridoDiarioSpider
+from gazette.database.models import Spiders
 
 
 def get_enabled_spiders(*, database_url, start_date=None, end_date=None):
@@ -13,11 +13,11 @@ def get_enabled_spiders(*, database_url, start_date=None, end_date=None):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    stmt = select(QueridoDiarioSpider).where(QueridoDiarioSpider.ativo.is_(True))
+    stmt = select(Spiders).where(Spiders.ativo.is_(True))
     if start_date is not None:
-        stmt = stmt.where(QueridoDiarioSpider.data_inicial <= start_date)
+        stmt = stmt.where(Spiders.data_inicial <= start_date)
     if end_date is not None:
-        stmt = stmt.where(QueridoDiarioSpider.data_final >= end_date)
+        stmt = stmt.where(Spiders.data_final >= end_date)
 
     result = session.execute(stmt)
     for spider in result.scalars():

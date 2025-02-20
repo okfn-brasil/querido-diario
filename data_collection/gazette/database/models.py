@@ -50,7 +50,7 @@ def load_public_entity(engine):
 
 
 def get_new_or_modified_spiders(session, public_entity_spider_map):
-    registered_spiders = session.query(QueridoDiarioSpider).all()
+    registered_spiders = session.query(Spiders).all()
     registered_spiders_set = {
         (spider.nome, public_entity.id, spider.data_inicial)
         for spider in registered_spiders
@@ -68,14 +68,14 @@ def load_spiders(engine, public_entity_spider_map):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    table_is_populated = session.query(QueridoDiarioSpider).count() > 0
+    table_is_populated = session.query(Spiders).count() > 0
     spiders_to_persist = (
         get_new_or_modified_spiders(session, public_entity_spider_map)
         if table_is_populated
         else public_entity_spider_map
     )
 
-    logger.info("Populating 'querido_diario_spider' table - Please wait!")
+    logger.info("Populating 'raspadores' table - Please wait!")
 
     public_entities = session.query(PublicEntity).all()
     public_entity_map = {t.id: t for t in public_entities}
@@ -85,7 +85,7 @@ def load_spiders(engine, public_entity_spider_map):
         public_entity = public_entity_map.get(public_entity_id)
         if public_entity is not None:
             session.merge(
-                QueridoDiarioSpider(
+                Spiders(
                     nome=spider_name,
                     data_inicial=date_from,
                     public_entities=[public_entity],
@@ -93,7 +93,7 @@ def load_spiders(engine, public_entity_spider_map):
             )
 
     session.commit()
-    logger.info("Populating 'querido_diario_spider' table - Done!")
+    logger.info("Populating 'raspadores' table - Done!")
 
 
 def initialize_database(database_url, public_entity_spider_map):
@@ -130,7 +130,7 @@ class Gazette(DeclarativeBase):
 public_entity_spider_map = Table(
     "public_entity_spider_map",
     DeclarativeBase.metadata,
-    Column("raspador", ForeignKey("querido_diario_spiders.nome")),
+    Column("raspador", ForeignKey("raspadores.nome")),
     Column("entidades_publicas_id", ForeignKey("entidades_publicas.id")),
 )
 
@@ -150,8 +150,8 @@ class PublicEntity(DeclarativeBase):
     )
 
 
-class QueridoDiarioSpider(DeclarativeBase):
-    __tablename__ = "querido_diario_spiders"
+class Spiders(DeclarativeBase):
+    __tablename__ = "raspadores"
 
     nome = Column(
         String,
