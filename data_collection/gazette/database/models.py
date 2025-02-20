@@ -164,7 +164,7 @@ class QueridoDiarioSpider(DeclarativeBase):
         doc="Final date this Spider is able to gather data ('null' if able to gather data in current day)",
         nullable=True,
     )
-    enabled = Column(
+    ativo = Column(
         Boolean,
         default=False,
         doc="Flag to enable/disable Spider to be executed in production.",

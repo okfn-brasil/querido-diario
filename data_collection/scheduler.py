@@ -103,7 +103,7 @@ def enable_spider(spider_name):
     stmt = (
         update(QueridoDiarioSpider)
         .where(QueridoDiarioSpider.spider_name == spider_name)
-        .values(enabled=True)
+        .values(ativo=True)
     )
 
     session.execute(stmt)
@@ -124,7 +124,7 @@ def disable_spider(spider_name):
     stmt = (
         update(QueridoDiarioSpider)
         .where(QueridoDiarioSpider.spider_name == spider_name)
-        .values(enabled=False)
+        .values(ativo=False)
     )
 
     session.execute(stmt)
