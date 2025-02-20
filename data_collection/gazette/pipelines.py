@@ -103,7 +103,7 @@ class SQLDatabasePipeline:
 
             gazette_item["url_arquivo_coletado"] = file_info["url"]
             gazette_item["checksum_arquivo_coletado"] = file_info["checksum"]
-            gazette_item["file_path"] = file_info["path"]
+            gazette_item["caminho_arquivo_coletado"] = file_info["path"]
 
             gazette = Gazette(**gazette_item)
             session.add(gazette)
