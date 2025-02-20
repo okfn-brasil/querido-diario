@@ -83,7 +83,7 @@ class SQLDatabasePipeline:
             "scraped_at",
         ]
         gazette_item = {field: item.get(field) for field in fields}
-        gazette_item["entidades_publicas_id"] = item["public_entity_id"]
+        gazette_item["entidade_publica_id"] = item["public_entity_id"]
         gazette_item["date"] = dt.datetime.strptime(
             gazette_item["date"], "%Y-%m-%d"
         ).date()

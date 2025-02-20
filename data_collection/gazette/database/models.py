@@ -107,9 +107,7 @@ def initialize_database(database_url, public_entity_spider_map):
 
 class Gazette(DeclarativeBase):
     __tablename__ = "gazettes"
-    __table_args__ = (
-        UniqueConstraint("entidades_publicas_id", "date", "file_checksum"),
-    )
+    __table_args__ = (UniqueConstraint("entidade_publica_id", "date", "file_checksum"),)
 
     id = Column(Integer, primary_key=True)
     source_text = Column(Text)
@@ -125,14 +123,14 @@ class Gazette(DeclarativeBase):
     processed = Column(Boolean, default=False)
 
     public_entity = relationship("PublicEntity", back_populates="public_entities")
-    entidades_publicas_id = Column(String, ForeignKey("entidades_publicas.id"))
+    entidade_publica_id = Column(String, ForeignKey("entidades_publicas.id"))
 
 
 public_entity_spider_map = Table(
-    "public_entity_spider_map",
+    "raspador_por_entidadepublica",
     DeclarativeBase.metadata,
     Column("raspador", ForeignKey("raspadores.nome")),
-    Column("entidades_publicas_id", ForeignKey("entidades_publicas.id")),
+    Column("entidade_publica_id", ForeignKey("entidades_publicas.id")),
 )
 
 
