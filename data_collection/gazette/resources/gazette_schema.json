@@ -6,24 +6,24 @@
             "type": "string"
         },
         "date": {
-            "description": "Date of the gazzete",
+            "description": "Date of the gazette",
             "type": "string",
             "format": "date"
         },
-        "file_urls": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+        "power": {
+            "type": "string",
+            "enum": [
+                "executivo",
+                "legislativo",
+                "executivo_legislativo"
+            ]
         },
-        "file_requests": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+        "edition_number": {
+            "description": "Number of the gazette",
+            "type": "string"
         },
         "is_extra_edition": {
-            "description": "Determines if the edition of the gazzete is extra or not",
+            "description": "Determines if the edition of the gazette is extra or not",
             "type": "boolean"
         },
         "act_category": {
@@ -51,9 +51,21 @@
             ]
         },
         "scraped_at":{
-            "description": "When the gazzete was scraped",
+            "description": "When the gazette was scraped",
             "type": "string",
             "format": "date-time"
+        },
+        "file_urls": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "file_requests": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "files": {
             "type": "array",

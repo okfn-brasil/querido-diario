@@ -114,7 +114,7 @@ class Gazette(DeclarativeBase):
     entidade_publica_id = Column(String, ForeignKey("entidades_publicas.id"))
     data = Column(Date)
     poder = Column(String)
-    edition_number = Column(String)
+    numero_edicao = Column(String)
     is_extra_edition = Column(Boolean)
     file_checksum = Column(String)
     file_path = Column(String)
