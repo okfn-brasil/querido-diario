@@ -42,14 +42,6 @@
             "description": "Value corresponding to the page of a document",
             "type": "string"
         },
-        "power": {
-            "type": "string",
-            "enum": [
-                "executive",
-                "legislative",
-                "executive_legislative"
-            ]
-        },
         "scraped_at":{
             "description": "When the gazzete was scraped",
             "type": "string",

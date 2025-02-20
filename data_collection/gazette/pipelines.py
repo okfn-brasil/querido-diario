@@ -77,12 +77,13 @@ class SQLDatabasePipeline:
         fields = [
             "edition_number",
             "is_extra_edition",
-            "power",
             "scraped_at",
         ]
         gazette_item = {field: item.get(field) for field in fields}
 
         gazette_item["entidade_publica_id"] = item["public_entity_id"]
+        gazette_item["poder"] = item["power"]
+
         gazette_item["data"] = datetime.strptime(item["date"], "%Y-%m-%d").date()
         gazette_item["scraped_at"] = datetime.strptime(
             gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
