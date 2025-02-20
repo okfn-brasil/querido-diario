@@ -159,7 +159,7 @@ class QueridoDiarioSpider(DeclarativeBase):
         primary_key=True,
     )
     date_from = Column(Date, doc="Initial date this Spider is able to gather data.")
-    date_to = Column(
+    data_final = Column(
         Date,
         doc="Final date this Spider is able to gather data ('null' if able to gather data in current day)",
         nullable=True,

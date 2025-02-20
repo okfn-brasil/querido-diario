@@ -17,7 +17,7 @@ def get_enabled_spiders(*, database_url, start_date=None, end_date=None):
     if start_date is not None:
         stmt = stmt.where(QueridoDiarioSpider.date_from <= start_date)
     if end_date is not None:
-        stmt = stmt.where(QueridoDiarioSpider.date_to >= end_date)
+        stmt = stmt.where(QueridoDiarioSpider.data_final >= end_date)
 
     result = session.execute(stmt)
     for spider in result.scalars():
