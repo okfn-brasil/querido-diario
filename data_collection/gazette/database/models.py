@@ -120,6 +120,7 @@ class Gazette(DeclarativeBase):
     orgao_publicador = Column(String)
     codigo_documento = Column(String)
     paginacao_documento = Column(String)
+    granularidade = Column(String)
     file_checksum = Column(String)
     file_path = Column(String)
     file_url = Column(String)

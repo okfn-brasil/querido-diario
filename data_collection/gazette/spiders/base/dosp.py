@@ -43,4 +43,5 @@ class BaseDospSpider(BaseGazetteSpider):
                     publishing_body="",
                     document_code="",
                     document_page="",
+                    granularity="individual",
                 )

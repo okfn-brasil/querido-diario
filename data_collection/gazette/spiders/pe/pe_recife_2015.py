@@ -78,6 +78,7 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
                 publishing_body="",
                 document_code="",
                 document_page="",
+                granularity="individual",
             )
 
     def _find_recife_editions(self, text):

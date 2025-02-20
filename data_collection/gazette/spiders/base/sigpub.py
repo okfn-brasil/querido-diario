@@ -76,6 +76,7 @@ class BaseSigpubSpider(BaseGazetteSpider):
                 publishing_body="",
                 document_code="",
                 document_page="",
+                granularity="agregado",
             )
 
     def available_dates_form_fields(self):

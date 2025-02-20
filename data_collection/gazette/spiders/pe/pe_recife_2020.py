@@ -113,6 +113,7 @@ class PeRecifeSpider_2020(BaseGazetteSpider):
             publishing_body="",
             document_code="",
             document_page="",
+            granularity="individual",
         )
 
     def _clean_zfill(self, string_number):

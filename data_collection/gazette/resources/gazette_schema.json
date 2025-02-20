@@ -42,28 +42,13 @@
             "description": "Value corresponding to the page of a document",
             "type": "string"
         },
-        "act_category": {
-            "description": "Category of oficial act",
-            "type": "string"
-        },
-        "publishing_body": {
-            "description": "Department responsible for publishing the document",
-            "type": "string"
-        },
-        "document_code": {
-            "description": "Code to reference a document",
-            "type": "string"
-        },
-        "document_page": {
-            "description": "Value corresponding to the page of a document",
-            "type": "string"
-        },
-        "power": {
+        "granularity": {
             "type": "string",
             "enum": [
-                "executivo",
-                "legislativo",
-                "executivo_legislativo"
+                "ato",
+                "seção",
+                "individual",
+                "agregado"
             ]
         },
         "scraped_at":{

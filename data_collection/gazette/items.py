@@ -15,6 +15,7 @@ class Gazette(scrapy.Item):
     publishing_body = scrapy.Field()
     document_code = scrapy.Field()
     document_page = scrapy.Field()
+    granularity = scrapy.Field()
     scraped_at = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
