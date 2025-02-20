@@ -101,8 +101,8 @@ class SQLDatabasePipeline:
                 # files that were already downloaded before
                 continue
 
+            gazette_item["url_arquivo_coletado"] = file_info["url"]
             gazette_item["file_path"] = file_info["path"]
-            gazette_item["file_url"] = file_info["url"]
             gazette_item["file_checksum"] = file_info["checksum"]
 
             gazette = Gazette(**gazette_item)
