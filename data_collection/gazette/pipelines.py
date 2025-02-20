@@ -1,4 +1,4 @@
-import datetime as dt
+from datetime import datetime
 from pathlib import Path
 
 import filetype
@@ -30,7 +30,7 @@ class DefaultValuesPipeline:
 
         # Date manipulation to allow jsonschema to validate correctly
         item["date"] = str(item["date"])
-        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+        item["scraped_at"] = datetime.utcnow().isoformat("T") + "Z"
 
         return item
 
@@ -75,18 +75,16 @@ class SQLDatabasePipeline:
         session = self.Session()
 
         fields = [
-            "date",
             "edition_number",
             "is_extra_edition",
             "power",
             "scraped_at",
         ]
         gazette_item = {field: item.get(field) for field in fields}
+
         gazette_item["entidade_publica_id"] = item["public_entity_id"]
-        gazette_item["date"] = dt.datetime.strptime(
-            gazette_item["date"], "%Y-%m-%d"
-        ).date()
-        gazette_item["scraped_at"] = dt.datetime.strptime(
+        gazette_item["data"] = datetime.strptime(item["date"], "%Y-%m-%d").date()
+        gazette_item["scraped_at"] = datetime.strptime(
             gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
         )
 
@@ -108,7 +106,7 @@ class SQLDatabasePipeline:
             except SQLAlchemyError as exc:
                 spider.logger.warning(
                     f"Something wrong has happened when adding the gazette in the database. "
-                    f"Date: {gazette_item['date']}. "
+                    f"Date: {gazette_item['data']}. "
                     f"File Checksum: {gazette_item['file_checksum']}. "
                     f"Details: {exc.args}"
                 )

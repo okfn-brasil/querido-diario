@@ -106,13 +106,13 @@ def initialize_database(database_url, public_entity_spider_map):
 
 class Gazette(DeclarativeBase):
     __tablename__ = "gazettes"
-    __table_args__ = (UniqueConstraint("entidade_publica_id", "date", "file_checksum"),)
+    __table_args__ = (UniqueConstraint("entidade_publica_id", "data", "file_checksum"),)
 
     public_entity = relationship("PublicEntity", back_populates="public_entities")
 
     id = Column(Integer, primary_key=True)
     entidade_publica_id = Column(String, ForeignKey("entidades_publicas.id"))
-    date = Column(Date)
+    data = Column(Date)
     edition_number = Column(String)
     is_extra_edition = Column(Boolean)
     power = Column(String)
