@@ -84,6 +84,7 @@ class SQLDatabasePipeline:
         gazette_item["numero_edicao"] = item["edition_number"]
         gazette_item["edicao_extra"] = item["is_extra_edition"]
         gazette_item["categoria_ato"] = item["act_category"]
+        gazette_item["orgao_publicador"] = item["publishing_body"]
 
         gazette_item["data"] = datetime.strptime(item["date"], "%Y-%m-%d").date()
         gazette_item["scraped_at"] = datetime.strptime(

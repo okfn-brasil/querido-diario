@@ -73,6 +73,7 @@ class BaseSigpubSpider(BaseGazetteSpider):
                 is_extra_edition=(meta["edition_type"] == "extra"),
                 edition_number=edition.get("numero_edicao", ""),
                 act_category="",
+                publishing_body="",
             )
 
     def available_dates_form_fields(self):

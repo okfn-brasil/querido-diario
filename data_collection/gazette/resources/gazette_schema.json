@@ -46,6 +46,10 @@
             "description": "Category of oficial act",
             "type": "string"
         },
+        "publishing_body": {
+            "description": "Department responsible for publishing the document",
+            "type": "string"
+        },
         "power": {
             "type": "string",
             "enum": [
