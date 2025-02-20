@@ -1,5 +1,4 @@
 import csv
-import datetime as dt
 import logging
 
 import pkg_resources
@@ -127,8 +126,6 @@ class Gazette(DeclarativeBase):
     checksum_arquivo_coletado = Column(String)
     caminho_arquivo_coletado = Column(String)
     hora_coleta = Column(DateTime)
-    created_at = Column(DateTime, default=dt.datetime.utcnow)
-    processed = Column(Boolean, default=False)
 
 
 public_entity_spider_map = Table(
