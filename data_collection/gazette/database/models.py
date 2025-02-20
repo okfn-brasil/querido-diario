@@ -115,7 +115,7 @@ class Gazette(DeclarativeBase):
     data = Column(Date)
     poder = Column(String)
     numero_edicao = Column(String)
-    is_extra_edition = Column(Boolean)
+    edicao_extra = Column(Boolean)
     file_checksum = Column(String)
     file_path = Column(String)
     file_url = Column(String)
