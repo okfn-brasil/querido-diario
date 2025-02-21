@@ -32,7 +32,8 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
     """
 
     name = "pe_recife_2015"
-    TERRITORY_ID = "2611606"
+    GAZETTES_PAGE_URL = "https://www.cepe.com.br/prefeituradiario"
+    PUBLIC_ENTITY_ID = "2611606"
 
     start_date = dt.date(2015, 4, 30)
     end_date = dt.date(2020, 8, 1)
@@ -72,7 +73,12 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
                 date=date,
                 file_urls=[url],
                 is_extra_edition=self._is_extra(edition),
-                power="executive_legislative",
+                power="executivo_legislativo",
+                act_category="",
+                publishing_body="",
+                document_code="",
+                document_page="",
+                granularity="individual",
             )
 
     def _find_recife_editions(self, text):

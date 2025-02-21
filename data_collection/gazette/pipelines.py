@@ -1,4 +1,4 @@
-import datetime as dt
+from datetime import datetime
 from pathlib import Path
 
 import filetype
@@ -26,11 +26,11 @@ class GazetteDateFilteringPipeline:
 
 class DefaultValuesPipeline:
     def process_item(self, item, spider):
-        item["territory_id"] = getattr(spider, "TERRITORY_ID")
+        item["public_entity_id"] = getattr(spider, "PUBLIC_ENTITY_ID")
 
         # Date manipulation to allow jsonschema to validate correctly
         item["date"] = str(item["date"])
-        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+        item["scraped_at"] = datetime.utcnow().isoformat("T") + "Z"
 
         return item
 
@@ -44,7 +44,7 @@ class SQLDatabasePipeline:
         database_url = crawler.settings.get("QUERIDODIARIO_DATABASE_URL")
         return cls(database_url=database_url)
 
-    def _generate_territory_spider_map(self):
+    def _generate_public_entity_spider_map(self):
         settings = project.get_project_settings()
         spider_loader = spiderloader.SpiderLoader.from_settings(settings)
         spiders = spider_loader.list()
@@ -53,16 +53,19 @@ class SQLDatabasePipeline:
         mapping = []
         for spider_class in classes:
             spider_name = getattr(spider_class, "name", None)
-            territory_id = getattr(spider_class, "TERRITORY_ID", None)
+            public_entity_id = getattr(spider_class, "PUBLIC_ENTITY_ID", None)
+            gazettes_page_url = getattr(spider_class, "GAZETTES_PAGE_URL", None)
             date_from = getattr(spider_class, "start_date", None)
-            if all((spider_name, territory_id, date_from)):
-                mapping.append((spider_name, territory_id, date_from))
+            if all((spider_name, public_entity_id, gazettes_page_url, date_from)):
+                mapping.append(
+                    (spider_name, public_entity_id, gazettes_page_url, date_from)
+                )
         return mapping
 
     def open_spider(self, spider):
         if self.database_url is not None:
-            territory_spider_map = self._generate_territory_spider_map()
-            engine = initialize_database(self.database_url, territory_spider_map)
+            public_entity_spider_map = self._generate_public_entity_spider_map()
+            engine = initialize_database(self.database_url, public_entity_spider_map)
             self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
@@ -71,22 +74,21 @@ class SQLDatabasePipeline:
 
         session = self.Session()
 
-        fields = [
-            "source_text",
-            "date",
-            "edition_number",
-            "is_extra_edition",
-            "power",
-            "scraped_at",
-            "territory_id",
-        ]
-        gazette_item = {field: item.get(field) for field in fields}
-        gazette_item["date"] = dt.datetime.strptime(
-            gazette_item["date"], "%Y-%m-%d"
-        ).date()
-        gazette_item["scraped_at"] = dt.datetime.strptime(
-            gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
-        )
+        gazette_item = {
+            "entidade_publica_id": item["public_entity_id"],
+            "poder": item["power"],
+            "numero_edicao": item["edition_number"],
+            "edicao_extra": item["is_extra_edition"],
+            "categoria_ato": item["act_category"],
+            "orgao_publicador": item["publishing_body"],
+            "codigo_documento": item["document_code"],
+            "paginacao_documento": item["document_page"],
+            "granularidade": item["granularity"],
+            "data": datetime.strptime(item["date"], "%Y-%m-%d").date(),
+            "hora_coleta": datetime.strptime(
+                item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+            ),
+        }
 
         for file_info in item.get("files", []):
             already_downloaded = file_info["status"] == "uptodate"
@@ -95,9 +97,9 @@ class SQLDatabasePipeline:
                 # files that were already downloaded before
                 continue
 
-            gazette_item["file_path"] = file_info["path"]
-            gazette_item["file_url"] = file_info["url"]
-            gazette_item["file_checksum"] = file_info["checksum"]
+            gazette_item["url_arquivo_coletado"] = file_info["url"]
+            gazette_item["checksum_arquivo_coletado"] = file_info["checksum"]
+            gazette_item["caminho_arquivo_coletado"] = file_info["path"]
 
             gazette = Gazette(**gazette_item)
             session.add(gazette)
@@ -106,8 +108,8 @@ class SQLDatabasePipeline:
             except SQLAlchemyError as exc:
                 spider.logger.warning(
                     f"Something wrong has happened when adding the gazette in the database. "
-                    f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Date: {gazette_item['data']}. "
+                    f"File Checksum: {gazette_item['checksum_arquivo_coletado']}. "
                     f"Details: {exc.args}"
                 )
                 session.rollback()
@@ -121,7 +123,7 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
     """Pipeline to download files described in file_urls or file_requests item fields.
 
     The main differences from the default FilesPipelines is that this pipeline:
-        - organizes downloaded files differently (based on territory_id)
+        - organizes downloaded files differently (based on public_entity_id)
         - adds the file_requests item field to download files from request instances
         - allows a download_file_headers spider attribute to modify file_urls requests
     """
@@ -167,19 +169,19 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         """
         Path to save the files, modified to organize the gazettes in directories
         and with the right file extension added.
-        The files will be under <territory_id>/<gazette date>/<filename>.
+        The files will be under <public_entity_id>/<gazette date>/<filename>.
         """
         filepath = Path(
             super().file_path(request, response=response, info=info, item=item)
         )
         # The default path from the scrapy class begins with "full/". In this
-        # class we replace that with the territory_id and gazette date.
+        # class we replace that with the public_entity_id and gazette date.
         filename = filepath.name
 
         if response is not None and not filepath.suffix:
             filename = self._get_filename_with_extension(filename, response)
 
-        return str(Path(item["territory_id"], item["date"], filename))
+        return str(Path(item["public_entity_id"], item["date"], filename))
 
     def _get_filename_with_extension(self, filename, response):
         # The majority of the Gazettes are PDF files, so we can check it

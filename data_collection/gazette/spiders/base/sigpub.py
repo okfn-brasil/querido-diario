@@ -69,9 +69,14 @@ class BaseSigpubSpider(BaseGazetteSpider):
             yield Gazette(
                 date=meta["date"].date(),
                 file_urls=[url],
-                power="executive_legislative",
+                power="executivo_legislativo",
                 is_extra_edition=(meta["edition_type"] == "extra"),
                 edition_number=edition.get("numero_edicao", ""),
+                act_category="",
+                publishing_body="",
+                document_code="",
+                document_page="",
+                granularity="agregado",
             )
 
     def available_dates_form_fields(self):
