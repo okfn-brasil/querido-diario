@@ -1,6 +1,8 @@
 import re
+from datetime import date
 
 import dateparser
+from fuzzywuzzy import process
 from scrapy import Request
 
 from gazette.items import Gazette
@@ -8,35 +10,38 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class RjCampoGoytacazesSpider(BaseGazetteSpider):
-    TERRITORY_ID = "3301009"
-
-    allowed_domains = ["www.campos.rj.gov.br"]
     name = "rj_campos_goytacazes"
-    start_urls = [
-        "https://www.campos.rj.gov.br/diario-oficial.php?PGpagina=1&PGporPagina=15"
+    TERRITORY_ID = "3301009"
+    allowed_domains = ["www.campos.rj.gov.br"]
+    start_urls = ["https://www.campos.rj.gov.br/diario-oficial.php"]
+    start_date = date(2013, 11, 1)
+    months = [
+        "janeiro",
+        "fevereiro",
+        "março",
+        "abril",
+        "maio",
+        "junho",
+        "julho",
+        "agosto",
+        "setembro",
+        "outubro",
+        "novembro",
+        "dezembro",
     ]
 
     def parse(self, response):
-        """
-        @url https://www.campos.rj.gov.br/diario-oficial.php?PGpagina=1&PGporPagina=15
-        @returns requests 1
-        @returns items 15 15
-        @scrapes date file_urls is_extra_edition power
-        """
-
         for element in response.css("ul.ul-licitacoes li"):
+            gazette_data = element.css("h4::text")
             gazette_text = element.css("h4::text").get("")
 
-            date_re = re.search(r"(\d{2} de (.*) de \d{4})", gazette_text)
-            if not date_re:
+            date = self.extract_date(gazette_text)
+            if not date or date > self.end_date:
                 continue
+            if date < self.start_date:
+                return
 
-            date = date_re.group(0)
-            # The extra edition for August 28th, 2018 has a typo in the month name.
-            date = date.replace("Agosoto", "Agosto")
-            # The edition for December 17th, 2012 has a typo in the month name.
-            date = date.replace("Dezembrbo", "Dezembro")
-            date = dateparser.parse(date, languages=["pt"]).date()
+            edition_number = gazette_data.re_first(r"Edição.*\s(\d+)")
 
             path_to_gazette = element.css("a::attr(href)").get().strip()
             # From November 17th, 2017 and backwards the path to the gazette PDF
@@ -44,12 +49,15 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
             if path_to_gazette.startswith("up/diario_oficial.php"):
                 path_to_gazette = response.urljoin(path_to_gazette)
 
-            is_extra_edition = gazette_text.startswith("Suplemento")
+            is_extra_edition = bool(
+                re.search(r"extra|supl|revis", gazette_text, re.IGNORECASE)
+            )
 
             yield Gazette(
                 date=date,
-                file_urls=[path_to_gazette],
+                edition_number=edition_number,
                 is_extra_edition=is_extra_edition,
+                file_urls=[path_to_gazette],
                 power="executive",
             )
 
@@ -60,3 +68,32 @@ class RjCampoGoytacazesSpider(BaseGazetteSpider):
         )
         if next_url:
             yield Request(response.urljoin(next_url))
+
+    def extract_date(self, text):
+        """Extract a date from a text. This method attempts to correct typing errors in the month.
+
+        Args:
+            text: A text containing a date with the name of the month full version (%B)
+
+        Returns:
+            The date, if match. Otherwise, returns None.
+        """
+
+        match_date = re.search(r"\d{1,2}º?(\sde)? +(\w+)(\sde)? +\d{4}", text)
+        if not match_date:
+            return None
+
+        raw_date = match_date.group(0)
+        raw_date = raw_date.replace("º", "").replace("°", "")
+        month = match_date.group(2)
+        if month.lower() not in self.months:
+            match_month, score = process.extractOne(month, self.months)
+            if score < 70:
+                return None
+            raw_date = raw_date.replace(month, match_month)
+            self.logger.warning(
+                f' Erro de digitação em "{text}". CORRIGIDO DE {month} PARA {match_month}'
+            )
+
+        parsed_datetime = dateparser.parse(raw_date, languages=["pt"])
+        return parsed_datetime.date() if parsed_datetime else None
