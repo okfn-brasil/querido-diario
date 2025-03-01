@@ -4,6 +4,8 @@ from gazette.spiders.base.modernizacao import BaseModernizacaoSpider
 
 
 class RjMiguelPereiraSpider(BaseModernizacaoSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "3302908"
     name = "rj_miguel_pereira"
     allowed_domains = ["transparencia.miguelpereira.rj.gov.br"]
