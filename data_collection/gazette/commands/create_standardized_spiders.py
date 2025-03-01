@@ -1,9 +1,8 @@
 import csv
-import re
 from datetime import datetime
-from urllib.parse import urlparse, urlunparse
 
 from jinja2 import Environment, FileSystemLoader
+from patterns import PatternsSpecifcs
 from unidecode import unidecode
 
 
@@ -37,12 +36,8 @@ class SpiderFileMaker:
 
     def add_spider_specific_attributes(self):
         pattern = self.entry["pattern"]
-        if pattern == "adiarios_v1":
-            self.set_adiarios_v1()
-        elif pattern == "adiarios_v2":
-            self.set_adiarios_v2()
-        elif pattern == "doem":
-            self.set_doem()
+        method = getattr(PatternsSpecifcs, pattern)
+        self.template_file, self.attributes = method(self.entry, self.attributes)
 
     def write_spider(self):
         env = Environment(loader=FileSystemLoader(self.TEMPLATES_DIR), autoescape=True)
@@ -52,30 +47,6 @@ class SpiderFileMaker:
 
         with open(self._make_filepath(), "w") as f:
             print(spider_content, file=f)
-
-    def set_adiarios_v1(self):
-        self.template_file = "adiarios_v1.jinja"
-
-        parsed_url = urlparse(self.entry["url"])
-        replacements = {"path": "", "params": "", "query": "", "fragment": ""}
-        self.attributes["base_url"] = urlunparse(parsed_url._replace(**replacements))
-        self.attributes["domain"] = parsed_url.netloc.replace("www.", "")
-
-    def set_adiarios_v2(self):
-        self.template_file = "adiarios_v2.jinja"
-
-        parsed_url = urlparse(self.entry["url"])
-        replacements = {"path": "", "params": "", "query": "", "fragment": ""}
-        self.attributes["base_url"] = urlunparse(parsed_url._replace(**replacements))
-        self.attributes["domain"] = parsed_url.netloc.replace("www.", "")
-
-    def set_doem(self):
-        self.template_file = "doem.jinja"
-
-        parsed_url = urlparse(self.entry["url"])
-        self.attributes["state_city_url_part"] = re.search(
-            r"/(.+)/diarios", parsed_url.path
-        ).group(1)
 
     def _sanitize(self, text):
         return unidecode(text).strip().lower().replace("-", " ").replace("'", "")
