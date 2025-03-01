@@ -21,7 +21,8 @@ class SpiderFileMaker:
         self.entry = entry
         self.set_spider_basic_attributes()
         self.add_spider_specific_attributes()
-        self.write_spider()
+        if self.template_file is not None:
+            self.write_spider()
 
     def set_spider_basic_attributes(self):
         if self.entry["status"] == "descontinuado":
@@ -36,8 +37,9 @@ class SpiderFileMaker:
 
     def add_spider_specific_attributes(self):
         pattern = self.entry["pattern"]
-        method = getattr(PatternsSpecifcs, pattern)
-        self.template_file, self.attributes = method(self.entry, self.attributes)
+        if pattern in ["dosp"]:
+            method = getattr(PatternsSpecifcs, pattern)
+            self.template_file, self.attributes = method(self.entry, self.attributes)
 
     def write_spider(self):
         env = Environment(loader=FileSystemLoader(self.TEMPLATES_DIR), autoescape=True)
@@ -60,6 +62,9 @@ class SpiderFileMaker:
         return f"{self.entry['state']}_{self.entry['city'].replace(' ', '_')}"
 
     def _format_date(self):
+        if self.entry["date_from"] == "Edição com data ausente":
+            return ""
+
         return (
             datetime.strptime(self.entry["date_from"], "%Y-%m-%d")
             .strftime("%Y, %m, %d")
