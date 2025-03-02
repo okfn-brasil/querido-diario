@@ -1,5 +1,4 @@
 import re
-
 import dateparser
 from scrapy import Request
 
@@ -9,12 +8,12 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class RjBarraMansaSpider(BaseGazetteSpider):
     TERRITORY_ID = "3300407"
-
     allowed_domains = ["barramansa.rj.gov.br"]
     name = "rj_barra_mansa"
     start_urls = [
         "https://portaltransparencia.barramansa.rj.gov.br/boletim-oficial/"
     ]
+    start_date = "2012-01-01"
 
     def parse(self, response):
         """
@@ -23,7 +22,6 @@ class RjBarraMansaSpider(BaseGazetteSpider):
         @returns items 15 15
         @scrapes date file_urls is_extra_edition power
         """
-
         for element in response.css("ul.ul-licitacoes li"):
             gazette_text = element.css("h4::text").get("")
 
@@ -31,16 +29,19 @@ class RjBarraMansaSpider(BaseGazetteSpider):
             if not date_re:
                 continue
 
-            date = date_re.group(0)
-            # The extra edition for August 28th, 2018 has a typo in the month name.
-            date = date.replace("Agosoto", "Agosto")
-            # The edition for December 17th, 2012 has a typo in the month name.
-            date = date.replace("Dezembrbo", "Dezembro")
-            date = dateparser.parse(date, languages=["pt"]).date()
+            date_str = date_re.group(0)
+            date_str = date_str.replace("Agosoto", "Agosto")
+            date_str = date_str.replace("Dezembrbo", "Dezembro")
+            
+            parsed_date = dateparser.parse(date_str, languages=["pt"])
+            if not parsed_date:
+                continue
+            date = parsed_date.date()
 
-            path_to_gazette = element.css("a::attr(href)").get().strip()
-            # From November 17th, 2017 and backwards the path to the gazette PDF
-            # is relative.
+            path_to_gazette = element.css("a::attr(href)").get()
+            if not path_to_gazette:
+                continue
+            path_to_gazette = path_to_gazette.strip()
             if path_to_gazette.startswith("up/diario_oficial.php"):
                 path_to_gazette = response.urljoin(path_to_gazette)
 
@@ -53,10 +54,8 @@ class RjBarraMansaSpider(BaseGazetteSpider):
                 power="executive",
             )
 
-        next_url = (
-            response.css(".pagination")
-            .xpath("//a[contains(text(), 'Proxima')]/@href")
-            .get()
-        )
+        next_url = response.xpath(
+            "//a[contains(translate(text(), 'ÁÉÍÓÚ', 'AEIOU'), 'PROXIMA')]/@href"
+        ).get()
         if next_url:
             yield Request(response.urljoin(next_url))
