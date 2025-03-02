@@ -7,7 +7,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class barramansaSpider(BaseGazetteSpider):
+class RjBarraMansaSpider(BaseGazetteSpider):
     TERRITORY_ID = "3300407"
 
     allowed_domains = ["www.barramansa.rj.gov.br"]
