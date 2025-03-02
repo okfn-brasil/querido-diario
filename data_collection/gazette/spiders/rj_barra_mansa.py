@@ -10,7 +10,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class RjBarraMansaSpider(BaseGazetteSpider):
     TERRITORY_ID = "3300407"
 
-    allowed_domains = ["www.barramansa.rj.gov.br"]
+    allowed_domains = ["barramansa.rj.gov.br"]
     name = "rj_barra_mansa"
     start_urls = [
         "https://portaltransparencia.barramansa.rj.gov.br/boletim-oficial/"
