@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class BaAracasSpider(BaseSaiSpider):
+class BaAracasSpider(BaseDiofSpider):
     TERRITORY_ID = "2902054"
     name = "ba_aracas"
-    allowed_domains = ["aracas.ba.gov.br"]
-    base_url = "https://www.aracas.ba.gov.br"
+    website = "https://diario.aracas.ba.gov.br"
     start_date = date(2014, 11, 27)
+    power = "executive"

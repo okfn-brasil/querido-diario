@@ -1,11 +1,10 @@
 import datetime as dt
 
-from gazette.spiders.base.aplus import BaseAplusSpider
+from gazette.spiders.base.administracaopublica import BaseAdministracaoPublicaSpider
 
 
-class MaPeritoroSpider(BaseAplusSpider):
+class MaPeritoroSpider(BaseAdministracaoPublicaSpider):
     TERRITORY_ID = "2108454"
     name = "ma_peritoro"
-    start_date = dt.date(2020, 1, 4)
-    allowed_domains = ["peritoro.ma.gov.br"]
-    url_base = "https://www.peritoro.ma.gov.br/diario/"
+    start_date = dt.date(2017, 1, 2)
+    token = "9de645b503b922df799865ffcb07a6ec7b9cb53e"

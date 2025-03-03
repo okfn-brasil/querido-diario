@@ -10,7 +10,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class ScFlorianopolisSpider(BaseGazetteSpider):
-    name = "sc_florianopolis"
+    name = "sc_florianopolis_2009"
     TERRITORY_ID = "4205407"
     start_date = date(2009, 6, 1)
 
@@ -24,7 +24,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
         for year, month in periods_of_interest:
             data = dict(ano=str(year), mes=str(month), passo="1", enviar="")
             yield FormRequest(
-                "https://www.pmf.sc.gov.br/governo/index.php?pagina=govdiariooficial",
+                "https://www.pmf.sc.gov.br/governo/index.php?pagina=govdiarioantigo",
                 formdata=data,
             )
 

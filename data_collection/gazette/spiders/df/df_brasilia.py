@@ -1,5 +1,5 @@
 import datetime
-import re
+from urllib.parse import parse_qs, urlparse
 
 from dateparser import parse
 from dateutil.rrule import MONTHLY, rrule
@@ -34,12 +34,10 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
     TERRITORY_ID = "5300108"
     name = "df_brasilia"
+    allowed_domains = ["dodf.df.gov.br"]
     start_date = datetime.date(1967, 12, 25)
 
-    GAZETTE_URL = "https://dodf.df.gov.br/listar"
-    DATE_REGEX = r"[0-9]{2}-[0-9]{2}[ -][0-9]{2,4}"
-    EXTRA_EDITION_TEXT = "EDICAO EXTR"
-    PDF_URL = "https://dodf.df.gov.br/index/visualizar-arquivo/?pasta={}&arquivo={}"
+    BASE_URL = "https://dodf.df.gov.br"
 
     def start_requests(self):
         months_by_year = [
@@ -51,50 +49,42 @@ class DfBrasiliaSpider(BaseGazetteSpider):
         for month, year in months_by_year:
             month_value = MONTH_MAP.get(month)
             yield Request(
-                f"{self.GAZETTE_URL}?dir={year}/{month_value}",
-                meta={"month": month_value, "year": year},
+                f"{self.BASE_URL}/dodf/jornal/pastas?pasta={year}/{month_value}",
                 callback=self.parse_month,
             )
 
     def parse_month(self, response):
         """Parses available dates to request a list of documents for each date."""
-        month, year = response.meta["month"], response.meta["year"]
-        dates = response.json().get("data", [])
+        gazette_days_url = response.css(".lista-arquivos a::attr(href)").getall()
 
-        for gazette_name in dates.values():
-            date = re.search(self.DATE_REGEX, gazette_name).group()
-
-            if date is None:
-                continue
-
+        for url in gazette_days_url:
+            date = url.split("/")[-1]
             date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
 
-            if date < self.start_date:
-                continue
+            if self.start_date <= date <= self.end_date:
+                yield Request(
+                    urlparse(url)._replace(scheme="https").geturl(),
+                    callback=self.parse_gazette,
+                    cb_kwargs={"date": date},
+                )
 
-            url = f"{self.GAZETTE_URL}?dir={year}/{month}/{gazette_name}"
-            yield Request(url, callback=self.parse_gazette)
-
-    def parse_gazette(self, response):
+    def parse_gazette(self, response, date):
         """Parses list of documents to request each one for the date."""
-        json_response = response.json()
-        if not json_response:
-            self.logger.warning(f"Document not found in {response.url}")
+        gazette_editions = response.css(".lista-arquivos a::attr(href)").getall()
+
+        if not gazette_editions:
             return
 
-        json_dir = json_response["dir"]
+        for url_edition in gazette_editions:
+            gazette_name = parse_qs(urlparse(url_edition).query)["arquivo"][0]
+            edition_number = gazette_name.split()[1]
+            is_extra_edition = "extra" in gazette_name.lower()
+            gazette_url = f"{self.BASE_URL}{url_edition}"
 
-        date = re.search(self.DATE_REGEX, json_dir).group()
-        date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
-        is_extra_edition = self.EXTRA_EDITION_TEXT in json_dir
-        path = json_dir.replace("/", "|")
-
-        json_data = json_response["data"]
-        file_urls = [self.PDF_URL.format(path, url.split("/")[-1]) for url in json_data]
-
-        yield Gazette(
-            date=date,
-            file_urls=file_urls,
-            is_extra_edition=is_extra_edition,
-            power="executive_legislative",
-        )
+            yield Gazette(
+                date=date,
+                edition_number=edition_number,
+                is_extra_edition=is_extra_edition,
+                power="executive",
+                file_urls=[gazette_url],
+            )

@@ -1,15 +1,12 @@
 import datetime
 
-from gazette.spiders.base.siganet import BaseSiganetSpider
+from gazette.spiders.base.aratext import BaseAratextSpider
 
 
-class MaMaranhaozinhoSpider(BaseSiganetSpider):
-    zyte_smartproxy_enabled = True
-
+class MaMaranhaozinhoSpider(BaseAratextSpider):
     TERRITORY_ID = "2106375"
     name = "ma_maranhaozinho"
-    start_date = datetime.date(2021, 1, 26)
-    allowed_domains = ["transparencia.maranhaozinho.ma.gov.br"]
-    BASE_URL = (
-        "https://transparencia.maranhaozinho.ma.gov.br/acessoInformacao/diario/diario"
-    )
+    start_date = datetime.date(2024, 1, 2)
+    power = "executive"
+    allowed_domains = ["maranhaozinho.ma.gov.br"]
+    start_urls = ["https://maranhaozinho.ma.gov.br/diariooficial"]

@@ -1,11 +1,11 @@
 from datetime import date
 
-from gazette.spiders.base.sai import BaseSaiSpider
+from gazette.spiders.base.diof import BaseDiofSpider
 
 
-class BaAndorinhaSpider(BaseSaiSpider):
+class BaAndorinhaSpider(BaseDiofSpider):
     TERRITORY_ID = "2901353"
     name = "ba_andorinha"
-    allowed_domains = ["andorinha.ba.gov.br"]
-    base_url = "https://www.andorinha.ba.gov.br"
+    website = "https://sai.io.org.br/ba/andorinha/site/diariooficial"
     start_date = date(2013, 1, 2)
+    power = "executive"

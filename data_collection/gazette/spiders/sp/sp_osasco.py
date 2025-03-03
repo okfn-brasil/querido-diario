@@ -7,10 +7,12 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpOsascoSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "3534401"
     name = "sp_osasco"
     allowed_domains = ["www.osasco.sp.gov.br"]
-    start_urls = ["http://www.osasco.sp.gov.br/imprensa-oficial/"]
+    start_urls = ["https://www.osasco.sp.gov.br/imprensa-oficial/"]
     start_date = date(2002, 8, 2)
     NUMBER_REGEX = re.compile(r"(\d+)$")
 

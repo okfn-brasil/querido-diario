@@ -1,3 +1,4 @@
+import re
 from base64 import b64encode
 from datetime import datetime
 from json import loads
@@ -10,15 +11,18 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class BaseDospSpider(BaseGazetteSpider):
     # Must be defined into child classes
-    code = None
     start_date = None
 
     allowed_domains = ["dosp.com.br"]
 
-    def start_requests(self):
-        yield scrapy.Request(f"https://dosp.com.br/api/index.php/dioe.js/{self.code}")
-
     def parse(self, response):
+        code = re.search(r"urlapi\+'.js/(\d*)/'\+idsecao\+'", response.text).group(1)
+        yield scrapy.Request(
+            f"https://dosp.com.br/api/index.php/dioe.js/{code}",
+            callback=self.parse_json,
+        )
+
+    def parse_json(self, response):
         json_text = (
             response.css("p::text").get().replace("parseResponse(", "")
         ).replace(");", "")

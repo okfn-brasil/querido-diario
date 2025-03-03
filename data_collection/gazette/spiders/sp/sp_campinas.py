@@ -8,6 +8,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class SpCampinasSpider(BaseGazetteSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "3509502"
     name = "sp_campinas"
     allowed_domains = ["campinas.sp.gov.br"]

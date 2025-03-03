@@ -1,52 +1,60 @@
-import locale
-import re
-from datetime import date, datetime
+from datetime import date
+from urllib.parse import urlparse
 
 import scrapy
-from dateutil.rrule import DAILY, rrule
+from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
-RE_MAX_PAGE_NUM = re.compile(r"\d+ de (\d+)")
-
 
 class SpSaoPauloSpider(BaseGazetteSpider):
     TERRITORY_ID = "3550308"
-    BASE_URL = "http://diariooficial.imprensaoficial.com.br"
-    allowed_domains = ["diariooficial.imprensaoficial.com.br"]
     name = "sp_sao_paulo"
-    start_date = date(2017, 6, 1)
+    start_date = date(1899, 1, 10)
+    allowed_domains = ["diariooficial.prefeitura.sp.gov.br"]
+    start_urls = [
+        "https://diariooficial.prefeitura.sp.gov.br/md_epubli_controlador.php?acao=memoria_listar"
+    ]
 
-    def start_requests(self):
-        # Need to have the month's name in portuguese for the pdf url
-        locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
-        for day in rrule(freq=DAILY, dtstart=self.start_date, until=date.today()):
-            url = f"{self.BASE_URL}/nav_v6/header.asp?txtData={day.strftime('%d/%m/%Y')}&cad=1"
-            yield scrapy.Request(url, cb_kwargs=dict(day=day.date()))
+    custom_settings = {
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 1,
+        "DOWNLOAD_DELAY": 5,
+    }
 
-    def get_max_page(self, response):
-        page_txt = response.css("span.form-text::text").get()
+    def parse(self, response):
+        for year_option in response.css(".mandato-ano"):
+            year = int(year_option.css("::text").get())
+            year_formkey = year_option.attrib["data-value"]
 
-        try:
-            max_page = int(RE_MAX_PAGE_NUM.search(page_txt).group(1))
-        except TypeError:
-            max_page = None
+            if self.start_date.year <= year <= self.end_date.year:
+                for month in range(1, 13):
+                    if (
+                        self.start_date
+                        <= date(year, month, self.start_date.day)
+                        <= self.end_date
+                    ):
+                        yield scrapy.FormRequest.from_response(
+                            response,
+                            formdata={
+                                "hdnFiltroMandato": year_formkey,
+                                "hdnFiltroMes": str(month),
+                            },
+                            callback=self.parse_editions,
+                        )
 
-        return max_page
+    def parse_editions(self, response):
+        for item in response.css(".painelEdições.clearfix a"):
+            gazette_url = item.attrib["href"]
+            gazette_url = urlparse(gazette_url)._replace(scheme="https").geturl()
+            raw_date = "/".join(item.css(".legenda h3::text").getall())
+            edition_date = parse(raw_date, languages=["pt"]).date()
 
-    def parse(self, response, day):
-        max_page = self.get_max_page(response)
-        if not max_page:
-            return
-        day_url = f"{self.BASE_URL}/doflash/prototipo/{day.strftime('%Y')}/{day.strftime('%B')}/{day.strftime('%d')}/cidade/pdf"
-        urls = [f"{day_url}/pg_{page:04}.pdf" for page in range(1, max_page + 1)]
-
-        yield Gazette(
-            date=day,
-            file_urls=urls,
-            is_extra_edition=False,
-            territory_id=self.TERRITORY_ID,
-            power="executive",
-            scraped_at=datetime.utcnow(),
-        )
+            if self.start_date <= edition_date <= self.end_date:
+                yield Gazette(
+                    date=edition_date,
+                    file_urls=[gazette_url],
+                    edition_number="",
+                    is_extra_edition=False,
+                    power="executive",
+                )

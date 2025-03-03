@@ -1,5 +1,6 @@
 import datetime as dt
 
+import dateparser
 import scrapy
 from dateutil.rrule import MONTHLY, rrule
 
@@ -29,8 +30,8 @@ class SpJundiaiSpider(BaseGazetteSpider):
     def parse(self, response, current_page=1):
         editions = response.css("#lista-edicoes li.edicao-atual")
         for edition in editions:
-            raw_date = edition.xpath("./a/span[2]/text()").get()
-            date = dt.datetime.strptime(raw_date, "%d/%m/%Y").date()
+            raw_date = edition.css(".data-lista div::text")[1].get()
+            date = dateparser.parse(raw_date, languages=["pt"]).date()
 
             if date > self.end_date:
                 continue
