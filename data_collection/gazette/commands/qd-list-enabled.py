@@ -3,7 +3,7 @@ import datetime
 from scrapy.commands import ScrapyCommand
 from scrapy.exceptions import UsageError
 
-from gazette.utils import get_enabled_spiders
+from gazette.utils.database import get_enabled_spiders
 
 
 class Command(ScrapyCommand):
