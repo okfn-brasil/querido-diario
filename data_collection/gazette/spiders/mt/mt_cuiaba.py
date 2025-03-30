@@ -1,16 +1,14 @@
 import datetime
 
 from dateutil.parser import isoparse
-from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class MtCuiabaSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
-
     TERRITORY_ID = "5103403"
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
@@ -23,8 +21,8 @@ class MtCuiabaSpider(BaseGazetteSpider):
     }
 
     def start_requests(self):
-        for date in rrule(MONTHLY, dtstart=self.start_date, until=self.end_date):
-            date_url = f"{self.BASE_URL}/published/{date.year}/{date.month}"
+        for date in monthly_sequence(self.start_date, self.end_date, format="%Y/%m"):
+            date_url = f"{self.BASE_URL}/published/{date}"
             yield Request(
                 url=date_url,
                 headers={

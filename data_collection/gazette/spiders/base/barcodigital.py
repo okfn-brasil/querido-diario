@@ -1,10 +1,10 @@
-from datetime import date, datetime
+from datetime import datetime
 
-from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class BaseBarcoDigitalSpider(BaseGazetteSpider):
@@ -13,18 +13,8 @@ class BaseBarcoDigitalSpider(BaseGazetteSpider):
     EDITION_TYPE_SUPPLEMENT = 3
 
     def start_requests(self):
-        initial_date = date(self.start_date.year, self.start_date.month, 1)
-        end_date = self.end_date
-
-        periods_of_interest = [
-            (date.year, date.month)
-            for date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date)
-        ]
-
-        for year, month in periods_of_interest:
-            url = (
-                f"{self.base_url}/api/publico/diario/calendario?mes={month}&ano={year}"
-            )
+        for date in monthly_sequence(self.start_date, self.end_date):
+            url = f"{self.base_url}/api/publico/diario/calendario?mes={date.month}&ano={date.year}"
             yield Request(url)
 
     def parse(self, response):

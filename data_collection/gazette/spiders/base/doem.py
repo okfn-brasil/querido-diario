@@ -1,9 +1,9 @@
 import dateparser
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class BaseDoemSpider(BaseGazetteSpider):
@@ -22,15 +22,9 @@ class BaseDoemSpider(BaseGazetteSpider):
     }
 
     def start_requests(self):
-        month_years = [
-            dt.strftime("%Y/%m")
-            for dt in rrule(freq=MONTHLY, dtstart=self.start_date, until=self.end_date)
-        ]
-
-        if self.end_date.strftime("%Y/%m") not in month_years:
-            month_years.append(self.end_date.strftime("%Y/%m"))
-
-        for month_year in month_years:
+        for month_year in monthly_sequence(
+            self.start_date, self.end_date, format="%Y/%m"
+        ):
             yield scrapy.Request(
                 f"https://doem.org.br/{self.state_city_url_part}/diarios/{month_year}"
             )

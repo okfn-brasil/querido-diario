@@ -1,15 +1,13 @@
 import datetime as dt
 
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class SpGuarulhosSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
-
     TERRITORY_ID = "3518800"
     name = "sp_guarulhos"
     allowed_domains = ["diariooficial.guarulhos.sp.gov.br"]
@@ -18,9 +16,7 @@ class SpGuarulhosSpider(BaseGazetteSpider):
     BASE_URL = "https://diariooficial.guarulhos.sp.gov.br/index.php"
 
     def start_requests(self):
-        for date in rrule(
-            MONTHLY, dtstart=self.start_date.replace(day=1), until=self.end_date
-        ):
+        for date in monthly_sequence(self.start_date, self.end_date):
             yield scrapy.Request(f"{self.BASE_URL}?mes={date.month}&ano={date.year}")
 
     def parse(self, response):

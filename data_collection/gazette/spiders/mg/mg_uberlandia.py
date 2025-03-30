@@ -4,10 +4,10 @@ import re
 import dateparser
 import scrapy
 import w3lib
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class MgUberlandiaSpider(BaseGazetteSpider):
@@ -23,15 +23,9 @@ class MgUberlandiaSpider(BaseGazetteSpider):
     }
 
     def start_requests(self):
-        first_day_of_start_date_month = datetime.date(
-            self.start_date.year, self.start_date.month, 1
-        )
-        months_of_interest = rrule(
-            MONTHLY, dtstart=first_day_of_start_date_month, until=self.end_date
-        )
-        for month_date in months_of_interest:
+        for date in monthly_sequence(self.start_date, self.end_date):
             yield scrapy.Request(
-                f"https://www.uberlandia.mg.gov.br/{month_date.year}/{month_date.month}/?post_type=diariooficial",
+                f"https://www.uberlandia.mg.gov.br/{date.year}/{date.month}/?post_type=diariooficial",
                 errback=self.on_error,
             )
 
