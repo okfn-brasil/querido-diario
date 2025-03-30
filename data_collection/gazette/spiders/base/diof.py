@@ -1,16 +1,14 @@
 import json
 import re
-from collections import deque
 from datetime import datetime
-from itertools import islice
 from urllib.parse import urlparse
 
-from dateutil.rrule import MONTHLY, rrule, rruleset
 from scrapy import Request
 from scrapy.http import JsonRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_window
 
 
 class BaseDiofSpider(BaseGazetteSpider):
@@ -67,24 +65,13 @@ class BaseDiofSpider(BaseGazetteSpider):
     def interval_request(self, response):
         self._get_client_id(response)
 
-        monthly_dates = rruleset()
-        monthly_dates.rrule(
-            rrule(
-                MONTHLY,
-                dtstart=self.start_date,
-                until=self.end_date,
-                bymonthday=[self.start_date.day],
-            )
-        )
-        monthly_dates.rdate(
-            datetime(self.end_date.year, self.end_date.month, self.end_date.day)
-        )
-
-        for start, end in self._sliding_window(monthly_dates, 2):
+        for interval in monthly_window(
+            self.start_date, self.end_date, format="%Y-%m-%d"
+        ):
             data = {
                 "cod_cliente": f"{self.client_id}",
-                "dat_envio_ini": f"{start.strftime('%Y-%m-%d')}",
-                "dat_envio_fim": f"{end.strftime('%Y-%m-%d')}",
+                "dat_envio_ini": f"{interval.start}",
+                "dat_envio_fim": f"{interval.end}",
                 "des_observacao": "",
                 "edicao": None,
             }
@@ -144,10 +131,3 @@ class BaseDiofSpider(BaseGazetteSpider):
             self.client_id = re.search(r"varCodigo=(\d+)", response.url).group(1)
         else:
             self.client_id = response.json()["cod_cliente"]
-
-    def _sliding_window(self, iterable, n):
-        it = iter(iterable)
-        window = deque(islice(it, n - 1), maxlen=n)
-        for x in it:
-            window.append(x)
-            yield tuple(window)
