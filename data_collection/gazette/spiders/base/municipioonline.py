@@ -1,12 +1,10 @@
-from collections import deque
-from datetime import datetime, timedelta
-from itertools import islice
+from datetime import datetime
 
 import scrapy
-from dateutil.rrule import YEARLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import yearly_window
 
 
 class BaseMunicipioOnlineSpider(BaseGazetteSpider):
@@ -32,34 +30,14 @@ class BaseMunicipioOnlineSpider(BaseGazetteSpider):
         Assim, nessa implementação, o intervalo de tempo máximo para apenas uma
         requisição é de um ano. Acima disso, mais de uma requisição será realizada.
         """
-        dates_of_interest = [
-            dt
-            for dt in rrule(freq=YEARLY, dtstart=self.start_date, until=self.end_date)
-        ]
-
-        if self.end_date not in dates_of_interest:
-            dates_of_interest.append(self.end_date)
-
-        for filter_start, filter_end in self._sliding_window(dates_of_interest, 2):
-            if dates_of_interest[-1] != filter_end:
-                filter_end -= timedelta(days=1)
-
-            filter_start = filter_start.strftime("%d/%m/%Y")
-            filter_end = filter_end.strftime("%d/%m/%Y")
-
+        for interval in yearly_window(
+            self.start_date, self.end_date, format="%d/%m/%Y"
+        ):
             formdata = {
                 "__EVENTTARGET": "ctl00$body$btnBuscaPalavrachave",
-                "ctl00$body$txtDtPeriodo": f"{filter_start}-{filter_end}",
+                "ctl00$body$txtDtPeriodo": f"{interval.start}-{interval.end}",
             }
-
             yield scrapy.FormRequest.from_response(response, formdata=formdata)
-
-    def _sliding_window(self, iterable, n):
-        it = iter(iterable)
-        window = deque(islice(it, n - 1), maxlen=n)
-        for x in it:
-            window.append(x)
-            yield tuple(window)
 
     def parse(self, response):
         editions_list = response.css("div.panel")
