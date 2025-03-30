@@ -1,11 +1,11 @@
 import re
 from datetime import datetime as dt
 
-from dateutil.rrule import DAILY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import weekly_window
 
 
 class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
@@ -17,18 +17,11 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
     allowed_domains = ["administracaopublica.com.br"]
 
     def start_requests(self):
-        dates = list(
-            rrule(freq=DAILY, interval=7, dtstart=self.start_date, until=self.end_date)
-        )
-        dt_end_date = dt(self.end_date.year, self.end_date.month, self.end_date.day)
-        if dt_end_date not in dates:
-            dates.append(dt_end_date)
-
-        for i in range(len(dates) - 1):
-            start = dates[i].strftime("%Y-%m-%d")
-            end = dates[i + 1].strftime("%Y-%m-%d")
+        for interval in weekly_window(
+            self.start_date, self.end_date, format="%Y-%m-%d"
+        ):
             yield Request(
-                f"https://www.administracaopublica.com.br/diario-oficial?token={self.token}&de={start}&ate={end}"
+                f"https://www.administracaopublica.com.br/diario-oficial?token={self.token}&de={interval.start}&ate={interval.end}"
             )
 
     def parse(self, response):

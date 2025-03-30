@@ -1,13 +1,11 @@
 import re
-from collections import deque
 from datetime import datetime
-from itertools import islice
 
-from dateutil.rrule import WEEKLY, rrule
 from scrapy.http import FormRequest, Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import weekly_window
 
 
 class BaseDioenetSpider(BaseGazetteSpider):
@@ -18,17 +16,11 @@ class BaseDioenetSpider(BaseGazetteSpider):
     allowed_domains = ["plenussistemas.dioenet.com.br"]
 
     def start_requests(self):
-        dates_of_interest = [
-            dt
-            for dt in rrule(freq=WEEKLY, dtstart=self.start_date, until=self.end_date)
-        ]
-
-        if self.end_date not in dates_of_interest:
-            dates_of_interest.append(self.end_date)
-
-        for start, end in self._sliding_window(dates_of_interest, 2):
+        for interval in weekly_window(
+            self.start_date, self.end_date, format="%d/%m/%Y"
+        ):
             params = {
-                "d": f"{start.strftime('%d/%m/%Y')} a {end.strftime('%d/%m/%Y')}",
+                "d": f"{interval.start} a {interval.end}",
                 "pagina": "1",
             }
 
@@ -82,10 +74,3 @@ class BaseDioenetSpider(BaseGazetteSpider):
             **gazette_item,
             file_urls=[gazette_url],
         )
-
-    def _sliding_window(self, iterable, n):
-        it = iter(iterable)
-        window = deque(islice(it, n - 1), maxlen=n)
-        for x in it:
-            window.append(x)
-            yield tuple(window)

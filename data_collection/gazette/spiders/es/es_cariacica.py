@@ -2,35 +2,25 @@ import datetime
 import re
 from urllib.parse import urlencode, urlparse, urlunparse
 
-from dateutil.rrule import WEEKLY, rrule
 from scrapy.http import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import weekly_window
 
 
 class EsCariacicaSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
-
     name = "es_cariacica"
     TERRITORY_ID = "3201308"
     start_date = datetime.date(2014, 7, 1)
     BASE_URL = "https://www.cariacica.es.gov.br/publicacoes/diario-oficial/"
 
     def start_requests(self):
-        search_period = rrule(freq=WEEKLY, dtstart=self.start_date, until=self.end_date)
-
-        for date in search_period:
-            start = date.strftime("%Y-%m-%d")
-            last_day = date + datetime.timedelta(days=6)
-
-            if last_day.date() > self.end_date:
-                end = self.end_date.strftime("%Y-%m-%d")
-            else:
-                end = last_day.strftime("%Y-%m-%d")
-
-            interval = {"inicio": start, "fim": end}
-            url = f"{self.BASE_URL}?{urlencode(interval)}"
+        for interval in weekly_window(
+            self.start_date, self.end_date, format="%Y-%m-%d"
+        ):
+            params = {"inicio": interval.start, "fim": interval.end}
+            url = f"{self.BASE_URL}?{urlencode(params)}"
 
             yield Request(url=url, callback=self.parse_week)
 
