@@ -1,23 +1,23 @@
 from datetime import date, datetime
 
 import scrapy
-from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class MaAldeiasAltasSpider(BaseGazetteSpider):
     name = "ma_aldeias_altas"
     allowed_domains = ["aldeiasaltas.ma.gov.br"]
     start_date = date(2017, 5, 3)
-    url_base = "https://aldeiasaltas.ma.gov.br/diario-oficial?data={}"
     TERRITORY_ID = "2100303"
 
     def start_requests(self):
-        days = rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date)
-        for day in days:
-            yield scrapy.Request(self.url_base.format(day.strftime("%Y-%m-%d")))
+        for day in daily_sequence(self.start_date, self.end_date, format="%Y-%m-%d"):
+            yield scrapy.Request(
+                f"https://aldeiasaltas.ma.gov.br/diario-oficial?data={day}"
+            )
 
     def parse(self, response):
         gazettes = response.css("tbody tr")

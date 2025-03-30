@@ -2,10 +2,10 @@ import json
 from datetime import date
 
 import scrapy
-from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class BaseSigpubSpider(BaseGazetteSpider):
@@ -76,10 +76,7 @@ class BaseSigpubSpider(BaseGazetteSpider):
 
     def available_dates_form_fields(self):
         """Generates dates and corresponding form fields for availability endpoint."""
-        available_dates = rrule(
-            freq=DAILY, dtstart=self.start_date, until=self.end_date
-        )
-        for query_date in available_dates:
+        for query_date in daily_sequence(self.start_date, self.end_date):
             form_fields = {
                 "calendar[day]": str(query_date.day),
                 "calendar[month]": str(query_date.month),

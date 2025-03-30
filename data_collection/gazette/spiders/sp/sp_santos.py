@@ -1,9 +1,8 @@
 import datetime
 
-from dateutil.rrule import DAILY, rrule
-
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class SpSantosSpider(BaseGazetteSpider):
@@ -17,7 +16,7 @@ class SpSantosSpider(BaseGazetteSpider):
     def parse(self, response):
         dates = response.css("#datas.hidden::text").get()
 
-        for date in rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date):
+        for date in daily_sequence(self.start_date, self.end_date):
             formatted_date = date.strftime("%Y-%m-%d")
             if formatted_date in dates:
                 url = self.download_url.format(formatted_date)
