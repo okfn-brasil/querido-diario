@@ -3,10 +3,10 @@ from urllib.parse import urlencode
 
 import scrapy
 import w3lib.url
-from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class MgBeloHorizonteSpider(BaseGazetteSpider):
@@ -21,7 +21,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
     def start_requests(self):
         base_url = "https://api-dom.pbh.gov.br/api/v1/edicoes/buscarpublicacaopordata"
 
-        for date in rrule(freq=DAILY, dtstart=self.start_date, until=self.end_date):
+        for date in daily_sequence(self.start_date, self.end_date):
             url_params = {"data": date.strftime("%Y-%m-%d")}
             yield scrapy.Request(
                 f"{base_url}?{urlencode(url_params)}",

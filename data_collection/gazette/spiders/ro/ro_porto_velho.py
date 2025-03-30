@@ -2,28 +2,27 @@ import datetime as dt
 import json
 
 from dateparser import parse
-from dateutil.rrule import MONTHLY, rrule
-from scrapy.http import Request
-from scrapy.selector import Selector
+from scrapy import Request, Selector
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class RoPortoVelho(BaseGazetteSpider):
     TERRITORY_ID = "1100205"
     BASE_URL = "https://www.portovelho.ro.gov.br/dom/datatablearquivosmes/"
-    AVAILABLE_FROM = dt.datetime(2007, 1, 1)
+    start_date = dt.datetime(2007, 1, 1)
 
     name = "ro_porto_velho"
     allowed_domains = ["portovelho.ro.gov.br"]
 
     def start_requests(self):
-        interval = rrule(MONTHLY, dtstart=self.AVAILABLE_FROM, until=dt.date.today())[
+        for date in monthly_sequence(self.start_date, self.end_date, format="%Y/%m")[
             ::-1
-        ]
-        for date in interval:
-            yield Request(f"{self.BASE_URL}{date.year}/{date.month}")
+        ]:
+            print(f"{self.BASE_URL}{date}")
+            yield Request(f"{self.BASE_URL}{date}")
 
     def parse(self, response):
         paragraphs = json.loads(response.body_as_unicode())["aaData"]

@@ -2,10 +2,10 @@ import re
 from datetime import date, datetime as dt
 
 import scrapy
-from dateutil.rrule import MONTHLY, rrule, rruleset
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class RjMaricaSpider(BaseGazetteSpider):
@@ -16,22 +16,15 @@ class RjMaricaSpider(BaseGazetteSpider):
     BASE_URL = "https://www.marica.rj.gov.br/wp-admin/admin-ajax.php"
 
     def start_requests(self):
-        monthly_dates = rruleset()
-        monthly_dates.rrule(
-            rrule(MONTHLY, dtstart=self.start_date, until=self.end_date, bymonthday=[1])
-        )
-        monthly_dates.rdate(dt(self.start_date.year, self.start_date.month, 1))
-        for monthly_date in monthly_dates:
-            year = monthly_date.strftime("%Y")
-            month = monthly_date.strftime("%m")
+        for monthly_date in monthly_sequence(self.start_date, self.end_date):
             for gazette_type in ["jom", "jom-especial"]:
                 yield scrapy.FormRequest(
                     method="GET",
                     url=self.BASE_URL,
                     formdata={
                         "post_type": gazette_type,
-                        "year": year,
-                        "month": month,
+                        "year": str(monthly_date.year),
+                        "month": str(monthly_date.month),
                         "action": "alm_get_posts",
                         "posts_per_page": "31",
                     },

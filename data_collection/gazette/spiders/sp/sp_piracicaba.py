@@ -2,10 +2,10 @@ import datetime
 import urllib.parse
 
 import scrapy
-from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class SpPiracicabaSpider(BaseGazetteSpider):
@@ -16,11 +16,8 @@ class SpPiracicabaSpider(BaseGazetteSpider):
     start_date = datetime.date(2009, 3, 1)
 
     def start_requests(self):
-        dates = rrule(freq=DAILY, dtstart=self.start_date, until=datetime.date.today())
-        for date in dates:
-            yield scrapy.Request(
-                f"https://diariooficial.piracicaba.sp.gov.br/{date.year}/{date.month}/{date.day}/"
-            )
+        for date in daily_sequence(self.start_date, self.end_date, format="%Y/%m/%d"):
+            yield scrapy.Request(f"https://diariooficial.piracicaba.sp.gov.br/{date}/")
 
     def parse(self, response):
         iframe = response.css("iframe")

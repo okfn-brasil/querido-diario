@@ -3,10 +3,10 @@ import re
 from urllib.parse import urlparse, urlunparse
 
 import scrapy
-from dateutil.rrule import YEARLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import yearly_sequence
 
 
 class BaBarreirasSpider(BaseGazetteSpider):
@@ -19,13 +19,11 @@ class BaBarreirasSpider(BaseGazetteSpider):
     start_date = dt.date(2008, 1, 2)
 
     def start_requests(self):
-        for date_of_interest in rrule(
-            freq=YEARLY, dtstart=self.start_date, until=self.end_date
-        ):
-            if date_of_interest.year == dt.date.today().year:
+        for year in yearly_sequence(self.start_date, self.end_date):
+            if year == dt.date.today().year:
                 base_url = f"{self.base_url}/"
             else:
-                base_url = f"{self.base_url}-{date_of_interest.year}/"
+                base_url = f"{self.base_url}-{year}/"
 
             yield scrapy.Request(url=base_url)
 

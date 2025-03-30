@@ -1,10 +1,10 @@
 import datetime as dt
 
-from dateutil.rrule import DAILY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class RjNiteroiSpider(BaseGazetteSpider):
@@ -30,7 +30,7 @@ class RjNiteroiSpider(BaseGazetteSpider):
     ]
 
     def start_requests(self):
-        for date in rrule(DAILY, dtstart=self.start_date, until=self.end_date):
+        for date in daily_sequence(self.start_date, self.end_date):
             month = self.month_names[date.month - 1]
             year = date.year
             day = date.day

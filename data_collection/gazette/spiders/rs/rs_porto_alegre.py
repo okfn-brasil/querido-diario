@@ -1,10 +1,10 @@
 import datetime as dt
 
 import dateparser
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import YearMonthDate, monthly_sequence
 
 
 class RsPortoAlegreSpider(BaseGazetteSpider):
@@ -47,18 +47,13 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
             )
 
     def _filter_months_of_interest(self, month_elements):
-        # avoid skipping months if day of start_date is at the end of the month
-        first_day_of_start_date_month = dt.date(
-            self.start_date.year, self.start_date.month, 1
-        )
-        months_of_interest = list(
-            rrule(MONTHLY, dtstart=first_day_of_start_date_month, until=self.end_date)
-        )
+        months_of_interest = monthly_sequence(self.start_date, self.end_date)
+
         for month, month_element in enumerate(month_elements, start=1):
             year = int(month_element.css("a::text").re_first(r"\d{4}"))
-            href = month_element.css("a").attrib["href"]
-            month_date = dt.datetime(year, month, 1)
+            month_date = YearMonthDate(year, month)
             if month_date in months_of_interest:
+                href = month_element.css("a").attrib["href"]
                 yield href
 
     def _extract_date(self, text):

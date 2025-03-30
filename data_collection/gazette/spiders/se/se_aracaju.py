@@ -3,11 +3,11 @@ import datetime
 from urllib.parse import parse_qsl
 
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 from parsel import Selector
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class SeAracajuSpider(BaseGazetteSpider):
@@ -37,13 +37,7 @@ class SeAracajuSpider(BaseGazetteSpider):
 
     def start_session_ids(self, response):
         if not response.meta.get("cookiejar", False):
-            rule_start_date = datetime.date(
-                self.start_date.year, self.start_date.month, 1
-            )
-            date_list = list(
-                rrule(freq=MONTHLY, dtstart=rule_start_date, until=self.end_date)
-            )
-            for date in date_list:
+            for date in monthly_sequence(self.start_date, self.end_date):
                 yield from self.start_requests(
                     cookiejar=(
                         date.year,

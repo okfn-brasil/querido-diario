@@ -1,10 +1,10 @@
 import datetime as dt
 
-from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class CeSobralSpider(BaseGazetteSpider):
@@ -23,16 +23,10 @@ class CeSobralSpider(BaseGazetteSpider):
         if self.end_date > dt.date(2017, 2, 3):
             start_date = max([self.start_date, dt.date(2017, 2, 3)])
 
-            months_by_year = [
-                (date.month, date.year)
-                for date in rrule(
-                    MONTHLY, dtstart=start_date.replace(day=1), until=self.end_date
-                )
-            ]
-            for month, year in months_by_year:
+            for date in monthly_sequence(start_date, self.end_date):
                 yield Request(
-                    url=f"{self.BASE_URL}/ano_da_publicacao:{year}/mes_da_publicacao:{month}",
-                    cb_kwargs={"month": month, "year": year},
+                    url=f"{self.BASE_URL}/ano_da_publicacao:{date.year}/mes_da_publicacao:{date.month}",
+                    cb_kwargs={"month": date.month, "year": date.year},
                 )
 
     def parse_older(self, response):

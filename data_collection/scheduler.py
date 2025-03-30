@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import QueridoDiarioSpider
-from gazette.utils import get_enabled_spiders
+from gazette.utils.database import get_enabled_spiders
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
 

@@ -1,11 +1,11 @@
 import re
-from datetime import date, datetime
+from datetime import datetime
 
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class BaseModernizacaoSpider(BaseGazetteSpider):
@@ -22,15 +22,13 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
     def start_requests(self):
         domain = self.allowed_domains[0]
         base_url = f"https://{domain}/{self.filter_endpoint}.php"
-        initial_date = date(self.start_date.year, self.start_date.month, 1)
 
-        for monthly_date in rrule(
-            freq=MONTHLY, dtstart=initial_date, until=self.end_date
+        for month_year in monthly_sequence(
+            self.start_date, self.end_date, format="%m/%Y"
         ):
-            month_year = monthly_date.strftime("%m/%Y").lstrip("0")
             yield scrapy.FormRequest(
                 url=base_url,
-                formdata={"mesano": month_year},
+                formdata={"mesano": month_year.lstrip("0")},
             )
 
     def parse(self, response):

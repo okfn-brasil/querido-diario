@@ -2,11 +2,11 @@ import datetime
 from urllib.parse import parse_qs, urlparse
 
 from dateparser import parse
-from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 MONTH_MAP = {
     idx + 1: value
@@ -30,8 +30,6 @@ MONTH_MAP = {
 
 
 class DfBrasiliaSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
-
     TERRITORY_ID = "5300108"
     name = "df_brasilia"
     allowed_domains = ["dodf.df.gov.br"]
@@ -40,16 +38,10 @@ class DfBrasiliaSpider(BaseGazetteSpider):
     BASE_URL = "https://dodf.df.gov.br"
 
     def start_requests(self):
-        months_by_year = [
-            (date.month, date.year)
-            for date in rrule(
-                MONTHLY, dtstart=self.start_date.replace(day=1), until=self.end_date
-            )
-        ]
-        for month, year in months_by_year:
-            month_value = MONTH_MAP.get(month)
+        for date in monthly_sequence(self.start_date, self.end_date):
+            month_value = MONTH_MAP.get(date.month)
             yield Request(
-                f"{self.BASE_URL}/dodf/jornal/pastas?pasta={year}/{month_value}",
+                f"{self.BASE_URL}/dodf/jornal/pastas?pasta={date.year}/{month_value}",
                 callback=self.parse_month,
             )
 

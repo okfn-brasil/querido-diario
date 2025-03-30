@@ -1,11 +1,11 @@
 import re
 from datetime import date, datetime
 
-from dateutil.rrule import MONTHLY, rrule
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class RnNatalSpider(BaseGazetteSpider):
@@ -16,17 +16,10 @@ class RnNatalSpider(BaseGazetteSpider):
     TERRITORY_ID = "2408102"
 
     def start_requests(self):
-        initial_date = date(self.start_date.year, self.start_date.month, 1)
-        end_date = self.end_date
-
-        periods_of_interest = [
-            (date.year, date.month)
-            for date in rrule(freq=MONTHLY, dtstart=initial_date, until=end_date)
-        ]
-
-        for year, month in periods_of_interest:
-            url = f"http://www.natal.rn.gov.br/api/dom/data/{month:02d}/{year}"
-            yield Request(url)
+        for monthly_date in monthly_sequence(
+            self.start_date, self.end_date, format="%m/%Y"
+        ):
+            yield Request(f"http://www.natal.rn.gov.br/api/dom/data/{monthly_date}")
 
     def parse(self, response):
         for _entry in response.json()["data"]:

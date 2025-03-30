@@ -2,10 +2,10 @@ import datetime as dt
 
 import dateparser
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
 class SpJundiaiSpider(BaseGazetteSpider):
@@ -15,16 +15,9 @@ class SpJundiaiSpider(BaseGazetteSpider):
     start_date = dt.date(2006, 4, 4)
 
     def start_requests(self):
-        # avoid skipping months if day of start_date is at the end of the month
-        first_day_of_start_date_month = dt.date(
-            self.start_date.year, self.start_date.month, 1
-        )
-        months_of_interest = rrule(
-            MONTHLY, dtstart=first_day_of_start_date_month, until=self.end_date
-        )
-        for month_date in months_of_interest:
+        for date in monthly_sequence(self.start_date, self.end_date, format="%Y/%m"):
             yield scrapy.Request(
-                url=f"https://imprensaoficial.jundiai.sp.gov.br/{month_date.year}/{month_date.month}/"
+                url=f"https://imprensaoficial.jundiai.sp.gov.br/{date}/"
             )
 
     def parse(self, response, current_page=1):

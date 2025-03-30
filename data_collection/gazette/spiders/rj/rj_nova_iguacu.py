@@ -1,10 +1,10 @@
 import datetime as dt
 
 import scrapy
-from dateutil.rrule import DAILY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
 class RjNovaIguacu(BaseGazetteSpider):
@@ -15,7 +15,7 @@ class RjNovaIguacu(BaseGazetteSpider):
     BASE_URL = "https://www.novaiguacu.rj.gov.br/diario-oficial/"
 
     def start_requests(self):
-        for date in rrule(DAILY, dtstart=self.start_date, until=self.end_date):
+        for date in daily_sequence(self.start_date, self.end_date):
             yield scrapy.Request(
                 f"{self.BASE_URL}?data={date.isoformat()}",
                 cb_kwargs={"date": date.date()},
