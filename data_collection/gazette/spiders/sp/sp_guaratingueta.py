@@ -3,10 +3,10 @@ import re
 
 import dateparser
 import scrapy
-from dateutil.rrule import YEARLY, rrule
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import yearly_sequence
 
 
 class SpGuaratinguetaSpider(BaseGazetteSpider):
@@ -16,13 +16,7 @@ class SpGuaratinguetaSpider(BaseGazetteSpider):
     start_date = datetime.date(2015, 6, 23)
 
     def start_requests(self):
-        years = [
-            frequency.year
-            for frequency in rrule(
-                freq=YEARLY, dtstart=self.start_date, until=datetime.date.today()
-            )
-        ]
-        for year in years:
+        for year in yearly_sequence(self.start_date, self.end_date):
             if year == datetime.date.today().year:
                 url = "https://guaratingueta.sp.gov.br/diario-oficial-da-estancia-turistica-de-guaratingueta/"
             else:
