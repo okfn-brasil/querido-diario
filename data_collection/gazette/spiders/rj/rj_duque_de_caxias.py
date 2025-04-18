@@ -5,7 +5,8 @@ from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from gazette.utils import date_from_text_with_fuzzy_match
+from gazette.utils.dates import yearly_sequence
+from gazette.utils.text_extraction import get_date_from_text
 
 
 class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
@@ -16,7 +17,7 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
 
     def start_requests(self):
         current_year = datetime.today().year
-        for year in range(self.start_date.year, self.end_date.year + 1):
+        for year in yearly_sequence(self.start_date, self.end_date):
             if year == current_year:
                 yield Request(
                     "https://duquedecaxias.rj.gov.br/portal/boletim-oficial.html"
@@ -31,7 +32,7 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
         # use descending order to reduce iterations in the daily crawl
         for pdf_div in pdf_divs[::-1]:
             raw_gazette_date = pdf_div.xpath("./preceding-sibling::div[1]/text()").get()
-            gazette_date = date_from_text_with_fuzzy_match(raw_gazette_date)
+            gazette_date = get_date_from_text(raw_gazette_date)
             if not gazette_date or gazette_date > self.end_date:
                 continue
             if gazette_date < self.start_date:
