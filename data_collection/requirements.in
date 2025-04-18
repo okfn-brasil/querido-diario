@@ -4,12 +4,14 @@ click
 chompjs
 dateparser
 filetype
+thefuzz
 itemadapter
 jinja2
 psycopg2-binary
 pyyaml==5.3.1
 python-dateutil
 python-decouple
+python-Levenshtein
 scrapy
 scrapy-zyte-smartproxy
 SQLAlchemy
