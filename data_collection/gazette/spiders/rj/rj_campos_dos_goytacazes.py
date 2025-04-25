@@ -5,7 +5,7 @@ from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
-from gazette.utils.text_extraction import get_date_from_text
+from gazette.utils.extraction import get_date_from_text
 
 
 class RjCampoDosGoytacazesSpider(BaseGazetteSpider):
@@ -16,13 +16,24 @@ class RjCampoDosGoytacazesSpider(BaseGazetteSpider):
     start_date = date(2013, 11, 1)
 
     def parse(self, response):
-        for element in response.css("ul.ul-licitacoes li"):
+        # first element is an obs website header
+        for element in response.css("ul.ul-licitacoes li")[1:]:
             gazette_data = element.css("h4::text").get()
 
-            date = get_date_from_text(gazette_data)
-            if date is None or date > self.end_date:
+            gazette_date = re.search(
+                r"\d{1,2}[ de]*(\w)*[ de]*\d{4}", gazette_data, re.I
+            )
+            gazette_date = gazette_date.group() if gazette_date else None
+
+            date = get_date_from_text(gazette_date)
+            if date is None:
+                self.logger.warning(
+                    f"Date inexistent or unable to parse date in {gazette_data} from {response.url}"
+                )
                 continue
-            if date < self.start_date:
+            elif date > self.end_date:
+                continue
+            elif date < self.start_date:
                 return
 
             edition_number = re.search(r"edição.*\s(\d+)", gazette_data, re.IGNORECASE)
