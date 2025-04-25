@@ -1,10 +1,10 @@
 from datetime import date, datetime
 
-from dateparser import parse
 from scrapy.http import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class BaFeiraDeSantanaSpider(BaseGazetteSpider):
@@ -42,7 +42,7 @@ class BaFeiraDeSantanaSpider(BaseGazetteSpider):
                 is_extra_edition = bool(is_extra_edition.css('[alt$="EXTRA"]').getall())
 
                 gazette = Gazette(
-                    date=parse(gazette_date, languages=["pt"]).date(),
+                    date=get_date_from_text(gazette_date),
                     is_extra_edition=is_extra_edition,
                     power=power,
                     edition_number=edition,

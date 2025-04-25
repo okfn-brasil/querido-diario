@@ -2,11 +2,11 @@ import re
 from datetime import date
 from urllib.parse import parse_qs
 
-import dateparser
 from scrapy import FormRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class AlMaragogiSpider(BaseGazetteSpider):
@@ -31,7 +31,7 @@ class AlMaragogiSpider(BaseGazetteSpider):
             edition_number = title_element.re_first(r"nº (\d+)/", re.IGNORECASE)
 
             date_raw = publication.css("div div div::text").getall()[1].strip()
-            item_date = dateparser.parse(date_raw, languages=["pt"]).date()
+            item_date = get_date_from_text(date_raw)
 
             file_id = publication.css("h4 > a::attr(href)").get().strip().split("/")[-1]
             url = f"{self.BASE_URL}/diario-oficial/versao-pdf/{file_id}"

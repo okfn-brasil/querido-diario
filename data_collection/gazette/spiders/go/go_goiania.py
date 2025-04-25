@@ -2,10 +2,10 @@ import datetime
 import re
 
 import scrapy
-from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class GoGoianiaSpider(BaseGazetteSpider):
@@ -36,7 +36,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
                 continue
 
             edition_number, day, month, year = gazette_info
-            gazette_date = parse(f"{day} de {month} de {year}", languages=["pt"]).date()
+            gazette_date = get_date_from_text(f"{day} de {month} de {year}")
             if gazette_date < self.start_date:
                 continue
 

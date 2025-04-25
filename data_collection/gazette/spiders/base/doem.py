@@ -1,9 +1,9 @@
-import dateparser
 import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import monthly_sequence
+from gazette.utils.extraction import get_date_from_text
 
 
 class BaseDoemSpider(BaseGazetteSpider):
@@ -63,7 +63,7 @@ class BaseDoemSpider(BaseGazetteSpider):
         Get the date for the gazette inside one of the 'box-diario' divs
         """
         date = response_item.css("span.data-diario::text").get().strip()
-        return dateparser.parse(date, languages=["pt"]).date()
+        return get_date_from_text(date)
 
     def get_edition_number(self, response_item):
         """

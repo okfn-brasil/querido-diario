@@ -1,10 +1,10 @@
 import re
 
-import dateparser
 from scrapy import FormRequest
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class BaseAtendeV2Spider(BaseGazetteSpider):
@@ -34,7 +34,7 @@ class BaseAtendeV2Spider(BaseGazetteSpider):
     def parse(self, response, page):
         for item in response.css("div.nova_listagem div.linha"):
             date_raw = item.css("div.data::text").get()
-            date = dateparser.parse(date_raw, languages=["pt"]).date()
+            date = get_date_from_text(date_raw)
 
             if date > self.end_date:
                 continue

@@ -1,11 +1,11 @@
 import re
 from urllib.parse import urlparse
 
-import dateparser
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class BaseAratextSpider(BaseGazetteSpider):
@@ -14,16 +14,15 @@ class BaseAratextSpider(BaseGazetteSpider):
             raw_edition_date = (
                 item.css("td")[2].css("::text").get().split(",")[1].strip()
             )
-            edition_date = dateparser.parse(raw_edition_date, languages=["pt"]).date()
+            edition_date = get_date_from_text(raw_edition_date)
 
             raw_edition_number = item.css("a::text").get().strip()
-            edition_number = re.search(r"(\d+)/", raw_edition_number).group(1)
+            edition_number = re.search(r"N.? (.*)/", raw_edition_number).group(1)
 
             path = item.css("a").attrib["href"]
             intermediary_page = (
                 urlparse(self.start_urls[0])._replace(path=path).geturl()
             )
-
             if self.start_date <= edition_date <= self.end_date:
                 gazette = {
                     "date": edition_date,

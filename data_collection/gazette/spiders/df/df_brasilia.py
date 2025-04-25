@@ -1,12 +1,12 @@
 import datetime
 from urllib.parse import parse_qs, urlparse
 
-from dateparser import parse
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import monthly_sequence
+from gazette.utils.extraction import get_date_from_text
 
 MONTH_MAP = {
     idx + 1: value
@@ -51,7 +51,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
         for url in gazette_days_url:
             date = url.split("/")[-1]
-            date = parse(date, settings={"DATE_ORDER": "DMY"}).date()
+            date = get_date_from_text(date)
 
             if self.start_date <= date <= self.end_date:
                 yield Request(
