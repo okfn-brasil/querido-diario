@@ -19,7 +19,6 @@ class TestExtractDateFromText:
         assert get_date_from_text("") is None
 
     # CONTENT
-    # STRICT_PARSING = TRUE
     def test_presence_of_ordenation_symbol_should_behave_as_if_without_it(self):
         assert get_date_from_text("15º março 2021") == date(2021, 3, 15)
         assert get_date_from_text("27 10° 1999") == date(1999, 10, 27)
@@ -40,7 +39,22 @@ class TestExtractDateFromText:
         assert get_date_from_text("4 mâîô 2028") == date(2028, 5, 4)
         assert get_date_from_text("4 mãĩõ 2028") == date(2028, 5, 4)
 
+    def test_if_two_digit_year_is_parsed(self):
+        # parses as if 19 century
+        assert get_date_from_text("1 1 70") == date(1970, 1, 1)
+        assert get_date_from_text("1 1 80") == date(1980, 1, 1)
+        assert get_date_from_text("1 1 90") == date(1990, 1, 1)
+        # parses as if 20 century
+        assert get_date_from_text("1 1 00") == date(2000, 1, 1)
+        assert get_date_from_text("1 1 10") == date(2010, 1, 1)
+        assert get_date_from_text("1 1 20") == date(2020, 1, 1)
+        assert get_date_from_text("1 1 30") == date(2030, 1, 1)
+        assert get_date_from_text("1 1 40") == date(2040, 1, 1)
+        assert get_date_from_text("1 1 50") == date(2050, 1, 1)
+        assert get_date_from_text("1 1 60") == date(2060, 1, 1)
+
     # INCONSISTENCY
+    # STRICT_PARSING = TRUE
     def test_if_text_with_missing_information_shouldnt_be_parsed(self):
         # no year
         assert get_date_from_text("10 de Março") is None
