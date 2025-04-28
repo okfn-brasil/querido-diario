@@ -1,0 +1,15 @@
+from datetime import date
+
+from gazette.spiders.base.brtransparencia import BaseBrTransparenciaSpider
+
+
+class BaRioRealSpider(BaseBrTransparenciaSpider):
+    name = "ba_rio_real"
+    TERRITORY_ID = "2927002"
+    allowed_domains = [
+        "cmriorealba.brtransparencia.com.br",
+        "api.brtransparencia.com.br",
+    ]
+    start_urls = ["https://http://cmriorealba.brtransparencia.com.br/diario.html"]
+    start_date = date(2022, 12, 29)
+    power = "legislative"
