@@ -11,7 +11,6 @@ psycopg2-binary
 pyyaml==5.3.1
 python-dateutil
 python-decouple
-python-Levenshtein
 scrapy
 scrapy-zyte-smartproxy
 SQLAlchemy
