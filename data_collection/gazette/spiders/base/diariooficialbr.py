@@ -1,8 +1,8 @@
-import dateparser
 import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class BaseDiarioOficialBRSpider(BaseGazetteSpider):
@@ -16,9 +16,7 @@ class BaseDiarioOficialBRSpider(BaseGazetteSpider):
             edition_date_selector = edition.xpath(
                 './/div[contains(text(), "Publicado")]/text()'
             ).get()
-            edition_date = dateparser.parse(
-                edition_date_selector.split("dia")[-1], languages=["pt"]
-            ).date()
+            edition_date = get_date_from_text(edition_date_selector.split("dia")[-1])
 
             edition_number_raw = edition.xpath(
                 './/span[contains(text(), "Edição")]/text()'

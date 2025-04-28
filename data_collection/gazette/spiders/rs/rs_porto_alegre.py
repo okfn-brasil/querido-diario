@@ -1,10 +1,9 @@
 import datetime as dt
 
-import dateparser
-
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import YearMonthDate, monthly_sequence
+from gazette.utils.extraction import get_date_from_text
 
 
 class RsPortoAlegreSpider(BaseGazetteSpider):
@@ -57,18 +56,11 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
                 yield href
 
     def _extract_date(self, text):
-        common_pattern = text.re_first(r"\d+/\d+/\d+")
-        full_written_pattern = text.re_first(r"\d{1,2}º?\s+de[\w\s]+\d{4}")
-        marco_2010_pattern = text.re_first(r"marco2010[_\s]+(\d{2})marco10")
-
-        if common_pattern:
-            return dt.datetime.strptime(common_pattern, "%d/%m/%Y").date()
-        elif full_written_pattern:
-            full_written_pattern = full_written_pattern.replace("º", "")
-            return dateparser.parse(full_written_pattern, languages=["pt"]).date()
-        elif marco_2010_pattern:
+        marco_2010_pattern = text.re_first(r"marco2010[_\s]+(\d{2})")
+        if marco_2010_pattern:
             day = int(marco_2010_pattern)
             return dt.date(2010, 3, day)
+        return get_date_from_text(text.get())
 
     def _get_power_from_url(self, url):
         if "executivo" in url.lower():

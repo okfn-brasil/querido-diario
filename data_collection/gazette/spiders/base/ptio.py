@@ -1,8 +1,8 @@
-import dateparser
 import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class BasePtioSpider(BaseGazetteSpider):
@@ -14,7 +14,7 @@ class BasePtioSpider(BaseGazetteSpider):
             raw_gazete_date = gazette_div.xpath(
                 ".//div[@class='data-caderno hidden-phone']/text()"
             ).get()
-            gazette_date = dateparser.parse(raw_gazete_date).date()
+            gazette_date = get_date_from_text(raw_gazete_date)
 
             if gazette_date > self.end_date:
                 continue

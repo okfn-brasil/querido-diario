@@ -1,13 +1,13 @@
 import datetime
 import re
 
-import dateparser
 import scrapy
 import w3lib
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import monthly_sequence
+from gazette.utils.extraction import get_date_from_text
 
 
 class MgUberlandiaSpider(BaseGazetteSpider):
@@ -42,11 +42,11 @@ class MgUberlandiaSpider(BaseGazetteSpider):
     def parse(self, response):
         gazettes = response.css("article.elementor-post")
         for gazette in gazettes:
-            gazette_date = dateparser.parse(
+            gazette_date = get_date_from_text(
                 gazette.css(
                     ".elementor-post-date::text, .ee-post__metas__date::text"
                 ).get()
-            ).date()
+            )
             if gazette_date < self.start_date or gazette_date > self.end_date:
                 continue
 

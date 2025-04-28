@@ -1,10 +1,10 @@
 from datetime import date
 
-from dateparser import parse
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class PeJaboataoDosGuararapesSpider(BaseGazetteSpider):
@@ -13,13 +13,11 @@ class PeJaboataoDosGuararapesSpider(BaseGazetteSpider):
     allowed_domains = ["diariooficial.jaboatao.pe.gov.br"]
     start_urls = ["https://diariooficial.jaboatao.pe.gov.br/"]
     start_date = date(2015, 10, 3)
-    end_date = date.today()
 
     def parse(self, response):
         for gazette_card in response.css(".elementor-post__card"):
-            gazette_date = parse(
-                gazette_card.css(".elementor-post-date::text").get(),
-            ).date()
+            raw_date = gazette_card.css(".elementor-post-date::text").get().strip()
+            gazette_date = get_date_from_text(raw_date)
 
             if gazette_date < self.start_date:
                 return

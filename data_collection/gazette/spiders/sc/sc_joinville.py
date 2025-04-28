@@ -1,10 +1,10 @@
 import datetime
 
-import dateparser
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class ScJoinvilleSpider(BaseGazetteSpider):
@@ -47,7 +47,7 @@ class ScJoinvilleSpider(BaseGazetteSpider):
     def extract_date(self, element):
         date = element.css(self.DATE_CSS).re(self.DATE_REGEX)
         date = "/".join(date)
-        return dateparser.parse(date, languages=["pt"]).date()
+        return get_date_from_text(date)
 
     def extract_url(self, element):
         path = element.css("a::attr(href)").get()

@@ -1,11 +1,11 @@
 import datetime as dt
 
-import dateparser
 import scrapy
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import monthly_sequence
+from gazette.utils.extraction import get_date_from_text
 
 
 class SpJundiaiSpider(BaseGazetteSpider):
@@ -24,7 +24,7 @@ class SpJundiaiSpider(BaseGazetteSpider):
         editions = response.css("#lista-edicoes li.edicao-atual")
         for edition in editions:
             raw_date = edition.css(".data-lista div::text")[1].get()
-            date = dateparser.parse(raw_date, languages=["pt"]).date()
+            date = get_date_from_text(raw_date)
 
             if date > self.end_date:
                 continue

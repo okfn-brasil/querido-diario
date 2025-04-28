@@ -1,14 +1,14 @@
 from datetime import date
 
 import scrapy
-from dateparser import parse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class PrMaringaSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
+    # zyte_smartproxy_enabled = True
     TERRITORY_ID = "4115200"
     name = "pr_maringa"
     allowed_domains = ["maringa.pr.gov.br"]
@@ -35,7 +35,7 @@ class PrMaringaSpider(BaseGazetteSpider):
         for row in rows:
             gazette_file_link = row.css("td:nth-child(1) a::attr(href)").get()
             gazette_date = row.css("td:nth-child(2) font > font::text").get()
-            data = parse(gazette_date, languages=["pt"]).date()
+            data = get_date_from_text(gazette_date)
             edition = row.css("td:nth-child(1) a::text").re_first(r"\d+")
             if self.start_date <= data <= self.end_date:
                 yield Gazette(

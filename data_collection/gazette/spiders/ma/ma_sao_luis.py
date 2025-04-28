@@ -2,11 +2,11 @@ import re
 from datetime import date
 from urllib.parse import urlparse
 
-import dateparser
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class MASaoLuisSpider(BaseGazetteSpider):
@@ -21,7 +21,7 @@ class MASaoLuisSpider(BaseGazetteSpider):
             raw_infos = "".join(item.css("::text").getall()).strip()
 
             raw_edition_date = re.search(r",(.+)\s", raw_infos).group(1).strip()
-            edition_date = dateparser.parse(raw_edition_date, languages=["pt"]).date()
+            edition_date = get_date_from_text(raw_edition_date)
 
             if self.start_date <= edition_date <= self.end_date:
                 edition_number = re.search(r"(\d+)/", raw_infos).group(1)

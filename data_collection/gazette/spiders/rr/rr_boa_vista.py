@@ -1,10 +1,10 @@
 from datetime import date
 
-import dateparser
 from scrapy import Request
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class RrBoaVistaSpider(BaseGazetteSpider):
@@ -18,7 +18,7 @@ class RrBoaVistaSpider(BaseGazetteSpider):
     def parse(self, response, page=1):
         for entry in response.json()["data"]:
             raw_date = entry["data"].split(", ")[-1]
-            date = dateparser.parse(raw_date, languages=["pt"]).date()
+            date = get_date_from_text(raw_date)
 
             if date < self.start_date:
                 return
