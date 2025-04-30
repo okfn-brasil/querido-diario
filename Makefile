@@ -26,6 +26,10 @@ shell:
 run_spider_since:
 	cd $(SRC_DIRS) && scrapy crawl -a start_date=$(START_DATE) $(SPIDER)
 
+create_spiders:
+	cd data_collection/gazette/commands; \
+	python3 create_standardized_spiders.py $(PATTERN)
+
 compile:
 	cd data_collection; \
 	pip-compile --upgrade --no-annotate --allow-unsafe --generate-hashes requirements.in; \
