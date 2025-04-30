@@ -1,0 +1,730 @@
+territory_id,state,city,pattern,status,date_from,date_to,url
+1100403,RO,Alto Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+1100502,RO,Novo Horizonte do Oeste,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+1100809,RO,Candeias do Jamari,instar,atual,2017-02-08,2025-02-07,https://www.candeias.mg.gov.br/portal/diario-oficial
+1101807,RO,Vale do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+1503077,PA,Garrafão do Norte,adiariosv1,atual,2018-07-31,2025-02-07,https://www.garrafaodonorte.pa.gov.br/diariooficial.php
+1504059,PA,Mãe do Rio,adiariosv1,descontinuado,2022-08-24,2022-09-20,https://www.prefeituramaedorio.pa.gov.br/diariooficial.php
+1508126,PA,Ulianópolis,adiariosv1,descontinuado,2022-06-08,2023-02-06,https://www.ulianopolis.pa.gov.br/diariooficial.php
+1600709,AP,Tartarugalzinho,adiariosv1,atual,0024-10-14,2025-02-07,https://www.tartarugalzinho.ap.gov.br/diariooficial.php
+1702901,TO,Axixá do Tocantins,adiariosv1,atual,2021-08-16,2025-02-04,https://www.axixa.to.gov.br/diariooficial.php
+1711506,TO,Jaú do Tocantins,dosp,atual,2023-01-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jau
+1716109,TO,Paraíso do Tocantins,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+2100105,MA,Afonso Cunha,dosp,atual,2021-10-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/cunha
+2100709,MA,Anajatuba,adiariosv1,atual,2021-02-12,2025-02-07,https://www.anajatuba.ma.gov.br/diariooficial.php
+2100956,MA,Arame,adiariosv1,atual,2017-02-10,2025-02-05,https://www.arame.ma.gov.br/diariooficial.php
+2101301,MA,Bacuri,adiariosv1,atual,2024-02-23,2025-02-06,https://www.bacuri.ma.gov.br/diariooficial.php
+2101400,MA,Balsas,adiariosv1,atual,2017-01-12,2025-02-06,https://www.balsas.ma.gov.br/diariooficial.php
+2102002,MA,Bom Jardim,adiariosv1,atual,2017-07-19,2025-02-07,https://www.bomjardim.ma.gov.br/diariooficial.php
+2102077,MA,Bom Lugar,adiariosv1,atual,2013-01-13,2025-02-07,https://www.bomlugar.ma.gov.br/diariooficial.php
+2102325,MA,Buriticupu,adiariosv1,atual,2018-05-07,2025-02-07,https://www.buriticupu.ma.gov.br/diariooficial.php
+2102705,MA,Cantanhede,adiariosv1,atual,2009-01-05,2025-02-06,https://www.cantanhede.ma.gov.br/diariooficial.php
+2102804,MA,Carolina,adiariosv1,descontinuado,2024-04-17,2024-07-01,https://www.carolina.ma.gov.br/diariooficial.php
+2103158,MA,Centro do Guilherme,aratext,atual,2024-01-04,2025-02-06,https://centrodoguilherme.ma.gov.br/diariooficial
+2104008,MA,Esperantinópolis,adiariosv1,atual,2002-02-24,2025-02-07,https://www.esperantinopolis.ma.gov.br/diariooficial.php
+2104651,MA,Governador Newton Bello,adiariosv1,atual,2025-01-10,2025-02-07,https://www.governadornewtonbello.ma.gov.br/diariooficial.php
+2105104,MA,Icatu,adiariosv1,atual,0204-11-27,2025-02-05,https://www.icatu.ma.gov.br/diariooficial.php
+2105401,MA,Itapecuru Mirim,adiariosv1,atual,2021-03-29,2025-02-07,https://www.itapecurumirim.ma.gov.br/diariooficial.php
+2105708,MA,Lago da Pedra,adiariosv1,atual,2018-12-31,2025-02-07,https://www.lagodapedra.ma.gov.br/diariooficial.php
+2106003,MA,Lima Campos,adiariosv1,atual,2013-01-02,2025-02-07,https://www.limacampos.ma.gov.br/diariooficial.php
+2106326,MA,Maracaçumé,adiariosv1,atual,2019-10-20,2025-02-07,https://www.maracacume.ma.gov.br/diariooficial.php
+2106375,MA,Maranhãozinho,aratext,atual,2024-01-02,2025-02-05,https://maranhaozinho.ma.gov.br/diariooficial
+2106631,MA,Matões do Norte,adiariosv1,atual,2010-03-29,2025-02-07,https://www.matoesdonorte.ma.gov.br/diariooficial.php
+2108207,MA,Pedreiras,adiariosv1,atual,2015-02-20,2025-02-07,https://www.pedreiras.ma.gov.br/diariooficial.php
+2108504,MA,Pindaré-Mirim,adiariosv1,atual,2020-01-02,2025-02-04,https://www.pindaremirim.ma.gov.br/diariooficial.php
+2108702,MA,Pio XII,adiariosv1,descontinuado,2017-03-09,2024-07-31,https://www.pioxii.ma.gov.br/diariooficial.php
+2108900,MA,Poção de Pedras,adiariosv1,atual,2021-02-04,2025-02-07,https://www.pocaodepedras.ma.gov.br/diariooficial.php
+2109700,MA,Sambaíba,adiariosv1,atual,2018-10-17,2025-01-13,https://www.sambaiba.ma.gov.br/diariooficial.php
+2110039,MA,Santa Luzia do Paruá,adiariosv1,atual,2023-11-24,2025-02-06,https://www.santaluziadoparua.ma.gov.br/diariooficial.php
+2110203,MA,Santa Rita,dosp,atual,2021-05-07,2025-02-06,https://www.imprensaoficialmunicipal.com.br/santarita
+2110807,MA,São Félix de Balsas,adiariosv1,atual,2017-01-12,2025-02-06,https://www.balsas.ma.gov.br/diariooficial.php
+2111052,MA,São João do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+2112233,MA,Trizidela do Vale,adiariosv1,atual,2015-12-09,2025-02-07,https://www.trizideladovale.ma.gov.br/diariooficial.php
+2112308,MA,Tuntum,adiariosv1,atual,2013-01-30,2025-02-06,https://www.tuntum.ma.gov.br/diariooficial.php
+2112704,MA,Vargem Grande,adiariosv1,atual,2007-03-16,2025-02-07,https://www.vargemgrande.ma.gov.br/diariooficial.php
+2112852,MA,Vila Nova dos Martírios,adiariosv1,atual,2021-06-14,2025-02-03,https://www.vilanovadosmartirios.ma.gov.br/diariooficial.php
+2201804,PI,Bocaina,dosp,atual,2018-07-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bocaina
+2205607,PI,Landri Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+2301208,CE,Aracoiaba,dosp,atual,2017-07-06,2025-02-04,https://www.imprensaoficialmunicipal.com.br/aracoiaba
+2301703,CE,Aurora,adiariosv1,atual,2021-08-02,2025-02-07,https://www.aurora.ce.gov.br/diariooficial.php
+2302701,CE,Campos Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+2302800,CE,Canindé,adiariosv1,atual,2017-08-03,2025-02-07,https://www.caninde.ce.gov.br/diariooficial.php
+2303204,CE,Caririaçu,adiariosv1,atual,2018-01-23,2025-02-07,https://www.caririacu.ce.gov.br/diariooficial.php
+2303402,CE,Carnaubal,adiariosv1,atual,2016-05-10,2025-02-04,https://www.carnaubal.ce.gov.br/diariooficial.php
+2303709,CE,Caucaia,adiariosv1,atual,2002-06-03,2025-02-07,https://www.caucaia.ce.gov.br/diariooficial.php
+2303808,CE,Cedro,adiariosv1,atual,0202-06-07,2025-02-07,https://www.cedro.ce.gov.br/diariooficial.php
+2304004,CE,Coreaú,adiariosv1,descontinuado,2024-05-03,2024-07-29,https://www.coreau.ce.gov.br/diariooficial.php
+2304103,CE,Crateús,adiariosv1,atual,2017-12-21,2025-02-06,https://www.crateus.ce.gov.br/diariooficial.php
+2304202,CE,Crato,adiariosv1,descontinuado,2019-04-30,2021-09-14,https://www.crato.ce.gov.br/diariooficial.php
+2304608,CE,General Sampaio,adiariosv1,atual,2016-09-15,2025-02-07,https://www.generalsampaio.ce.gov.br/diariooficial.php
+2305209,CE,Hidrolândia,adiariosv1,atual,2007-04-09,2025-02-05,https://www.hidrolandia.ce.gov.br/diariooficial.php
+2305233,CE,Horizonte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+2306256,CE,Itaitinga,adiariosv1,atual,2018-04-25,2025-02-07,https://www.itaitinga.ce.gov.br/diariooficial.php
+2306900,CE,Jaguaribe,adiariosv1,atual,2006-06-23,2025-02-07,https://www.jaguaribe.ce.gov.br/diariooficial.php
+2307304,CE,Juazeiro do Norte,adiariosv1,atual,2021-01-12,2025-02-07,https://www.juazeirodonorte.ce.gov.br/diariooficial.php
+2307601,CE,Limoeiro do Norte,adiariosv1,atual,2017-04-10,2025-02-07,https://www.limoeirodonorte.ce.gov.br/diariooficial.php
+2308302,CE,Milagres,adiariosv1,descontinuado,2016-05-20,2024-08-30,https://www.milagres.ce.gov.br/diariooficial.php
+2308500,CE,Mombaça,adiariosv1,descontinuado,2017-03-24,2018-01-10,https://www.mombaca.ce.gov.br/diariooficial.php
+2308609,CE,Monsenhor Tabosa,adiariosv1,descontinuado,2022-01-03,2023-07-10,https://www.monsenhortabosa.ce.gov.br/diariooficial.php
+2308906,CE,Morrinhos,adiariosv1,descontinuado,2021-07-27,2022-03-31,https://www.morrinhos.ce.gov.br/diariooficial.php
+2309102,CE,Mulungu,adiariosv1,descontinuado,2021-02-04,2021-04-08,https://www.mulungu.ce.gov.br/diariooficial.php
+2309607,CE,Pacajus,adiariosv1,atual,2018-10-26,2025-02-06,https://www.pacajus.ce.gov.br/diariooficial.php
+2310407,CE,Paramoti,adiariosv1,atual,2023-01-02,2025-02-07,https://www.paramoti.ce.gov.br/diariooficial.php
+2310803,CE,Pereiro,adiariosv1,atual,2020-01-03,2025-02-07,https://www.pereiro.ce.gov.br/diariooficial.php
+2312205,CE,Santa Quitéria,adiariosv1,descontinuado,2021-05-23,2022-12-30,https://www.santaquiteria.ce.gov.br/diariooficial.php
+2312304,CE,São Benedito,adiariosv1,atual,0018-02-15,2025-02-07,https://www.saobenedito.ce.gov.br/diariooficial.php
+2312502,CE,São João do Jaguaribe,adiariosv1,atual,2006-06-23,2025-02-07,https://www.jaguaribe.ce.gov.br/diariooficial.php
+2313302,CE,Tauá,adiariosv1,atual,2019-08-30,2025-02-07,https://www.taua.ce.gov.br/diariooficial.php
+2313401,CE,Tianguá,adiariosv1,atual,2021-11-03,2025-02-07,https://www.tiangua.ce.gov.br/diariooficial.php
+2313906,CE,Uruoca,adiariosv1,atual,2017-01-02,2025-02-07,https://www.uruoca.ce.gov.br/diariooficial.php
+2314102,CE,Viçosa do Ceará,adiariosv1,atual,2018-06-12,2025-02-07,https://www.vicosa.ce.gov.br/diariooficial.php
+2401909,RN,Caiçara do Rio do Vento,adiariosv1,descontinuado,2023-03-22,2023-05-02,https://www.caicaradoriodovento.rn.gov.br/diariooficial.php
+2402105,RN,Campo Redondo,adiariosv1,descontinuado,2024-06-17,2024-07-23,https://www.camporedondo.rn.gov.br/diariooficial.php
+2402501,RN,Carnaubais,adiariosv1,atual,2017-01-05,2025-02-07,https://www.carnaubais.rn.gov.br/diariooficial.php
+2403905,RN,Francisco Dantas,adiariosv1,atual,1983-05-05,2025-02-06,https://www.franciscodantas.rn.gov.br/diariooficial.php
+2404903,RN,Itaú,adiariosv1,atual,2021-01-04,2025-02-07,https://www.itau.rn.gov.br/diariooficial.php
+2405108,RN,Jandaíra,adiariosv1,descontinuado,2022-12-20,2023-03-17,https://www.jandaira.rn.gov.br/diariooficial.php
+2405900,RN,João Dias,adiariosv1,atual,2022-03-21,2025-02-05,https://www.joaodias.rn.gov.br/diariooficial.php
+2407005,RN,Luís Gomes,adiariosv1,atual,2018-04-03,2025-02-07,https://www.luisgomes.rn.gov.br/diariooficial.php
+2407252,RN,Major Sales,adiariosv1,atual,0202-08-04,2025-02-05,https://www.majorsales.rn.gov.br/diariooficial.php
+2407252,RN,Major Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+2408300,RN,Nova Cruz,adiariosv1,atual,2013-04-01,2025-02-07,https://www.novacruz.rn.gov.br/diariooficial.php
+2409100,RN,Passa e Fica,adiariosv1,atual,2014-01-04,2025-02-06,https://www.passaefica.rn.gov.br/diariooficial.php
+2409407,RN,Pau dos Ferros,adiariosv1,atual,2022-09-28,2025-02-07,https://www.paudosferros.rn.gov.br/diariooficial.php
+2410306,RN,Serra Caiada,adiariosv1,descontinuado,2023-01-31,2023-02-17,https://www.serracaiada.rn.gov.br/diariooficial.php
+2411007,RN,Rodolfo Fernandes,adiariosv1,descontinuado,2015-02-05,2024-12-31,https://www.rodolfofernandes.rn.gov.br/diariooficial.php
+2411205,RN,Santa Cruz,adiariosv1,atual,2022-01-04,2025-01-10,https://www.santacruz.rn.gov.br/diariooficial.php
+2411908,RN,São Francisco do Oeste,adiariosv1,atual,2023-02-07,2025-02-07,https://www.saofranciscodooeste.rn.gov.br/diariooficial.php
+2413706,RN,Sítio Novo,adiariosv1,descontinuado,2022-12-29,2023-10-18,https://www.sitionovo.rn.gov.br/diariooficial.php
+2413805,RN,Taboleiro Grande,adiariosv1,atual,2013-01-28,2025-02-05,https://www.taboleirogrande.rn.gov.br/diariooficial.php
+2414159,RN,Tenente Laurentino Cruz,adiariosv1,atual,2024-05-30,2025-02-06,https://www.tenentelaurentinocruz.rn.gov.br/diariooficial.php
+2500304,PB,Alagoa Grande,adiariosv1,atual,2024-06-20,2025-01-27,https://www.alagoagrande.pb.gov.br/diariooficial.php
+2500403,PB,Alagoa Nova,adiariosv1,atual,0025-01-03,2025-02-07,https://www.alagoanova.pb.gov.br/diariooficial.php
+2500734,PB,Amparo,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+2502201,PB,Bom Jesus,adiariosv1,atual,0014-02-10,2025-01-28,https://www.prefeiturabomjesus.pb.gov.br/diariooficial.php
+2502706,PB,Borborema,adiariosv1,atual,2013-03-31,2025-02-07,https://www.borborema.pb.gov.br/diariooficial.php
+2502706,PB,Borborema,dosp,atual,2016-05-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/borborema
+2503308,PB,Cachoeira dos Índios,adiariosv1,atual,0202-08-23,2025-02-05,https://www.cachoeiradosindios.pb.gov.br/diariooficial.php
+2503506,PB,Cacimba de Dentro,adiariosv1,atual,0024-12-06,2025-01-13,https://www.cacimbadedentro.pb.gov.br/diariooficial.php
+2503704,PB,Cajazeiras,adiariosv1,atual,2017-02-02,2025-01-20,https://www.cajazeiras.pb.gov.br/diariooficial.php
+2503753,PB,Cajazeirinhas,adiariosv1,atual,2024-02-06,2025-02-07,https://www.cajazeirinhas.pb.gov.br/diariooficial.php
+2504033,PB,Capim,adiariosv1,atual,2020-08-18,2025-02-07,https://www.capim.pb.gov.br/diariooficial.php
+2504801,PB,Coremas,adiariosv1,atual,1202-11-16,2025-02-07,https://www.coremas.pb.gov.br/diariooficial.php
+2505238,PB,Cuité de Mamanguape,adiariosv1,descontinuado,2024-01-02,2024-12-31,https://www.cuitedemamanguape.pb.gov.br/diariooficial.php
+2507309,PB,Jacaraú,adiariosv1,atual,2019-03-07,2025-02-05,https://www.jacarau.pb.gov.br/diariooficial.php
+2507408,PB,Jericó,adiariosv1,atual,2021-06-01,2025-01-29,https://www.jerico.pb.gov.br/diariooficial.php
+2509156,PB,Marizópolis,adiariosv1,atual,2021-01-27,2025-02-03,https://www.marizopolis.pb.gov.br/diariooficial.php
+2511707,PB,Pilõezinhos,adiariosv1,atual,2022-06-01,2025-02-07,https://www.piloezinhos.pb.gov.br/diariooficial.php
+2512721,PB,Pedro Régis,adiariosv1,atual,2021-01-02,2025-01-21,https://www.pedroregis.pb.gov.br/diariooficial.php
+2512747,PB,Riachão,adiariosv1,atual,2017-08-02,2025-02-05,https://www.riachao.pb.gov.br/diariooficial.php
+2512754,PB,Riachão do Bacamarte,adiariosv1,atual,2017-08-02,2025-02-05,https://www.riachao.pb.gov.br/diariooficial.php
+2512762,PB,Riachão do Poço,adiariosv1,atual,2017-08-02,2025-02-05,https://www.riachao.pb.gov.br/diariooficial.php
+2513703,PB,Santa Rita,dosp,atual,2021-05-07,2025-02-06,https://www.imprensaoficialmunicipal.com.br/santarita
+2514453,PB,São José dos Ramos,adiariosv1,atual,2021-01-04,2025-02-03,https://www.saojosedosramos.pb.gov.br/diariooficial.php
+2515906,PB,Serraria,adiariosv1,atual,2024-03-01,2025-01-02,https://www.serraria.pb.gov.br/diariooficial.php
+2515930,PB,Sertãozinho,dosp,atual,2019-08-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sertaozinho
+2516003,PB,Solânea,adiariosv1,atual,2021-05-13,2025-01-15,https://www.solanea.pb.gov.br/diariooficial.php
+2516409,PB,Tacima,adiariosv1,atual,2021-03-19,2025-02-03,https://www.pmtacima.pb.gov.br/diariooficial.php
+2601052,PE,Araçoiaba,dosp,atual,2017-07-06,2025-02-04,https://www.imprensaoficialmunicipal.com.br/aracoiaba
+2603009,PE,Cabrobó,dosp,atual,2019-04-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cabrobo
+2607901,PE,Jaboatão dos Guararapes,dosp,atual,2016-10-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guararapes
+2611101,PE,Petrolina,doem,atual,2015-01-05,2025-02-07,https://doem.org.br/pe/petrolina/diarios
+2614303,PE,Moreilândia,adiariosv1,atual,2021-04-09,2025-02-03,https://www.moreilandia.pe.gov.br/diariooficial.php
+2615003,PE,Taquaritinga do Norte,dosp,atual,2016-01-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/taquaritinga
+2708907,AL,Satuba,doem,descontinuado,2013-01-02,2017-02-21,https://doem.org.br/al/satuba/diarios
+2800100,SE,Amparo de São Francisco,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+2802601,SE,Gracho Cardoso,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+2802809,SE,Indiaroba,doem,descontinuado,2015-01-08,2019-02-28,https://doem.org.br/se/indiaroba/diarios
+2804706,SE,Nossa Senhora de Lourdes,dosp,atual,2017-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lourdes
+2804805,SE,Nossa Senhora do Socorro,doem,atual,2023-01-02,2025-02-07,https://doem.org.br/se/nossasenhoradosocorro/diarios
+2900306,BA,Acajutiba,doem,atual,2013-01-30,2025-02-07,https://doem.org.br/ba/acajutiba/diarios
+2900504,BA,Érico Cardoso,doem,descontinuado,2016-02-19,2018-02-28,https://doem.org.br/ba/ericocardoso/diarios
+2900504,BA,Érico Cardoso,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+2900702,BA,Alagoinhas,doem,atual,2015-01-28,2025-02-07,https://doem.org.br/ba/alagoinhas/diarios
+2900801,BA,Alcobaça,doem,atual,2012-01-02,2025-02-07,https://doem.org.br/ba/alcobaca/diarios
+2901403,BA,Angical,doem,atual,2021-01-04,2025-02-07,https://doem.org.br/ba/angical/diarios
+2901700,BA,Antônio Cardoso,doem,descontinuado,2012-01-02,2020-02-28,https://doem.org.br/ba/antoniocardoso/diarios
+2901700,BA,Antônio Cardoso,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+2902658,BA,Banzaê,doem,atual,2017-02-02,2025-02-07,https://doem.org.br/ba/banzae/diarios
+2902906,BA,Barra do Choça,doem,descontinuado,2018-01-02,2023-02-28,https://doem.org.br/ba/barradochoca/diarios
+2903003,BA,Barra do Mendes,doem,descontinuado,2013-01-02,2015-02-27,https://doem.org.br/ba/barradomendes/diarios
+2903201,BA,Barreiras,doem,descontinuado,2013-02-05,2017-02-24,https://doem.org.br/ba/barreiras/diarios
+2903276,BA,Barrocas,doem,descontinuado,2017-01-02,2021-02-25,https://doem.org.br/ba/barrocas/diarios
+2903409,BA,Belmonte,doem,atual,2012-01-06,2025-02-07,https://doem.org.br/ba/belmonte/diarios
+2904506,BA,Brotas de Macaúbas,doem,atual,2020-01-02,2025-02-07,https://doem.org.br/ba/brotasdemacaubas/diarios
+2904902,BA,Cachoeira,doem,descontinuado,2017-01-03,2021-01-27,https://doem.org.br/ba/cachoeira/diarios
+2905008,BA,Caculé,doem,descontinuado,2014-01-02,2021-01-28,https://doem.org.br/ba/cacule/diarios
+2905206,BA,Caetité,doem,atual,2022-01-03,2025-02-07,https://doem.org.br/ba/caetite/diarios
+2905800,BA,Camamu,doem,descontinuado,2017-01-03,2020-02-28,https://doem.org.br/ba/camamu/diarios
+2905909,BA,Campo Alegre de Lourdes,doem,atual,2021-01-04,2025-02-07,https://doem.org.br/ba/campoalegredelourdes/diarios
+2905909,BA,Campo Alegre de Lourdes,dosp,atual,2017-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lourdes
+2906006,BA,Campo Formoso,doem,atual,2013-01-31,2025-02-07,https://doem.org.br/ba/campoformoso/diarios
+2906105,BA,Canápolis,doem,descontinuado,2012-01-17,2016-02-29,https://doem.org.br/ba/canapolis/diarios
+2906501,BA,Candeias,doem,descontinuado,2014-01-02,2018-02-28,https://doem.org.br/ba/candeias/diarios
+2906501,BA,Candeias,instar,atual,2017-02-08,2025-02-07,https://www.candeias.mg.gov.br/portal/diario-oficial
+2906709,BA,Cândido Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+2906808,BA,Cansanção,doem,descontinuado,2011-01-03,2015-01-29,https://doem.org.br/ba/cansancao/diarios
+2906824,BA,Canudos,doem,atual,2013-01-04,2025-02-06,https://doem.org.br/ba/canudos/diarios
+2907400,BA,Catolândia,doem,descontinuado,2016-01-05,2021-01-27,https://doem.org.br/ba/catolandia/diarios
+2907509,BA,Catu,doem,descontinuado,2015-01-05,2021-02-26,https://doem.org.br/ba/catu/diarios
+2907806,BA,Cícero Dantas,doem,atual,2012-01-03,2025-02-06,https://doem.org.br/ba/cicerodantas/diarios
+2907905,BA,Cipó,doem,atual,2012-01-02,2025-02-07,https://doem.org.br/ba/cipo/diarios
+2909307,BA,Correntina,doem,atual,2012-01-02,2025-02-07,https://doem.org.br/ba/correntina/diarios
+2909406,BA,Cotegipe,doem,atual,2023-01-05,2025-02-07,https://doem.org.br/ba/cotegipe/diarios
+2909703,BA,Cristópolis,doem,atual,2021-01-12,2025-02-07,https://doem.org.br/ba/cristopolis/diarios
+2909802,BA,Cruz das Almas,doem,atual,2022-01-03,2025-02-07,https://doem.org.br/ba/cruzdasalmas/diarios
+2910602,BA,Esplanada,doem,atual,2021-01-04,2025-02-07,https://doem.org.br/ba/esplanada/diarios
+2910701,BA,Euclides da Cunha,dosp,atual,2018-10-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/euclidesdacunha
+2910701,BA,Euclides da Cunha,dosp,atual,2021-10-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/cunha
+2910909,BA,Firmino Alves,doem,descontinuado,2021-01-06,2021-02-26,https://doem.org.br/ba/firminoalves/diarios
+2911006,BA,Floresta Azul,doem,descontinuado,2017-01-02,2022-02-25,https://doem.org.br/ba/florestaazul/diarios
+2911105,BA,Formosa do Rio Preto,doem,atual,2021-01-04,2025-02-07,https://doem.org.br/ba/formosadoriopreto/diarios
+2911303,BA,Gentio do Ouro,doem,descontinuado,2018-01-03,2018-02-27,https://doem.org.br/ba/gentiodoouro/diarios
+2911501,BA,Gongogi,doem,descontinuado,2013-01-10,2017-01-30,https://doem.org.br/ba/gongogi/diarios
+2911857,BA,Heliópolis,doem,descontinuado,2010-01-07,2013-02-20,https://doem.org.br/ba/heliopolis/diarios
+2912905,BA,Ibirataia,dosp,descontinuado,2022-05-02,2024-12-31,https://www.imprensaoficialmunicipal.com.br/ibirataia
+2913705,BA,Inhambupe,doem,atual,2013-01-02,2025-02-07,https://doem.org.br/ba/inhambupe/diarios
+2913903,BA,Ipiaú,doem,atual,2017-01-02,2025-02-07,https://doem.org.br/ba/ipiau/diarios
+2914505,BA,Irará,doem,atual,2015-01-05,2025-02-07,https://doem.org.br/ba/irara/diarios
+2914703,BA,Itaberaba,doem,atual,2023-01-02,2025-01-30,https://doem.org.br/ba/itaberaba/diarios
+2915007,BA,Itaeté,doem,descontinuado,2021-01-04,2021-02-26,https://doem.org.br/ba/itaete/diarios
+2915403,BA,Itaju do Colônia,dosp,atual,2018-05-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itaju
+2915601,BA,Itamaraju,doem,atual,2009-01-15,2025-02-07,https://doem.org.br/ba/itamaraju/diarios
+2915809,BA,Itambé,doem,descontinuado,2013-01-17,2017-01-30,https://doem.org.br/ba/itambe/diarios
+2916401,BA,Itapetinga,doem,atual,2010-01-04,2025-02-07,https://doem.org.br/ba/itapetinga/diarios
+2916500,BA,Itapicuru,doem,atual,2014-01-02,2025-02-07,https://doem.org.br/ba/itapicuru/diarios
+2917201,BA,Ituaçu,doem,atual,2015-02-04,2025-02-07,https://doem.org.br/ba/ituacu/diarios
+2917359,BA,Jaborandi,dosp,atual,2017-09-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jaborandi
+2917607,BA,Jaguaquara,doem,atual,2022-02-01,2025-02-07,https://doem.org.br/ba/jaguaquara/diarios
+2917706,BA,Jaguarari,doem,descontinuado,2012-01-02,2019-02-28,https://doem.org.br/ba/jaguarari/diarios
+2918357,BA,João Dourado,dosp,atual,2017-10-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/dourado
+2918407,BA,Juazeiro,doem,atual,2013-02-01,2025-02-07,https://doem.org.br/ba/juazeiro/diarios
+2918803,BA,Laje,doem,atual,2020-01-08,2025-02-07,https://doem.org.br/ba/laje/diarios
+2918902,BA,Lajedão,doem,atual,2022-01-10,2025-02-05,https://doem.org.br/ba/lajedao/diarios
+2919603,BA,Macajuba,doem,atual,2015-01-05,2025-02-07,https://doem.org.br/ba/macajuba/diarios
+2920700,BA,Maraú,dosp,atual,2017-10-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/marau
+2920908,BA,Mascote,doem,atual,2010-01-04,2025-02-07,https://doem.org.br/ba/mascote/diarios
+2921104,BA,Medeiros Neto,doem,descontinuado,2012-01-03,2022-02-24,https://doem.org.br/ba/medeirosneto/diarios
+2921500,BA,Monte Santo,doem,atual,2013-01-09,2025-02-07,https://doem.org.br/ba/montesanto/diarios
+2921708,BA,Morro do Chapéu,doem,atual,2014-01-02,2025-02-07,https://doem.org.br/ba/morrodochapeu/diarios
+2922003,BA,Mucuri,doem,atual,2012-01-02,2025-02-07,https://doem.org.br/ba/mucuri/diarios
+2922102,BA,Mundo Novo,doem,descontinuado,2012-01-02,2017-01-03,https://doem.org.br/ba/mundonovo/diarios
+2923035,BA,Novo Horizonte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+2923209,BA,Oliveira dos Brejinhos,doem,descontinuado,2019-02-01,2020-02-06,https://doem.org.br/ba/oliveiradosbrejinhos/diarios
+2925501,BA,Prado,doem,atual,2013-02-04,2025-02-07,https://doem.org.br/ba/prado/diarios
+2926400,BA,Riacho de Santana,doem,descontinuado,2015-01-06,2024-02-29,https://doem.org.br/ba/riachodesantana/diarios
+2926509,BA,Ribeira do Amparo,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+2926608,BA,Ribeira do Pombal,doem,descontinuado,2014-01-16,2021-02-26,https://doem.org.br/ba/ribeiradopombal/diarios
+2927101,BA,Rodelas,doem,descontinuado,2013-01-29,2018-02-08,https://doem.org.br/ba/rodelas/diarios
+2927705,BA,Santa Cruz Cabrália,doem,atual,2017-01-09,2025-02-07,https://doem.org.br/ba/santacruzcabralia/diarios
+2928059,BA,Santa Luzia,doem,descontinuado,2021-01-04,2024-01-29,https://doem.org.br/ba/santaluzia/diarios
+2928406,BA,Santa Rita de Cássia,doem,atual,2021-01-04,2025-02-06,https://doem.org.br/ba/santaritadecassia/diarios
+2928604,BA,Santo Amaro,doem,descontinuado,2013-01-03,2021-02-16,https://doem.org.br/ba/santoamaro/diarios
+2928802,BA,Santo Estêvão,doem,atual,2010-01-04,2025-02-07,https://doem.org.br/ba/santoestevao/diarios
+2929206,BA,São Francisco do Conde,doem,descontinuado,2012-01-02,2019-02-28,https://doem.org.br/ba/saofranciscodoconde/diarios
+2929305,BA,São Gonçalo dos Campos,doem,descontinuado,2014-01-03,2016-02-29,https://doem.org.br/ba/saogoncalodoscampos/diarios
+2929701,BA,Sátiro Dias,doem,atual,2022-01-03,2025-02-07,https://doem.org.br/ba/satirodias/diarios
+2929800,BA,Saúde,doem,descontinuado,2013-01-25,2017-01-30,https://doem.org.br/ba/saude/diarios
+2930105,BA,Senhor do Bonfim,doem,atual,2013-01-03,2025-02-07,https://doem.org.br/ba/senhordobonfim/diarios
+2930204,BA,Sento Sé,doem,atual,2017-01-02,2025-02-07,https://doem.org.br/ba/sentose/diarios
+2930402,BA,Serra Preta,doem,descontinuado,2012-01-04,2017-01-30,https://doem.org.br/ba/serrapreta/diarios
+2930907,BA,Tabocas do Brejo Velho,doem,descontinuado,2013-01-04,2021-01-27,https://doem.org.br/ba/tabocasdobrejovelho/diarios
+2931301,BA,Tapiramutá,doem,atual,2021-01-04,2025-02-07,https://doem.org.br/ba/tapiramuta/diarios
+2931350,BA,Teixeira de Freitas,doem,descontinuado,2022-01-05,2022-02-25,https://doem.org.br/ba/teixeiradefreitas/diarios
+2931400,BA,Teodoro Sampaio,dosp,atual,2018-08-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/teodoro_sampaio
+2931608,BA,Teolândia,doem,atual,2014-01-15,2025-02-07,https://doem.org.br/ba/teolandia/diarios
+2931905,BA,Tucano,doem,atual,2013-01-04,2025-02-07,https://doem.org.br/ba/tucano/diarios
+3102506,MG,Amparo do Serra,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+3103801,MG,Arapuá,dosp,atual,2021-12-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/parapua
+3106200,MG,Belo Horizonte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+3106705,MG,Betim,instar,atual,2008-01-11,2025-02-07,https://www.betim.mg.gov.br/portal/diario-oficial
+3107208,MG,Bocaina de Minas,dosp,atual,2018-07-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bocaina
+3107703,MG,Bom Jesus do Amparo,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+3111200,MG,Campo Belo,instar,atual,2016-01-05,2025-02-07,https://www.campobelo.mg.gov.br/portal/diario-oficial
+3112000,MG,Candeias,instar,atual,2017-02-08,2025-02-07,https://www.candeias.mg.gov.br/portal/diario-oficial
+3113909,MG,Carmo da Cachoeira,instar,atual,Edição com data ausente,2025-02-07,https://www.carmodacachoeira.mg.gov.br/portal/diario-oficial
+3114402,MG,Carmo do Rio Claro,instar,descontinuado,2021-05-14,2024-12-20,https://www.carmodorioclaro.mg.gov.br/portal/diario-oficial
+3118601,MG,Contagem,instar,atual,Edição com data ausente,2025-02-07,https://portal.contagem.mg.gov.br/portal/diario-oficial
+3120607,MG,Crucilândia,instar,atual,2015-03-31,2025-02-07,http://www.prefeituradecrucilandia.mg.gov.br/portal/diario-oficial
+3124401,MG,Espírito Santo do Dourado,dosp,atual,2017-10-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/dourado
+3129707,MG,Ibiraci,instar,atual,2024-07-15,2025-02-07,https://www.ibiraci.mg.gov.br/portal/diario-oficial
+3132404,MG,Itajubá,dosp,atual,2023-05-15,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itajuba
+3133402,MG,Itapagipe,dosp,atual,2021-03-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itapagipe
+3133600,MG,Itapeva,dosp,atual,2017-12-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itapeva
+3133808,MG,Itaúna,instar,atual,Edição com data ausente,2025-02-07,https://www.itauna.mg.gov.br/portal/diario-oficial
+3134400,MG,Iturama,dosp,atual,2021-09-03,2025-02-05,https://www.imprensaoficialmunicipal.com.br/iturama
+3135209,MG,Januária,instar,atual,2022-04-29,2025-02-07,https://www.januaria.mg.gov.br/portal/diario-oficial
+3136652,MG,Juatuba,instar,atual,2016-01-05,2025-02-07,https://www.juatuba.mg.gov.br/portal/diario-oficial
+3137809,MG,Lambari,dosp,atual,2025-01-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lambari
+3140852,MG,Matias Cardoso,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+3141108,MG,Matozinhos,dosp,atual,2020-04-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/matozinhos
+3142601,MG,Monsenhor Paulo,dosp,atual,2017-04-12,2025-02-06,https://www.imprensaoficialmunicipal.com.br/monsenhor_paulo
+3143609,MG,Morro da Garça,dosp,atual,2014-08-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/garca
+3145208,MG,Nova Serrana,instar,atual,Edição com data ausente,2025-02-07,https://www.novaserrana.mg.gov.br/portal/diario-oficial
+3146305,MG,Padre Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+3148004,MG,Patos de Minas,instar,atual,2019-10-22,2025-02-07,https://www.patosdeminas.mg.gov.br/portal/diario-oficial
+3151008,MG,Piranguinho,instar,atual,2018-07-30,2025-02-08,https://www.piranguinho.mg.gov.br/portal/diario-oficial
+3157005,MG,Salinas,instar,atual,2017-02-01,2025-01-24,https://www.salinas.mg.gov.br/portal/diario-oficial
+3157104,MG,Salto da Divisa,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+3157377,MG,Santa Cruz de Salinas,instar,atual,2017-02-01,2025-01-24,https://www.salinas.mg.gov.br/portal/diario-oficial
+3158102,MG,Santa Maria do Salto,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+3158953,MG,Santana do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+3159902,MG,Santo Antônio do Amparo,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+3161304,MG,São Francisco de Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+3162708,MG,São João do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+3164704,MG,São Sebastião do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+3165404,MG,Sapucaí-Mirim,dosp,atual,2023-11-24,2025-02-06,https://www.imprensaoficialmunicipal.com.br/sapucai_mirim
+3165404,MG,Sapucaí-Mirim,dosp,atual,2023-11-24,2025-02-06,https://www.imprensaoficialmunicipal.com.br/sapucai-mirim
+3168002,MG,Taiobeiras,instar,atual,2022-12-31,2025-02-08,https://www.taiobeiras.mg.gov.br/portal/diario-oficial
+3170107,MG,Uberaba,dosp,atual,2021-09-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/uberaba
+3170800,MG,Várzea da Palma,instar,atual,2022-09-30,2025-02-07,https://www.varzeadapalma.mg.gov.br/portal/diario-oficial
+3203403,ES,Mimoso do Sul,doem,atual,2016-01-04,2025-02-07,https://doem.org.br/es/mimosodosul/diarios
+3300233,RJ,Armação dos Búzios,adiariosv2,atual,2015-09-03,2025-02-07,https://portal.buzios.rj.gov.br/jornal.php
+3300233,RJ,Armação dos Búzios,adiariosv2,atual,2015-09-03,2025-02-07,https://buzios.aexecutivo.com.br/jornal.php
+3301157,RJ,Cardoso Moreira,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+3301306,RJ,Casimiro de Abreu,adiariosv2,atual,2017-01-04,2025-02-07,https://www.transparencia.casimirodeabreu.rj.gov.br/jornal.php
+3301504,RJ,Cordeiro,adiariosv2,atual,2017-10-05,2025-02-07,https://www.transparencia.cordeiro.rj.gov.br/jornal.php
+3303807,RJ,Paraty,dosp,descontinuado,2024-10-21,2024-12-31,https://www.imprensaoficialmunicipal.com.br/paraty
+3304128,RJ,Quatis,adiariosv2,descontinuado,2013-02-15,2023-11-21,https://quatis.aexecutivo.com.br/jornal.php
+3304151,RJ,Quissamã,adiariosv2,atual,2017-01-31,2025-02-07,https://portal.quissama.rj.gov.br/jornal.php
+3304409,RJ,Rio Claro,dosp,atual,2006-05-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rio_claro
+3305158,RJ,São José do Vale do Rio Preto,dosp,atual,2023-05-24,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sao_jose_do_vale_do_rio_preto
+3305208,RJ,São Pedro da Aldeia,adiariosv2,descontinuado,2002-12-30,2018-04-13,https://portal.pmspa.rj.gov.br/jornal.php
+3305208,RJ,São Pedro da Aldeia,adiariosv2,descontinuado,2002-12-30,2018-04-13,https://pmspa.aexecutivo.com.br/jornal.php
+3500204,SP,Adolfo,dosp,atual,2015-05-14,2025-02-05,https://www.imprensaoficialmunicipal.com.br/adolfo
+3500204,SP,Adolfo,instar,descontinuado,2015-05-14,2020-01-15,https://www.adolfo.sp.gov.br/portal/diario-oficial
+3500303,SP,Aguaí,dosp,atual,2022-10-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/aguai
+3500402,SP,Águas da Prata,dosp,atual,2018-08-23,2025-02-04,https://www.imprensaoficialmunicipal.com.br/aguas_da_prata
+3500501,SP,Águas de Lindóia,dosp,atual,2020-01-31,2025-02-07,https://www.imprensaoficialmunicipal.com.br/aguas_de_lindoia
+3500501,SP,Águas de Lindóia,dosp,atual,2020-01-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lindoia
+3500600,SP,Águas de São Pedro,instar,atual,2021-05-18,2025-02-07,https://www.aguasdesaopedro.sp.gov.br/portal/diario-oficial
+3500709,SP,Agudos,dosp,atual,2017-06-27,2025-02-06,https://www.imprensaoficialmunicipal.com.br/agudos
+3501004,SP,Altinópolis,dosp,atual,2017-09-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/altinopolis
+3501103,SP,Alto Alegre,instar,atual,2018-07-03,2025-02-07,https://www.altoalegre.sp.gov.br/portal/diario-oficial
+3501152,SP,Alumínio,instar,atual,2013-01-31,2025-01-31,https://www.aluminio.sp.gov.br/portal/diario-oficial
+3501202,SP,Álvares Florence,instar,atual,2013-03-13,2025-02-07,https://www.alvaresflorence.sp.gov.br/portal/diario-oficial
+3501400,SP,Álvaro de Carvalho,dosp,atual,2018-04-04,2025-02-06,https://www.imprensaoficialmunicipal.com.br/alvaro_de_carvalho
+3501806,SP,Américo de Campos,dosp,atual,2014-06-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/americo_de_campos
+3501905,SP,Amparo,dosp,atual,2019-10-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/amparo
+3502002,SP,Analândia,dosp,atual,2022-11-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/analandia
+3502101,SP,Andradina,instar,atual,2021-03-03,2025-02-07,https://www.andradina.sp.gov.br/portal/diario-oficial
+3502309,SP,Anhembi,dosp,atual,2024-03-12,2025-02-05,https://www.imprensaoficialmunicipal.com.br/anhembi
+3502507,SP,Aparecida,instar,atual,2021-08-23,2025-02-07,https://www.aparecida.sp.gov.br/portal/diario-oficial
+3502606,SP,Aparecida d'Oeste,instar,atual,2021-08-23,2025-02-07,https://www.aparecida.sp.gov.br/portal/diario-oficial
+3502705,SP,Apiaí,dosp,atual,2024-09-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/apiai
+3502754,SP,Araçariguama,instar,atual,2019-09-06,2025-02-07,https://www.aracariguama.sp.gov.br/portal/diario-oficial
+3502804,SP,Araçatuba,dosp,atual,2020-04-22,2025-02-08,https://www.imprensaoficialmunicipal.com.br/aracatuba
+3502903,SP,Araçoiaba da Serra,dosp,atual,2017-07-06,2025-02-04,https://www.imprensaoficialmunicipal.com.br/aracoiaba
+3503000,SP,Aramina,dosp,atual,2022-09-27,2025-02-07,https://www.imprensaoficialmunicipal.com.br/aramina
+3503158,SP,Arapeí,instar,atual,2021-05-27,2025-02-06,https://www.arapei.sp.gov.br/portal/diario-oficial
+3503406,SP,Arealva,dosp,atual,2017-10-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/arealva
+3504305,SP,Avaí,dosp,atual,2017-09-18,2025-02-05,https://www.imprensaoficialmunicipal.com.br/avai
+3504404,SP,Avanhandava,instar,atual,2022-01-07,2025-02-06,https://www.avanhandava.sp.gov.br/portal/diario-oficial
+3504503,SP,Avaré,dosp,atual,2018-10-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/avare
+3504602,SP,Bady Bassitt,instar,atual,2024-03-05,2025-02-07,https://www.badybassitt.sp.gov.br/portal/diario-oficial
+3504701,SP,Balbinos,dosp,atual,2018-02-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/balbinos
+3504800,SP,Bálsamo,dosp,atual,2017-02-22,2025-02-07,https://www.imprensaoficialmunicipal.com.br/balsamo
+3505005,SP,Barão de Antonina,instar,atual,2019-01-03,2025-02-07,https://www.baraodeantonina.sp.gov.br/portal/diario-oficial
+3505104,SP,Barbosa,instar,atual,2021-01-21,2025-02-07,https://www.barbosa.sp.gov.br/portal/diario-oficial
+3505203,SP,Bariri,dosp,atual,2017-12-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bariri
+3505302,SP,Barra Bonita,dosp,atual,2021-05-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/barra_bonita
+3505807,SP,Bastos,dosp,atual,2022-03-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bastos
+3506201,SP,Bento de Abreu,dosp,atual,2016-06-14,2025-02-05,https://www.imprensaoficialmunicipal.com.br/bento_de_abreu
+3506508,SP,Birigui,dosp,atual,2016-12-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/birigui
+3506805,SP,Bocaina,dosp,atual,2018-07-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bocaina
+3506904,SP,Bofete,dosp,atual,2021-05-24,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bofete
+3507159,SP,Bom Sucesso de Itararé,dosp,atual,2018-04-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itarare
+3507308,SP,Boracéia,dosp,atual,2024-02-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/boraceia
+3507407,SP,Borborema,dosp,atual,2016-05-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/borborema
+3507506,SP,Botucatu,dosp,atual,2000-01-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/botucatu
+3507605,SP,Bragança Paulista,dosp,atual,2019-01-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bragancapaulista
+3507605,SP,Bragança Paulista,dosp,atual,2019-01-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/braganca_paulista
+3507704,SP,Braúna,instar,descontinuado,2020-02-12,2024-07-19,https://www.brauna.sp.gov.br/portal/diario-oficial
+3507753,SP,Brejo Alegre,instar,atual,2021-10-21,2025-02-07,http://www.brejoalegre.sp.gov.br/portal/diario-oficial
+3507803,SP,Brodowski,dosp,atual,2017-08-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/brodowski
+3508108,SP,Buritama,dosp,atual,2019-10-22,2025-02-08,https://www.imprensaoficialmunicipal.com.br/buritama
+3508207,SP,Buritizal,dosp,atual,2022-10-26,2025-02-08,https://www.imprensaoficialmunicipal.com.br/buritizal
+3508405,SP,Cabreúva,dosp,atual,2021-12-16,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cabreuva
+3508801,SP,Cafelândia,dosp,atual,2017-06-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cafelandia
+3508900,SP,Caiabu,dosp,atual,2018-11-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/caiabu
+3509304,SP,Cajobi,dosp,atual,2013-06-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cajobi
+3509601,SP,Campo Limpo Paulista,dosp,atual,2022-01-07,2025-02-06,https://www.imprensaoficialmunicipal.com.br/campo_limpo_paulista
+3510005,SP,Cândido Mota,dosp,atual,2023-06-21,2025-02-07,https://www.imprensaoficialmunicipal.com.br/candido_mota
+3510153,SP,Canitar,dosp,atual,2018-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/canitar
+3510302,SP,Capela do Alto,dosp,atual,2018-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/capela_do_alto
+3510708,SP,Cardoso,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+3511003,SP,Castilho,dosp,atual,2018-07-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/castilho
+3511102,SP,Catanduva,dosp,atual,2016-03-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/catanduva
+3511201,SP,Catiguá,dosp,atual,2021-04-16,2025-02-07,https://www.imprensaoficialmunicipal.com.br/catigua
+3511409,SP,Cerqueira César,dosp,atual,2019-09-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cerqueira_cesar
+3511706,SP,Charqueada,instar,atual,2009-01-09,2025-02-07,https://www.charqueada.sp.gov.br/portal/diario-oficial
+3511904,SP,Clementina,dosp,atual,2022-10-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/clementina
+3512001,SP,Colina,dosp,atual,2022-04-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/colina
+3512100,SP,Colômbia,dosp,atual,2017-01-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/colombia
+3512506,SP,Coroados,dosp,atual,2018-02-16,2025-02-06,https://www.imprensaoficialmunicipal.com.br/coroados
+3512605,SP,Coronel Macedo,instar,atual,2017-05-29,2025-02-07,http://www.coronelmacedo.sp.gov.br/portal/diario-oficial
+3512902,SP,Cosmorama,dosp,atual,2015-04-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cosmorama
+3513306,SP,Cruzália,dosp,atual,2019-03-14,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cruzalia
+3513603,SP,Cunha,dosp,atual,2021-10-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/cunha
+3513850,SP,Dirce Reis,dosp,atual,2019-04-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/dirce_reis
+3513850,SP,Dirce Reis,instar,descontinuado,2019-10-07,2024-05-09,https://www.dircereis.sp.gov.br/portal/diario-oficial
+3514007,SP,Dobrada,dosp,atual,2016-06-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/dobrada
+3514205,SP,Dolcinópolis,dosp,atual,2018-01-15,2025-02-07,https://www.imprensaoficialmunicipal.com.br/dolcinopolis
+3514304,SP,Dourado,dosp,atual,2017-10-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/dourado
+3514403,SP,Dracena,instar,atual,2020-11-24,2025-02-07,https://www.dracena.sp.gov.br/portal/diario-oficial
+3514809,SP,Eldorado,instar,atual,2018-12-04,2025-02-07,https://www.eldorado.sp.gov.br/portal/diario-oficial
+3514908,SP,Elias Fausto,dosp,atual,2018-02-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/elias_fausto
+3514924,SP,Elisiário,dosp,atual,2019-02-15,2025-02-06,https://www.imprensaoficialmunicipal.com.br/elisiario
+3514957,SP,Embaúba,dosp,atual,2021-06-02,2025-02-06,https://www.imprensaoficialmunicipal.com.br/embauba
+3515202,SP,Estrela d'Oeste,dosp,atual,2018-01-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/estreladoeste
+3515202,SP,Estrela d'Oeste,dosp,atual,2018-01-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/estrela_d_oeste
+3515350,SP,Euclides da Cunha Paulista,dosp,atual,2018-10-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/euclides_da_cunha_paulista
+3515350,SP,Euclides da Cunha Paulista,dosp,atual,2021-10-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/cunha
+3515608,SP,Fernando Prestes,dosp,atual,2013-10-22,2025-02-07,https://www.imprensaoficialmunicipal.com.br/fernando_prestes
+3515657,SP,Fernão,dosp,atual,2018-02-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/fernao
+3515905,SP,Floreal,instar,atual,2022-11-09,2025-02-07,https://www.floreal.sp.gov.br/portal/diario-oficial
+3516507,SP,Gabriel Monteiro,dosp,atual,2018-08-15,2025-02-06,https://www.imprensaoficialmunicipal.com.br/gabriel_monteiro
+3516606,SP,Gália,dosp,atual,2018-03-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/galia
+3516705,SP,Garça,dosp,atual,2014-08-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/garca
+3516903,SP,General Salgado,instar,atual,2022-01-13,2025-02-07,https://www.generalsalgado.sp.gov.br/portal/diario-oficial
+3517000,SP,Getulina,dosp,atual,2016-01-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/getulina
+3517109,SP,Glicério,instar,atual,Edição com data ausente,2025-02-07,https://www.glicerio.sp.gov.br/portal/diario-oficial
+3517208,SP,Guaiçara,dosp,atual,2017-12-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guaicara
+3517307,SP,Guaimbê,dosp,atual,2015-09-09,2025-02-06,https://www.imprensaoficialmunicipal.com.br/guaimbe
+3517505,SP,Guapiaçu,dosp,atual,2018-12-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guapiacu
+3517703,SP,Guará,dosp,atual,2014-12-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guara
+3517802,SP,Guaraçaí,dosp,atual,2018-09-27,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guaracai
+3518107,SP,Guarantã,dosp,atual,2017-01-23,2025-02-08,https://www.imprensaoficialmunicipal.com.br/guaranta
+3518206,SP,Guararapes,dosp,atual,2016-10-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guararapes
+3518503,SP,Guareí,dosp,atual,2019-02-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guarei
+3518602,SP,Guariba,dosp,atual,2018-07-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/guariba
+3519006,SP,Herculândia,dosp,atual,2020-01-31,2025-02-07,https://www.imprensaoficialmunicipal.com.br/herculandia
+3519055,SP,Holambra,dosp,atual,2017-05-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/holambra
+3519105,SP,Iacanga,instar,atual,2014-01-09,2025-02-07,https://www.iacanga.sp.gov.br/portal/diario-oficial
+3519253,SP,Iaras,dosp,atual,2020-05-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/iaras
+3519303,SP,Ibaté,dosp,atual,2022-11-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ibate
+3519402,SP,Ibirá,dosp,atual,2024-07-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ibira
+3519501,SP,Ibirarema,dosp,atual,2022-05-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ibirarema
+3519600,SP,Ibitinga,instar,atual,Edição com data ausente,2025-02-07,https://www.ibitinga.instarbr.com.br/portal/diario-oficial
+3519808,SP,Icém,dosp,atual,2018-05-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/icem
+3519907,SP,Iepê,instar,atual,2019-10-16,2025-02-07,https://www.iepe.sp.gov.br/portal/diario-oficial
+3520004,SP,Igaraçu do Tietê,instar,atual,2021-01-01,2025-02-07,https://www.igaracudotiete.sp.gov.br/portal/diario-oficial
+3520103,SP,Igarapava,dosp,atual,2019-10-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/igarapava
+3520301,SP,Iguape,instar,atual,Edição com data ausente,2025-02-08,http://www.iguape.sp.gov.br/portal/diario-oficial
+3520400,SP,Ilhabela,instar,atual,Edição com data ausente,2025-02-07,http://www.ilhabela.sp.gov.br/portal/diario-oficial
+3520707,SP,Indiaporã,dosp,atual,2015-12-24,2025-02-06,https://www.imprensaoficialmunicipal.com.br/indiapora
+3521101,SP,Ipeúna,dosp,atual,2019-10-15,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ipeuna
+3521309,SP,Ipuã,dosp,atual,2019-12-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ipua
+3521408,SP,Iracemápolis,instar,atual,2017-01-02,2025-02-07,https://www.iracemapolis.sp.gov.br/portal/diario-oficial
+3521507,SP,Irapuã,dosp,atual,2021-07-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/irapua
+3521606,SP,Irapuru,instar,atual,2023-03-10,2025-02-07,http://www.irapuru.sp.gov.br/portal/diario-oficial
+3521705,SP,Itaberá,dosp,atual,2018-10-24,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itabera
+3521903,SP,Itajobi,dosp,atual,2018-06-14,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itajobi
+3522000,SP,Itaju,dosp,atual,2018-05-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itaju
+3522406,SP,Itapeva,dosp,atual,2017-12-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itapeva
+3522505,SP,Itapevi,dosp,atual,2018-12-21,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itapevi
+3522604,SP,Itapira,dosp,atual,2011-09-16,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itapira
+3522653,SP,Itapirapuã Paulista,instar,atual,Edição com data ausente,2025-02-07,https://www.itapirapuapaulista.sp.gov.br/portal/diario-oficial
+3522703,SP,Itápolis,instar,atual,2017-01-11,2025-02-07,https://www.itapolis.sp.gov.br/portal/diario-oficial
+3522802,SP,Itaporanga,instar,atual,2009-04-16,2025-02-07,https://www.itaporanga.sp.gov.br/portal/diario-oficial
+3522901,SP,Itapuí,instar,atual,2017-12-15,2025-02-07,https://www.itapui.sp.gov.br/portal/diario-oficial
+3523008,SP,Itapura,dosp,atual,2018-07-11,2025-02-05,https://www.imprensaoficialmunicipal.com.br/itapura
+3523206,SP,Itararé,dosp,atual,2018-04-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itarare
+3523305,SP,Itariri,instar,atual,2023-02-24,2025-02-07,https://www.itariri.sp.gov.br/portal/diario-oficial
+3523602,SP,Itirapina,dosp,atual,2019-02-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itirapina
+3523800,SP,Itobi,instar,atual,2011-04-01,2025-02-06,https://www.itobi.sp.gov.br/portal/diario-oficial
+3523909,SP,Itu,dosp,atual,2019-08-15,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itu
+3524006,SP,Itupeva,dosp,atual,2019-09-24,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itupeva
+3524105,SP,Ituverava,dosp,atual,2022-12-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ituverava
+3524204,SP,Jaborandi,dosp,atual,2017-09-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jaborandi
+3524303,SP,Jaboticabal,instar,atual,2009-08-21,2025-02-07,https://www.jaboticabal.sp.gov.br/portal/diario-oficial
+3524501,SP,Jaci,dosp,atual,2017-09-22,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jaci
+3524709,SP,Jaguariúna,dosp,atual,2019-03-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jaguariuna
+3524808,SP,Jales,dosp,atual,2017-08-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jales
+3525003,SP,Jandira,dosp,atual,2022-03-22,2025-02-04,https://www.imprensaoficialmunicipal.com.br/jandira
+3525102,SP,Jardinópolis,dosp,atual,2020-03-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jardinopolis
+3525300,SP,Jaú,dosp,atual,2023-01-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jau
+3525508,SP,Joanópolis,instar,atual,2013-01-30,2025-02-07,https://www.joanopolis.sp.gov.br/portal/diario-oficial
+3525607,SP,João Ramalho,dosp,atual,2020-03-24,2025-02-08,https://www.imprensaoficialmunicipal.com.br/joao_ramalho
+3525607,SP,João Ramalho,instar,atual,2020-03-24,2025-02-07,https://www.joaoramalho.sp.gov.br/portal/diario-oficial
+3525706,SP,José Bonifácio,dosp,atual,2014-09-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jose_bonifacio
+3525805,SP,Júlio Mesquita,dosp,atual,2018-03-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/julio_mesquita
+3525854,SP,Jumirim,dosp,atual,2017-12-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jumirim
+3526001,SP,Junqueirópolis,instar,atual,2020-10-24,2025-02-08,https://www.junqueiropolis.sp.gov.br/portal/diario-oficial
+3526308,SP,Lagoinha,instar,atual,2021-11-25,2025-02-06,https://www.lagoinha.sp.gov.br/portal/diario-oficial
+3526407,SP,Laranjal Paulista,dosp,atual,2021-03-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/laranjal_paulista
+3526506,SP,Lavínia,instar,atual,Edição com data ausente,2025-02-07,http://www.lavinia.sp.gov.br/portal/diario-oficial
+3527009,SP,Lindóia,dosp,atual,2020-01-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lindoia
+3527108,SP,Lins,dosp,atual,2017-12-21,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lins
+3527256,SP,Lourdes,dosp,atual,2017-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lourdes
+3527306,SP,Louveira,dosp,atual,2019-05-15,2025-02-06,https://www.imprensaoficialmunicipal.com.br/louveira
+3527504,SP,Lucianópolis,dosp,atual,2022-11-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lucianopolis
+3527702,SP,Luiziânia,instar,atual,2021-04-06,2025-02-07,https://www.luiziania.sp.gov.br/portal/diario-oficial
+3527801,SP,Lupércio,dosp,atual,2017-06-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lupercio
+3527900,SP,Lutécia,dosp,atual,2018-07-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lutecia
+3528106,SP,Macaubal,instar,atual,2023-06-21,2025-02-07,https://macaubal.sp.gov.br/portal/diario-oficial
+3528304,SP,Magda,dosp,atual,2018-07-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/magda
+3528403,SP,Mairinque,dosp,atual,2024-01-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/mairinque
+3528403,SP,Mairinque,instar,atual,2024-01-19,2025-02-07,https://www.mairinque.sp.gov.br/portal/diario-oficial
+3528700,SP,Marabá Paulista,dosp,atual,2018-12-12,2025-02-06,https://www.imprensaoficialmunicipal.com.br/maraba_paulista
+3528809,SP,Maracaí,instar,atual,2017-08-08,2025-02-07,https://www.maracai.sp.gov.br/portal/diario-oficial
+3528858,SP,Marapoama,dosp,atual,2024-02-02,2025-02-08,https://www.imprensaoficialmunicipal.com.br/marapoama
+3529005,SP,Marília,instar,atual,2009-06-01,2025-02-08,https://www.marilia.sp.gov.br/portal/diario-oficial
+3529203,SP,Martinópolis,dosp,atual,2018-07-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/martinopolis
+3529500,SP,Mendonça,dosp,atual,2023-01-25,2025-01-31,https://www.imprensaoficialmunicipal.com.br/mendonca
+3529609,SP,Meridiano,dosp,atual,2014-10-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/meridiano
+3529708,SP,Miguelópolis,dosp,atual,2024-05-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/miguelopolis
+3529807,SP,Mineiros do Tietê,dosp,atual,2018-01-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/mineiros_do_tiete
+3530003,SP,Mira Estrela,dosp,atual,2018-01-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pmestrela
+3530003,SP,Mira Estrela,instar,atual,2021-02-16,2025-02-07,https://www.miraestrela.sp.gov.br/portal/diario-oficial
+3530102,SP,Mirandópolis,dosp,atual,2017-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/mirandopolis
+3530201,SP,Mirante do Paranapanema,instar,atual,2018-09-17,2025-02-07,https://www.paranapanema.sp.gov.br/portal/diario-oficial
+3530201,SP,Mirante do Paranapanema,instar,atual,2019-05-07,2025-02-08,https://www.mirantedoparanapanema.sp.gov.br/portal/diario-oficial
+3530300,SP,Mirassol,dosp,atual,2018-03-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/mirassol
+3530706,SP,Mogi Guaçu,dosp,atual,2022-01-20,2025-02-08,https://www.imprensaoficialmunicipal.com.br/mogi_guacu
+3530706,SP,Mogi Guaçu,dosp,atual,2022-01-20,2025-02-08,https://www.imprensaoficialmunicipal.com.br/mogiguacu
+3531001,SP,Monções,instar,atual,2024-01-12,2025-02-07,https://www.moncoes.sp.gov.br/portal/diario-oficial
+3531100,SP,Mongaguá,dosp,atual,2017-08-24,2025-02-07,https://www.imprensaoficialmunicipal.com.br/mongagua
+3531308,SP,Monte Alto,instar,atual,2017-09-11,2025-02-07,http://www.montealto.instaridc.com.br/portal/diario-oficial
+3531407,SP,Monte Aprazível,dosp,atual,2017-05-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/monte_aprazivel
+3531506,SP,Monte Azul Paulista,dosp,atual,2013-10-15,2025-02-06,https://www.imprensaoficialmunicipal.com.br/monte_azul_paulista
+3531605,SP,Monte Castelo,dosp,atual,2019-05-09,2025-02-06,https://www.imprensaoficialmunicipal.com.br/monte_castelo
+3531704,SP,Monteiro Lobato,dosp,atual,2020-11-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/monteiro_lobato
+3531803,SP,Monte Mor,instar,atual,2019-09-20,2025-02-07,https://www.montemor.sp.gov.br/portal/diario-oficial
+3531902,SP,Morro Agudo,dosp,atual,2017-01-24,2025-02-07,https://www.imprensaoficialmunicipal.com.br/morro_agudo
+3532009,SP,Morungaba,dosp,atual,2017-08-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/morungaba
+3532058,SP,Motuca,dosp,atual,2024-04-11,2025-02-06,https://www.imprensaoficialmunicipal.com.br/motuca
+3532108,SP,Murutinga do Sul,dosp,atual,2018-07-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/murutinga_do_sul
+3532405,SP,Nazaré Paulista,dosp,atual,2023-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/nazare_paulista
+3532603,SP,Nhandeara,instar,atual,2023-08-17,2025-02-07,https://www.nhandeara.sp.gov.br/portal/diario-oficial
+3532801,SP,Nova Aliança,dosp,atual,2021-01-29,2025-02-07,https://www.imprensaoficialmunicipal.com.br/nova_alianca
+3532827,SP,Nova Campina,dosp,atual,2021-02-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/novacampina
+3532827,SP,Nova Campina,dosp,atual,2021-02-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/nova_campina
+3532868,SP,Nova Castilho,dosp,atual,2018-07-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/castilho
+3532900,SP,Nova Europa,dosp,atual,2019-01-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/nova_europa
+3533007,SP,Nova Granada,dosp,atual,2018-02-16,2025-02-06,https://www.imprensaoficialmunicipal.com.br/nova_granada
+3533106,SP,Nova Guataporanga,dosp,atual,2019-09-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/nova_guataporanga
+3533205,SP,Nova Independência,dosp,atual,2021-07-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/nova_independencia
+3533254,SP,Novais,dosp,atual,2023-01-16,2025-02-07,https://www.imprensaoficialmunicipal.com.br/novais
+3533304,SP,Nova Luzitânia,instar,atual,2022-10-31,2025-02-07,https://www.novaluzitania.sp.gov.br/portal/diario-oficial
+3533502,SP,Novo Horizonte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+3533700,SP,Ocauçu,dosp,atual,2018-09-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ocaucu
+3533908,SP,Olímpia,dosp,atual,2017-06-27,2025-02-07,https://www.imprensaoficialmunicipal.com.br/olimpia
+3533908,SP,Olímpia,instar,descontinuado,2013-01-05,2017-06-24,https://www.olimpia.sp.gov.br/portal/diario-oficial
+3534203,SP,Orindiúva,dosp,atual,2015-03-16,2025-02-06,https://www.imprensaoficialmunicipal.com.br/orindiuva
+3534302,SP,Orlândia,dosp,atual,2021-12-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/orlandia
+3534708,SP,Ourinhos,instar,atual,2005-01-20,2025-02-07,https://www.ourinhos.sp.gov.br/portal/diario-oficial
+3534757,SP,Ouroeste,dosp,atual,2021-05-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ouroeste
+3535101,SP,Palmares Paulista,dosp,atual,2022-03-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/palmares_paulista
+3535101,SP,Palmares Paulista,dosp,atual,2022-03-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/palmarespaulista
+3535309,SP,Palmital,instar,atual,2005-06-11,2025-02-07,https://www.palmital.sp.gov.br/portal/diario-oficial
+3535705,SP,Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+3535804,SP,Paranapanema,instar,atual,2018-09-17,2025-02-07,https://www.paranapanema.sp.gov.br/portal/diario-oficial
+3536000,SP,Parapuã,dosp,atual,2021-12-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/parapua
+3536109,SP,Pardinho,dosp,atual,2019-07-31,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pardinho
+3536257,SP,Parisi,instar,atual,Edição com data ausente,2025-02-07,https://www.parisi.sp.gov.br/portal/diario-oficial
+3536307,SP,Patrocínio Paulista,instar,atual,2017-08-18,2025-02-07,https://www.patrociniopaulista.sp.gov.br/portal/diario-oficial
+3536406,SP,Paulicéia,dosp,atual,2019-03-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pauliceia
+3536505,SP,Paulínia,instar,atual,Edição com data ausente,2025-02-07,https://www.paulinia.sp.gov.br/portal/diario-oficial
+3536604,SP,Paulo de Faria,dosp,atual,2018-04-26,2025-02-05,https://www.imprensaoficialmunicipal.com.br/paulo_de_faria
+3536703,SP,Pederneiras,dosp,atual,2018-01-15,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pederneiras
+3536802,SP,Pedra Bela,dosp,atual,2018-04-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pedra_bela
+3537008,SP,Pedregulho,dosp,atual,2024-01-05,2025-02-06,https://www.imprensaoficialmunicipal.com.br/pedregulho
+3537156,SP,Pedrinhas Paulista,dosp,atual,2024-01-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pedrinhas_paulista
+3537305,SP,Penápolis,instar,atual,2017-01-03,2025-02-07,https://www.penapolis.sp.gov.br/portal/diario-oficial
+3537404,SP,Pereira Barreto,dosp,atual,2014-03-29,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pereira_barreto
+3537701,SP,Piacatu,dosp,atual,2018-09-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/piacatu
+3537800,SP,Piedade,instar,atual,2018-10-11,2025-02-06,https://www.piedade.sp.gov.br/portal/diario-oficial
+3537909,SP,Pilar do Sul,dosp,atual,2022-07-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pilardosul
+3537909,SP,Pilar do Sul,dosp,atual,2022-07-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pilar_do_sul
+3538105,SP,Pindorama,instar,atual,2022-04-29,2025-02-07,https://www.pindorama.sp.gov.br/portal/diario-oficial
+3538907,SP,Pirajuí,dosp,atual,2017-04-25,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pirajui
+3539004,SP,Pirangi,dosp,atual,2015-09-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pirangi
+3539202,SP,Pirapozinho,dosp,atual,2021-03-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pirapozinho
+3539509,SP,Pitangueiras,dosp,atual,2017-09-12,2025-02-06,https://www.imprensaoficialmunicipal.com.br/pitangueiras
+3539608,SP,Planalto,instar,atual,2021-10-10,2025-02-06,https://www.planalto.sp.gov.br/portal/diario-oficial
+3539905,SP,Poloni,dosp,atual,2020-01-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/poloni
+3539905,SP,Poloni,instar,atual,2022-11-04,2025-02-08,https://www.poloni.sp.gov.br/portal/diario-oficial
+3540101,SP,Pongaí,dosp,atual,2018-08-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pongai
+3540200,SP,Pontal,dosp,atual,2022-12-29,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pontal
+3540309,SP,Pontes Gestal,instar,atual,2021-07-14,2025-02-07,https://www.pontesgestal.sp.gov.br/portal/diario-oficial
+3540507,SP,Porangaba,instar,atual,2020-10-06,2025-02-07,http://www.porangaba.sp.gov.br/portal/diario-oficial
+3540804,SP,Potirendaba,instar,atual,2024-01-21,2025-02-07,https://www.potirendaba.sp.gov.br/portal/diario-oficial
+3541059,SP,Pratânia,instar,atual,2019-05-13,2025-02-07,https://www.pratania.sp.gov.br/portal/diario-oficial
+3541307,SP,Presidente Epitácio,instar,atual,2019-10-18,2025-02-07,https://www.presidenteepitacio.sp.gov.br/portal/diario-oficial
+3541505,SP,Presidente Venceslau,dosp,atual,2021-03-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/presidentevenceslau
+3541505,SP,Presidente Venceslau,dosp,atual,2021-03-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/presidente_venceslau
+3541604,SP,Promissão,dosp,atual,2015-07-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/promissao
+3541703,SP,Quatá,dosp,atual,2017-12-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/quata
+3542404,SP,Regente Feijó,dosp,atual,2018-10-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/regente_feijo
+3542503,SP,Reginópolis,dosp,atual,2018-02-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/reginopolis
+3542909,SP,Ribeirão Bonito,dosp,atual,2016-06-21,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ribeirao_bonito
+3543238,SP,Ribeirão dos Índios,dosp,atual,2024-12-05,2025-02-06,https://www.imprensaoficialmunicipal.com.br/ribeirao_dos_indios
+3543501,SP,Riversul,instar,descontinuado,2019-12-16,2023-10-05,https://www.riversul.sp.gov.br/portal/diario-oficial
+3543600,SP,Rifaina,dosp,atual,2024-04-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rifaina
+3543709,SP,Rincão,dosp,atual,2023-11-21,2025-02-06,https://www.imprensaoficialmunicipal.com.br/rincao
+3543907,SP,Rio Claro,dosp,atual,2006-05-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rio_claro
+3544004,SP,Rio das Pedras,dosp,atual,2017-10-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rio_das_pedras
+3544103,SP,Rio Grande da Serra,dosp,atual,2022-08-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/riograndedaserra
+3544103,SP,Rio Grande da Serra,dosp,atual,2022-08-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rio_grande_da_serra
+3544202,SP,Riolândia,dosp,atual,2014-05-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/riolandia
+3544251,SP,Rosana,dosp,atual,2019-05-04,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rosana
+3544400,SP,Rubiácea,dosp,atual,2017-09-06,2025-02-06,https://www.imprensaoficialmunicipal.com.br/rubiacea
+3544509,SP,Rubinéia,dosp,atual,2019-07-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rubineia
+3544608,SP,Sabino,dosp,atual,2018-01-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/sabino
+3544806,SP,Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+3544905,SP,Sales Oliveira,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+3544905,SP,Sales Oliveira,instar,atual,2024-01-16,2025-02-06,https://www.salesoliveira.sp.gov.br/portal/diario-oficial
+3545159,SP,Saltinho,dosp,atual,2019-06-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/saltinho
+3545209,SP,Salto,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+3545308,SP,Salto de Pirapora,dosp,atual,2021-01-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/salto_de_pirapora
+3545308,SP,Salto de Pirapora,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+3545407,SP,Salto Grande,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+3545704,SP,Santa Albertina,dosp,atual,2021-10-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_albertina
+3546108,SP,Santa Clara d'Oeste,dosp,atual,2021-06-02,2025-02-06,https://www.imprensaoficialmunicipal.com.br/santa_clara_d_oeste
+3546108,SP,Santa Clara d'Oeste,dosp,atual,2021-06-02,2025-02-06,https://www.imprensaoficialmunicipal.com.br/santaclaradoeste
+3546207,SP,Santa Cruz da Conceição,dosp,atual,2016-10-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_cruz_da_conceicao
+3546504,SP,Santa Ernestina,instar,atual,2019-08-19,2025-02-07,https://www.santaernestina.sp.gov.br/portal/diario-oficial
+3546603,SP,Santa Fé do Sul,dosp,atual,2021-12-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_fe_do_sul
+3546900,SP,Santa Lúcia,dosp,atual,2023-08-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_lucia
+3547007,SP,Santa Maria da Serra,instar,atual,2022-03-16,2025-02-06,https://www.santamariadaserra.sp.gov.br/portal/diario-oficial
+3547106,SP,Santa Mercedes,dosp,atual,2019-03-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_mercedes
+3547403,SP,Santa Rita d'Oeste,dosp,atual,2021-05-07,2025-02-06,https://www.imprensaoficialmunicipal.com.br/santaritadoeste
+3547403,SP,Santa Rita d'Oeste,dosp,atual,2021-05-07,2025-02-06,https://www.imprensaoficialmunicipal.com.br/santa_rita_d_oeste
+3547502,SP,Santa Rita do Passa Quatro,dosp,atual,2018-01-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_rita_do_passa_quatro
+3547650,SP,Santa Salete,dosp,atual,2023-03-31,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_salete
+3547700,SP,Santo Anastácio,dosp,atual,2020-09-23,2025-02-05,https://www.imprensaoficialmunicipal.com.br/santo_anastacio
+3547809,SP,Santo André,instar,atual,1201-10-12,2025-02-07,https://web.santoandre.sp.gov.br/portal/diario-oficial
+3548005,SP,Santo Antônio de Posse,dosp,atual,2018-08-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santo_antonio_de_posse
+3548005,SP,Santo Antônio de Posse,dosp,atual,2018-08-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pmsaposse
+3548302,SP,Santo Expedito,dosp,atual,2020-04-29,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santo_expedito
+3548401,SP,Santópolis do Aguapeí,dosp,descontinuado,2014-07-01,2019-12-30,https://www.imprensaoficialmunicipal.com.br/santopolis_do_aguapei
+3548401,SP,Santópolis do Aguapeí,dosp,descontinuado,2014-07-01,2019-12-30,https://www.imprensaoficialmunicipal.com.br/santopolisdoaguapei
+3548609,SP,São Bento do Sapucaí,dosp,atual,2021-04-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sao_bento_do_sapucai
+3548708,SP,São Bernardo do Campo,dosp,atual,2017-05-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sao_bernardo_do_campo
+3549300,SP,São João do Pau d'Alho,dosp,atual,2024-02-07,2025-02-05,https://www.imprensaoficialmunicipal.com.br/sao_joao_do_pau_d_alho
+3549409,SP,São Joaquim da Barra,dosp,atual,2017-05-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sao_joaquim_da_barra
+3549508,SP,São José da Bela Vista,dosp,atual,2021-03-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sao_jose_da_bela_vista
+3549508,SP,São José da Bela Vista,dosp,atual,2021-03-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sjbelavista
+3549706,SP,São José do Rio Pardo,dosp,atual,2018-11-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sao_jose_do_rio_pardo
+3549706,SP,São José do Rio Pardo,dosp,atual,2018-11-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sjriopardo
+3550100,SP,São Manuel,instar,atual,2016-06-07,2025-02-07,http://www.saomanuel.sp.gov.br/portal/diario-oficial
+3550407,SP,São Pedro,instar,atual,2021-05-25,2025-02-07,https://www.saopedro.sp.gov.br/portal/diario-oficial
+3550605,SP,São Roque,instar,atual,2020-05-08,2025-02-07,https://www.saoroque.sp.gov.br/portal/diario-oficial
+3551207,SP,Sarutaiá,instar,atual,2020-03-13,2025-02-04,https://www.sarutaia.sp.gov.br/portal/diario-oficial
+3551306,SP,Sebastianópolis do Sul,instar,atual,2020-05-26,2025-02-07,https://www.sebastianopolisdosul.sp.gov.br/portal/diario-oficial
+3551702,SP,Sertãozinho,dosp,atual,2019-08-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sertaozinho
+3551801,SP,Sete Barras,dosp,atual,2022-11-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sete_barras
+3551900,SP,Severínia,dosp,atual,2017-02-21,2025-02-07,https://www.imprensaoficialmunicipal.com.br/severinia
+3552551,SP,Suzanápolis,dosp,atual,2018-09-27,2025-02-07,https://www.imprensaoficialmunicipal.com.br/suzanapolis
+3552601,SP,Tabapuã,dosp,atual,2018-06-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tabapua
+3552908,SP,Taciba,dosp,atual,2018-07-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/taciba
+3553203,SP,Taiúva,dosp,atual,2017-12-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/taiuva
+3553302,SP,Tambaú,dosp,atual,2019-11-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tambau
+3553401,SP,Tanabi,dosp,atual,2019-06-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tanabi
+3553500,SP,Tapiraí,instar,atual,2019-09-03,2025-02-07,https://www.tapirai.sp.gov.br/portal/diario-oficial
+3553609,SP,Tapiratiba,dosp,atual,2024-09-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tapiratiba
+3553658,SP,Taquaral,instar,atual,2017-01-03,2025-02-07,https://www.taquaral.sp.gov.br/portal/diario-oficial
+3553708,SP,Taquaritinga,dosp,atual,2016-01-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/taquaritinga
+3553856,SP,Taquarivaí,dosp,atual,2019-01-24,2025-02-06,https://www.imprensaoficialmunicipal.com.br/taquarivai
+3553906,SP,Tarabai,dosp,atual,2018-04-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tarabai
+3554300,SP,Teodoro Sampaio,dosp,atual,2018-08-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/teodoro_sampaio
+3554706,SP,Torrinha,dosp,atual,2021-06-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/torrinha
+3554805,SP,Tremembé,dosp,atual,2016-05-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tremembe
+3554953,SP,Tuiuti,dosp,atual,2014-10-09,2025-02-06,https://www.imprensaoficialmunicipal.com.br/tuiuti
+3555000,SP,Tupã,dosp,atual,2021-10-02,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tupa
+3555208,SP,Turiúba,instar,atual,2020-06-19,2025-02-06,https://www.turiuba.sp.gov.br/portal/diario-oficial
+3555505,SP,Ubirajara,dosp,atual,2018-04-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/ubirajara
+3555703,SP,União Paulista,instar,atual,2023-01-11,2025-02-07,https://uniaopaulista.sp.gov.br/portal/diario-oficial
+3555802,SP,Urânia,dosp,atual,2020-01-14,2025-02-07,https://www.imprensaoficialmunicipal.com.br/urania
+3555901,SP,Uru,dosp,atual,2018-07-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/uru
+3556008,SP,Urupês,dosp,atual,2021-07-15,2025-02-07,https://www.imprensaoficialmunicipal.com.br/urupes
+3556107,SP,Valentim Gentil,dosp,atual,2015-11-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/valentim_gentil
+3556206,SP,Valinhos,instar,atual,2004-12-12,2025-02-07,https://www.valinhos.sp.gov.br/portal/diario-oficial
+3556305,SP,Valparaíso,instar,atual,2021-11-19,2025-02-08,https://www.valparaiso.sp.gov.br/portal/diario-oficial
+3556404,SP,Vargem Grande do Sul,dosp,atual,2018-09-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/vgsul
+3556404,SP,Vargem Grande do Sul,dosp,atual,2018-09-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/vargem_grande_do_sul
+3556453,SP,Vargem Grande Paulista,dosp,atual,2019-06-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/vargem_grande_paulista
+3556602,SP,Vera Cruz,instar,atual,2018-02-01,2025-02-07,https://www.veracruz.sp.gov.br/portal/diario-oficial
+3556701,SP,Vinhedo,instar,atual,2010-12-09,2025-02-07,https://www.vinhedo.sp.gov.br/portal/diario-oficial
+3556800,SP,Viradouro,dosp,atual,2013-06-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/viradouro
+3556958,SP,Vitória Brasil,dosp,atual,2019-02-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/vitoria_brasil
+3557006,SP,Votorantim,instar,atual,2018-04-20,2025-02-07,https://www.votorantim.sp.gov.br/portal/diario-oficial
+3557105,SP,Votuporanga,dosp,atual,2015-10-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/votuporanga
+3557154,SP,Zacarias,dosp,atual,2018-09-21,2025-02-07,https://www.imprensaoficialmunicipal.com.br/zacarias
+4100301,PR,Agudos do Sul,dosp,atual,2017-06-27,2025-02-06,https://www.imprensaoficialmunicipal.com.br/agudos
+4101309,PR,Antônio Olinto,instar,atual,2016-06-14,2025-02-07,https://antonioolinto.pr.gov.br/portal/diario-oficial
+4101655,PR,Arapuã,dosp,atual,2021-12-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/parapua
+4102802,PR,Bela Vista do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+4103453,PR,Cafelândia,dosp,atual,2017-06-12,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cafelandia
+4103479,PR,Cafezal do Sul,dosp,atual,2016-04-14,2025-02-07,https://www.imprensaoficialmunicipal.com.br/cafezal_do_sul
+4104659,PR,Carambeí,dosp,atual,2022-11-09,2025-02-07,https://www.imprensaoficialmunicipal.com.br/carambei
+4110508,PR,Ipiranga,doem,atual,2016-01-04,2025-02-07,https://doem.org.br/pr/ipiranga/diarios
+4111704,PR,Jaboti,instar,atual,2018-01-03,2025-02-07,http://www.jaboti.pr.gov.br/portal/diario-oficial
+4116109,PR,Moreira Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+4116604,PR,Nova América da Colina,dosp,atual,2022-04-19,2025-02-07,https://www.imprensaoficialmunicipal.com.br/colina
+4117206,PR,Nova Olímpia,dosp,atual,2017-06-27,2025-02-07,https://www.imprensaoficialmunicipal.com.br/olimpia
+4118006,PR,Paraíso do Norte,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+4119657,PR,Pitangueiras,dosp,atual,2017-09-12,2025-02-06,https://www.imprensaoficialmunicipal.com.br/pitangueiras
+4119954,PR,Pontal do Paraná,dosp,atual,2022-12-29,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pontal
+4120507,PR,Primeiro de Maio,instar,atual,2022-04-14,2025-02-07,https://www.primeirodemaio.pr.gov.br/portal/diario-oficial
+4122909,PR,Salto do Itararé,dosp,atual,2018-04-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itarare
+4122909,PR,Salto do Itararé,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+4123006,PR,Salto do Lontra,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+4123824,PR,Santa Lúcia,dosp,atual,2023-08-08,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_lucia
+4124004,PR,Santana do Itararé,dosp,atual,2018-04-06,2025-02-07,https://www.imprensaoficialmunicipal.com.br/itarare
+4124301,PR,Santo Antônio do Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+4124301,PR,Santo Antônio do Paraíso,instar,atual,2012-12-27,2025-02-07,https://www.pmsantoantoniodoparaiso.pr.gov.br/portal/diario-oficial
+4125100,PR,São João do Triunfo,instar,atual,2013-04-10,2025-02-07,https://www.sjtriunfo.pr.gov.br/portal/diario-oficial
+4125605,PR,São Mateus do Sul,instar,atual,2010-12-10,2025-02-07,https://www.saomateusdosul.pr.gov.br/portal/diario-oficial
+4126702,PR,Tamboara,doem,atual,2023-01-03,2025-02-07,https://doem.org.br/pr/tamboara/diarios
+4128625,PR,Alto Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+4202099,SC,Barra Bonita,dosp,atual,2021-05-18,2025-02-07,https://www.imprensaoficialmunicipal.com.br/barra_bonita
+4202438,SC,Bocaina do Sul,dosp,atual,2018-07-23,2025-02-07,https://www.imprensaoficialmunicipal.com.br/bocaina
+4204707,SC,Cunha Porã,dosp,atual,2021-10-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/cunha
+4208955,SC,Jardinópolis,dosp,atual,2020-03-11,2025-02-07,https://www.imprensaoficialmunicipal.com.br/jardinopolis
+4209854,SC,Lindóia do Sul,dosp,atual,2020-01-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lindoia
+4211108,SC,Monte Castelo,dosp,atual,2019-05-09,2025-02-06,https://www.imprensaoficialmunicipal.com.br/monte_castelo
+4211652,SC,Novo Horizonte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+4212239,SC,Paraíso,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+4215356,SC,Saltinho,dosp,atual,2019-06-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/saltinho
+4215406,SC,Salto Veloso,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+4216800,SC,São José do Cerrito,instar,atual,2019-09-09,2025-02-06,https://www.cerrito.rs.gov.br/portal/diario-oficial
+4217253,SC,São Pedro de Alcântara,adiariosv2,descontinuado,2002-12-30,2018-04-13,https://pmspa.aexecutivo.com.br/jornal.php
+4220000,SC,Balneário Rincão,dosp,atual,2023-11-21,2025-02-06,https://www.imprensaoficialmunicipal.com.br/rincao
+4303004,RS,Cachoeira do Sul,instar,atual,2021-10-27,2025-02-07,https://www.cachoeiradosul.rs.gov.br/portal/diario-oficial
+4304705,RS,Carazinho,instar,atual,2023-08-25,2025-02-07,https://www.carazinho.rs.gov.br/portal/diario-oficial
+4305124,RS,Cerrito,instar,atual,2019-09-09,2025-02-06,https://www.cerrito.rs.gov.br/portal/diario-oficial
+4306734,RS,Doutor Maurício Cardoso,dosp,atual,2019-05-08,2025-02-08,https://www.imprensaoficialmunicipal.com.br/cardoso
+4307807,RS,Estrela,dosp,atual,2018-01-30,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pmestrela
+4308201,RS,Flores da Cunha,dosp,atual,2021-10-19,2025-02-06,https://www.imprensaoficialmunicipal.com.br/cunha
+4311809,RS,Marau,dosp,atual,2017-10-10,2025-02-07,https://www.imprensaoficialmunicipal.com.br/marau
+4314027,RS,Paraíso do Sul,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+4315313,RS,Quatro Irmãos,dosp,atual,2024-05-14,2025-02-06,https://www.imprensaoficialmunicipal.com.br/quatro_irmaos
+4315800,RS,Roca Sales,dosp,atual,2017-12-20,2025-02-07,https://www.imprensaoficialmunicipal.com.br/sales
+4316451,RS,Salto do Jacuí,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+4316758,RS,Santa Clara do Sul,dosp,atual,2017-09-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/santa_clara_do_sul
+4318200,RS,São Francisco de Paula,instar,atual,2023-08-31,2025-02-06,http://www.saofranciscodepaula.rs.gov.br/portal/diario-oficial
+4321634,RS,Três Arroios,dosp,atual,2017-04-26,2025-02-07,https://www.imprensaoficialmunicipal.com.br/tres_arroios
+4322707,RS,Vera Cruz,instar,atual,2018-05-02,2025-02-07,https://www.veracruz.rs.gov.br/portal/diario-oficial
+5002100,MS,Bela Vista,instar,atual,2011-11-16,2025-02-07,https://www.belavista.ms.gov.br/portal/diario-oficial
+5003256,MS,Costa Rica,instar,atual,2005-01-03,2025-02-07,https://www.costarica.ms.gov.br/portal/diario-oficial
+5003454,MS,Deodápolis,dosp,atual,2023-11-17,2025-02-07,https://www.imprensaoficialmunicipal.com.br/deodapolis
+5004007,MS,Glória de Dourados,dosp,atual,2023-11-07,2025-02-07,https://www.imprensaoficialmunicipal.com.br/gloria_de_dourados
+5004403,MS,Inocência,instar,atual,Edição com data ausente,2025-02-07,https://www.inocencia.ms.gov.br/portal/diario-oficial
+5005103,MS,Jateí,dosp,descontinuado,2023-12-12,2024-06-26,https://www.imprensaoficialmunicipal.com.br/jatei
+5005400,MS,Maracaju,instar,atual,2013-03-14,2025-02-07,https://www.maracaju.ms.gov.br/portal/diario-oficial
+5006259,MS,Novo Horizonte do Sul,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+5006275,MS,Paraíso das Águas,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
+5006358,MS,Paranhos,dosp,atual,2023-07-13,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paranhos
+5007208,MS,Rio Brilhante,dosp,atual,2024-02-01,2025-02-07,https://www.imprensaoficialmunicipal.com.br/rio_brilhante
+5103379,MT,Cotriguaçu,instar,atual,2023-11-17,2025-02-07,https://www.cotriguacu.mt.gov.br/portal/diario-oficial
+5104104,MT,Guarantã do Norte,dosp,atual,2017-01-23,2025-02-08,https://www.imprensaoficialmunicipal.com.br/guaranta
+5105234,MT,Lambari D'Oeste,dosp,atual,2025-01-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/lambari
+5105622,MT,Mirassol d'Oeste,dosp,atual,2018-03-05,2025-02-07,https://www.imprensaoficialmunicipal.com.br/mirassol
+5106232,MT,Nova Olímpia,dosp,atual,2017-06-27,2025-02-07,https://www.imprensaoficialmunicipal.com.br/olimpia
+5106273,MT,Novo Horizonte do Norte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+5106653,MT,Pontal do Araguaia,dosp,atual,2022-12-29,2025-02-07,https://www.imprensaoficialmunicipal.com.br/pontal
+5107750,MT,Salto do Céu,dosp,atual,2018-02-01,2025-02-08,https://www.imprensaoficialmunicipal.com.br/salto
+5200555,GO,Alto Horizonte,dosp,atual,2023-07-03,2025-02-07,https://www.imprensaoficialmunicipal.com.br/horizonte
+5200605,GO,Alto Paraíso de Goiás,dosp,atual,2015-09-28,2025-02-07,https://www.imprensaoficialmunicipal.com.br/paraiso
