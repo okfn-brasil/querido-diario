@@ -1,0 +1,12 @@
+import datetime
+
+from gazette.spiders.base.aratext import BaseAratextSpider
+
+
+class {{ class_name }}Spider(BaseAratextSpider):
+    TERRITORY_ID = "{{ territory_id }}"
+    name = "{{ spider_name }}"
+    allowed_domains = ["{{ domain }}"]
+    start_urls = ["{{ url }}"]
+    power = "executive"
+    start_date = date({{ date_from }})

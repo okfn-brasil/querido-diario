@@ -1,0 +1,11 @@
+from datetime import date
+
+from gazette.spiders.base.adiarios_v1 import BaseAdiariosV1Spider
+
+
+class {{ class_name }}Spider(BaseAdiariosV1Spider):
+    TERRITORY_ID = "{{ territory_id }}"
+    name = "{{ spider_name }}"
+    allowed_domains = ["{{ domain }}"]
+    BASE_URL = "{{ base_url }}"
+    start_date = date({{ date_from }})

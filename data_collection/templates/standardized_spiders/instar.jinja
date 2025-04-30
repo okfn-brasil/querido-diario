@@ -1,0 +1,11 @@
+from datetime import date
+
+from gazette.spiders.base.instar import BaseInstarSpider
+
+
+class {{ class_name }}Spider(BaseInstarSpider):
+    TERRITORY_ID = "{{ territory_id }}"
+    name = "{{ spider_name }}"
+    allowed_domains = ["{{ domain }}"]
+    base_url = "{{ base_url }}"
+    start_date = date({{ date_from }})
