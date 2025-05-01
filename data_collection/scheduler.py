@@ -30,7 +30,7 @@ def _schedule_job(start_date, full, spider_name):
 
     job_args = {}
     if not full:
-        job_args["start_date"] = start_date
+        job_args["start"] = start_date
 
     spider = project.spiders.get(spider_name)
     spider.jobs.run(
@@ -51,12 +51,12 @@ def cli():
     help="Spider name to execute.",
 )
 @click.option(
-    "--start_date",
+    "--start",
     default=None,
     help="Start date (YYYY-MM-DD).",
 )
 @click.option(
-    "--end_date",
+    "--end",
     default=None,
     help="Start date (YYYY-MM-DD).",
 )
@@ -78,9 +78,9 @@ def schedule_spider(spider_name, start_date, end_date):
 
     job_args = {}
     if start_date:
-        job_args["start_date"] = start_date
+        job_args["start"] = start_date
     if end_date:
-        job_args["end_date"] = end_date
+        job_args["end"] = end_date
 
     spider = project.spiders.get(spider_name)
     spider.jobs.run(
@@ -133,7 +133,7 @@ def disable_spider(spider_name):
 
 @cli.command()
 @click.option(
-    "--start_date",
+    "--start",
     default=YESTERDAY.strftime("%Y-%m-%d"),
     help="Start date that we want to scrape.",
 )
@@ -143,7 +143,7 @@ def disable_spider(spider_name):
     default=False,
     is_flag=True,
     help="If we want to execute a full crawl (all available dates). "
-    "When this option is set to true --start_date option is ignored.",
+    "When this option is set to true --start option is ignored.",
 )
 @click.argument("spider_name")
 def schedule_job(start_date, full, spider_name):
@@ -171,7 +171,7 @@ def last_month_schedule_enabled_spiders():
 
 
 @click.option(
-    "--start_date",
+    "--start",
     help="Start date that we want to scrape all enabled spiders.",
 )
 @cli.command()
