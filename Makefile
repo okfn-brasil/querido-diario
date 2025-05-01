@@ -24,7 +24,7 @@ shell:
 	cd $(SRC_DIRS) && scrapy shell
 
 run_spider_since:
-	cd $(SRC_DIRS) && scrapy crawl -a start_date=$(START_DATE) $(SPIDER)
+	cd $(SRC_DIRS) && scrapy crawl -a start=$(START) $(SPIDER)
 
 compile:
 	cd data_collection; \

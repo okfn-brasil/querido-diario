@@ -6,10 +6,10 @@ on:
       spider_name:
         description: 'Spider to be scheduled'
         required: true
-      start_date:
+      start:
         description: 'Start date (YYYY-MM-DD)'
         required: true
-      end_date:
+      end:
         description: 'End date (YYYY-MM-DD)'
         required: false
 
@@ -38,39 +38,39 @@ jobs:
         python -m pip install --upgrade pip
         pip install click python-decouple scrapinghub SQLAlchemy psycopg2     
     - name: Schedule full crawl per year
-      if: ${{ !github.event.inputs.end_date }}
+      if: ${{ !github.event.inputs.end }}
       run: |
         cd data_collection/
         spider=${{ github.event.inputs.spider_name }}
-        start_date=${{ github.event.inputs.start_date }}
-        int_start_date=$(date -d $start_date +"%Y%m%d")
-        int_end_date=$(date --date="today" +"%Y%m%d")
-        while [[ $int_start_date -lt $int_end_date ]]; do
-            int_date_to=$(date -d"$int_start_date + 1 year" +"%Y%m%d")
-            if [[ $int_date_to -ge $int_end_date ]]; then
-                int_date_to="$int_end_date"
+        start=${{ github.event.inputs.start }}
+        int_start=$(date -d $start +"%Y%m%d")
+        int_end=$(date --date="today" +"%Y%m%d")
+        while [[ $int_start -lt $int_end ]]; do
+            int_date_to=$(date -d"$int_start + 1 year" +"%Y%m%d")
+            if [[ $int_date_to -ge $int_end ]]; then
+                int_date_to="$int_end"
             fi
-            date_from=$(date -d"$int_start_date" +"%Y-%m-%d")
+            date_from=$(date -d"$int_start" +"%Y-%m-%d")
             date_to=$(date -d"$int_date_to" +"%Y-%m-%d")
-            python scheduler.py schedule-spider --spider_name="$spider" --start_date="$date_from" --end_date="$date_to"
-            int_start_date="$int_date_to"
+            python scheduler.py schedule-spider --spider_name="$spider" --start="$date_from" --end="$date_to"
+            int_start="$int_date_to"
         done
     - name: Schedule partial crawl per year
-      if: ${{ github.event.inputs.end_date }}
+      if: ${{ github.event.inputs.end }}
       run: |
         cd data_collection/
         spider=${{ github.event.inputs.spider_name }}
-        start_date=${{ github.event.inputs.start_date }}
-        end_date=${{ github.event.inputs.end_date }}
-        int_start_date=$(date -d $start_date +"%Y%m%d")
-        int_end_date=$(date -d $end_date +"%Y%m%d")
-        while [[ $int_start_date -lt $int_end_date ]]; do
-            int_date_to=$(date -d"$int_start_date + 1 year" +"%Y%m%d")
-            if [[ $int_date_to -ge $int_end_date ]]; then
-                int_date_to="$int_end_date"
+        start=${{ github.event.inputs.start }}
+        end=${{ github.event.inputs.end }}
+        int_start=$(date -d $start +"%Y%m%d")
+        int_end=$(date -d $end +"%Y%m%d")
+        while [[ $int_start -lt $int_end ]]; do
+            int_date_to=$(date -d"$int_start + 1 year" +"%Y%m%d")
+            if [[ $int_date_to -ge $int_end ]]; then
+                int_date_to="$int_end"
             fi
-            date_from=$(date -d"$int_start_date" +"%Y-%m-%d")
+            date_from=$(date -d"$int_start" +"%Y-%m-%d")
             date_to=$(date -d"$int_date_to" +"%Y-%m-%d")
-            python scheduler.py schedule-spider --spider_name="$spider" --start_date="$date_from" --end_date="$date_to"
-            int_start_date="$int_date_to"
+            python scheduler.py schedule-spider --spider_name="$spider" --start="$date_from" --end="$date_to"
+            int_start="$int_date_to"
         done
