@@ -20,6 +20,9 @@ class BaseGazetteSpider(scrapy.Spider):
         if not hasattr(self, "TERRITORY_ID"):
             raise NotConfigured("Please set a value for `TERRITORY_ID`")
 
+        if not hasattr(self, "allowed_domains"):
+            raise NotConfigured("Please set a value for `allowed_domains`")
+
         if not hasattr(self, "start_date"):
             raise NotConfigured("Please set a value for `start_date`")
 
