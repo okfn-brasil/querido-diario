@@ -2,6 +2,7 @@ import re
 from datetime import datetime as dt
 
 from scrapy import Request
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -15,6 +16,12 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
     """
 
     allowed_domains = ["administracaopublica.com.br"]
+
+    def __init__(self, *args, **kwargs):
+        super(BaseGazetteSpider, self).__init__(*args, **kwargs)
+
+        if not hasattr(self, "token"):
+            raise NotConfigured("Please set a value for `token`")
 
     def start_requests(self):
         for interval in weekly_window(
