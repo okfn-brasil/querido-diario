@@ -27,10 +27,10 @@ class BaseSigpubSpider(BaseGazetteSpider):
     allowed_domains = ["diariomunicipal.com.br"]
 
     def __init__(self, *args, **kwargs):
-        super(BaseGazetteSpider, self).__init__(*args, **kwargs)
-
         if not hasattr(self, "CALENDAR_URL"):
             raise NotConfigured("Please set a value for `CALENDAR_URL`")
+
+        super(BaseSigpubSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         """Requests start page where the calendar widget is available."""

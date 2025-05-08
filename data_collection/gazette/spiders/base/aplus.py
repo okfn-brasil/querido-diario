@@ -11,12 +11,12 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class BaseAplusSpider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
-        super(BaseGazetteSpider, self).__init__(*args, **kwargs)
-
         if not hasattr(self, "BASE_URL"):
             raise NotConfigured("Please set a value for `BASE_URL`")
 
         self.allowed_domains = [urlparse(self.BASE_URL).netloc]
+
+        super(BaseAplusSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         start_date = self.start_date.strftime("%Y/%m/%d")
