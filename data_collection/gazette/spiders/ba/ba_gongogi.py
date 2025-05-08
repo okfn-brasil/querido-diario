@@ -5,7 +5,6 @@ from gazette.spiders.base.imprensa_oficial import BaseImprensaOficialSpider
 
 class BaGongogiSpider(BaseImprensaOficialSpider):
     name = "ba_gongogi"
-    allowed_domains = ["pmgongogiba.imprensaoficial.org"]
     start_date = date(2020, 2, 1)
     end_date = date(2020, 12, 30)
     url_base = "http://pmgongogiba.imprensaoficial.org/{}"

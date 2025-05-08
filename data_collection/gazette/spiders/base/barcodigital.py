@@ -1,6 +1,8 @@
 from datetime import datetime
+from urllib.parse import urlparse
 
 from scrapy import Request
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -11,6 +13,14 @@ class BaseBarcoDigitalSpider(BaseGazetteSpider):
     EDITION_TYPE_NORMAL = 1
     EDITION_TYPE_EXTRA = 2
     EDITION_TYPE_SUPPLEMENT = 3
+
+    def __init__(self, *args, **kwargs):
+        super(BaseGazetteSpider, self).__init__(*args, **kwargs)
+
+        if not hasattr(self, "base_url"):
+            raise NotConfigured("Please set a value for `base_url`")
+
+        self.allowed_domains = [urlparse(self.base_url).netloc]
 
     def start_requests(self):
         for date in monthly_sequence(self.start_date, self.end_date):

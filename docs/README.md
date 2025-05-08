@@ -91,13 +91,13 @@ Além dos comandos acima, o Scrapy oferece outros recursos para configurar o com
 * **Limite de data**  
 Ao executar o item 4, o raspador coletará todos os diários oficiais do site publicador daquele município. Para execuções menores, utilize a flag de atributo `-a` seguida de:
 
-`start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
+`start=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 ```console
-scrapy crawl <nome_do_raspador> -a start_date=<AAAA-MM-DD>
+scrapy crawl <nome_do_raspador> -a start=<AAAA-MM-DD>
 ```
-`end_date=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
+`end=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
 ```console
-scrapy crawl <nome_do_raspador> -a end_date=<AAAA-MM-DD>
+scrapy crawl <nome_do_raspador> -a end=<AAAA-MM-DD>
 ```
 
 * **Arquivo de log**   

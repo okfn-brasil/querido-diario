@@ -70,13 +70,13 @@ scrapy crawl <scraper_name> //example: scrapy crawl ba_acajutiba
 
 6. When executing item 4, the scraper will collect all official gazettes from the publishing site of that municipality since the first digital edition. For smaller runs, use flags in the run command:
 
-- `start_date=YYYY-MM-DD`: will set the collecting start date.
+- `start=YYYY-MM-DD`: will set the collecting start date.
 ```console
-scrapy crawl <scraper_name> -a start_date=<YYYY-MM-DD>
+scrapy crawl <scraper_name> -a start=<YYYY-MM-DD>
 ```
-- `end_date=YYYY-MM-DD`: will set the collecting end date. If omitted, it will assume the date of the day it is being executed.
+- `end=YYYY-MM-DD`: will set the collecting end date. If omitted, it will assume the date of the day it is being executed.
 ```console
-scrapy crawl <scraper_name> -a end_date=<YYYY-MM-DD>
+scrapy crawl <scraper_name> -a end=<YYYY-MM-DD>
 ```
 
 # Troubleshooting

@@ -3,7 +3,7 @@ name: Schedule All Enabled Spiders Crawl
 on:
   workflow_dispatch:
     inputs:
-      start_date:
+      start:
         description: 'Start date (YYYY-MM-DD)'
         required: true
 
@@ -32,7 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install click python-decouple scrapinghub SQLAlchemy psycopg2
     - name: Schedule partial crawl
-      if: ${{ github.event.inputs.start_date }}
+      if: ${{ github.event.inputs.start }}
       run: |
         cd data_collection/
-        python scheduler.py schedule-all-spiders-by-date --start_date ${{ github.event.inputs.start_date }}
+        python scheduler.py schedule-all-spiders-by-date --start ${{ github.event.inputs.start }}

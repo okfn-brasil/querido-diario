@@ -1,18 +1,28 @@
 import datetime as dt
 import re
+from urllib.parse import urlparse
 
 from scrapy import FormRequest
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseAplusSpider(BaseGazetteSpider):
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "BASE_URL"):
+            raise NotConfigured("Please set a value for `BASE_URL`")
+
+        self.allowed_domains = [urlparse(self.BASE_URL).netloc]
+
+        super(BaseAplusSpider, self).__init__(*args, **kwargs)
+
     def start_requests(self):
         start_date = self.start_date.strftime("%Y/%m/%d")
         end_date = self.end_date.strftime("%Y/%m/%d")
         yield FormRequest(
-            url=self.url_base,
+            url=self.BASE_URL,
             formdata={"data": start_date, "data2": end_date, "termo": "", "submit": ""},
         )
 
