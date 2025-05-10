@@ -3,6 +3,7 @@ import datetime as dt
 import logging
 
 import pkg_resources
+from querido_diario_toolbox.slugs.slugs import make_entity_slug
 from sqlalchemy import (
     Boolean,
     Column,
@@ -43,6 +44,7 @@ def load_public_entity(engine):
         reader = csv.DictReader(csvfile)
         public_entities = []
         for row in reader:
+            row["slug"] = make_entity_slug(row["nome"], row["unidade_federativa"])
             public_entities.append(PublicEntity(**row))
         session.bulk_save_objects(public_entities)
         session.commit()
