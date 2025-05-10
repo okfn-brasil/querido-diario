@@ -1,4 +1,5 @@
 from datetime import datetime
+from io import BytesIO
 from pathlib import Path
 
 import filetype
@@ -7,13 +8,14 @@ from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.http.request import NO_CALLBACK
-from scrapy.pipelines.files import FilesPipeline
+from scrapy.pipelines.files import FilesPipeline, md5sum
 from scrapy.settings import Settings
 from scrapy.utils import project
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import Gazette, initialize_database
+from gazette.utils.database import get_city_slug
 
 
 class GazetteDateFilteringPipeline:
@@ -129,6 +131,8 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
     """
 
     DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
+    database_url = None
+    slug = None
 
     def __init__(self, *args, settings=None, **kwargs):
         super().__init__(*args, settings=settings, **kwargs)
@@ -139,6 +143,8 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         self.files_requests_field = settings.get(
             "FILES_REQUESTS_FIELD", self.DEFAULT_FILES_REQUESTS_FIELD
         )
+
+        self.database_url = settings.get("QUERIDODIARIO_DATABASE_URL")
 
     def get_media_requests(self, item, info):
         """Makes requests from urls and/or lets through ready requests."""
@@ -170,26 +176,47 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         Path to save the files, modified to organize the gazettes in directories
         and with the right file extension added.
         The files will be under <public_entity_id>/<gazette date>/<filename>.
+
+        FilesPipeline.file_path() original method creates a hash with URL (fingerprint)
+        to check and avoid repeated access to a link.
+        By overriding it, this method completely discarded this feature allowing
+        re-access, and re-download, to any URL.
         """
-        filepath = Path(
-            super().file_path(request, response=response, info=info, item=item)
+
+        if response is None:
+            # First time method is invoked, response's empty (document hasn't
+            # been downloaded yet). With an empty response, cannot create file's
+            # checksum
+            return ""
+        else:
+            file_extension = self._get_file_extension(request, response)
+            file_checksum = self._get_file_checksum(response)
+
+        if self.slug is None:
+            self.slug = get_city_slug(self.database_url, item["public_entity_id"])
+
+        filename = "_".join([item["date"], self.slug, item["power"], file_checksum])
+
+        # The default path from the scrapy class begins with "full/". Here, we
+        # replace that with the public_entity_id and gazette date.
+        return str(
+            Path(item["public_entity_id"], item["date"], f"{filename}{file_extension}")
         )
-        # The default path from the scrapy class begins with "full/". In this
-        # class we replace that with the public_entity_id and gazette date.
-        filename = filepath.name
 
-        if response is not None and not filepath.suffix:
-            filename = self._get_filename_with_extension(filename, response)
+    def _get_file_extension(self, request, response):
+        # Try to get file extension using request.url as FilesPipeline.file_path
+        # originally does
+        file_extension = Path(super().file_path(request)).suffix
 
-        return str(Path(item["public_entity_id"], item["date"], filename))
-
-    def _get_filename_with_extension(self, filename, response):
         # The majority of the Gazettes are PDF files, so we can check it
         # faster validating document Content-Type before using a more costly
         # check with filetype library
-        file_extension = (
-            ".pdf" if response.headers.get("Content-Type") == b"application/pdf" else ""
-        )
+        if not file_extension:
+            file_extension = (
+                ".pdf"
+                if response.headers.get("Content-Type") == b"application/pdf"
+                else ""
+            )
 
         if not file_extension:
             # Checks file extension from file header if possible
@@ -197,4 +224,9 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
             file_kind = filetype.guess(response.body[:max_file_header_size])
             file_extension = f".{file_kind.extension}" if file_kind is not None else ""
 
-        return f"{filename}{file_extension}"
+        return file_extension
+
+    def _get_file_checksum(self, response):
+        buf = BytesIO(response.body)
+        checksum = md5sum(buf)
+        return checksum
