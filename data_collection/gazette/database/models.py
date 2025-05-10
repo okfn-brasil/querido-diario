@@ -28,67 +28,67 @@ def create_tables(engine):
     DeclarativeBase.metadata.create_all(engine)
 
 
-def load_territories(engine):
+def load_public_entity(engine):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    if session.query(Territory).count() > 0:
+    if session.query(PublicEntity).count() > 0:
         return
 
-    logger.info("Populating 'territories' table - Please wait!")
-    territories_file = pkg_resources.resource_filename(
-        "gazette", "resources/territories.csv"
+    logger.info("Populating 'entidades_publicas' table - Please wait!")
+    public_entity_file = pkg_resources.resource_filename(
+        "gazette", "resources/entidades_publicas.csv"
     )
-    with open(territories_file, encoding="utf-8") as csvfile:
+    with open(public_entity_file, encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
-        territories = []
+        public_entities = []
         for row in reader:
-            territories.append(Territory(**row))
-        session.bulk_save_objects(territories)
+            public_entities.append(PublicEntity(**row))
+        session.bulk_save_objects(public_entities)
         session.commit()
-    logger.info("Populating 'territories' table - Done!")
+    logger.info("Populating 'entidades_publicas' table - Done!")
 
 
-def get_new_or_modified_spiders(session, territory_spider_map):
+def get_new_or_modified_spiders(session, public_entity_spider_map):
     registered_spiders = session.query(QueridoDiarioSpider).all()
     registered_spiders_set = {
-        (spider.spider_name, territory.id, spider.date_from)
+        (spider.spider_name, public_entity.id, spider.date_from)
         for spider in registered_spiders
-        for territory in spider.territories
+        for public_entity in spider.public_entities
     }
     only_new_or_modified_spiders = [
         spider_info
-        for spider_info in territory_spider_map
+        for spider_info in public_entity_spider_map
         if spider_info not in registered_spiders_set
     ]
     return only_new_or_modified_spiders
 
 
-def load_spiders(engine, territory_spider_map):
+def load_spiders(engine, public_entity_spider_map):
     Session = sessionmaker(bind=engine)
     session = Session()
 
     table_is_populated = session.query(QueridoDiarioSpider).count() > 0
     spiders_to_persist = (
-        get_new_or_modified_spiders(session, territory_spider_map)
+        get_new_or_modified_spiders(session, public_entity_spider_map)
         if table_is_populated
-        else territory_spider_map
+        else public_entity_spider_map
     )
 
     logger.info("Populating 'querido_diario_spider' table - Please wait!")
 
-    territories = session.query(Territory).all()
-    territory_map = {t.id: t for t in territories}
+    public_entities = session.query(PublicEntity).all()
+    public_entity_map = {t.id: t for t in public_entities}
 
     for info in spiders_to_persist:
-        spider_name, territory_id, date_from = info
-        territory = territory_map.get(territory_id)
-        if territory is not None:
+        spider_name, public_entity_id, date_from = info
+        public_entity = public_entity_map.get(public_entity_id)
+        if public_entity is not None:
             session.merge(
                 QueridoDiarioSpider(
                     spider_name=spider_name,
                     date_from=date_from,
-                    territories=[territory],
+                    public_entities=[public_entity],
                 )
             )
 
@@ -96,11 +96,11 @@ def load_spiders(engine, territory_spider_map):
     logger.info("Populating 'querido_diario_spider' table - Done!")
 
 
-def initialize_database(database_url, territory_spider_map):
+def initialize_database(database_url, public_entity_spider_map):
     engine = create_engine(database_url)
     create_tables(engine)
-    load_territories(engine)
-    load_spiders(engine, territory_spider_map)
+    load_public_entity(engine)
+    load_spiders(engine, public_entity_spider_map)
     return engine
 
 
@@ -117,17 +117,19 @@ class Gazette(DeclarativeBase):
     file_url = Column(String)
     scraped_at = Column(DateTime)
     created_at = Column(DateTime, default=dt.datetime.utcnow)
-    territory = relationship("Territory", back_populates="gazettes")
-    territory_id = Column(String, ForeignKey("territories.id"))
+    public_entity = relationship("PublicEntity", back_populates="public_entities")
+    entidades_publicas_id = Column(String, ForeignKey("entidades_publicas.id"))
     processed = Column(Boolean, default=False)
-    __table_args__ = (UniqueConstraint("territory_id", "date", "file_checksum"),)
+    __table_args__ = (
+        UniqueConstraint("entidades_publicas_id", "date", "file_checksum"),
+    )
 
 
-territory_spider_map = Table(
-    "territory_spider_map",
+public_entity_spider_map = Table(
+    "public_entity_spider_map",
     DeclarativeBase.metadata,
     Column("spider_name", ForeignKey("querido_diario_spiders.spider_name")),
-    Column("territory_id", ForeignKey("territories.id")),
+    Column("entidades_publicas_id", ForeignKey("entidades_publicas.id")),
 )
 
 
@@ -167,4 +169,4 @@ class QueridoDiarioSpider(DeclarativeBase):
         doc="Flag to enable/disable Spider to be executed in production.",
     )
 
-    territories = relationship("Territory", secondary=territory_spider_map)
+    public_entities = relationship("PublicEntity", secondary=public_entity_spider_map)
