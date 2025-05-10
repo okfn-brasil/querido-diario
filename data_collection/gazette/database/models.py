@@ -54,7 +54,7 @@ def load_public_entity(engine):
 def get_new_or_modified_spiders(session, public_entity_spider_map):
     registered_spiders = session.query(Scraper).all()
     registered_spiders_set = {
-        (spider.nome, public_entity.id, spider.data_inicial)
+        (spider.nome, public_entity.id, spider.url_site, spider.data_inicial)
         for spider in registered_spiders
         for public_entity in spider.public_entities
     }
@@ -83,12 +83,13 @@ def load_spiders(engine, public_entity_spider_map):
     public_entity_map = {t.id: t for t in public_entities}
 
     for info in spiders_to_persist:
-        spider_name, public_entity_id, date_from = info
+        spider_name, public_entity_id, gazettes_page_url, date_from = info
         public_entity = public_entity_map.get(public_entity_id)
         if public_entity is not None:
             session.merge(
                 Scraper(
                     nome=spider_name,
+                    url_site=gazettes_page_url,
                     data_inicial=date_from,
                     public_entities=[public_entity],
                 )
