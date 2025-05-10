@@ -131,13 +131,20 @@ territory_spider_map = Table(
 )
 
 
-class Territory(DeclarativeBase):
-    __tablename__ = "territories"
+class PublicEntity(DeclarativeBase):
+    __tablename__ = "entidades_publicas"
+    __table_args__ = (UniqueConstraint("slug"),)
+
     id = Column(String, primary_key=True)
-    name = Column(String)
-    state_code = Column(String)
-    state = Column(String)
-    gazettes = relationship("Gazette", order_by=Gazette.id, back_populates="territory")
+    slug = Column(String)
+    nome = Column(String)
+    unidade_federativa = Column(String)
+    regiao = Column(String)
+    categoria = Column(String)
+
+    gazettes = relationship(
+        "Gazette", order_by=Gazette.id, back_populates="public_entity"
+    )
 
 
 class QueridoDiarioSpider(DeclarativeBase):
