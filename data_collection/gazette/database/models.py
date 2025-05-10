@@ -151,24 +151,14 @@ class PublicEntity(DeclarativeBase):
     )
 
 
-class QueridoDiarioSpider(DeclarativeBase):
-    __tablename__ = "querido_diario_spiders"
+class Scraper(DeclarativeBase):
+    __tablename__ = "raspadores"
+    __table_args__ = (UniqueConstraint("url_site"),)
 
-    spider_name = Column(
-        String,
-        doc="As defined in 'name' attribute of each Spider class.",
-        primary_key=True,
-    )
-    date_from = Column(Date, doc="Initial date this Spider is able to gather data.")
-    date_to = Column(
-        Date,
-        doc="Final date this Spider is able to gather data ('null' if able to gather data in current day)",
-        nullable=True,
-    )
-    enabled = Column(
-        Boolean,
-        default=False,
-        doc="Flag to enable/disable Spider to be executed in production.",
-    )
+    nome = Column(String, primary_key=True)
+    url_site = Column(String)
+    data_inicial = Column(Date)
+    data_final = Column(Date, nullable=True)
+    ativo = Column(Boolean, default=True)
 
     public_entities = relationship("PublicEntity", secondary=public_entity_spider_map)
