@@ -1,4 +1,4 @@
-import datetime as dt
+from datetime import datetime
 from pathlib import Path
 
 import filetype
@@ -30,7 +30,7 @@ class DefaultValuesPipeline:
 
         # Date manipulation to allow jsonschema to validate correctly
         item["date"] = str(item["date"])
-        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+        item["scraped_at"] = datetime.utcnow().isoformat("T") + "Z"
 
         return item
 
@@ -74,22 +74,21 @@ class SQLDatabasePipeline:
 
         session = self.Session()
 
-        fields = [
-            "source_text",
-            "date",
-            "edition_number",
-            "is_extra_edition",
-            "power",
-            "scraped_at",
-        ]
-        gazette_item = {field: item.get(field) for field in fields}
-        gazette_item["entidade_publica_id"] = item["public_entity_id"]
-        gazette_item["date"] = dt.datetime.strptime(
-            gazette_item["date"], "%Y-%m-%d"
-        ).date()
-        gazette_item["scraped_at"] = dt.datetime.strptime(
-            gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
-        )
+        gazette_item = {
+            "entidade_publica_id": item["public_entity_id"],
+            "data": datetime.strptime(item["date"], "%Y-%m-%d").date(),
+            "poder": item["power"],
+            "numero_edicao": item["edition_number"],
+            "edicao_extra": item["is_extra_edition"],
+            "categoria_ato": item["act_category"],
+            "orgao_publicador": item["publishing_body"],
+            "codigo_documento": item["document_code"],
+            "paginacao_documento": item["document_page"],
+            "granularidade": item["granularity"],
+            "hora_coleta": datetime.strptime(
+                item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+            ),
+        }
 
         for file_info in item.get("files", []):
             already_downloaded = file_info["status"] == "uptodate"
@@ -98,9 +97,9 @@ class SQLDatabasePipeline:
                 # files that were already downloaded before
                 continue
 
-            gazette_item["file_path"] = file_info["path"]
-            gazette_item["file_url"] = file_info["url"]
-            gazette_item["file_checksum"] = file_info["checksum"]
+            gazette_item["url_coletada"] = file_info["url"]
+            gazette_item["checksum_arquivo"] = file_info["checksum"]
+            gazette_item["caminho_arquivo"] = file_info["path"]
 
             gazette = Gazette(**gazette_item)
             session.add(gazette)
@@ -109,8 +108,8 @@ class SQLDatabasePipeline:
             except SQLAlchemyError as exc:
                 spider.logger.warning(
                     f"Something wrong has happened when adding the gazette in the database. "
-                    f"Date: {gazette_item['date']}. "
-                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Date: {gazette_item['data']}. "
+                    f"File Checksum: {gazette_item['checksum_arquivo']}. "
                     f"Details: {exc.args}"
                 )
                 session.rollback()
