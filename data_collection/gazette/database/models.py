@@ -106,22 +106,34 @@ def initialize_database(database_url, public_entity_spider_map):
 
 
 class Gazette(DeclarativeBase):
-    __tablename__ = "gazettes"
-    id = Column(Integer, primary_key=True)
-    date = Column(Date)
-    edition_number = Column(String)
-    is_extra_edition = Column(Boolean)
-    power = Column(String)
-    file_checksum = Column(String)
-    file_path = Column(String)
-    file_url = Column(String)
-    scraped_at = Column(DateTime)
-    public_entity = relationship("PublicEntity", back_populates="public_entities")
-    entidades_publicas_id = Column(String, ForeignKey("entidades_publicas.id"))
-    processed = Column(Boolean, default=False)
+    __tablename__ = "diarios_coletados"
     __table_args__ = (
-        UniqueConstraint("entidades_publicas_id", "date", "file_checksum"),
+        UniqueConstraint(
+            "entidade_publica_id",
+            "data",
+            "url_coletada",
+            "checksum_arquivo",
+        ),
     )
+
+    id = Column(Integer, primary_key=True)
+    entidade_publica_id = Column(String, ForeignKey("entidades_publicas.id"))
+    data = Column(Date)
+    poder = Column(String)
+    numero_edicao = Column(String)
+    edicao_extra = Column(Boolean)
+    categoria_ato = Column(String)
+    orgao_publicador = Column(String)
+    codigo_documento = Column(String)
+    paginacao_documento = Column(String)
+    granularidade = Column(String)
+    url_coletada = Column(String)
+    caminho_arquivo = Column(String)
+    checksum_arquivo = Column(String)
+    hora_coleta = Column(DateTime)
+    id_metadados = Column(Integer)
+
+    public_entity = relationship("PublicEntity", back_populates="public_entities")
 
 
 public_entity_spider_map = Table(
