@@ -52,9 +52,9 @@ def load_public_entity(engine):
 
 
 def get_new_or_modified_spiders(session, public_entity_spider_map):
-    registered_spiders = session.query(QueridoDiarioSpider).all()
+    registered_spiders = session.query(Scraper).all()
     registered_spiders_set = {
-        (spider.spider_name, public_entity.id, spider.date_from)
+        (spider.nome, public_entity.id, spider.data_inicial)
         for spider in registered_spiders
         for public_entity in spider.public_entities
     }
@@ -70,14 +70,14 @@ def load_spiders(engine, public_entity_spider_map):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    table_is_populated = session.query(QueridoDiarioSpider).count() > 0
+    table_is_populated = session.query(Scraper).count() > 0
     spiders_to_persist = (
         get_new_or_modified_spiders(session, public_entity_spider_map)
         if table_is_populated
         else public_entity_spider_map
     )
 
-    logger.info("Populating 'querido_diario_spider' table - Please wait!")
+    logger.info("Populating 'raspadores' table - Please wait!")
 
     public_entities = session.query(PublicEntity).all()
     public_entity_map = {t.id: t for t in public_entities}
@@ -87,15 +87,15 @@ def load_spiders(engine, public_entity_spider_map):
         public_entity = public_entity_map.get(public_entity_id)
         if public_entity is not None:
             session.merge(
-                QueridoDiarioSpider(
-                    spider_name=spider_name,
-                    date_from=date_from,
+                Scraper(
+                    nome=spider_name,
+                    data_inicial=date_from,
                     public_entities=[public_entity],
                 )
             )
 
     session.commit()
-    logger.info("Populating 'querido_diario_spider' table - Done!")
+    logger.info("Populating 'raspadores' table - Done!")
 
 
 def initialize_database(database_url, public_entity_spider_map):
@@ -130,7 +130,7 @@ class Gazette(DeclarativeBase):
 public_entity_spider_map = Table(
     "public_entity_spider_map",
     DeclarativeBase.metadata,
-    Column("spider_name", ForeignKey("querido_diario_spiders.spider_name")),
+    Column("raspador", ForeignKey("raspadores.nome")),
     Column("entidades_publicas_id", ForeignKey("entidades_publicas.id")),
 )
 
