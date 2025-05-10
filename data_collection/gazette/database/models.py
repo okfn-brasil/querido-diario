@@ -129,10 +129,10 @@ class Gazette(DeclarativeBase):
 
 
 public_entity_spider_map = Table(
-    "public_entity_spider_map",
+    "raspador_por_entidadepublica",
     DeclarativeBase.metadata,
     Column("raspador", ForeignKey("raspadores.nome")),
-    Column("entidades_publicas_id", ForeignKey("entidades_publicas.id")),
+    Column("entidade_publica_id", ForeignKey("entidades_publicas.id")),
 )
 
 
