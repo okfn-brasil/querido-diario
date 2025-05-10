@@ -1,5 +1,4 @@
 import csv
-import datetime as dt
 import logging
 
 import pkg_resources
@@ -13,7 +12,6 @@ from sqlalchemy import (
     Integer,
     String,
     Table,
-    Text,
     UniqueConstraint,
     create_engine,
 )
@@ -110,7 +108,6 @@ def initialize_database(database_url, public_entity_spider_map):
 class Gazette(DeclarativeBase):
     __tablename__ = "gazettes"
     id = Column(Integer, primary_key=True)
-    source_text = Column(Text)
     date = Column(Date)
     edition_number = Column(String)
     is_extra_edition = Column(Boolean)
@@ -119,7 +116,6 @@ class Gazette(DeclarativeBase):
     file_path = Column(String)
     file_url = Column(String)
     scraped_at = Column(DateTime)
-    created_at = Column(DateTime, default=dt.datetime.utcnow)
     public_entity = relationship("PublicEntity", back_populates="public_entities")
     entidades_publicas_id = Column(String, ForeignKey("entidades_publicas.id"))
     processed = Column(Boolean, default=False)
