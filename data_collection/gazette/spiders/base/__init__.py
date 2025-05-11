@@ -20,6 +20,15 @@ class BaseGazetteSpider(scrapy.Spider):
         if not hasattr(self, "PUBLIC_ENTITY_ID"):
             raise NotConfigured("Please set a value for `PUBLIC_ENTITY_ID`")
 
+        if not hasattr(self, "GAZETTES_PAGE_URL"):
+            raise NotConfigured("Please set a value for `GAZETTES_PAGE_URL`")
+
+        if not hasattr(self, "allowed_domains"):
+            raise NotConfigured("Please set a value for `allowed_domains`")
+
+        if not hasattr(self, "start_date"):
+            raise NotConfigured("Please set a value for `start_date`")
+
         if start_date:
             try:
                 self.start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
