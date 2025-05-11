@@ -1,5 +1,4 @@
 import json
-from datetime import date
 
 import scrapy
 
@@ -24,13 +23,13 @@ class BaseSigpubSpider(BaseGazetteSpider):
         - These websites have an "Advanced Search", but they are protected by ReCaptcha.
     """
 
-    start_date = date(2009, 1, 1)
+    allowed_domains = ["diariomunicipal.com.br"]
 
-    def start_requests(self):
-        """Requests start page where the calendar widget is available."""
-        yield scrapy.Request(self.CALENDAR_URL, callback=self.parse_calendar)
+    def __init__(self, *args, **kwargs):
+        super(BaseSigpubSpider, self).__init__(*args, **kwargs)
+        self.start_urls = [self.GAZETTES_PAGE_URL]
 
-    def parse_calendar(self, response):
+    def parse(self, response):
         """Makes requests for each date to see if a document is available."""
         default_form_fields = {
             "calendar[_token]": response.xpath(
@@ -68,10 +67,15 @@ class BaseSigpubSpider(BaseGazetteSpider):
             url = f"{body['url_arquivos']}{edition['link_diario']}.pdf"
             yield Gazette(
                 date=meta["date"].date(),
-                file_urls=[url],
-                power="executive_legislative",
-                is_extra_edition=(meta["edition_type"] == "extra"),
+                power="executivo_legislativo",
                 edition_number=edition.get("numero_edicao", ""),
+                is_extra_edition=(meta["edition_type"] == "extra"),
+                granularity="agregado",
+                act_category="",
+                publishing_body="",
+                document_code="",
+                document_page="",
+                file_urls=[url],
             )
 
     def available_dates_form_fields(self):
