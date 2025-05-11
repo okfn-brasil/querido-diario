@@ -1,49 +1,13 @@
-from datetime import date, datetime
+from datetime import date
 
-from scrapy import FormRequest
-
-from gazette.items import Gazette
-from gazette.spiders.base import BaseGazetteSpider
+from gazette.spiders.base.fecam import BaseFecamSpider
 
 
-class ScFlorianopolisSpider(BaseGazetteSpider):
+class ScFlorianopolisSpider(BaseFecamSpider):
     name = "sc_florianopolis_2024"
-    TERRITORY_ID = "4205407"
+    PUBLIC_ENTITY_ID = "4205407"
+    GAZETTES_PAGE_URL = (
+        "https://www.diariomunicipal.sc.gov.br/?r=site/portal&codigoEntidade=92"
+    )
+    POWER = "executivo"
     start_date = date(2024, 8, 5)
-    allowed_domains = ["edicao.dom.sc.gov.br"]
-
-    def _requests(self, page):
-        formdata = {
-            "Edicao[cod_municipio]": "146",
-            "Edicao_page": str(page),
-            "r": "site/edicoes",
-        }
-        return FormRequest(
-            url="https://edicao.dom.sc.gov.br/?",
-            method="GET",
-            formdata=formdata,
-            callback=self.parse_pagination,
-            cb_kwargs={"page": page},
-        )
-
-    def start_requests(self):
-        yield self._requests(1)
-
-    def parse_pagination(self, response, page):
-        for item in response.css("tbody tr"):
-            edition_number = item.css("td::text")[1].get()
-            edition_url = item.css("td a")[1].attrib["href"]
-            raw_date = item.css("td::text")[2].get()
-            edition_date = datetime.strptime(raw_date, "%d/%m/%Y").date()
-
-            if self.start_date <= edition_date <= self.end_date:
-                yield Gazette(
-                    date=edition_date,
-                    edition_number=edition_number,
-                    is_extra_edition=False,
-                    power="executive_legislative",
-                    file_urls=[edition_url],
-                )
-        last_page = "next disabled" in response.url
-        if edition_date > self.start_date and not last_page:
-            yield self._requests(page + 1)
