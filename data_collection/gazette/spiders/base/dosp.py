@@ -10,10 +10,11 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseDospSpider(BaseGazetteSpider):
-    # Must be defined into child classes
-    start_date = None
+    allowed_domains = ["dosp.com.br", "imprensaoficialmunicipal.com.br"]
 
-    allowed_domains = ["dosp.com.br"]
+    def __init__(self, *args, **kwargs):
+        super(BaseDospSpider, self).__init__(*args, **kwargs)
+        self.start_urls = [self.GAZETTES_PAGE_URL]
 
     def parse(self, response):
         code = re.search(r"urlapi\+'.js/(\d*)/'\+idsecao\+'", response.text).group(1)
@@ -35,12 +36,16 @@ class BaseDospSpider(BaseGazetteSpider):
             code_link = b64encode(code_link).decode("ascii")
 
             if self.start_date <= data <= self.end_date:
+                file_url = f"https://dosp.com.br/exibe_do.php?i={code_link}.pdf"
                 yield Gazette(
                     date=data,
+                    power="executivo",
                     edition_number=diarios["edicao_do"],
-                    file_urls=[
-                        f"https://dosp.com.br/exibe_do.php?i={code_link}.pdf",
-                    ],
                     is_extra_edition=diarios["flag_extra"] > 0,
-                    power="executive",
+                    granularity="individual",
+                    act_category="",
+                    publishing_body="",
+                    document_code="",
+                    document_page="",
+                    file_urls=[file_url],
                 )
