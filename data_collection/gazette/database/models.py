@@ -131,9 +131,10 @@ class Gazette(DeclarativeBase):
     caminho_arquivo = Column(String)
     checksum_arquivo = Column(String)
     hora_coleta = Column(DateTime)
-    id_metadados = Column(Integer)
+    id_metadados = Column(Integer, ForeignKey("metadados.id"))
 
-    public_entity = relationship("PublicEntity", back_populates="public_entities")
+    public_entity = relationship("PublicEntity", back_populates="gazettes")
+    metadados = relationship("Metadados", back_populates="gazettes")
 
 
 public_entity_spider_map = Table(
@@ -171,3 +172,20 @@ class Scraper(DeclarativeBase):
     ativo = Column(Boolean, default=True)
 
     public_entities = relationship("PublicEntity", secondary=public_entity_spider_map)
+
+
+class Metadados(DeclarativeBase):
+    __tablename__ = "metadados"
+
+    id = Column(Integer, primary_key=True)
+    data = Column(Date)
+    poder = Column(String)
+    numero_edicao = Column(String)
+    edicao_extra = Column(Boolean)
+    hora_coleta = Column(DateTime)
+    url_coletada = Column(String)
+    caminho_arquivo_original = Column(String)
+    checksum_arquivo_original = Column(String)
+    codigo_documento = Column(String)
+
+    gazettes = relationship("Gazette", back_populates="metadados")
