@@ -5,7 +5,8 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class UFMunicipioSpider(BaseGazetteSpider):
     name = "$name"
-    TERRITORY_ID = ""
+    PUBLIC_ENTITY_ID = ""
+    GAZETTES_PAGE_URL = ""
     allowed_domains = ["$domain"]
     start_urls = ["$url"]
     start_date = date()
@@ -16,14 +17,29 @@ class UFMunicipioSpider(BaseGazetteSpider):
         # partindo de response ...
         #
         # ... o que deve ser feito para coletar DATA DO DIÁRIO?
+        # ... o que deve ser feito para coletar PODER, caso a informação exista?
         # ... o que deve ser feito para coletar NÚMERO DA EDIÇÃO?
         # ... o que deve ser feito para coletar se a EDIÇÃO É EXTRA?
-        # ... o que deve ser feito para coletar a URL DE DOWNLOAD do arquivo?
+        # ... o que deve ser feito para coletar a CATEGORIA DO ATO?
+        # ... o que deve ser feito para coletar o ÓRGÃO PUBLICADOR do documento?
+        # ... o que deve ser feito para coletar a URL DE DOWNLOAD do documento?
+
+        # abrindo os documentos do site ...
+        #
+        # ... qual o PODER a qual dizem respeito? 
+        # ... qual é a GRANULARIDADE das informações do documento?
 
         yield Gazette(
-            date = date(),
-            edition_number = "",
-            is_extra_edition = False,
-            file_urls = [""],
-            power = "executive",
+            date=date(),
+            power="executivo",
+            edition_number="",
+            is_extra_edition=False,
+            granularity="",
+            act_category="",
+            publishing_body="",
+            document_code="",
+            document_page="",
+            file_urls=[""],
         )
+
+        

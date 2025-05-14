@@ -2,10 +2,63 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
+        "public_entity_id": {
+            "description": "...",
+            "type": "string"
+        },
         "date": {
-            "description": "Date of the gazzete",
+            "description": "Date of the gazette",
             "type": "string",
             "format": "date"
+        },
+        "power": {
+            "description": "...",
+            "type": "string",
+            "enum": [
+                "executivo",
+                "legislativo",
+                "executivo_legislativo"
+            ]
+        },
+        "edition_number": {
+            "description": "Number of the gazette",
+            "type": "string"
+        },
+        "is_extra_edition": {
+            "description": "Determines if the edition of the gazette is extra or not",
+            "type": "boolean"
+        },
+        "act_category": {
+            "description": "Category of oficial act",
+            "type": "string"
+        },
+        "publishing_body": {
+            "description": "Department responsible for publishing the document",
+            "type": "string"
+        },
+        "document_code": {
+            "description": "Code to reference a document",
+            "type": "string",
+            "maxLength": 1
+        },
+        "document_page": {
+            "description": "Value corresponding to the page of a document",
+            "type": "integer"
+        },
+        "granularity": {
+            "description": "...",
+            "type": "string",
+            "enum": [
+                "ato",
+                "seção",
+                "individual",
+                "agregado"
+            ]
+        },
+        "scraped_at":{
+            "description": "When the gazette was scraped",
+            "type": "string",
+            "format": "date-time"
         },
         "file_urls": {
             "type": "array",
@@ -19,26 +72,6 @@
                 "type": "string"
             }
         },
-        "is_extra_edition": {
-            "description": "Determines if the edition of the gazzete is extra or not",
-            "type": "boolean"
-        },
-        "territory_id": {
-            "type": "string"
-        },
-        "power": {
-            "type": "string",
-            "enum": [
-                "executive",
-                "legislative",
-                "executive_legislative"
-            ]
-        },
-        "scraped_at":{
-            "description": "When the gazzete was scraped",
-            "type": "string",
-            "format": "date-time"
-        },
         "files": {
             "type": "array",
             "minItems": 1,
@@ -48,12 +81,12 @@
                     "url": {
                         "type": "string"
                     },
-                    "path": {
-                        "type": "string"
-                    },
                     "checksum": {
                         "type": "string"
                     },
+                    "path": {
+                        "type": "string"
+                    },                    
                     "status": {
                         "type": "string"
                     }
@@ -62,9 +95,16 @@
         }
     },
     "required": [
+        "public_entity_id",
         "date",
-        "territory_id",
         "power",
+        "edition_number",
+        "is_extra_edition",
+        "granularity",
+        "act_category",
+        "publishing_body",
+        "document_code",
+        "document_page",
         "scraped_at"
     ],
     "anyOf": [

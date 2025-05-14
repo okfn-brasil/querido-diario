@@ -28,9 +28,10 @@ class PeRecifeSpider_2020(BaseGazetteSpider):
     """
 
     name = "pe_recife_2020"
-    TERRITORY_ID = "2611606"
-
+    PUBLIC_ENTITY_ID = "2611606"
+    GAZETTES_PAGE_URL = "https://dome.recife.pe.gov.br/dome"
     start_date = dt.date(2020, 8, 2)
+
     allowed_domains = ["dome.recife.pe.gov.br"]
     BASE_URL = "https://dome.recife.pe.gov.br/dome/"
     start_urls = [BASE_URL]
@@ -100,14 +101,21 @@ class PeRecifeSpider_2020(BaseGazetteSpider):
 
     def _build_item(self, title, date, file_url, is_extra_edition):
         """Deixa item `Gazette` pronto para ser salvo"""
+        edition_number = self._clean_zfill(
+            re.search(r"Recife (\d+) Edição", title).group(1)
+        )
+
         return Gazette(
             date=self._parse_date(date),
-            file_urls=[file_url],
-            edition_number=self._clean_zfill(
-                re.search(r"Recife (\d+) Edição", title).group(1)
-            ),
+            power="executivo_legislativo",
+            edition_number=edition_number,
             is_extra_edition=is_extra_edition,
-            power="executive_legislative",
+            granularity="individual",
+            act_category="",
+            publishing_body="",
+            document_code="",
+            document_page="",
+            file_urls=[file_url],
         )
 
     def _clean_zfill(self, string_number):
