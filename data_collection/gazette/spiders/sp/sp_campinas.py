@@ -15,7 +15,7 @@ class SpCampinasSpider(BaseGazetteSpider):
     allowed_domains = ["campinas.sp.gov.br"]
     sp_campinas_url = "https://portal-api.campinas.sp.gov.br"
     url_base = "https://portal-api.campinas.sp.gov.br/api/v1/publicacoes-dom/all/{}?_format=json"
-    start_date = datetime.date(1995, 10, 3)
+    start_date = datetime.date(1995, 1, 5)
 
     def start_requests(self):
         for date in monthly_sequence(self.start_date, self.end_date, format="%Y%m"):
