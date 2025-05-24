@@ -8,5 +8,4 @@ class MaCentroDoGuilhermeSpider(BaseAratextSpider):
     name = "ma_centro_do_guilherme"
     start_date = datetime.date(2024, 1, 4)
     power = "executive"
-    allowed_domains = ["centrodoguilherme.ma.gov.br"]
     start_urls = ["https://centrodoguilherme.ma.gov.br/diariooficial"]

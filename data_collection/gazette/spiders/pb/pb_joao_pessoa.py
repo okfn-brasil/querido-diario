@@ -13,6 +13,7 @@ class PbJoaoPessoaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2507507"
     start_date = datetime.date(2022, 3, 28)
     start_urls = ["https://www.joaopessoa.pb.gov.br/doe-jp/"]
+    allowed_domains = ["joaopessoa.pb.gov.br"]
 
     def parse(self, response):
         gazettes = response.css("h4.card-title")

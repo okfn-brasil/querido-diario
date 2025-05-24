@@ -9,6 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class MgUberabaSpider(BaseGazetteSpider):
     TERRITORY_ID = "3170107"
     name = "mg_uberaba_2003"
+    allowed_domains = ["uberaba.mg.gov.br"]
 
     start_date = dt.date(2003, 4, 25)
     end_date = dt.date(2021, 9, 1)

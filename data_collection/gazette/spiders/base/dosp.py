@@ -4,16 +4,20 @@ from datetime import datetime
 from json import loads
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseDospSpider(BaseGazetteSpider):
-    # Must be defined into child classes
-    start_date = None
+    allowed_domains = ["imprensaoficialmunicipal.com.br", "dosp.com.br"]
 
-    allowed_domains = ["dosp.com.br"]
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "start_urls"):
+            raise NotConfigured("Please set a value for `start_urls`")
+
+        super(BaseDospSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
         code = re.search(r"urlapi\+'.js/(\d*)/'\+idsecao\+'", response.text).group(1)

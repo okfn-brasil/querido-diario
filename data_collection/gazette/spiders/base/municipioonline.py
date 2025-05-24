@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -14,6 +15,15 @@ class BaseMunicipioOnlineSpider(BaseGazetteSpider):
     }
 
     allowed_domains = ["municipioonline.com.br"]
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "url_uf"):
+            raise NotConfigured("Please set a value for `url_uf`")
+
+        if not hasattr(self, "url_city"):
+            raise NotConfigured("Please set a value for `url_city`")
+
+        super(BaseMunicipioOnlineSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         url = f"https://www.municipioonline.com.br/{self.url_uf}/prefeitura/{self.url_city}/cidadao/diariooficial"

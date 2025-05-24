@@ -1,7 +1,9 @@
 import re
 from datetime import datetime
+from urllib.parse import urlparse
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -9,6 +11,18 @@ from gazette.utils.dates import monthly_sequence
 
 
 class BaseImprensaOficialSpider(BaseGazetteSpider):
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "url_base"):
+            raise NotConfigured("Please set a value for `url_base`")
+
+        domains = {
+            "imprensaoficial.org",
+            urlparse(self.url_base).netloc,
+        }
+        self.allowed_domains = list(domains)
+
+        super(BaseImprensaOficialSpider, self).__init__(*args, **kwargs)
+
     def start_requests(self):
         for year_month in monthly_sequence(
             self.start_date, self.end_date, format="%Y/%m/"

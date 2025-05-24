@@ -6,6 +6,5 @@ from gazette.spiders.base.instar import BaseInstarSpider
 class SpIgaracuDoTieteSpider(BaseInstarSpider):
     TERRITORY_ID = "3520004"
     name = "sp_igaracu_do_tiete"
-    allowed_domains = ["igaracudotiete.sp.gov.br"]
     base_url = "https://www.igaracudotiete.sp.gov.br/portal/diario-oficial"
     start_date = date(2021, 1, 1)

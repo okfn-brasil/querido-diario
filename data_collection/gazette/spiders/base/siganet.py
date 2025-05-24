@@ -1,12 +1,22 @@
 import datetime
+from urllib.parse import urlparse
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseSiganetSpider(BaseGazetteSpider):
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "BASE_URL"):
+            raise NotConfigured("Please set a value for `BASE_URL`")
+
+        self.allowed_domains = [urlparse(self.BASE_URL).netloc]
+
+        super(BaseSiganetSpider, self).__init__(*args, **kwargs)
+
     def start_requests(self):
         yield scrapy.Request(f"{self.BASE_URL}/listarDiario")
 

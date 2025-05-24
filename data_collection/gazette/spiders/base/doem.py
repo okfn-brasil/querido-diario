@@ -1,4 +1,5 @@
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -11,15 +12,17 @@ class BaseDoemSpider(BaseGazetteSpider):
     Base spider for all cities listed on https://doem.org.br
     """
 
-    allowed_domains = ["doem.org.br"]
-
-    # Must be defined in child class
-    state_city_url_part = None
-    start_date = None
-
     custom_settings = {
         "DOWNLOAD_FAIL_ON_DATALOSS": False,
     }
+
+    allowed_domains = ["doem.org.br"]
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "state_city_url_part"):
+            raise NotConfigured("Please set a value for `state_city_url_part`")
+
+        super(BaseDoemSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         for month_year in monthly_sequence(

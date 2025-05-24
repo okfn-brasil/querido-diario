@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -12,6 +13,12 @@ class BaseAdiariosV2Spider(BaseGazetteSpider):
     This base class deals with 'Layout 2' gazette pages, usually requested
     from https://{city_website}/jornal.php
     """
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "BASE_URL"):
+            raise NotConfigured("Please set a value for `BASE_URL`")
+
+        super(BaseAdiariosV2Spider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         start_date = self.start_date.strftime("%d/%m/%Y")

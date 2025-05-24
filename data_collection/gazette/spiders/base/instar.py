@@ -1,7 +1,9 @@
 import datetime
 import math
+from urllib.parse import urlparse
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -9,6 +11,14 @@ from gazette.spiders.base import BaseGazetteSpider
 
 class BaseInstarSpider(BaseGazetteSpider):
     power = "executive_legislative"
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "base_url"):
+            raise NotConfigured("Please set a value for `base_url`")
+
+        self.allowed_domains = [urlparse(self.base_url).netloc]
+
+        super(BaseInstarSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         page = 1

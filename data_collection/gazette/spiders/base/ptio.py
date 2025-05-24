@@ -1,4 +1,5 @@
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -6,6 +7,14 @@ from gazette.utils.extraction import get_date_from_text
 
 
 class BasePtioSpider(BaseGazetteSpider):
+    allowed_domains = ["portaldatransparencia.com.br"]
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "BASE_URL"):
+            raise NotConfigured("Please set a value for `BASE_URL`")
+
+        super(BasePtioSpider, self).__init__(*args, **kwargs)
+
     def start_requests(self):
         yield scrapy.Request(self.BASE_URL)
 

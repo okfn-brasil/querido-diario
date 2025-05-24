@@ -1,4 +1,7 @@
+from urllib.parse import urlparse
+
 from scrapy import Request
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -11,10 +14,18 @@ class BaseDionetSpider(BaseGazetteSpider):
 
     In addition to the normal spider attributes, for this base spider
     one other class attributes may be necessary:
-        - subtheme
+        - url_subtheme
     """
 
     url_subtheme = ""
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "BASE_URL"):
+            raise NotConfigured("Please set a value for `BASE_URL`")
+
+        self.allowed_domains = [urlparse(self.BASE_URL).netloc]
+
+        super(BaseDionetSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         for date in daily_sequence(self.start_date, self.end_date):
