@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -11,6 +12,12 @@ class BaseAdminLteSpider(BaseGazetteSpider):
     """
     Base spider for cities using the Framework AdminLTE as design system.
     """
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "city_domain"):
+            raise NotConfigured("Please set a value for `city_domain`")
+        
+        super(BaseAdminLteSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         url = f"https://diariooficial.{self.city_domain}/pesquisa/"

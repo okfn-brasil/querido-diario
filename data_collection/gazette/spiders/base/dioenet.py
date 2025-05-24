@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+from scrapy.exceptions import NotConfigured
 from scrapy.http import FormRequest, Request
 
 from gazette.items import Gazette
@@ -14,6 +15,15 @@ class BaseDioenetSpider(BaseGazetteSpider):
     """
 
     allowed_domains = ["plenussistemas.dioenet.com.br"]
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "BASE_URL"):
+            raise NotConfigured("Please set a value for `BASE_URL`")
+
+        if not hasattr(self, "power"):
+            raise NotConfigured("Please set a value for `power`")
+        
+        super(BaseDioenetSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         for interval in weekly_window(

@@ -4,6 +4,7 @@ from datetime import datetime
 from urllib.parse import urlparse
 
 from scrapy import Request
+from scrapy.exceptions import NotConfigured
 from scrapy.http import JsonRequest
 
 from gazette.items import Gazette
@@ -32,7 +33,10 @@ class BaseDiofSpider(BaseGazetteSpider):
     api_url = "https://diof.io.org.br/api"
 
     def __init__(self, *args, **kwargs):
-        super(BaseDiofSpider, self).__init__(*args, **kwargs)
+        if not hasattr(self, "website"):
+            raise NotConfigured("Please set a value for `website`")
+        if not hasattr(self, "power"):
+            raise NotConfigured("Please set a value for `power`")
 
         domains = {
             "sai.io.org.br",
@@ -41,6 +45,8 @@ class BaseDiofSpider(BaseGazetteSpider):
             urlparse(self.website).netloc,
         }
         self.allowed_domains = list(domains)
+
+        super(BaseDiofSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         if "sai.io" in self.website or "dom.imap" in self.website:

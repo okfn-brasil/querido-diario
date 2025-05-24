@@ -1,7 +1,7 @@
 import json
-from datetime import date
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -24,7 +24,13 @@ class BaseSigpubSpider(BaseGazetteSpider):
         - These websites have an "Advanced Search", but they are protected by ReCaptcha.
     """
 
-    start_date = date(2009, 1, 1)
+    allowed_domains = ["diariomunicipal.com.br"]
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "CALENDAR_URL"):
+            raise NotConfigured("Please set a value for `CALENDAR_URL`")
+
+        super(BaseSigpubSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         """Requests start page where the calendar widget is available."""

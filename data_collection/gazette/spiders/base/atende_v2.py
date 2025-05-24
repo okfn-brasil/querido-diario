@@ -1,6 +1,7 @@
 import re
 
 from scrapy import FormRequest
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -16,10 +17,12 @@ class BaseAtendeV2Spider(BaseGazetteSpider):
     """
 
     allowed_domains = ["atende.net"]
-    BASE_URL = ""
 
-    # Must be defined into child classes
-    city_subdomain = ""
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "city_subdomain"):
+            raise NotConfigured("Please set a value for `city_subdomain`")
+        
+        super(BaseAtendeV2Spider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         self.BASE_URL = f"https://{self.city_subdomain}.atende.net/diariooficial/edicao/pagina/atende.php"
