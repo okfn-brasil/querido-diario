@@ -12,7 +12,7 @@ from gazette.utils.database import get_enabled_spiders
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
 
 
-def _schedule_job(start_date, full, spider_name):
+def _schedule_job(start, full, spider_name):
     client = ScrapinghubClient(config("SHUB_APIKEY"))
     project = client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
 
@@ -30,7 +30,7 @@ def _schedule_job(start_date, full, spider_name):
 
     job_args = {}
     if not full:
-        job_args["start"] = start_date
+        job_args["start"] = start
 
     spider = project.spiders.get(spider_name)
     spider.jobs.run(
@@ -60,7 +60,7 @@ def cli():
     default=None,
     help="Start date (YYYY-MM-DD).",
 )
-def schedule_spider(spider_name, start_date, end_date):
+def schedule_spider(spider_name, start, end):
     sh_client = ScrapinghubClient(config("SHUB_APIKEY"))
     project = sh_client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
 
@@ -77,10 +77,10 @@ def schedule_spider(spider_name, start_date, end_date):
     }
 
     job_args = {}
-    if start_date:
-        job_args["start"] = start_date
-    if end_date:
-        job_args["end"] = end_date
+    if start:
+        job_args["start"] = start
+    if end:
+        job_args["end"] = end
 
     spider = project.spiders.get(spider_name)
     spider.jobs.run(
@@ -146,8 +146,8 @@ def disable_spider(spider_name):
     "When this option is set to true --start option is ignored.",
 )
 @click.argument("spider_name")
-def schedule_job(start_date, full, spider_name):
-    _schedule_job(start_date, full, spider_name)
+def schedule_job(start, full, spider_name):
+    _schedule_job(start, full, spider_name)
 
 
 @cli.command()
@@ -155,7 +155,7 @@ def schedule_enabled_spiders():
     for spider_name in get_enabled_spiders(
         database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=YESTERDAY
     ):
-        _schedule_job(start_date=YESTERDAY, full=False, spider_name=spider_name)
+        _schedule_job(start=YESTERDAY, full=False, spider_name=spider_name)
 
 
 @cli.command()
@@ -163,11 +163,11 @@ def last_month_schedule_enabled_spiders():
     # Sometimes the online gazette is not published in the websites in the same
     # day as the physical one (sometimes it take more than two days and other weeks)
     # so running this command will ensure that we get the data of the latest month
-    start_date = datetime.date.today() - datetime.timedelta(days=31)
+    start = datetime.date.today() - datetime.timedelta(days=31)
     for spider_name in get_enabled_spiders(
-        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start_date
+        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start
     ):
-        _schedule_job(start_date=start_date, full=False, spider_name=spider_name)
+        _schedule_job(start=start, full=False, spider_name=spider_name)
 
 
 @click.option(
@@ -175,11 +175,11 @@ def last_month_schedule_enabled_spiders():
     help="Start date that we want to scrape all enabled spiders.",
 )
 @cli.command()
-def schedule_all_spiders_by_date(start_date):
+def schedule_all_spiders_by_date(start):
     for spider_name in get_enabled_spiders(
-        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start_date
+        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start
     ):
-        _schedule_job(start_date, full=False, spider_name=spider_name)
+        _schedule_job(start=start, full=False, spider_name=spider_name)
 
 
 if __name__ == "__main__":
