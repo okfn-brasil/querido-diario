@@ -1,18 +1,28 @@
 import re
 from datetime import datetime as dt
+from urllib.parse import urlparse
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class BasePortalGovSpider(BaseGazetteSpider):
-    power = "executive"
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "website"):
+            raise NotConfigured("Please set a value for `website`")
+        if not hasattr(self, "power"):
+            raise NotConfigured("Please set a value for `power`")
+
+        self.allowed_domains = [urlparse(self.website).netloc]
+
+        super(BasePortalGovSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         yield scrapy.FormRequest(
-            url=f"https://{self.domain}/controllers/diario_oficial/class_diario.php",
+            url=f"https://{self.website}/controllers/diario_oficial/class_diario.php",
             formdata={
                 "func": "5",
                 "param": "1",
