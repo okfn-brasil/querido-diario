@@ -13,6 +13,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
     name = "sc_florianopolis_2009"
     TERRITORY_ID = "4205407"
     start_date = date(2009, 6, 1)
+    allowed_domains = ["pmf.sc.gov.br"]
 
     def start_requests(self):
         end_date = self.end_date

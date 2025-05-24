@@ -11,6 +11,7 @@ class CeSobralSpider(BaseGazetteSpider):
     name = "ce_sobral"
     TERRITORY_ID = "2312908"
     start_date = dt.date(1998, 6, 10)
+    allowed_domains = ["sobral.ce.gov.br"]
 
     BASE_URL = "https://www.sobral.ce.gov.br/diario/pesquisa/index"
 

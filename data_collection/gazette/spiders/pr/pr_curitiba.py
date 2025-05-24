@@ -19,6 +19,7 @@ from gazette.spiders.base import BaseGazetteSpider
 class PrCuritibaSpider(BaseGazetteSpider):
     name = "pr_curitiba"
     TERRITORY_ID = "4106902"
+    allowed_domains = ["curitiba.pr.gov.br"]
     start_urls = [
         "https://legisladocexterno.curitiba.pr.gov.br/DiarioConsultaExterna_Pesquisa.aspx"
     ]

@@ -14,6 +14,7 @@ class SeAracajuSpider(BaseGazetteSpider):
     TERRITORY_ID = "2800308"
     name = "se_aracaju"
     start_date = datetime.date(1991, 7, 1)
+    allowed_domains = ["aracaju.se.gov.br"]
 
     custom_settings = {"CONCURRENT_REQUESTS_PER_DOMAIN": 12}
 
