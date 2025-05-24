@@ -16,7 +16,7 @@ class BaseDospSpider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
         if not hasattr(self, "start_urls"):
             raise NotConfigured("Please set a value for `start_urls`")
-        
+
         super(BaseDospSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):

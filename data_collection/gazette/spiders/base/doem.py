@@ -21,7 +21,7 @@ class BaseDoemSpider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
         if not hasattr(self, "state_city_url_part"):
             raise NotConfigured("Please set a value for `state_city_url_part`")
-        
+
         super(BaseDoemSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):

@@ -16,7 +16,7 @@ class BaseAdminLteSpider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
         if not hasattr(self, "city_domain"):
             raise NotConfigured("Please set a value for `city_domain`")
-        
+
         super(BaseAdminLteSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):

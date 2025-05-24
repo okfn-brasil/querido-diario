@@ -12,7 +12,7 @@ class BaseDiarioOficialBRSpider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
         if not hasattr(self, "BASE_URL"):
             raise NotConfigured("Please set a value for `BASE_URL`")
-        
+
         super(BaseDiarioOficialBRSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):

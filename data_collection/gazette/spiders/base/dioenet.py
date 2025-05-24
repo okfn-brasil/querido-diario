@@ -22,7 +22,7 @@ class BaseDioenetSpider(BaseGazetteSpider):
 
         if not hasattr(self, "power"):
             raise NotConfigured("Please set a value for `power`")
-        
+
         super(BaseDioenetSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):

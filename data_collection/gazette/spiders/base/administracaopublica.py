@@ -20,7 +20,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
         if not hasattr(self, "token"):
             raise NotConfigured("Please set a value for `token`")
-        
+
         super(BaseAdministracaoPublicaSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):

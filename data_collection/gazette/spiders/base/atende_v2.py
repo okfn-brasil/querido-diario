@@ -21,7 +21,7 @@ class BaseAtendeV2Spider(BaseGazetteSpider):
     def __init__(self, *args, **kwargs):
         if not hasattr(self, "city_subdomain"):
             raise NotConfigured("Please set a value for `city_subdomain`")
-        
+
         super(BaseAtendeV2Spider, self).__init__(*args, **kwargs)
 
     def start_requests(self):

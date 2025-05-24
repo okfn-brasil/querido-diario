@@ -22,7 +22,7 @@ class BaseMunicipioOnlineSpider(BaseGazetteSpider):
 
         if not hasattr(self, "url_city"):
             raise NotConfigured("Please set a value for `url_city`")
-        
+
         super(BaseMunicipioOnlineSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
