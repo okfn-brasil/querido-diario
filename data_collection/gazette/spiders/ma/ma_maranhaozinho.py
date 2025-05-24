@@ -8,5 +8,4 @@ class MaMaranhaozinhoSpider(BaseAratextSpider):
     name = "ma_maranhaozinho"
     start_date = datetime.date(2024, 1, 2)
     power = "executive"
-    allowed_domains = ["maranhaozinho.ma.gov.br"]
     start_urls = ["https://maranhaozinho.ma.gov.br/diariooficial"]

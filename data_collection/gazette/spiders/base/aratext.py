@@ -2,6 +2,7 @@ import re
 from urllib.parse import urlparse
 
 from scrapy import Request
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -9,6 +10,17 @@ from gazette.utils.extraction import get_date_from_text
 
 
 class BaseAratextSpider(BaseGazetteSpider):
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "power"):
+            raise NotConfigured("Please set a value for `power`")
+
+        if not hasattr(self, "start_urls"):
+            raise NotConfigured("Please set a value for `start_urls`")
+
+        self.allowed_domains = [urlparse(self.start_urls[0]).netloc]
+
+        super(BaseAratextSpider, self).__init__(*args, **kwargs)
+
     def parse(self, response, page=1):
         for item in response.css("#edicoes-anteriores tbody tr"):
             raw_edition_date = (
