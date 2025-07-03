@@ -6,7 +6,7 @@ from gazette.spiders.base.deto import BaseDetoSpider
 
 class ToAuroraDoTocantins(BaseDetoSpider):
     TERRITORY_ID = "1702703"
-    name = "to_auroradotocantins"
+    name = "to_aurora_do_tocantins"
     allowed_domains = ["auroradotocantins.to.gov.br"]
     start_date = datetime.date(2020, 7, 21)
     BASE_URL = "https://auroradotocantins.to.gov.br/transparencia"
