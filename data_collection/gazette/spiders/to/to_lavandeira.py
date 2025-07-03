@@ -8,7 +8,7 @@ class ToLavandeira(BaseDetoSpider):
     TERRITORY_ID = "1712157"
     name = "to_lavandeira"
     allowed_domains = ["lavandeira.to.gov.br"]
-    start_date = datetime.date(2002, 3, 31)
+    start_date = datetime.date(2020, 1, 28)
     BASE_URL = "https://lavandeira.to.gov.br/transparencia"
 
     def extract_total_items_count(self, response):
