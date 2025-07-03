@@ -1,4 +1,5 @@
 import datetime
+import math
 import re
 
 import scrapy
@@ -52,10 +53,24 @@ class BaseDetoSpider(BaseGazetteSpider):
     páginas/itens consumidos
     8. Caso positivo, um POST é feito para `diarioeletronico_grid_cliente` e o resultado vai para `parse_table`,
     reiniciando o ciclo no item 2
+
+    Além destes pontos, o backend se comporta mal quando múltiplas requisições são feitas em paralelo, ou se estas
+    ocorrerem fora da ordem esperada.
+    A ordem esperada seria requisitar links de uma página antes de mudar para a próxima página.
+    Quando estas premissas não são mantidas, o backend reponde requisições para obter o DOEM com um html
+    dizendo 'Dados Inválidos'.
+    Sendo assim, configurações do Scrapy personalizadas são feitas aqui para garantir que apenas uma requisição
+    aconteça por vez, e as requisições para obter documentos tenham prioridade sempre maior que aquelas para
+    obter próximas páginas.
     """
 
+    custom_settings = {
+        "CONCURRENT_REQUESTS": 1,
+        "CONCURRENT_REQUESTS_PER_DOMAIN": 1,
+        "CONCURRENT_REQUESTS_PER_IP": 1,
+        "AUTOTHROTTLE_ENABLED": False,
+    }
     page_size = 10
-    custom_settings = {"DOWNLOAD_DELAY": 1.0}
     total_pages_count = None
     script_case_session = None
 
@@ -86,7 +101,9 @@ class BaseDetoSpider(BaseGazetteSpider):
         # O rodapé é lido aqui somente uma vez para pegar a quantidade total de itens.
         # Calculamos a quantidade total de itens e páginas para poder gerenciar o consumo das páginas nós mesmos
         if self.total_pages_count is None:
-            self.total_pages_count = self.extract_total_items_count(response)
+            self.total_pages_count = math.ceil(
+                self.extract_total_items_count(response) / self.page_size
+            )
 
         # Em todas as chamadas além da primeira, a resposta é um JSON e portanto o seletores esperados do `response`
         # (.xpath, .css) não estão disponíveis.
@@ -159,7 +176,7 @@ class BaseDetoSpider(BaseGazetteSpider):
             }
 
             modal_url = (
-                f"{self.BASE_URL}/diarioeletronico_form_cliente/?"
+                f"{self.BASE_URL}/diarioeletronico_form_cliente/?=&=&"
                 f"nmgp_outra_jan=true&"
                 f"nmgp_url_saida=modal&"
                 f"SC_lig_apl_orig=diarioeletronico_grid_cliente&"
@@ -170,6 +187,7 @@ class BaseDetoSpider(BaseGazetteSpider):
                 url=modal_url,
                 callback=self.parse_modal_items,
                 cb_kwargs=item_params,
+                priority=10,
             )
 
         if should_crawl_next_page:
@@ -188,9 +206,6 @@ class BaseDetoSpider(BaseGazetteSpider):
         if pages_consumed <= self.total_pages_count:
             has_next_page = True
 
-        if pages_consumed >= 2:
-            has_next_page = False
-
         if has_next_page:
             next_page_start = pages_consumed * self.page_size + 1
 
@@ -206,6 +221,7 @@ class BaseDetoSpider(BaseGazetteSpider):
                 formdata=data,
                 callback=self.parse_table,
                 cb_kwargs={"has_json_response": True, "pages_consumed": pages_consumed},
+                priority=1,
             )
 
     def parse_modal_items(self, response, doc_date, doc_edition):
@@ -222,7 +238,6 @@ class BaseDetoSpider(BaseGazetteSpider):
             self.logger.error(
                 f"'Dados Inválidos' na resposta da requisição para modal da edição {doc_edition}. URL {response.request.url}"
             )
-            self.logger.error("Abortando.")
             return
 
         self.logger.info(f"Interpretando modal da edição {doc_edition}.")
@@ -243,7 +258,7 @@ class BaseDetoSpider(BaseGazetteSpider):
 
         for i, href in enumerate(link_hrefs):
             # O segundo parâmetro tem o nome do arquivo que será usado na requisição
-            doc_name_match = re.search(r"'documento_db', '(.+?)'", href)
+            doc_name_match = re.search(r"'documento_db', '(.+?\.pdf)'", href)
 
             if not doc_name_match:
                 continue
