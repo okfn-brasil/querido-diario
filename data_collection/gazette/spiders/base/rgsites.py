@@ -7,7 +7,7 @@ from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class BaseRgSites(BaseGazetteSpider):
+class BaseRgSitesSpider(BaseGazetteSpider):
     def start_requests(self):
         yield scrapy.Request(self.BASE_URL)
 
