@@ -8,16 +8,5 @@ class MgEsmeraldasSpider(BaseRgSites):
     TERRITORY_ID = "3124104"
     allowed_domains = ["www.esmeraldas.mg.gov.br"]
     BASE_URL = "https://www.esmeraldas.mg.gov.br/diario-oficial-eletronico"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     start_date = date(2021, 8, 12)
-=======
-    start_date = date(2021, 6, 12)
->>>>>>> 2d239c1 (Cria spider base rgsites #1245)
-=======
-    start_date = date(2021, 8, 12)
->>>>>>> 30a1d25 (ajeitando nome da classe e data inicial)
-=======
-    start_date = date(2021, 8, 12)
->>>>>>> 18d6b9e06c24e765d3cadcca5549893d0cd55934
+
