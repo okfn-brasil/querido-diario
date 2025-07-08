@@ -9,6 +9,7 @@ from gazette.spiders.base import BaseGazetteSpider
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 class BaseRgSitesSpider(BaseGazetteSpider):
 =======
 class BaseRgSites(BaseGazetteSpider):
@@ -16,6 +17,9 @@ class BaseRgSites(BaseGazetteSpider):
 =======
 class BaseRgSitesSpider(BaseGazetteSpider):
 >>>>>>> 30a1d25 (ajeitando nome da classe e data inicial)
+=======
+class BaseRgSitesSpider(BaseGazetteSpider):
+>>>>>>> 18d6b9e06c24e765d3cadcca5549893d0cd55934
     def start_requests(self):
         yield scrapy.Request(self.BASE_URL)
 
