@@ -13,16 +13,6 @@ class RjSaoFidelisSpider(BaseGazetteSpider):
     start_urls = ["https://saofidelis.rj.gov.br/diariooficial/"]
     start_date = dt(2017, 7, 1).date()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if "start_date" in kwargs:
-            self.start_date = dt.strptime(kwargs["start_date"], "%Y-%m-%d").date()
-
-        if "end_date" in kwargs:
-            self.end_date = dt.strptime(kwargs["end_date"], "%Y-%m-%d").date()
-        else:
-            self.end_date = dt.today().date()
-
     def parse(self, response):
         year_buttons = response.xpath('//button[contains(@id, "e-n-tab-title")]')
 
