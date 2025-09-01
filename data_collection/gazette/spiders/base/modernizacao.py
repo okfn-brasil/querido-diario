@@ -42,7 +42,7 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
 
             gazette_code = gazette_data["Codigo_ANEXO"]
             gazette_url = response.urljoin(
-                f"{self.ver_subpath}/{self.edition_endpoint}?sys=LAI&codigo={gazette_code}"
+                f"diario_oficial_get_anexo.php?codigo={gazette_code}"
             )
 
             raw_edition_number = gazette_data["ANEXO"]

@@ -4,7 +4,7 @@ from gazette.spiders.base.modernizacao import BaseModernizacaoSpider
 
 
 class RjSaoPedroDaAldeiaSpider(BaseModernizacaoSpider):
-    zyte_smartproxy_enabled = True
+    zyte_smartproxy_enabled = False
 
     TERRITORY_ID = "3305208"
     name = "rj_sao_pedro_da_aldeia"
