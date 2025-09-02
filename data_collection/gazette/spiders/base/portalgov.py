@@ -1,6 +1,5 @@
 import re
 from datetime import datetime as dt
-from urllib.parse import urlparse
 
 import scrapy
 from scrapy.exceptions import NotConfigured
@@ -16,17 +15,14 @@ class BasePortalGovSpider(BaseGazetteSpider):
         if not hasattr(self, "power"):
             raise NotConfigured("Please set a value for `power`")
 
-        self.allowed_domains = [urlparse(self.website).netloc]
+        self.allowed_domains = [self.website]
 
         super(BasePortalGovSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         yield scrapy.FormRequest(
             url=f"https://{self.website}/controllers/diario_oficial/class_diario.php",
-            formdata={
-                "func": "5",
-                "param": "1",
-            },
+            formdata={"func": "5", "param": "1"},
         )
 
     def parse(self, response):
@@ -45,7 +41,7 @@ class BasePortalGovSpider(BaseGazetteSpider):
                 re.search(r"extra|supl", gazette_edition + gazette_desc, re.IGNORECASE)
             )
 
-            gazette_url = f"https://{self.domain}/arquivos/diario_oficial/{gazette_data['arquivo']}"
+            gazette_url = f"https://{self.website}/arquivos/diario_oficial/{gazette_data['arquivo']}"
 
             yield Gazette(
                 date=gazette_date,
