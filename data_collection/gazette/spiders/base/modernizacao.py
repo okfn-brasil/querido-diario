@@ -10,9 +10,7 @@ from gazette.utils.dates import monthly_sequence
 
 class BaseModernizacaoSpider(BaseGazetteSpider):
     power = "executive_legislative"
-    ver_subpath = "ver20230623"
     filter_endpoint = "diario_oficial_get"
-    edition_endpoint = "WEB-ObterAnexo.rule"
 
     custom_settings = {
         "CONCURRENT_REQUESTS": 4,
