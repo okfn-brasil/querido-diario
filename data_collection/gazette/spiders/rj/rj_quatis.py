@@ -4,6 +4,8 @@ from gazette.spiders.base.modernizacao import BaseModernizacaoSpider
 
 
 class RjQuatisSpider(BaseModernizacaoSpider):
+    zyte_smartproxy_enabled = True
+
     TERRITORY_ID = "3304128"
     name = "rj_quatis"
     allowed_domains = ["transparencia.quatis.rj.gov.br"]
