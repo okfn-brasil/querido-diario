@@ -1,9 +1,8 @@
-from datetime import datetime as dt
-
-import dateparser
+from datetime import date
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.extraction import get_date_from_text
 
 
 class RjSaoFidelisSpider(BaseGazetteSpider):
@@ -11,7 +10,7 @@ class RjSaoFidelisSpider(BaseGazetteSpider):
     TERRITORY_ID = "3304805"
     allowed_domains = ["saofidelis.rj.gov.br"]
     start_urls = ["https://saofidelis.rj.gov.br/diariooficial/"]
-    start_date = dt(2017, 7, 1).date()
+    start_date = date(2017, 7, 1)
 
     def parse(self, response):
         year_buttons = response.xpath('//button[contains(@id, "e-n-tab-title")]')
@@ -33,9 +32,7 @@ class RjSaoFidelisSpider(BaseGazetteSpider):
                     if not date_str:
                         continue
 
-                    gazette_date = dateparser.parse(
-                        date_str.strip(), languages=["pt"]
-                    ).date()
+                    gazette_date = get_date_from_text(date_str)
                     if gazette_date > self.end_date:
                         continue
 
