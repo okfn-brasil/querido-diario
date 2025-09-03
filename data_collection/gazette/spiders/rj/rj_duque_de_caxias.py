@@ -8,5 +8,5 @@ class RjDuqueDeCaxiasSpider(BaseModernizacaoSpider):
 
     name = "rj_duque_de_caxias"
     TERRITORY_ID = "3301702"
-    allowed_domains = ["duquedecaxias.rj.gov.br"]
-    start_date = dt(2017, 1, 2)
+    allowed_domains = ["transparencia.duquedecaxias.rj.gov.br"]
+    start_date = dt.date(2017, 1, 2)
