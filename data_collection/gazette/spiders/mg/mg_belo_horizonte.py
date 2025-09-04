@@ -16,7 +16,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
     allowed_domains = ["dom-web.pbh.gov.br"]
     start_date = datetime.date(1995, 9, 26)
 
-    custom_settings = {"DOWNLOAD_DELAY": 0.5}
+    custom_settings = {"DOWNLOAD_DELAY": 0.5, "HTTPERROR_ALLOW_ALL": True}
 
     def start_requests(self):
         base_url = "https://api-dom.pbh.gov.br/api/v1/edicoes/buscarpublicacaopordata"
@@ -29,6 +29,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
             )
 
     def parse(self, response, gazette_date):
+        self.write_to_file(response, gazette_date)
         data = response.json()
 
         gazettes = data["data"]
@@ -52,3 +53,13 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
                 file_urls=[gazette_url],
                 power="executive",
             )
+
+    def write_to_file(self, response, date):
+        file_name = f"{self.name}_{date}"
+        with open(f"{file_name}.html", "a") as f:
+            f.write(self.build_info_about_response(response))
+
+    def build_info_about_response(self, response):
+        infos_request = f"<!-- REQUEST INFO: -->\n<!-- url: {response.request.url} -->\n<!-- method: {response.request.method} -->\n<!-- meta: {response.request.meta} -->\n<!-- headers: {response.request.headers} -->\n<!-- cookies: {response.request.cookies} -->\n<!-- encoding: {response.request.encoding} -->\n<!-- body: {response.request.body} -->\n"
+        infos_response = f"<!-- RESPONSE INFO: -->\n<!-- url: {response.url}-->\n<!-- status: {response.status}-->\n<!-- headers: {response.headers}-->\n<!-- flags: {response.flags}-->\n<!-- request: {response.request}-->\n<!-- certificate: {response.certificate}-->\n<!-- ip_address: {response.ip_address}-->\n<!-- protocol: {response.protocol}-->\n<!-- body:-->\n{response.text}"
+        return f"{infos_request}\n{infos_response}"
