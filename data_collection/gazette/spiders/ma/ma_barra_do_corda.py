@@ -1,14 +1,13 @@
 import datetime
 import json
 
-# Importe 'exceptions' do Scrapy para o try/except
 from scrapy import Request, exceptions
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
-class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
+class MABarraDoCordaSpider(BaseGazetteSpider):
     TERRITORY_ID = "2101608"
     name = "ma_barra_do_corda"
     allowed_domains = ["dom.barradocorda.ma.gov.br"]
@@ -16,7 +15,6 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
     BASE_API_URL = "https://dom.barradocorda.ma.gov.br/api/v1/diary/editions"
     BASE_PDF_URL = "https://dom.barradocorda.ma.gov.br/uploads/editions/13/"
 
-    # Mantive a data de início que você colocou
     start_date = datetime.date(2022, 1, 10)
 
     static_body_payload = json.dumps(
@@ -52,10 +50,10 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
             method="POST",
             body=self.static_body_payload,
             headers={"Content-Type": "application/json"},
-            callback=self.parse,  # Mantive o nome do seu callback
+            callback=self.parse,
         )
 
-    def parse(self, response):  # Mantive o nome do seu método
+    def parse(self, response):
         """Processa o JSON da API, filtra por data e cuida da paginação."""
 
         if response.status != 200:
@@ -67,7 +65,6 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
         try:
             data = response.json()
             editions_data = data["data"]["editions"]
-        # Use o 'exceptions' importado
         except (exceptions.JSONDecodeError, KeyError) as e:
             self.logger.error(
                 f"Erro ao processar JSON da API: {e} - URL: {response.url}"
@@ -79,7 +76,6 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
             self.logger.info(f"Nenhum diário encontrado na página: {response.url}")
             return
 
-        # self.start_date e self.end_date são garantidamente 'date' objects
         start_date_obj = self.start_date
         end_date_obj = self.end_date
 
@@ -95,20 +91,14 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
 
             oldest_date_in_page = edition_date
 
-            # --- A CORREÇÃO ---
-            # Adiciona o filtro para end_date aqui
-            # Compara date <= date e date >= date
             if not (start_date_obj <= edition_date <= end_date_obj):
-                # Se a data estiver FORA do intervalo [start_date, end_date], pula o item
                 continue
-            # --- FIM DA CORREÇÃO ---
 
             filename = item.get("file")
             if not filename:
                 self.logger.warning(f"Item sem 'file': {item}")
                 continue
 
-            # Corrige URL para arquivos antigos (wp-content)
             if filename.startswith("wp-content"):
                 pdf_url = f"https://dom.barradocorda.ma.gov.br/{filename}"
             else:
@@ -123,8 +113,6 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
                 power="executive",
             )
 
-        # Lógica de Paginação (Otimizada)
-        # Compara date < date
         if oldest_date_in_page and oldest_date_in_page < start_date_obj:
             self.logger.info(
                 "Data mais antiga da página é anterior ao start_date. Parando paginação."
@@ -138,5 +126,5 @@ class MABarraDoCordaSpider(BaseGazetteSpider):  # Mantive o nome da sua classe
                 method="POST",
                 body=self.static_body_payload,
                 headers={"Content-Type": "application/json"},
-                callback=self.parse,  # Mantive o nome do seu callback
+                callback=self.parse,
             )
