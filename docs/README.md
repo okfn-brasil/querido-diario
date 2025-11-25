@@ -1,4 +1,4 @@
-**Português (BR)** | [English (US)](/docs/README-en-US.md) 
+**Português (BR)** | [English (US)](/docs/README-en-US.md)
 
 <p align="center">
   <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./images/querido-diario-logo.png" width="200">
@@ -6,13 +6,14 @@
 </p>
 
 # Querido Diário
-Dentro do [ecossistema do Querido Diário](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING.md#ecossistema), este repositório é o responsável pela tarefa de **raspagem dos sites publicadores de diários oficiais**.
+Dentro do [ecossistema do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#ecossistema-do-querido-diario), este repositório é o responsável pela tarefa de **raspagem dos sites publicadores de diários oficiais**.
 
 Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia) e a [história](https://queridodiario.ok.org.br/sobre) do projeto no [site do Querido Diário](https://queridodiario.ok.org.br)
 
 # Sumário
 - [Como contribuir](#como-contribuir)
 - [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
+- [Template para raspadores](#template-para-raspadores)
 - [Como executar](#como-executar)
   - [Dicas de execução](#dicas-de-execução)
 - [Solução de problemas](#solução-de-problemas)
@@ -32,7 +33,7 @@ Agradecemos por considerar contribuir com o Querido Diário! :tada:
 
 Você encontra como fazê-lo no [CONTRIBUTING.md](/docs/CONTRIBUTING.md)!
 
-Além disso, consulte a [documentação do Querido Diário](https://docs.queridodiario.ok.org.br/pt/latest/index.html) para te ajudar. 
+Além disso, consulte a [documentação do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/) para te ajudar. 
 
 # Ambiente de desenvolvimento
 Você precisa ter [Python](https://docs.python.org/3/) (+3.0) e o framework [Scrapy](https://scrapy.org) instalados. 
@@ -47,6 +48,21 @@ pre-commit install
 ```
 
 > A configuração em outros sistemas operacionais está disponível em ["como configurar o ambiente de desenvolvimento"](/docs/CONTRIBUTING.md#como-configurar-o-ambiente-de-desenvolvimento), incluindo mais detalhes para quem deseja contribuir com o desenvolvimento do repositório.
+
+# Template para raspadores
+
+Ao invés de começar um arquivo de raspador do zero, você pode inicializar um arquivo de código de raspador já no padrão do Querido Diário, a partir de um template. Para isso, faça: 
+
+1. Vá para o diretório `data_collection`:
+```console
+cd data_collection
+```
+2. Acione o template:
+```console
+scrapy genspider -t qdtemplate <uf_nome_do_municipio> <https://sitedomunicipio...>
+```
+
+Um arquivo `uf_nome_do_municipio.py` será criado no diretório `spiders`, com alguns campos já preenchidos. O diretório é organizado por UF, lembre-se de mover o arquivo para o diretório adequado.
 
 # Como executar
 Para experimentar a execução de um raspador já integrado ao projeto ou testar o que esteja desenvolvendo, siga os comandos: 
@@ -75,17 +91,18 @@ Além dos comandos acima, o Scrapy oferece outros recursos para configurar o com
 * **Limite de data**  
 Ao executar o item 4, o raspador coletará todos os diários oficiais do site publicador daquele município. Para execuções menores, utilize a flag de atributo `-a` seguida de:
 
-`start_date=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
+`start=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 ```console
-scrapy crawl <nome_do_raspador> -a start_date=<AAAA-MM-DD>
+scrapy crawl <nome_do_raspador> -a start=<AAAA-MM-DD>
 ```
-`end_date=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
+`end=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
 ```console
-scrapy crawl <nome_do_raspador> -a end_date=<AAAA-MM-DD>
+scrapy crawl <nome_do_raspador> -a end=<AAAA-MM-DD>
 ```
 
 * **Arquivo de log**   
 É possível enviar o log da raspagem para um arquivo ao invés de deixá-lo no terminal. Isto é particularmente útil quando se desenvolve um raspador que apresenta problemas e você quer enviar o arquivo de log no seu PR para obter ajuda. Para isso, use a flag de configuração `-s` seguida de:
+
 `LOG_FILE=log_<nome_do_municipio>.txt`: definirá o arquivo para armazenar as mensagens de log.
 ```console
 scrapy crawl <nome_do_raspador> -s LOG_FILE=log_<nome_do_municipio>.txt
@@ -116,14 +133,17 @@ Conheça [quem apoia o Querido Diário](https://queridodiario.ok.org.br/apoie#qu
 
 # Open Knowledge Brasil
 <p>
-  <a href="https://twitter.com/okfnbr" target="_blank">
-    <img alt="Twitter Follow" src="https://img.shields.io/badge/Twitter-_-blue?style=for-the-badge&logo=twitter">
+  <a href="https://bsky.app/profile/ok.org.br" target="_blank">
+    <img alt="Bluesky Follow" src="https://img.shields.io/badge/Bluesky-_-0285FF?style=for-the-badge&logo=bluesky">
   </a>
   <a href="https://www.instagram.com/openknowledgebrasil/" target="_blank">
     <img alt="Instagram Follow" src="https://img.shields.io/badge/Instagram-_-red?style=for-the-badge&logo=instagram">
   </a>
   <a href="https://www.linkedin.com/company/open-knowledge-brasil" target="_blank">
     <img alt="LinkedIn Follow" src="https://img.shields.io/badge/LinkedIn-_-9cf?style=for-the-badge&logo=linkedin">
+  </a> 
+  <a href="https://mastodon.social/@okbr" target="_blank">
+    <img alt="Mastodon Follow" src="https://img.shields.io/badge/mastodon-_-6364FF?style=for-the-badge&logo=mastodon">
   </a>
 </p>
 

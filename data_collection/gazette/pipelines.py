@@ -1,10 +1,12 @@
 import datetime as dt
 from pathlib import Path
 
+import filetype
 from itemadapter import ItemAdapter
 from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
+from scrapy.http.request import NO_CALLBACK
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
 from scrapy.utils import project
@@ -23,17 +25,13 @@ class GazetteDateFilteringPipeline:
 
 
 class DefaultValuesPipeline:
-    """Add defaults values field, if not already set in the item"""
-
-    default_field_values = {
-        "territory_id": lambda spider: getattr(spider, "TERRITORY_ID"),
-        "scraped_at": lambda spider: dt.datetime.utcnow(),
-    }
-
     def process_item(self, item, spider):
-        for field in self.default_field_values:
-            if field not in item:
-                item[field] = self.default_field_values.get(field)(spider)
+        item["territory_id"] = getattr(spider, "TERRITORY_ID")
+
+        # Date manipulation to allow jsonschema to validate correctly
+        item["date"] = str(item["date"])
+        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+
         return item
 
 
@@ -83,6 +81,12 @@ class SQLDatabasePipeline:
             "territory_id",
         ]
         gazette_item = {field: item.get(field) for field in fields}
+        gazette_item["date"] = dt.datetime.strptime(
+            gazette_item["date"], "%Y-%m-%d"
+        ).date()
+        gazette_item["scraped_at"] = dt.datetime.strptime(
+            gazette_item["scraped_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
 
         for file_info in item.get("files", []):
             already_downloaded = file_info["status"] == "uptodate"
@@ -138,7 +142,10 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         """Makes requests from urls and/or lets through ready requests."""
         urls = ItemAdapter(item).get(self.files_urls_field, [])
         download_file_headers = getattr(info.spider, "download_file_headers", {})
-        yield from (Request(u, headers=download_file_headers) for u in urls)
+        yield from (
+            Request(u, callback=NO_CALLBACK, headers=download_file_headers)
+            for u in urls
+        )
 
         requests = ItemAdapter(item).get(self.files_requests_field, [])
         yield from requests
@@ -158,13 +165,34 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
 
     def file_path(self, request, response=None, info=None, item=None):
         """
-        Path to save the files, modified to organize the gazettes in directories.
-        The files will be under <territory_id>/<gazette date>/.
+        Path to save the files, modified to organize the gazettes in directories
+        and with the right file extension added.
+        The files will be under <territory_id>/<gazette date>/<filename>.
         """
-
-        filepath = super().file_path(request, response=response, info=info, item=item)
+        filepath = Path(
+            super().file_path(request, response=response, info=info, item=item)
+        )
         # The default path from the scrapy class begins with "full/". In this
         # class we replace that with the territory_id and gazette date.
-        datestr = item["date"].strftime("%Y-%m-%d")
-        filename = Path(filepath).name
-        return str(Path(item["territory_id"], datestr, filename))
+        filename = filepath.name
+
+        if response is not None and not filepath.suffix:
+            filename = self._get_filename_with_extension(filename, response)
+
+        return str(Path(item["territory_id"], item["date"], filename))
+
+    def _get_filename_with_extension(self, filename, response):
+        # The majority of the Gazettes are PDF files, so we can check it
+        # faster validating document Content-Type before using a more costly
+        # check with filetype library
+        file_extension = (
+            ".pdf" if response.headers.get("Content-Type") == b"application/pdf" else ""
+        )
+
+        if not file_extension:
+            # Checks file extension from file header if possible
+            max_file_header_size = 261
+            file_kind = filetype.guess(response.body[:max_file_header_size])
+            file_extension = f".{file_kind.extension}" if file_kind is not None else ""
+
+        return f"{filename}{file_extension}"

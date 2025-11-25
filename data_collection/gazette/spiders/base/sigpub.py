@@ -1,14 +1,14 @@
 import json
-from datetime import date
 
 import scrapy
-from dateutil.rrule import DAILY, rrule
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import daily_sequence
 
 
-class SigpubGazetteSpider(BaseGazetteSpider):
+class BaseSigpubSpider(BaseGazetteSpider):
     """www.diariomunicipal.com.br (Sigpub) base spider
 
     Documents obtained by this kind of spider are text-PDFs with many cities in it.
@@ -24,7 +24,13 @@ class SigpubGazetteSpider(BaseGazetteSpider):
         - These websites have an "Advanced Search", but they are protected by ReCaptcha.
     """
 
-    start_date = date(2009, 1, 1)
+    allowed_domains = ["diariomunicipal.com.br"]
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "CALENDAR_URL"):
+            raise NotConfigured("Please set a value for `CALENDAR_URL`")
+
+        super(BaseSigpubSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         """Requests start page where the calendar widget is available."""
@@ -76,10 +82,7 @@ class SigpubGazetteSpider(BaseGazetteSpider):
 
     def available_dates_form_fields(self):
         """Generates dates and corresponding form fields for availability endpoint."""
-        available_dates = rrule(
-            freq=DAILY, dtstart=self.start_date, until=self.end_date
-        )
-        for query_date in available_dates:
+        for query_date in daily_sequence(self.start_date, self.end_date):
             form_fields = {
                 "calendar[day]": str(query_date.day),
                 "calendar[month]": str(query_date.month),

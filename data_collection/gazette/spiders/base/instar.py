@@ -1,26 +1,32 @@
 import datetime
 import math
+from urllib.parse import urlparse
 
 import scrapy
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 
 
 class BaseInstarSpider(BaseGazetteSpider):
+    power = "executive_legislative"
+
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "base_url"):
+            raise NotConfigured("Please set a value for `base_url`")
+
+        self.allowed_domains = [urlparse(self.base_url).netloc]
+
+        super(BaseInstarSpider, self).__init__(*args, **kwargs)
+
     def start_requests(self):
         page = 1
         start_date = self.start_date.strftime("%d-%m-%Y")
         end_date = self.end_date.strftime("%d-%m-%Y")
 
-        start_url = "{base_url}/{page}/{start_date}/{end_date}/0/0/0".format(
-            **{
-                "base_url": self.base_url,
-                "page": page,
-                "start_date": start_date,
-                "end_date": end_date,
-            }
-        )
+        start_url = f"{self.base_url}/{page}/{start_date}/{end_date}/0/0/"
+
         yield scrapy.Request(
             start_url,
             cb_kwargs={"page": page, "start_date": start_date, "end_date": end_date},
@@ -34,15 +40,9 @@ class BaseInstarSpider(BaseGazetteSpider):
 
             for next_page in range(2, total_pages + 1):
                 next_page_url = (
-                    "{base_url}/{page}/{start_date}/{end_date}/0/0/0".format(
-                        **{
-                            "base_url": self.base_url,
-                            "page": next_page,
-                            "start_date": start_date,
-                            "end_date": end_date,
-                        }
-                    )
+                    f"{self.base_url}/{next_page}/{start_date}/{end_date}/0/0/"
                 )
+
                 yield scrapy.Request(
                     next_page_url,
                     cb_kwargs={
@@ -70,7 +70,7 @@ class BaseInstarSpider(BaseGazetteSpider):
                 date=gazette_date,
                 edition_number=edition_number,
                 is_extra_edition=False,
-                power="executive_legislative",
+                power=self.power,
             )
 
             yield scrapy.Request(

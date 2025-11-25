@@ -14,35 +14,36 @@ class BaseGazetteSpider(scrapy.Spider):
     # being blocked based on our location.
     zyte_smartproxy_enabled = False
 
-    def __init__(self, start_date=None, end_date=None, *args, **kwargs):
+    def __init__(self, start=None, end=None, *args, **kwargs):
         super(BaseGazetteSpider, self).__init__(*args, **kwargs)
 
         if not hasattr(self, "TERRITORY_ID"):
             raise NotConfigured("Please set a value for `TERRITORY_ID`")
 
-        if start_date is not None:
-            try:
-                self.start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-                self.logger.info(f"Collecting gazettes from {self.start_date}")
-            except ValueError:
-                self.logger.exception(
-                    f"Unable to parse {start_date}. Use %Y-%m-d date format."
-                )
-                raise
-        else:
-            self.logger.info("Collecting all gazettes available from the beginning")
+        if not hasattr(self, "allowed_domains"):
+            raise NotConfigured("Please set a value for `allowed_domains`")
 
-        if end_date is not None:
+        if not hasattr(self, "start_date"):
+            raise NotConfigured("Please set a value for `start_date`")
+
+        if start:
             try:
-                self.end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-                self.logger.info(f"Collecting gazettes until {self.end_date}")
+                self.start_date = datetime.strptime(start, "%Y-%m-%d").date()
             except ValueError:
                 self.logger.exception(
-                    f"Unable to parse {end_date}. Use %Y-%m-d date format."
+                    f"Unable to parse {start}. Use %Y-%m-d date format."
                 )
                 raise
-        elif hasattr(self, "end_date"):
-            self.logger.info(f"Collecting gazettes until {self.end_date}")
+
+        if end:
+            try:
+                self.end_date = datetime.strptime(end, "%Y-%m-%d").date()
+            except ValueError:
+                self.logger.exception(
+                    f"Unable to parse {end}. Use %Y-%m-d date format."
+                )
+                raise
         else:
             self.end_date = datetime.today().date()
-            self.logger.info("Collecting all gazettes available until today")
+
+        self.logger.info(f"Collecting data from {self.start_date} to {self.end_date}.")

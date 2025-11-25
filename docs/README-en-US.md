@@ -1,4 +1,4 @@
-**English (US)** | [Português (BR)](/docs/README.md) 
+**English (US)** | [Português (BR)](/docs/README.md)
 
 <p align="center">
   <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./images/querido-diario-logo.png" width="200">
@@ -6,7 +6,7 @@
 </p>
 
 # Querido Diário
-Within the [Querido Diário ecosystem](https://github.com/okfn-brasil/querido-diario-comunidade/blob/main/.github/CONTRIBUTING-en-US.md#ecosystem), this repository is responsible for **scraping official gazettes publishing sites**
+Within the [Querido Diário ecosystem](https://docs.queridodiario.ok.org.br/en/latest/contributing/contribution-guide.html#ecosystem), this repository is responsible for **scraping official gazettes publishing sites**
 
 Find out more about [technologies](https://queridodiario.ok.org.br/tecnologia) and [history](https://queridodiario.ok.org.br/sobre) of the project on the [Querido Diário website](https://queridodiario.ok.org.br)
 
@@ -31,7 +31,7 @@ Thank you for considering contributing to Querido Diário! :tada:
 
 You can find how to do it at [CONTRIBUTING-en-US.md](/docs/CONTRIBUTING-en-US.md)!
 
-Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/pt/latest/index.html) to help you.
+Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/en/latest/) to help you.
 
 # Development Environment
 You need to have [Python](https://docs.python.org/3/) (+3.0) and [Scrapy](https://scrapy.org) framework installed.
@@ -70,13 +70,13 @@ scrapy crawl <scraper_name> //example: scrapy crawl ba_acajutiba
 
 6. When executing item 4, the scraper will collect all official gazettes from the publishing site of that municipality since the first digital edition. For smaller runs, use flags in the run command:
 
-- `start_date=YYYY-MM-DD`: will set the collecting start date.
+- `start=YYYY-MM-DD`: will set the collecting start date.
 ```console
-scrapy crawl <scraper_name> -a start_date=<YYYY-MM-DD>
+scrapy crawl <scraper_name> -a start=<YYYY-MM-DD>
 ```
-- `end_date=YYYY-MM-DD`: will set the collecting end date. If omitted, it will assume the date of the day it is being executed.
+- `end=YYYY-MM-DD`: will set the collecting end date. If omitted, it will assume the date of the day it is being executed.
 ```console
-scrapy crawl <scraper_name> -a end_date=<YYYY-MM-DD>
+scrapy crawl <scraper_name> -a end=<YYYY-MM-DD>
 ```
 
 # Troubleshooting
@@ -98,14 +98,17 @@ Meet [who supports Querido Diario](https://queridodiario.ok.org.br/apoie#quem-ap
 
 # Open Knowledge Brazil
 <p>
-  <a href="https://twitter.com/okfnbr" target="_blank">
-    <img alt="Twitter Follow" src="https://img.shields.io/badge/Twitter-_-blue?style=for-the-badge&logo=twitter">
+  <a href="https://bsky.app/profile/ok.org.br" target="_blank">
+    <img alt="Bluesky Follow" src="https://img.shields.io/badge/Bluesky-_-0285FF?style=for-the-badge&logo=bluesky">
   </a>
   <a href="https://www.instagram.com/openknowledgebrasil/" target="_blank">
     <img alt="Instagram Follow" src="https://img.shields.io/badge/Instagram-_-red?style=for-the-badge&logo=instagram">
   </a>
   <a href="https://www.linkedin.com/company/open-knowledge-brasil" target="_blank">
     <img alt="LinkedIn Follow" src="https://img.shields.io/badge/LinkedIn-_-9cf?style=for-the-badge&logo=linkedin">
+  </a> 
+  <a href="https://mastodon.social/@okbr" target="_blank">
+    <img alt="Mastodon Follow" src="https://img.shields.io/badge/mastodon-_-6364FF?style=for-the-badge&logo=mastodon">
   </a>
 </p>
 

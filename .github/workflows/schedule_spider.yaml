@@ -6,15 +6,15 @@ on:
       spider_name:
         description: 'Spider to be scheduled'
         required: true
-      start_date:
+      start:
         description: 'Start date (YYYY-MM-DD)'
         required: false
-      end_date:
+      end:
         description: 'End date (YYYY-MM-DD)'
         required: false
 
 jobs:
-  schedule:
+  full-crawl:
     runs-on: ubuntu-latest
     env:
       SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
@@ -32,14 +32,18 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: '3.10'
     - name: Prepare environment
       run: |
         python -m pip install --upgrade pip
-        pip install click python-decouple scrapinghub
+        pip install click python-decouple scrapinghub SQLAlchemy psycopg2
     - name: Schedule full crawl
-      if: ${{ !github.event.inputs.start_date }}
-      run: python scripts/scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }}
+      if: ${{ !github.event.inputs.start }}
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }}
     - name: Schedule partial crawl
-      if: ${{ github.event.inputs.start_date }}
-      run: python scripts/scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start_date=${{ github.event.inputs.start_date }}
+      if: ${{ github.event.inputs.start }}
+      run: |
+        cd data_collection/
+        python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start=${{ github.event.inputs.start }} --end=${{ github.event.inputs.end }}

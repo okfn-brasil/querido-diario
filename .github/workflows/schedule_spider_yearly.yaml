@@ -1,0 +1,76 @@
+name: Schedule Spider Crawl Split Per Year
+
+on:
+  workflow_dispatch:
+    inputs:
+      spider_name:
+        description: 'Spider to be scheduled'
+        required: true
+      start:
+        description: 'Start date (YYYY-MM-DD)'
+        required: true
+      end:
+        description: 'End date (YYYY-MM-DD)'
+        required: false
+
+jobs:
+  full-crawl-yearly:
+    runs-on: ubuntu-latest
+    env:
+      SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
+      SCRAPY_CLOUD_PROJECT_ID: ${{ secrets.SCRAPY_CLOUD_PROJECT_ID }}
+      FILES_STORE: ${{ secrets.FILES_STORE }}
+      QUERIDODIARIO_DATABASE_URL: ${{ secrets.QUERIDODIARIO_DATABASE_URL }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
+      AWS_REGION_NAME: ${{ secrets.AWS_REGION_NAME }}
+      SPIDERMON_DISCORD_FAKE: ${{ secrets.SPIDERMON_DISCORD_FAKE }}
+      SPIDERMON_DISCORD_WEBHOOK_URL: ${{ secrets.SPIDERMON_DISCORD_WEBHOOK_URL }}
+      ZYTE_SMARTPROXY_APIKEY: ${{ secrets.ZYTE_SMARTPROXY_APIKEY }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    - name: Prepare environment
+      run: |
+        python -m pip install --upgrade pip
+        pip install click python-decouple scrapinghub SQLAlchemy psycopg2     
+    - name: Schedule full crawl per year
+      if: ${{ !github.event.inputs.end }}
+      run: |
+        cd data_collection/
+        spider=${{ github.event.inputs.spider_name }}
+        start=${{ github.event.inputs.start }}
+        int_start=$(date -d $start +"%Y%m%d")
+        int_end=$(date --date="today" +"%Y%m%d")
+        while [[ $int_start -lt $int_end ]]; do
+            int_date_to=$(date -d"$int_start + 1 year" +"%Y%m%d")
+            if [[ $int_date_to -ge $int_end ]]; then
+                int_date_to="$int_end"
+            fi
+            date_from=$(date -d"$int_start" +"%Y-%m-%d")
+            date_to=$(date -d"$int_date_to" +"%Y-%m-%d")
+            python scheduler.py schedule-spider --spider_name="$spider" --start="$date_from" --end="$date_to"
+            int_start="$int_date_to"
+        done
+    - name: Schedule partial crawl per year
+      if: ${{ github.event.inputs.end }}
+      run: |
+        cd data_collection/
+        spider=${{ github.event.inputs.spider_name }}
+        start=${{ github.event.inputs.start }}
+        end=${{ github.event.inputs.end }}
+        int_start=$(date -d $start +"%Y%m%d")
+        int_end=$(date -d $end +"%Y%m%d")
+        while [[ $int_start -lt $int_end ]]; do
+            int_date_to=$(date -d"$int_start + 1 year" +"%Y%m%d")
+            if [[ $int_date_to -ge $int_end ]]; then
+                int_date_to="$int_end"
+            fi
+            date_from=$(date -d"$int_start" +"%Y-%m-%d")
+            date_to=$(date -d"$int_date_to" +"%Y-%m-%d")
+            python scheduler.py schedule-spider --spider_name="$spider" --start="$date_from" --end="$date_to"
+            int_start="$int_date_to"
+        done

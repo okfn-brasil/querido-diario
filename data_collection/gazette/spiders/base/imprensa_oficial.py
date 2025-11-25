@@ -1,21 +1,32 @@
 import re
-from datetime import date, datetime
+from datetime import datetime
+from urllib.parse import urlparse
 
 import scrapy
-from dateutil.rrule import MONTHLY, rrule
+from scrapy.exceptions import NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+from gazette.utils.dates import monthly_sequence
 
 
-class ImprensaOficialSpider(BaseGazetteSpider):
+class BaseImprensaOficialSpider(BaseGazetteSpider):
+    def __init__(self, *args, **kwargs):
+        if not hasattr(self, "url_base"):
+            raise NotConfigured("Please set a value for `url_base`")
+
+        domains = {
+            "imprensaoficial.org",
+            urlparse(self.url_base).netloc,
+        }
+        self.allowed_domains = list(domains)
+
+        super(BaseImprensaOficialSpider, self).__init__(*args, **kwargs)
+
     def start_requests(self):
-        initial_date = date(self.start_date.year, self.start_date.month, 1)
-
-        for monthly_date in rrule(
-            freq=MONTHLY, dtstart=initial_date, until=self.end_date
+        for year_month in monthly_sequence(
+            self.start_date, self.end_date, format="%Y/%m/"
         ):
-            year_month = monthly_date.strftime("%Y/%m/")  # like 2015/01
             yield scrapy.Request(
                 self.url_base.format(year_month), callback=self.extract_gazette_links
             )
