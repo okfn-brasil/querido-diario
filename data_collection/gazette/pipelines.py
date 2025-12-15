@@ -1,4 +1,6 @@
+import base64
 import datetime as dt
+from io import BytesIO
 from pathlib import Path
 
 import filetype
@@ -138,6 +140,29 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
             "FILES_REQUESTS_FIELD", self.DEFAULT_FILES_REQUESTS_FIELD
         )
 
+    def process_item(self, item, spider):
+        processed_gazette = super().process_item(item, spider)
+        self._handle_in_memory_files(processed_gazette.result)
+
+        return processed_gazette
+
+    def _handle_in_memory_files(self, gazette: Gazette):
+        for file in ItemAdapter(gazette).get("in_memory_files", []):
+            file_path = self._resolve_territory_file_path(
+                gazette, file.get("name")
+            )  # TODO: What if there is no name?
+            file_bytes = BytesIO(base64.b64decode(file.get("base64")))
+            self.store.persist_file(file_path, file_bytes, None)
+            stat_file = self.store.stat_file(file_path, None)
+            ItemAdapter(gazette).setdefault("files", []).append(
+                {
+                    "url": file.get("url"),
+                    "path": file_path,
+                    "checksum": stat_file.get("checksum"),
+                    "status": "downloaded",
+                }
+            )
+
     def get_media_requests(self, item, info):
         """Makes requests from urls and/or lets through ready requests."""
         urls = ItemAdapter(item).get(self.files_urls_field, [])
@@ -179,6 +204,9 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         if response is not None and not filepath.suffix:
             filename = self._get_filename_with_extension(filename, response)
 
+        return self._resolve_territory_file_path(item, filename)
+
+    def _resolve_territory_file_path(self, item, filename):
         return str(Path(item["territory_id"], item["date"], filename))
 
     def _get_filename_with_extension(self, filename, response):

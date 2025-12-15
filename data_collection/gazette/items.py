@@ -15,4 +15,5 @@ class Gazette(scrapy.Item):
     scraped_at = scrapy.Field()
     file_urls = scrapy.Field()
     files = scrapy.Field()
+    in_memory_files = scrapy.Field()  # TODO: Hide base64 from logs!
     _validation = scrapy.Field()
