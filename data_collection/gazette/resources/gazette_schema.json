@@ -59,6 +59,23 @@
                     }
                 }
             }
+        },
+        "in_memory_files": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "base64": {
+                        "type": "string"
+                    }
+                }
+            }
         }
     },
     "required": [
