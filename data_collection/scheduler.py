@@ -18,6 +18,7 @@ def _schedule_job(start, full, spider_name):
 
     job_settings = {
         "FILES_STORE": config("FILES_STORE"),
+        "FILES_STORE_SECONDARY": config("FILES_STORE_SECONDARY", default=""),
         "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL"),
         "AWS_ACCESS_KEY_ID": config("AWS_ACCESS_KEY_ID"),
         "AWS_SECRET_ACCESS_KEY": config("AWS_SECRET_ACCESS_KEY"),
@@ -66,6 +67,7 @@ def schedule_spider(spider_name, start, end):
 
     job_settings = {
         "FILES_STORE": config("FILES_STORE"),
+        "FILES_STORE_SECONDARY": config("FILES_STORE_SECONDARY", default=""),
         "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL"),
         "AWS_ACCESS_KEY_ID": config("AWS_ACCESS_KEY_ID"),
         "AWS_SECRET_ACCESS_KEY": config("AWS_SECRET_ACCESS_KEY"),
