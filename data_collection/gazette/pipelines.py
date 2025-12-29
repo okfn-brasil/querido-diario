@@ -1,6 +1,7 @@
 import datetime as dt
 from pathlib import Path
 
+import boto3
 import filetype
 from itemadapter import ItemAdapter
 from scrapy import spiderloader
@@ -124,6 +125,7 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         - organizes downloaded files differently (based on territory_id)
         - adds the file_requests item field to download files from request instances
         - allows a download_file_headers spider attribute to modify file_urls requests
+        - saves files to two S3 buckets (primary and secondary)
     """
 
     DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
@@ -137,6 +139,69 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         self.files_requests_field = settings.get(
             "FILES_REQUESTS_FIELD", self.DEFAULT_FILES_REQUESTS_FIELD
         )
+        
+        # Secondary bucket configuration
+        self.secondary_bucket = settings.get("FILES_STORE_SECONDARY", "")
+        self.s3_client = None
+        if self.secondary_bucket and self.secondary_bucket.startswith("s3://"):
+            self._setup_s3_client(settings)
+
+    def _setup_s3_client(self, settings):
+        """Setup boto3 S3 client for secondary bucket.
+        
+        Compatível com Digital Ocean Spaces, AWS S3 e outros serviços S3-compatíveis.
+        Se endpoint_url não for fornecido (None ou vazio), boto3 usa o endpoint padrão da AWS.
+        """
+        try:
+            session_config = {
+                "aws_access_key_id": settings.get("AWS_ACCESS_KEY_ID"),
+                "aws_secret_access_key": settings.get("AWS_SECRET_ACCESS_KEY"),
+                "region_name": settings.get("AWS_REGION_NAME"),
+            }
+            
+            # Adiciona endpoint_url apenas se fornecido (necessário para Digital Ocean Spaces e Minio)
+            # Para AWS S3, deixar vazio ou não definir a variável AWS_ENDPOINT_URL
+            endpoint_url = settings.get("AWS_ENDPOINT_URL")
+            if endpoint_url:
+                session_config["endpoint_url"] = endpoint_url
+            
+            self.s3_client = boto3.client("s3", **session_config)
+            self.s3_acl = settings.get("FILES_STORE_S3_ACL", "public-read")
+        except Exception as e:
+            # Log error but don't fail - primary bucket will still work
+            print(f"Warning: Could not setup S3 client for secondary bucket: {e}")
+            self.s3_client = None
+
+    def _copy_to_secondary_bucket(self, file_path, file_data, spider):
+        """Copy file to secondary S3 bucket."""
+        if not self.s3_client or not self.secondary_bucket:
+            return
+        
+        try:
+            bucket_name = self.secondary_bucket.replace("s3://", "").rstrip("/")
+            self.s3_client.put_object(
+                Bucket=bucket_name,
+                Key=file_path,
+                Body=file_data,
+                ACL=self.s3_acl,
+            )
+            spider.logger.info(f"File copied to secondary bucket: {file_path}")
+        except Exception as e:
+            spider.logger.error(
+                f"Failed to copy file to secondary bucket {file_path}: {e}"
+            )
+
+    def file_downloaded(self, response, request, info, *, item=None):
+        """Override to copy file to secondary bucket after download."""
+        result = super().file_downloaded(response, request, info, item=item)
+        
+        # Copy to secondary bucket if configured
+        if result and self.s3_client:
+            file_path = result.get("path")
+            if file_path:
+                self._copy_to_secondary_bucket(file_path, response.body, info.spider)
+        
+        return result
 
     def get_media_requests(self, item, info):
         """Makes requests from urls and/or lets through ready requests."""
