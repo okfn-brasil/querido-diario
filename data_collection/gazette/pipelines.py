@@ -166,7 +166,7 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
                 session_config["endpoint_url"] = endpoint_url
 
             self.s3_client = boto3.client("s3", **session_config)
-            self.s3_acl = settings.get("FILES_STORE_S3_ACL", "public-read")
+            self.s3_acl = settings.get("FILES_STORE_S3_ACL")
         except Exception as e:
             # Log error but don't fail - primary bucket will still work
             print(f"Warning: Could not setup S3 client for secondary bucket: {e}")
