@@ -4,7 +4,7 @@
 Marque apenas um dos itens a seguir:
 - [ ] O *layout* não se parece com nenhum caso [da lista de *layouts* padrão](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/lista-sistemas-replicaveis.html)
 - [ ] É um *layout* padrão e esta PR adiciona a spider base do padrão ao projeto junto com alguns municípios que fazem parte do padrão.
-- [ ] É um *layout* padrão e todos os municípios adicionados usam a [classe de spider base](https://github.com/okfn-brasil/querido-diario/tree/main/data_collection/gazette/spiders/base) adequada para o padrão.
+- [ ] É um *layout* padrão e todos os municípios adicionados usam a [classe de spider base](https://github.com/okfn-brasil/querido-diario/tree/main/querido_diario/gazette/spiders/base) adequada para o padrão.
 
 #### Código da(s) spider(s)
 - [ ] O(s) raspador(es) adicionado(s) tem os [atributos de classe exigidos](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/raspadores.html#UFMunicipioSpider).

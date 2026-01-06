@@ -9,7 +9,7 @@ on:
       status:
         type: choice
         description: 'New Spider status in production'
-        options: 
+        options:
         - enabled
         - disabled
         required: true
@@ -31,10 +31,10 @@ jobs:
     - name: Enable spider in production
       if: ${{ github.event.inputs.status == 'enabled' }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         python scheduler.py enable-spider --spider_name=${{ github.event.inputs.spider_name }}
     - name: Disable spider in production
       if: ${{ github.event.inputs.status == 'disabled' }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         python scheduler.py disable-spider --spider_name=${{ github.event.inputs.spider_name }}

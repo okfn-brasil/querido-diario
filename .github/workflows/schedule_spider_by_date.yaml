@@ -34,5 +34,5 @@ jobs:
     - name: Schedule partial crawl
       if: ${{ github.event.inputs.start }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         python scheduler.py schedule-all-spiders-by-date --start ${{ github.event.inputs.start }}
