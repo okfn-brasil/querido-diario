@@ -34,9 +34,9 @@ python3 -m venv .venv
 ``` console
 source .venv/bin/activate
 ```
-4. Install the [required libraries](querido-diario/data_collection/requirements-dev.txt).
+4. Install the [required libraries](querido-diario/pyproject.toml).
 ``` console
-pip install -r data_collection/requirements-dev.txt
+pip install .
 ```
 5. Install pre-commit, a tool that verifies if code attends project standards when _committing_.
 ``` console
@@ -60,7 +60,7 @@ _Note_: In Windows commands, the direction of the slash (`/` or `\`) may vary de
 
 #### Using WSL
 
-Open a new Ubuntu terminal and clone the forked [querido-diario](https://github.com/okfn-brasil/querido-diario) repository 
+Open a new Ubuntu terminal and clone the forked [querido-diario](https://github.com/okfn-brasil/querido-diario) repository
 
 Follow the instructions regarding installation using [Linux](CONTRIBUTING.md#em-linux).
 

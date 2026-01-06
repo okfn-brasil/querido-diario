@@ -40,10 +40,10 @@ jobs:
     - name: Schedule full crawl
       if: ${{ !github.event.inputs.start }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }}
     - name: Schedule partial crawl
       if: ${{ github.event.inputs.start }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         python scheduler.py schedule-spider --spider_name=${{ github.event.inputs.spider_name }} --start=${{ github.event.inputs.start }} --end=${{ github.event.inputs.end }}

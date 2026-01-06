@@ -36,11 +36,11 @@ jobs:
     - name: Prepare environment
       run: |
         python -m pip install --upgrade pip
-        pip install click python-decouple scrapinghub SQLAlchemy psycopg2     
+        pip install click python-decouple scrapinghub SQLAlchemy psycopg2
     - name: Schedule full crawl per year
       if: ${{ !github.event.inputs.end }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         spider=${{ github.event.inputs.spider_name }}
         start=${{ github.event.inputs.start }}
         int_start=$(date -d $start +"%Y%m%d")
@@ -58,7 +58,7 @@ jobs:
     - name: Schedule partial crawl per year
       if: ${{ github.event.inputs.end }}
       run: |
-        cd data_collection/
+        cd querido_diario/
         spider=${{ github.event.inputs.spider_name }}
         start=${{ github.event.inputs.start }}
         end=${{ github.event.inputs.end }}

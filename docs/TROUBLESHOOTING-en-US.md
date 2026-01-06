@@ -18,15 +18,16 @@ Please try to install `python3-dev`. E.g. via `apt install python3-dev`, if you 
 
 ## Error `pinned with ==`
 
-While running `pip install requeriments`, a inexact pinning error may appear. Therefore, use "--no-deps" along the installation:
+While running `pip install .`, a inexact pinning error may appear. Therefore, use "--no-deps" along the installation:
 
 ~~~Linux
-pip install -r data_collection/requirements-dev.txt --no-deps
+pip install setuptools[core]
+pip install . --no-deps
 ~~~
 
 ##  Error `legacy-install`
 
-In your WSL terminal, a `legacy-install failure`, like this one below, may occur while installing packages. 
+In your WSL terminal, a `legacy-install failure`, like this one below, may occur while installing packages.
 
 ```
 error: legacy-install failure

@@ -46,4 +46,4 @@ repos:
     hooks:
     -   id: python-safety-dependencies-check
         fail_fast: true
-        files: requirements\/[a-z]+\.txt
+        files: pyproject.toml
