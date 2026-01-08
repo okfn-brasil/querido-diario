@@ -10,4 +10,3 @@ class RjSaoPedroDaAldeiaSpider(BaseModernizacaoSpider):
     name = "rj_sao_pedro_da_aldeia"
     allowed_domains = ["transparencia.pmspa.rj.gov.br"]
     start_date = dt.date(2018, 1, 15)
-    ver_subpath = "ver20240713"
