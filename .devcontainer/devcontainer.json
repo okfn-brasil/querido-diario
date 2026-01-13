@@ -1,0 +1,10 @@
+{
+  "name": "Querido-Diario Dev",
+  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+  "features": {
+    "git": "latest"
+  },
+  "postCreateCommand": "pip install -r requirements.txt",
+  "forwardPorts": [8888],
+  "workspaceFolder": "/workspace"
+}
