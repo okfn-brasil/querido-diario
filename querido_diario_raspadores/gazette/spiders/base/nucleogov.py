@@ -40,8 +40,12 @@ class BaseNucleoGovSpider(BaseGazetteSpider):
 
     def parse(self, response):
         page = DiarioPage.from_response(response)
+        all_before_start = True
 
         for diario in page.diarios:
+            if diario.data >= self.start_date:
+                all_before_start = False
+
             if diario.data < self.start_date or diario.data > self.end_date:
                 continue
 
@@ -56,7 +60,7 @@ class BaseNucleoGovSpider(BaseGazetteSpider):
                 power="executive",
             )
 
-        if page.has_next_page:
+        if page.has_next_page and not all_before_start:
             yield scrapy.Request(
                 url=self._build_url(page=page.next_page),
                 callback=self.parse,
