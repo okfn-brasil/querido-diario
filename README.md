@@ -1,11 +1,24 @@
-**Português (BR)** | [English (US)](/docs/README-en-US.md)
+**Português (BR)** | [English (US)](README-en-US.md)
 
 <p align="center">
-  <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="./images/querido-diario-logo.png" width="200">
+  <a href="https://queridodiario.ok.org.br/sobre" target="_blank"> <img alt="Querido Diário" src="docs/images/querido-diario-logo.png" width="200">
   </a>
 </p>
 
-# Querido Diário
+<h1 align="center">Querido Diário</h1>
+
+<p align="center">
+  <a href="https://github.com/okfn-brasil/querido-diario/actions/workflows/tests.yml">
+    <img alt="Tests" src="https://github.com/okfn-brasil/querido-diario/workflows/Run%20tests/badge.svg">
+  </a>
+  <a href="LICENSE.md">
+    <img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  </a>
+  <a href="https://github.com/okfn-brasil/querido-diario/releases">
+    <img alt="Version" src="https://img.shields.io/github/v/release/okfn-brasil/querido-diario">
+  </a>
+</p>
+
 Dentro do [ecossistema do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#ecossistema-do-querido-diario), este repositório é o responsável pela tarefa de **raspagem dos sites publicadores de diários oficiais**.
 
 Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia) e a [história](https://queridodiario.ok.org.br/sobre) do projeto no [site do Querido Diário](https://queridodiario.ok.org.br)
@@ -20,6 +33,7 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 - [Suporte](#suporte)
 - [Agradecimentos](#agradecimentos)
 - [Open Knowledge Brasil](#open-knowledge-brasil)
+- [Documentação completa](#documentação-completa)
 - [Licença](#licença)
 
 # Como contribuir
@@ -31,7 +45,7 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 
 Agradecemos por considerar contribuir com o Querido Diário! :tada:
 
-Você encontra como fazê-lo no [CONTRIBUTING.md](/docs/CONTRIBUTING.md)!
+Você encontra como fazê-lo no [CONTRIBUTING.md](docs/CONTRIBUTING.md)!
 
 Além disso, consulte a [documentação do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/) para te ajudar. 
 
@@ -47,7 +61,7 @@ pip install -r data_collection/requirements-dev.txt
 pre-commit install
 ```
 
-> A configuração em outros sistemas operacionais está disponível em ["como configurar o ambiente de desenvolvimento"](/docs/CONTRIBUTING.md#como-configurar-o-ambiente-de-desenvolvimento), incluindo mais detalhes para quem deseja contribuir com o desenvolvimento do repositório.
+> A configuração em outros sistemas operacionais está disponível em ["como configurar o ambiente de desenvolvimento"](docs/CONTRIBUTING.md#como-configurar-o-ambiente-de-desenvolvimento), incluindo mais detalhes para quem deseja contribuir com o desenvolvimento do repositório.
 
 # Template para raspadores
 
@@ -97,6 +111,7 @@ scrapy crawl <nome_do_raspador> -a start=<AAAA-MM-DD>
 ```
 `end=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
 ```console
+
 scrapy crawl <nome_do_raspador> -a end=<AAAA-MM-DD>
 ```
 
@@ -115,19 +130,19 @@ scrapy crawl <nome_do_raspador> -o <nome_do_municipio>.csv
 ```
 
 # Solução de problemas
-Confira o arquivo de [solução de problemas](/docs/TROUBLESHOOTING.md) para resolver os problemas mais frequentes com a configuração do ambiente do projeto. 
+Confira o arquivo de [solução de problemas](docs/TROUBLESHOOTING.md) para resolver os problemas mais frequentes com a configuração do ambiente do projeto. 
 
-# Suporte 
+# Comunidade 
 <p>  
   <a href="https://go.ok.org.br/discord" target="_blank">
     <img alt="Discord Invite" src="https://img.shields.io/badge/Discord-Entre%20no%20servidor-blue?style=for-the-badge&logo=discord" >
   </a>
 </p>
 
-Ingresse em nosso [canal de comunidade](https://go.ok.org.br/discord) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição e conversar sobre inovação cívica em geral.
+Ingresse em nosso [canal de comunidade](https://go.ok.org.br/discord) para trocas sobre os projetos, dúvidas, pedidos de ajuda com contribuição e conversar sobre inovação cidadã em geral.
 
 # Agradecimentos
-Este projeto é mantido pela Open Knowledge Brasil e possível graças às comunidades técnicas, às [Embaixadoras de Inovação Cívica](https://embaixadoras.ok.org.br/), às pessoas voluntárias e doadoras financeiras, além de universidades parceiras, empresas apoiadoras e financiadoras.
+Este projeto é mantido pela Open Knowledge Brasil e possível graças às comunidades técnicas, às pessoas voluntárias e doadoras financeiras, além de universidades parceiras, empresas apoiadoras e financiadoras.
 
 Conheça [quem apoia o Querido Diário](https://queridodiario.ok.org.br/apoie#quem-apoia).
 
@@ -151,6 +166,14 @@ A [Open Knowledge Brasil](https://ok.org.br/) é uma organização da sociedade 
 
 Todo o trabalho produzido pela OKBR está disponível livremente.
 
-# Licença
+# Documentação completa
+Aqui está uma lista completa de toda a documentação disponível na pasta `docs/`:
 
-Código licenciado sob a [Licença MIT](LICENSE.md).
+- [Código de Conduta](docs/CODE_OF_CONDUCT.md) | [Código de Conduta (EN)](docs/CODE_OF_CONDUCT-en-US.md)
+- [Guia de Contribuição](docs/CONTRIBUTING.md) | [Guia de Contribuição (EN)](docs/CONTRIBUTING-en-US.md)
+- [Suporte](docs/SUPPORT.md) | [Suporte (EN)](docs/SUPPORT-en-US.md)
+- [Solução de Problemas](docs/TROUBLESHOOTING.md) | [Solução de Problemas (EN)](docs/TROUBLESHOOTING-en-US.md)
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE.md).
