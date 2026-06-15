@@ -6,3 +6,7 @@ isort
 pre-commit
 pip-tools
 pytest
+# setuptools is a transitive dependency of nodeenv (via pre-commit); pin it so
+# `pip install --require-hashes` works. Cap <81 to keep pkg_resources (removed in
+# setuptools 82), which nodeenv imports.
+setuptools<81
