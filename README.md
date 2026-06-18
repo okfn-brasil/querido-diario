@@ -173,6 +173,7 @@ Aqui está uma lista completa de toda a documentação disponível na pasta `doc
 - [Guia de Contribuição](docs/CONTRIBUTING.md) | [Guia de Contribuição (EN)](docs/CONTRIBUTING-en-US.md)
 - [Suporte](docs/SUPPORT.md) | [Suporte (EN)](docs/SUPPORT-en-US.md)
 - [Solução de Problemas](docs/TROUBLESHOOTING.md) | [Solução de Problemas (EN)](docs/TROUBLESHOOTING-en-US.md)
+- [Tutoriais](docs/tutorials/README.md) | [Tutoriais (EN)](docs/tutorials/README-en-US.md)
 
 ## Licença
 
