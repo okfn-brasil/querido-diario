@@ -13,6 +13,7 @@ Já leu? Então vamos às informações específicas deste repositório:
     - [Em Linux](#em-linux)
     - [Em Windows](#em-windows)
   - [Formatação automática de código](#formação-automática-de-código)
+  - [Tutorial de testes](#tutorial-de-testes)
 - [Mantendo](#mantendo)
     - [Revisão de raspadores](#revisão-de-raspadores)
 
@@ -154,6 +155,9 @@ O projeto usa [Black](https://github.com/psf/black) como ferramenta de automaç�
 Mas, se você seguiu as orientações para configurar o ambiente de desenvolvimento corretamente, especialmente instalando o `pre-commit`, é possível que você nunca precise corrigir a formatação manualmente. O `pre-commit` fará isso por você, já que executa antes de cada `commit`. Ainda, caso queira verificar todos os arquivos no projeto, use `make format` para evocar as ferramentas.
 
 _Observação_: `make` não é disponibilizado nativamente em Windows, sendo necessário instalá-lo para a utilização sugerida.
+
+## Tutorial de testes
+Depois de configurar o ambiente, consulte o [tutorial de testes](tutorials/testes.md) para validar mudanças com pytest, coletas pequenas do Scrapy, logs e arquivos CSV antes de abrir uma pull request.
 
 # Mantendo
 As pessoas mantenedoras devem seguir as diretrizes do [Guia para Mantenedoras](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/guia-de-contribuicao.html#mantendo) do Querido Diário.
