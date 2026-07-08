@@ -47,6 +47,8 @@ class Command(ScrapyCommand):
         print("\nEnabled spiders\n===============")
         for spider_name in get_enabled_spiders(
             database_url=self.settings["QUERIDODIARIO_DATABASE_URL"],
+            api_url=self.settings.get("QUERIDODIARIO_API_URL"),
+            api_key=self.settings.get("QUERIDODIARIO_API_KEY"),
             start_date=start,
             end_date=end,
         ):

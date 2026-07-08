@@ -12,14 +12,16 @@ from gazette.utils.database import get_enabled_spiders
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
 
 
-def _schedule_job(start, full, spider_name):
-    client = ScrapinghubClient(config("SHUB_APIKEY"))
-    project = client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
-
-    job_settings = {
+def _job_settings():
+    return {
         "FILES_STORE": config("FILES_STORE"),
         "FILES_STORE_SECONDARY": config("FILES_STORE_SECONDARY", default=""),
-        "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL"),
+        # Gazettes are persisted through the API when QUERIDODIARIO_API_URL
+        # is set. QUERIDODIARIO_DATABASE_URL is kept only while job_stats
+        # (phase 2) has not migrated to the API.
+        "QUERIDODIARIO_API_URL": config("QUERIDODIARIO_API_URL", default=""),
+        "QUERIDODIARIO_API_KEY": config("QUERIDODIARIO_API_KEY", default=""),
+        "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL", default=""),
         "AWS_ACCESS_KEY_ID": config("AWS_ACCESS_KEY_ID"),
         "AWS_SECRET_ACCESS_KEY": config("AWS_SECRET_ACCESS_KEY"),
         "AWS_ENDPOINT_URL": config("AWS_ENDPOINT_URL"),
@@ -28,6 +30,23 @@ def _schedule_job(start, full, spider_name):
         "SPIDERMON_DISCORD_WEBHOOK_URL": config("SPIDERMON_DISCORD_WEBHOOK_URL"),
         "ZYTE_SMARTPROXY_APIKEY": config("ZYTE_SMARTPROXY_APIKEY"),
     }
+
+
+def _get_enabled_spiders(start_date=None, end_date=None):
+    return get_enabled_spiders(
+        database_url=config("QUERIDODIARIO_DATABASE_URL", default=None),
+        api_url=config("QUERIDODIARIO_API_URL", default=""),
+        api_key=config("QUERIDODIARIO_API_KEY", default=""),
+        start_date=start_date,
+        end_date=end_date,
+    )
+
+
+def _schedule_job(start, full, spider_name):
+    client = ScrapinghubClient(config("SHUB_APIKEY"))
+    project = client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
+
+    job_settings = _job_settings()
 
     job_args = {}
     if not full:
@@ -65,18 +84,7 @@ def schedule_spider(spider_name, start, end):
     sh_client = ScrapinghubClient(config("SHUB_APIKEY"))
     project = sh_client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
 
-    job_settings = {
-        "FILES_STORE": config("FILES_STORE"),
-        "FILES_STORE_SECONDARY": config("FILES_STORE_SECONDARY", default=""),
-        "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL"),
-        "AWS_ACCESS_KEY_ID": config("AWS_ACCESS_KEY_ID"),
-        "AWS_SECRET_ACCESS_KEY": config("AWS_SECRET_ACCESS_KEY"),
-        "AWS_ENDPOINT_URL": config("AWS_ENDPOINT_URL"),
-        "AWS_REGION_NAME": config("AWS_REGION_NAME"),
-        "SPIDERMON_DISCORD_FAKE": config("SPIDERMON_DISCORD_FAKE"),
-        "SPIDERMON_DISCORD_WEBHOOK_URL": config("SPIDERMON_DISCORD_WEBHOOK_URL"),
-        "ZYTE_SMARTPROXY_APIKEY": config("ZYTE_SMARTPROXY_APIKEY"),
-    }
+    job_settings = _job_settings()
 
     job_args = {}
     if start:
@@ -154,9 +162,7 @@ def schedule_job(start, full, spider_name):
 
 @cli.command()
 def schedule_enabled_spiders():
-    for spider_name in get_enabled_spiders(
-        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=YESTERDAY
-    ):
+    for spider_name in _get_enabled_spiders(start_date=YESTERDAY):
         _schedule_job(start=YESTERDAY, full=False, spider_name=spider_name)
 
 
@@ -166,9 +172,7 @@ def last_month_schedule_enabled_spiders():
     # day as the physical one (sometimes it take more than two days and other weeks)
     # so running this command will ensure that we get the data of the latest month
     start = datetime.date.today() - datetime.timedelta(days=31)
-    for spider_name in get_enabled_spiders(
-        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start
-    ):
+    for spider_name in _get_enabled_spiders(start_date=start):
         _schedule_job(start=start, full=False, spider_name=spider_name)
 
 
@@ -178,9 +182,7 @@ def last_month_schedule_enabled_spiders():
 )
 @cli.command()
 def schedule_all_spiders_by_date(start):
-    for spider_name in get_enabled_spiders(
-        database_url=config("QUERIDODIARIO_DATABASE_URL"), start_date=start
-    ):
+    for spider_name in _get_enabled_spiders(start_date=start):
         _schedule_job(start=start, full=False, spider_name=spider_name)
 
 
