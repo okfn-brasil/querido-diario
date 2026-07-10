@@ -17,6 +17,16 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install shub
+    - name: Inject API credentials into settings
+      env:
+        QUERIDODIARIO_API_URL: ${{ secrets.QUERIDODIARIO_API_URL }}
+        QUERIDODIARIO_API_KEY: ${{ secrets.QUERIDODIARIO_API_KEY }}
+      run: |
+        printf '\nQUERIDODIARIO_API_URL = "%s"\n' "$QUERIDODIARIO_API_URL" \
+          >> data_collection/gazette/settings.py
+        printf 'QUERIDODIARIO_API_KEY = "%s"\n' "$QUERIDODIARIO_API_KEY" \
+          >> data_collection/gazette/settings.py
+
     - name: Deploy to Scrapy Cloud
       env:
         SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
