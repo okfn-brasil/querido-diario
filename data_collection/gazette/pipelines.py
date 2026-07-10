@@ -3,18 +3,19 @@ from pathlib import Path
 
 import boto3
 import filetype
+import requests
 from itemadapter import ItemAdapter
-from scrapy import spiderloader
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.http.request import NO_CALLBACK
 from scrapy.pipelines.files import FilesPipeline
 from scrapy.settings import Settings
-from scrapy.utils import project
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 
 from gazette.database.models import Gazette, initialize_database
+from gazette.utils.api_client import api_client_from_settings
+from gazette.utils.database import generate_territory_spider_map
 
 
 class GazetteDateFilteringPipeline:
@@ -36,6 +37,72 @@ class DefaultValuesPipeline:
         return item
 
 
+class ApiPipeline:
+    """Persist scraped gazettes through the Querido Diário API.
+
+    Replaces the direct database INSERT done by SQLDatabasePipeline when
+    QUERIDODIARIO_API_URL is configured. When the API is not configured
+    (local development), this pipeline is a no-op and SQLDatabasePipeline
+    keeps the current SQLite-based behavior.
+    """
+
+    ITEM_FIELDS = [
+        "source_text",
+        "date",
+        "edition_number",
+        "is_extra_edition",
+        "power",
+        "scraped_at",
+        "territory_id",
+    ]
+
+    def __init__(self, crawler):
+        self.crawler = crawler
+        self.client = None
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler)
+
+    def open_spider(self, spider):
+        # No-op when QUERIDODIARIO_API_URL is not set (local development)
+        self.client = api_client_from_settings(self.crawler.settings)
+
+    def process_item(self, item, spider):
+        if self.client is None:
+            return item
+
+        # "date" and "scraped_at" are already ISO formatted strings
+        # (see DefaultValuesPipeline), which is what the API expects.
+        gazette_item = {field: item.get(field) for field in self.ITEM_FIELDS}
+
+        for file_info in item.get("files", []):
+            already_downloaded = file_info["status"] == "uptodate"
+            if already_downloaded:
+                # We should not persist information of files that
+                # were already downloaded before
+                continue
+
+            gazette_item["file_path"] = file_info["path"]
+            gazette_item["file_url"] = file_info["url"]
+            gazette_item["file_checksum"] = file_info["checksum"]
+
+            try:
+                self.client.post_gazette(dict(gazette_item))
+            except requests.RequestException as exc:
+                # Same behavior as SQLDatabasePipeline: log and keep crawling.
+                # The item is recoverable by re-running the spider for the day
+                # (the API insert is idempotent).
+                spider.logger.warning(
+                    f"Something wrong has happened when sending the gazette to the API. "
+                    f"Date: {gazette_item['date']}. "
+                    f"File Checksum: {gazette_item['file_checksum']}. "
+                    f"Details: {exc}"
+                )
+
+        return item
+
+
 class SQLDatabasePipeline:
     def __init__(self, database_url):
         self.database_url = database_url
@@ -43,26 +110,15 @@ class SQLDatabasePipeline:
     @classmethod
     def from_crawler(cls, crawler):
         database_url = crawler.settings.get("QUERIDODIARIO_DATABASE_URL")
+        if crawler.settings.get("QUERIDODIARIO_API_URL"):
+            # ApiPipeline takes over gazette persistence when the API is
+            # configured; disable the direct database access.
+            database_url = None
         return cls(database_url=database_url)
-
-    def _generate_territory_spider_map(self):
-        settings = project.get_project_settings()
-        spider_loader = spiderloader.SpiderLoader.from_settings(settings)
-        spiders = spider_loader.list()
-        classes = [spider_loader.load(name) for name in spiders]
-
-        mapping = []
-        for spider_class in classes:
-            spider_name = getattr(spider_class, "name", None)
-            territory_id = getattr(spider_class, "TERRITORY_ID", None)
-            date_from = getattr(spider_class, "start_date", None)
-            if all((spider_name, territory_id, date_from)):
-                mapping.append((spider_name, territory_id, date_from))
-        return mapping
 
     def open_spider(self, spider):
         if self.database_url is not None:
-            territory_spider_map = self._generate_territory_spider_map()
+            territory_spider_map = generate_territory_spider_map()
             engine = initialize_database(self.database_url, territory_spider_map)
             self.Session = sessionmaker(bind=engine)
 

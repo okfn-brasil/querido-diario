@@ -7,10 +7,8 @@ from spidermon.contrib.scrapy.monitors import (
     FinishReasonMonitor,
     ItemValidationMonitor,
 )
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
-from gazette.extensions import JobStats
+from gazette.utils.api_client import api_client_from_settings
 
 
 @monitors.name("Requests/Items Ratio")
@@ -38,32 +36,30 @@ class RequestsItemsRatioMonitor(Monitor):
 
 @monitors.name("Comparison Between Executions")
 class ComparisonBetweenSpiderExecutionsMonitor(Monitor):
-    def _get_session(self):
-        database_url = self.data.crawler.settings.get("QUERIDODIARIO_DATABASE_URL")
-        engine = create_engine(database_url)
-        Session = sessionmaker(bind=engine)
-        return Session()
-
     @monitors.name("Days without gazettes")
     def test_days_without_gazettes(self):
         max_days_without_gazettes = self.data.crawler.settings.getint(
             "QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES"
         )
         if max_days_without_gazettes:
-            session = self._get_session()
+            client = api_client_from_settings(self.data.crawler.settings)
+            if client is None:
+                self.skipTest("QUERIDODIARIO_API_URL is not set. Monitor disabled.")
+
             reference_date = (
                 datetime.today() - timedelta(days=max_days_without_gazettes)
             ).replace(hour=0, minute=0)
 
-            job_stats = (
-                session.query(JobStats)
-                .filter(JobStats.start_time >= reference_date)
-                .filter(JobStats.spider == self.data.spider.name)
-                .all()
+            job_stats = client.get_job_stats(
+                spider_name=self.data.spider.name,
+                since_date=reference_date.date(),
             )
             n_scraped_items = self.data.stats.get("item_scraped_count", 0)
             extracted_in_period = (
-                sum([stat.job_stats.get("item_scraped_count", 0) for stat in job_stats])
+                sum(
+                    stat.get("stats", {}).get("item_scraped_count", 0)
+                    for stat in job_stats
+                )
                 + n_scraped_items
             )
             self.assertNotEqual(

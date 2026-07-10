@@ -10,7 +10,11 @@ ITEM_PIPELINES = {
     "gazette.pipelines.DefaultValuesPipeline": 200,
     "gazette.pipelines.QueridoDiarioFilesPipeline": 300,
     "spidermon.contrib.scrapy.pipelines.ItemValidationPipeline": 400,
-    "gazette.pipelines.SQLDatabasePipeline": 500,
+    # ApiPipeline persists gazettes through the Querido Diário API when
+    # QUERIDODIARIO_API_URL is set; otherwise it is a no-op and
+    # SQLDatabasePipeline keeps the direct database behavior (local dev).
+    "gazette.pipelines.ApiPipeline": 500,
+    "gazette.pipelines.SQLDatabasePipeline": 510,
 }
 USER_AGENT = (
     "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0"
@@ -47,6 +51,10 @@ SPIDERMON_DISCORD_WEBHOOK_URL = config(
 QUERIDODIARIO_DATABASE_URL = config(
     "QUERIDODIARIO_DATABASE_URL", default="sqlite:///querido-diario.db"
 )
+# When set, gazettes/job stats are persisted through the Querido Diário API
+# instead of direct database access (see ApiPipeline and StatsPersist)
+QUERIDODIARIO_API_URL = config("QUERIDODIARIO_API_URL", default="")
+QUERIDODIARIO_API_KEY = config("QUERIDODIARIO_API_KEY", default="")
 QUERIDODIARIO_MAX_REQUESTS_ITEMS_RATIO = 5
 QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES = 7
 
