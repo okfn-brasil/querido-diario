@@ -133,4 +133,10 @@ def api_client_from_settings(settings):
     api_url = settings.get("QUERIDODIARIO_API_URL")
     if not api_url:
         return None
-    return QueridoDiarioAPIClient(api_url, settings.get("QUERIDODIARIO_API_KEY", ""))
+    api_key = settings.get("QUERIDODIARIO_API_KEY", "")
+    if not api_key:
+        raise RuntimeError(
+            "QUERIDODIARIO_API_URL is set but QUERIDODIARIO_API_KEY is missing. "
+            "Configure the API key to authenticate with the Querido Diário API."
+        )
+    return QueridoDiarioAPIClient(api_url, api_key)

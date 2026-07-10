@@ -34,13 +34,13 @@ class Command(ScrapyCommand):
 
         if opts.start is not None:
             try:
-                start = datetime.datetime.strptime(opts.start, "%Y-%m-%d")
+                start = datetime.date.fromisoformat(opts.start)
             except ValueError:
                 raise UsageError("'start' must match YYYY-MM-DD format")
 
         if opts.end is not None:
             try:
-                end = datetime.datetime.strptime(opts.end, "%Y-%m-%d")
+                end = datetime.date.fromisoformat(opts.end)
             except ValueError:
                 raise UsageError("'end' must match YYYY-MM-DD format")
 

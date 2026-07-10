@@ -45,6 +45,11 @@ def get_enabled_spiders(
         yield from client.get_enabled_spiders(start_date=start_date, end_date=end_date)
         return
 
+    if not database_url:
+        raise RuntimeError(
+            "Neither QUERIDODIARIO_API_URL nor QUERIDODIARIO_DATABASE_URL is set. "
+            "Configure one of them to fetch enabled spiders."
+        )
     engine = create_engine(database_url)
     Session = sessionmaker(bind=engine)
     session = Session()
