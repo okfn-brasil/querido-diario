@@ -7,7 +7,7 @@ with an API Key sent in the ``X-API-Key`` header.
 Configuration (environment variables or Scrapy settings):
     - ``QUERIDODIARIO_API_URL``: base URL of the API
       (e.g. ``https://queridodiario.ok.org.br/api``... base host only,
-      the ``/api/scraper/*`` path is appended by the client)
+      the ``/scraper/*`` path is appended by the client)
     - ``QUERIDODIARIO_API_KEY``: API Key for the scraper endpoints
 """
 
@@ -22,7 +22,7 @@ RETRY_STATUS_FORCELIST = [429, 500, 502, 503, 504]
 
 
 class QueridoDiarioAPIClient:
-    """Client for the ``/api/scraper/*`` endpoints of the Querido Diário API.
+    """Client for the ``/scraper/*`` endpoints of the Querido Diário API.
 
     Retries with exponential backoff are enabled for GET and POST requests.
     Retrying POSTs is safe because the server-side inserts are idempotent
@@ -61,30 +61,30 @@ class QueridoDiarioAPIClient:
     def get_enabled_spiders(self, start_date=None, end_date=None):
         """Return the names of the enabled spiders within the date period.
 
-        GET /api/scraper/spiders
+        GET /scraper/spiders
         """
         params = {}
         if start_date is not None:
             params["start_date"] = str(start_date)
         if end_date is not None:
             params["end_date"] = str(end_date)
-        data = self._get("/api/scraper/spiders", params=params)
+        data = self._get("/scraper/spiders", params=params)
         return [spider["spider_name"] for spider in data["spiders"]]
 
     def post_gazette(self, gazette):
         """Persist a scraped gazette (metadata only).
 
-        POST /api/scraper/gazettes
+        POST /scraper/gazettes
 
         The endpoint is idempotent: posting a duplicate
         (same territory_id + date + file_checksum) is a no-op.
         """
-        return self._post("/api/scraper/gazettes", gazette)
+        return self._post("/scraper/gazettes", gazette)
 
     def post_job_stats(self, spider_name, job_id, stats_dict):
         """Persist the Scrapy stats of a finished job.
 
-        POST /api/scraper/job-stats
+        POST /scraper/job-stats
         """
         payload = {
             "spider_name": spider_name,
@@ -92,24 +92,24 @@ class QueridoDiarioAPIClient:
             "start_time": str(stats_dict.get("start_time", "")),
             "stats": stats_dict,
         }
-        return self._post("/api/scraper/job-stats", payload)
+        return self._post("/scraper/job-stats", payload)
 
     def get_job_stats(self, spider_name, since_date):
         """Return the job stats of a spider since a given date.
 
-        GET /api/scraper/job-stats?spider=<name>&since=<YYYY-MM-DD>
+        GET /scraper/job-stats?spider=<name>&since=<YYYY-MM-DD>
 
         Returns a list of dicts, each one with at least a ``stats`` key
         holding the Scrapy stats collected for that job.
         """
         params = {"spider": spider_name, "since": str(since_date)}
-        data = self._get("/api/scraper/job-stats", params=params)
+        data = self._get("/scraper/job-stats", params=params)
         return data["job_stats"]
 
     def sync_spiders(self, territory_spider_map):
         """Register new/modified spiders and their territory mapping.
 
-        POST /api/scraper/spiders/sync
+        POST /scraper/spiders/sync
 
         ``territory_spider_map`` is an iterable of
         ``(spider_name, territory_id, date_from)`` tuples.
@@ -124,7 +124,7 @@ class QueridoDiarioAPIClient:
                 for spider_name, territory_id, date_from in territory_spider_map
             ]
         }
-        return self._post("/api/scraper/spiders/sync", payload)
+        return self._post("/scraper/spiders/sync", payload)
 
 
 def api_client_from_settings(settings):
