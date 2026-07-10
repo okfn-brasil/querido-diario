@@ -21,6 +21,8 @@ jobs:
       SPIDERMON_DISCORD_FAKE: ${{ secrets.SPIDERMON_DISCORD_FAKE }}
       SPIDERMON_DISCORD_WEBHOOK_URL: ${{ secrets.SPIDERMON_DISCORD_WEBHOOK_URL }}
       ZYTE_SMARTPROXY_APIKEY: ${{ secrets.ZYTE_SMARTPROXY_APIKEY }}
+      QUERIDODIARIO_API_URL: ${{ secrets.QUERIDODIARIO_API_URL }}
+      QUERIDODIARIO_API_KEY: ${{ secrets.QUERIDODIARIO_API_KEY }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
