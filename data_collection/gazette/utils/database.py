@@ -1,6 +1,4 @@
 from decouple import config
-from scrapy import spiderloader
-from scrapy.utils import project
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 
@@ -11,6 +9,9 @@ from gazette.utils.api_client import QueridoDiarioAPIClient
 def generate_territory_spider_map():
     """Build the (spider_name, territory_id, date_from) mapping from the
     spider classes available in the project."""
+    from scrapy import spiderloader
+    from scrapy.utils import project
+
     settings = project.get_project_settings()
     spider_loader = spiderloader.SpiderLoader.from_settings(settings)
     spiders = spider_loader.list()
