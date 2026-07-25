@@ -1,4 +1,8 @@
-boto3==1.43.56
+# boto3/botocore pinados para casar com o awscli==1.29.62 pré-instalado
+# na imagem de deploy do Scrapy Cloud (exige botocore==1.31.62 exatamente).
+# Uma versão mais nova quebra o `pip check` do `shub deploy`.
+boto3==1.28.62
+botocore==1.31.62
 click
 chompjs
 dateparser
