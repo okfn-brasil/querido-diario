@@ -1,8 +1,8 @@
 import csv
 import datetime as dt
 import logging
+from importlib.resources import files
 
-import pkg_resources
 from sqlalchemy import (
     Boolean,
     Column,
@@ -36,9 +36,7 @@ def load_territories(engine):
         return
 
     logger.info("Populating 'territories' table - Please wait!")
-    territories_file = pkg_resources.resource_filename(
-        "gazette", "resources/territories.csv"
-    )
+    territories_file = str(files("gazette").joinpath("resources/territories.csv"))
     with open(territories_file, encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         territories = []
