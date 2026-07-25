@@ -63,7 +63,13 @@ AWS_ENDPOINT_URL = config("AWS_ENDPOINT_URL", default="")
 AWS_REGION_NAME = config("AWS_REGION_NAME", default="")
 FILES_STORE_S3_ACL = config("FILES_STORE_S3_ACL", default="")
 
-DOWNLOADER_MIDDLEWARES = {"gazette.middlewares.ZyteSmartProxyMiddleware": 610}
+DOWNLOADER_MIDDLEWARES = {
+    "gazette.middlewares.ZyteSmartProxyMiddleware": 610,
+    # Detects when a response is actually a Cloudflare Turnstile challenge
+    # page and fails the request/spider instead of treating it as valid
+    # content (see gazette/utils/blocking.py).
+    "gazette.middlewares.GazetteDownloaderMiddleware": 620,
+}
 ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"
 
 COMMANDS_MODULE = "gazette.commands"
