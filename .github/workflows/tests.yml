@@ -3,14 +3,39 @@ name: Run tests
 on: [ push, pull_request ]
 
 jobs:
-  tests:
+  pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - name: Install dependencies
         run: pip install pre-commit
       - name: Check pre-commit hooks
         run: pre-commit run --all
+
+  data-collection-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: data_collection
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Run pytest
+        run: pytest tests/ -v
+      - name: Check for dependency conflicts with the Scrapy Cloud deploy stack
+        # A imagem de deploy do Scrapy Cloud (stack definida em scrapinghub.yml)
+        # já vem com um awscli pré-instalado que exige versões exatas de
+        # boto3/botocore/s3transfer. Se essas libs forem atualizadas sem
+        # respeitar essa exigência, o `shub deploy` falha silenciosamente
+        # (só se descobre no push para a main). Este passo reproduz o
+        # `pip check` que o deploy faz, usando o awscli da stack atual.
+        run: |
+          pip install awscli==1.40.10
+          pip check
