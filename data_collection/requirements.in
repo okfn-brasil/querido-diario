@@ -23,3 +23,5 @@ SQLAlchemy
 spidermon
 w3lib
 querido-diario-toolbox
+pdfplumber
+pypdf
