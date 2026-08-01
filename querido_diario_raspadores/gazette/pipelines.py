@@ -4,18 +4,16 @@ from pathlib import Path
 import boto3
 import filetype
 import requests
+from gazette.database.models import Gazette, initialize_database
+from gazette.utils.api_client import api_client_from_settings
+from gazette.utils.database import generate_territory_spider_map
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
 from scrapy.http.request import NO_CALLBACK
 from scrapy.pipelines.files import FilesPipeline
-from scrapy.settings import Settings
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
-
-from gazette.database.models import Gazette, initialize_database
-from gazette.utils.api_client import api_client_from_settings
-from gazette.utils.database import generate_territory_spider_map
 
 
 class GazetteDateFilteringPipeline:
@@ -186,12 +184,10 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
 
     DEFAULT_FILES_REQUESTS_FIELD = "file_requests"
 
-    def __init__(self, *args, settings=None, **kwargs):
-        super().__init__(*args, settings=settings, **kwargs)
+    def __init__(self, *args, crawler, **kwargs):
+        super().__init__(*args, crawler=crawler, **kwargs)
 
-        if isinstance(settings, dict) or settings is None:
-            settings = Settings(settings)
-
+        settings = crawler.settings
         self.files_requests_field = settings.get(
             "FILES_REQUESTS_FIELD", self.DEFAULT_FILES_REQUESTS_FIELD
         )
