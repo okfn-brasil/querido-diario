@@ -10,29 +10,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-    - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+    - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9  # v9.0.0
       with:
         python-version: "3.13"
-    - name: Install shub
+    - name: Generate requirements.txt for the Scrapy Cloud stack
+      # scrapinghub.yml aponta pra requirements.txt (formato exigido pelo shub
+      # deploy); o pyproject.toml/uv.lock são a fonte da verdade, então esse
+      # arquivo é gerado aqui em vez de versionado no repositório.
       run: |
-        python -m pip install --upgrade pip
-        pip install shub
+        cd querido_diario_raspadores/
+        uv export --no-hashes --no-dev --no-emit-project -o requirements.txt
     - name: Deploy to Scrapy Cloud
       env:
         SHUB_APIKEY: ${{ secrets.SHUB_APIKEY }}
       run: |
-        cd data_collection/
-        shub deploy ${{ secrets.SCRAPY_CLOUD_PROJECT_ID }}
+        cd querido_diario_raspadores/
+        uvx shub deploy ${{ secrets.SCRAPY_CLOUD_PROJECT_ID }}
 
     - name: Install project dependencies
       run: |
-        cd data_collection/
-        pip install -r requirements.txt
+        cd querido_diario_raspadores/
+        uv sync
 
     - name: Sync spiders to API
       env:
         QUERIDODIARIO_API_URL: ${{ secrets.QUERIDODIARIO_API_URL }}
         QUERIDODIARIO_API_KEY: ${{ secrets.QUERIDODIARIO_API_KEY }}
       run: |
-        cd data_collection/
-        scrapy qd-sync-spiders
+        cd querido_diario_raspadores/
+        uv run scrapy qd-sync-spiders

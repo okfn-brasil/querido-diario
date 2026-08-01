@@ -18,10 +18,11 @@ Please try to install `python3-dev`. E.g. via `apt install python3-dev`, if you 
 
 ## Error `pinned with ==`
 
-While running `pip install requeriments`, a inexact pinning error may appear. Therefore, use "--no-deps" along the installation:
+While installing dependencies, a inexact pinning error may appear. Therefore, use "--no-deps" along the installation:
 
 ~~~Linux
-pip install -r data_collection/requirements-dev.txt --no-deps
+cd querido_diario_raspadores
+uv pip install -e . --no-deps
 ~~~
 
 ##  Error `legacy-install`

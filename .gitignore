@@ -1,4 +1,8 @@
-data_collection/data
+querido_diario_raspadores/data
+
+# Requisitos gerados a partir do pyproject.toml/uv.lock só para o deploy no
+# Scrapy Cloud (scrapinghub.yml exige requirements.txt); não versionado.
+querido_diario_raspadores/requirements.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -74,6 +78,8 @@ target/
 
 # pyenv
 .python-version
+# ...exceto o pin de versão do uv para o projeto de raspadores
+!/querido_diario_raspadores/.python-version
 
 # celery beat schedule file
 celerybeat-schedule
