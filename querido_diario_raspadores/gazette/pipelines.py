@@ -18,7 +18,15 @@ from gazette.utils.database import generate_territory_spider_map
 
 
 class GazetteDateFilteringPipeline:
-    def process_item(self, item, spider):
+    def __init__(self, crawler):
+        self.crawler = crawler
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler)
+
+    def process_item(self, item):
+        spider = self.crawler.spider
         if hasattr(spider, "start_date"):
             if spider.start_date > item.get("date"):
                 raise DropItem("Droping all items before {}".format(spider.start_date))
@@ -26,12 +34,22 @@ class GazetteDateFilteringPipeline:
 
 
 class DefaultValuesPipeline:
-    def process_item(self, item, spider):
+    def __init__(self, crawler):
+        self.crawler = crawler
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler)
+
+    def process_item(self, item):
+        spider = self.crawler.spider
         item["territory_id"] = getattr(spider, "TERRITORY_ID")
 
         # Date manipulation to allow jsonschema to validate correctly
         item["date"] = str(item["date"])
-        item["scraped_at"] = dt.datetime.utcnow().isoformat("T") + "Z"
+        item["scraped_at"] = (
+            dt.datetime.now(dt.UTC).isoformat("T").replace("+00:00", "Z")
+        )
 
         return item
 
@@ -63,13 +81,15 @@ class ApiPipeline:
     def from_crawler(cls, crawler):
         return cls(crawler)
 
-    def open_spider(self, spider):
+    def open_spider(self):
         # No-op when QUERIDODIARIO_API_URL is not set (local development)
         self.client = api_client_from_settings(self.crawler.settings)
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         if self.client is None:
             return item
+
+        spider = self.crawler.spider
 
         # "date" and "scraped_at" are already ISO formatted strings
         # (see DefaultValuesPipeline), which is what the API expects.
@@ -103,7 +123,8 @@ class ApiPipeline:
 
 
 class SQLDatabasePipeline:
-    def __init__(self, database_url):
+    def __init__(self, crawler, database_url):
+        self.crawler = crawler
         self.database_url = database_url
 
     @classmethod
@@ -113,18 +134,19 @@ class SQLDatabasePipeline:
             # ApiPipeline takes over gazette persistence when the API is
             # configured; disable the direct database access.
             database_url = None
-        return cls(database_url=database_url)
+        return cls(crawler=crawler, database_url=database_url)
 
-    def open_spider(self, spider):
+    def open_spider(self):
         if self.database_url is not None:
             territory_spider_map = generate_territory_spider_map()
             engine = initialize_database(self.database_url, territory_spider_map)
             self.Session = sessionmaker(bind=engine)
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         if self.database_url is None:
             return item
 
+        spider = self.crawler.spider
         session = self.Session()
 
         fields = [
