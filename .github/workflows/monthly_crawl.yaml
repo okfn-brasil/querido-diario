@@ -5,6 +5,13 @@ on:
     # Execute once a month at 8PM (BRT)
     - cron: "0 23 1 * *"
   workflow_dispatch:
+    inputs:
+      start:
+        description: 'Start date (YYYY-MM-DD). Leave empty to default to 31 days ago.'
+        required: false
+      end:
+        description: 'End date (YYYY-MM-DD). Leave empty to default to no end bound (today).'
+        required: false
 
 jobs:
   monthly-crawl:
@@ -35,4 +42,11 @@ jobs:
     - name: Schedule jobs
       run: |
         cd querido_diario_raspadores/
-        uv run python scheduler.py last-month-schedule-enabled-spiders
+        args=()
+        if [ -n "${{ github.event.inputs.start }}" ]; then
+          args+=(--start "${{ github.event.inputs.start }}")
+        fi
+        if [ -n "${{ github.event.inputs.end }}" ]; then
+          args+=(--end "${{ github.event.inputs.end }}")
+        fi
+        uv run python scheduler.py last-month-schedule-enabled-spiders "${args[@]}"

@@ -47,7 +47,7 @@ def _get_project():
     return client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
 
 
-def _schedule_job(start, full, spider_name, project=None):
+def _schedule_job(start, full, spider_name, project=None, end=None):
     project = project or _get_project()
 
     job_settings = _job_settings()
@@ -55,6 +55,8 @@ def _schedule_job(start, full, spider_name, project=None):
     job_args = {}
     if not full:
         job_args["start"] = start
+        if end:
+            job_args["end"] = end
 
     spider = project.spiders.get(spider_name)
     spider.jobs.run(
@@ -177,14 +179,29 @@ def schedule_enabled_spiders():
 
 
 @cli.command()
-def last_month_schedule_enabled_spiders():
+@click.option(
+    "--start",
+    default=None,
+    help="Start date (YYYY-MM-DD). Defaults to 31 days ago.",
+)
+@click.option(
+    "--end",
+    default=None,
+    help="End date (YYYY-MM-DD). Defaults to no end bound (today).",
+)
+def last_month_schedule_enabled_spiders(start, end):
     # Sometimes the online gazette is not published in the websites in the same
     # day as the physical one (sometimes it take more than two days and other weeks)
-    # so running this command will ensure that we get the data of the latest month
-    start = datetime.date.today() - datetime.timedelta(days=31)
+    # so running this command with no arguments will ensure that we get the data
+    # of the latest month. --start/--end allow overriding the window to
+    # (re)schedule enabled spiders over any custom date range instead.
+    if start is None:
+        start = datetime.date.today() - datetime.timedelta(days=31)
     project = _get_project()
-    for spider_name in _get_enabled_spiders(start_date=start):
-        _schedule_job(start=start, full=False, spider_name=spider_name, project=project)
+    for spider_name in _get_enabled_spiders(start_date=start, end_date=end):
+        _schedule_job(
+            start=start, end=end, full=False, spider_name=spider_name, project=project
+        )
 
 
 @click.option(
