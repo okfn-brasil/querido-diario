@@ -68,6 +68,10 @@ class BaseDiofSpider(BaseGazetteSpider):
                 callback=self.interval_request,
             )
 
+    async def start(self):
+        async for request in super().start():
+            yield request
+
     def interval_request(self, response):
         self._get_client_id(response)
 
