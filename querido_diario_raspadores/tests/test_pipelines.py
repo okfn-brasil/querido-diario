@@ -1,9 +1,11 @@
 from gazette.pipelines import QueridoDiarioFilesPipeline
 from scrapy import Spider
+from scrapy.utils.reactor import install_reactor
 from scrapy.utils.test import get_crawler
 
 
 def test_files_pipeline_can_be_created_from_crawler(tmp_path):
+    install_reactor("twisted.internet.asyncioreactor.AsyncioSelectorReactor")
     crawler = get_crawler(
         Spider,
         settings_dict={

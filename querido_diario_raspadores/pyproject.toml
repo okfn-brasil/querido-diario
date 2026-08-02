@@ -4,7 +4,7 @@ version = "1.0"
 requires-python = ">=3.13"
 dependencies = [
     # boto3/botocore/s3transfer pinados para casar com o awscli pré-instalado
-    # na imagem de deploy do Scrapy Cloud (stack scrapy:2.14), que atualmente
+    # na imagem de deploy do Scrapy Cloud (stack scrapy:2.14-20260326), que
     # traz awscli==1.40.10 (exige botocore==1.38.11 e s3transfer==0.12.0).
     # Uma versão diferente quebra o `pip check` do `shub deploy`.
     "boto3==1.38.11",
@@ -22,7 +22,7 @@ dependencies = [
     "python-dateutil",
     "python-decouple",
     "requests",
-    "scrapy",
+    "scrapy==2.14.2",
     "scrapy-zyte-smartproxy",
     "sqlalchemy",
     "spidermon",
@@ -37,6 +37,9 @@ dev = [
     "isort",
     "pre-commit",
     "pytest",
+    # Mesma versão fornecida pela stack do Scrapy Cloud. Mantê-la no ambiente
+    # de testes permite detectar incompatibilidades entre sh_scrapy e Scrapy.
+    "scrapinghub-entrypoint-scrapy==0.18.1",
 ]
 
 [build-system]
