@@ -4,6 +4,22 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 from scrapy import signals
+from scrapy_zyte_smartproxy import (
+    ZyteSmartProxyMiddleware as BaseZyteSmartProxyMiddleware,
+)
+
+
+class ZyteSmartProxyMiddleware(BaseZyteSmartProxyMiddleware):
+    """Expose scrapy-zyte-smartproxy through the current Scrapy middleware API."""
+
+    def process_request(self, request):
+        return super().process_request(request, self.spider)
+
+    def process_response(self, request, response):
+        return super().process_response(request, response, self.spider)
+
+    def process_exception(self, request, exception):
+        return super().process_exception(request, exception, self.spider)
 
 
 class GazetteSpiderMiddleware:

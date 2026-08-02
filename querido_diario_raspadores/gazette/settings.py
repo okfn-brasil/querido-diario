@@ -63,7 +63,7 @@ AWS_ENDPOINT_URL = config("AWS_ENDPOINT_URL", default="")
 AWS_REGION_NAME = config("AWS_REGION_NAME", default="")
 FILES_STORE_S3_ACL = config("FILES_STORE_S3_ACL", default="")
 
-DOWNLOADER_MIDDLEWARES = {"scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware": 610}
+DOWNLOADER_MIDDLEWARES = {"gazette.middlewares.ZyteSmartProxyMiddleware": 610}
 ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"
 
 COMMANDS_MODULE = "gazette.commands"
