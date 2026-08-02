@@ -4,9 +4,12 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 from scrapy import signals
+from scrapy.exceptions import CloseSpider
 from scrapy_zyte_smartproxy import (
     ZyteSmartProxyMiddleware as BaseZyteSmartProxyMiddleware,
 )
+
+from gazette.utils.blocking import is_cloudflare_challenge
 
 
 class ZyteSmartProxyMiddleware(BaseZyteSmartProxyMiddleware):
@@ -93,6 +96,23 @@ class GazetteDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
+        if is_cloudflare_challenge(response):
+            spider.crawler.stats.inc_value("cloudflare_challenge/blocked_count")
+            spider.logger.error(
+                "Blocked by a Cloudflare Turnstile challenge at %s. Aborting "
+                "the spider instead of treating the challenge page as valid "
+                "content.",
+                request.url,
+            )
+            # Raised here, this is caught the same way an exception raised
+            # from a spider callback would be: it stops the spider with a
+            # finish_reason that isn't "finished", which our Spidermon
+            # monitors (FinishReasonMonitor/ErrorCountMonitor) already treat
+            # as a failure. For requests started by the files pipeline
+            # (downloading the gazette PDF), this is instead caught by
+            # Scrapy's MediaPipeline as a failed download, so the fake file
+            # is dropped rather than saved as if it were the real gazette.
+            raise CloseSpider(reason="blocked_by_cloudflare_turnstile")
         return response
 
     def process_exception(self, request, exception, spider):
