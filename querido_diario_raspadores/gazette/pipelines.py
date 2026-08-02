@@ -261,12 +261,20 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
         urls = ItemAdapter(item).get(self.files_urls_field, [])
         download_file_headers = getattr(info.spider, "download_file_headers", {})
         yield from (
-            Request(u, callback=NO_CALLBACK, headers=download_file_headers)
+            Request(
+                u,
+                callback=NO_CALLBACK,
+                headers=download_file_headers,
+                meta={"allow_offsite": True},
+            )
             for u in urls
         )
 
         requests = ItemAdapter(item).get(self.files_requests_field, [])
-        yield from requests
+        yield from (
+            request.replace(meta={**request.meta, "allow_offsite": True})
+            for request in requests
+        )
 
     def item_completed(self, results, item, info):
         """
