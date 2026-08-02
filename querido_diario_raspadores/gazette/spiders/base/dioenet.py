@@ -1,11 +1,12 @@
 import re
 from datetime import datetime
 
+from scrapy.exceptions import NotConfigured
+from scrapy.http import FormRequest, Request
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import weekly_window
-from scrapy.exceptions import NotConfigured
-from scrapy.http import FormRequest, Request
 
 
 class BaseDioenetSpider(BaseGazetteSpider):

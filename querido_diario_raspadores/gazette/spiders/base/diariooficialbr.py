@@ -1,8 +1,9 @@
 import scrapy
+from scrapy.exceptions import NotConfigured
+
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.extraction import get_date_from_text
-from scrapy.exceptions import NotConfigured
 
 
 class BaseDiarioOficialBRSpider(BaseGazetteSpider):

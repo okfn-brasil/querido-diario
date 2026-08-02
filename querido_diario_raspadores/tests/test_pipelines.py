@@ -1,7 +1,8 @@
-from gazette.pipelines import QueridoDiarioFilesPipeline
 from scrapy import Spider
 from scrapy.utils.reactor import install_reactor
 from scrapy.utils.test import get_crawler
+
+from gazette.pipelines import QueridoDiarioFilesPipeline
 
 
 def test_files_pipeline_can_be_created_from_crawler(tmp_path):

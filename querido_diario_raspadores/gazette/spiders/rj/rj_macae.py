@@ -1,5 +1,6 @@
 import re
-from datetime import date, datetime as dt
+from datetime import date
+from datetime import datetime as dt
 
 import scrapy
 

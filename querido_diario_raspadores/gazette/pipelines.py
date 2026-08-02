@@ -4,9 +4,6 @@ from pathlib import Path
 import boto3
 import filetype
 import requests
-from gazette.database.models import Gazette, initialize_database
-from gazette.utils.api_client import api_client_from_settings
-from gazette.utils.database import generate_territory_spider_map
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
@@ -14,6 +11,10 @@ from scrapy.http.request import NO_CALLBACK
 from scrapy.pipelines.files import FilesPipeline
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
+
+from gazette.database.models import Gazette, initialize_database
+from gazette.utils.api_client import api_client_from_settings
+from gazette.utils.database import generate_territory_spider_map
 
 
 class GazetteDateFilteringPipeline:

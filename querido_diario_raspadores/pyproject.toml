@@ -52,5 +52,9 @@ include = ["gazette*"]
 [tool.setuptools.package-data]
 gazette = ["resources/*.json", "resources/*.csv"]
 
+[tool.isort]
+profile = "black"
+known_first_party = ["gazette"]
+
 [project.entry-points.scrapy]
 settings = "gazette.settings"
