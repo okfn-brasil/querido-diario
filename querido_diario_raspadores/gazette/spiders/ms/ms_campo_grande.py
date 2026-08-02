@@ -14,7 +14,7 @@ class MsCampoGrandeSpider(BaseGazetteSpider):
     allowed_domains = ["diogrande.campogrande.ms.gov.br"]
     start_date = dt.date(1998, 1, 9)
 
-    def start_requests(self):
+    async def start(self):
         base_url = "https://diogrande.campogrande.ms.gov.br/wp-admin/admin-ajax.php?action=edicoes_json"
         start_date = self.start_date.strftime("%d/%m/%Y")
         end_date = self.end_date.strftime("%d/%m/%Y")

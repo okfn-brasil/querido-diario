@@ -19,7 +19,7 @@ class BaseModernizacaoSpider(BaseGazetteSpider):
         "DOWNLOAD_DELAY": 0.75,
     }
 
-    def start_requests(self):
+    async def start(self):
         domain = self.allowed_domains[0]
         base_url = f"https://{domain}/{self.filter_endpoint}.php"
 

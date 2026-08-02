@@ -19,7 +19,7 @@ class BaseAdminLteSpider(BaseGazetteSpider):
 
         super(BaseAdminLteSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         url = f"https://diariooficial.{self.city_domain}/pesquisa/"
 
         start_date = self.start_date.strftime("%Y-%m-%d")

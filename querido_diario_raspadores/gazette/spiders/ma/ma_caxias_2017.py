@@ -29,7 +29,7 @@ class MaCaxiasSpider(BaseGazetteSpider):
         "QUERIDODIARIO_MAX_DAYS_WITHOUT_GAZETTES": 14,
     }
 
-    def start_requests(self):
+    async def start(self):
         for date_of_interest in rrule(
             freq=DAILY, dtstart=self.start_date, until=self.end_date
         ):

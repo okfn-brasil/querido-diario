@@ -32,13 +32,9 @@ class BaseSigpubSpider(BaseGazetteSpider):
 
         super(BaseSigpubSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         """Requests start page where the calendar widget is available."""
         yield scrapy.Request(self.CALENDAR_URL, callback=self.parse_calendar)
-
-    async def start(self):
-        async for request in super().start():
-            yield request
 
     def parse_calendar(self, response):
         """Makes requests for each date to see if a document is available."""

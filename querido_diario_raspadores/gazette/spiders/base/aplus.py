@@ -18,7 +18,7 @@ class BaseAplusSpider(BaseGazetteSpider):
 
         super(BaseAplusSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         start_date = self.start_date.strftime("%Y/%m/%d")
         end_date = self.end_date.strftime("%Y/%m/%d")
         yield FormRequest(

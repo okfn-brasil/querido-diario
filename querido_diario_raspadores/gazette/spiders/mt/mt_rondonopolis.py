@@ -18,7 +18,7 @@ class MtRondonopolisSpider(BaseGazetteSpider):
         "DOWNLOAD_FAIL_ON_DATALOSS": False,
     }
 
-    def start_requests(self):
+    async def start(self):
         for date in daily_sequence(self.start_date, self.end_date):
             search_date = date.strftime("%Y-%m-%d")
             yield scrapy.Request(

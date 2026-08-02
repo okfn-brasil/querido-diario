@@ -16,7 +16,7 @@ class RjMaricaSpider(BaseGazetteSpider):
     start_date = date(2006, 7, 17)
     BASE_URL = "https://www.marica.rj.gov.br/wp-admin/admin-ajax.php"
 
-    def start_requests(self):
+    async def start(self):
         for monthly_date in monthly_sequence(self.start_date, self.end_date):
             for gazette_type in ["jom", "jom-especial"]:
                 yield scrapy.FormRequest(

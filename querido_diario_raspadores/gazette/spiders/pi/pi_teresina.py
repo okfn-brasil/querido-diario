@@ -14,7 +14,7 @@ class PiTeresina(BaseGazetteSpider):
     allowed_domains = ["dom.pmt.pi.gov.br"]
     start_date = datetime.date(2005, 1, 7)
 
-    def start_requests(self):
+    async def start(self):
         initial_date = self.start_date.strftime("%d/%m/%Y")
         end_date = self.end_date.strftime("%d/%m/%Y")
 

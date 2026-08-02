@@ -15,7 +15,7 @@ class BasePtioSpider(BaseGazetteSpider):
 
         super(BasePtioSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.Request(self.BASE_URL)
 
     def parse(self, response):

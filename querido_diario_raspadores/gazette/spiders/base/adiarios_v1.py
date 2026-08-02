@@ -20,7 +20,7 @@ class BaseAdiariosV1Spider(BaseGazetteSpider):
 
         super(BaseAdiariosV1Spider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         start_date = self.start_date.strftime("%d/%m/%Y")
         end_date = self.end_date.strftime("%d/%m/%Y")
 

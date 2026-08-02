@@ -15,7 +15,7 @@ class RjDuqueDeCaxiasSpider(BaseGazetteSpider):
     allowed_domains = ["duquedecaxias.rj.gov.br"]
     start_date = date(2017, 1, 2)
 
-    def start_requests(self):
+    async def start(self):
         current_year = datetime.today().year
         for year in yearly_sequence(self.start_date, self.end_date):
             if year == current_year:

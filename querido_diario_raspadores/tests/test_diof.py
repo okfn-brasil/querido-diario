@@ -16,13 +16,12 @@ async def collect_start_requests(spider):
     return [request async for request in spider.start()]
 
 
-def test_start_delegates_to_legacy_start_requests():
+def test_start_builds_client_info_request():
     spider = DiofSpiderForTest()
 
-    legacy_requests = list(spider.start_requests())
     start_requests = asyncio.run(collect_start_requests(spider))
 
-    assert len(start_requests) == len(legacy_requests) == 1
-    assert start_requests[0].url == legacy_requests[0].url
-    assert start_requests[0].headers == legacy_requests[0].headers
-    assert start_requests[0].callback == legacy_requests[0].callback
+    assert len(start_requests) == 1
+    assert start_requests[0].url.endswith("/dados-cliente/info/")
+    assert start_requests[0].headers["Origin"] == b"https://example.com"
+    assert start_requests[0].callback == spider.interval_request

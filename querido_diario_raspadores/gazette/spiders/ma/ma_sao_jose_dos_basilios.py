@@ -16,7 +16,7 @@ class MaSaoJoseDosBasiliosSpider(BaseGazetteSpider):
     allowed_domains = ["diariooficial.saojosedosbasilios.ma.gov.br"]
     BASE_URL = "https://diariooficial.saojosedosbasilios.ma.gov.br"
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.Request(f"{self.BASE_URL}/home")
 
     def parse(self, response, page=1):

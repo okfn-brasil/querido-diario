@@ -15,7 +15,7 @@ class RnNatalSpider(BaseGazetteSpider):
 
     TERRITORY_ID = "2408102"
 
-    def start_requests(self):
+    async def start(self):
         for monthly_date in monthly_sequence(
             self.start_date, self.end_date, format="%m/%Y"
         ):

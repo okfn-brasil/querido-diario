@@ -24,7 +24,7 @@ class BaseDoemSpider(BaseGazetteSpider):
 
         super(BaseDoemSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         for month_year in monthly_sequence(
             self.start_date, self.end_date, format="%Y/%m"
         ):

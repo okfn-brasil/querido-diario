@@ -22,7 +22,7 @@ class MgUberlandiaSpider(BaseGazetteSpider):
         "USER_AGENT": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
     }
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date):
             yield scrapy.Request(
                 f"https://www.uberlandia.mg.gov.br/{date.year}/{date.month}/?post_type=diariooficial",

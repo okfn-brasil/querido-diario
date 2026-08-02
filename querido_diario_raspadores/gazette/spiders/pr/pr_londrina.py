@@ -36,7 +36,7 @@ class PrLondrina(BaseGazetteSpider):
             },
         )
 
-    def start_requests(self):
+    async def start(self):
         start_year = self.start_date.year
         end_year = self.end_date.year
 

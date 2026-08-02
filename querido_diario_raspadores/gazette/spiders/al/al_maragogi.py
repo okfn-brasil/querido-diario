@@ -16,7 +16,7 @@ class AlMaragogiSpider(BaseGazetteSpider):
     start_date = date(2024, 4, 17)
     BASE_URL = "https://diario.maragogi.al.gov.br"
 
-    def start_requests(self):
+    async def start(self):
         yield FormRequest(
             url=f"{self.BASE_URL}/busca",
             formdata=self.__create_params(),

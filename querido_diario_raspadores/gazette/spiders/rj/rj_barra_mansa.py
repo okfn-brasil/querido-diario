@@ -16,7 +16,7 @@ class RjBarraMansaSpider(BaseGazetteSpider):
     start_urls = ["https://portaltransparencia.barramansa.rj.gov.br/boletim-oficial/"]
     start_date = date(2017, 1, 3)
 
-    def start_requests(self):
+    async def start(self):
         for year in yearly_sequence(self.start_date, self.end_date):
             if year == datetime.today().year:
                 yield Request(self.start_urls[0])

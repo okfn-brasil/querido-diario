@@ -18,7 +18,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
 
     custom_settings = {"DOWNLOAD_DELAY": 0.5}
 
-    def start_requests(self):
+    async def start(self):
         base_url = "https://api-dom.pbh.gov.br/api/v1/edicoes/buscarpublicacaopordata"
 
         for date in daily_sequence(self.start_date, self.end_date):

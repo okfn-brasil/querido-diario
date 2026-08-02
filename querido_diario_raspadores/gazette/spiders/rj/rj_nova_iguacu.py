@@ -14,7 +14,7 @@ class RjNovaIguacu(BaseGazetteSpider):
     start_date = dt.date(2014, 1, 6)
     BASE_URL = "https://www.novaiguacu.rj.gov.br/diario-oficial/"
 
-    def start_requests(self):
+    async def start(self):
         for date in daily_sequence(self.start_date, self.end_date):
             yield scrapy.Request(
                 f"{self.BASE_URL}?data={date.isoformat()}",

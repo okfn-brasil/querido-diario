@@ -13,7 +13,7 @@ class MaAldeiasAltasSpider(BaseGazetteSpider):
     start_date = date(2017, 5, 3)
     TERRITORY_ID = "2100303"
 
-    def start_requests(self):
+    async def start(self):
         for day in daily_sequence(self.start_date, self.end_date, format="%Y-%m-%d"):
             yield scrapy.Request(
                 f"https://aldeiasaltas.ma.gov.br/diario-oficial?data={day}"

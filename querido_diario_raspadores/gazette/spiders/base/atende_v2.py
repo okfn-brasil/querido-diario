@@ -24,7 +24,7 @@ class BaseAtendeV2Spider(BaseGazetteSpider):
 
         super(BaseAtendeV2Spider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         self.BASE_URL = f"https://{self.city_subdomain}.atende.net/diariooficial/edicao/pagina/atende.php"
 
         yield FormRequest(

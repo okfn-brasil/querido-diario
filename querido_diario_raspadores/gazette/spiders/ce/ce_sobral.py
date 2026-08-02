@@ -15,7 +15,7 @@ class CeSobralSpider(BaseGazetteSpider):
 
     BASE_URL = "https://www.sobral.ce.gov.br/diario/pesquisa/index"
 
-    def start_requests(self):
+    async def start(self):
         if self.start_date < dt.date(2017, 2, 3):
             # Gazettes older than 03/02/2017 are available at
             # https://www.sobral.ce.gov.br/diario/iom

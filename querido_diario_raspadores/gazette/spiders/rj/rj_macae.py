@@ -14,7 +14,7 @@ class RjMacaeSpider(BaseGazetteSpider):
     allowed_domains = ["macae.rj.gov.br"]
     start_date = date(2020, 5, 22)
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.FormRequest(
             url="https://do.macae.rj.gov.br/index/listarajax",
             method="POST",

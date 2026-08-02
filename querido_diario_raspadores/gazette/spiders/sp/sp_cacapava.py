@@ -13,7 +13,7 @@ class SpCacapavaSpider(BaseGazetteSpider):
     start_date = date(2021, 4, 27)
     custom_settings = {"DOWNLOAD_DELAY": 0.5, "RANDOMIZE_DOWNLOAD_DELAY": True}
 
-    def start_requests(self):
+    async def start(self):
         data_de = self.start_date.strftime("%d/%m/%Y")
         data_ate = self.end_date.strftime("%d/%m/%Y")
         url = f"https://cacapava.sp.gov.br/diario-oficial?dataDe={data_de}&dataAte={data_ate}"

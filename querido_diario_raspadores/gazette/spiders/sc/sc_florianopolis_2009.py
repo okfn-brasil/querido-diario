@@ -15,7 +15,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
     start_date = date(2009, 6, 1)
     allowed_domains = ["pmf.sc.gov.br"]
 
-    def start_requests(self):
+    async def start(self):
         end_date = self.end_date
 
         periods_of_interest = [

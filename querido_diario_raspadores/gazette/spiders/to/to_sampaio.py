@@ -26,7 +26,7 @@ class ToSampaioSpider(BaseGazetteSpider):
             f"https://diariooficial.sampaio.to.gov.br/pesquisar?{urlencode(url_params)}"
         )
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.Request(url=self.get_url())
 
     def parse(self, response, current_page=1):

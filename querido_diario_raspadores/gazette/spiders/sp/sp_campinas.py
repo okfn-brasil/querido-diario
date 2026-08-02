@@ -17,7 +17,7 @@ class SpCampinasSpider(BaseGazetteSpider):
     url_base = "https://portal-api.campinas.sp.gov.br/api/v1/publicacoes-dom/all/{}?_format=json"
     start_date = datetime.date(1995, 1, 5)
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date, format="%Y%m"):
             yield scrapy.Request(self.url_base.format(date))
 

@@ -17,7 +17,7 @@ class ToPalmasSpider(BaseGazetteSpider):
         "MEDIA_ALLOW_REDIRECTS": True,
     }
 
-    def start_requests(self):
+    async def start(self):
         dt_inicial = self.start_date.strftime("%d/%m/%Y")
         dt_final = self.end_date.strftime("%d/%m/%Y")
 

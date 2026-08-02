@@ -14,7 +14,7 @@ class PrMaringaSpider(BaseGazetteSpider):
     allowed_domains = ["maringa.pr.gov.br"]
     start_date = date(2007, 1, 1)
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.FormRequest(
             "https://venus.maringa.pr.gov.br/arquivos/orgao_oficial/seleciona_ano_oom.php",
             callback=self.parse_form,

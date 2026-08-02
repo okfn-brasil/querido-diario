@@ -27,7 +27,7 @@ class BaseDionetSpider(BaseGazetteSpider):
 
         super(BaseDionetSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         for date in daily_sequence(self.start_date, self.end_date):
             api_path = f"/apifront/portal/edicoes/edicoes_from_data/{date.strftime('%Y-%m-%d')}.json"
             url = "".join([self.BASE_URL, api_path, self.url_subtheme])

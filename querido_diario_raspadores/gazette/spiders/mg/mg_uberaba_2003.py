@@ -14,7 +14,7 @@ class MgUberabaSpider(BaseGazetteSpider):
     start_date = dt.date(2003, 4, 25)
     end_date = dt.date(2021, 9, 1)
 
-    def start_requests(self):
+    async def start(self):
         for year in range(self.start_date.year, self.end_date.year + 1):
             yield FormRequest(
                 url="http://www.uberaba.mg.gov.br/portal/listImagesHtml",

@@ -25,7 +25,7 @@ class BaseMunicipioOnlineSpider(BaseGazetteSpider):
 
         super(BaseMunicipioOnlineSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         url = f"https://www.municipioonline.com.br/{self.url_uf}/prefeitura/{self.url_city}/cidadao/diariooficial"
         yield scrapy.Request(url, callback=self.date_filter_request)
 

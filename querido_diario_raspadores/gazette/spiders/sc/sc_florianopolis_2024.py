@@ -26,7 +26,7 @@ class ScFlorianopolisSpider(BaseGazetteSpider):
             cb_kwargs={"page": page},
         )
 
-    def start_requests(self):
+    async def start(self):
         yield self._requests(1)
 
     def parse_pagination(self, response, page):

@@ -37,7 +37,7 @@ class DfBrasiliaSpider(BaseGazetteSpider):
 
     BASE_URL = "https://dodf.df.gov.br"
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date):
             month_value = MONTH_MAP.get(date.month)
             yield Request(

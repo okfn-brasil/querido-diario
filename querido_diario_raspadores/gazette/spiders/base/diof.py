@@ -48,7 +48,7 @@ class BaseDiofSpider(BaseGazetteSpider):
 
         super(BaseDiofSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         if "sai.io" in self.website or "dom.imap" in self.website:
             yield Request(
                 self.website,
@@ -67,10 +67,6 @@ class BaseDiofSpider(BaseGazetteSpider):
                 headers=headers,
                 callback=self.interval_request,
             )
-
-    async def start(self):
-        async for request in super().start():
-            yield request
 
     def interval_request(self, response):
         self._get_client_id(response)

@@ -18,7 +18,7 @@ class BaBarreirasSpider(BaseGazetteSpider):
     base_url = "https://barreiras.ba.gov.br/diario-oficial"
     start_date = dt.date(2008, 1, 2)
 
-    def start_requests(self):
+    async def start(self):
         for year in yearly_sequence(self.start_date, self.end_date):
             if year == dt.date.today().year:
                 base_url = f"{self.base_url}/"

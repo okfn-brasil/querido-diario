@@ -23,7 +23,7 @@ class BaseAdministracaoPublicaSpider(BaseGazetteSpider):
 
         super(BaseAdministracaoPublicaSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         for interval in weekly_window(
             self.start_date, self.end_date, format="%Y-%m-%d"
         ):

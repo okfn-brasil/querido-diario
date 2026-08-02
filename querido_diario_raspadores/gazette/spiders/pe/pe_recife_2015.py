@@ -40,7 +40,7 @@ class PeRecifeSpider_2015(BaseGazetteSpider):
     EDITIONS_IN_DATE_URL = "https://ws.cepe.com.br/publicar/dows.php?&dia={full_date}"
     GAZETTE_URL = "http://200.238.105.211/cadernos/{full_year}/{full_date}/{edition_type}/{edition_type_name_only}({full_date}).pdf"
 
-    def start_requests(self):
+    async def start(self):
         """
         Requests documents which specifies edition types available for dates.
         """

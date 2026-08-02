@@ -20,7 +20,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
         "DOWNLOAD_DELAY": 1,
     }
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date, format="%Y/%m"):
             date_url = f"{self.BASE_URL}/published/{date}"
             yield Request(

@@ -20,7 +20,7 @@ class BaseInstarSpider(BaseGazetteSpider):
 
         super(BaseInstarSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         page = 1
         start_date = self.start_date.strftime("%d-%m-%Y")
         end_date = self.end_date.strftime("%d-%m-%Y")

@@ -20,7 +20,7 @@ class BasePortalGovSpider(BaseGazetteSpider):
 
         super(BasePortalGovSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.FormRequest(
             url=f"https://{self.website}/controllers/diario_oficial/class_diario.php",
             formdata={

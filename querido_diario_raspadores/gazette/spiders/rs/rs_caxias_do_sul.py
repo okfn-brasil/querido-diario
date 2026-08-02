@@ -14,7 +14,7 @@ class RsCaxiasDoSulSpider(BaseGazetteSpider):
     allowed_domains = ["caxias.rs.gov.br"]
     start_date = datetime.date(2015, 1, 1)
 
-    def start_requests(self):
+    async def start(self):
         start_date = self.start_date.strftime("%d-%m-%y")
         end_date = self.end_date.strftime("%d-%m-%y")
 

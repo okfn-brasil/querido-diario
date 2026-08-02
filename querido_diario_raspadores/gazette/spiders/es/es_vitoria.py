@@ -23,7 +23,7 @@ class EsVitoriaSpider(BaseGazetteSpider):
     FORM_PARAM_MONTH = "ctl00$conteudo$ucPesquisarDiarioOficial$ddlMes"
     FORM_PARAM_PAGINATION = "ctl00$conteudo$ucPesquisarDiarioOficial$grdArquivos"
 
-    def start_requests(self):
+    async def start(self):
         yield Request(
             "https://diariooficial.vitoria.es.gov.br/",
             callback=self.make_year_request,

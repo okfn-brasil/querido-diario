@@ -14,7 +14,7 @@ class RnMossoroSpider(BaseGazetteSpider):
     allowed_domains = ["jom.mossoro.rn.gov.br"]
     start_date = dt.date(2008, 1, 1)
 
-    def start_requests(self):
+    async def start(self):
         # avoid skipping months if day of start_date is at the end of the month
         first_day_of_start_date_month = dt.date(
             self.start_date.year, self.start_date.month, 1

@@ -17,7 +17,7 @@ class BaseSiganetSpider(BaseGazetteSpider):
 
         super(BaseSiganetSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         yield scrapy.Request(f"{self.BASE_URL}/listarDiario")
 
     def parse(self, response):

@@ -15,7 +15,7 @@ class BaSalvadorSpider(BaseGazetteSpider):
     allowed_domains = ["salvador.ba.gov.br"]
     start_date = datetime.date(2001, 1, 1)
 
-    def start_requests(self):
+    async def start(self):
         initial_date = self.start_date.strftime("%Y-%m-%d")
         end_date = self.end_date.strftime("%Y-%m-%d")
         initial_search_parameters = {

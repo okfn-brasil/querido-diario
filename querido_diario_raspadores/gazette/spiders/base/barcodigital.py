@@ -21,7 +21,7 @@ class BaseBarcoDigitalSpider(BaseGazetteSpider):
 
         super(BaseBarcoDigitalSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date):
             url = f"{self.base_url}/api/publico/diario/calendario?mes={date.month}&ano={date.year}"
             yield Request(url)

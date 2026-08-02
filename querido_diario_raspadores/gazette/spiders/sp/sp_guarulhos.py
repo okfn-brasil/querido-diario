@@ -15,7 +15,7 @@ class SpGuarulhosSpider(BaseGazetteSpider):
 
     BASE_URL = "https://diariooficial.guarulhos.sp.gov.br/index.php"
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date):
             yield scrapy.Request(f"{self.BASE_URL}?mes={date.month}&ano={date.year}")
 

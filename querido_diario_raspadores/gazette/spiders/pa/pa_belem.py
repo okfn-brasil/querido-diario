@@ -16,7 +16,7 @@ class PaBelemSpider(BaseGazetteSpider):
 
     BASE_URL = "https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios"
 
-    def start_requests(self):
+    async def start(self):
         initial_date = self.start_date.strftime("%Y-%m-%dT00:00:00.000Z")
         end_date = self.end_date.strftime("%Y-%m-%dT00:00:00.000Z")
 

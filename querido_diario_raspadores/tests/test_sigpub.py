@@ -15,12 +15,11 @@ async def collect_start_requests(spider):
     return [request async for request in spider.start()]
 
 
-def test_start_delegates_to_legacy_start_requests():
+def test_start_builds_calendar_request():
     spider = SigpubSpiderForTest()
 
-    legacy_requests = list(spider.start_requests())
     start_requests = asyncio.run(collect_start_requests(spider))
 
-    assert len(start_requests) == len(legacy_requests) == 1
-    assert start_requests[0].url == legacy_requests[0].url
-    assert start_requests[0].callback == legacy_requests[0].callback
+    assert len(start_requests) == 1
+    assert start_requests[0].url == spider.CALENDAR_URL
+    assert start_requests[0].callback == spider.parse_calendar

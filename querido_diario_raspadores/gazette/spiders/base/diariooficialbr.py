@@ -15,7 +15,7 @@ class BaseDiarioOficialBRSpider(BaseGazetteSpider):
 
         super(BaseDiarioOficialBRSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         url = f"{self.BASE_URL}/pesquisa/search?initDate={self.start_date}&endDate={self.end_date}"
         yield scrapy.Request(url)
 

@@ -29,7 +29,7 @@ class RjNiteroiSpider(BaseGazetteSpider):
         "12_Dez",
     ]
 
-    def start_requests(self):
+    async def start(self):
         for date in daily_sequence(self.start_date, self.end_date):
             month = self.month_names[date.month - 1]
             year = date.year

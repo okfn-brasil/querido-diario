@@ -23,7 +23,7 @@ class BaseImprensaOficialSpider(BaseGazetteSpider):
 
         super(BaseImprensaOficialSpider, self).__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         for year_month in monthly_sequence(
             self.start_date, self.end_date, format="%Y/%m/"
         ):

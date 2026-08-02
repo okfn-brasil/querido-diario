@@ -15,7 +15,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
     start_urls = ["http://www4.goiania.go.gov.br/portal/site.asp?s=775&m=2075"]
     start_date = datetime.date(1960, 4, 21)
 
-    def start_requests(self):
+    async def start(self):
         initial_year = self.start_date.year
         end_year = datetime.date.today().year
         for year in range(initial_year, end_year + 1):

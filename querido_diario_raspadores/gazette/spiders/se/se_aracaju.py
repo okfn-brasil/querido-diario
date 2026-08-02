@@ -18,13 +18,16 @@ class SeAracajuSpider(BaseGazetteSpider):
 
     custom_settings = {"CONCURRENT_REQUESTS_PER_DOMAIN": 12}
 
-    def start_requests(self, cookiejar=None):
-        yield scrapy.Request(
+    def _start_request(self, cookiejar=None):
+        return scrapy.Request(
             "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp",
             meta={"cookiejar": cookiejar} if cookiejar is not None else {},
             dont_filter=True,
             callback=self.make_mandatory_post_request,
         )
+
+    async def start(self):
+        yield self._start_request()
 
     def make_mandatory_post_request(self, response):
         search_option_field = response.css("[value=mesano]::attr(name)").get()
@@ -39,7 +42,7 @@ class SeAracajuSpider(BaseGazetteSpider):
     def start_session_ids(self, response):
         if not response.meta.get("cookiejar", False):
             for date in monthly_sequence(self.start_date, self.end_date):
-                yield from self.start_requests(
+                yield self._start_request(
                     cookiejar=(
                         date.year,
                         date.month,

@@ -13,7 +13,7 @@ class ApMacapaSpider(BaseGazetteSpider):
     start_date = datetime.date(2018, 1, 1)
     TERRITORY_ID = "1600303"
 
-    def start_requests(self):
+    async def start(self):
         base_url = "http://macapa.ap.gov.br/page/1/"
         start_date = self.start_date.strftime("%d/%m/%Y")
         end_date = self.end_date.strftime("%d/%m/%Y")

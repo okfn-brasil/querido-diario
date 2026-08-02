@@ -14,7 +14,7 @@ class SpJundiaiSpider(BaseGazetteSpider):
     allowed_domains = ["jundiai.sp.gov.br"]
     start_date = dt.date(2006, 4, 4)
 
-    def start_requests(self):
+    async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date, format="%Y/%m"):
             yield scrapy.Request(
                 url=f"https://imprensaoficial.jundiai.sp.gov.br/{date}/"
