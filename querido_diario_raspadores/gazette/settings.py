@@ -1,5 +1,3 @@
-from importlib.resources import files
-
 from decouple import config
 
 BOT_NAME = "gazette"
@@ -34,9 +32,7 @@ EXTENSIONS = {
     "gazette.extensions.StatsPersist": 600,
 }
 SPIDERMON_ENABLED = config("SPIDERMON_ENABLED", default=True, cast=bool)
-SPIDERMON_VALIDATION_SCHEMAS = [
-    str(files("gazette").joinpath("resources/gazette_schema.json"))
-]
+SPIDERMON_VALIDATION_SCHEMAS = ["gazette.schema.GAZETTE_SCHEMA"]
 
 SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
 SPIDERMON_VALIDATION_DROP_ITEMS_WITH_ERRORS = True

@@ -36,8 +36,8 @@ def load_territories(engine):
         return
 
     logger.info("Populating 'territories' table - Please wait!")
-    territories_file = str(files("gazette").joinpath("resources/territories.csv"))
-    with open(territories_file, encoding="utf-8") as csvfile:
+    territories_file = files("gazette").joinpath("resources/territories.csv")
+    with territories_file.open(encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         territories = []
         for row in reader:
