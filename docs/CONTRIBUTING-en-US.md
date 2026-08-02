@@ -18,7 +18,7 @@ The main challenge of this repository is to have more and more scrapers from web
 To help you develop, use the guidelines on the page about [how to write a new scraper](https://docs.queridodiario.ok.org.br/en/latest/writing-a-new-spider.html) available at [Querido Diario's technical documentation](https://docs.queridodiario.ok.org.br/en/latest/).
 
 ## How to setup the development environment
-Scrapers are developed using [Python](https://docs.python.org/3/) and [Scrapy](https://scrapy.org) framework. You can check [how to install Python](https://www.python.org/downloads/) on your operating system and learn more about Scrapy [in this tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). With Python on your computer, follow the development environment setup step-by-step:
+Scrapers are developed using [Python](https://docs.python.org/3/) and [Scrapy](https://scrapy.org) framework. Python and dependency management is done with [uv](https://docs.astral.sh/uv/), which takes care of installing the right Python version and creating the virtual environment automatically. You can check [how to install uv](https://docs.astral.sh/uv/getting-started/installation/) on your operating system and learn more about Scrapy [in this tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). With uv installed, follow the development environment setup step-by-step:
 
 ### Linux
 1. Create a fork of this repository and, with a terminal open in a preferred directory on your computer, clone it and access the new directory created with the name of the repository.
@@ -26,25 +26,20 @@ Scrapers are developed using [Python](https://docs.python.org/3/) and [Scrapy](h
 git clone <repository_fork>
 cd querido-diario
 ```
-2. Create a new [virtual environment](https://docs.python.org/3/library/venv.html) which will keep the project isolated from your system.
+2. Install the [required libraries](/querido_diario_raspadores/pyproject.toml), including dev ones. uv creates the virtual environment (`.venv`) automatically inside `querido_diario_raspadores`.
 ``` console
-python3 -m venv .venv
+cd querido_diario_raspadores
+uv sync --all-groups
+cd ..
 ```
-3. Activate the newly created virtual environment
+3. Install pre-commit, a tool that verifies if code attends project standards when _committing_.
 ``` console
-source .venv/bin/activate
-```
-4. Install the [required libraries](querido-diario/data_collection/requirements-dev.txt).
-``` console
-pip install -r data_collection/requirements-dev.txt
-```
-5. Install pre-commit, a tool that verifies if code attends project standards when _committing_.
-``` console
+uv tool install pre-commit
 pre-commit install
 ```
-6. Your development environment is ready! :tada:
+4. Your development environment is ready! :tada:
 
-_Attention:_ These steps need to be executed only the first time you interact with the project during the environment setup. After that, just activate the virtual environment (step 3) every time you use or contribute to the repository.
+_Attention:_ You don't need to manually activate the virtual environment: project commands (`scrapy`, `pytest`, etc) should be run with `uv run <command>` from the `querido_diario_raspadores` directory, and uv picks the right environment automatically. If you prefer to activate the virtual environment manually, it lives at `querido_diario_raspadores/.venv`.
 
 ### Windows
 #### Using Windows terminal
@@ -52,10 +47,7 @@ The following instructions were tried on Windows 10 and 11. Remember that if you
 
 1. Install [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/downloads/). Before the installation, you need to select in the **Individual Components** tab "Windows 10 SDK" or "11" (depending on your system) and "MSVC v143 build tools - VS 2022 C++ x64/x86 ( v14.32-17.4)". Note that Windows 10 SDK and MSVC v142 - VS 2019 C++ x64/x86 build tools versions will often be updated, so look for similar items under Individual Components to perform the installation (i.e. newer and compatible with your system). Under **Workloads**, select “Desktop development with C++”. Install the updates, close the application and follow the next steps.
 
-2. Follow all [steps used in Linux](#linux), except for item 3. In it, the command should be:
-```console
-.venv/Scripts/activate.bat
-```
+2. Follow all [steps used in Linux](#linux) to install [uv](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer) and set up the environment.
 _Note_: In Windows commands, the direction of the slash (`/` or `\`) may vary depending on the use of [WSL](https://learn.microsoft.com/en-us/windows/wsl/about).
 
 #### Using WSL

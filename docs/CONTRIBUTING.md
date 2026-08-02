@@ -25,12 +25,12 @@ Uma breve descrição da estrutura do repositório:
 | [`.github`](/.github) | Diretório com configurações do repositório para o GitHub |
 | [`.github/workflows`](/.github/workflows) | Configurações das GitHub Actions do repositório (fluxos de raspagens, deploy em produção, etc) |
 | [`docs`](/docs) | Diretório de arquivos de documentação do repositório (README, CONTRIBUTING, etc) |
-| [`templates/spiders`](/data_collection/templates/spiders) | Diretório para templates de spiders pré-configurados no formato padrão do repositório |
-| [`data_collection`](/data_collection) | Diretório para projeto Scrapy de coleta de dados adaptado para as necessidades do Querido Diário |
-| [`data_collection/gazette/database`](/data_collection/gazette/database) | Diretório para o modelo de banco de dados |
-| [`data_collection/gazette/resources`](/data_collection/gazette/resources) | Diretório para recursos adicionais: tabela de códigos IBGE dos municípios e esquema para validação dos dados de coleta |
-| [`data_collection/gazette/spiders`](/data_collection/gazette/spiders) | Diretório para as spiders dos municípios organizado por estado |
-| [`data_collection/gazette/spiders/base`](/data_collection/gazette/spiders/base) | Diretório de spiders base para [padrões identificados em sites](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/lista-sistemas-replicaveis.html) |
+| [`templates/spiders`](/querido_diario_raspadores/templates/spiders) | Diretório para templates de spiders pré-configurados no formato padrão do repositório |
+| [`querido_diario_raspadores`](/querido_diario_raspadores) | Diretório para projeto Scrapy de coleta de dados adaptado para as necessidades do Querido Diário |
+| [`querido_diario_raspadores/gazette/database`](/querido_diario_raspadores/gazette/database) | Diretório para o modelo de banco de dados |
+| [`querido_diario_raspadores/gazette/resources`](/querido_diario_raspadores/gazette/resources) | Diretório para recursos adicionais: tabela de códigos IBGE dos municípios e esquema para validação dos dados de coleta |
+| [`querido_diario_raspadores/gazette/spiders`](/querido_diario_raspadores/gazette/spiders) | Diretório para as spiders dos municípios organizado por estado |
+| [`querido_diario_raspadores/gazette/spiders/base`](/querido_diario_raspadores/gazette/spiders/base) | Diretório de spiders base para [padrões identificados em sites](https://docs.queridodiario.ok.org.br/pt-br/latest/contribuindo/lista-sistemas-replicaveis.html) |
 
 ## Desafios
 O principal desafio aqui é o de ter cada vez mais raspadores de sites publicadores de diários oficiais, visando atingir os 5570 municípios brasileiros. Utilizamos o [Quadro de Expansão de Cidades](https://github.com/orgs/okfn-brasil/projects/12/views/13) para organizar as tarefas mais visualmente. Consulte-o para localizar tarefas relevantes com as quais você pode contribuir.
@@ -98,7 +98,7 @@ Por isso, esta seção traz os tipos de raspadores do repositório, suas complex
 Ao já ter desenvolvido todos os tipos de raspadores acima, experimente seguir contribuindo com o repositório por meio de revisões.
 
 ## Como configurar o ambiente de desenvolvimento
-Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). Você pode conferir [como instalar Python](https://www.python.org/downloads/) em seu sistema operacional e conhecer mais sobre o Scrapy [neste tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). Com Python em seu computador, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
+Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o framework [Scrapy](https://scrapy.org). O gerenciamento do Python e das dependências é feito com o [uv](https://docs.astral.sh/uv/), que cuida de instalar a versão correta do Python e criar o ambiente virtual automaticamente. Você pode conferir [como instalar o uv](https://docs.astral.sh/uv/getting-started/installation/) em seu sistema operacional e conhecer mais sobre o Scrapy [neste tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). Com o uv instalado, siga o passo-a-passo da configuração do ambiente de desenvolvimento:
 
 ### Em Linux
 1. Faça um fork deste repositório e, com o terminal aberto em um diretório de preferência no seu computador, clone-o e acesse o novo diretório criado com o nome do repositório.
@@ -106,25 +106,20 @@ Os raspadores são desenvolvidos usando [Python](https://docs.python.org/3/) e o
 git clone <repositorio_fork>
 cd querido-diario
 ```
-2. Crie um novo [ambiente virtual](https://docs.python.org/pt-br/3/library/venv.html) - que manterá as execuções do projeto isoladas de seu sistema.
+2. Instale as [bibliotecas requeridas](/querido_diario_raspadores/pyproject.toml), incluindo as de desenvolvimento. O uv cria o ambiente virtual (`.venv`) automaticamente dentro de `querido_diario_raspadores`.
 ``` console
-python3 -m venv .venv
+cd querido_diario_raspadores
+uv sync --all-groups
+cd ..
 ```
-3. Ative o recém criado ambiente virtual
+3. Instale o pré-commit, uma ferramenta que, ao fazer o _commit_ do código, verifica se ele se adequa aos padrões do projeto.
 ``` console
-source .venv/bin/activate
-```
-4. Instale as [bibliotecas requeridas](querido-diario/data_collection/requirements-dev.txt).
-``` console
-pip install -r data_collection/requirements-dev.txt
-```
-5. Instale o pré-commit, uma ferramenta que, ao fazer o _commit_ do código, verifica se ele se adequa aos padrões do projeto.
-``` console
+uv tool install pre-commit
 pre-commit install
 ```
-6. Seu ambiente de desenvolvimento está pronto! :tada:
+4. Seu ambiente de desenvolvimento está pronto! :tada:
 
-_Atenção:_ Estas etapas precisam ser executadas apenas na primeira vez que interagir com o projeto durante a preparação do ambiente. Depois disso, basta ativar o ambiente virtual (passo 3) cada vez que for utilizar ou contribuir com o repositório.
+_Atenção:_ Não é necessário ativar manualmente o ambiente virtual: os comandos do projeto (`scrapy`, `pytest`, etc) devem ser executados com `uv run <comando>` a partir do diretório `querido_diario_raspadores`, e o uv seleciona o ambiente correto automaticamente. Se preferir ativar o ambiente virtual manualmente, ele fica em `querido_diario_raspadores/.venv`.
 
 ### Em Windows
 
@@ -133,10 +128,7 @@ As instruções a seguir foram experimentadas em Windows 10 e 11. Lembre-se que 
 
 1. Instale o [Visual Studio Comunidade](https://visualstudio.microsoft.com/pt-br/downloads/) . Ao abrir o terminal do instalado do Visual Studio, antes de instalar, você precisa selecionar na aba de  **Componentes Individuais** "SDK do Windows 10" ou "11" (a depender do seu sistema) e "Ferramentas de build do MSVC v143 - VS 2022 C++ x64/x86 (v14.32-17.4)". Note que muitas vezes as versões Windows 10 SDK e MSVC v142 - VS 2019 C++ x64/x86 build tools serão atualizadas, portanto procure por itens similares em Componentes individuais para realizar a instalação (ou seja, mais novos e compatíveis com o seu sitema). Em **Cargas de Trabalho**, selecione “Desenvolvimento para desktop com C++”. Instale as atualizações, feche o aplicativo e siga os próximos passos.
 
-2. Siga todos os [passos usados no Linux](#em-linux), com exceção do item 3. Nele, o comando deve ser:
-```console
-.venv/Scripts/activate.bat
-```
+2. Siga todos os [passos usados no Linux](#em-linux) para instalar o [uv](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer) e configurar o ambiente.
 _Observação_: Nos comandos em Windows, o sentido da barra (`/` ou `\`) pode variar a depender da utilização de [WSL](https://learn.microsoft.com/pt-br/windows/wsl/about).
 
 #### Utilizando WSL

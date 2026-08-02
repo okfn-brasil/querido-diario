@@ -49,14 +49,15 @@ You can find how to do it at [CONTRIBUTING-en-US.md](docs/CONTRIBUTING-en-US.md)
 Also, check the [Querido Diário documentation](https://docs.queridodiario.ok.org.br/en/latest/) to help you.
 
 # Development Environment
-You need to have [Python](https://docs.python.org/3/) (+3.0) and [Scrapy](https://scrapy.org) framework installed.
+You need to have [uv](https://docs.astral.sh/uv/) installed, which takes care of installing the right Python version and managing the project's virtual environment.
 
-The commands below set it up in Linux operating system. They consist of creating a [virtual Python environment](https://docs.python.org/3/library/venv.html), installing the requirements listed in `requirements-dev` and the code standardization tool `pre-commit`.
+The commands below set it up. They consist of installing the dependencies (including development ones) from the `querido_diario_raspadores` directory and the code standardization tool `pre-commit`.
 
 ``` console
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r data_collection/requirements-dev.txt
+cd querido_diario_raspadores
+uv sync --all-groups
+cd ..
+uv tool install pre-commit
 pre-commit install
 ```
 
@@ -65,33 +66,29 @@ pre-commit install
 # How to run
 To try running a scraper already integrated into the project or to test what you are developing, follow the commands:
 
-1. If you haven't already done so, activate the virtual environment in the `/querido-diario` directory:
-``` console
-source .venv/bin/activate
-```
-2. Go to the `data_collection` directory:
+1. Go to the `querido_diario_raspadores` directory:
 ```console
-cd data_collection
+cd querido_diario_raspadores
 ```
-3. Check the available scrapers list:
+2. Check the available scrapers list:
 ```console
-scrapy list
+uv run scrapy list
 ```
-4. Run a listed scraper:
+3. Run a listed scraper:
 ```console
-scrapy crawl <scraper_name> //example: scrapy crawl ba_acajutiba
+uv run scrapy crawl <scraper_name> //example: scrapy crawl ba_acajutiba
 ```
-5. The official gazettes collected from scraping will be saved in the `data_collection/data` folder
+4. The official gazettes collected from scraping will be saved in the `querido_diario_raspadores/data` folder
 
-6. When executing item 4, the scraper will collect all official gazettes from the publishing site of that municipality since the first digital edition. For smaller runs, use flags in the run command:
+5. When executing item 3, the scraper will collect all official gazettes from the publishing site of that municipality since the first digital edition. For smaller runs, use flags in the run command:
 
 - `start=YYYY-MM-DD`: will set the collecting start date.
 ```console
-scrapy crawl <scraper_name> -a start=<YYYY-MM-DD>
+uv run scrapy crawl <scraper_name> -a start=<YYYY-MM-DD>
 ```
 - `end=YYYY-MM-DD`: will set the collecting end date. If omitted, it will assume the date of the day it is being executed.
 ```console
-scrapy crawl <scraper_name> -a end=<YYYY-MM-DD>
+uv run scrapy crawl <scraper_name> -a end=<YYYY-MM-DD>
 ```
 
 # Troubleshooting

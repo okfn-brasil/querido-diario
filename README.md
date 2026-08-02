@@ -50,14 +50,15 @@ Você encontra como fazê-lo no [CONTRIBUTING.md](docs/CONTRIBUTING.md)!
 Além disso, consulte a [documentação do Querido Diário](https://docs.queridodiario.ok.org.br/pt-br/latest/) para te ajudar. 
 
 # Ambiente de desenvolvimento
-Você precisa ter [Python](https://docs.python.org/3/) (+3.0) e o framework [Scrapy](https://scrapy.org) instalados. 
+Você precisa ter o [uv](https://docs.astral.sh/uv/) instalado, que cuida de instalar a versão correta do Python e gerenciar o ambiente virtual do projeto.
 
-Os comandos abaixo preparam o ambiente em sistema operacional Linux. Eles consistem em criar um [ambiente virtual de Python](https://docs.python.org/pt-br/3/library/venv.html), instalar os requisitos listados em `requirements-dev` e a ferramenta para padronização de código `pre-commit`.
+Os comandos abaixo preparam o ambiente. Eles consistem em instalar as dependências (incluindo as de desenvolvimento) do diretório `querido_diario_raspadores` e a ferramenta para padronização de código `pre-commit`.
 
 ``` console
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r data_collection/requirements-dev.txt
+cd querido_diario_raspadores
+uv sync --all-groups
+cd ..
+uv tool install pre-commit
 pre-commit install
 ```
 
@@ -67,13 +68,13 @@ pre-commit install
 
 Ao invés de começar um arquivo de raspador do zero, você pode inicializar um arquivo de código de raspador já no padrão do Querido Diário, a partir de um template. Para isso, faça: 
 
-1. Vá para o diretório `data_collection`:
+1. Vá para o diretório `querido_diario_raspadores`:
 ```console
-cd data_collection
+cd querido_diario_raspadores
 ```
 2. Acione o template:
 ```console
-scrapy genspider -t qdtemplate <uf_nome_do_municipio> <https://sitedomunicipio...>
+uv run scrapy genspider -t qdtemplate <uf_nome_do_municipio> <https://sitedomunicipio...>
 ```
 
 Um arquivo `uf_nome_do_municipio.py` será criado no diretório `spiders`, com alguns campos já preenchidos. O diretório é organizado por UF, lembre-se de mover o arquivo para o diretório adequado.
@@ -81,38 +82,34 @@ Um arquivo `uf_nome_do_municipio.py` será criado no diretório `spiders`, com a
 # Como executar
 Para experimentar a execução de um raspador já integrado ao projeto ou testar o que esteja desenvolvendo, siga os comandos: 
 
-1. Se ainda não o fez, ative o ambiente virtual no diretório `/querido-diario`:
-``` console
-source .venv/bin/activate
-```
-2. Vá para o diretório `data_collection`:
+1. Vá para o diretório `querido_diario_raspadores`:
 ```console
-cd data_collection
+cd querido_diario_raspadores
 ```
-3. Verifique a lista de raspadores disponíveis:
+2. Verifique a lista de raspadores disponíveis:
 ```console
-scrapy list
+uv run scrapy list
 ```
-4. Execute um raspador da lista:
+3. Execute um raspador da lista:
 ```console
-scrapy crawl <nome_do_raspador>       //exemplo: scrapy crawl ba_acajutiba
+uv run scrapy crawl <nome_do_raspador>       //exemplo: scrapy crawl ba_acajutiba
 ```
-5. Os diários coletados na raspagem serão salvos no diretório `data_collection/data`
+4. Os diários coletados na raspagem serão salvos no diretório `querido_diario_raspadores/data`
 
 ## Dicas de execução
 Além dos comandos acima, o Scrapy oferece outros recursos para configurar o comando de raspagem. Os recursos a seguir podem ser usados sozinhos ou combinados.  
 
 * **Limite de data**  
-Ao executar o item 4, o raspador coletará todos os diários oficiais do site publicador daquele município. Para execuções menores, utilize a flag de atributo `-a` seguida de:
+Ao executar o item 3, o raspador coletará todos os diários oficiais do site publicador daquele município. Para execuções menores, utilize a flag de atributo `-a` seguida de:
 
 `start=AAAA-MM-DD`: definirá a data inicial de coleta de diários.
 ```console
-scrapy crawl <nome_do_raspador> -a start=<AAAA-MM-DD>
+uv run scrapy crawl <nome_do_raspador> -a start=<AAAA-MM-DD>
 ```
 `end=AAAA-MM-DD`: definirá a data final de coleta de diários. Caso omitido, assumirá a data do dia em que está sendo executado.
 ```console
 
-scrapy crawl <nome_do_raspador> -a end=<AAAA-MM-DD>
+uv run scrapy crawl <nome_do_raspador> -a end=<AAAA-MM-DD>
 ```
 
 * **Arquivo de log**   
@@ -120,13 +117,13 @@ scrapy crawl <nome_do_raspador> -a end=<AAAA-MM-DD>
 
 `LOG_FILE=log_<nome_do_municipio>.txt`: definirá o arquivo para armazenar as mensagens de log.
 ```console
-scrapy crawl <nome_do_raspador> -s LOG_FILE=log_<nome_do_municipio>.txt
+uv run scrapy crawl <nome_do_raspador> -s LOG_FILE=log_<nome_do_municipio>.txt
 ```
 
 * **Tabela de raspagem**   
 Também é possível construir uma tabela que lista todos os diários e metadados coletados pela raspagem, ficando mais fácil de ver como o raspador está se comportando. Para isso, use a flag de saída `-o` seguida de um nome para o arquivo.
 ```console
-scrapy crawl <nome_do_raspador> -o <nome_do_municipio>.csv
+uv run scrapy crawl <nome_do_raspador> -o <nome_do_municipio>.csv
 ```
 
 # Solução de problemas

@@ -17,10 +17,11 @@ Tente instalar `python3-dev`. Por exemplo, via `apt install python3-dev`, se voc
 
 ## Erro `pinned with ==`
 
-Ao realizar o pip install requeriments pode ocorrer um erro de fixação inexata, então utilize o "--no-deps" ao instalar:
+Ao instalar as dependências pode ocorrer um erro de fixação inexata, então utilize o "--no-deps" ao instalar:
 
 ~~~Linux
-pip install -r data_collection/requirements-dev.txt --no-deps
+cd querido_diario_raspadores
+uv pip install -e . --no-deps
 ~~~
 
 ##  Erro `legacy-install`
