@@ -1,12 +1,11 @@
 import re
 from datetime import datetime
 
-from scrapy.exceptions import NotConfigured
-from scrapy.http import FormRequest, Request
-
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.dates import weekly_window
+from scrapy.exceptions import NotConfigured
+from scrapy.http import FormRequest, Request
 
 
 class BaseDioenetSpider(BaseGazetteSpider):
@@ -45,12 +44,12 @@ class BaseDioenetSpider(BaseGazetteSpider):
         for gazette in response.css("ul.lista-diarios li"):
             # can return ['Edição nº 841'] or ['Edição nº 842', 'Extra']
             raw_edition = gazette.css(".col-one span::text").getall()
-            gazette_number = re.findall("\d+", raw_edition[0])[0]
+            gazette_number = re.findall(r"\d+", raw_edition[0])[0]
             gazette_extra = True if "Extra" in raw_edition else False
 
             elem = gazette.css(".col-two a.btn")
             gazette_url = elem.attrib["href"]
-            raw_date = re.findall("(\d{2}/\d{2}/\d{4})", elem.attrib["title"])[0]
+            raw_date = re.findall(r"(\d{2}/\d{2}/\d{4})", elem.attrib["title"])[0]
             gazette_date = datetime.strptime(raw_date, "%d/%m/%Y").date()
 
             gazette_item = {

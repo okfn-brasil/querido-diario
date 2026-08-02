@@ -1,9 +1,8 @@
 import scrapy
-from scrapy.exceptions import NotConfigured
-
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
 from gazette.utils.extraction import get_date_from_text
+from scrapy.exceptions import NotConfigured
 
 
 class BaseDiarioOficialBRSpider(BaseGazetteSpider):
@@ -30,7 +29,7 @@ class BaseDiarioOficialBRSpider(BaseGazetteSpider):
             edition_number_raw = edition.xpath(
                 './/span[contains(text(), "Edição")]/text()'
             )
-            edition_number = edition_number_raw.re_first("nº\s+(\d+)")
+            edition_number = edition_number_raw.re_first(r"nº\s+(\d+)")
             is_extra_edition = "extra" in edition_number_raw.get().lower()
             edition_url = edition.xpath(
                 './/a[contains(@href, "/download")]/@href'
