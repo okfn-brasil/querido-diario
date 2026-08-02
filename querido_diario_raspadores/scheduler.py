@@ -42,9 +42,13 @@ def _get_enabled_spiders(start_date=None, end_date=None):
     )
 
 
-def _schedule_job(start, full, spider_name):
+def _get_project():
     client = ScrapinghubClient(config("SHUB_APIKEY"))
-    project = client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
+    return client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
+
+
+def _schedule_job(start, full, spider_name, project=None):
+    project = project or _get_project()
 
     job_settings = _job_settings()
 
@@ -162,8 +166,14 @@ def schedule_job(start, full, spider_name):
 
 @cli.command()
 def schedule_enabled_spiders():
+    project = _get_project()
     for spider_name in _get_enabled_spiders(start_date=YESTERDAY):
-        _schedule_job(start=YESTERDAY, full=False, spider_name=spider_name)
+        _schedule_job(
+            start=YESTERDAY,
+            full=False,
+            spider_name=spider_name,
+            project=project,
+        )
 
 
 @cli.command()
@@ -172,8 +182,9 @@ def last_month_schedule_enabled_spiders():
     # day as the physical one (sometimes it take more than two days and other weeks)
     # so running this command will ensure that we get the data of the latest month
     start = datetime.date.today() - datetime.timedelta(days=31)
+    project = _get_project()
     for spider_name in _get_enabled_spiders(start_date=start):
-        _schedule_job(start=start, full=False, spider_name=spider_name)
+        _schedule_job(start=start, full=False, spider_name=spider_name, project=project)
 
 
 @click.option(
@@ -182,8 +193,9 @@ def last_month_schedule_enabled_spiders():
 )
 @cli.command()
 def schedule_all_spiders_by_date(start):
+    project = _get_project()
     for spider_name in _get_enabled_spiders(start_date=start):
-        _schedule_job(start=start, full=False, spider_name=spider_name)
+        _schedule_job(start=start, full=False, spider_name=spider_name, project=project)
 
 
 if __name__ == "__main__":

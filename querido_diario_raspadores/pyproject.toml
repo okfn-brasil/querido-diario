@@ -22,6 +22,7 @@ dependencies = [
     "python-dateutil",
     "python-decouple",
     "requests",
+    "scrapinghub[msgpack]",
     "scrapy==2.14.2",
     "scrapy-zyte-smartproxy",
     "sqlalchemy",
