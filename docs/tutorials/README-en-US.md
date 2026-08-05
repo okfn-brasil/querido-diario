@@ -1,4 +1,4 @@
-**English (US)** | [Português (BR)](/docs/tutorials/README.md)
+**English (US)** | [Português (BR)](README.md)
 
 # Tutorials
 
@@ -19,4 +19,4 @@ Tutorials should work as step-by-step guides, with small examples, reproducible 
 3. Include the commands needed to reproduce the described flow.
 4. Update this index with a link to the new tutorial.
 
-Before opening a pull request, also check the [Contribution Guide](/docs/CONTRIBUTING-en-US.md).
+Before opening a pull request, also check the [Contribution Guide](../CONTRIBUTING-en-US.md).

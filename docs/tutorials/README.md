@@ -1,4 +1,4 @@
-**Português (BR)** | [English (US)](/docs/tutorials/README-en-US.md)
+**Português (BR)** | [English (US)](README-en-US.md)
 
 # Tutoriais
 
@@ -19,4 +19,4 @@ Os tutoriais devem funcionar como guias passo a passo, com exemplos pequenos, co
 3. Inclua os comandos necessários para reproduzir o fluxo descrito.
 4. Atualize este índice com o link para o novo tutorial.
 
-Antes de abrir um pull request, consulte também o [Guia de Contribuição](/docs/CONTRIBUTING.md).
+Antes de abrir um pull request, consulte também o [Guia de Contribuição](../CONTRIBUTING.md).
