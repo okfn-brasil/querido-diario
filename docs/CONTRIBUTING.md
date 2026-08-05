@@ -151,7 +151,7 @@ Siga as instruções referentes À instalação utilizando [Linux](CONTRIBUTING.
 
 ## Tutorial de debugging
 
-Use o [tutorial de debugging](/docs/tutorials/debugging.md) quando um raspador falhar, retornar itens incompletos ou quando for necessário entender melhor uma mudança no site de origem dos diários oficiais.
+Use o [tutorial de debugging](tutorials/debugging.md) quando um raspador falhar, retornar itens incompletos ou quando for necessário entender melhor uma mudança no site de origem dos diários oficiais.
 
 ## Formação automática de código
 O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado.
