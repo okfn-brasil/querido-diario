@@ -6,8 +6,8 @@ with an API Key sent in the ``X-API-Key`` header.
 
 Configuration (environment variables or Scrapy settings):
     - ``QUERIDODIARIO_API_URL``: base URL of the API
-      (e.g. ``https://queridodiario.ok.org.br/api``... base host only,
-      the ``/scraper/*`` path is appended by the client)
+      (e.g. ``https://api.queridodiario.org.br``; the ``/scraper/*`` path
+      is appended by the client)
     - ``QUERIDODIARIO_API_KEY``: API Key for the scraper endpoints
 """
 
@@ -105,6 +105,19 @@ class QueridoDiarioAPIClient:
         params = {"spider": spider_name, "since": str(since_date)}
         data = self._get("/scraper/job-stats", params=params)
         return data["job_stats"]
+
+    def set_spider_enabled(self, spider_name, enabled):
+        """Enable or disable a spider.
+
+        PATCH /scraper/spiders/{spider_name}
+        """
+        response = self.session.patch(
+            f"{self.base_url}/scraper/spiders/{spider_name}",
+            json={"enabled": enabled},
+            timeout=self.timeout,
+        )
+        response.raise_for_status()
+        return response.json()
 
     def sync_spiders(self, territory_spider_map):
         """Register new/modified spiders and their territory mapping.

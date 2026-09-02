@@ -33,6 +33,39 @@ def test_schedule_job_reuses_provided_project(monkeypatch):
     )
 
 
+def test_enable_spider_uses_api_client(monkeypatch):
+    api_client = Mock()
+    monkeypatch.setattr(scheduler, "_get_api_client", Mock(return_value=api_client))
+
+    scheduler.enable_spider.callback(spider_name="test_spider")
+
+    api_client.set_spider_enabled.assert_called_once_with("test_spider", True)
+
+
+def test_disable_spider_uses_api_client(monkeypatch):
+    api_client = Mock()
+    monkeypatch.setattr(scheduler, "_get_api_client", Mock(return_value=api_client))
+
+    scheduler.disable_spider.callback(spider_name="test_spider")
+
+    api_client.set_spider_enabled.assert_called_once_with("test_spider", False)
+
+
+def test_job_settings_do_not_include_database_url(monkeypatch):
+    monkeypatch.setenv("FILES_STORE", "test")
+    monkeypatch.setenv("AWS_ACCESS_KEY_ID", "test")
+    monkeypatch.setenv("AWS_SECRET_ACCESS_KEY", "test")
+    monkeypatch.setenv("AWS_ENDPOINT_URL", "test")
+    monkeypatch.setenv("AWS_REGION_NAME", "test")
+    monkeypatch.setenv("SPIDERMON_DISCORD_FAKE", "True")
+    monkeypatch.setenv("SPIDERMON_DISCORD_WEBHOOK_URL", "test")
+    monkeypatch.setenv("ZYTE_SMARTPROXY_APIKEY", "test")
+
+    job_settings = scheduler._job_settings()
+
+    assert "QUERIDODIARIO_DATABASE_URL" not in job_settings
+
+
 def test_schedule_enabled_spiders_creates_project_once(monkeypatch):
     project = Mock()
     get_project = Mock(return_value=project)
