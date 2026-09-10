@@ -24,9 +24,11 @@ RETRY_STATUS_FORCELIST = [429, 500, 502, 503, 504]
 class QueridoDiarioAPIClient:
     """Client for the ``/scraper/*`` endpoints of the Querido Diário API.
 
-    Retries with exponential backoff are enabled for GET and POST requests.
-    Retrying POSTs is safe because the server-side inserts are idempotent
-    (``ON CONFLICT DO NOTHING`` over unique constraints).
+    Retries with exponential backoff are enabled for GET, POST and PATCH
+    requests. Retrying POSTs is safe because the server-side inserts are
+    idempotent (``ON CONFLICT DO NOTHING`` over unique constraints), and
+    retrying PATCHes is safe because they only replace boolean/scalar
+    fields (e.g. ``enabled``), not partial/incremental updates.
     """
 
     def __init__(self, base_url, api_key, timeout=DEFAULT_TIMEOUT):
@@ -38,7 +40,11 @@ class QueridoDiarioAPIClient:
             total=RETRY_TOTAL,
             backoff_factor=RETRY_BACKOFF_FACTOR,
             status_forcelist=RETRY_STATUS_FORCELIST,
-            allowed_methods=["GET", "POST"],  # POST is idempotent server-side
+            allowed_methods=[
+                "GET",
+                "POST",
+                "PATCH",
+            ],  # POST/PATCH are idempotent server-side
         )
         adapter = HTTPAdapter(max_retries=retry)
         self.session.mount("https://", adapter)
@@ -53,6 +59,13 @@ class QueridoDiarioAPIClient:
 
     def _post(self, path, payload):
         response = self.session.post(
+            f"{self.base_url}{path}", json=payload, timeout=self.timeout
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def _patch(self, path, payload):
+        response = self.session.patch(
             f"{self.base_url}{path}", json=payload, timeout=self.timeout
         )
         response.raise_for_status()
@@ -111,13 +124,7 @@ class QueridoDiarioAPIClient:
 
         PATCH /scraper/spiders/{spider_name}
         """
-        response = self.session.patch(
-            f"{self.base_url}/scraper/spiders/{spider_name}",
-            json={"enabled": enabled},
-            timeout=self.timeout,
-        )
-        response.raise_for_status()
-        return response.json()
+        return self._patch(f"/scraper/spiders/{spider_name}", {"enabled": enabled})
 
     def sync_spiders(self, territory_spider_map):
         """Register new/modified spiders and their territory mapping.
