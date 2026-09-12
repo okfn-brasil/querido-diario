@@ -201,7 +201,12 @@ class RsBageSpider(BaseGazetteSpider):
         module_version = response.meta.get("module_version", self.DEFAULT_MODULE_VERSION)
         csrf_token = response.meta.get("csrf_token", self.DEFAULT_CSRF_TOKEN)
 
-        data = json.loads(response.text)
+        try:
+            data = json.loads(response.text)
+        except json.JSONDecodeError:
+            self.logger.error("Resposta inválida (não JSON) recebida na listagem do SERPRO.")
+            return
+
         data_block = data.get("data", {})
         total_count = data_block.get("Count", 0)
 
@@ -221,11 +226,15 @@ class RsBageSpider(BaseGazetteSpider):
             if not pub_id or not raw_date:
                 continue
 
-            # Parsing seguro da data (formato ISO 8601 UTC)
-            date_part = raw_date.split("T")[0]
-            gazette_date = dt.datetime.strptime(date_part, "%Y-%m-%d").date()
+            # Parsing seguro da data (formato ISO 8601 UTC) com proteção contra falhas
+            try:
+                date_part = str(raw_date).split("T")[0]
+                gazette_date = dt.datetime.strptime(date_part, "%Y-%m-%d").date()
+            except (ValueError, IndexError, AttributeError):
+                self.logger.warning(f"Formato de data inválido para publicação #{pub_id}: {raw_date}")
+                continue
 
-            # Encerra paginação se atingir datas anteriores ao start_date solicitado
+            # Encerra paginação imediatamente se atingir datas anteriores ao start_date
             if gazette_date < self.start_date:
                 return
             if gazette_date > self.end_date:
@@ -258,6 +267,7 @@ class RsBageSpider(BaseGazetteSpider):
                 "pub_id": pub_id,
             }
 
+            # Prioridade alta (priority=20) para descarregar o PDF da memória antes de ler mais páginas
             yield scrapy.Request(
                 url=download_url,
                 method="POST",
@@ -271,10 +281,11 @@ class RsBageSpider(BaseGazetteSpider):
                 body=json.dumps(download_payload),
                 callback=self.parse_gazette_file,
                 meta=gazette_meta,
+                priority=20,
                 dont_filter=True,
             )
 
-        # Paginação sequencial de 50 em 50 registros
+        # Paginação com prioridade padrão (priority=1) para evitar acúmulo de requisições na fila
         current_index = response.meta.get("start_index", 0)
         next_index = current_index + 50
         if next_index < total_count:
@@ -294,7 +305,15 @@ class RsBageSpider(BaseGazetteSpider):
         necessidade de infraestrutura intermediária.
         """
         meta = response.meta
-        data = json.loads(response.text)
+
+        try:
+            data = json.loads(response.text)
+        except json.JSONDecodeError:
+            self.logger.error(
+                f"Resposta corrompida (não JSON) ao baixar publicação #{meta.get('pub_id')}."
+            )
+            return
+
         b64_content = (
             data.get("data", {}).get("FileContent")
             or data.get("data", {}).get("Arquivo_Output")
