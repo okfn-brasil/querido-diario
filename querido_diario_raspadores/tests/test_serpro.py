@@ -31,6 +31,15 @@ def make_json_response(payload, url="https://cidadesdoe.serpro.gov.br/api", meta
     )
 
 
+def make_text_response(body_text, url="https://cidadesdoe.serpro.gov.br/api", meta=None):
+    return TextResponse(
+        url=url,
+        body=body_text.encode("utf-8") if isinstance(body_text, str) else body_text,
+        encoding="utf-8",
+        request=MagicMock(meta=meta or {}),
+    )
+
+
 def test_serpro_spider_requires_hash_prefeitura():
     """Valida que instanciar BaseSerproSpider sem HASH_PREFEITURA levanta NotConfigured."""
     class IncompleteSpider(BaseSerproSpider):
@@ -336,6 +345,89 @@ def test_handle_download_error_logs_and_dispatches_next():
     assert requests[0].meta["pub_id"] == "2222"
 
 
+def test_parse_gazette_list_invalid_json_logs_error_and_stops():
+    """Garante que resposta não-JSON na listagem loga erro e encerra graciosamente."""
+    spider = SerproSpiderForTest()
+    spider.logger = MagicMock()
+
+    response = make_text_response(
+        "<html><head><title>500 Internal Server Error</title></head></html>",
+        meta={"start_index": 0},
+    )
+
+    requests = list(spider.parse_gazette_list(response))
+    assert len(requests) == 0
+    spider.logger.error.assert_called()
+    assert "Falha ao decodificar JSON da listagem" in spider.logger.error.call_args[0][0]
+
+
+def test_parse_gazette_file_invalid_json_logs_error_and_dispatches_next():
+    """Garante que resposta não-JSON no download loga erro e despacha o próximo item."""
+    spider = SerproSpiderForTest()
+    spider.logger = MagicMock()
+
+    next_item = {
+        "pub_id": "3333",
+        "date": dt.date(2025, 1, 16),
+        "edition_number": "44",
+        "is_extra_edition": False,
+    }
+
+    response = make_text_response(
+        "bad json response",
+        meta={
+            "pub_id": "2222",
+            "date": dt.date(2025, 1, 15),
+            "remaining_items": [next_item],
+            "next_page_start_index": None,
+            "csrf_token": "CSRF_TOKEN_TEST",
+            "module_version": "MOD_VER_TEST",
+        },
+    )
+
+    requests = list(spider.parse_gazette_file(response))
+    # Deve logar erro
+    spider.logger.error.assert_called()
+    # Deve continuar para o próximo item
+    assert len(requests) == 1
+    assert requests[0].meta["pub_id"] == "3333"
+
+
+def test_parse_gazette_file_none_or_non_string_base64_logs_error_and_dispatches_next():
+    """Garante que FileContent nulo ou não-string loga erro explícito e continua a esteira."""
+    spider = SerproSpiderForTest()
+    spider.logger = MagicMock()
+
+    # Caso 1: FileContent é None
+    payload_none = {"data": {"FileContent": None}}
+    response_none = make_json_response(payload_none)
+    response_none.meta.update({
+        "pub_id": "4444",
+        "date": dt.date(2025, 1, 15),
+        "remaining_items": [],
+        "next_page_start_index": None,
+    })
+    results_none = list(spider.parse_gazette_file(response_none))
+    assert len(results_none) == 0
+    spider.logger.error.assert_called()
+    assert "#4444" in spider.logger.error.call_args[0][0]
+
+    # Caso 2: FileContent não é string (ex: número ou objeto inesperado)
+    spider.logger.reset_mock()
+    payload_int = {"data": {"FileContent": 12345}}
+    response_int = make_json_response(payload_int)
+    response_int.meta.update({
+        "pub_id": "5555",
+        "date": dt.date(2025, 1, 15),
+        "remaining_items": [],
+        "next_page_start_index": None,
+    })
+    results_int = list(spider.parse_gazette_file(response_int))
+    assert len(results_int) == 0
+    spider.logger.error.assert_called()
+    assert "#5555" in spider.logger.error.call_args[0][0]
+
+
 def test_rs_bage_spider_configuration():
     """Valida que a spider concreta de Bagé - RS está devidamente configurada."""
     spider = RsBageSpider()
@@ -345,3 +437,4 @@ def test_rs_bage_spider_configuration():
     assert spider.start_date == dt.date(2024, 11, 8)
     assert spider.HASH_PREFEITURA == "eQJpm=Qsio5G=7tFAXJlF=hrIsVqGJ92JabaSQgbJFE="
     assert spider.power == "executive"
+
