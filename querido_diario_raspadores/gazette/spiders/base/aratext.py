@@ -22,11 +22,13 @@ class BaseAratextSpider(BaseGazetteSpider):
         super(BaseAratextSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response, page=1):
+        last_edition_date = None
         for item in response.css("#edicoes-anteriores tbody tr"):
             raw_edition_date = (
                 item.css("td")[2].css("::text").get().split(",")[1].strip()
             )
             edition_date = get_date_from_text(raw_edition_date)
+            last_edition_date = edition_date
 
             raw_edition_number = item.css("a::text").get().strip()
             edition_number = re.search(r"N.? (.*)/", raw_edition_number).group(1)
@@ -49,9 +51,11 @@ class BaseAratextSpider(BaseGazetteSpider):
                     cb_kwargs={"gazette": gazette},
                 )
 
-        last_page = response.xpath('//*[@class="pagination"]//*[@rel="next"]') == []
+        has_next_page = bool(response.xpath('//*[@class="pagination"]//*[@rel="next"]'))
 
-        if edition_date > self.start_date and not last_page:
+        if has_next_page and (
+            last_edition_date is None or last_edition_date > self.start_date
+        ):
             page += 1
             yield Request(
                 f"{self.start_urls[0]}?page={page}",
