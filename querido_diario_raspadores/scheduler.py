@@ -1,6 +1,9 @@
 import datetime
+import logging
+import time
 
 import click
+import requests
 from decouple import config
 from scrapinghub import ScrapinghubClient
 
@@ -8,6 +11,13 @@ from gazette.utils.api_client import QueridoDiarioAPIClient
 from gazette.utils.database import get_enabled_spiders
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
+
+logger = logging.getLogger(__name__)
+
+# Scrapy Cloud (Zyte) ocasionalmente derruba a conexão no meio de um
+# "run job" (RemoteDisconnected) sem nenhum problema real do nosso lado.
+SCHEDULE_JOB_RETRY_ATTEMPTS = 3
+SCHEDULE_JOB_RETRY_BACKOFF_SECONDS = 5  # 5s, 10s
 
 
 def _job_settings():
@@ -59,10 +69,27 @@ def _schedule_job(start, full, spider_name, project=None, end=None):
             job_args["end"] = end
 
     spider = project.spiders.get(spider_name)
-    spider.jobs.run(
-        job_settings=job_settings,
-        job_args=job_args,
-    )
+
+    for attempt in range(1, SCHEDULE_JOB_RETRY_ATTEMPTS + 1):
+        try:
+            spider.jobs.run(
+                job_settings=job_settings,
+                job_args=job_args,
+            )
+            return
+        except requests.exceptions.RequestException:
+            if attempt == SCHEDULE_JOB_RETRY_ATTEMPTS:
+                raise
+            delay = SCHEDULE_JOB_RETRY_BACKOFF_SECONDS * (2 ** (attempt - 1))
+            logger.warning(
+                "Falha de conexão ao agendar '%s' na Scrapy Cloud "
+                "(tentativa %d/%d), tentando de novo em %ds",
+                spider_name,
+                attempt,
+                SCHEDULE_JOB_RETRY_ATTEMPTS,
+                delay,
+            )
+            time.sleep(delay)
 
 
 @click.group()
@@ -147,12 +174,26 @@ def schedule_job(start, full, spider_name):
 @cli.command()
 def schedule_enabled_spiders():
     project = _get_project()
+    failed_spiders = []
     for spider_name in _get_enabled_spiders(start_date=YESTERDAY):
-        _schedule_job(
-            start=YESTERDAY,
-            full=False,
-            spider_name=spider_name,
-            project=project,
+        try:
+            _schedule_job(
+                start=YESTERDAY,
+                full=False,
+                spider_name=spider_name,
+                project=project,
+            )
+        except requests.exceptions.RequestException:
+            logger.exception(
+                "Falha ao agendar '%s' na Scrapy Cloud, pulando pro próximo spider",
+                spider_name,
+            )
+            failed_spiders.append(spider_name)
+
+    if failed_spiders:
+        raise click.ClickException(
+            f"Falha ao agendar {len(failed_spiders)} spider(s): "
+            f"{', '.join(failed_spiders)}"
         )
 
 
