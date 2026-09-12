@@ -364,7 +364,7 @@ class RsBageSpider(BaseGazetteSpider):
             new_valid_ids_count += 1
             self._inc_stat("bage/gazettes_found")
 
-            edition_number = self._extract_edition_number(title)
+            edition_number = self._extract_edition_number(title) or self._extract_edition_number(summary)
             is_extra = "extra" in title.lower() or "extra" in summary.lower()
 
             valid_items_batch.append({
