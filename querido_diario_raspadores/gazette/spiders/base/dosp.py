@@ -27,9 +27,10 @@ class BaseDospSpider(BaseGazetteSpider):
         )
 
     def parse_json(self, response):
-        json_text = (
-            response.css("p::text").get().replace("parseResponse(", "")
-        ).replace(");", "")
+        # O endpoint pode devolver ``parseResponse(...)`` diretamente no corpo
+        # ou dentro de um elemento ``p``. O primeiro é o formato atual.
+        json_text = response.css("p::text").get() or response.text
+        json_text = json_text.strip().removeprefix("parseResponse(").removesuffix(");")
 
         json_text = loads(json_text)
 
