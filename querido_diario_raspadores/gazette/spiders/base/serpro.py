@@ -40,10 +40,9 @@ class BaseSerproSpider(BaseGazetteSpider):
     # LIMITES RÍGIDOS OPERACIONAIS (BARREIRAS DE SEGURANÇA E MEMÓRIA)
     # -------------------------------------------------------------------------
     PAGE_SIZE = 50
-    MAX_PAGES_LIMIT = 500             # Barreira 1: Máximo de 500 páginas (25.000 publicações)
-    MAX_START_INDEX = 25000           # Barreira 2: Teto absoluto do índice de paginação
-    MAX_CONSECUTIVE_NO_PROGRESS = 2   # Barreira 5: Aborta se 2 páginas seguidas não trouxerem IDs válidos
-    MAX_RESPONSE_BODY_BYTES = 30 * 1024 * 1024  # Teto de bytes brutos HTTP antes do parsing JSON (30 MB)
+    MAX_PAGES_LIMIT = 5000            # Salvaguarda contra loop infinito (permite até 250.000 publicações)
+    MAX_CONSECUTIVE_NO_PROGRESS = 2   # Aborta se 2 páginas seguidas não trouxerem IDs válidos novos
+    MAX_RESPONSE_BODY_BYTES = 30 * 1024 * 1024  # Teto de bytes brutos HTTP (30 MB) configurado no downloader
     MAX_PDF_B64_CHARS = 25 * 1024 * 1024        # Barreira de Base64: ~18,75 MB binário máximo
     REQUEST_TIMEOUT = 35              # Timeout máximo por requisição individual (segundos)
 
@@ -72,10 +71,20 @@ class BaseSerproSpider(BaseGazetteSpider):
         self._inc_stat("serpro/initial_requests")
         csrf_token = self.DEFAULT_CSRF_TOKEN
 
-        set_cookies = response.headers.getlist("Set-Cookie")
+        set_cookies = (
+            response.headers.getlist("Set-Cookie")
+            if hasattr(response.headers, "getlist")
+            else response.headers.get("Set-Cookie", [])
+        )
+        if isinstance(set_cookies, (bytes, str)):
+            set_cookies = [set_cookies]
+
         for cookie_raw in set_cookies:
             try:
-                cookie_str = urllib.parse.unquote(cookie_raw.decode("utf-8", errors="ignore"))
+                if isinstance(cookie_raw, bytes):
+                    cookie_str = urllib.parse.unquote(cookie_raw.decode("utf-8", errors="ignore"))
+                else:
+                    cookie_str = urllib.parse.unquote(str(cookie_raw))
                 match = re.search(r"crf=([^;]+)", cookie_str)
                 if match:
                     csrf_token = match.group(1)
@@ -188,7 +197,7 @@ class BaseSerproSpider(BaseGazetteSpider):
         self, response: scrapy.http.Response
     ) -> Generator[scrapy.Request, None, None]:
         """
-        Interpreta a lista JSON retornada pelo SERPRO, aplica as 5 barreiras de proteção
+        Interpreta a lista JSON retornada pelo SERPRO, aplica as barreiras de proteção
         contra loops infinitos e inicia a cadeia sequencial de downloads unitários.
         """
         meta = response.meta
@@ -199,20 +208,13 @@ class BaseSerproSpider(BaseGazetteSpider):
         self.pages_crawled += 1
         self._inc_stat("serpro/pages_crawled")
 
-        # BARREIRA 1: Limite máximo estrito de páginas
+        # BARREIRA 1: Salvaguarda explícita contra loops infinitos de paginação
         if self.pages_crawled > self.MAX_PAGES_LIMIT:
-            self.logger.warning(
-                f"[Barreira 1 Ativada] Atingido o teto de {self.MAX_PAGES_LIMIT} páginas. Encerrando paginação."
+            self.logger.error(
+                f"[Salvaguarda de Paginação Ativada] Limite de {self.MAX_PAGES_LIMIT} páginas atingido em {self.name}. "
+                f"A paginação foi interrompida para prevenir loop infinito. Verifique se o histórico foi totalmente coletado."
             )
             self._inc_stat("serpro/stop_max_pages_reached")
-            return
-
-        # BARREIRA 2: Teto máximo de StartIndex
-        if start_index > self.MAX_START_INDEX:
-            self.logger.warning(
-                f"[Barreira 2 Ativada] StartIndex {start_index} excedeu o teto seguro de {self.MAX_START_INDEX}. Encerrando."
-            )
-            self._inc_stat("serpro/stop_max_start_index_reached")
             return
 
         # Parsing de resposta JSON
@@ -230,7 +232,7 @@ class BaseSerproSpider(BaseGazetteSpider):
             self._inc_stat("serpro/list_json_errors")
             return
 
-        # BARREIRA 3: Fingerprint criptográfico da página
+        # BARREIRA 2: Fingerprint criptográfico da página (detecta repetição exata)
         sorted_item_ids = sorted(
             [
                 str(item.get("TB_DadosPublicacao", {}).get("Id"))
@@ -243,7 +245,7 @@ class BaseSerproSpider(BaseGazetteSpider):
         ).hexdigest()
         if page_fingerprint in self.seen_page_fingerprints and len(sorted_item_ids) > 0:
             self.logger.warning(
-                f"[Barreira 3 Ativada] Página duplicada identificada por fingerprint MD5 ({page_fingerprint}). Encerrando paginação."
+                f"[Barreira de Fingerprint Ativada] Página duplicada identificada por MD5 ({page_fingerprint}). Encerrando paginação."
             )
             self._inc_stat("serpro/stop_duplicate_page_fingerprint")
             return
@@ -251,7 +253,7 @@ class BaseSerproSpider(BaseGazetteSpider):
             self.seen_page_fingerprints.add(page_fingerprint)
 
         self.logger.info(
-            f"Processando página {self.pages_crawled} (StartIndex: {start_index}, Itens brutos: {len(raw_items)}, Total estimado: {total_count})"
+            f"Processando página {self.pages_crawled} (StartIndex: {start_index}, Itens brutos: {len(raw_items)}, Total da API: {total_count})"
         )
 
         valid_items_batch = []
@@ -272,12 +274,13 @@ class BaseSerproSpider(BaseGazetteSpider):
             summary = str(pub.get("Dap_ResumoPublicacao") or "").strip()
 
             if not pub_id or not raw_date:
+                self.logger.warning(f"Publicação com payload incompleto ignorada: {pub}")
                 self._inc_stat("serpro/gazettes_invalid_payload")
                 continue
 
             str_pub_id = str(pub_id).strip()
 
-            # BARREIRA 4: Deduplicação de publicações individuais
+            # BARREIRA 3: Deduplicação de publicações individuais
             if str_pub_id in self.seen_pub_ids:
                 self._inc_stat("serpro/gazettes_duplicate_skipped")
                 continue
@@ -319,12 +322,12 @@ class BaseSerproSpider(BaseGazetteSpider):
                 "is_extra_edition": is_extra,
             })
 
-        # BARREIRA 5: Detecção de Ausência de Progresso
+        # BARREIRA 4: Detecção de Ausência de Progresso (páginas vazias consecutivas)
         if new_valid_ids_count == 0:
             self.consecutive_no_progress += 1
             if self.consecutive_no_progress >= self.MAX_CONSECUTIVE_NO_PROGRESS:
                 self.logger.warning(
-                    f"[Barreira 5 Ativada] {self.consecutive_no_progress} páginas consecutivas sem novos IDs válidos. Encerrando."
+                    f"[Ausência de Progresso] {self.consecutive_no_progress} páginas consecutivas sem novos IDs válidos. Encerrando."
                 )
                 self._inc_stat("serpro/stop_no_progress")
                 return
@@ -341,7 +344,7 @@ class BaseSerproSpider(BaseGazetteSpider):
                 )
             return
 
-        # Define o índice da próxima página (se houver)
+        # Define o índice da próxima página (sem truncamento artificial)
         next_page_start_index = None
         if not hit_date_cutoff and (start_index + self.PAGE_SIZE) < total_count:
             next_page_start_index = start_index + self.PAGE_SIZE
@@ -368,7 +371,7 @@ class BaseSerproSpider(BaseGazetteSpider):
     ) -> Optional[scrapy.Request]:
         """
         Dispara estritamente UMA requisição por vez:
-        - Se ainda houver publicações no lote atual, requisita o próximo PDF;
+        - Se ainda houver publicações no lote atual, requisita o próximo PDF com download_maxsize configurado;
         - Se o lote atual acabou, requisita a próxima página da listagem.
         """
         if remaining_items:
@@ -405,6 +408,8 @@ class BaseSerproSpider(BaseGazetteSpider):
                 "module_version": module_version,
                 "csrf_token": csrf_token,
                 "download_timeout": self.REQUEST_TIMEOUT,
+                "download_maxsize": self.MAX_RESPONSE_BODY_BYTES,
+                "download_warnsize": self.MAX_RESPONSE_BODY_BYTES // 2,
                 "max_retry_times": 3,
             }
 
@@ -449,11 +454,12 @@ class BaseSerproSpider(BaseGazetteSpider):
         module_version = meta.get("module_version", self.DEFAULT_MODULE_VERSION)
         csrf_token = meta.get("csrf_token", self.DEFAULT_CSRF_TOKEN)
 
-        # BARREIRA PRÉVIA: Validação de tamanho do corpo HTTP antes de qualquer parsing JSON
+        # Salvaguarda prévia de tamanho em memória
         raw_body = getattr(response, "body", b"") or b""
         if len(raw_body) > self.MAX_RESPONSE_BODY_BYTES:
             self.logger.error(
-                f"[Teto HTTP Ativado] Resposta da publicação #{pub_id} ({len(raw_body)} bytes) excede o limite seguro de {self.MAX_RESPONSE_BODY_BYTES} bytes. Descartada antes do parsing JSON."
+                f"Publicação #{pub_id} ({len(raw_body)} bytes) excedeu o teto de resposta HTTP de "
+                f"{self.MAX_RESPONSE_BODY_BYTES} bytes e foi rejeitada antes do parsing JSON."
             )
             self._inc_stat("serpro/download_rejected_too_large")
             next_req = self._dispatch_next_download_or_page(
@@ -478,18 +484,20 @@ class BaseSerproSpider(BaseGazetteSpider):
             b64_content = None
 
         if not b64_content or not isinstance(b64_content, str):
-            self.logger.warning(
-                f"Publicação #{pub_id} de {meta.get('date')} não retornou conteúdo Base64 válido."
+            self.logger.error(
+                f"Publicação #{pub_id} de {meta.get('date')} retornou conteúdo de arquivo ausente ou inválido no SERPRO."
             )
             self._inc_stat("serpro/download_empty_base64")
         elif len(b64_content) > self.MAX_PDF_B64_CHARS:
-            # Proteção contra PDF Gigante (após JSON)
+            # Notificação explícita caso o Base64 ultrapasse o teto esperado
             self.logger.error(
-                f"[Teto de RAM Ativado] Publicação #{pub_id} ({len(b64_content)} chars > {self.MAX_PDF_B64_CHARS}) descartada para proteger a memória."
+                f"Publicação #{pub_id} de {meta.get('date')} possui Base64 de tamanho excessivo "
+                f"({len(b64_content)} caracteres > {self.MAX_PDF_B64_CHARS}) e não foi emitida como Gazette. "
+                f"Verifique se o limite MAX_PDF_B64_CHARS precisa ser expandido."
             )
             self._inc_stat("serpro/download_rejected_too_large")
         else:
-            # Emite o Gazette para o pipeline com Data URI
+            # Emite o Gazette para o pipeline com Data URI RFC 2397
             pdf_data_uri = f"data:application/pdf;base64,{b64_content}"
             self._inc_stat("serpro/gazettes_downloaded")
 
@@ -513,15 +521,22 @@ class BaseSerproSpider(BaseGazetteSpider):
 
     def handle_download_error(self, failure: Any) -> Generator[scrapy.Request, None, None]:
         """
-        Tratamento defensivo: se um download falhar por timeout ou rede,
-        não interrompe a esteira e continua para o próximo arquivo.
+        Tratamento defensivo de falhas de transporte/rede ou limite download_maxsize atingido:
+        loga o erro explicitamente para auditoria e dá continuidade à esteira.
         """
-        self.logger.error(f"Falha de transporte ao baixar PDF: {repr(failure.value)}")
+        request = getattr(failure, "request", None)
+        meta = getattr(request, "meta", {}) if request else {}
+        pub_id = meta.get("pub_id", "desconhecido")
+        pub_date = meta.get("date", "desconhecida")
+        err_msg = str(failure.value) if hasattr(failure, "value") else repr(failure)
+
+        self.logger.error(
+            f"Falha no download da publicação #{pub_id} ({pub_date}): {err_msg}. "
+            f"O diário oficial não pôde ser coletado."
+        )
         self._inc_stat("serpro/download_network_failures")
 
-        request = getattr(failure, "request", None)
         if request and hasattr(request, "meta"):
-            meta = request.meta
             next_req = self._dispatch_next_download_or_page(
                 remaining_items=meta.get("remaining_items", []),
                 next_page_start_index=meta.get("next_page_start_index"),
@@ -533,7 +548,8 @@ class BaseSerproSpider(BaseGazetteSpider):
 
     def handle_request_error(self, failure: Any) -> None:
         """Tratamento de falhas de rede na listagem."""
-        self.logger.error(f"Falha de rede na listagem: {repr(failure.value)}")
+        err_msg = str(failure.value) if hasattr(failure, "value") else repr(failure)
+        self.logger.error(f"Falha de rede na listagem de publicações: {err_msg}")
         self._inc_stat("serpro/network_failures")
 
     def _extract_edition_number(self, title: str) -> Optional[str]:
@@ -545,12 +561,10 @@ class BaseSerproSpider(BaseGazetteSpider):
         return match.group(1) if match else None
 
     def _sanitize_count(self, raw_count: Any) -> int:
-        """Sanitização estrita do total de registros retornado pela API."""
+        """Sanitização do total de registros retornado pela API sem truncamento artificial."""
         try:
             count = int(raw_count)
-            if count < 0:
-                return 0
-            return min(count, self.MAX_START_INDEX)
+            return max(0, count)
         except (ValueError, TypeError):
             return 0
 
