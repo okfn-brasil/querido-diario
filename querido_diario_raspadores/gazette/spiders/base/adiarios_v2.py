@@ -68,8 +68,12 @@ class BaseAdiariosV2Spider(BaseGazetteSpider):
 
     def get_last_page_number(self, response):
         page_pagination = response.css(".pagination li a span::text").getall()
-        last_page_index = max([int(i) for i in page_pagination])
-        return last_page_index
+        page_numbers = [
+            int(page_number)
+            for page_number in page_pagination
+            if page_number.strip().isdigit()
+        ]
+        return max(page_numbers, default=1)
 
     def intermediary_page(self, response, gazette_item):
         gazette_path = response.css("div.public_paginas > div.titulo > a").attrib[
