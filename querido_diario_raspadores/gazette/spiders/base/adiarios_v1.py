@@ -78,9 +78,12 @@ class BaseAdiariosV1Spider(BaseGazetteSpider):
 
     def get_last_page_number(self, response):
         page_pagination = response.css(".pagination li a span::text").getall()
-        page_numbers = [int(i) for i in page_pagination]
-        last_page_index = max(page_numbers)
-        return last_page_index
+        page_numbers = [
+            int(page_number)
+            for page_number in page_pagination
+            if page_number.strip().isdigit()
+        ]
+        return max(page_numbers, default=1)
 
     def get_power(self, title):
         normalized_title = title.lower().strip()
