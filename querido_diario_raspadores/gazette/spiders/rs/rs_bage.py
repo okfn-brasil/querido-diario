@@ -3,6 +3,8 @@ import json
 import re
 from typing import Any, Generator, Optional
 
+import urllib.parse
+
 import scrapy
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -18,8 +20,9 @@ class RsBageSpider(BaseGazetteSpider):
     Contribuição desenvolvida no âmbito do projeto Bagé Transparente.
 
     Execução 100% autônoma na infraestrutura do Scrapy Cloud (OKBR):
-    Coleta metadados via API REST do SERPRO e emite os binários do PDF
-    através do handler nativo RFC 2397 Data URI (RFC 2397) 
+    1. Sessão inicial dinâmica para cookies e extração de versão do módulo OutSystems;
+    2. Coleta metadados via API REST do SERPRO;
+    3. Emite os binários do PDF através do handler nativo RFC 2397 Data URI (RFC 2397).
     www.bagetransparente.com.br
     """
 
@@ -32,15 +35,69 @@ class RsBageSpider(BaseGazetteSpider):
 
     BASE_URL = "https://cidadesdoe.serpro.gov.br/govbrcidades_doe"
     HASH_PREFEITURA = "eQJpm=Qsio5G=7tFAXJlF=hrIsVqGJ92JabaSQgbJFE="
-    CSRF_TOKEN = "T6C+9iB49TLra4jEsMeSckDMNhQ="
-    COOKIE_HEADER = "nr2AcessoGov_web=crf%3dT6C%2b9iB49TLra4jEsMeSckDMNhQ%3d%3buid%3d0%3bunm%3d"
 
-    def start_requests(self) -> Generator[scrapy.Request, None, None]:
-        """Inicia a consulta à listagem do SERPRO DOE."""
-        yield self._build_page_request(start_index=0)
+    # Tokens e versões de fallback validados caso o endpoint de manifesto oscile
+    DEFAULT_CSRF_TOKEN = "T6C+9iB49TLra4jEsMeSckDMNhQ="
+    DEFAULT_MODULE_VERSION = "n+Mjd8q_ahkeNIkyYfbTNA"
+    DEFAULT_API_VERSION_SEARCH = "zRAHqBwfWZSZQDXDYGpfWg"
+    DEFAULT_API_VERSION_DOWNLOAD = "p6Pwyi8dX2Lf8E0FKxeCTw"
 
-    def _build_page_request(self, start_index: int) -> scrapy.Request:
-        """Monta a requisição POST com payload de busca e paginação."""
+    # URL inicial para abertura de sessão e inicialização de cookies via Scrapy
+    start_urls = [
+        f"https://cidadesdoe.serpro.gov.br/govbrcidades_doe/DoeConsultaCidadao?&Hash=eQJpm=Qsio5G=7tFAXJlF=hrIsVqGJ92JabaSQgbJFE="
+    ]
+
+    def parse(self, response: scrapy.http.Response) -> Generator[scrapy.Request, None, None]:
+        """
+        Recebe a resposta da página inicial pública, preservando os cookies da sessão
+        no CookieJar do Scrapy e requisita o manifesto para validação dinâmica de versão.
+        """
+        csrf_token = self.DEFAULT_CSRF_TOKEN
+        set_cookies = response.headers.getlist("Set-Cookie")
+        for cookie_raw in set_cookies:
+            cookie_str = urllib.parse.unquote(cookie_raw.decode("utf-8", errors="ignore"))
+            match = re.search(r"crf=([^;]+)", cookie_str)
+            if match:
+                csrf_token = match.group(1)
+                break
+
+        manifest_url = f"{self.BASE_URL}/moduleservices/moduleinfo"
+        yield scrapy.Request(
+            url=manifest_url,
+            callback=self.parse_module_info,
+            meta={"csrf_token": csrf_token},
+            dont_filter=True,
+        )
+
+    def parse_module_info(
+        self, response: scrapy.http.Response
+    ) -> Generator[scrapy.Request, None, None]:
+        """
+        Extrai dinamicamente o versionToken do OutSystems e inicia a listagem de diários.
+        """
+        csrf_token = response.meta.get("csrf_token", self.DEFAULT_CSRF_TOKEN)
+        module_version = self.DEFAULT_MODULE_VERSION
+
+        try:
+            info = json.loads(response.text)
+            token = info.get("manifest", {}).get("versionToken")
+            if token:
+                module_version = token
+        except Exception:
+            self.logger.warning(
+                "Falha ao decodificar moduleinfo do SERPRO. Utilizando versão padrão validada."
+            )
+
+        yield self._build_page_request(
+            start_index=0,
+            module_version=module_version,
+            csrf_token=csrf_token,
+        )
+
+    def _build_page_request(
+        self, start_index: int, module_version: str, csrf_token: str
+    ) -> scrapy.Request:
+        """Monta a requisição POST de busca com paginação e parâmetros validados."""
         endpoint = (
             f"{self.BASE_URL}/screenservices/govbrcidades_doe/Cidadao/"
             f"DOEConsultaCidadao/ScreenDataSetGetTBDadosPublicacaoByDapIdHashPrefeitura"
@@ -49,8 +106,7 @@ class RsBageSpider(BaseGazetteSpider):
         headers = {
             "Content-Type": "application/json; charset=UTF-8",
             "Accept": "application/json",
-            "X-CSRFToken": self.CSRF_TOKEN,
-            "Cookie": self.COOKIE_HEADER,
+            "X-CSRFToken": csrf_token,
             "Origin": "https://cidadesdoe.serpro.gov.br",
             "Referer": f"{self.BASE_URL}/DoeConsultaCidadao?&Hash={self.HASH_PREFEITURA}",
             "User-Agent": (
@@ -61,8 +117,8 @@ class RsBageSpider(BaseGazetteSpider):
 
         payload = {
             "versionInfo": {
-                "moduleVersion": "n+Mjd8q_ahkeNIkyYfbTNA",
-                "apiVersion": "zRAHqBwfWZSZQDXDYGpfWg",
+                "moduleVersion": module_version,
+                "apiVersion": self.DEFAULT_API_VERSION_SEARCH,
             },
             "viewName": "Cidadao.DOEConsultaCidadao",
             "screenData": {
@@ -129,13 +185,22 @@ class RsBageSpider(BaseGazetteSpider):
             method="POST",
             headers=headers,
             body=json.dumps(payload),
-            callback=self.parse,
-            meta={"start_index": start_index},
+            callback=self.parse_gazette_list,
+            meta={
+                "start_index": start_index,
+                "module_version": module_version,
+                "csrf_token": csrf_token,
+            },
             dont_filter=True,
         )
 
-    def parse(self, response: scrapy.http.Response) -> Generator[Any, None, None]:
+    def parse_gazette_list(
+        self, response: scrapy.http.Response
+    ) -> Generator[Any, None, None]:
         """Processa a resposta JSON do SERPRO com a lista de diários oficiais."""
+        module_version = response.meta.get("module_version", self.DEFAULT_MODULE_VERSION)
+        csrf_token = response.meta.get("csrf_token", self.DEFAULT_CSRF_TOKEN)
+
         data = json.loads(response.text)
         data_block = data.get("data", {})
         total_count = data_block.get("Count", 0)
@@ -169,15 +234,14 @@ class RsBageSpider(BaseGazetteSpider):
             edition_number = self._extract_edition_number(title)
             is_extra = "extra" in title.lower() or "extra" in summary.lower()
 
-            # Dispara requisição direta ao endpoint de arquivo do SERPRO
             download_url = (
                 f"{self.BASE_URL}/screenservices/govbrcidades_doe/"
                 f"ActionBuscaArquivoPublicacao"
             )
             download_payload = {
                 "versionInfo": {
-                    "moduleVersion": "n+Mjd8q_ahkeNIkyYfbTNA",
-                    "apiVersion": "p6Pwyi8dX2Lf8E0FKxeCTw",
+                    "moduleVersion": module_version,
+                    "apiVersion": self.DEFAULT_API_VERSION_DOWNLOAD,
                 },
                 "viewName": "Cidadao.DOEConsultaCidadao",
                 "inputParameters": {
@@ -200,8 +264,7 @@ class RsBageSpider(BaseGazetteSpider):
                 headers={
                     "Content-Type": "application/json; charset=UTF-8",
                     "Accept": "application/json",
-                    "X-CSRFToken": self.CSRF_TOKEN,
-                    "Cookie": self.COOKIE_HEADER,
+                    "X-CSRFToken": csrf_token,
                     "Origin": "https://cidadesdoe.serpro.gov.br",
                     "Referer": f"{self.BASE_URL}/DoeConsultaCidadao?&Hash={self.HASH_PREFEITURA}",
                 },
@@ -215,7 +278,11 @@ class RsBageSpider(BaseGazetteSpider):
         current_index = response.meta.get("start_index", 0)
         next_index = current_index + 50
         if next_index < total_count:
-            yield self._build_page_request(start_index=next_index)
+            yield self._build_page_request(
+                start_index=next_index,
+                module_version=module_version,
+                csrf_token=csrf_token,
+            )
 
     def parse_gazette_file(
         self, response: scrapy.http.Response
