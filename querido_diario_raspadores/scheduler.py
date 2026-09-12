@@ -1,27 +1,31 @@
 import datetime
+import logging
+import time
 
 import click
+import requests
 from decouple import config
 from scrapinghub import ScrapinghubClient
-from sqlalchemy import create_engine, update
-from sqlalchemy.orm import sessionmaker
 
-from gazette.database.models import QueridoDiarioSpider
+from gazette.utils.api_client import QueridoDiarioAPIClient
 from gazette.utils.database import get_enabled_spiders
 
 YESTERDAY = datetime.date.today() - datetime.timedelta(days=1)
+
+logger = logging.getLogger(__name__)
+
+# Scrapy Cloud (Zyte) ocasionalmente derruba a conexão no meio de um
+# "run job" (RemoteDisconnected) sem nenhum problema real do nosso lado.
+SCHEDULE_JOB_RETRY_ATTEMPTS = 3
+SCHEDULE_JOB_RETRY_BACKOFF_SECONDS = 5  # 5s, 10s
 
 
 def _job_settings():
     return {
         "FILES_STORE": config("FILES_STORE"),
         "FILES_STORE_SECONDARY": config("FILES_STORE_SECONDARY", default=""),
-        # Gazettes are persisted through the API when QUERIDODIARIO_API_URL
-        # is set. QUERIDODIARIO_DATABASE_URL is kept only while job_stats
-        # (phase 2) has not migrated to the API.
         "QUERIDODIARIO_API_URL": config("QUERIDODIARIO_API_URL", default=""),
         "QUERIDODIARIO_API_KEY": config("QUERIDODIARIO_API_KEY", default=""),
-        "QUERIDODIARIO_DATABASE_URL": config("QUERIDODIARIO_DATABASE_URL", default=""),
         "AWS_ACCESS_KEY_ID": config("AWS_ACCESS_KEY_ID"),
         "AWS_SECRET_ACCESS_KEY": config("AWS_SECRET_ACCESS_KEY"),
         "AWS_ENDPOINT_URL": config("AWS_ENDPOINT_URL"),
@@ -47,6 +51,12 @@ def _get_project():
     return client.get_project(config("SCRAPY_CLOUD_PROJECT_ID"))
 
 
+def _get_api_client():
+    return QueridoDiarioAPIClient(
+        config("QUERIDODIARIO_API_URL"), config("QUERIDODIARIO_API_KEY")
+    )
+
+
 def _schedule_job(start, full, spider_name, project=None, end=None):
     project = project or _get_project()
 
@@ -59,10 +69,27 @@ def _schedule_job(start, full, spider_name, project=None, end=None):
             job_args["end"] = end
 
     spider = project.spiders.get(spider_name)
-    spider.jobs.run(
-        job_settings=job_settings,
-        job_args=job_args,
-    )
+
+    for attempt in range(1, SCHEDULE_JOB_RETRY_ATTEMPTS + 1):
+        try:
+            spider.jobs.run(
+                job_settings=job_settings,
+                job_args=job_args,
+            )
+            return
+        except requests.exceptions.RequestException:
+            if attempt == SCHEDULE_JOB_RETRY_ATTEMPTS:
+                raise
+            delay = SCHEDULE_JOB_RETRY_BACKOFF_SECONDS * (2 ** (attempt - 1))
+            logger.warning(
+                "Falha de conexão ao agendar '%s' na Scrapy Cloud "
+                "(tentativa %d/%d), tentando de novo em %ds",
+                spider_name,
+                attempt,
+                SCHEDULE_JOB_RETRY_ATTEMPTS,
+                delay,
+            )
+            time.sleep(delay)
 
 
 @click.group()
@@ -112,18 +139,7 @@ def schedule_spider(spider_name, start, end):
     help="Spider name",
 )
 def enable_spider(spider_name):
-    engine = create_engine(config("QUERIDODIARIO_DATABASE_URL"))
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    stmt = (
-        update(QueridoDiarioSpider)
-        .where(QueridoDiarioSpider.spider_name == spider_name)
-        .values(enabled=True)
-    )
-
-    session.execute(stmt)
-    session.commit()
+    _get_api_client().set_spider_enabled(spider_name, True)
 
 
 @cli.command()
@@ -133,18 +149,7 @@ def enable_spider(spider_name):
     help="Spider name",
 )
 def disable_spider(spider_name):
-    engine = create_engine(config("QUERIDODIARIO_DATABASE_URL"))
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    stmt = (
-        update(QueridoDiarioSpider)
-        .where(QueridoDiarioSpider.spider_name == spider_name)
-        .values(enabled=False)
-    )
-
-    session.execute(stmt)
-    session.commit()
+    _get_api_client().set_spider_enabled(spider_name, False)
 
 
 @cli.command()
@@ -169,12 +174,26 @@ def schedule_job(start, full, spider_name):
 @cli.command()
 def schedule_enabled_spiders():
     project = _get_project()
+    failed_spiders = []
     for spider_name in _get_enabled_spiders(start_date=YESTERDAY):
-        _schedule_job(
-            start=YESTERDAY,
-            full=False,
-            spider_name=spider_name,
-            project=project,
+        try:
+            _schedule_job(
+                start=YESTERDAY,
+                full=False,
+                spider_name=spider_name,
+                project=project,
+            )
+        except requests.exceptions.RequestException:
+            logger.exception(
+                "Falha ao agendar '%s' na Scrapy Cloud, pulando pro próximo spider",
+                spider_name,
+            )
+            failed_spiders.append(spider_name)
+
+    if failed_spiders:
+        raise click.ClickException(
+            f"Falha ao agendar {len(failed_spiders)} spider(s): "
+            f"{', '.join(failed_spiders)}"
         )
 
 

@@ -74,20 +74,25 @@ class BaseDiofSpider(BaseGazetteSpider):
         for interval in monthly_window(
             self.start_date, self.end_date, format="%Y-%m-%d"
         ):
-            data = {
-                "cod_cliente": f"{self.client_id}",
-                "dat_envio_ini": f"{interval.start}",
-                "dat_envio_fim": f"{interval.end}",
-                "des_observacao": "",
-                "edicao": None,
-            }
-            yield JsonRequest(
-                url=f"{self.api_url}/diario-oficial/edicoes-anteriores-group",
-                data=data,
-                callback=self.parse_items,
-            )
+            yield from self._edicoes_request(interval, page=1)
 
-    def parse_items(self, response):
+    def _edicoes_request(self, interval, page):
+        data = {
+            "cod_cliente": f"{self.client_id}",
+            "dat_envio_ini": f"{interval.start}",
+            "dat_envio_fim": f"{interval.end}",
+            "des_observacao": "",
+            "edicao": None,
+            "page": page,
+        }
+        yield JsonRequest(
+            url=f"{self.api_url}/diario-oficial/edicoes-anteriores-group",
+            data=data,
+            callback=self.parse_items,
+            cb_kwargs={"interval": interval, "page": page},
+        )
+
+    def parse_items(self, response, interval, page):
         """
         The SAI service appears to be migrating its backend to consume a DIOF API,
         but some gazettes are only collectible through the old URL. So, this method
@@ -95,7 +100,13 @@ class BaseDiofSpider(BaseGazetteSpider):
         it using the old URL.
         """
 
-        for gazette_date in json.loads(response.text):
+        payload = json.loads(response.text)
+
+        # A API passou a envelopar a lista de datas num objeto
+        # {"data": [...], "page", "pages", "count"} com paginação — antes
+        # era só a lista, sem paginação. `total_pages` pode faltar em
+        # respostas antigas cacheadas/mocks; assume 1 nesse caso.
+        for gazette_date in payload.get("data", []):
             for gazette in gazette_date["elements"]:
                 date = gazette["dat_envio"]
                 path = gazette["des_arquivoa4"]
@@ -121,6 +132,10 @@ class BaseDiofSpider(BaseGazetteSpider):
                         "optional_url": second_option_url,
                     },
                 )
+
+        total_pages = payload.get("pages") or 1
+        if page < total_pages:
+            yield from self._edicoes_request(interval, page=page + 1)
 
     def collect_gazette(self, response, metadata, optional_url):
         if response.status != 200:
