@@ -383,6 +383,148 @@ def test_parse_api_month_ignores_publication_without_download_link(publication):
 
 
 @pytest.mark.parametrize(
+    "date_group",
+    [
+        {"publicacoes": []},
+        {"data": None, "publicacoes": []},
+        {"data": "", "publicacoes": []},
+    ],
+)
+def test_parse_api_month_ignores_date_group_without_date(date_group):
+    spider = RsPortoAlegreSpider(start="2011-05-02", end="2011-05-03")
+    response = make_api_response({"executivo": [date_group]})
+
+    assert list(spider.parse_api_month(response)) == []
+
+
+@pytest.mark.parametrize(
+    "raw_date",
+    ["31/13/2011", "not-a-date", 20110502],
+)
+def test_parse_api_month_ignores_date_group_with_invalid_date(raw_date):
+    spider = RsPortoAlegreSpider(start="2011-05-02", end="2011-05-03")
+    response = make_api_response(
+        {
+            "executivo": [
+                {
+                    "data": raw_date,
+                    "publicacoes": [
+                        {
+                            "idEdicao": 217,
+                            "numeroEdicao": 4003,
+                            "isExtra": False,
+                            "linkDownload": (
+                                "/api/diarios/edicao/217/download?tipo=executivo"
+                            ),
+                        }
+                    ],
+                }
+            ]
+        }
+    )
+
+    assert list(spider.parse_api_month(response)) == []
+
+
+def test_parse_api_month_ignores_publication_without_edition_number_but_keeps_others():
+    spider = RsPortoAlegreSpider(start="2011-05-02", end="2011-05-03")
+    response = make_api_response(
+        {
+            "executivo": [
+                {
+                    "data": "02/05/2011",
+                    "publicacoes": [
+                        {
+                            "idEdicao": 217,
+                            "isExtra": False,
+                            "linkDownload": (
+                                "/api/diarios/edicao/217/download?tipo=executivo"
+                            ),
+                        },
+                        {
+                            "idEdicao": 218,
+                            "numeroEdicao": 4004,
+                            "isExtra": False,
+                            "linkDownload": (
+                                "/api/diarios/edicao/218/download?tipo=executivo"
+                            ),
+                        },
+                    ],
+                }
+            ]
+        }
+    )
+
+    gazettes = list(spider.parse_api_month(response))
+
+    assert len(gazettes) == 1
+    assert gazettes[0]["edition_number"] == 4004
+
+
+def test_parse_api_month_ignores_publication_without_is_extra_but_keeps_others():
+    spider = RsPortoAlegreSpider(start="2011-05-02", end="2011-05-03")
+    response = make_api_response(
+        {
+            "executivo": [
+                {
+                    "data": "02/05/2011",
+                    "publicacoes": [
+                        {
+                            "idEdicao": 217,
+                            "numeroEdicao": 4003,
+                            "linkDownload": (
+                                "/api/diarios/edicao/217/download?tipo=executivo"
+                            ),
+                        },
+                        {
+                            "idEdicao": 218,
+                            "numeroEdicao": 4004,
+                            "isExtra": False,
+                            "linkDownload": (
+                                "/api/diarios/edicao/218/download?tipo=executivo"
+                            ),
+                        },
+                    ],
+                }
+            ]
+        }
+    )
+
+    gazettes = list(spider.parse_api_month(response))
+
+    assert len(gazettes) == 1
+    assert gazettes[0]["edition_number"] == 4004
+
+
+def test_parse_api_month_accepts_is_extra_false():
+    spider = RsPortoAlegreSpider(start="2011-05-02", end="2011-05-03")
+    response = make_api_response(
+        {
+            "executivo": [
+                {
+                    "data": "02/05/2011",
+                    "publicacoes": [
+                        {
+                            "idEdicao": 217,
+                            "numeroEdicao": 4003,
+                            "isExtra": False,
+                            "linkDownload": (
+                                "/api/diarios/edicao/217/download?tipo=executivo"
+                            ),
+                        }
+                    ],
+                }
+            ]
+        }
+    )
+
+    gazettes = list(spider.parse_api_month(response))
+
+    assert len(gazettes) == 1
+    assert gazettes[0]["is_extra_edition"] is False
+
+
+@pytest.mark.parametrize(
     ("link_download", "expected_url"),
     [
         (

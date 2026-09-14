@@ -46,6 +46,9 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
 
     custom_settings = {"CONCURRENT_REQUESTS": 8}
 
+    def __api_start_date(self):
+        return max(self.start_date, self.API_START_DATE)
+
     async def start(self):
         archive_start = max(self.start_date, self.ARCHIVE_START_DATE)
         archive_end = min(self.end_date, self.ARCHIVE_END_DATE)
@@ -66,7 +69,7 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
                     },
                 )
 
-        api_start = max(self.start_date, self.API_START_DATE)
+        api_start = self.__api_start_date()
         if api_start <= self.end_date:
             for month_date in monthly_sequence(api_start, self.end_date):
                 url = (
@@ -172,20 +175,50 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
 
     def parse_api_month(self, response):
         gazettes_by_power = response.json()
-        api_start = max(self.start_date, self.API_START_DATE)
+        api_start = self.__api_start_date()
 
         for api_power, power in (
             ("executivo", "executive"),
             ("legislativo", "legislative"),
         ):
             for date_group in gazettes_by_power.get(api_power, []):
-                date = dt.datetime.strptime(date_group["data"], "%d/%m/%Y").date()
+                raw_date = date_group.get("data")
+                if not raw_date:
+                    self.logger.warning(
+                        "Date group for power %s does not have a date.", api_power
+                    )
+                    continue
+
+                try:
+                    date = dt.datetime.strptime(raw_date, "%d/%m/%Y").date()
+                except (TypeError, ValueError):
+                    self.logger.warning(
+                        "Unable to parse date %r for power %s.", raw_date, api_power
+                    )
+                    continue
 
                 if not api_start <= date <= self.end_date:
                     continue
 
                 for publication in date_group.get("publicacoes", []):
+                    edition_number = publication.get("numeroEdicao")
+                    is_extra_edition = publication.get("isExtra")
                     link_download = publication.get("linkDownload")
+
+                    if edition_number is None:
+                        self.logger.warning(
+                            "Publication %s does not have an edition number.",
+                            publication.get("idEdicao"),
+                        )
+                        continue
+
+                    if is_extra_edition is None:
+                        self.logger.warning(
+                            "Publication %s does not have an isExtra flag.",
+                            publication.get("idEdicao"),
+                        )
+                        continue
+
                     if not link_download:
                         self.logger.warning(
                             "Edition %s does not have a download link.",
@@ -200,8 +233,8 @@ class RsPortoAlegreSpider(BaseGazetteSpider):
 
                     yield Gazette(
                         date=date,
-                        edition_number=publication["numeroEdicao"],
+                        edition_number=edition_number,
                         file_urls=[file_url],
-                        is_extra_edition=publication["isExtra"],
+                        is_extra_edition=is_extra_edition,
                         power=power,
                     )
