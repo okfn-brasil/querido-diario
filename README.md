@@ -29,6 +29,7 @@ Conheça mais sobre as [tecnologias](https://queridodiario.ok.org.br/tecnologia)
 - [Template para raspadores](#template-para-raspadores)
 - [Como executar](#como-executar)
   - [Dicas de execução](#dicas-de-execução)
+- [Tutorial de testes](#tutorial-de-testes)
 - [Solução de problemas](#solução-de-problemas)
 - [Suporte](#suporte)
 - [Agradecimentos](#agradecimentos)
@@ -125,6 +126,9 @@ Também é possível construir uma tabela que lista todos os diários e metadado
 ```console
 uv run scrapy crawl <nome_do_raspador> -o <nome_do_municipio>.csv
 ```
+
+# Tutorial de testes
+Para validar mudanças em raspadores e código de apoio, consulte o [tutorial de testes](docs/tutorials/testes.md).
 
 # Solução de problemas
 Confira o arquivo de [solução de problemas](docs/TROUBLESHOOTING.md) para resolver os problemas mais frequentes com a configuração do ambiente do projeto. 
