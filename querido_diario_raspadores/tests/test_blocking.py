@@ -1,11 +1,21 @@
+import asyncio
+import gzip
 from unittest.mock import MagicMock
 
 import pytest
+from scrapy import Spider
+from scrapy.core.downloader.middleware import DownloaderMiddlewareManager
 from scrapy.exceptions import CloseSpider
-from scrapy.http import Request, TextResponse
+from scrapy.http import HtmlResponse, Request, TextResponse
+from scrapy.settings.default_settings import DOWNLOADER_MIDDLEWARES_BASE
+from scrapy.utils.reactor import install_reactor
+from scrapy.utils.test import get_crawler
 
+from gazette import settings
 from gazette.middlewares import GazetteDownloaderMiddleware
 from gazette.utils.blocking import is_cloudflare_challenge
+
+install_reactor("twisted.internet.asyncioreactor.AsyncioSelectorReactor")
 
 
 def make_response(body: bytes, status: int = 200, url: str = "https://example.org"):
@@ -64,3 +74,61 @@ class TestGazetteDownloaderMiddleware:
         self.spider.crawler.stats.inc_value.assert_called_once_with(
             "cloudflare_challenge/blocked_count"
         )
+
+
+class TestMiddlewareOrderInProjectSettings:
+    """Challenge pages are usually served gzip-encoded, so the detection
+    only works if it runs after Scrapy's HttpCompressionMiddleware has
+    decoded the body."""
+
+    def download_through_project_middlewares(self, response_kwargs):
+        # Only the two components that matter here, each at the priority it
+        # really has: Scrapy's default for decompression, ours from settings.
+        compression = (
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware"
+        )
+        gazette = "gazette.middlewares.GazetteDownloaderMiddleware"
+        crawler = get_crawler(
+            Spider,
+            settings_dict={
+                "DOWNLOADER_MIDDLEWARES_BASE": {
+                    compression: DOWNLOADER_MIDDLEWARES_BASE[compression]
+                },
+                "DOWNLOADER_MIDDLEWARES": {
+                    gazette: settings.DOWNLOADER_MIDDLEWARES[gazette]
+                },
+            },
+        )
+        crawler.spider = crawler._create_spider("test")
+        manager = DownloaderMiddlewareManager.from_crawler(crawler)
+        manager._set_compat_spider(crawler.spider)
+
+        async def download(request):
+            return HtmlResponse(request=request, url=request.url, **response_kwargs)
+
+        request = Request("https://example.org/arquivos_download.php?id=1")
+        return asyncio.run(manager.download_async(download, request))
+
+    def test_detects_challenge_in_gzip_encoded_response(self):
+        challenge_page = (
+            b"<html><head><title>Prefeitura</title></head><body>"
+            b'<div class="cf-turnstile"></div>'
+            b'<script src="https://challenges.cloudflare.com/turnstile/v0/api.js">'
+            b"</script></body></html>"
+        )
+        with pytest.raises(CloseSpider):
+            self.download_through_project_middlewares(
+                {
+                    "body": gzip.compress(challenge_page),
+                    "headers": {"Content-Encoding": "gzip"},
+                }
+            )
+
+    def test_gzip_encoded_real_content_passes_through(self):
+        response = self.download_through_project_middlewares(
+            {
+                "body": gzip.compress(b"%PDF-1.4 real gazette"),
+                "headers": {"Content-Encoding": "gzip"},
+            }
+        )
+        assert response.body == b"%PDF-1.4 real gazette"
