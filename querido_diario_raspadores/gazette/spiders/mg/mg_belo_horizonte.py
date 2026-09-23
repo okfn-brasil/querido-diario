@@ -13,7 +13,7 @@ class MgBeloHorizonteSpider(BaseGazetteSpider):
     TERRITORY_ID = "3106200"
 
     name = "mg_belo_horizonte"
-    allowed_domains = ["dom-web.pbh.gov.br"]
+    allowed_domains = ["api-dom.pbh.gov.br"]
     start_date = datetime.date(1995, 9, 26)
 
     custom_settings = {"DOWNLOAD_DELAY": 0.5}
