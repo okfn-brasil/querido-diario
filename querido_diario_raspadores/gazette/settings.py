@@ -68,7 +68,10 @@ DOWNLOADER_MIDDLEWARES = {
     # Detects when a response is actually a Cloudflare Turnstile challenge
     # page and fails the request/spider instead of treating it as valid
     # content (see gazette/utils/blocking.py).
-    "gazette.middlewares.GazetteDownloaderMiddleware": 620,
+    # It must stay below HttpCompressionMiddleware (590): process_response
+    # runs in decreasing order, so anything above 590 inspects the still
+    # gzip/br-encoded body and never finds the challenge markers.
+    "gazette.middlewares.GazetteDownloaderMiddleware": 585,
 }
 ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"
 
