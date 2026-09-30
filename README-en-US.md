@@ -135,6 +135,7 @@ Here is a complete list of all documentation available in the `docs/` folder:
 - [Contribution Guide](docs/CONTRIBUTING.md) | [Contribution Guide (EN)](docs/CONTRIBUTING-en-US.md)
 - [Support](docs/SUPPORT.md) | [Support (EN)](docs/SUPPORT-en-US.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md) | [Troubleshooting (EN)](docs/TROUBLESHOOTING-en-US.md)
+- [Tutorials](docs/tutorials/README.md) | [Tutorials (EN)](docs/tutorials/README-en-US.md)
 
 # License
 
