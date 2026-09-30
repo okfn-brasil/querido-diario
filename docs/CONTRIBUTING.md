@@ -13,6 +13,7 @@ Já leu? Então vamos às informações específicas deste repositório:
     - [Em Linux](#em-linux)
     - [Em Windows](#em-windows)
   - [Formatação automática de código](#formação-automática-de-código)
+  - [Tutorial de debugging](#tutorial-de-debugging)
 - [Mantendo](#mantendo)
     - [Revisão de raspadores](#revisão-de-raspadores)
 
@@ -139,6 +140,10 @@ Siga as instruções referentes À instalação utilizando [Linux](CONTRIBUTING.
 
 [Este tutorial](https://github.com/Luisa-Coelho/qd-data-processing/blob/readme_update/wsl_windows.md) vai te ajudar na instalação e configuração do WSL na sua máquina Windows.
 
+
+## Tutorial de debugging
+
+Use o [tutorial de debugging](tutorials/debugging.md) quando um raspador falhar, retornar itens incompletos ou quando for necessário entender melhor uma mudança no site de origem dos diários oficiais.
 
 ## Formação automática de código
 O projeto usa [Black](https://github.com/psf/black) como ferramenta de automação para formatar e verificar o estilo do código e usa [isort](https://github.com/pycqa/isort) para organizar as importações. A integração contínua (CI) falhará se seu código não estiver adequadamente formatado.
