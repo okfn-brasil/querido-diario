@@ -76,6 +76,8 @@ class MgUberlandiaSpider(BaseGazetteSpider):
 
         yield Gazette(
             **gazette_item,
-            file_urls=[gazette_url],
+            # O host de documentos responde 503 quando acessado pelo proxy
+            # Zyte, mas disponibiliza o PDF diretamente.
+            file_requests=[scrapy.Request(gazette_url, meta={"dont_proxy": True})],
             power="executive",
         )
