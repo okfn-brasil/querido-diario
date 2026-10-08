@@ -42,14 +42,20 @@ class BaseDionetSpider(BaseGazetteSpider):
         items = gazette_data.get("itens", [])
         for item in items:
             gazette_id = item["id"]
-            gazette_url = f"{self.BASE_URL}/portal/edicoes/download/{gazette_id}"
+            # When the edition's PDF is missing, DIONET redirects the download
+            # to the portal's home page. Not following the redirect makes the
+            # download fail instead of saving that HTML page as the gazette.
+            gazette_request = Request(
+                f"{self.BASE_URL}/portal/edicoes/download/{gazette_id}",
+                meta={"dont_redirect": True},
+            )
 
             is_extra_edition = item["suplemento"] == 1
             edition_number = item["numero"]
 
             yield Gazette(
                 date=gazette_date,
-                file_urls=[gazette_url],
+                file_requests=[gazette_request],
                 is_extra_edition=is_extra_edition,
                 edition_number=edition_number,
                 power="executive",
