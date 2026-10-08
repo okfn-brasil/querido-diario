@@ -12,13 +12,16 @@ async def collect_start_requests(spider):
 
 
 def make_old_website_response(*gazettes):
-    items = "".join(f"""
+    items = "".join(
+        f"""
         <li>
             <span class="texto">{raw_date} - </span>
             <a class="linkDarkenedStyle" href="{href}" target="_blank">{title}</a> -
             <a class="linkDarkenedStyle" href="{href}" download>download</a>
         </li>
-        """ for raw_date, title, href in gazettes)
+        """
+        for raw_date, title, href in gazettes
+    )
     body = f'<div class="sub-dropdown"><ul><ul>{items}</ul></ul></div>'
     return HtmlResponse(
         url=RnParnamirimSpider.OLD_WEBSITE_URL,
