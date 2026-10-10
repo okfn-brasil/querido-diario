@@ -5591,3 +5591,7 @@ id,name,state_code,state
 5100000,Associação Mato-grossense dos Municípios,MT,Mato Grosso
 5200000,Associação Goiana de Municípios,GO,Goiás
 5200001,Federação Goiana de Municípios,GO,Goiás
+3199999,Governo do Estado de Minas Gerais,MG,Minas Gerais
+3299999,Governo do Estado do Espírito Santo,ES,Espírito Santo
+3399999,Governo do Estado do Rio de Janeiro,RJ,Rio de Janeiro
+3599999,Governo do Estado de São Paulo,SP,São Paulo
