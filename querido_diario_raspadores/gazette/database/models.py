@@ -31,18 +31,21 @@ def load_territories(engine):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    if session.query(Territory).count() > 0:
-        return
-
-    logger.info("Populating 'territories' table - Please wait!")
+    existing_ids = {territory_id for (territory_id,) in session.query(Territory.id)}
     territories_file = files("gazette").joinpath("resources/territories.csv")
     with territories_file.open(encoding="utf-8") as csvfile:
-        reader = csv.DictReader(csvfile)
-        territories = []
-        for row in reader:
-            territories.append(Territory(**row))
-        session.bulk_save_objects(territories)
-        session.commit()
+        new_territories = [
+            Territory(**row)
+            for row in csv.DictReader(csvfile)
+            if row["id"] not in existing_ids
+        ]
+
+    if not new_territories:
+        return
+
+    logger.info(f"Inserting {len(new_territories)} new territories - Please wait!")
+    session.bulk_save_objects(new_territories)
+    session.commit()
     logger.info("Populating 'territories' table - Done!")
 
 
