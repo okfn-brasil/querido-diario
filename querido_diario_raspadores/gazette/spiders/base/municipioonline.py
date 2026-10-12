@@ -1,7 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import scrapy
 from scrapy.exceptions import NotConfigured
+from scrapy.spidermiddlewares.httperror import HttpError
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -40,14 +41,47 @@ class BaseMunicipioOnlineSpider(BaseGazetteSpider):
         Assim, nessa implementação, o intervalo de tempo máximo para apenas uma
         requisição é de um ano. Acima disso, mais de uma requisição será realizada.
         """
-        for interval in yearly_window(
-            self.start_date, self.end_date, format="%d/%m/%Y"
-        ):
-            formdata = {
-                "__EVENTTARGET": "ctl00$body$btnBuscaPalavrachave",
-                "ctl00$body$txtDtPeriodo": f"{interval.start}-{interval.end}",
-            }
-            yield scrapy.FormRequest.from_response(response, formdata=formdata)
+        for interval in yearly_window(self.start_date, self.end_date):
+            yield self.interval_request(
+                response, interval.start.date(), interval.end.date()
+            )
+
+    def interval_request(self, form_response, start, end):
+        formdata = {
+            "__EVENTTARGET": "ctl00$body$btnBuscaPalavrachave",
+            "ctl00$body$txtDtPeriodo": f"{start:%d/%m/%Y}-{end:%d/%m/%Y}",
+        }
+        return scrapy.FormRequest.from_response(
+            form_response,
+            formdata=formdata,
+            errback=self.split_failed_interval,
+            meta={"form_response": form_response, "interval": (start, end)},
+        )
+
+    def split_failed_interval(self, failure):
+        """
+        Divide ao meio um intervalo cuja busca falhou.
+
+        Basta uma edição com problema no intervalo para o sistema responder com
+        código 500 à busca inteira, o que faria todas as outras edições do ano se
+        perderem. Dividindo o intervalo sucessivamente, apenas o dia problemático
+        fica de fora.
+        """
+        if not failure.check(HttpError):
+            self.logger.error(repr(failure))
+            return
+
+        form_response = failure.request.meta["form_response"]
+        start, end = failure.request.meta["interval"]
+        if start >= end:
+            self.logger.warning(
+                f"Unable to fetch gazettes for {start}: {failure.value}"
+            )
+            return
+
+        middle = start + (end - start) // 2
+        yield self.interval_request(form_response, start, middle)
+        yield self.interval_request(form_response, middle + timedelta(days=1), end)
 
     def parse(self, response):
         editions_list = response.css("div.panel")
