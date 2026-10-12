@@ -4,7 +4,7 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 from scrapy import signals
-from scrapy.exceptions import CloseSpider
+from scrapy.exceptions import CloseSpider, IgnoreRequest
 from scrapy_zyte_smartproxy import (
     ZyteSmartProxyMiddleware as BaseZyteSmartProxyMiddleware,
 )
@@ -113,6 +113,28 @@ class GazetteDownloaderMiddleware:
             # Scrapy's MediaPipeline as a failed download, so the fake file
             # is dropped rather than saved as if it were the real gazette.
             raise CloseSpider(reason="blocked_by_cloudflare_turnstile")
+
+        # Opt-in check for requests that must return a file of a known type.
+        # Some systems answer a failed download with an HTML page and status
+        # 200; without this check, the files pipeline would save that page as
+        # if it were the gazette. Ignoring the request makes the files
+        # pipeline treat it as a failed download instead.
+        expected_content_types = request.meta.get("expected_content_types")
+        if expected_content_types:
+            content_type = (
+                response.headers.get("Content-Type", b"").split(b";")[0].strip().lower()
+            )
+            if content_type not in expected_content_types:
+                spider.crawler.stats.inc_value("unexpected_content_type_count")
+                spider.logger.warning(
+                    "Unexpected Content-Type %r at %s (expected one of %r).",
+                    content_type,
+                    request.url,
+                    expected_content_types,
+                )
+                raise IgnoreRequest(
+                    f"Unexpected Content-Type {content_type!r} at {request.url}"
+                )
         return response
 
     def process_exception(self, request, exception, spider):

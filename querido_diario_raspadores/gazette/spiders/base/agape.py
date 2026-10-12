@@ -27,6 +27,9 @@ class BaseAgapeSpider(BaseGazetteSpider):
     }
 
     EDITION_LINK_SUFFIX = ":j_id73"
+    # Quando o arquivo de uma edição não está disponível, o portal responde ao
+    # download com a página HTML do sistema (status 200)
+    FILE_CONTENT_TYPES = (b"application/download", b"application/pdf")
     power = "executive"
 
     def __init__(self, *args, **kwargs):
@@ -118,7 +121,10 @@ class BaseAgapeSpider(BaseGazetteSpider):
                         formid="form",
                         formdata={**formdata, link_id: link_id},
                         dont_click=True,
-                        meta={"cookiejar": response.meta["cookiejar"]},
+                        meta={
+                            "cookiejar": response.meta["cookiejar"],
+                            "expected_content_types": self.FILE_CONTENT_TYPES,
+                        },
                     )
                 ],
                 is_extra_edition=False,

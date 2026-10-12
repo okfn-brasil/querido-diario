@@ -310,3 +310,13 @@ def test_parse_without_results_yields_nothing():
     )
 
     assert list(spider.parse(response, **search_request.cb_kwargs)) == []
+
+
+def test_parse_download_requests_expect_a_file_content_type():
+    spider = AgapeSpiderForTest()
+
+    gazettes = parse_search_response(spider)
+
+    for gazette in gazettes:
+        meta = gazette["file_requests"][0].meta
+        assert meta["expected_content_types"] == spider.FILE_CONTENT_TYPES
