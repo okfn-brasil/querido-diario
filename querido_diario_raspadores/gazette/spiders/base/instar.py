@@ -1,12 +1,19 @@
 import datetime
 import math
+import re
 from urllib.parse import urlparse
 
 import scrapy
 from scrapy.exceptions import NotConfigured
+from scrapy.http import TextResponse
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
+
+# Opção `defaultUrl` do PDF.js embutido na página `/diario-oficial/ver/<id>/`.
+DEFAULT_URL_RE = re.compile(
+    r"defaultUrl\s*:\s*\{\s*value\s*:\s*(?P<q>['\"])(?P<url>.*?)(?P=q)", re.DOTALL
+)
 
 
 class BaseInstarSpider(BaseGazetteSpider):
@@ -79,10 +86,37 @@ class BaseInstarSpider(BaseGazetteSpider):
 
         yield from self._pagination_requests(response, page, start_date, end_date)
 
+    def _extract_file_url(self, response):
+        """Devolve a URL do arquivo da edição, ou None se a página não tiver.
+
+        A página `/ver/<id>/` é o visualizador PDF.js, não o arquivo. O arquivo
+        fica no `defaultUrl` das opções do PDF.js embutido na página. Se a página
+        trouxer um link de download explícito (`.d_titulo_edicao a`), ele tem
+        prioridade.
+        """
+        if not isinstance(response, TextResponse):
+            # O link da listagem já aponta para o arquivo (PDF), não para o visualizador.
+            return response.url
+
+        href = response.css(".d_titulo_edicao a::attr(href)").get()
+        if not href:
+            match = DEFAULT_URL_RE.search(response.text)
+            href = match.group("url") if match else None
+        if not href or not href.strip():
+            return None
+        file_url = response.urljoin(href.strip())
+        # O link não pode apontar para a própria página do visualizador.
+        return None if file_url.rstrip("/") == response.url.rstrip("/") else file_url
+
     def parse_gazette_url(self, response, item):
-        gazette_url = response.urljoin(
-            response.css(".d_titulo_edicao a::attr(href)").get()
-        )
+        gazette_url = self._extract_file_url(response)
+
+        if gazette_url is None:
+            self.logger.warning(
+                f"Nenhum arquivo encontrado na página da edição {response.url}"
+            )
+            return
+
         yield Gazette(
             file_urls=[
                 gazette_url,
