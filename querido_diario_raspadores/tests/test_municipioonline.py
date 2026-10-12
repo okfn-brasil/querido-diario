@@ -97,3 +97,14 @@ def test_non_http_errors_are_not_split():
     failure.request = failed
 
     assert list(spider.split_failed_interval(failure) or []) == []
+
+
+def test_only_single_day_intervals_are_retried():
+    spider = MunicipioOnlineSpiderForTest()
+    form_response = make_form_response()
+
+    year = spider.interval_request(form_response, date(2024, 1, 1), date(2024, 12, 31))
+    day = spider.interval_request(form_response, date(2024, 11, 30), date(2024, 11, 30))
+
+    assert year.meta["dont_retry"] is True
+    assert day.meta["dont_retry"] is False

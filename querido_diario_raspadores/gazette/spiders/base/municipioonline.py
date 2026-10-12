@@ -55,7 +55,13 @@ class BaseMunicipioOnlineSpider(BaseGazetteSpider):
             form_response,
             formdata=formdata,
             errback=self.split_failed_interval,
-            meta={"form_response": form_response, "interval": (start, end)},
+            meta={
+                "form_response": form_response,
+                "interval": (start, end),
+                # Intervalos com mais de um dia não precisam de retentativas: se
+                # falharem, são divididos ao meio em `split_failed_interval`.
+                "dont_retry": start < end,
+            },
         )
 
     def split_failed_interval(self, failure):
