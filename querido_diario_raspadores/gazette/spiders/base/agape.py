@@ -60,14 +60,23 @@ class BaseAgapeSpider(BaseGazetteSpider):
             formdata=formdata,
             dont_click=True,
             meta={"cookiejar": response.meta["cookiejar"]},
-            cb_kwargs={"form_response": response, "formdata": formdata},
+            cb_kwargs={
+                "form_response": response,
+                "formdata": formdata,
+                "search_button": search_button,
+            },
         )
 
-    def parse(self, response, form_response, formdata):
+    def parse(self, response, form_response, formdata, search_button):
+        # O download é um postback comum: sem AJAX e sem o botão "Buscar", que o
+        # FormRequest incluiria a partir do formulário (valor None o remove).
         formdata = {
-            key: value
-            for key, value in formdata.items()
-            if key != "AJAXREQUEST" and value != key
+            **{
+                key: value
+                for key, value in formdata.items()
+                if key not in ("AJAXREQUEST", search_button)
+            },
+            search_button: None,
         }
 
         # A resposta AJAX é XHTML com namespace; lê-la como HTML simplifica os seletores
