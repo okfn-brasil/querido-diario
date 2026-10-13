@@ -12,9 +12,9 @@ class MtCuiabaSpider(BaseGazetteSpider):
     TERRITORY_ID = "5103403"
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
-    start_date = datetime.date(1967, 1, 1)
+    start_date = datetime.date(1967, 1, 2)
 
-    BASE_URL = "http://gazetamunicipal.cuiaba.mt.gov.br/api/api/editions"
+    BASE_URL = "https://gazetamunicipal.cuiaba.mt.gov.br/api/editions"
 
     custom_settings = {
         "DOWNLOAD_DELAY": 1,
@@ -26,7 +26,7 @@ class MtCuiabaSpider(BaseGazetteSpider):
             yield Request(
                 url=date_url,
                 headers={
-                    "referer": "https://diariooficial.cuiaba.mt.gov.br/edicoes",
+                    "referer": "https://gazetamunicipal.cuiaba.mt.gov.br/",
                 },
             )
 
