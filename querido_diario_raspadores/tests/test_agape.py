@@ -5,7 +5,7 @@ from urllib.parse import parse_qs
 
 import pytest
 from scrapy import Request
-from scrapy.exceptions import NotConfigured
+from scrapy.exceptions import DontCloseSpider, NotConfigured
 from scrapy.http import HtmlResponse, TextResponse
 
 from gazette.items import Gazette
@@ -75,10 +75,10 @@ def test_missing_alias_is_not_configured():
         SpiderWithoutAlias()
 
 
-def test_start_builds_one_request_per_year_with_distinct_cookiejars():
+def test_window_requests_builds_one_request_per_year_with_distinct_cookiejars():
     spider = AgapeSpiderForTest(start="2025-03-05", end="2026-10-12")
 
-    start_requests = asyncio.run(collect_start_requests(spider))
+    start_requests = list(spider.window_requests())
 
     assert len(start_requests) == 2
     for request in start_requests:
@@ -92,10 +92,10 @@ def test_start_builds_one_request_per_year_with_distinct_cookiejars():
     ]
 
 
-def test_start_windows_cover_the_whole_interval_without_overlap():
+def test_windows_cover_the_whole_interval_without_overlap():
     spider = AgapeSpiderForTest(start="2023-06-15", end="2026-02-20")
 
-    start_requests = asyncio.run(collect_start_requests(spider))
+    start_requests = list(spider.window_requests())
 
     windows = [(r.cb_kwargs["start"], r.cb_kwargs["end"]) for r in start_requests]
     assert len(windows) == 4
@@ -108,6 +108,50 @@ def test_start_windows_cover_the_whole_interval_without_overlap():
             date(previous_end.year + 1, 1, 1),
         )
     assert len({r.meta["cookiejar"] for r in start_requests}) == len(start_requests)
+
+
+class FakeEngine:
+    def __init__(self):
+        self.crawled = []
+
+    def crawl(self, request):
+        self.crawled.append(request)
+
+
+def test_start_yields_only_the_first_window():
+    spider = AgapeSpiderForTest(start="2023-06-15", end="2026-02-20")
+
+    start_requests = asyncio.run(collect_start_requests(spider))
+
+    assert len(start_requests) == 1
+    assert start_requests[0].cb_kwargs == {
+        "start": date(2023, 6, 15),
+        "end": date(2023, 12, 31),
+    }
+
+
+def test_spider_idle_schedules_the_remaining_windows_one_at_a_time():
+    spider = AgapeSpiderForTest(start="2023-06-15", end="2026-02-20")
+    spider.crawler = type("FakeCrawler", (), {"engine": FakeEngine()})()
+    asyncio.run(collect_start_requests(spider))
+
+    for expected_count in (1, 2, 3):
+        with pytest.raises(DontCloseSpider):
+            spider.spider_idle(spider)
+        assert len(spider.crawler.engine.crawled) == expected_count
+
+    # Sem janelas pendentes, o spider pode fechar
+    spider.spider_idle(spider)
+    crawled = spider.crawler.engine.crawled
+    assert len(crawled) == 3
+    assert [r.cb_kwargs["start"].year for r in crawled] == [2024, 2025, 2026]
+    assert crawled[-1].cb_kwargs["end"] == date(2026, 2, 20)
+
+
+def test_spider_idle_before_start_lets_the_spider_close():
+    spider = AgapeSpiderForTest(start="2023-06-15", end="2026-02-20")
+
+    assert spider.spider_idle(spider) is None
 
 
 def test_start_within_a_single_year_builds_one_request():

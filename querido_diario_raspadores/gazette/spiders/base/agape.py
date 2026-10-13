@@ -3,7 +3,8 @@ from datetime import date, datetime
 
 import scrapy
 from parsel import Selector
-from scrapy.exceptions import NotConfigured
+from scrapy import signals
+from scrapy.exceptions import DontCloseSpider, NotConfigured
 
 from gazette.items import Gazette
 from gazette.spiders.base import BaseGazetteSpider
@@ -18,6 +19,12 @@ class BaseAgapeSpider(BaseGazetteSpider):
     posição da edição na lista dessa última busca. Por isso, cada janela de busca usa
     uma sessão própria (`cookiejar`), e os downloads da janela são feitos nessa mesma
     sessão.
+
+    A sessão expira depois de cerca de 30 minutos sem uso. Por isso, as janelas são
+    processadas uma de cada vez: a busca da janela seguinte só começa quando o spider
+    fica ocioso, isto é, depois que todos os arquivos da janela anterior foram
+    baixados. Com todas as buscas feitas no início, os anos baixados por último
+    falhavam inteiros nas coletas longas.
     """
 
     allowed_domains = ["agportal.agapesistemas.com.br"]
@@ -38,7 +45,28 @@ class BaseAgapeSpider(BaseGazetteSpider):
 
         super().__init__(*args, **kwargs)
 
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        spider = super().from_crawler(crawler, *args, **kwargs)
+        crawler.signals.connect(spider.spider_idle, signal=signals.spider_idle)
+        return spider
+
     async def start(self):
+        self._pending_windows = self.window_requests()
+        first_window = next(self._pending_windows, None)
+        if first_window is not None:
+            yield first_window
+
+    def spider_idle(self, spider):
+        pending_windows = getattr(self, "_pending_windows", None)
+        next_window = next(pending_windows, None) if pending_windows else None
+        if next_window is None:
+            return
+
+        self.crawler.engine.crawl(next_window)
+        raise DontCloseSpider
+
+    def window_requests(self):
         url = f"https://agportal.agapesistemas.com.br/DiarioOficial/?alias={self.alias}"
         for year in range(self.start_date.year, self.end_date.year + 1):
             yield scrapy.Request(
