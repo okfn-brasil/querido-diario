@@ -14,13 +14,15 @@ def make_response(editions):
     )
 
 
-def make_edition(edition_id, number, type_name, suplement=False):
+def make_edition(
+    edition_id, number, type_name, suplement=False, publication_date="1990-12-03"
+):
     return {
         "id": edition_id,
         "number": number,
         "edition_type_name": type_name,
         "suplement": suplement,
-        "publication_date": "1990-12-03T03:00:00.000000Z",
+        "publication_date": f"{publication_date}T03:00:00.000000Z",
     }
 
 
@@ -44,3 +46,24 @@ def test_parse_only_yields_the_municipal_gazette():
     assert [item["is_extra_edition"] for item in items] == [False, True]
     assert all(item["date"] == date(1990, 12, 3) for item in items)
     assert all(item["edition_number"] == 1 for item in items)
+
+
+def test_parse_yields_tce_gazette_only_while_it_replaced_the_municipal_one():
+    spider = MtCuiabaSpider()
+    tce = "Diário Oficial do Tribunal de Contas"
+    response = make_response(
+        [
+            make_edition(1, 90, tce, publication_date="2013-05-03"),
+            make_edition(2, 91, tce, publication_date="2013-05-06"),
+            make_edition(3, 899, tce, publication_date="2016-07-01"),
+            make_edition(4, 2010, tce, publication_date="2020-10-22"),
+            make_edition(5, 2011, tce, publication_date="2020-10-26"),
+            make_edition(
+                6, 1, "Gazeta Municipal de Cuiabá", publication_date="2020-10-26"
+            ),
+        ]
+    )
+
+    items = list(spider.parse(response))
+
+    assert [item["edition_number"] for item in items] == [91, 899, 2010, 1]
