@@ -11,7 +11,7 @@ class SpGuarulhosSpider(BaseGazetteSpider):
     TERRITORY_ID = "3518800"
     name = "sp_guarulhos"
     allowed_domains = ["www.guarulhos.sp.gov.br"]
-    start_date = dt.date(2015, 1, 1)
+    start_date = dt.date(2004, 8, 20)
 
     BASE_URL = "https://www.guarulhos.sp.gov.br/diario-oficial/index.php"
 
