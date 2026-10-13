@@ -10,10 +10,10 @@ from gazette.utils.dates import monthly_sequence
 class SpGuarulhosSpider(BaseGazetteSpider):
     TERRITORY_ID = "3518800"
     name = "sp_guarulhos"
-    allowed_domains = ["diariooficial.guarulhos.sp.gov.br"]
+    allowed_domains = ["www.guarulhos.sp.gov.br"]
     start_date = dt.date(2015, 1, 1)
 
-    BASE_URL = "https://diariooficial.guarulhos.sp.gov.br/index.php"
+    BASE_URL = "https://www.guarulhos.sp.gov.br/diario-oficial/index.php"
 
     async def start(self):
         for date in monthly_sequence(self.start_date, self.end_date):
