@@ -12,9 +12,12 @@ class MtCuiabaSpider(BaseGazetteSpider):
     TERRITORY_ID = "5103403"
     name = "mt_cuiaba"
     allowed_domains = ["gazetamunicipal.cuiaba.mt.gov.br"]
-    start_date = datetime.date(1967, 1, 2)
+    start_date = datetime.date(1990, 12, 3)
 
     BASE_URL = "https://gazetamunicipal.cuiaba.mt.gov.br/api/editions"
+    # The archive also hosts the state gazette (Diário Oficial do Mato Grosso)
+    # and the gazette of the Tribunal de Contas
+    EDITION_TYPE = "Gazeta Municipal de Cuiabá"
 
     custom_settings = {
         "DOWNLOAD_DELAY": 1,
@@ -33,6 +36,9 @@ class MtCuiabaSpider(BaseGazetteSpider):
     def parse(self, response):
         editions = response.json()["editions"]
         for edition in editions:
+            if edition.get("edition_type_name") != self.EDITION_TYPE:
+                continue
+
             yield Gazette(
                 file_urls=[f"{self.BASE_URL}/downloadPdf/{edition['id']}"],
                 date=isoparse(edition["publication_date"]).date(),
