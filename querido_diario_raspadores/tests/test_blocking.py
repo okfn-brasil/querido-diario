@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 import pytest
 from scrapy import Spider
 from scrapy.core.downloader.middleware import DownloaderMiddlewareManager
-from scrapy.exceptions import CloseSpider
+from scrapy.exceptions import CloseSpider, IgnoreRequest
 from scrapy.http import HtmlResponse, Request, TextResponse
 from scrapy.settings.default_settings import DOWNLOADER_MIDDLEWARES_BASE
 from scrapy.utils.reactor import install_reactor
@@ -74,6 +74,44 @@ class TestGazetteDownloaderMiddleware:
         self.spider.crawler.stats.inc_value.assert_called_once_with(
             "cloudflare_challenge/blocked_count"
         )
+
+    def test_accepts_expected_content_type(self):
+        request = Request(
+            "https://example.org/file",
+            meta={"expected_content_types": (b"application/pdf",)},
+        )
+        response = TextResponse(
+            "https://example.org/file",
+            body=b"%PDF-1.4",
+            headers={"Content-Type": "application/pdf"},
+        )
+        result = self.middleware.process_response(request, response, self.spider)
+        assert result is response
+
+    def test_ignores_response_with_unexpected_content_type(self):
+        request = Request(
+            "https://example.org/file",
+            meta={"expected_content_types": (b"application/pdf",)},
+        )
+        response = TextResponse(
+            "https://example.org/file",
+            body=b"<html>erro</html>",
+            headers={"Content-Type": "text/html;charset=UTF-8"},
+        )
+        with pytest.raises(IgnoreRequest):
+            self.middleware.process_response(request, response, self.spider)
+        self.spider.crawler.stats.inc_value.assert_called_once_with(
+            "unexpected_content_type_count"
+        )
+
+    def test_does_not_check_content_type_when_not_requested(self):
+        response = TextResponse(
+            "https://example.org",
+            body=b"<html>ok</html>",
+            headers={"Content-Type": "text/html"},
+        )
+        result = self.middleware.process_response(self.request, response, self.spider)
+        assert result is response
 
 
 class TestMiddlewareOrderInProjectSettings:
