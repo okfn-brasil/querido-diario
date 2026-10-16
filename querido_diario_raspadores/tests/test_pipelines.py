@@ -1,9 +1,11 @@
 from datetime import date
 from types import SimpleNamespace
+from unittest.mock import Mock
 
 import pytest
 from scrapy import Request, Spider
 from scrapy.exceptions import DropItem
+from scrapy.http import Response
 from scrapy.utils.reactor import install_reactor
 from scrapy.utils.test import get_crawler
 
@@ -120,3 +122,35 @@ def test_files_pipeline_allows_file_requests_without_losing_metadata(tmp_path):
         "allow_offsite": True,
     }
     assert "allow_offsite" not in file_request.meta
+
+
+def test_files_pipeline_copies_downloaded_file_to_secondary_bucket(
+    tmp_path, monkeypatch
+):
+    install_reactor("twisted.internet.asyncioreactor.AsyncioSelectorReactor")
+    s3_client = Mock()
+    monkeypatch.setattr("boto3.client", lambda *args, **kwargs: s3_client)
+    crawler = get_crawler(
+        Spider,
+        settings_dict={
+            "FILES_STORE": str(tmp_path),
+            "FILES_STORE_SECONDARY": "s3://secondary-bucket/",
+            "FILES_STORE_S3_ACL": "public-read",
+        },
+    )
+    pipeline = QueridoDiarioFilesPipeline.from_crawler(crawler)
+    request = Request("https://example.com/gazette.pdf")
+    response = Response(request.url, body=b"%PDF-1.4", request=request)
+    item = {"territory_id": "1234567", "date": "2026-01-01"}
+    info = pipeline.SpiderInfo(Spider(name="test"))
+
+    pipeline.file_downloaded(response, request, info, item=item)
+
+    # The copy uses the same key as the file saved in FILES_STORE
+    (stored_file,) = [path for path in tmp_path.rglob("*") if path.is_file()]
+    s3_client.put_object.assert_called_once_with(
+        Bucket="secondary-bucket",
+        Key=str(stored_file.relative_to(tmp_path)),
+        Body=b"%PDF-1.4",
+        ACL="public-read",
+    )
