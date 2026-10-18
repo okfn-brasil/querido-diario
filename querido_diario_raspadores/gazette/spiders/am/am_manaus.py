@@ -18,8 +18,8 @@ class AmManausSpider(BaseGazetteSpider):
     TERRITORY_ID = "1302603"
 
     custom_settings = {
-            "CONCURRENT_REQUESTS": 1,
-            "DOWNLOAD_DELAY": 1,
+        "CONCURRENT_REQUESTS": 1,
+        "DOWNLOAD_DELAY": 1,
     }
 
     def parse(self, response):
