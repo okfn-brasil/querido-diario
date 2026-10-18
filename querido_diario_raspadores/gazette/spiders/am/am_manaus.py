@@ -8,14 +8,19 @@ from gazette.spiders.base import BaseGazetteSpider
 
 
 class AmManausSpider(BaseGazetteSpider):
-    zyte_smartproxy_enabled = True
+    zyte_smartproxy_enabled = False
 
     name = "am_manaus"
     allowed_domains = ["dom.manaus.am.gov.br"]
     start_date = datetime.date(2000, 4, 3)
-    start_urls = ["http://dom.manaus.am.gov.br/diario-oficial-de-manaus"]
+    start_urls = ["https://dom.manaus.am.gov.br/diario-oficial-de-manaus"]
 
     TERRITORY_ID = "1302603"
+
+    custom_settings = {
+            "CONCURRENT_REQUESTS": 1,
+            "DOWNLOAD_DELAY": 1,
+    }
 
     def parse(self, response):
         follow_next_page = True
