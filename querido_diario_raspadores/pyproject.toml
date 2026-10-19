@@ -18,7 +18,7 @@ dependencies = [
     "itemadapter",
     "jinja2",
     "psycopg2-binary",
-    "pyyaml==5.3.1",
+    "pyyaml==6.0.3",
     "python-dateutil",
     "python-decouple",
     "requests",
