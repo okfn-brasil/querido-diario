@@ -17,7 +17,7 @@ class GoGoianiaSpider(BaseGazetteSpider):
 
     async def start(self):
         initial_year = self.start_date.year
-        end_year = datetime.date.today().year
+        end_year = self.end_date.year
         for year in range(initial_year, end_year + 1):
             yield scrapy.Request(
                 f"http://www.goiania.go.gov.br/shtml//portal/casacivil/lista_diarios.asp?ano={year}"

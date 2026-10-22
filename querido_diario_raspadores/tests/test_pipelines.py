@@ -27,6 +27,17 @@ def test_date_filtering_pipeline_uses_spider_from_crawler():
         pipeline.process_item({"date": date(2026, 1, 1)})
 
 
+def test_date_filtering_pipeline_drops_items_after_end_date():
+    spider = SimpleNamespace(start_date=date(2020, 1, 1), end_date=date(2020, 1, 31))
+    pipeline = GazetteDateFilteringPipeline.from_crawler(SimpleNamespace(spider=spider))
+    accepted_item = {"date": date(2020, 1, 31)}
+
+    assert pipeline.process_item(accepted_item) is accepted_item
+
+    with pytest.raises(DropItem):
+        pipeline.process_item({"date": date(2020, 2, 1)})
+
+
 def test_default_values_pipeline_uses_spider_from_crawler():
     crawler = SimpleNamespace(spider=SimpleNamespace(TERRITORY_ID="1234567"))
     pipeline = DefaultValuesPipeline.from_crawler(crawler)
