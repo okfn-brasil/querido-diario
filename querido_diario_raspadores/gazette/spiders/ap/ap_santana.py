@@ -28,6 +28,7 @@ class ApSantanaSpider(BaseGazetteSpider):
                 continue
 
             file_url = file_url_match.group(1)
+            file_url = self._drive_download_url(file_url)
 
             yield Gazette(
                 date=gazette_date,
@@ -37,3 +38,21 @@ class ApSantanaSpider(BaseGazetteSpider):
                 is_extra_edition=False,
                 power="executive",
             )
+
+    def _drive_download_url(self, file_url):
+        # Some editions link to the Google Drive viewer instead of the file
+        if "drive.google.com" not in file_url:
+            return file_url
+
+        file_id_match = re.search(r"/file/d/([\w-]+)|[?&;]id=([\w-]+)", file_url)
+        if not file_id_match:
+            return file_url
+
+        file_id = file_id_match.group(1) or file_id_match.group(2)
+        download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+
+        resource_key_match = re.search(r"[?&;]resourcekey=([\w-]+)", file_url)
+        if resource_key_match:
+            download_url += f"&resourcekey={resource_key_match.group(1)}"
+
+        return download_url
