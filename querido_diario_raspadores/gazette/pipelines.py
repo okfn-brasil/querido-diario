@@ -30,6 +30,9 @@ class GazetteDateFilteringPipeline:
         if hasattr(spider, "start_date"):
             if spider.start_date > item.get("date"):
                 raise DropItem("Droping all items before {}".format(spider.start_date))
+        end_date = getattr(spider, "end_date", None)
+        if end_date and end_date < item.get("date"):
+            raise DropItem(f"Dropping all items after {end_date}")
         return item
 
 
