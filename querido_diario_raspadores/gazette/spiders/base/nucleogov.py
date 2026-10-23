@@ -20,7 +20,7 @@ class BaseNucleoGovSpider(BaseGazetteSpider):
 
         super().__init__(*args, **kwargs)
 
-    def start_requests(self):
+    async def start(self):
         s3_domain = self.crawler.settings.get(
             "NUCLEOGOV_S3_DOMAIN",
             "diariooficial.s3.us-east-2.amazonaws.com",
