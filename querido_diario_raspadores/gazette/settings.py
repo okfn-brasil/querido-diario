@@ -75,6 +75,11 @@ DOWNLOADER_MIDDLEWARES = {
 }
 ZYTE_SMARTPROXY_APIKEY = "<SMARTPROXY_APIKEY>"
 
+NUCLEOGOV_S3_DOMAIN = config(
+    "NUCLEOGOV_S3_DOMAIN",
+    default="diariooficial.s3.us-east-2.amazonaws.com",
+)
+
 COMMANDS_MODULE = "gazette.commands"
 
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
