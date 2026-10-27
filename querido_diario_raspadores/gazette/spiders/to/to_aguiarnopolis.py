@@ -1,10 +1,10 @@
 import datetime
 
-from gazette.spiders.base.diariooficialbr import BaseDiarioOficialBRSpider
+from gazette.spiders.base.govweb import BaseGovWebSpider
 
 
-class ToAguiarnopolisSpider(BaseDiarioOficialBRSpider):
+class ToAguiarnopolisSpider(BaseGovWebSpider):
     TERRITORY_ID = "1700301"
     name = "to_aguiarnopolis"
     start_date = datetime.date(2020, 1, 23)
-    BASE_URL = "https://diariooficial.aguiarnopolis.to.gov.br"
+    base_url = "https://www.aguiarnopolis.to.gov.br"

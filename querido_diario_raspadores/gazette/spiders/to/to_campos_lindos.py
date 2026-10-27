@@ -1,10 +1,10 @@
 from datetime import date
 
-from gazette.spiders.base.diariooficialbr import BaseDiarioOficialBRSpider
+from gazette.spiders.base.govweb import BaseGovWebSpider
 
 
-class ToCamposLindosSpider(BaseDiarioOficialBRSpider):
+class ToCamposLindosSpider(BaseGovWebSpider):
     TERRITORY_ID = "1703842"
     name = "to_campos_lindos"
-    BASE_URL = "https://camposlindos.diariooficialbr.com.br"
+    base_url = "https://www.camposlindos.to.gov.br"
     start_date = date(2021, 5, 31)

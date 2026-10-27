@@ -1,10 +1,10 @@
 from datetime import date
 
-from gazette.spiders.base.diariooficialbr import BaseDiarioOficialBRSpider
+from gazette.spiders.base.govweb import BaseGovWebSpider
 
 
-class ToMuricilandiaSpider(BaseDiarioOficialBRSpider):
+class ToMuricilandiaSpider(BaseGovWebSpider):
     TERRITORY_ID = "1713957"
     name = "to_muricilandia"
-    BASE_URL = "https://muricilandia.diariooficialbr.com.br"
+    base_url = "https://www.muricilandia.to.gov.br"
     start_date = date(2019, 7, 2)

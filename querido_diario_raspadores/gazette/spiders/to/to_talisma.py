@@ -1,10 +1,10 @@
 from datetime import date
 
-from gazette.spiders.base.diariooficialbr import BaseDiarioOficialBRSpider
+from gazette.spiders.base.govweb import BaseGovWebSpider
 
 
-class ToTalismaSpider(BaseDiarioOficialBRSpider):
+class ToTalismaSpider(BaseGovWebSpider):
     TERRITORY_ID = "1720978"
     name = "to_talisma"
-    BASE_URL = "https://talisma.diariooficialbr.com.br"
+    base_url = "https://www.talisma.to.gov.br"
     start_date = date(2020, 1, 2)
