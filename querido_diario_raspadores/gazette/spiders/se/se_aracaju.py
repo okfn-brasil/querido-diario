@@ -20,7 +20,7 @@ class SeAracajuSpider(BaseGazetteSpider):
 
     def _start_request(self, cookiejar=None):
         return scrapy.Request(
-            "http://sga.aracaju.se.gov.br:5011/legislacao/faces/diario_form_pesq.jsp",
+            "https://sga.aracaju.se.gov.br/legislacao/faces/diario_form_pesq.jsp",
             meta={"cookiejar": cookiejar} if cookiejar is not None else {},
             dont_filter=True,
             callback=self.make_mandatory_post_request,
@@ -117,14 +117,16 @@ class SeAracajuSpider(BaseGazetteSpider):
                 gazette_number = gazette.xpath(".//table//td/text()").get()
 
                 if self.start_date <= gazette_date <= self.end_date:
-                    # some daily boxes has more than one edition
-                    for raw_info in gazette.css("table tbody .label::text")[1:]:
-                        if "Suplementar" in raw_info.get():
+                    # some daily boxes has more than one edition. Download labels
+                    # are only shown when there is a supplementary edition
+                    raw_infos = gazette.css("table tbody .label::text")[1:].getall()
+                    for raw_info in raw_infos or ["Regular"]:
+                        if "Suplementar" in raw_info:
                             is_extra_edition = True
-                            file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}S.pdf"
+                            file_url = f"https://sga.aracaju.se.gov.br/diarios/{gazette_number}S.pdf"
                         else:
                             is_extra_edition = False
-                            file_url = f"http://sga.aracaju.se.gov.br:5011/diarios/{gazette_number}.pdf"
+                            file_url = f"https://sga.aracaju.se.gov.br/diarios/{gazette_number}.pdf"
 
                         yield Gazette(
                             date=gazette_date,
