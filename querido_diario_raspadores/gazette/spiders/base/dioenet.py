@@ -42,7 +42,7 @@ class BaseDioenetSpider(BaseGazetteSpider):
             )
 
     def parse(self, response, params):
-        for gazette in response.css("ul.lista-diarios li"):
+        for gazette in response.css("ul.lista-diarios > li"):
             # can return ['Edição nº 841'] or ['Edição nº 842', 'Extra']
             raw_edition = gazette.css(".col-one span::text").getall()
             gazette_number = re.findall(r"\d+", raw_edition[0])[0]
