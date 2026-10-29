@@ -15,7 +15,7 @@ Already read? So let's go to the specific information of this repository:
 ## Challenges
 The main challenge of this repository is to have more and more scrapers from websites that publish official gazettes, aiming to reach the 5570 Brazilian municipalities. We use the [City Expansion Board](https://github.com/orgs/okfn-brasil/projects/12/views/13) to organize this challenge progress. Consult it to find relevant tasks you can contribute to.
 
-To help you develop, use the guidelines on the page about [how to write a new scraper](https://docs.queridodiario.ok.org.br/en/latest/writing-a-new-spider.html) available at [Querido Diario's technical documentation](https://docs.queridodiario.ok.org.br/en/latest/).
+To help you develop, use the guidelines on the page about [how to write a new scraper](https://docs.queridodiario.ok.org.br/en/latest/contributing/scrapers.html#writing-a-new-spider) available at [Querido Diario's technical documentation](https://docs.queridodiario.ok.org.br/en/latest/).
 
 ## How to setup the development environment
 Scrapers are developed using [Python](https://docs.python.org/3/) and [Scrapy](https://scrapy.org) framework. Python and dependency management is done with [uv](https://docs.astral.sh/uv/), which takes care of installing the right Python version and creating the virtual environment automatically. You can check [how to install uv](https://docs.astral.sh/uv/getting-started/installation/) on your operating system and learn more about Scrapy [in this tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html). With uv installed, follow the development environment setup step-by-step:
@@ -43,7 +43,7 @@ _Attention:_ You don't need to manually activate the virtual environment: projec
 
 ### Windows
 #### Using Windows terminal
-The following instructions were tried on Windows 10 and 11. Remember that if you want to integrate with the [querido-diario-data-processing](https://github.com/okfn-brasil/querido-diario- data-processing) it is preferable that your environment configuration is done [using WSL](CONTRIBUTING.md#using-wsl).
+The following instructions were tried on Windows 10 and 11. Remember that if you want to integrate with the [querido-diario-data-processing](https://github.com/okfn-brasil/querido-diario-data-processing) it is preferable that your environment configuration is done [using WSL](#using-wsl).
 
 1. Install [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/downloads/). Before the installation, you need to select in the **Individual Components** tab "Windows 10 SDK" or "11" (depending on your system) and "MSVC v143 build tools - VS 2022 C++ x64/x86 ( v14.32-17.4)". Note that Windows 10 SDK and MSVC v142 - VS 2019 C++ x64/x86 build tools versions will often be updated, so look for similar items under Individual Components to perform the installation (i.e. newer and compatible with your system). Under **Workloads**, select “Desktop development with C++”. Install the updates, close the application and follow the next steps.
 
@@ -54,7 +54,7 @@ _Note_: In Windows commands, the direction of the slash (`/` or `\`) may vary de
 
 Open a new Ubuntu terminal and clone the forked [querido-diario](https://github.com/okfn-brasil/querido-diario) repository 
 
-Follow the instructions regarding installation using [Linux](CONTRIBUTING.md#em-linux).
+Follow the instructions regarding installation using [Linux](#linux).
 
 [This tutorial](https://github.com/Luisa-Coelho/qd-data-processing/blob/readme_update/wsl_windows.md) will help you install and configure WSL on your Windows machine.
 
