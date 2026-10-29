@@ -55,23 +55,22 @@ class TestIsCloudflareChallenge:
 
 class TestGazetteDownloaderMiddleware:
     def setup_method(self):
-        self.middleware = GazetteDownloaderMiddleware()
-        self.spider = MagicMock()
-        self.spider.crawler.stats = MagicMock()
+        self.crawler = MagicMock()
+        self.middleware = GazetteDownloaderMiddleware.from_crawler(self.crawler)
         self.request = Request("https://example.org")
 
     def test_returns_response_when_not_blocked(self):
         response = make_response(b"<html>real content</html>")
-        result = self.middleware.process_response(self.request, response, self.spider)
+        result = self.middleware.process_response(self.request, response)
         assert result is response
-        self.spider.crawler.stats.inc_value.assert_not_called()
+        self.crawler.stats.inc_value.assert_not_called()
 
     def test_raises_close_spider_when_blocked(self):
         response = make_response(b"cf-turnstile challenge page", status=403)
         with pytest.raises(CloseSpider) as exc_info:
-            self.middleware.process_response(self.request, response, self.spider)
+            self.middleware.process_response(self.request, response)
         assert exc_info.value.reason == "blocked_by_cloudflare_turnstile"
-        self.spider.crawler.stats.inc_value.assert_called_once_with(
+        self.crawler.stats.inc_value.assert_called_once_with(
             "cloudflare_challenge/blocked_count"
         )
 

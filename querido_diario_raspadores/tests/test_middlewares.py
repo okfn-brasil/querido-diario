@@ -6,7 +6,7 @@ from scrapy.exceptions import ScrapyDeprecationWarning
 from scrapy.utils.reactor import install_reactor
 from scrapy.utils.test import get_crawler
 
-from gazette.middlewares import ZyteSmartProxyMiddleware
+from gazette.middlewares import GazetteDownloaderMiddleware, ZyteSmartProxyMiddleware
 
 install_reactor("twisted.internet.asyncioreactor.AsyncioSelectorReactor")
 
@@ -47,6 +47,33 @@ def test_zyte_middleware_uses_current_scrapy_signatures():
         and "ZyteSmartProxyMiddleware" in str(warning.message)
     ]
     assert zyte_deprecations == []
+
+
+def test_gazette_middleware_uses_current_scrapy_signatures():
+    crawler = get_crawler(
+        Spider,
+        settings_dict={
+            "DOWNLOADER_MIDDLEWARES": {
+                "gazette.middlewares.GazetteDownloaderMiddleware": 585,
+            }
+        },
+    )
+
+    with warnings.catch_warnings(record=True) as caught_warnings:
+        warnings.simplefilter("always")
+        manager = DownloaderMiddlewareManager.from_crawler(crawler)
+
+    gazette_deprecations = [
+        warning
+        for warning in caught_warnings
+        if issubclass(warning.category, ScrapyDeprecationWarning)
+        and "GazetteDownloaderMiddleware" in str(warning.message)
+    ]
+    assert gazette_deprecations == []
+    assert any(
+        isinstance(middleware, GazetteDownloaderMiddleware)
+        for middleware in manager.middlewares
+    )
 
 
 def test_zyte_middleware_does_not_proxy_when_disabled():
