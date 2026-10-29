@@ -268,15 +268,16 @@ class QueridoDiarioFilesPipeline(FilesPipeline):
 
     def file_downloaded(self, response, request, info, *, item=None):
         """Override to copy file to secondary bucket after download."""
-        result = super().file_downloaded(response, request, info, item=item)
+        # The parent method returns only the file checksum, so the path is
+        # computed again to know where the file was stored
+        checksum = super().file_downloaded(response, request, info, item=item)
 
         # Copy to secondary bucket if configured
-        if result and self.s3_client:
-            file_path = result.get("path")
-            if file_path:
-                self._copy_to_secondary_bucket(file_path, response.body, info.spider)
+        if self.s3_client:
+            file_path = self.file_path(request, response=response, info=info, item=item)
+            self._copy_to_secondary_bucket(file_path, response.body, info.spider)
 
-        return result
+        return checksum
 
     def get_media_requests(self, item, info):
         """Makes requests from urls and/or lets through ready requests."""

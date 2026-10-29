@@ -1,9 +1,12 @@
 from datetime import date
 from types import SimpleNamespace
+from unittest.mock import MagicMock
 
 import pytest
 from scrapy import Request, Spider
 from scrapy.exceptions import DropItem
+from scrapy.http import Response
+from scrapy.pipelines.media import MediaPipeline
 from scrapy.utils.reactor import install_reactor
 from scrapy.utils.test import get_crawler
 
@@ -120,3 +123,68 @@ def test_files_pipeline_allows_file_requests_without_losing_metadata(tmp_path):
         "allow_offsite": True,
     }
     assert "allow_offsite" not in file_request.meta
+
+
+def build_files_pipeline_with_secondary_bucket(tmp_path, **extra_settings):
+    install_reactor("twisted.internet.asyncioreactor.AsyncioSelectorReactor")
+    crawler = get_crawler(
+        Spider,
+        settings_dict={
+            "FILES_STORE": str(tmp_path),
+            "FILES_STORE_SECONDARY": "s3://secondary-bucket/",
+            "AWS_REGION_NAME": "us-east-1",
+            **extra_settings,
+        },
+    )
+    pipeline = QueridoDiarioFilesPipeline.from_crawler(crawler)
+    pipeline.s3_client = MagicMock()
+    return pipeline, MediaPipeline.SpiderInfo(Spider(name="test"))
+
+
+def download_gazette_file(pipeline, info):
+    request = Request("https://example.com/diario.pdf")
+    response = Response(
+        request.url,
+        body=b"%PDF-1.4 gazette",
+        headers={"Content-Type": "application/pdf"},
+        request=request,
+    )
+    item = {"territory_id": "1234567", "date": "2026-01-01"}
+    return pipeline.media_downloaded(response, request, info, item=item)
+
+
+def test_files_pipeline_copies_file_to_secondary_bucket(tmp_path):
+    pipeline, info = build_files_pipeline_with_secondary_bucket(tmp_path)
+
+    result = download_gazette_file(pipeline, info)
+
+    assert result["status"] == "downloaded"
+    assert result["path"].startswith("1234567/2026-01-01/")
+    assert result["path"].endswith(".pdf")
+    assert (tmp_path / result["path"]).read_bytes() == b"%PDF-1.4 gazette"
+    pipeline.s3_client.put_object.assert_called_once_with(
+        Bucket="secondary-bucket",
+        Key=result["path"],
+        Body=b"%PDF-1.4 gazette",
+        ACL="private",
+    )
+
+
+def test_files_pipeline_uses_configured_acl_in_secondary_bucket(tmp_path):
+    pipeline, info = build_files_pipeline_with_secondary_bucket(
+        tmp_path, FILES_STORE_S3_ACL="public-read"
+    )
+
+    download_gazette_file(pipeline, info)
+
+    assert pipeline.s3_client.put_object.call_args.kwargs["ACL"] == "public-read"
+
+
+def test_files_pipeline_keeps_file_when_secondary_bucket_copy_fails(tmp_path):
+    pipeline, info = build_files_pipeline_with_secondary_bucket(tmp_path)
+    pipeline.s3_client.put_object.side_effect = Exception("bucket unavailable")
+
+    result = download_gazette_file(pipeline, info)
+
+    assert result["status"] == "downloaded"
+    assert (tmp_path / result["path"]).exists()
