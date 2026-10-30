@@ -8,6 +8,7 @@ Already read? So let's go to the specific information of this repository:
 - [How to set up the development environment](#how-to-setup-the-development-environment)
     - [Linux](#linux)
     - [Windows](#windows)
+    - [Remote development](#remote-development)
 - [Automated code formatting](#automated-code-formatting)
 - [Maintaining](#maintaining)
     - [Scraper code review](#scraper-code-review)
@@ -57,6 +58,10 @@ Open a new Ubuntu terminal and clone the forked [querido-diario](https://github.
 Follow the instructions regarding installation using [Linux](CONTRIBUTING.md#em-linux).
 
 [This tutorial](https://github.com/Luisa-Coelho/qd-data-processing/blob/readme_update/wsl_windows.md) will help you install and configure WSL on your Windows machine.
+
+### Remote development
+
+For a browser-based environment, follow the [GitHub Codespaces guide](REMOTE_DEVELOPMENT-en-US.md).
 
 ## Automated code formatting
 Project uses [Black](https://github.com/psf/black) as an automated tool to format and check code style and [isort](https://github.com/pycqa/isort) to sort the imports. CI will fail if your code are not correctly formatted according these tools.

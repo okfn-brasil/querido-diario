@@ -12,6 +12,7 @@ Já leu? Então vamos às informações específicas deste repositório:
 - [Como configurar o ambiente de desenvolvimento](#como-configurar-o-ambiente-de-desenvolvimento)
     - [Em Linux](#em-linux)
     - [Em Windows](#em-windows)
+    - [Desenvolvimento remoto](#desenvolvimento-remoto)
   - [Formatação automática de código](#formação-automática-de-código)
 - [Mantendo](#mantendo)
     - [Revisão de raspadores](#revisão-de-raspadores)
@@ -138,6 +139,10 @@ Abra um novo terminal do Ubuntu e faça o clone do repositório forked do [queri
 Siga as instruções referentes À instalação utilizando [Linux](CONTRIBUTING.md#em-linux).
 
 [Este tutorial](https://github.com/Luisa-Coelho/qd-data-processing/blob/readme_update/wsl_windows.md) vai te ajudar na instalação e configuração do WSL na sua máquina Windows.
+
+### Desenvolvimento remoto
+
+Para usar um ambiente pelo navegador, siga o [guia do GitHub Codespaces](REMOTE_DEVELOPMENT.md).
 
 
 ## Formação automática de código

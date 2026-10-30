@@ -1,0 +1,16 @@
+{
+  "name": "Querido Diário",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "uv sync --project querido_diario_raspadores --all-groups --locked && uv run --project querido_diario_raspadores pre-commit install",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python"],
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/querido_diario_raspadores/.venv/bin/python"
+      }
+    }
+  }
+}
